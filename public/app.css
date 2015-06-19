@@ -1,0 +1,80 @@
+body {
+/*  padding-top: 70px;*/
+  font-family: "europa", "Helvetica", "Arial", sans-serif;
+  padding-bottom: 100px;
+}
+
+.text-serif {
+  font-family: "freight-text-pro", "Georgia", serif;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.text-serif.small {
+  font-size: 13px;
+  line-height: 22px;
+}
+
+.h1, h1 {
+/*
+  font-family: "freight-text-pro";
+  font-weight: 100;
+*/
+  margin-bottom: 50px;
+}
+
+.h4, h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.navbar-default .navbar-brand {
+  font-family: "freight-text-pro", "Georgia", serif;
+}
+
+sup {
+  cursor: pointer;
+  color: #666;
+}
+
+
+
+/* Panels */
+
+.panel {
+  font-family: "freight-text-pro";
+}
+
+.panel-default>.panel-heading {
+  font-family: "europa", "Helvetica", "Arial", sans-serif;
+  font-weight: 600;
+}
+
+/* Tooltip */
+
+.tooltip {
+  font-family: "europa", "Helvetica", "Arial", sans-serif;
+}
+
+.tooltip-inner {
+  padding: 10px 15px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+/* Popover */
+
+.popover {
+  font-family: "freight-text-pro";
+  font-size: 14px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.popover-inner {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}

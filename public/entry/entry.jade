@@ -1,0 +1,38 @@
+.div(ng-show="!entry")
+  p Opps
+
+.div(ng-show="entry")
+  
+  h1 {{entry.fullName}}
+
+  .row
+    div.col-lg-3
+      
+      .row
+        .col-lg-12.col-md-4.col-sm-6
+          .panel.panel-default
+            .panel-heading Born
+            ul.list-group
+              li.list-group-item {{entry.birthDate.start}}<span ng-show="entry.birthDate.start!=entry.birthDate.end">/{{entry.birthDate.end}}</span><span ng-show="entry.birthPlace">, {{entry.birthPlace}}</span>
+        
+        .col-lg-12.col-md-4.col-sm-6
+          .panel.panel-default
+            .panel-heading Died
+            ul.list-group
+              li.list-group-item {{entry.deathDate.start}}<span ng-show="entry.deathDate.start!=entry.deathDate.end">/{{entry.deathDate.end}}</span><span ng-show="entry.deathPlace">, {{entry.deathPlace}}</span>
+        
+        .col-lg-12.col-md-4.col-sm-6  
+          .panel.panel-default
+            .panel-heading Education
+            ul.list-group
+              li.list-group-item(ng-repeat="e in entry.education") {{e.degree}}, {{e.place}} {{e.studiedUnder}} <span ng-show="e.from">({{e.from}}-{{e.to}})</span>
+      
+      
+    div.col-lg-6
+      h4 Entry
+      p.text-serif.check-html(ng-bind-html="superscript(entry.biography)")
+      p.text-serif.check-html(ng-bind-html="superscript(entry.tours)")
+      p.text-serif.check-html(ng-bind-html="superscript(entry.narrative)")
+      p.text-serif.small {{entry.notes}}
+
+    div.col-lg-3

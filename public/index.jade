@@ -1,0 +1,58 @@
+doctype html
+html(lang="en", ng-app="app")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    base(href="/")
+    title Grand Tour Explorer
+      
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic,700,700italic|Hammersmith+One")  
+    link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
+    link(rel='stylesheet', href='/app.css')
+
+  body
+    nav.navbar.navbar-default
+      .container
+        .navbar-header
+          a.navbar-brand(href="#/") The Grand Tour Explorer
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(ui-sref="about") About
+            li
+              a(ui-sref="entries") Entries
+            li(ng-show="currentUser.role=='admin'")
+              a(href="/users") Users
+          
+          ul.nav.navbar-nav.navbar-right(ng-show="currentUser")
+            li
+              a Hi, {{currentUser.fullName || currentUser.username}}
+            a.btn.btn-danger.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()") Logout
+
+          ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
+            li
+              a(ui-sref="login") Login
+            a.btn.btn-info.btn-sm.navbar-btn.navbar-right(type="button", ui-sref="register") Sign up
+                      
+    .container
+      ui-view
+        
+    script(src="//use.typekit.net/jjn0vnk.js")
+    script.
+      try{Typekit.load();}catch(e){}
+      
+    script(src="bower_components/jquery/dist/jquery.min.js")
+    script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
+    script(src="bower_components/angular/angular.min.js")
+    script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
+    script(src="bower_components/angular-ui-router/release/angular-ui-router.min.js")
+
+    script(type='text/javascript', src='/app.js')
+    script(type='text/javascript', src='/main/main.js')
+    script(type='text/javascript', src='/admin/admin.js')
+    script(type='text/javascript', src='/login/login.js')
+    script(type='text/javascript', src='/register/register.js')
+
+    script(type='text/javascript', src='/entries/entries.js')
+    script(type='text/javascript', src='/entry/entry.js')

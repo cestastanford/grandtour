@@ -169,6 +169,7 @@ var auth = function(req, res, next){
 // entries
 router.get('/api/entries', auth, entries.index);
 router.get('/api/entries/:id', auth, entries.single);
+router.post('/api/entries/search', auth, entries.search);
 
 // database
 router.get('/api/reload', auth, database.reload);

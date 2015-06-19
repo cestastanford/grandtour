@@ -7,7 +7,8 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce) {
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
       $scope.entry = res.entry;
-
+      if (!res.entry) $scope.noEntry = true;
+      else $scope.noEntry = false;
       createNotes(res.entry.notes);
     })
   }

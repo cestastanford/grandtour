@@ -3,7 +3,6 @@ var	mongoose = require('mongoose')
   , d3 = require('d3')
   , Entry = mongoose.model('Entry');
 
-
 function readFile(path, multiple){
   var file = fs.readFileSync(path, "utf8");
   var entries = d3.tsv.parse(file.toString());
@@ -21,9 +20,14 @@ function readFile(path, multiple){
 
 }
 
+exports.gigi = function(req, res, io){
+  io.emit('progress','hihihi')
+  io.emit('progress','buahaha')
+}
+
 
 /* Reload the whole dataset */
-exports.reload = function(req, res){
+exports.reload = function(req, res, io){
 
   try {
     // loading
@@ -37,7 +41,11 @@ exports.reload = function(req, res){
     // drop the Entries
     Entry.collection.drop();
 
-    entries.forEach(function(data){
+    io.emit('reload-start', entries.length);
+
+    var counter = 0;
+
+    entries.forEach(function(data, i){
 
       var entry = new Entry({
         index : data.index,
@@ -67,9 +75,18 @@ exports.reload = function(req, res){
         education : education.get(data.index)
       });
 
-      entry.save(function(err,antani){
-        if (err) errors.push(err);
+      entry.save(function(err, e){
+        if (err) {
+          io.emit('reload-error', e);
+          errors.push(err);
+        }
+        counter++;
+        if(counter == entries.length) io.emit('reload-finished', counter);
+        else if(counter % 100 == 0) io.emit('reload-progress', counter);
+
       });
+
+
 
     })
 

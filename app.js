@@ -9,7 +9,19 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/user');
 
-var app = express()
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+//server.listen(app.get('port'));
+// socket.io
+io.on('connection', function(socket){
+  console.log('a user connected');
+  io.emit('progress', 'antani');
+  socket.on('disconnect', function(){
+    console.log('disc')
+  });
+});
 
 app.set('views', __dirname + '/public/');
 app.set('view engine', 'jade');
@@ -34,6 +46,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Connect mongoose gt3 'mongodb://localhost/gt3'
+//mongoose.connect('mongodb://localhost/gt3' , function(err) {
 mongoose.connect('mongodb://heroku_sstkq4mv:u19fp90o4ti0fn6n30kvksjc2p@ds053858.mongolab.com:53858/heroku_sstkq4mv' , function(err) {
   if (err) {
     console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
@@ -41,7 +54,7 @@ mongoose.connect('mongodb://heroku_sstkq4mv:u19fp90o4ti0fn6n30kvksjc2p@ds053858.
 });
 
 // Register routes
-app.use('/', require('./routes'));
+app.use('/', require('./routes')(io));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -78,6 +91,6 @@ app.use(function(err, req, res, next) {
 
 app.set('port', process.env.PORT || 4000);
 
-app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });

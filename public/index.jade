@@ -28,7 +28,9 @@ html(lang="en", ng-app="app")
           ul.nav.navbar-nav.navbar-right(ng-show="currentUser")
             li
               a Hi, {{currentUser.fullName || currentUser.username}}
-            a.btn.btn-danger.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()") Logout
+            a.btn.btn-danger.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
+              //i.fa.fa-sign-out.margin-right
+              | Logout
 
           ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
             li
@@ -41,12 +43,17 @@ html(lang="en", ng-app="app")
     script(src="//use.typekit.net/jjn0vnk.js")
     script.
       try{Typekit.load();}catch(e){}
+    
+    script(src="https://cdn.socket.io/socket.io-1.3.5.js")
       
     script(src="bower_components/jquery/dist/jquery.min.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
     script(src="bower_components/angular/angular.min.js")
     script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
     script(src="bower_components/angular-ui-router/release/angular-ui-router.min.js")
+
+    script(src="bower_components/angular-bootstrap/ui-bootstrap.min.js")
+    script(src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
 
     script(type='text/javascript', src='/app.js')
     script(type='text/javascript', src='/main/main.js')

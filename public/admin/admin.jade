@@ -1,1 +1,5 @@
-p ciao
+p Admin
+a.btn.btn-default(ng-click="reload()") Reload
+
+progressbar.progress-striped.active(value="progress", max="total", type="info")
+  span {{progress}} / {{total}}

@@ -88,92 +88,101 @@ var auth = function(req, res, next){
 
 //==================================================================
 // routes
-router.get('/', function(req, res){
-  res.render('index');
-});
 
-// angular
-router.get('/views/:name', function (req, res) {
-  var name = req.params.name;
-  res.render( name + '/' + name);
-});
+function routes(io) {
 
-router.get('/users', /*auth,*/ function(req, res){
-  res.send([{name: "user1"}, {name: "user2"}]);
-});
-//==================================================================
-
-//==================================================================
-// route to test if the user is logged in or not
-router.get('/loggedin', function(req, res) {
-  res.send(req.isAuthenticated() ? req.user : '0');
-});
-
-// route to register
-router.post('/register', function(req, res, next) {
-  User.register(new User({
-    username: req.body.username
-  }), req.body.password, function(err, data) {
-    // problem registering the new user...
-    if (err) { return res.status(401).send(err); }
-    // if ok, let's login the new user
-    req.logIn(data, function(err) {
-      if (err) { return res.status(401).send(err); }
-      return res.status(200).send(data);
-    });
-    //res.redirect('/');
+  router.get('/', function(req, res){
+    res.render('index');
   });
-});
 
-// route to log in
-/*router.post('/login', passport.authenticate('local'), function(req, res) {
-  res.send(req.user);
-});*/
+  // angular
+  router.get('/views/:name', function (req, res) {
+    var name = req.params.name;
+    res.render( name + '/' + name);
+  });
 
-router.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return res.status(401).send(err); }
-    if (!user) { return res.status(401).send(info); }
-    req.logIn(user, function(err) {
-      if (err) { return res.status(401).send({ error: err }); }
-      return res.sendStatus(200, req.user);
+  router.get('/users', /*auth,*/ function(req, res){
+    res.send([{name: "user1"}, {name: "user2"}]);
+  });
+  //==================================================================
+
+  //==================================================================
+  // route to test if the user is logged in or not
+  router.get('/loggedin', function(req, res) {
+    res.send(req.isAuthenticated() ? req.user : '0');
+  });
+
+  // route to register
+  router.post('/register', function(req, res, next) {
+    User.register(new User({
+      username: req.body.username
+    }), req.body.password, function(err, data) {
+      // problem registering the new user...
+      if (err) { return res.status(401).send(err); }
+      // if ok, let's login the new user
+      req.logIn(data, function(err) {
+        if (err) { return res.status(401).send(err); }
+        return res.status(200).send(data);
+      });
+      //res.redirect('/');
     });
-  })(req, res, next);
-});
+  });
+
+  // route to log in
+  /*router.post('/login', passport.authenticate('local'), function(req, res) {
+    res.send(req.user);
+  });*/
+
+  router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+      if (err) { return res.status(401).send(err); }
+      if (!user) { return res.status(401).send(info); }
+      req.logIn(user, function(err) {
+        if (err) { return res.status(401).send({ error: err }); }
+        return res.sendStatus(200, req.user);
+      });
+    })(req, res, next);
+  });
 
 
-// route to log out
-router.post('/logout', function(req, res){
-  req.logOut();
-  res.sendStatus(200);
-});
-//==================================================================
+  // route to log out
+  router.post('/logout', function(req, res){
+    req.logOut();
+    res.sendStatus(200);
+  });
+  //==================================================================
 
-// redirect all others to the index (HTML5 history)
-/*router.get('*', function (req, res){
-  res.render('index', { user: req.user });
-})*/
+  // redirect all others to the index (HTML5 history)
+  /*router.get('*', function (req, res){
+    res.render('index', { user: req.user });
+  })*/
 
-var auth = function(req, res, next){
-  if (!req.isAuthenticated())
-  	res.send(401);
-  else
-  	next();
-};
-
-
-/*
-  APIs
-*/
-
-// entries
-router.get('/api/entries', auth, entries.index);
-router.get('/api/entries/:id', auth, entries.single);
-router.post('/api/entries/search', auth, entries.search);
-
-// database
-router.get('/api/reload', auth, database.reload);
+  var auth = function(req, res, next){
+    if (!req.isAuthenticated())
+    	res.send(401);
+    else
+    	next();
+  };
 
 
+  /*
+    APIs
+  */
 
-module.exports = router;
+  // entries
+  router.get('/api/entries', auth, entries.index);
+  router.get('/api/entries/:id', auth, entries.single);
+  router.post('/api/entries/search', auth, entries.search);
+
+  // database
+  //router.get('/api/reload', auth, database.reload);
+
+  router.get('/api/reload', auth, function(req, res){
+    database.reload(req, res, io)
+  });
+
+  return router;
+
+}
+
+module.exports = routes;

@@ -3,6 +3,11 @@ var	mongoose = require('mongoose')
   , d3 = require('d3')
   , Entry = mongoose.model('Entry');
 
+//var GoogleSpreadsheet = require("google-spreadsheet");
+var Spreadsheet = require('edit-google-spreadsheet');
+
+
+
 function readFile(path, multiple){
   var file = fs.readFileSync(path, "utf8");
   var entries = d3.tsv.parse(file.toString());
@@ -21,8 +26,33 @@ function readFile(path, multiple){
 }
 
 exports.gigi = function(req, res, io){
-  io.emit('progress','hihihi')
-  io.emit('progress','buahaha')
+
+Spreadsheet.load({
+    debug: true,
+    spreadsheetId: '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg',
+    worksheetName: 'Entries',
+    oauth : {
+      email: '502880495910-ldtkd1okd08lfk00lhjjscdusmgua9qe@developer.gserviceaccount.com',
+      keyFile: __dirname +'/key.pem'
+    }
+  }, function sheetReady(err, spreadsheet) {
+      spreadsheet.metadata(function(err, metadata){
+        if(err) throw err;
+        console.log(metadata);
+        // { title: 'Sheet3', rowCount: '100', colCount: '20', updated: [Date] }
+      });
+      /*
+      //use speadsheet!
+      spreadsheet.receive(function(err, rows, info) {
+        if(err) throw err;
+        console.log("Found rows:", info);
+        // Found rows: { '3': { '5': 'hello!' } }
+      });*/
+  });
+
+res.json({})
+
+
 }
 
 

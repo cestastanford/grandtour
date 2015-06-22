@@ -1,5 +1,31 @@
-p Admin
-a.btn.btn-default(ng-click="reload()") Reload
+.row
+  .col-lg-2
+    
+    ul.nav.nav-pills.nav-stacked
+      li(role="presentation")
+        a Data
+      li(role="presentation")
+        a Reload        
+  
+  
+  .col-lg-10
+      
+    form
+      .form-group
+        label Google Spreadsheet Id
+        input.input-lg.form-control.text-mono(ng-model="defaults.spreadsheetId", required)
+      
+      h2 Sheets
+      
+      .form-group
+        label Entries
+        input.form-control(ng-model="defaults.entries", placeholder="{{defaults.entries}}")
 
-progressbar.progress-striped.active(value="progress", max="total", type="info")
-  span {{progress}} / {{total}}
+
+    a.btn.btn-danger(ng-click="reload()") Reload all
+
+    .row
+      .col-lg-12
+        progressbar.progress-striped.active(value="progress", max="total", type="{{type}}", ng-show="loading || finished")
+          span(ng-show="loading") {{progress}} / {{total}}
+          span(ng-show="finished") Done!

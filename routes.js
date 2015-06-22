@@ -175,7 +175,7 @@ function routes(io) {
   router.post('/api/entries/search', auth, entries.search);
 
   // database
-  //router.get('/api/reload', auth, database.reload);
+  router.get('/api/gigi', auth, database.gigi);
 
   router.get('/api/reload', auth, function(req, res){
     database.reload(req, res, io)

@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 var Entry = new Schema({
   index : Number,
   biography : String,
-  tours : String,
+  tours : [],
   narrative : String,
   notes : String,
   fullName : String,
@@ -14,7 +14,10 @@ var Entry = new Schema({
   deathDate : {},
   flourishedStartDate : {},
   flourishedEndDate : {},
-  education : []
+  education : [],
+  marriages : [],
+  parents : {},
+  travels : []
 });
 
 mongoose.model('Entry', Entry);

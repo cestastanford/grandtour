@@ -13,8 +13,8 @@ h3 Search
       p {{entries.length}} results for 
         strong {{lastSearch}}
       div(ng-repeat="entry in entries")
-        a(ng-href="#/entries/{{entry.index}}")
-          strong {{entry.fullName}}
+        a.text-serif(ng-href="#/entries/{{entry.index}}") {{entry.fullName}}
+        p.text-serif.text-muted.small {{entry.biography.slice(0,100)}}
     
     div(ng-show="noResults && !searching")
       p Sorry but no results for 

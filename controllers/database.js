@@ -22,7 +22,24 @@ function readFile(path, multiple){
   })
 
   return m;
+}
 
+function readJSONFile(path, obj){
+  var file = fs.readFileSync(path, "utf8");
+  var entries = JSON.parse(file.toString())[obj];
+
+  return entries;
+
+//  if (!multiple) return d3.map(entries, function(d){ return d.index; });
+
+  /*var m = d3.map();
+
+  entries.forEach(function(d){
+    if (!m.has(d.index)) m.set(d.index, []);
+    m.get(d.index).push(d);
+  })
+
+  return m;*/
 }
 
 exports.gigi = function(req, res, io){
@@ -36,6 +53,7 @@ Spreadsheet.load({
       keyFile: __dirname +'/key.pem'
     }
   }, function sheetReady(err, spreadsheet) {
+
       spreadsheet.metadata(function(err, metadata){
         if(err) throw err;
         console.log(metadata);
@@ -61,10 +79,14 @@ exports.reload = function(req, res, io){
 
   try {
     // loading
-    var entries = readFile('./tsv/entries.tsv').values();
+    //var entries = readFile('./tsv/entries.tsv').values();
+    var entries = readJSONFile('./tsv/entries.json', 'entries');
     var fullName = readFile('./tsv/fullName.tsv');
     var dates = readFile('./tsv/dates.tsv');
     var education = readFile('./tsv/education.tsv', true);
+    var marriages = readFile('./tsv/marriages.tsv', true);
+    var parents = readFile('./tsv/parents.tsv');
+    var travels = readFile('./tsv/travels.txt', true);
 
     var errors = [];
 
@@ -102,7 +124,10 @@ exports.reload = function(req, res, io){
           start : dates.get(data.index).flourishedEndDateStart,
           end : dates.get(data.index).flourishedEndDateEnd
         },
-        education : education.get(data.index)
+        education : education.get(data.index),
+        marriages : marriages.get(data.index),
+        parents : parents.get(data.index),
+        travels : travels.get(data.index)
       });
 
       entry.save(function(err, e){

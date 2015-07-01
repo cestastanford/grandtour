@@ -22,7 +22,7 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   socket.on('reload-progress', function(progress){
     $scope.progress = parseInt(progress);
-  //  $scope.$apply();
+    $scope.$apply();
   //  console.log(progress)
   });
 

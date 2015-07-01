@@ -278,7 +278,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 276			1802	1802	1730	1730				
 277			1835	1835	1757	1757				
 278			1758	1758						
-279	. Staveley, Windermere, Cumb		1744	1744	1678	1678				
+279	nr. Staveley, Windermere, Cumb		1744	1744	1678	1678				
 280		Paris	1744	1744	1695	1695				
 281										
 282			1828	1828	1736	1736				
@@ -310,7 +310,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 308										
 309										
 310										
-311	0.17									
+311					1700	1700				
 312					1693	1693				
 313			1822	1822	1743	1743				
 314			1744	1744	1725	1725				
@@ -569,7 +569,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 567										
 568			1738	1738	1680	1680				
 569										
-570	0.1702									
+570					1702	1702				
 571										
 572		Venice	1717	1717	1650	1650				
 573			1791	1791	1733	1733				
@@ -747,7 +747,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 745			1740	1740	1703	1703				
 746			1781	1781	1737	1737				
 747			1817	1817	1734	1734				
-748			17131790	17131790	17131790	17131790				
+748					1713	1713				
 749										
 750		Leghorn	1770	1770	1745	1745				
 751										
@@ -1302,7 +1302,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 1300			1801	1801	1731	1731				
 1301										
 1302			1781	1781	1708	1708				
-1303			17391985131	17391985131						
+1303		Rome	1739	1739						
 1304										
 1305			1828	1828	1745	1745				
 1306			1779	1779	1715	1715				
@@ -1345,7 +1345,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 1343										
 1344										
 1345										
-1346	Co. Down, 3rd s. of Alexander Dean of Donaghadee and Kinsale		1784	1784	1746	1746				
+1346	Co. Down		1784	1784	1746	1746				
 1347	Liverpool	Rome	1798	1798	1759	1759				
 1348										
 1349										
@@ -1913,7 +1913,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 1911										
 1912	Kilkenny									
 1913		France								
-1914	Cambrai, 3rd s. of Sir Edward Gascoigne, 6th Bt									
+1914	Cambrai									
 1915										
 1916										
 1917	Dublin									
@@ -2022,7 +2022,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 2020										
 2021		Florence								
 2022										
-2023	.1712, Ch.Ch. Oxf. 1728									
+2023										
 2024										
 2025										
 2026										
@@ -2073,7 +2073,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 2071										
 2072										
 2073										
-2074	0.1748									
+2074					1748	1748				
 2075										
 2076										
 2077										
@@ -2392,7 +2392,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 2390			1815	1815	1732	1732				
 2391										
 2392			1763	1763	1705	1705				
-2393		4/1/1817	1817	1817						
+2393			1817	1817						
 2394										
 2395			1778	1778	1728	1728				
 2396										
@@ -2648,14 +2648,14 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 2646										
 2647			1739	1739	1693	1693				
 2648		Rome	1766	1766	1688	1688				
-2649			17491795	17491795						
+2649			1795	1795					1749	1749
 2650			1813	1813	1738	1738				
 2651										
 2652										
 2653										
 2654										
 2655			1727	1727						
-2656			17271790	17271790						
+2656			1790	1790					1727	1727
 2657										
 2658										
 2659		Brussels.	1790	1790	1712	1712				
@@ -2840,7 +2840,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 2838										
 2839			1802	1802	1727	1727				
 2840										
-2841		London 1789								
+2841										
 2842		Leghorn	1737	1737	1672	1672				
 2843		Rome	1738	1738	1716	1716				
 2844										
@@ -3553,7 +3553,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 3551			1835	1835	1751	1751				
 3552			1806	1806	1719	1719				
 3553			1814	1814	1732	1732				
-3554			311795	311795						
+3554		nr. Naples	1795	1795						
 3555										
 3556			1734	1734	1683	1683				
 3557										
@@ -3768,7 +3768,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 3766										
 3767										
 3768										
-3769			17611783	17611783						
+3769			1783	1783					1761	1761
 3770			1833	1833	1755	1755				
 3771			1805	1805	1723	1723				
 3772										
@@ -3777,7 +3777,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 3775										
 3776										
 3777					1709	1709				
-3778			17661780	17661780						
+3778			1780	1780					1766	1766
 3779										
 3780										
 3781			1803	1803	1752	1752				
@@ -4006,7 +4006,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4004			1778	1778	1698	1698				
 4005										
 4006										
-4007	Dublin, 3rd s. of Henry Quin		1805	1805	1760	1760				
+4007	Dublin		1805	1805	1760	1760				
 4008										
 4009			1824	1824	1752	1752				
 4010										
@@ -4032,7 +4032,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4030							1764	1764	1727	1727
 4031										
 4032										
-4033		?1778, FRS 1754								
+4033										
 4034										
 4035			1766	1766	1723	1723				
 4036			1826	1826	1754	1754				
@@ -4046,7 +4046,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4044			1756	1756	1717	1717				
 4045										
 4046		Rome	1712	1712	1690	1690				
-4047	Forfar, 5th child of Alexander Read		1778	1778	1723	1723				
+4047	Forfar		1778	1778	1723	1723				
 4048										
 4049			1773	1773	1721	1721				
 4050										
@@ -4107,7 +4107,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4105										
 4106										
 4107			1796	1796	1756	1756				
-4108			177761	177761						
+4108										
 4109			1736	1736	1683	1683				
 4110										
 4111			1777	1777	1702	1702				
@@ -4314,7 +4314,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4312										
 4313			1778	1778	1700	1700				
 4314										
-4315	0.1653									
+4315					1653	1653				
 4316										
 4317										
 4318			1751	1751	1694	1694				
@@ -4360,7 +4360,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4358			1796	1796	1758	1758				
 4359		Naples								
 4360										
-4361	0.1693									
+4361					1693	1693				
 4362										
 4363										
 4364										
@@ -4605,7 +4605,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4603										
 4604										
 4605			1801	1801	1753	1753				
-4606	Li��ge		1789	1789	1753	1753				
+4606	Liège		1789	1789	1753	1753				
 4607										
 4608										
 4609										
@@ -4752,7 +4752,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4750		Naples	1792	1792	1742	1742				
 4751	Worcester	Sicily	1806	1806	1761	1761				
 4752										
-4753	Delft 1746		1816	1816	1746	1746				
+4753	Delft		1816	1816	1746	1746				
 4754										
 4755			1800	1800	1735	1734				
 4756										
@@ -4870,7 +4870,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4868										
 4869										
 4870										
-4871	Belfast s. of Iacomo Tognarelli		1839	1839	1774	1774				
+4871	Belfast		1839	1839	1774	1774				
 4872			1769	1769						
 4873			1829	1829	1754	1754				
 4874										
@@ -4969,7 +4969,7 @@ index	birthPlace	deathPlace	deathDateEnd	deathDateStart	birthDateEnd	birthDateSt
 4967			1781	1781						
 4968			1826	1826	1768	1768				
 4969										
-4970	Scottish parents in Merton, Surr	Florence	1847	1847	1761	1761				
+4970	Merton, Surr	Florence	1847	1847	1761	1761				
 4971										
 4972			1762	1762	1690	1690				
 4973			1784	1784	1706	1706				

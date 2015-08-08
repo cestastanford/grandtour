@@ -7,10 +7,9 @@ app.controller('RegisterCtrl', function($scope, $rootScope, $http, $location, $s
 
   // Register the login() function
   $scope.register = function(){
-    $http.post('/register', {
-      username: $scope.user.username,
-      password: $scope.user.password,
-    })
+    console.log($scope.user.role)
+    $scope.user.role = $scope.user.role == true ? 'admin' : 'viewer';
+    $http.post('/register', $scope.user)
     .success(function(user){
       // No error: authentication OK
       $rootScope.currentUser = user;

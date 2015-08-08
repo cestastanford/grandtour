@@ -1,17 +1,19 @@
-.row
-  .col-lg-4.col-md-6.col-sm-8.col-lg-offset-4.col-md-offset-3.col-sm-offset-2      
-    .panel.panel-default
-      .panel-heading Sign in
-      .panel-body
-        .alert.alert-warning(ng-show="message") {{message}}
-        form(ng-submit="login()")
-          .form-group
-            label User name
-            input.form-control.input-lg(type="text", name="username", ng-model="user.username", placeholder="User name", required)
-          .form-group
-            label Password
-            input.form-control.input-lg(type="password", name="password", ng-model="user.password", placeholder="Password", required)
-          .form-group
-            button.btn.btn-info.btn-block.btn-lg(type="submit", ng-disabled="!user.username || !user.password") Log in
-          .form-group
-            a.small Forgot username and/or password?
+.container.main-view
+
+  .row
+    .col-lg-4.col-md-6.col-sm-8.col-lg-offset-4.col-md-offset-3.col-sm-offset-2      
+      .panel.panel-default
+        .panel-heading Sign in
+        .panel-body
+          .alert.alert-warning(ng-show="message") {{message}}
+          form(ng-submit="login()")
+            .form-group
+              label User name
+              input.form-control.input-lg(type="text", name="username", ng-model="user.username", placeholder="User name", required)
+            .form-group
+              label Password
+              input.form-control.input-lg(type="password", name="password", ng-model="user.password", placeholder="Password", required)
+            .form-group
+              button.btn.btn-info.btn-block.btn-lg(type="submit", ng-disabled="!user.username || !user.password") Log in
+            .form-group
+              a.small Forgot username and/or password?

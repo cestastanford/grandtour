@@ -3,6 +3,7 @@ var router = require('express').Router();
 var User = require('./models/user');
 var Entry = require('./models/entry');
 
+var	users = require('./controllers/users');
 var	entries = require('./controllers/entries');
 var	database = require('./controllers/database');
 
@@ -101,12 +102,6 @@ function routes(io) {
     res.render( name + '/' + name);
   });
 
-  router.get('/users', /*auth,*/ function(req, res){
-    res.send([{name: "user1"}, {name: "user2"}]);
-  });
-  //==================================================================
-
-  //==================================================================
   // route to test if the user is logged in or not
   router.get('/loggedin', function(req, res) {
     res.send(req.isAuthenticated() ? req.user : '0');
@@ -114,9 +109,7 @@ function routes(io) {
 
   // route to register
   router.post('/register', function(req, res, next) {
-    User.register(new User({
-      username: req.body.username
-    }), req.body.password, function(err, data) {
+    User.register(new User(req.body), req.body.password, function(err, data) {
       // problem registering the new user...
       if (err) { return res.status(401).send(err); }
       // if ok, let's login the new user
@@ -157,6 +150,7 @@ function routes(io) {
     res.render('index', { user: req.user });
   })*/
 
+
   var auth = function(req, res, next){
     if (!req.isAuthenticated())
     	res.send(401);
@@ -164,21 +158,64 @@ function routes(io) {
     	next();
   };
 
+  var admin = function(req, res, next){
+    if (!req.isAuthenticated() || req.user.role != "admin") {
+    	res.send(401);
+    }
+    else {
+    	next();
+    }
+  };
+
 
   /*
     APIs
   */
 
+  // users
+  router.get('/api/users', admin, users.index);
+  // add
+  router.post('/api/users/add', admin, function(req, res, next) {
+    User.register(new User(req.body), req.body.password, function(err, data) {
+      // problem registering the new user...
+      if (err) { return res.status(401).send(err); }
+      // if ok, let's login the new user
+      return res.status(200).send({user:data});
+    });
+  });
+  // remove
+  router.post('/api/users/remove', admin, function(req, res, next) {
+    User.find({username:req.body.username}).remove(function(err,data){
+      console.log(err,data)
+      if (err) { return res.status(401).send(err); }
+      return res.status(200).send({ removed:data });
+
+    });
+  });
+  // update
+  router.post('/api/users/update', admin, function(req, res, next) {
+    User.update({ username:req.body.username }, req.body, function(err,data){
+      console.log(err,data)
+      if (err) { return res.status(401).send(err); }
+      return res.status(200).send({ updated:data });
+
+    });
+  });
+
+
   // entries
   router.get('/api/entries', auth, entries.index);
   router.get('/api/entries/:id', auth, entries.single);
   router.post('/api/entries/search', auth, entries.search);
+  router.post('/api/entries/suggest', auth, entries.suggest);
 
   // database
-  router.get('/api/gigi', auth, database.gigi);
-
-  router.get('/api/reload', auth, function(req, res){
+  router.post('/api/reload', auth, function(req, res){
     database.reload(req, res, io)
+  });
+
+  router.get('/api/reset', auth, function(req, res){
+    database.reset(req, res, io)
   });
 
   return router;

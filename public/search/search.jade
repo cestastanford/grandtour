@@ -1,0 +1,126 @@
+.container.main-view
+
+  .row
+    .col-lg-3.border-right
+          
+      form
+        
+        .form-group.clearfix
+          a.small.pull-right(ng-click="query={}") Clear all
+
+        .form-group
+          label Full name
+          input.form-control(
+            type="text", 
+            ng-model="query.fullName.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('fullName', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+        
+        .form-group
+          label Birthdate
+          input.form-control(type="num", placeholder="Search", ng-model="query['birthDate.start'].value")
+          // .checkbox
+            label
+              input(type="checkbox", ng-model="query['birthDate.start'].exactMatch")
+              | Exact match
+        
+        .form-group
+          label Birthplace
+          input.form-control(
+            type="text", 
+            ng-model="query.birthPlace.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('birthPlace', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+                  
+        .form-group
+          label Deathplace
+          input.form-control(
+            type="text", 
+            ng-model="query.deathPlace.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('deathPlace', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+
+        .form-group
+          label Pursuits & Situations
+          input.form-control(
+            type="text", 
+            ng-model="query.pursuits.$elemMatch.pursuit.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('pursuits.pursuit', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+        
+        
+        .form-group
+          label Occupations & Posts (groups)
+          input.form-control(
+            type="text", 
+            ng-model="query.occupations.$elemMatch.group.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('occupations.group', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+        
+        
+        .form-group
+          label Occupations & Posts
+          input.form-control(
+            type="text", 
+            ng-model="query.occupations.$elemMatch.title.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('occupations.title', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+
+        .form-group
+          label Education
+          input.form-control(
+            type="text", 
+            ng-model="query.education.$elemMatch.institution.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('education.institution', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+        
+        .form-group
+          label Societies
+          input.form-control(
+            type="text", 
+            ng-model="query.societies.$elemMatch.society.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('societies.society', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+        
+        hr
+        
+        .form-group
+          label Visited place
+          input.form-control(
+            type="text", 
+            ng-model="query.travels.$elemMatch.place.value",
+            placeholder="Search",
+            typeahead="item for item in getSuggestions('travels.place', $viewValue)"
+            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+        
+        .form-group
+          label Free search
+          input.form-control(type="text", placeholder="Search", ng-model="query.entry.value")
+            
+        button.btn.btn-primary(ng-click="search()", type="submit") Search
+          
+    .col-lg-9
+      pre.query {{query}}
+
+      div(ng-show="!noResults && entries.length")
+        
+        p {{entries.length}} results
+        
+        .list-group
+          a.list-group-item(ng-repeat="entry in entries", ng-href="#/entries/{{entry.index}}")
+            h4.list-group-item-heading {{entry.fullName}}
+            p.list-group-item-text {{entry.biography.slice(0,200)}}
+        
+      div(ng-show="noResults && !searching")
+        p No results
+      
+      div(ng-show="searching")
+        p Searching...

@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout) {
+app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location) {
 
   if($stateParams.id) {
     // save
@@ -11,9 +11,10 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       $scope.entry = res.entry;
       if (!res.entry) $scope.noEntry = true;
       else $scope.noEntry = false;
-      //createNotes(res.entry.notes);
       createTours(res.entry.travels);
+      createOccupations(res.entry.occupations);
       $timeout(smartquotes);
+      $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
     })
   }
 
@@ -30,6 +31,14 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $scope.tours = nest;
   }
 
+  function createOccupations(occupations){
+    if (!occupations) return;
+    var nest = d3.nest()
+    .key(function(d) { return d.group; })
+    .entries(occupations);
+    $scope.occupations = nest;
+  }
+
   function createNotes(notes){
     return notes.split(/\.\s[0-9]{1,2}\.\s/gi);
   }
@@ -42,7 +51,28 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + t + "\">[" + p2 + "]</sup>";
     }
 
-    return $sce.trustAsHtml(text.replace(/(\.|\,|'|;|[a-z])([0-9]{1,2})(?=\s|$|\n|\r)/gi, replacer));
+    return $sce.trustAsHtml(text.replace(/(\.|\,|'|;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r)/gi, replacer));
+  }
+
+  $scope.search = function(query){
+    console.log(query,clean(query))
+    $location.path('search/' + JSON.stringify(clean(query)) );
+  }
+
+  function clean(obj){
+
+    for (var key in obj) {
+      if (!last(obj[key])) delete obj[key];
+    }
+
+    function last(o){
+      for (var k in o) {
+        if (typeof o[k] == 'object') return last(o[k]);
+        else return /\S/.test(o.value) ? o[k] : null;
+      }
+    }
+
+    return obj;
   }
 
   $scope.$watch( function(){ return $('.check-html').html(); }, function(html){

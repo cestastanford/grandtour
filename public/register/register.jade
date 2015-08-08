@@ -20,9 +20,17 @@
         .col-sm-9
           input.form-control(type="password", ng-model="confirmPassword", placeholder="Confirm password", required)
       .form-group
-        label.col-sm-3.control-label Email*
+        label.col-sm-3.control-label Email
         .col-sm-9
-          input.form-control(type="email", name="email", ng-model="user.email", placeholder="Email address", required)
+          input.form-control(type="email", name="email", ng-model="user.email", placeholder="Email address")
+      .form-group
+        .col-sm-3
+        .col-sm-9
+          .checkbox
+            label
+              input(type="checkbox", name="role", ng-model="user.role") 
+              | Set as administrator
+            
       .form-group(ng-show="user.password.length && confirmPassword.length && user.password != confirmPassword")
         .col-sm-offset-3.col-sm-9
           span.text-danger Passwords do not match, please try again.

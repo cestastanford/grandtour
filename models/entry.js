@@ -7,6 +7,7 @@ var Entry = new Schema({
   tours : [],
   narrative : String,
   notes : String,
+  entry : String,
   fullName : String,
   birthPlace : String,
   deathPlace : String,
@@ -14,8 +15,14 @@ var Entry = new Schema({
   deathDate : {},
   flourishedStartDate : {},
   flourishedEndDate : {},
+  pursuits : [],
+  occupations : [],
   education : [],
+  societies : [],
+  exhibitions : [],
+  military : [],
   marriages : [],
+  mistress : [],
   parents : {},
   travels : []
 });

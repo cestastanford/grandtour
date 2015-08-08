@@ -1,102 +1,185 @@
-.div(ng-show="noEntry")
-  p Opps
+.container.main-view
 
-.div(ng-show="entry")
-  
-  h1 {{entry.fullName}}
-    a.pull-right(ng-href="#/entries/{{id+1}}")
-      i.fa.fa-angle-right.margin-left
-    a.pull-right(ng-href="#/entries/{{id-1}}")
-      i.fa.fa-angle-left 
+  .div(ng-show="noEntry")
+    p Opps
 
-  .row
-    div.col-lg-3.entry-info
-            
-      .row
-        .col-lg-12.col-md-4.col-sm-6(ng-show="entry.birthDate.start || entry.birthPlace")
-          .panel.panel-default
-            .panel-heading Born
-            ul.list-group
-              li.list-group-item {{entry.birthDate.start}}<span ng-show="entry.birthDate.start!=entry.birthDate.end">/{{entry.birthDate.end}}</span><span ng-show="entry.birthPlace">, {{entry.birthPlace}}</span>
-        
-        .col-lg-12.col-md-4.col-sm-6(ng-show="entry.deathDate.start || entry.deathPlace")
-          .panel.panel-default
-            .panel-heading Died
-            ul.list-group
-              li.list-group-item {{entry.deathDate.start}}<span ng-show="entry.deathDate.start!=entry.deathDate.end">/{{entry.deathDate.end}}</span><span ng-show="entry.deathPlace">, {{entry.deathPlace}}</span>
-        
-        .col-lg-12.col-md-4.col-sm-6(ng-show="entry.flourishedStart.start || entry.flourishedStart.end")
-          .panel.panel-default
-            .panel-heading Flourished
-            ul.list-group
-              li.list-group-item {{entry.flourishedStartDate.start}}
-                span(ng-show="entry.flourishedStartDate.start!=entry.flourishedStartDate.end")
-                span /{{entry.flourishedStartDate.end}}
+  .div(ng-show="entry")
+    
+    h1 {{entry.fullName}}
+      a.pull-right(ng-href="#/entries/{{id+1}}")
+        i.fa.fa-angle-right.margin-left
+      a.pull-right(ng-href="#/entries/{{id-1}}")
+        i.fa.fa-angle-left 
 
-
-        .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents.parents")
-          .panel.panel-default
-            .panel-heading Parents
-            ul.list-group
-              li.list-group-item {{entry.parents.parents}}
-        
-        
-        .col-lg-12.col-md-4.col-sm-6(ng-show="entry.marriages.length")
-          .panel.panel-default
-            .panel-heading Marriages
-            ul.list-group
-              li.list-group-item(ng-repeat="e in entry.marriages | orderBy : 'sequence'")
-                span {{e.spouse}} <span ng-show="e.year">({{e.year}})</span>
-        
-        .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
-          .panel.panel-default
-            .panel-heading Education
-            ul.list-group
-              li.list-group-item(ng-repeat="e in entry.education")
-                span(ng-show="e.degree") {{e.degree}}
-                span(ng-show="e.degree && e.institution") , 
-                span(ng-show="e.institution") {{e.institution}}
-                span(ng-show="e.place") , {{e.place}} 
-                span(ng-show="e.teacher") under {{e.teacher}} 
-                span(ng-show="e.from") ({{e.from}}
-                span(ng-show="e.to") -{{e.to}}
-                span(ng-show="e.from || e.to") )
-                span  {{e.degreeDate}}
-      
-    div.col-lg-6
-      h4 Entry
-      p.text-serif.check-html(ng-bind-html="superscript(entry.biography, entry.notes)")
-      p.text-serif.check-html(ng-repeat="tour in entry.tours")
-        span.check-html(ng-bind-html="superscript(tour.text, tour.notes)")
-        span.small
-          br
-          | {{tour.notes}}
-      p.text-serif.check-html(ng-bind-html="superscript(entry.narrative, entry.notes)")
-      p.text-serif.small {{entry.notes}}
-      
-
-
-    div.col-lg-3.entry-info
-      .row
-        .col-lg-12(ng-show="tours.length")
+    .row
+      div.col-lg-3.entry-info
+              
+        .row
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.birthDate.start || entry.birthPlace")
+            .panel.panel-default
+              .panel-heading Born
+              ul.list-group
+                li.list-group-item {{entry.birthDate.start}}<span ng-show="entry.birthDate.start!=entry.birthDate.end">/{{entry.birthDate.end}}</span><span ng-show="entry.birthPlace">, {{entry.birthPlace}}</span>
           
-          .panel.panel-default(ng-repeat="tour in tours")
-            .panel-heading {{tour.key}} {{tour.start}}/{{tour.end}}
-            table.table.table-hover
-              thead
-                tr
-                  th Place
-                  //th.text-right after
-                  th.text-right from
-                  th.text-right to
-                  //th.text-right before
-              tbody
-                tr(ng-repeat="travel in tour.values")
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.deathDate.start || entry.deathPlace")
+            .panel.panel-default
+              .panel-heading Died
+              ul.list-group
+                li.list-group-item {{entry.deathDate.start}}<span ng-show="entry.deathDate.start!=entry.deathDate.end">/{{entry.deathDate.end}}</span><span ng-show="entry.deathPlace">, {{entry.deathPlace}}</span>
+          
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.flourishedStart.start || entry.flourishedStart.end")
+            .panel.panel-default
+              .panel-heading Flourished
+              ul.list-group
+                li.list-group-item {{entry.flourishedStartDate.start}}
+                  span(ng-show="entry.flourishedStartDate.start!=entry.flourishedStartDate.end")
+                  span /{{entry.flourishedStartDate.end}}
 
-                  td(ng-class="{'bordered':travel.parent}") {{travel.place}}
-                  //td.text-right.tnum-lnum {{travel.gte}}
-                  td.text-right.tnum-lnum {{travel.travelStartYear}}/{{travel.travelStartMonth}}/{{travel.travelStartDay}}
-                  td.text-right.tnum-lnum {{travel.travelEndYear}}/{{travel.travelEndMonth}}/{{travel.travelEndDay}}
-                  //td.text-right.tnum-lnum {{travel.lte}}
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents")
+            .panel.panel-default
+              .panel-heading Parents
+              ul.list-group
+                li.list-group-item {{entry.parents}}
+          
+          
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.marriages.length")
+            .panel.panel-default
+              .panel-heading Marriages
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.marriages | orderBy : 'sequence'")
+                  span {{e.spouse}} 
+                  span(ng-show="e.year") ({{e.year}})
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mistress.length")
+            .panel.panel-default
+              .panel-heading Mistress of
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.mistress")
+                  span {{e.of}} 
+                  span(ng-show="e.from") ({{e.from}}-{{e.to}})
+          
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.pursuits.length") 
+            .panel.panel-default
+              .panel-heading Pursuits & Situations
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.pursuits") 
+                  a(ng-click="search({pursuits:{$elemMatch:{pursuit:{value:e.pursuit}}}})") {{e.pursuit}}
+                  
+                
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.occupations.length") 
+            .panel.panel-default
+              .panel-heading Occupations & Posts
+              ul.list-group
+                li.list-group-item(ng-repeat="o in occupations")
+                  .panel.panel-default.panel-nested
+                    .panel-heading
+                      span(ng-click="search({occupations:{$elemMatch:{group:{value:o.key}}}})") {{o.key}}
+                    ul.list-group
+                      li.list-group-item(ng-repeat="e in o.values")
+                        a(ng-click="search({occupations:{$elemMatch:{title:{value:e.title}}}})") {{e.title}}
+                        span(ng-show="e.place") , 
+                        a(ng-show="e.place", ng-click="search({occupations:{$elemMatch:{place:{value:e.place}}}})") {{e.place}}
+                        span(ng-show="e.from || e.to")  (
+                        span(ng-show="e.from") {{e.from}}
+                        span(ng-show="e.to") -{{e.to}}
+                        span(ng-show="e.from || e.to") )
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.military.length") 
+            .panel.panel-default
+              .panel-heading Military career
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.military") 
+                  a(ng-click="search({military:{$elemMatch:{rank:{value:e.rank}}}})") {{e.rank}}
+                        
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
+            .panel.panel-default
+              .panel-heading Education
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.education")
+                  a(ng-show="e.degree", ng-click="search({education:{$elemMatch:{fullDegree:{value:e.fullDegree}}}})") {{e.fullDegree}}
+                  span(ng-show="e.degree && e.institution") , 
+                  a(ng-show="e.institution", ng-click="search({education:{$elemMatch:{institution:{value:e.institution}}}})") {{e.institution}}
+                  span(ng-show="e.place") , 
+                  a(ng-show="e.place" ng-click="search({education:{$elemMatch:{place:{value:e.place}}}})") {{e.place}}
+                  span 
+                  a(ng-show="e.teacher" ng-click="search({education:{$elemMatch:{teacher:{value:e.teacher}}}})") under {{e.teacher}} 
+                  span(ng-show="e.from") ({{e.from}}
+                  span(ng-show="e.to") -{{e.to}}
+                  span(ng-show="e.from || e.to") )
+                  span(ng-show="e.degreeDate")  ({{e.degreeDate}})
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.societies.length") 
+            .panel.panel-default
+              .panel-heading Societies & Academies
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.societies") 
+                  a(ng-click="search({societies:{$elemMatch:{society:{value:e.society}}}})" data-toggle="tooltip" data-container="body" data-placement="right" title="Search for {{e.society}}") {{e.society}}
+                  span , {{e.role}} 
+                  span(ng-show="e.from || e.to") (
+                  span(ng-show="e.from") {{e.from}}
+                  span(ng-show="e.to") -{{e.to}}
+                  span(ng-show="e.from || e.to") )
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.exhibitions.length") 
+            .panel.panel-default
+              .panel-heading Exhibitions & Awards
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.exhibitions") 
+                  a(ng-click="search({exhibitions:{$elemMatch:{title:{value:e.title}}}})") {{e.title}}
+                  span(ng-show="e.title && e.activity") , 
+                  a(ng-click="search({exhibitions:{$elemMatch:{activity:{value:e.activity}}}})") {{e.activity}}
+                  span(ng-show="e.from || e.to")  (
+                  span(ng-show="e.from") {{e.from}}
+                  span(ng-show="e.to") -{{e.to}}
+                  span(ng-show="e.from || e.to") )
+
+
+        
+      div.col-lg-6
+        p.text-serif.check-html(ng-bind-html="superscript(entry.biography, entry.notes)")
+        p.text-serif.check-html(ng-repeat="tour in entry.tours")
+          span.check-html(ng-bind-html="superscript(tour.text, tour.notes)")
+          span.small
+            br
+            | {{tour.notes}}
+        p.text-serif.check-html(ng-bind-html="superscript(entry.narrative, entry.notes)")
+        p.text-serif.small {{entry.notes}}
+        
+
+
+      div.col-lg-3.entry-info
+        .row
+          .col-lg-12(ng-show="tours.length")
             
-  
+            .panel.panel-default(ng-repeat="tour in tours")
+              .panel-heading
+                span Tour {{tour.key}} 
+                span.pull-right {{tour.start}}/{{tour.end}}
+              table.table
+                thead
+                  tr
+                    th Place
+                    //th.text-right after
+                    th.text-right from
+                    th.text-right to
+                    //th.text-right before
+                tbody
+                  tr(ng-repeat="travel in tour.values")
+
+                    td(ng-class="{'bordered':travel.parent}")
+                      a(ng-click="search({travels:{$elemMatch:{place:{value:travel.place}}}})") {{travel.place}}
+                    //td.text-right.tnum-lnum {{travel.gte}}
+                    td.text-right.tnum-lnum
+                      span(ng-show="travel.travelStartYear == '0'") -
+                      span(ng-show="travel.travelStartYear != '0'") {{travel.travelStartYear}}
+                      span(ng-show="travel.travelStartMonth != '0'") /{{travel.travelStartMonth}}
+                      span(ng-show="travel.travelStartDay != '0'") /{{travel.travelStartDay}}
+                    td.text-right.tnum-lnum
+                      span(ng-show="travel.travelEndYear == '0'") -
+                      span(ng-show="travel.travelEndYear != '0'") {{travel.travelEndYear}}
+                      span(ng-show="travel.travelEndMonth != '0'") /{{travel.travelEndMonth}}
+                      span(ng-show="travel.travelEndDay != '0'") /{{travel.travelEndDay}}
+                    //td.text-right.tnum-lnum {{travel.lte}}
+              
+    

@@ -1,7 +1,7 @@
 /**********************************************************************
  * Login controller
  **********************************************************************/
-app.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
+app.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $state) {
   // This object will be filled by the form
   $scope.user = {};
 
@@ -14,13 +14,15 @@ app.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
     .success(function(user){
       // No error: authentication OK
       $scope.message = 'Authentication successful!';
-      $location.url('/admin');
+      //$location.url('/');
+      $state.go('home')
     })
     .error(function(error){
       // Error: authentication failed
       $scope.message = error.message;
       console.log(error)
-      $location.url('/login');
+      //$location.url('/login');
+      $state.go('login')
     });
   };
 });

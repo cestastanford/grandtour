@@ -7,11 +7,15 @@ html(lang="en", ng-app="app")
     title Grand Tour Explorer
       
     link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Cousine:400,700")  
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
     link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
     link(rel='stylesheet', href='/app.css')
 
   body
+    
+    
+    
     nav.navbar.navbar-default
       .container
         .navbar-header
@@ -19,15 +23,16 @@ html(lang="en", ng-app="app")
         .collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(ui-sref="about") About
+              a(ui-sref="explore") Explore
             li
-              a(ui-sref="entries") Entries
-            li(ng-show="currentUser.role=='admin'")
-              a(href="/users") Users
-          
+              a(ui-sref="search") Search
+                              
           ul.nav.navbar-nav.navbar-right(ng-show="currentUser")
+            li(ng-show="currentUser.role=='admin'")
+              a(ui-sref="admin") Manage
             li
-              a Hi, {{currentUser.fullName || currentUser.username}}
+              a 
+                {{currentUser.fullName || currentUser.username}}
             a.btn.btn-danger.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
               //i.fa.fa-sign-out.margin-right
               | Logout
@@ -35,10 +40,12 @@ html(lang="en", ng-app="app")
           ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
             li
               a(ui-sref="login") Login
-            //a.btn.btn-info.btn-sm.navbar-btn.navbar-right(type="button", ui-sref="register") Sign up
+            a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ui-sref="register") Sign up
+
+
                       
-    .container
-      ui-view
+    ui-view
+    
         
     script(src="//use.typekit.net/jjn0vnk.js")
     script.
@@ -53,6 +60,7 @@ html(lang="en", ng-app="app")
 
     script(src="bower_components/angular/angular.min.js")
     script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
+    script(src="bower_components/angular-animate/angular-animate.min.js")
     script(src="bower_components/angular-ui-router/release/angular-ui-router.min.js")
 
     script(src="bower_components/angular-bootstrap/ui-bootstrap.min.js")
@@ -63,6 +71,6 @@ html(lang="en", ng-app="app")
     script(type='text/javascript', src='/admin/admin.js')
     script(type='text/javascript', src='/login/login.js')
     script(type='text/javascript', src='/register/register.js')
-
-    script(type='text/javascript', src='/entries/entries.js')
+    script(type='text/javascript', src='/search/search.js')
+    script(type='text/javascript', src='/explore/explore.js')
     script(type='text/javascript', src='/entry/entry.js')

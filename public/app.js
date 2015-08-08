@@ -4,9 +4,10 @@
  * Angular Application
  **********************************************************************/
 var app = angular.module('app', [
+    'ngSanitize',
+    'ngAnimate',
     'ui.router',
     'ui.bootstrap',
-    'ngSanitize'
 ])
 
 .run(
@@ -27,7 +28,7 @@ var app = angular.module('app', [
     $rootScope.logout = function(){
       $rootScope.currentUser = null;
       $http.post('/logout');
-      $state.go('home')
+      $state.go('login')
     };
   }
 )
@@ -59,20 +60,24 @@ var app = angular.module('app', [
     return deferred.promise;
   };
 
-  /*$httpProvider.interceptors.push(function($q, $location) {
-    return {
-      response: function(response) {
-        // do something on success
-        return response;
-      },
-      responseError: function(response) {
-        if (response.status === 401)
-          $state.go('login');
-        return $q.reject(response);
-      }
-    };
-  });*/
+  var checkAdmin = function($q, $timeout, $http, $location, $rootScope, $state){
+    // Initialize a new promise
+    var deferred = $q.defer();
 
+    // Make an AJAX call to check if the user is logged in
+    $http.get('/loggedin').success(function(user){
+      if (user !== '0' && user.role == 'admin') {
+        deferred.resolve();
+        $rootScope.currentUser = user;
+      }
+      else {
+        deferred.reject();
+        $state.go('home')
+      }
+    });
+
+    return deferred.promise;
+  };
 
 
   $urlRouterProvider.otherwise('/');
@@ -81,7 +86,10 @@ var app = angular.module('app', [
 
     .state('home', {
       url: "/",
-      templateUrl: "views/main"
+      templateUrl: "views/main",
+      resolve: {
+        loggedin: checkLoggedin
+      }
     })
 
     .state('login', {
@@ -101,14 +109,23 @@ var app = angular.module('app', [
       templateUrl: "views/admin",
       controller: "AdminCtrl",
       resolve: {
+        loggedin: checkAdmin
+      }
+    })
+
+    .state('search', {
+      url: "/search/:query",
+      templateUrl: "views/search",
+      controller: "SearchCtrl",
+      resolve: {
         loggedin: checkLoggedin
       }
     })
 
-    .state('entries', {
-      url: "/entries",
-      templateUrl: "views/entries",
-      controller: "EntriesCtrl",
+    .state('explore', {
+      url: "/explore/",
+      templateUrl: "views/explore",
+      controller: "ExploreCtrl",
       resolve: {
         loggedin: checkLoggedin
       }

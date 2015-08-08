@@ -1,6 +1,7 @@
 var	mongoose = require('mongoose')
   , fs = require('fs')
   , d3 = require('d3')
+  , jsondiffpatch = require('jsondiffpatch')
   , Entry = mongoose.model('Entry');
 
 //var GoogleSpreadsheet = require("google-spreadsheet");
@@ -42,126 +43,179 @@ function readJSONFile(path, obj){
   return m;*/
 }
 
-exports.gigi = function(req, res, io){
+exports.reload = function(req, res, io){
 
-Spreadsheet.load({
-    debug: true,
-    spreadsheetId: '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg',
-    worksheetName: 'Entries',
-    oauth : {
-      email: '502880495910-ldtkd1okd08lfk00lhjjscdusmgua9qe@developer.gserviceaccount.com',
-      keyFile: __dirname +'/key.pem'
+  var sheets = req.body.sheets;
+  var count = 0;
+  var result = [];
+  var total = sheets.filter(function(d){ return d.reload; }).length;
+  var totalCount = 0;
+
+  var data = {};
+
+  sheets
+    .filter(function(d){ return d.reload; })
+    .forEach(function(sheet){
+
+      Spreadsheet.load({
+          debug: true,
+          spreadsheetId: sheet.spreadsheetId,
+          worksheetName: sheet.sheetName,
+          oauth : {
+            email: '502880495910-ldtkd1okd08lfk00lhjjscdusmgua9qe@developer.gserviceaccount.com',
+            keyFile: __dirname + '/key.pem'
+          }
+        }, function sheetReady(err, spreadsheet) {
+
+            // something got wrong
+            if (err) {
+              io.emit('reload-error', { error: err, sheet: sheet });
+              totalCount++;
+              return;
+            }
+            // starting to get the data
+            spreadsheet.metadata(function(err, metadata){
+              if(err) {
+                totalCount++;
+                io.emit('reload-error', { error: err, sheet: sheet });
+              }
+              io.emit('reload-start', { metadata: metadata, sheet: sheet } );
+            });
+
+            spreadsheet.receive(function(err, rows, info) {
+              // something wrong when fetching
+              if (err) {
+                io.emit('reload-error', { error: err, sheet: sheet });
+                totalCount++;
+                return;
+              }
+              io.emit('reload-progress', { message: 'finito caricare', sheet: sheet } );
+              update(sheet, rows);
+            });
+        });
+
+  })
+
+
+  function parseRows(rows) {
+
+    var header = rows[1];
+    var data = [];
+
+    d3.values(rows).forEach(function(row,i){
+      if (i == 0) return;
+      var obj = {};
+      for (var key in row) {
+        obj[header[key]] = row[key];
+      }
+      data.push(obj);
+    })
+
+    return data;
+
+  }
+
+  function update(s, r) {
+
+    var entries = 5293;
+    var rows = parseRows(r);
+    var data;
+    var count = 0;
+    // map for data
+    if (!s.multiple) data = d3.map(rows, function(d){ return d.index; });
+    else {
+      data = d3.map();
+      rows.forEach(function(d){
+        if (!data.has(d.index)) data.set(d.index, []);
+        data.get(d.index).push(d);
+      })
     }
-  }, function sheetReady(err, spreadsheet) {
 
-      spreadsheet.metadata(function(err, metadata){
-        if(err) throw err;
-        console.log(metadata);
-        // { title: 'Sheet3', rowCount: '100', colCount: '20', updated: [Date] }
-      });
-      /*
-      //use speadsheet!
-      spreadsheet.receive(function(err, rows, info) {
-        if(err) throw err;
-        console.log("Found rows:", info);
-        // Found rows: { '3': { '5': 'hello!' } }
-      });*/
-  });
+    io.emit('reload-progress', { message: 'cominciamo fare cose', sheet: s } );
 
-res.json({})
+    d3.range(entries).forEach(function(index){
+      var condition = { index : index };
+      var doc = {};
+      doc[s.value] = s.multiple ? data.get(index) : data.get(index) ? data.get(index)[s.value] : null;
+      Entry.update(condition, doc, { upsert:true }, function(err, raw){
+        if (err) {
+          io.emit('reload-error', { error: err, sheet: s });
+        }
+        count++;
+        if(count == entries-1) {
+          io.emit('reload-finished', { message: 'finito mongo', sheet:s } );
+          totalCount++;
+          if(totalCount == total) {
+            io.emit('reload-finished-all', { message: 'finito tutto' } );
+            res.json({ status:200 })
+          }
+        }
+        else if(count % Math.round(entries/10) == 0) io.emit('reload-progress', { count: count, sheet:s } );
 
+        // diff
+      })
+    })
+
+  //  io.emit('reload-finished', { message: 'finito', sheet: s } );
+
+
+
+  }
 
 }
 
 
-/* Reload the whole dataset */
-exports.reload = function(req, res, io){
+/* Reset the dataset */
+exports.reset = function(req, res, io){
 
   try {
     // loading
     //var entries = readFile('./tsv/entries.tsv').values();
     var entries = readJSONFile('./tsv/entries.json', 'entries');
-    var fullName = readFile('./tsv/fullName.tsv');
+/*    var fullName = readFile('./tsv/fullName.tsv');
     var dates = readFile('./tsv/dates.tsv');
     var education = readFile('./tsv/education.tsv', true);
     var marriages = readFile('./tsv/marriages.tsv', true);
     var parents = readFile('./tsv/parents.tsv');
-    var travels = readFile('./tsv/travels.txt', true);
+    var travels = readFile('./tsv/travels.txt', true);*/
 
     var errors = [];
 
     // drop the Entries
     Entry.collection.drop();
 
-    io.emit('reload-start', entries.length);
-
     var counter = 0;
 
     entries.forEach(function(data, i){
 
       var entry = new Entry({
+
         index : data.index,
         biography : data.biography,
         tours : data.tours,
         narrative : data.narrative,
         notes : data.notes,
-        fullName : fullName.get(data.index).fullName,
-        birthPlace : dates.get(data.index).birthPlace,
-        deathPlace : dates.get(data.index).deathPlace,
-        birthDate : {
-          start : dates.get(data.index).birthDateStart,
-          end : dates.get(data.index).birthDateEnd
-        },
-        deathDate : {
-          start : dates.get(data.index).deathDateStart,
-          end : dates.get(data.index).deathDateEnd
-        },
-        flourishedStartDate : {
-          start : dates.get(data.index).flourishedStartDateStart,
-          end : dates.get(data.index).flourishedStartDateEnd
-        },
-        flourishedEndDate : {
-          start : dates.get(data.index).flourishedEndDateStart,
-          end : dates.get(data.index).flourishedEndDateEnd
-        },
-        education : education.get(data.index),
-        marriages : marriages.get(data.index),
-        parents : parents.get(data.index),
-        travels : travels.get(data.index)
+        entry : [data.biography, data.tours.map(function(d){ return d.text}).join(), data.narrative, data.notes].join(),
+
       });
 
       entry.save(function(err, e){
         if (err) {
-          io.emit('reload-error', e);
           errors.push(err);
         }
-        counter++;
-        if(counter == entries.length) io.emit('reload-finished', counter);
-        else if(counter % 100 == 0) io.emit('reload-progress', counter);
-
       });
 
 
 
     })
 
-    res.json({status:200, errors:errors})
+    res.json({ status: 200, errors : errors})
 
   }
+
   catch(error) {
-    console.log(error)
     res.json({error:error});
   }
 
-
-  /*Entry.findById(req.body.id, function (err, response){
-    if (err) {
-      res.json({ error: err })
-      return;
-    }
-    res.json({
-      result: response
-    });
-  })*/
 
 }

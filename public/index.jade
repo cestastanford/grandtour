@@ -6,9 +6,9 @@ html(lang="en", ng-app="app")
     base(href="/")
     title Grand Tour Explorer
       
-    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Cousine:400,700")  
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Cousine:400,700")  
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
-    link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
     link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
     link(rel='stylesheet', href='/app.css')
 
@@ -39,13 +39,8 @@ html(lang="en", ng-app="app")
 
           ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
             li
-              a(ui-sref="login") Login
-            a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ui-sref="register") Sign up
-
-
-                      
+              a(ui-sref="login") Login            
     ui-view
-    
         
     script(src="//use.typekit.net/jjn0vnk.js")
     script.

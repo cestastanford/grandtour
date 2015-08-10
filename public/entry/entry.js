@@ -11,8 +11,11 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       $scope.entry = res.entry;
       if (!res.entry) $scope.noEntry = true;
       else $scope.noEntry = false;
+
       createTours(res.entry.travels);
       createOccupations(res.entry.occupations);
+      createMilitary(res.entry.military);
+
       $timeout(smartquotes);
       $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
     })
@@ -29,6 +32,10 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     })
 
     $scope.tours = nest;
+  }
+
+  function createMilitary(military){
+    $scope.military = military.filter(function(d){ return d.rank; })
   }
 
   function createOccupations(occupations){
@@ -55,7 +62,6 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   }
 
   $scope.search = function(query){
-    console.log(query,clean(query))
     $location.path('search/' + JSON.stringify(clean(query)) );
   }
 

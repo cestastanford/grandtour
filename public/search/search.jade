@@ -6,7 +6,7 @@
       form
         
         .form-group.clearfix
-          a.pull-right(ng-click="query={}") Clear all
+          a.pull-right(ng-click="clear()") Clear all
 
         .form-group
           label Full name
@@ -86,10 +86,10 @@
           label Military careers
           input.input-sm.form-control(
             type="text", 
-            ng-model="query.militar",
+            ng-model="query.military",
             placeholder="rank",
-            ng-class="{ filled : query.militar }"
-            typeahead="item for item in getSuggestions('militar.rank', $viewValue)"
+            ng-class="{ filled : query.military }"
+            typeahead="item for item in getSuggestions('military.rank', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
 
 
@@ -197,7 +197,7 @@
           .pill-dimension {{k.split('_').join(' ')}}
           .pill-value {{v}} 
       
-      div(ng-show="!query") Antani
+      div.text-muted(ng-show="untouched") Use the fields on the left and press Enter or click the Search button to start searching.
 
       div(ng-show="!noResults && entries.length")
         

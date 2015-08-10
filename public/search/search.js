@@ -4,6 +4,7 @@
 app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
 
   $scope.query = {};
+  $scope.untouched = true;
 
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
@@ -29,6 +30,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
     for (var k in query){
       if (!/\S/.test(query[k])) delete query[k]
     }
+    $scope.untouched = Object.getOwnPropertyNames(query).length == 0;
   }, true)
 
 
@@ -36,7 +38,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   $scope.getSuggestions = function(field, value){
     return $http.post('/api/entries/suggest/', {  field : field, value : value })
     .then(function (res){
-      console.log(res)
       return res.data.results;//.map(function(d){ return { value: d } });
     })
   }
@@ -55,6 +56,11 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
     }
 
     return obj;
+  }
+
+  $scope.clear = function(){
+    $scope.query = {};
+    $scope.entries = [];
   }
 
   $('.tooltip').remove();

@@ -91,13 +91,17 @@
                         span(ng-show="e.to") -{{e.to}}
                         span(ng-show="e.from || e.to") )
 
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.military.length") 
+          .col-lg-12.col-md-4.col-sm-6(ng-show="military.length") 
             .panel.panel-default
               .panel-heading Military careers
               ul.list-group
-                li.list-group-item(ng-repeat="e in entry.military") 
+                li.list-group-item(ng-repeat="e in military") 
                   a(ng-click="search({military:e.rank})") {{e.rank}}
-                        
+                  span(ng-show="e.rankStart || e.rankEnd")  (
+                  span(ng-show="e.rankStart") {{e.rankStart}}
+                  span(ng-show="e.rankEnd") -{{e.rankEnd}}
+                  span(ng-show="e.rankStart || e.rankEnd") )
+                                            
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
             .panel.panel-default
               .panel-heading Education

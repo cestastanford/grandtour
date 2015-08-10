@@ -145,7 +145,8 @@ var searchMap = {
   travel_place : function(d) { return { travels : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
   travel_at : function(d) { return { travels : { $elemMatch : {
     $or : [
-      { $and : [ { travelStartYear : { $lte : d } } , { travelEndYear : { $gte : d } } ] },
+      { $and : [ { travelStartYear : { $lte : +d, $ne : 0 } } , { travelEndYear : { $gte : +d } } ] },
+      { $and : [ { travelStartYear : +d } , { travelEndYear : 0 } ] },
     ]
   } } } },
 
@@ -185,7 +186,7 @@ exports.search = function (req, res) {
   var originalQuery = JSON.stringify(req.body.query);
   var query = parseQuery(req.body.query);
 
-  console.log(query)
+  console.log(JSON.stringify(query))
 
   Entry
     .count(query, function (err, count){

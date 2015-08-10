@@ -22,14 +22,31 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   }
 
   $scope.search = function(){
-    $location.path('search/' + JSON.stringify(clean($scope.query)) );
+    $location.path('search/' + JSON.stringify($scope.query) );
   }
 
-  $scope.$watch('query', function(query){
-    for (var k in query){
-      if (!/\S/.test(query[k])) delete query[k]
+  $scope.$watch(function(){ return JSON.stringify($scope.query);}, function(){
+    if ($scope.query == {}) return;
+    $scope.pills = [];
+
+    for (var k in $scope.query){
+      console.log(k,seek($scope.query[k], $scope.query))
+      $scope.pills.push(seek($scope.query[k], $scope.query))
     }
-  }, true)
+    //$scope.$apply();
+  }, true);
+
+
+  function seek(obj, pre) {
+    for (var k in obj){
+      if (typeof obj[k] != 'object' ) {
+        console.log(obj,k,pre,Object.getOwnPropertyNames(pre)[0])
+        var o = {};
+        o[Object.getOwnPropertyNames(pre)[0]] = obj[k]
+        return o;
+      } else return seek(obj[k], obj);
+    }
+  }
 
 
 

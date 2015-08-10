@@ -23,6 +23,8 @@ html(lang="en", ng-app="app")
         .collapse.navbar-collapse
           ul.nav.navbar-nav
             li
+              a(ui-sref="about") About
+            //  li
               a(ui-sref="explore") Explore
             li
               a(ui-sref="search") Search
@@ -51,6 +53,7 @@ html(lang="en", ng-app="app")
     script(src="bower_components/jquery/dist/jquery.min.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
     script(src="bower_components/d3/d3.min.js")
+    script(src="bower_components/crossfilter/crossfilter.min.js")
     script(src="bower_components/smartquotesjs/src/smartquotes.min.js")
 
     script(src="bower_components/angular/angular.min.js")
@@ -63,6 +66,7 @@ html(lang="en", ng-app="app")
 
     script(type='text/javascript', src='/app.js')
     script(type='text/javascript', src='/main/main.js')
+    script(type='text/javascript', src='/about/about.js')
     script(type='text/javascript', src='/admin/admin.js')
     script(type='text/javascript', src='/login/login.js')
     script(type='text/javascript', src='/register/register.js')

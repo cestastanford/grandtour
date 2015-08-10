@@ -3,6 +3,12 @@ body {
   padding-bottom: 100px;
 }
 
+.article {
+  -webkit-columns: 2 250px;
+     -moz-columns: 2 250px;
+          columns: 2 250px;
+}
+
 .header-wrapper {
   background-image: url('background.jpg');
   background-size: cover;
@@ -47,6 +53,8 @@ body {
 }
 
 label {
+  font-size: 13px;
+  font-family: "freight-text-pro", "Georgia", serif;
 }
 
 /* Margin */
@@ -58,6 +66,13 @@ label {
   margin-left: 5px;
 }
 
+.margin-top {
+  margin-top: 5px;
+}
+
+.margin-bottom {
+  margin-bottom: 5px;
+}
 /* Border */
 .border-right {
   border-right: 1px solid #eee;
@@ -69,11 +84,10 @@ label {
 
 
 .h1, h1, .h3, h3 {
-/*
   font-family: "freight-text-pro";
-  font-weight: 100;
-*/
-  margin-bottom: 50px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: 1.6;
 }
 
 .h1, h1 {
@@ -87,6 +101,12 @@ label {
   margin-top: 0px;
   padding: 3px 0px;
 }*/
+
+.h4, h4 {
+  font-size: 15px;
+  font-family: "freight-text-pro", "Georgia", serif;
+  font-weight: 600;
+}
 
 a {
   cursor: pointer;
@@ -107,7 +127,7 @@ a:focus,
 }
 
 .form-control {
-    border: 1px solid #ccc;
+    border: 1px solid #eee;
     border-radius: 2px;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -124,6 +144,11 @@ a:focus,
 .form-control[readonly],
 fieldset[disabled] .form-control {
     opacity: .5;
+}
+
+.form-control.filled {
+    background-color: #FDFFD6;
+    border-color: #ccc;
 }
 
 .progress {
@@ -230,6 +255,10 @@ sup {
   border-bottom-left-radius: 0px;
 }
 
+.list-group-item {
+  border: 1px solid #eee;
+}
+
 .panel.panel-nested {
   margin-bottom: 0px;
   margin-top: 10px;
@@ -256,6 +285,8 @@ sup {
 
 .list-group-item-text {
   line-height: 1.6;
+  font-size: 13px;
+  font-family: "freight-text-pro", "Georgia", serif;
 }
 
 .list-group-item:first-child {
@@ -341,3 +372,39 @@ sup {
 .checkbox, .radio {
   margin-top: 5px;
 }
+
+
+.pill {
+    background-color: #eee;
+    display: inline-block;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.pill-dimension {
+    display: inline-block;
+    padding: 10px;
+    background-color: #ddd;
+    border-radius: 2px;
+}
+
+.pill-value {
+    display: inline-block;
+    padding: 10px;
+}
+
+.dropdown-menu {
+  font-size: 13px;
+  border-radius: 2px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+  color: #222;
+  text-decoration: none;
+  background-color: #eee;
+  outline: 0;
+}
+
+#mytooltip{border:1px solid #e0e0e0;padding:5px 4px;background-color:"#3d424f";color:#fff;position:absolute;font-family:"Arial";font-size:10px;max-width:175px}.elastic-list{margin-top:25px;padding:2px;background:#f0;font-family:"Arial";font-size:12px;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}.elastic-list-dimension-header{font-size:12px;font-weight:bold;float:left;border:1px solid #fff;color:#f0f0f0;background-color:#333;padding:4px 0 0 5px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.elastic-list-dimension{float:left;border:none;overflow-y:auto;overflow-x:hidden;color:#444}.elastic-list-dimension-item{position:relative;border:1px solid #fff;background-color:#a5a5a5;font-size:11px;font-family:"Arial"}.elastic-list-dimension-item p{margin:4px 0 0 5px;float:left;display:inline}.elastic-list-dimension-item p.key{width:70%}.elastic-list-dimension-item p.value{float:right;margin-right:22px}.elastic-list-dimension-item-hover{background-color:#d3d3d3}.elastic-list-dimension-item-hover p{font-weight:bold}#filtering{border-top:1px dotted #000;font-size:12px;font-weight:bold;margin-right:25px;height:50px}#filtering .elastic-list-filters{padding-top:5px;font-weight:bold;margin:0;height:25px;color:#222}#filtering .elastic-list-filters p{margin:0}#filtering .elastic-list-filters span{color:#0cf}.filter{background-color:#0cf}.filter-item{float:left}.results-title{font-family:"Arial";font-weight:bold;margin:0;font-size:12px}#results{font-family:"Arial";font-size:11px;height:200px;overflow-y:auto;border-top:1px solid #909090;background-color:#f0f0f0;padding:0 5px}#results p{border-bottom:1px solid #fff}.price-motivation{font-style:italic;color:#808080}.post-info-social ul{list-style:none;margin:0;padding:0}.post-info-social span.links{margin-right:30px}.post-info-social li{float:left;width:16px;height:36px;padding-left:3px}.post-info-social a{color:#000;text-decoration:none;outline-style:none;font-weight:bold}.post-info-social img{float:left;margin:10px 24px 20px 0}.github{margin-right:35px}

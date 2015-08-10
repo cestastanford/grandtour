@@ -4,49 +4,64 @@ html(lang="en", ng-app="app")
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     base(href="/")
-    title Test
+    title Grand Tour Explorer
       
-    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic,700,700italic|Hammersmith+One")  
-    link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
     link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
     link(rel='stylesheet', href='/app.css')
 
   body
-    nav.navbar.navbar-default.navbar-fixed-top
+        
+    nav.navbar.navbar-default
       .container
         .navbar-header
-          a.navbar-brand(href="#/") Grand Tour
+          a.navbar-brand(href="#/") The Grand Tour Explorer
         .collapse.navbar-collapse
           ul.nav.navbar-nav
-            li.active
-              a(href="/") About
             li
-              a(href="/entries") Entries
+              a(ui-sref="explore") Explore
             li
-              a(href="/documentation") Documentation
-            li(ng-show="currentUser.role=='admin'")
-              a(href="/users") Users
-          
+              a(ui-sref="search") Search
+                              
           ul.nav.navbar-nav.navbar-right(ng-show="currentUser")
+            li(ng-show="currentUser.role=='admin'")
+              a(ui-sref="admin") Manage
             li
-              a Hi, {{currentUser.fullName || currentUser.username}}
-            a.btn.btn-danger.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()") Logout
+              a 
+                {{currentUser.fullName || currentUser.username}}
+            a.btn.btn-danger.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
+              //i.fa.fa-sign-out.margin-right
+              | Logout
 
           ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
             li
-              a(ui-sref="login") Login
-            a.btn.btn-info.btn-sm.navbar-btn.navbar-right(type="button", ui-sref="register") Sign up
+              a(ui-sref="login") Login    
                       
-    .container-fluid
-      p #{message}
-
+    p #{message}
+        
+    script(src="//use.typekit.net/jjn0vnk.js")
+    script.
+      try{Typekit.load();}catch(e){}
+    
+    script(src="https://cdn.socket.io/socket.io-1.3.5.js")
+      
     script(src="bower_components/jquery/dist/jquery.min.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
+    script(src="bower_components/d3/d3.min.js")
+    script(src="bower_components/smartquotesjs/src/smartquotes.min.js")
+
     script(src="bower_components/angular/angular.min.js")
+    script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
+    script(src="bower_components/angular-animate/angular-animate.min.js")
     script(src="bower_components/angular-ui-router/release/angular-ui-router.min.js")
+
+    script(src="bower_components/angular-bootstrap/ui-bootstrap.min.js")
+    script(src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
 
     script(type='text/javascript', src='/app.js')
     script(type='text/javascript', src='/main/main.js')
     script(type='text/javascript', src='/admin/admin.js')
     script(type='text/javascript', src='/login/login.js')
     script(type='text/javascript', src='/register/register.js')
+    script(type='text/javascript', src='/search/search.js')
+    script(type='text/javascript', src='/explore/explore.js')
+    script(type='text/javascript', src='/entry/entry.js')

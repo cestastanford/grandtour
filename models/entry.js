@@ -8,13 +8,11 @@ var Entry = new Schema({
   narrative : String,
   notes : String,
   entry : String,
+
   fullName : String,
-  birthPlace : String,
-  deathPlace : String,
-  birthDate : {},
-  deathDate : {},
-  flourishedStartDate : {},
-  flourishedEndDate : {},
+  places : [],
+  dates : [],
+
   pursuits : [],
   occupations : [],
   education : [],

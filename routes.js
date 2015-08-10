@@ -186,7 +186,6 @@ function routes(io) {
   // remove
   router.post('/api/users/remove', admin, function(req, res, next) {
     User.find({username:req.body.username}).remove(function(err,data){
-      console.log(err,data)
       if (err) { return res.status(401).send(err); }
       return res.status(200).send({ removed:data });
 
@@ -195,7 +194,6 @@ function routes(io) {
   // update
   router.post('/api/users/update', admin, function(req, res, next) {
     User.update({ username:req.body.username }, req.body, function(err,data){
-      console.log(err,data)
       if (err) { return res.status(401).send(err); }
       return res.status(200).send({ updated:data });
 
@@ -210,11 +208,11 @@ function routes(io) {
   router.post('/api/entries/suggest', auth, entries.suggest);
 
   // database
-  router.post('/api/reload', auth, function(req, res){
+  router.post('/api/reload', admin, function(req, res){
     database.reload(req, res, io)
   });
 
-  router.get('/api/reset', auth, function(req, res){
+  router.get('/api/reset', admin, function(req, res){
     database.reset(req, res, io)
   });
 

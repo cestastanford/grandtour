@@ -92,6 +92,14 @@ var app = angular.module('app', [
       }
     })
 
+    .state('about', {
+      url: "/about",
+      templateUrl: "views/about",
+      resolve: {
+        loggedin: checkLoggedin
+      }
+    })
+
     .state('login', {
       url: "/login",
       templateUrl: "views/login",

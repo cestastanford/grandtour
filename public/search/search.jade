@@ -6,118 +6,209 @@
       form
         
         .form-group.clearfix
-          a.small.pull-right(ng-click="query={}") Clear all
+          a.pull-right(ng-click="query={}") Clear all
 
         .form-group
           label Full name
-          input.form-control(
+          input.input-sm.form-control(
             type="text", 
-            ng-model="query.fullName.value",
+            ng-model="query.fullName",
             placeholder="Search",
+            ng-class="{ filled : query.fullName }"
             typeahead="item for item in getSuggestions('fullName', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
-        
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+
         .form-group
-          label Birthdate
-          input.form-control(type="num", placeholder="Search", ng-model="query['birthDate.start'].value")
-          // .checkbox
-            label
-              input(type="checkbox", ng-model="query['birthDate.start'].exactMatch")
-              | Exact match
-        
-        .form-group
-          label Birthplace
-          input.form-control(
+          label Born
+          input.input-sm.form-control(
             type="text", 
-            ng-model="query.birthPlace.value",
-            placeholder="Search",
-            typeahead="item for item in getSuggestions('birthPlace', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
-                  
-        .form-group
-          label Deathplace
-          input.form-control(
+            ng-model="query.birthDate",
+            placeholder="year",
+            ng-class="{ filled : query.birthDate }")
+          input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="query.deathPlace.value",
-            placeholder="Search",
-            typeahead="item for item in getSuggestions('deathPlace', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+            ng-model="query.birthPlace",
+            placeholder="place",
+            ng-class="{ filled : query.birthPlace }"
+            typeahead="item for item in getSuggestions('places.birthPlace', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+
+        .form-group
+          label Died
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.deathDate",
+            placeholder="year",
+            ng-class="{ filled : query.deathDate }")
+          input.input-sm.margin-top.form-control(
+            type="text", 
+            ng-model="query.deathPlace",
+            placeholder="place",
+            ng-class="{ filled : query.deathPlace }"
+            typeahead="item for item in getSuggestions('places.deathPlace', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
 
         .form-group
           label Pursuits & Situations
-          input.form-control(
+          input.input-sm.form-control(
             type="text", 
-            ng-model="query.pursuits.$elemMatch.pursuit.value",
-            placeholder="Search",
+            ng-model="query.pursuits",
+            placeholder="pursuit",
+            ng-class="{ filled : query.pursuits }"
             typeahead="item for item in getSuggestions('pursuits.pursuit', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
-        
-        
-        .form-group
-          label Occupations & Posts (groups)
-          input.form-control(
-            type="text", 
-            ng-model="query.occupations.$elemMatch.group.value",
-            placeholder="Search",
-            typeahead="item for item in getSuggestions('occupations.group', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
-        
-        
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+
         .form-group
           label Occupations & Posts
-          input.form-control(
+          input.input-sm.form-control(
             type="text", 
-            ng-model="query.occupations.$elemMatch.title.value",
-            placeholder="Search",
+            ng-model="query.occupations",
+            placeholder="occupation",
+            ng-class="{ filled : query.occupations }"
             typeahead="item for item in getSuggestions('occupations.title', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.occupations_group",
+            placeholder="group",
+            ng-class="{ filled : query.occupations_group }"
+            typeahead="item for item in getSuggestions('occupations.group', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.occupations_place",
+            placeholder="place",
+            ng-class="{ filled : query.occupations_place }"
+            typeahead="item for item in getSuggestions('occupations.place', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+
+        .form-group
+          label Military careers
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.militar",
+            placeholder="rank",
+            ng-class="{ filled : query.militar }"
+            typeahead="item for item in getSuggestions('militar.rank', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+
+
+        .form-group
+          label Societies & Academies
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.societies",
+            placeholder="society",
+            ng-class="{ filled : query.societies }"
+            typeahead="item for item in getSuggestions('societies.title', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.societies_role",
+            placeholder="role",
+            ng-class="{ filled : query.societies_role }"
+            typeahead="item for item in getSuggestions('societies.role', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+
+
+        .form-group
+          label Exhibitions & Awards
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.exhibitions",
+            placeholder="institution",
+            ng-class="{ filled : query.exhibitions }"
+            typeahead="item for item in getSuggestions('exhibitions.title', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.exhibitions_activity",
+            placeholder="activity",
+            ng-class="{ filled : query.exhibitions_activity }"
+            typeahead="item for item in getSuggestions('exhibitions.activity', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
 
         .form-group
           label Education
-          input.form-control(
+          input.input-sm.form-control(
             type="text", 
-            ng-model="query.education.$elemMatch.institution.value",
-            placeholder="Search",
+            ng-model="query.education_institution",
+            placeholder="institution",
+            ng-class="{ filled : query.education_institution }"
             typeahead="item for item in getSuggestions('education.institution', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
-        
-        .form-group
-          label Societies
-          input.form-control(
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="query.societies.$elemMatch.society.value",
-            placeholder="Search",
-            typeahead="item for item in getSuggestions('societies.society', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
+            ng-model="query.education_place",
+            placeholder="place",
+            ng-class="{ filled : query.education_place }"
+            typeahead="item for item in getSuggestions('education.place', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.education_teacher",
+            placeholder="teacher",
+            ng-class="{ filled : query.education_teacher }"
+            typeahead="item for item in getSuggestions('education.teacher', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.education_degree",
+            placeholder="degree",
+            ng-class="{ filled : query.education_degree }"
+            typeahead="item for item in getSuggestions('education.fullDegree', $viewValue)"
+            typeahead-min-length="2", typeahead-wait-ms="100")
         
         hr
         
         .form-group
-          label Visited place
-          input.form-control(
+          label Travel
+          input.input-sm.form-control(
             type="text", 
-            ng-model="query.travels.$elemMatch.place.value",
-            placeholder="Search",
+            ng-model="query.travel_place",
+            placeholder="place",
+            ng-class="{ filled : query.travel_place }"
             typeahead="item for item in getSuggestions('travels.place', $viewValue)"
-            typeahead-loading="loadingLocations", typeahead-min-length="2", typeahead-wait-ms="100")
-        
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.travel_at",
+            placeholder="year",
+            ng-class="{ filled : query.travel_at }")
+
+        hr
+
         .form-group
-          label Free search
-          input.form-control(type="text", placeholder="Search", ng-model="query.entry.value")
-            
+          label Free search in the entries
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.entry",
+            placeholder="text",
+            ng-class="{ filled : query.entry }")
+        
+
         button.btn.btn-primary(ng-click="search()", type="submit") Search
           
     .col-lg-9
-      pre.query {{query}}
+      // pre.query {{query}}
+      
+      p
+        .pill(ng-repeat="(k,v) in query") 
+          .pill-dimension {{k.split('_').join(' ')}}
+          .pill-value {{v}} 
+      
+      div(ng-show="!query") Antani
 
       div(ng-show="!noResults && entries.length")
         
-        p {{entries.length}} results
+        p 
+          strong {{entries.length}} 
+          | results
         
         .list-group
           a.list-group-item(ng-repeat="entry in entries", ng-href="#/entries/{{entry.index}}")
             h4.list-group-item-heading {{entry.fullName}}
-            p.list-group-item-text {{entry.biography.slice(0,200)}}
+            p.list-group-item-text {{entry.biography.slice(0,200)}} ...
         
       div(ng-show="noResults && !searching")
         p No results

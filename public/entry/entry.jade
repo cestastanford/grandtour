@@ -13,29 +13,36 @@
 
     .row
       div.col-lg-3.entry-info
-              
         .row
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.birthDate.start || entry.birthPlace")
+          
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].birthDate || entry.places[0].birthPlace")
             .panel.panel-default
               .panel-heading Born
               ul.list-group
-                li.list-group-item {{entry.birthDate.start}}<span ng-show="entry.birthDate.start!=entry.birthDate.end">/{{entry.birthDate.end}}</span><span ng-show="entry.birthPlace">, {{entry.birthPlace}}</span>
-          
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.deathDate.start || entry.deathPlace")
+                li.list-group-item
+                  span(ng-show="entry.dates[0].birthDate") {{entry.dates[0].birthDate}}
+                  span(ng-show="entry.dates[0].birthDate && entry.places[0].birthPlace") , 
+                  span(ng-show="entry.places[0].birthPlace") {{entry.places[0].birthPlace}}
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].deathDate || entry.places[0].deathPlace")
             .panel.panel-default
               .panel-heading Died
               ul.list-group
-                li.list-group-item {{entry.deathDate.start}}<span ng-show="entry.deathDate.start!=entry.deathDate.end">/{{entry.deathDate.end}}</span><span ng-show="entry.deathPlace">, {{entry.deathPlace}}</span>
-          
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.flourishedStart.start || entry.flourishedStart.end")
+                li.list-group-item
+                  span(ng-show="entry.dates[0].deathDate") {{entry.dates[0].deathDate}}
+                  span(ng-show="entry.dates[0].deathDate && entry.places[0].deathPlace") , 
+                  span(ng-show="entry.places[0].deathPlace") {{entry.places[0].deathPlace}}
+
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].flourishedStartDate || entry.dates[0].flourishedEndDate")
             .panel.panel-default
               .panel-heading Flourished
               ul.list-group
-                li.list-group-item {{entry.flourishedStartDate.start}}
-                  span(ng-show="entry.flourishedStartDate.start!=entry.flourishedStartDate.end")
-                  span /{{entry.flourishedStartDate.end}}
+                li.list-group-item
+                  span(ng-show="entry.dates[0].flourishedStartDate") {{entry.dates[0].flourishedStartDate}}
+                  span(ng-show="entry.dates[0].flourishedEndDate") -{{entry.dates[0].flourishedEndDate}}
 
-
+                    
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents")
             .panel.panel-default
               .panel-heading Parents
@@ -64,8 +71,7 @@
               .panel-heading Pursuits & Situations
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.pursuits") 
-                  a(ng-click="search({pursuits:{$elemMatch:{pursuit:{value:e.pursuit}}}})") {{e.pursuit}}
-                  
+                  a(ng-click="search({pursuits:e.pursuit})") {{e.pursuit}}
                 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.occupations.length") 
             .panel.panel-default
@@ -74,12 +80,12 @@
                 li.list-group-item(ng-repeat="o in occupations")
                   .panel.panel-default.panel-nested
                     .panel-heading
-                      span(ng-click="search({occupations:{$elemMatch:{group:{value:o.key}}}})") {{o.key}}
+                      span(ng-click="search({occupations_group:o.key})") {{o.key}}
                     ul.list-group
                       li.list-group-item(ng-repeat="e in o.values")
-                        a(ng-click="search({occupations:{$elemMatch:{title:{value:e.title}}}})") {{e.title}}
+                        a(ng-click="search({occupations:e.title})") {{e.title}}
                         span(ng-show="e.place") , 
-                        a(ng-show="e.place", ng-click="search({occupations:{$elemMatch:{place:{value:e.place}}}})") {{e.place}}
+                        a(ng-show="e.place", ng-click="search({occupations_place:e.place})") {{e.place}}
                         span(ng-show="e.from || e.to")  (
                         span(ng-show="e.from") {{e.from}}
                         span(ng-show="e.to") -{{e.to}}
@@ -87,23 +93,23 @@
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.military.length") 
             .panel.panel-default
-              .panel-heading Military career
+              .panel-heading Military careers
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.military") 
-                  a(ng-click="search({military:{$elemMatch:{rank:{value:e.rank}}}})") {{e.rank}}
+                  a(ng-click="search({military:e.rank})") {{e.rank}}
                         
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
             .panel.panel-default
               .panel-heading Education
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.education")
-                  a(ng-show="e.degree", ng-click="search({education:{$elemMatch:{fullDegree:{value:e.fullDegree}}}})") {{e.fullDegree}}
+                  a(ng-show="e.degree", ng-click="search({education_degree:e.fullDegree})") {{e.fullDegree}}
                   span(ng-show="e.degree && e.institution") , 
-                  a(ng-show="e.institution", ng-click="search({education:{$elemMatch:{institution:{value:e.institution}}}})") {{e.institution}}
-                  span(ng-show="e.place") , 
-                  a(ng-show="e.place" ng-click="search({education:{$elemMatch:{place:{value:e.place}}}})") {{e.place}}
-                  span 
-                  a(ng-show="e.teacher" ng-click="search({education:{$elemMatch:{teacher:{value:e.teacher}}}})") under {{e.teacher}} 
+                  a(ng-show="e.institution", ng-click="search({education_institution:e.institution})") {{e.institution}}
+                  span(ng-show="(e.degree || e.institution) && e.place") , 
+                  a(ng-show="e.place" ng-click="search({education_place:e.place})") {{e.place}}
+                  span(ng-show="(e.degree || e.institution || e.place) && e.teacher") , 
+                  a(ng-show="e.teacher" ng-click="search({education_teacher:e.teacher})") under {{e.teacher}} 
                   span(ng-show="e.from") ({{e.from}}
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )
@@ -114,7 +120,7 @@
               .panel-heading Societies & Academies
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.societies") 
-                  a(ng-click="search({societies:{$elemMatch:{society:{value:e.society}}}})" data-toggle="tooltip" data-container="body" data-placement="right" title="Search for {{e.society}}") {{e.society}}
+                  a(ng-click="search({societies:e.society})") {{e.society}}
                   span , {{e.role}} 
                   span(ng-show="e.from || e.to") (
                   span(ng-show="e.from") {{e.from}}
@@ -126,9 +132,9 @@
               .panel-heading Exhibitions & Awards
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.exhibitions") 
-                  a(ng-click="search({exhibitions:{$elemMatch:{title:{value:e.title}}}})") {{e.title}}
+                  a(ng-click="search({exhibitions:e.title})") {{e.title}}
                   span(ng-show="e.title && e.activity") , 
-                  a(ng-click="search({exhibitions:{$elemMatch:{activity:{value:e.activity}}}})") {{e.activity}}
+                  a(ng-click="search({exhibitions_activity:e.activity})") {{e.activity}}
                   span(ng-show="e.from || e.to")  (
                   span(ng-show="e.from") {{e.from}}
                   span(ng-show="e.to") -{{e.to}}
@@ -168,7 +174,7 @@
                   tr(ng-repeat="travel in tour.values")
 
                     td(ng-class="{'bordered':travel.parent}")
-                      a(ng-click="search({travels:{$elemMatch:{place:{value:travel.place}}}})") {{travel.place}}
+                      a(ng-click="search({travel_place:travel.place})") {{travel.place}}
                     //td.text-right.tnum-lnum {{travel.gte}}
                     td.text-right.tnum-lnum
                       span(ng-show="travel.travelStartYear == '0'") -

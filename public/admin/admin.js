@@ -6,10 +6,16 @@ app.controller('AdminCtrl', function($scope, $http) {
   $scope.view = 'data';
   $scope.user = {};
 
+  var count = 0;
+
   $scope.defaults = {
     sheets : [
       // Fullnames
       { info: true, value: 'fullName', multiple : false, label : 'Fullnames', sheetName: 'Fullnames', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      // Dates
+      { info: true, value: 'dates', multiple : true, label : 'Dates', sheetName: 'Dates', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      // Places
+      { info: true, value: 'places', multiple : true, label : 'Places', sheetName: 'Places', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       // Pursuits
       { info: true, value: 'pursuits', multiple : true, label : 'Pursuits & Situations', sheetName: 'Pursuits & Situations', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       { info: true, value: 'occupations', multiple : true, label : 'Occupations & Posts', sheetName: 'Occupations & Posts', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
@@ -20,6 +26,7 @@ app.controller('AdminCtrl', function($scope, $http) {
       { info: true, value: 'exhibitions', multiple : true, label : 'Exhibitions & Awards', sheetName: 'Exhibitions & Awards', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       { info: true, value: 'education', multiple : true, label : 'Education', sheetName: 'Education', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       { info: true, value: 'military', multiple : true, label : 'Military Career', sheetName: 'Military career', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'travels', multiple : true, label : 'Travels', sheetName: 'Travels', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
     ]
   }
 

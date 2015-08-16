@@ -42,6 +42,14 @@ body {
   font-size: 12px;
 }
 
+.text-light {
+  color: #aaa;
+}
+
+.text-strong {
+    font-weight: bold;
+}
+
 .text-serif {
   font-family: "freight-text-pro", "Georgia", serif;
   font-size: 18px;
@@ -52,9 +60,12 @@ body {
   font-size: 14px;
 }
 
+.text-large {
+  font-size: 1.3em;
+}
+
 label {
-  font-size: 13px;
-  font-family: "freight-text-pro", "Georgia", serif;
+  font-size: 12px;
 }
 
 /* Margin */
@@ -125,6 +136,11 @@ a:focus,
   border: none;
   border-radius: 2px;
 }
+/*
+.form-group {
+  background: #fafafa;
+  padding: 10px;
+}*/
 
 .form-control {
     border: 1px solid #eee;
@@ -134,7 +150,7 @@ a:focus,
 }
 
 .form-control:focus {
-    border-color: #444;
+    border-color: #aaa;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -332,6 +348,52 @@ sup {
   padding-bottom: 20px;
 }
 
+.mini-table {
+  max-height: 230px;
+  overflow-y: scroll;
+}
+
+.mini-table .table {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.mini-table .checkbox,
+.mini-table label {
+  margin: 0px;
+}
+
+.mini-table label {
+  display: block;
+  font-size: 11px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  min-height: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.mini-table label:hover {
+  background: #f5f5f5;
+}
+
+.mini-table .table>tbody>tr>td {
+  padding : 0px;
+  border-bottom: 1px solid #f5f5f5;
+  border-top: none;
+}
+
+.mini-table tr.closed {
+  opacity: .3;
+}
+
+.mini-table .table>tbody>tr.closed>td {
+  padding : 1px 0px;
+}
+
+.mini-table tr.closed td * {
+  /*display: none;*/
+}
+
 /* Alert */
 
 .alert {
@@ -343,11 +405,12 @@ sup {
 /* Tooltip */
 
 .tooltip {
-  font-family: "europa", "Helvetica", "Arial", sans-serif;
+  font-size: 11px;
+  opacity: .97;
 }
 
 .tooltip-inner {
-  padding: 10px 15px;
+  padding: 8px 10px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
@@ -373,24 +436,53 @@ sup {
   margin-top: 5px;
 }
 
+.clear-input {
+  position: relative;
+}
+
+.clear-input input {
+  padding-right: 30px;
+}
+
+.clear-input-icon {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.clear-input-icon:hover {
+  opacity: .8;
+}
+
+
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 
 .pill {
-    background-color: #eee;
     display: inline-block;
     border-radius: 3px;
     margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    font-size: 12px;
 }
 
 .pill-dimension {
     display: inline-block;
-    padding: 10px;
-    background-color: #ddd;
+    padding: 7px 10px;
+    background-color: #f5f5f5;
     border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .pill-value {
     display: inline-block;
-    padding: 10px;
+    padding: 6px 10px;
 }
 
 .dropdown-menu {

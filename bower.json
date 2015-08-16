@@ -25,7 +25,9 @@
     "smartquotesjs": "https://github.com/kellym/smartquotesjs.git",
     "angular-animate": "~1.4.3",
     "elastic-list": "https://github.com/sirisacademic/d3-elastic-list.git",
-    "crossfilter": "~1.3.11"
+    "crossfilter": "~1.3.11",
+    "jszip": "Stuk/jszip#~2.5.0",
+    "FileSaver": "*"
   },
   "resolutions": {
     "d3": "~3.5.5",

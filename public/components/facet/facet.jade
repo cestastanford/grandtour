@@ -1,0 +1,24 @@
+.form-group    
+  label {{label}}
+  .clear-input
+    input.input-sm.margin-bottom.form-control(type="text", ng-model="search._id", placeholder="Search...")
+    .fa.fa-times-circle.clear-input-icon(ng-click="search._id = ''", ng-show="search._id.length")
+
+  div.margin-bottom
+    a.small(ng-click="open=!open") {{ open ? 'Show selected only' : 'Show all' }}
+      
+  .mini-table(ng-show="uniques.length")
+    table.table
+      tbody
+        tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:['-count'])", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
+          td
+            .checkbox
+              label
+                input(type="checkbox", ng-model="u.selected", ng-change="refresh(u)", ng-disabled="!u.count")
+                span {{u._id}} 
+                span.text-light.pull-right {{u.count}}
+        tr(ng-show='!filtered.length')
+          td 
+            span.text-light Sorry, no results for 
+              strong {{search._id}}
+  

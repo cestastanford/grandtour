@@ -8,7 +8,7 @@ html(lang="en", ng-app="app")
       
     link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Cousine:400,700")  
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
-    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
     link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
     link(rel='stylesheet', href='/app.css')
 
@@ -35,7 +35,7 @@ html(lang="en", ng-app="app")
             li
               a 
                 {{currentUser.fullName || currentUser.username}}
-            a.btn.btn-danger.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
+            a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
               //i.fa.fa-sign-out.margin-right
               | Logout
 
@@ -55,6 +55,8 @@ html(lang="en", ng-app="app")
     script(src="bower_components/d3/d3.min.js")
     script(src="bower_components/crossfilter/crossfilter.min.js")
     script(src="bower_components/smartquotesjs/src/smartquotes.min.js")
+    script(src="bower_components/FileSaver/FileSaver.min.js")
+    script(src="bower_components/jszip/dist/jszip.min.js")
 
     script(src="bower_components/angular/angular.min.js")
     script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
@@ -73,3 +75,5 @@ html(lang="en", ng-app="app")
     script(type='text/javascript', src='/search/search.js')
     script(type='text/javascript', src='/explore/explore.js')
     script(type='text/javascript', src='/entry/entry.js')
+
+    script(type='text/javascript', src='/components/facet/facet.js')

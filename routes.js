@@ -102,6 +102,11 @@ function routes(io) {
     res.render( name + '/' + name);
   });
 
+  router.get('/components/:name', function (req, res) {
+    var name = req.params.name;
+    res.render( 'components/' + name + '/' + name);
+  });
+
   // route to test if the user is logged in or not
   router.get('/loggedin', function(req, res) {
     res.send(req.isAuthenticated() ? req.user : '0');
@@ -206,6 +211,8 @@ function routes(io) {
   router.get('/api/entries/:id', entries.single);
   router.post('/api/entries/search', auth, entries.search);
   router.post('/api/entries/suggest', auth, entries.suggest);
+  router.post('/api/entries/export', auth, entries.export);
+  router.post('/api/entries/uniques', auth, entries.uniques);
 
   // database
   router.post('/api/reload', admin, function(req, res){

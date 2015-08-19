@@ -237,7 +237,7 @@ var searchMap = {
   occupations_place : function(d) { return { occupations : { $elemMatch : { place : d  } } } },
 
   exhibitions : function(d) { return { exhibitions : { $elemMatch : { title : d  } } } },
-  exhibitions_activity : function(d) { return { exhibitions : { $elemMatch : d  } } } ,
+  exhibitions_activity : function(d) { return { exhibitions : { $elemMatch :  { activity : d  }  } } } ,
 
   military : function(d) { return { military : { $elemMatch : { rank : d  } } } },
 
@@ -340,6 +340,51 @@ exports.search = function (req, res) {
 */
 
 }
+
+
+
+function parseQuery2(query) {
+  var o = []
+  for (var k in query){
+    if (typeof query[k] == 'object') {
+      var s = { $or : [] }
+      for (var i in query[k]) {
+        s.$or.push( searchMapRE[k](query[k][i]) );
+      }
+    }
+    else var s = searchMapRE[k](query[k]);
+
+    o.push(s)
+
+  }
+  return o.length ? { $and: o } : {};
+}
+
+
+exports.search2 = function (req, res) {
+
+  var originalQuery = JSON.stringify(req.body.query);
+  var query = parseQuery2(req.body.query);
+
+    Entry
+      .find(query, {
+        index : true,
+        fullName : true,
+        biography : true
+      }, function (err, response) {
+        if (err) {
+          res.json({ error: err })
+          return;
+        }
+        res.json({
+          request : JSON.parse(originalQuery),
+          entries : response
+        });
+      } )
+}
+
+
+
 
 function parseExport(res){
 

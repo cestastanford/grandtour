@@ -24,10 +24,11 @@ html(lang="en", ng-app="app")
           ul.nav.navbar-nav
             li
               a(ui-sref="about") About
-            //  li
-              a(ui-sref="explore") Explore
             li
               a(ui-sref="search") Search
+            li
+              a(ui-sref="explore") Explore 
+                sup (beta)
                               
           ul.nav.navbar-nav.navbar-right(ng-show="currentUser")
             li(ng-show="currentUser.role=='admin'")

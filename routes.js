@@ -210,6 +210,7 @@ function routes(io) {
   router.get('/api/entries', auth, entries.index);
   router.get('/api/entries/:id', entries.single);
   router.post('/api/entries/search', auth, entries.search);
+  router.post('/api/entries/search2', auth, entries.search2);
   router.post('/api/entries/suggest', auth, entries.suggest);
   router.post('/api/entries/export', auth, entries.export);
   router.post('/api/entries/uniques', auth, entries.uniques);

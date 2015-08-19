@@ -1,1 +1,67 @@
 .container.main-view
+
+  .row
+  
+    .col-lg-12
+    
+      .row
+        .col-lg-2
+          label Dimensions
+          ul.list-unstyled
+            li(ng-repeat="dimension in dimensions")
+              .checkbox
+                label
+                  input(type="checkbox", ng-model="dimension.active")
+                  span.small(ng-class="{ 'text-strong' : query.hasOwnProperty(dimension.field) }") {{dimension.label}}
+        
+        .col-lg-10
+          .clearfix.margin-bottom
+            a.btn-xs.btn.btn-danger.pull-right(ng-click="clear()") Clear all
+      
+          form
+            .row
+              .col-lg-3(ng-repeat='dimension in activeDimensions')
+                div(facet="", label="{{dimension.label}}", data-model="dimension.antani", field="{{dimension.field}}", suggestions='{{dimension.suggestions}}', data-query='query')
+
+        
+    .col-lg-12 
+      p
+        .pill(ng-repeat="(k,v) in query") 
+          .pill-dimension {{k.split('_').join(' ')}}
+          .pill-value
+            span(ng-repeat="value in v")
+              span(ng-show="$index > 0") or 
+              strong {{value}} 
+          .pill-value.border-left
+            a.text-danger(ng-click="removeFromQuery(k)", data-toggle="tooltip", title="Remove")
+              i.fa.fa-trash-o
+
+        //button.btn.btn-success.pull-right(ng-click="search()", type="submit", tabindex="1") Search
+            
+      div.text-muted(ng-show="!entries.length && untouched && !searching") Use the fields on the left and press Enter or click the Search button to start searching
+
+
+      div(ng-show="!noResults && entries.length && !searching")
+        
+        hr
+      
+        div.clearfix
+          p.pull-left.text-large
+            strong {{entries.length}} 
+            | matching results
+          button#export-button.btn.btn-default.btn-sm.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!entries.length")
+            i.fa.fa-download.margin-right
+            | Export results
+        
+      .list-group.margin-top(ng-show="!searching")
+        a.list-group-item(ng-repeat="entry in entries", ng-href="#/entries/{{entry.index}}")
+          h4.list-group-item-heading {{entry.fullName}}
+          p.list-group-item-text {{entry.biography.slice(0,200)}} ...
+        
+      div(ng-show="noResults && !searching")
+        p No results
+      
+      div.alert.alert-warning(ng-show="searching")
+        p 
+          i.fa.fa-refresh.fa-spin.margin-right
+          | Searching...

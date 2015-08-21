@@ -13,6 +13,14 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  next();
+};
+
+
 //server.listen(app.get('port'));
 // socket.io
 io.on('connection', function(socket){
@@ -51,6 +59,9 @@ mongoose.connect('mongodb://heroku_sstkq4mv:u19fp90o4ti0fn6n30kvksjc2p@ds053858.
     console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
   }
 });
+
+// crossdomain
+app.use(allowCrossDomain);
 
 // Register routes
 app.use('/', require('./routes')(io));

@@ -28,7 +28,12 @@
                     .form-group    
                       label {{dimension.label}} 
                         span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
-                      input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:500}")
+                      input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:1000}")
+                  div(ng-switch-when="text")
+                    .form-group    
+                      label {{dimension.label}} 
+                        span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
+                      input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:1000}")
         
     .col-lg-12 
     

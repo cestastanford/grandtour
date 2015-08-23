@@ -54,6 +54,7 @@ app
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
     { type : 'facet', active : false, label : 'Travel', subgroup: 'Place', field : 'travel_place', suggestions : 'travels.place' },
     { type : 'number', active : false, label : 'Travel', subgroup: 'Year', field : 'travel_at' },
+    { type : 'text', active : false, label : 'Free search', field : 'entry' },
   ]
 
   $scope.activeDimensions = [];

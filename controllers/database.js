@@ -137,7 +137,7 @@ exports.reload = function(req, res, io){
       var condition = { index : index };
       var doc = {};
       doc[s.value] = s.multiple ? data.get(index) : data.get(index) ? data.get(index)[s.value] : null;
-      Entry.findOneAndUpdate(condition, doc, { upsert:true }, function(err, raw){
+      Entry.findOneAndUpdate(condition, doc, { upsert : true }, function(err, raw){
         if (err) {
           io.emit('reload-error', { error: err, sheet: s });
         }

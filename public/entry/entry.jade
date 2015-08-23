@@ -20,18 +20,22 @@
               .panel-heading Born
               ul.list-group
                 li.list-group-item
-                  span(ng-show="entry.dates[0].birthDate") {{entry.dates[0].birthDate}}
+                  span(ng-show="entry.dates[0].birthDate")
+                    a(ng-click="search({birthDate:entry.dates[0].birthDate})") {{entry.dates[0].birthDate}}
                   span(ng-show="entry.dates[0].birthDate && entry.places[0].birthPlace") , 
-                  span(ng-show="entry.places[0].birthPlace") {{entry.places[0].birthPlace}}
+                  span(ng-show="entry.places[0].birthPlace") 
+                    a(ng-click="search({birthPlace:entry.places[0].birthPlace})") {{entry.places[0].birthPlace}}
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].deathDate || entry.places[0].deathPlace")
             .panel.panel-default
               .panel-heading Died
               ul.list-group
                 li.list-group-item
-                  span(ng-show="entry.dates[0].deathDate") {{entry.dates[0].deathDate}}
+                  span(ng-show="entry.dates[0].deathDate")
+                    a(ng-click="search({deathDate:entry.dates[0].deathDate})") {{entry.dates[0].deathDate}}
                   span(ng-show="entry.dates[0].deathDate && entry.places[0].deathPlace") , 
-                  span(ng-show="entry.places[0].deathPlace") {{entry.places[0].deathPlace}}
+                  span(ng-show="entry.places[0].deathPlace")
+                    a(ng-click="search({deathPlace:entry.places[0].deathPlace})") {{entry.places[0].deathPlace}}
 
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].flourishedStartDate || entry.dates[0].flourishedEndDate")
@@ -124,7 +128,7 @@
               .panel-heading Societies & Academies
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.societies") 
-                  a(ng-click="search({societies:e.society})") {{e.society}}
+                  a(ng-click="search({societies:e.title})") {{e.title}}
                   span , {{e.role}} 
                   span(ng-show="e.from || e.to") (
                   span(ng-show="e.from") {{e.from}}

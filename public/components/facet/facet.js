@@ -3,6 +3,7 @@ app.directive('facet', function($http) {
 
     scope : {
       label : '@',
+      subgroup : '@',
       query : '=',
       field : '@',
       suggestions : '@'
@@ -14,6 +15,7 @@ app.directive('facet', function($http) {
 
       scope.open = true;
       scope.uniques = [];
+      scope.loading = false;
 
       scope.$watch('search', function(search){
         if (search && search._id.length) scope.open = true;
@@ -30,6 +32,7 @@ app.directive('facet', function($http) {
         var uniques = scope.uniques.filter(function(d){ return d.selected; }).map(function(d){ return d._id; })
         last = true;
         scope.query[scope.field] = uniques;
+        scope.selected = scope.uniques.filter(function(d){ return d.selected; }).length;
         //scope.search = "";
       }
 
@@ -50,12 +53,12 @@ app.directive('facet', function($http) {
 
         var c = angular.copy(query);
         delete c[scope.field];
-
+        scope.loading = true;
         $http.post('/api/entries/uniques/', {  field : scope.suggestions, query : c })
         .then(function (res){
+          scope.loading = false;
           var uniques = res.data.values;
           var map = d3.map(uniques, function(d){ return d._id; });
-
           scope.uniques.forEach(function(d){
             d.count = map.has(d._id) ? map.get(d._id).count : 0;
             d.selected = query.hasOwnProperty(scope.field) && query[scope.field].indexOf(d._id) != -1 ? true : false;

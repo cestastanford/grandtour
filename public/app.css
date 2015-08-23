@@ -93,6 +93,12 @@ label {
   border-left: 1px solid #eee;
 }
 
+.border-top {
+  border-top: 1px solid #eee;
+}
+
+
+
 
 .h1, h1, .h3, h3 {
   font-family: "freight-text-pro";
@@ -141,6 +147,24 @@ a:focus,
   background: #fafafa;
   padding: 10px;
 }*/
+
+.facet-wrapper {
+  position: relative;
+}
+
+.facet-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255,255,255,.9);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .form-control {
     border: 1px solid #eee;
@@ -434,6 +458,7 @@ sup {
 
 .checkbox, .radio {
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .clear-input {
@@ -456,6 +481,11 @@ sup {
   opacity: .8;
 }
 
+.facet {
+  border: 1px solid #eee;
+  padding: 6px;
+  border-radius: 2px;
+}
 
 hr {
   margin-top: 15px;

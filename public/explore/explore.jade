@@ -8,11 +8,12 @@
         .col-lg-2
           label Dimensions
           ul.list-unstyled
-            li(ng-repeat="dimension in dimensions")
+            li.border-top(ng-repeat="dimension in dimensions")
               .checkbox
                 label
                   input(type="checkbox", ng-model="dimension.active")
-                  span.small(ng-class="{ 'text-strong' : query.hasOwnProperty(dimension.field) }") {{dimension.label}}
+                  div(ng-class="{ 'text-strong' : query.hasOwnProperty(dimension.field) }") {{dimension.label}}
+                  span.small(ng-show="dimension.subgroup") {{dimension.subgroup}}
         
         .col-lg-10
           .clearfix.margin-bottom
@@ -21,17 +22,25 @@
           form
             .row
               .col-lg-3(ng-repeat='dimension in activeDimensions')
-                div(facet="", label="{{dimension.label}}", data-model="dimension.antani", field="{{dimension.field}}", suggestions='{{dimension.suggestions}}', data-query='query')
-
+                div(ng-switch="dimension.type")
+                  div(ng-switch-when="facet", facet="", label="{{dimension.label}}", subgroup="{{dimension.subgroup}}", data-model="dimension.antani", field="{{dimension.field}}", suggestions='{{dimension.suggestions}}', data-query='query')
+                  div(ng-switch-when="number")
+                    .form-group    
+                      label {{dimension.label}} 
+                        span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
+                      input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:500}")
         
     .col-lg-12 
+    
+      strong Your filters
       p
         .pill(ng-repeat="(k,v) in query") 
           .pill-dimension {{k.split('_').join(' ')}}
           .pill-value
-            span(ng-repeat="value in v")
+            span(ng-show="v | isArray" ng-repeat="value in v")
               span(ng-show="$index > 0") or 
               strong {{value}} 
+            strong(ng-hide="v | isArray") {{v}}
           .pill-value.border-left
             a.text-danger(ng-click="removeFromQuery(k)", data-toggle="tooltip", title="Remove")
               i.fa.fa-trash-o

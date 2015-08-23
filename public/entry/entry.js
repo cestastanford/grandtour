@@ -22,6 +22,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   }
 
   function createTours(travels){
+    if (!travels) return;
     var nest = d3.nest()
     .key(function(d) { return d.tourIndex; })
     .entries(travels);
@@ -35,7 +36,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   }
 
   function createMilitary(military){
-    $scope.military = military.filter(function(d){ return d.rank; })
+    $scope.military = military ? military.filter(function(d){ return d.rank; }) : [];
   }
 
   function createOccupations(occupations){
@@ -62,7 +63,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   }
 
   $scope.search = function(query){
-    $location.path('search/' + JSON.stringify(clean(query)) );
+    $location.path('search/' + JSON.stringify(query) );
   }
 
   function clean(obj){

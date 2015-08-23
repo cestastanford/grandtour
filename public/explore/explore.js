@@ -23,26 +23,37 @@ app
   };
 })
 
+.filter('isArray', function() {
+  return function (input) {
+    return angular.isArray(input);
+  };
+})
+
 .controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $q, httpQuery) {
 
   $scope.query = {};
   $scope.untouched = true;
 
   $scope.dimensions = [
-    { active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName' },
-    { active : true, label : 'Pursuits & Situations', field : 'pursuits', suggestions : 'pursuits.pursuit' },
-    { active : false, label : 'Occupations & Posts', field : 'occupations', suggestions : 'occupations.title' },
-    { active : true, label : 'Occupations & Posts (group)', field : 'occupations_group', suggestions : 'occupations.group' },
-    { active : true, label : 'Societies & Academies', field : 'societies', suggestions : 'societies.title' },
-    { active : false, label : 'Societies & Academies (role)', field : 'societies_role', suggestions : 'societies.role' },
-    { active : true, label : 'Education (institution)', field : 'education_institution', suggestions : 'education.institution' },
-    { active : false, label : 'Education (place)', field : 'education_place', suggestions : 'education.place' },
-    { active : false, label : 'Education (teacher)', field : 'education_tacher', suggestions : 'education.teacher' },
-    { active : false, label : 'Education (degree)', field : 'education_degree', suggestions : 'education.fullDegree' },
-    { active : false, label : 'Military careers', field : 'military', suggestions : 'military.rank' },
-    { active : false, label : 'Exhibitions & Awards', field : 'exhibitions', suggestions : 'exhibitions.title' },
-    { active : false, label : 'Exhibitions & Awards (award)', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
-    { active : false, label : 'Travel', field : 'travel_place', suggestions : 'travels.place' },
+    { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName' },
+    { type : 'number', active : false, label : 'Birth date', field : 'birthDate' },
+    { type : 'facet', active : false, label : 'Birth place', field : 'birthPlace', suggestions : 'places.birthPlace' },
+    { type : 'number', active : false, label : 'Death date', field : 'deathDate' },
+    { type : 'facet', active : false, label : 'Death place', field : 'deathPlace', suggestions : 'places.deathPlace' },
+    { type : 'facet', active : true, label : 'Pursuits & Situations', field : 'pursuits', suggestions : 'pursuits.pursuit' },
+    { type : 'facet', active : false, label : 'Occupations & Posts', field : 'occupations', suggestions : 'occupations.title' },
+    { type : 'facet', active : true, label : 'Occupations & Posts', subgroup: 'Group', field : 'occupations_group', suggestions : 'occupations.group' },
+    { type : 'facet', active : true, label : 'Societies & Academies', field : 'societies', suggestions : 'societies.title' },
+    { type : 'facet', active : false, label : 'Societies & Academies', subgroup: 'Role', field : 'societies_role', suggestions : 'societies.role' },
+    { type : 'facet', active : true, label : 'Education', subgroup: 'Institution', field : 'education_institution', suggestions : 'education.institution' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Place', field : 'education_place', suggestions : 'education.place' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Teacher', field : 'education_tacher', suggestions : 'education.teacher' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Degree', field : 'education_degree', suggestions : 'education.fullDegree' },
+    { type : 'facet', active : false, label : 'Military careers', field : 'military', suggestions : 'military.rank' },
+    { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', field : 'exhibitions', suggestions : 'exhibitions.title' },
+    { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
+    { type : 'facet', active : false, label : 'Travel', subgroup: 'Place', field : 'travel_place', suggestions : 'travels.place' },
+    { type : 'number', active : false, label : 'Travel', subgroup: 'Year', field : 'travel_at' },
   ]
 
   $scope.activeDimensions = [];

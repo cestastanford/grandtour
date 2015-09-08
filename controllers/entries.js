@@ -501,6 +501,7 @@ function parseExport(res){
         entry : d.index,
         travelIndex : a.travelindexTotal,
         place : a.place || "",
+        coordinates : a.latitude ? [a.latitude, a.longitude].join(",") : "",
         startDate : a.travelStartYear ? a.travelStartMonth ? a.travelStartDay ? a.travelStartYear + "/" + a.travelStartMonth + "/" + a.travelStartDay : a.travelStartYear + "/" + a.travelStartMonth : a.travelStartYear : "",
         endDate : a.travelEndYear ? a.travelEndMonth ? a.travelEndDay ? a.travelEndYear + "/" + a.travelEndMonth + "/" + a.travelEndDay : a.travelEndYear + "/" + a.travelEndMonth : a.travelEndYear : "",
       })

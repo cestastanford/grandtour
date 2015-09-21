@@ -389,6 +389,7 @@ exports.search2 = function (req, res) {
 function parseExport(res){
 
   var activities = [];
+  var activityIndex = 0;
   var travels = [];
 
   var entries = res.map(function(d){
@@ -414,6 +415,7 @@ function parseExport(res){
 
     // marriages
     if (d.marriages) d.marriages.forEach(function(a){ activities.push({
+        index : ++activityIndex,
         entry : d.index,
         type : 'marriage',
         details : a.sequence || "",
@@ -426,6 +428,7 @@ function parseExport(res){
 
     // education
     if (d.education) d.education.forEach(function(a){ activities.push({
+        index : ++activityIndex,
         entry : d.index,
         type : 'education',
         details : "",
@@ -438,6 +441,7 @@ function parseExport(res){
 
     // societies
     if (d.societies) d.societies.forEach(function(a){ activities.push({
+        index : ++activityIndex,
         entry : d.index,
         type : 'society',
         details : a.role || "",
@@ -450,6 +454,7 @@ function parseExport(res){
 
     // exhibitions
     if (d.exhibitions) d.exhibitions.forEach(function(a){ activities.push({
+        index : ++activityIndex,
         entry : d.index,
         type : 'exhibition',
         details : "",
@@ -462,6 +467,7 @@ function parseExport(res){
 
     // pursuits
     if (d.pursuits) d.pursuits.forEach(function(a){ activities.push({
+        index : ++activityIndex,
         entry : d.index,
         type : 'pursuit',
         details : "",
@@ -474,6 +480,7 @@ function parseExport(res){
 
     // occuaptions
     if (d.occupations) d.occupations.forEach(function(a){ activities.push({
+        index : ++activityIndex,
         entry : d.index,
         type : 'occupation',
         details : a.group,
@@ -486,6 +493,7 @@ function parseExport(res){
 
     // occuaptions
     if (d.military) d.occupations.forEach(function(a){ activities.push({
+        index : ++activityIndex,
         entry : d.index,
         type : 'military careers',
         details : a.officeType,
@@ -502,10 +510,15 @@ function parseExport(res){
         travelIndex : a.travelindexTotal,
         place : a.place || "",
         coordinates : a.latitude ? [a.latitude, a.longitude].join(",") : "",
-        startDate : a.travelStartYear ? a.travelStartMonth ? a.travelStartDay ? a.travelStartYear + "/" + a.travelStartMonth + "/" + a.travelStartDay : a.travelStartYear + "/" + a.travelStartMonth : a.travelStartYear : "",
-        endDate : a.travelEndYear ? a.travelEndMonth ? a.travelEndDay ? a.travelEndYear + "/" + a.travelEndMonth + "/" + a.travelEndDay : a.travelEndYear + "/" + a.travelEndMonth : a.travelEndYear : "",
+        startDate : a.travelStartYear ? a.travelStartYear + "-" + (a.travelStartMonth || "01") + "-" + (a.travelStartDay || "01") : "", //a.travelStartMonth ? a.travelStartDay ? a.travelStartYear + "/" + (a.travelStartMonth || "01") + "/" + (a.travelStartDay || "01") : a.travelStartYear + "/" + a.travelStartMonth : a.travelStartYear : "",
+        endDate : a.travelEndYear ? a.travelEndYear + "-" +  (a.travelEndMonth || "01") + "-" + (a.travelEndDay || "01") : "" //a.travelEndMonth ? a.travelEndDay ? a.travelEndYear + "/" + a.travelEndMonth + "/" + a.travelEndDay : a.travelEndYear + "/" + a.travelEndMonth : a.travelEndYear : "",
       })
     })
+
+    entry.activities = activities
+      .filter(function(d){ return d.entry == entry.index; })
+      .map(function(d){ return d.index; })
+      .join(",")
 
     return entry;
   })

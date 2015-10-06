@@ -152,6 +152,10 @@ a:focus,
   position: relative;
 }
 
+.select-facet-sorting {
+  float: right;
+}
+
 .facet-overlay {
   position: absolute;
   top: 0;
@@ -373,6 +377,7 @@ sup {
 }
 
 .mini-table {
+  clear: both;
   max-height: 230px;
   overflow-y: scroll;
 }

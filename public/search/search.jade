@@ -182,9 +182,25 @@
           label Free search in the entries
           input.input-sm.form-control(
             type="text", 
-            ng-model="query.entry",
+            ng-model="freeSearchQuery",
             placeholder="text",
-            ng-class="{ filled : query.entry }")
+            ng-class="{ filled : freeSearchQuery }")
+          .checkbox
+            label
+              input(type="checkbox", ng-model="freeSearchSections.biography")
+              div Biography
+          .checkbox
+            label
+              input(type="checkbox", ng-model="freeSearchSections.tours")
+              div Tours
+          .checkbox
+            label
+              input(type="checkbox", ng-model="freeSearchSections.narrative")
+              div Narrative
+          .checkbox
+            label
+              input(type="checkbox", ng-model="freeSearchSections.notes")
+              div Notes
         
 
         button.btn.btn-primary(ng-click="search()", type="submit") Search

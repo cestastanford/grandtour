@@ -6,6 +6,8 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   $scope.query = {};
   $scope.untouched = true;
 
+  $scope.freeSearchSections = { biography: true, tours: true, narrative: true, notes: true };
+
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
     $scope.searching = true;
@@ -20,7 +22,35 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
       else $scope.noResults = true;
     });
 
+    if ($scope.query.entry) {
+      for (var k in $scope.freeSearchSections) {
+        if ($scope.query.entry[k]) $scope.freeSearchQuery = $scope.query.entry[k];
+        else $scope.freeSearchSections[k] = false;
+      }
+    }
   }
+
+  $scope.$watch('freeSearchQuery', function(newValue) {
+    for (var section in $scope.freeSearchSections) {
+      if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
+        if (!$scope.query.entry) $scope.query.entry = {};
+        $scope.query.entry[section] = $scope.freeSearchQuery;
+      }
+    }
+  });
+
+  $scope.$watchCollection('freeSearchSections', function(newValues) {
+    for (var section in $scope.freeSearchSections) {
+      if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
+        if (!$scope.query.entry) $scope.query.entry = {};
+        $scope.query.entry[section] = $scope.freeSearchQuery;
+      }
+      else if ($scope.query.entry) {
+        delete $scope.query.entry[section];
+        if (Object.keys($scope.query.entry).length === 0) delete $scope.query.entry;
+      }
+    }
+  });
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );

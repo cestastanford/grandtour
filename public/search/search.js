@@ -6,6 +6,15 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   $scope.query = {};
   $scope.untouched = true;
 
+  $scope.travelDateQueryType = 'exact';
+  $scope.travelDateQuery = {};
+
+  $scope.setTravelDateQueryType = function(type) {
+    $scope.travelDateQueryType = type;
+    $scope.travelDateQuery = {};
+    delete $scope.query.travel_date;
+  }
+
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
     $scope.searching = true;
@@ -20,7 +29,26 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
       else $scope.noResults = true;
     });
 
+    if ($scope.query.travel_date) {
+      if ($scope.query.travel_date.at) {
+        $scope.travelDateQuery.at = $scope.query.travel_date.at;
+      } else {
+        $scope.travelDateQueryType = 'range';
+        if ($scope.query.travel_date.start) $scope.travelDateQuery.start = $scope.query.travel_date.start;
+        if ($scope.query.travel_date.end) $scope.travelDateQuery.end = $scope.query.travel_date.end;
+      }
+    }
   }
+
+  $scope.$watch('travelDateQuery', function(tQ) {
+    if (tQ.at) $scope.query.travel_date = { at: tQ.at };
+    else if (tQ.start || tQ.end) {
+      $scope.query.travel_date = {};
+      if (tQ.start) $scope.query.travel_date.start = tQ.start;
+      if (tQ.end) $scope.query.travel_date.end = tQ.end;
+    }
+    else delete $scope.query.travel_date;
+  }, true)
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );

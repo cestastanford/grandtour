@@ -172,9 +172,29 @@
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="query.travel_at",
+            ng-model="travelDateQuery.at",
             placeholder="year",
-            ng-class="{ filled : query.travel_at }")
+            ng-class="{ filled : travelDateQuery.at }"
+            ng-show="travelDateQueryType === 'exact'")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="travelDateQuery.start",
+            placeholder="starting year",
+            ng-class="{ filled : travelDateQuery.start }"
+            ng-show="travelDateQueryType === 'range'")
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="travelDateQuery.end",
+            placeholder="ending year",
+            ng-class="{ filled : travelDateQuery.end }"
+            ng-show="travelDateQueryType === 'range'")
+          span.date-query-type.label search by: 
+          span.date-query-type(
+            ng-click="setTravelDateQueryType('exact')"
+            ng-class="{selected: travelDateQueryType === 'exact'}") exact year
+          span.date-query-type(
+            ng-click="setTravelDateQueryType('range')"
+            ng-class="{selected: travelDateQueryType === 'range'}") range of years
 
         hr
 

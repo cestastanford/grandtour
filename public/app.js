@@ -131,7 +131,7 @@ var app = angular.module('app', [
     })
 
     .state('explore', {
-      url: "/explore/",
+      url: "/explore/:query",
       templateUrl: "views/explore",
       controller: "ExploreCtrl",
       resolve: {

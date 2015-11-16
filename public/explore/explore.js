@@ -106,6 +106,9 @@ app
     $('[data-toggle="tooltip"]').tooltip();
     if (!Object.getOwnPropertyNames(query).length) $scope.clear();
 
+    console.log('saved query: ', query);
+    $location.path('explore/' + JSON.stringify(clean($scope.query)) );
+
     runQuery(query);
 
   }, true)

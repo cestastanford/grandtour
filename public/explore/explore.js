@@ -29,7 +29,7 @@ app
   };
 })
 
-.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $q, httpQuery) {
+.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $state, $q, httpQuery) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -59,25 +59,19 @@ app
 
   $scope.activeDimensions = [];
 
+  if($stateParams.query) {
+    $scope.query = JSON.parse($stateParams.query);
+    console.log('loaded query: ', $scope.query);
+    for (queryField in $scope.query) {
+      var dimension = $scope.dimensions.filter(function(d) { return d.field === queryField; })[0];
+      dimension.active = true;
+      console.log(queryField, dimension);
+    };
+  }
+
   $scope.$watch('dimensions',function(dimensions){
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
   },true)
-
-  if($stateParams.query) {
-    $scope.query = JSON.parse($stateParams.query);
-    $scope.searching = true;
-    $http.post('/api/entries/search', {
-        query: $scope.query
-      }
-    )
-    .success(function(res){
-      $scope.searching = false;
-      $scope.entries = res.entries;
-      if (res.entries.length) $scope.noResults = false;
-      else $scope.noResults = true;
-      $('[data-toggle="tooltip"]').tooltip()
-    });
-  }
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );
@@ -106,8 +100,7 @@ app
     $('[data-toggle="tooltip"]').tooltip();
     if (!Object.getOwnPropertyNames(query).length) $scope.clear();
 
-    console.log('saved query: ', query);
-    $location.path('explore/' + JSON.stringify(clean($scope.query)) );
+    $state.go('explore', { query: JSON.stringify(clean(query)) }, { notify: false, reload: false });
 
     runQuery(query);
 

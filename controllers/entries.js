@@ -274,7 +274,19 @@ var searchMap = {
     ]
   } } } },
 
-  entry : function(d) { return { entry : { $regex : new RegExp(escapeRegExp(d), "gi") } } },
+  entry : function(d) {
+    var or = [];
+    for (var section in d) {
+      queryObj = {};
+      if (section === 'tours') {
+
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp(escapeRegExp(d[section]), "gi") } } };
+
+      } else queryObj[section] = { $regex : new RegExp(escapeRegExp(d[section]), "gi") };
+      or.push(queryObj);
+    }
+    return { $or : or };
+  },
 
 }
 
@@ -297,7 +309,7 @@ function merge(obj1, obj2) {
 function parseQuery(query) {
   var o = []
   for (var k in query){
-    if (typeof query[k] == 'object') {
+    if (query[k].constructor === Array) {
       var s = { $or : [] }
       for (var i in query[k]) {
         s.$or.push( searchMap[k](query[k][i]) );

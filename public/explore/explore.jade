@@ -34,6 +34,27 @@
                       label {{dimension.label}} 
                         span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
                       input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:1000}")
+                  div(ng-switch-when="freesearch")
+                    .form-group    
+                      label {{dimension.label}} 
+                        span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
+                      input.input-sm.form-control(type="text", ng-model="freeSearchModel.query", ng-model-options="{debounce:1000}")
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.biography")
+                          div Biography
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.tours")
+                          div Tours
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.narrative")
+                          div Narrative
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.notes")
+                          div Notes
         
     .col-lg-12 
     

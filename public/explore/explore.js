@@ -34,6 +34,17 @@ app
   $scope.query = {};
   $scope.untouched = true;
 
+  // setup for free search by section
+  var freeSearchModel = {};
+
+  function initFreeSearchModel() {
+    freeSearchModel = {};
+    freeSearchModel.sections = { biography: true, tours: true, narrative: true, notes: true };
+    $scope.freeSearchModel = freeSearchModel;
+  }
+
+  initFreeSearchModel();
+
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName' },
     { type : 'number', active : false, label : 'Birth date', field : 'birthDate' },
@@ -54,7 +65,7 @@ app
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
     { type : 'facet', active : false, label : 'Travel', subgroup: 'Place', field : 'travel_place', suggestions : 'travels.place' },
     { type : 'number', active : false, label : 'Travel', subgroup: 'Year', field : 'travel_at' },
-    { type : 'text', active : false, label : 'Free search', field : 'entry' },
+    { type : 'freesearch', active : false, label : 'Free search', field : 'entry' },
   ]
 
   $scope.activeDimensions = [];
@@ -65,13 +76,49 @@ app
       var dimension = $scope.dimensions.filter(function(d) { return d.field === queryField; })[0];
       dimension.active = true;
     };
+
+    //  setup for free search by section
+    if ($scope.query.entry) {
+      for (var k in freeSearchModel.sections) {
+        if ($scope.query.entry[k]) $scope.freeSearchModel.query = $scope.query.entry[k];
+        else $scope.freeSearchModel.sections[k] = false;
+      }
+    }
   }
+
+  //  support for free search by section
+  $scope.$watch('freeSearchModel.query', function(newValue) {
+    console.log('new free search query: ', newValue);
+    for (var section in freeSearchModel.sections) {
+      if (freeSearchModel.sections[section] && freeSearchModel.query) {
+        if (!$scope.query.entry) $scope.query.entry = {};
+        $scope.query.entry[section] = freeSearchModel.query;
+      } else if ($scope.query.entry) delete $scope.query.entry[section];
+    }
+    queryUpdated($scope.query);
+  });
+
+  $scope.$watchCollection('freeSearchModel.sections', function(newValues) {
+    console.log('new free search sections: ', newValues);
+    for (var section in freeSearchModel.sections) {
+      if (freeSearchModel.sections[section] && freeSearchModel.query) {
+        if (!$scope.query.entry) $scope.query.entry = {};
+        $scope.query.entry[section] = freeSearchModel.query;
+      }
+      else if ($scope.query.entry) {
+        delete $scope.query.entry[section];
+        if (Object.keys($scope.query.entry).length === 0) delete $scope.query.entry;
+      }
+    }
+    queryUpdated($scope.query);
+  });
 
   $scope.$watch('dimensions',function(dimensions){
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
     for (var i = 0; i < dimensions.length; i++) {
       if (!dimensions[i].active) {
         $scope.removeFromQuery(dimensions[i].field);
+        if (dimensions[i].field === 'entry') initFreeSearchModel();
       };
     }
   },true)
@@ -88,14 +135,14 @@ app
     httpPromise.then(function (data) {
       $scope.searching = false;
       $scope.entries = data.entries;
+      console.log('returned entries: ', data.entries);
       if (data.entries.length) $scope.noResults = false;
       else $scope.noResults = true;
       $('[data-toggle="tooltip"]').tooltip()
     });
   };
 
-
-  $scope.$watch('query', function(query){
+  function queryUpdated(query){
     for (var k in query){
       if (!/\S/.test(query[k])) delete query[k]
     }
@@ -104,10 +151,12 @@ app
     if (!Object.getOwnPropertyNames(query).length) $scope.clear();
 
     $state.go('explore', { query: JSON.stringify(clean(query)) }, { notify: false, reload: false });
-
+    console.log('submitted query: ', query);
     runQuery(query);
 
-  }, true)
+  }
+
+  $scope.$watch('query', queryUpdated, true);
 
   $scope.getSuggestions = function(field, value){
     return $http.post('/api/entries/suggest/', {  field : field, value : value })

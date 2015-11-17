@@ -29,7 +29,7 @@ app
   };
 })
 
-.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $q, httpQuery) {
+.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $state, $q, httpQuery) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -47,7 +47,7 @@ app
     { type : 'facet', active : false, label : 'Societies & Academies', subgroup: 'Role', field : 'societies_role', suggestions : 'societies.role' },
     { type : 'facet', active : true, label : 'Education', subgroup: 'Institution', field : 'education_institution', suggestions : 'education.institution' },
     { type : 'facet', active : false, label : 'Education', subgroup: 'Place', field : 'education_place', suggestions : 'education.place' },
-    { type : 'facet', active : false, label : 'Education', subgroup: 'Teacher', field : 'education_tacher', suggestions : 'education.teacher' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Teacher', field : 'education_teacher', suggestions : 'education.teacher' },
     { type : 'facet', active : false, label : 'Education', subgroup: 'Degree', field : 'education_degree', suggestions : 'education.fullDegree' },
     { type : 'facet', active : false, label : 'Military careers', field : 'military', suggestions : 'military.rank' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', field : 'exhibitions', suggestions : 'exhibitions.title' },
@@ -59,25 +59,22 @@ app
 
   $scope.activeDimensions = [];
 
-  $scope.$watch('dimensions',function(dimensions){
-    $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
-  },true)
-
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
-    $scope.searching = true;
-    $http.post('/api/entries/search', {
-        query: $scope.query
-      }
-    )
-    .success(function(res){
-      $scope.searching = false;
-      $scope.entries = res.entries;
-      if (res.entries.length) $scope.noResults = false;
-      else $scope.noResults = true;
-      $('[data-toggle="tooltip"]').tooltip()
-    });
+    for (queryField in $scope.query) {
+      var dimension = $scope.dimensions.filter(function(d) { return d.field === queryField; })[0];
+      dimension.active = true;
+    };
   }
+
+  $scope.$watch('dimensions',function(dimensions){
+    $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
+    for (var i = 0; i < dimensions.length; i++) {
+      if (!dimensions[i].active) {
+        $scope.removeFromQuery(dimensions[i].field);
+      };
+    }
+  },true)
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );
@@ -105,6 +102,8 @@ app
     $scope.untouched = Object.getOwnPropertyNames(query).length == 0;
     $('[data-toggle="tooltip"]').tooltip();
     if (!Object.getOwnPropertyNames(query).length) $scope.clear();
+
+    $state.go('explore', { query: JSON.stringify(clean(query)) }, { notify: false, reload: false });
 
     runQuery(query);
 

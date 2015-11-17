@@ -36,14 +36,23 @@ app
 
   // setup for free search by section
   var freeSearchModel = {};
-
   function initFreeSearchModel() {
     freeSearchModel = {};
     freeSearchModel.sections = { biography: true, tours: true, narrative: true, notes: true };
     $scope.freeSearchModel = freeSearchModel;
-  }
-
+  };
   initFreeSearchModel();
+
+  // setup for travel date range search
+  var travelDateModel = {};
+  $scope.resetTravelDateModel = function(type) {
+    travelDateModel = {};
+    travelDateModel.queryType = type;
+    travelDateModel.query = {};
+    $scope.travelDateModel = travelDateModel;
+    delete $scope.query.travel_date;
+  };
+  $scope.resetTravelDateModel('exact');
 
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName' },
@@ -64,7 +73,7 @@ app
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', field : 'exhibitions', suggestions : 'exhibitions.title' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
     { type : 'facet', active : false, label : 'Travel', subgroup: 'Place', field : 'travel_place', suggestions : 'travels.place' },
-    { type : 'number', active : false, label : 'Travel', subgroup: 'Year', field : 'travel_at' },
+    { type : 'traveldate', active : false, label : 'Travel', subgroup: 'Year', field : 'travel_date' },
     { type : 'freesearch', active : false, label : 'Free search', field : 'entry' },
   ]
 
@@ -84,11 +93,21 @@ app
         else $scope.freeSearchModel.sections[k] = false;
       }
     }
+
+    //  setup for travel date range search
+    if ($scope.query.travel_date) {
+      if ($scope.query.travel_date.at) {
+        travelDateModel.query.at = $scope.query.travel_date.at;
+      } else {
+        travelDateModel.queryType = 'range';
+        if ($scope.query.travel_date.start) travelDateModel.query.start = $scope.query.travel_date.start;
+        if ($scope.query.travel_date.end) travelDateModel.query.end = $scope.query.travel_date.end;
+      }
+    }
   }
 
   //  support for free search by section
   $scope.$watch('freeSearchModel.query', function(newValue) {
-    console.log('new free search query: ', newValue);
     for (var section in freeSearchModel.sections) {
       if (freeSearchModel.sections[section] && freeSearchModel.query) {
         if (!$scope.query.entry) $scope.query.entry = {};
@@ -99,7 +118,6 @@ app
   });
 
   $scope.$watchCollection('freeSearchModel.sections', function(newValues) {
-    console.log('new free search sections: ', newValues);
     for (var section in freeSearchModel.sections) {
       if (freeSearchModel.sections[section] && freeSearchModel.query) {
         if (!$scope.query.entry) $scope.query.entry = {};
@@ -113,12 +131,24 @@ app
     queryUpdated($scope.query);
   });
 
+  //  support for travel date range search
+  $scope.$watch('travelDateModel.query', function(tQ) {
+    if (tQ.at) $scope.query.travel_date = { at: tQ.at };
+    else if (tQ.start || tQ.end) {
+      $scope.query.travel_date = {};
+      if (tQ.start) $scope.query.travel_date.start = tQ.start;
+      if (tQ.end) $scope.query.travel_date.end = tQ.end;
+    }
+    else delete $scope.query.travel_date;
+  }, true)
+
   $scope.$watch('dimensions',function(dimensions){
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
     for (var i = 0; i < dimensions.length; i++) {
       if (!dimensions[i].active) {
         $scope.removeFromQuery(dimensions[i].field);
         if (dimensions[i].field === 'entry') initFreeSearchModel();
+        if (dimensions[i].field === 'travel_date') $scope.resetTravelDateModel('exact');
       };
     }
   },true)
@@ -135,7 +165,6 @@ app
     httpPromise.then(function (data) {
       $scope.searching = false;
       $scope.entries = data.entries;
-      console.log('returned entries: ', data.entries);
       if (data.entries.length) $scope.noResults = false;
       else $scope.noResults = true;
       $('[data-toggle="tooltip"]').tooltip()
@@ -151,7 +180,6 @@ app
     if (!Object.getOwnPropertyNames(query).length) $scope.clear();
 
     $state.go('explore', { query: JSON.stringify(clean(query)) }, { notify: false, reload: false });
-    console.log('submitted query: ', query);
     runQuery(query);
 
   }

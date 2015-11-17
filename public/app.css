@@ -540,12 +540,19 @@ hr {
   font-weight: 400;
   text-decoration: underline;
   font-size: 12px;
-  margin-left: 10px;
+  margin-left: 5px;
   color: gray;
   cursor: pointer;
 }
 
 .date-query-type.label {
+  text-decoration: none;
+  cursor: default;
+}
+
+.date-query-type.label.explore {
+  margin: 0px;
+  padding: 0px;
   text-decoration: none;
   cursor: default;
 }

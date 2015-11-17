@@ -41,20 +41,49 @@
                       input.input-sm.form-control(type="text", ng-model="freeSearchModel.query", ng-model-options="{debounce:1000}")
                       .checkbox
                         label
-                          input(type="checkbox", ng-model="freeSearchModel.sections.biography")
+                          input(type="checkbox", ng-model="freeSearchModel.sections.biography", ng-model-options="{debounce:1000}")
                           div Biography
                       .checkbox
                         label
-                          input(type="checkbox", ng-model="freeSearchModel.sections.tours")
+                          input(type="checkbox", ng-model="freeSearchModel.sections.tours", ng-model-options="{debounce:1000}")
                           div Tours
                       .checkbox
                         label
-                          input(type="checkbox", ng-model="freeSearchModel.sections.narrative")
+                          input(type="checkbox", ng-model="freeSearchModel.sections.narrative", ng-model-options="{debounce:1000}")
                           div Narrative
                       .checkbox
                         label
-                          input(type="checkbox", ng-model="freeSearchModel.sections.notes")
+                          input(type="checkbox", ng-model="freeSearchModel.sections.notes", ng-model-options="{debounce:1000}")
                           div Notes
+                  div(ng-switch-when="traveldate")
+                    .form-group    
+                      label {{dimension.label}} 
+                        span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
+                      input.input-sm.form-control.margin-top(
+                        type="text", 
+                        ng-model="travelDateModel.query.at",
+                        ng-model-options="{debounce:1000}",
+                        placeholder="year",
+                        ng-show="travelDateModel.queryType === 'exact'")
+                      input.input-sm.form-control.margin-top(
+                        type="text", 
+                        ng-model="travelDateModel.query.start",
+                        ng-model-options="{debounce:1000}",
+                        placeholder="starting year",
+                        ng-show="travelDateModel.queryType === 'range'")
+                      input.input-sm.form-control.margin-top(
+                        type="text", 
+                        ng-model="travelDateModel.query.end",
+                        ng-model-options="{debounce:1000}",
+                        placeholder="ending year",
+                        ng-show="travelDateModel.queryType === 'range'")
+                      span.date-query-type.label.explore search by: 
+                      span.date-query-type(
+                        ng-click="resetTravelDateModel('exact')"
+                        ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
+                      span.date-query-type(
+                        ng-click="resetTravelDateModel('range')"
+                        ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
         
     .col-lg-12 
     

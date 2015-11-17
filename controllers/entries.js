@@ -267,13 +267,26 @@ var searchMap = {
   military : function(d) { return { military : { $elemMatch : { rank : d  } } } },
 
   travel_place : function(d) { return { travels : { $elemMatch : { place : d}  } } },
-  travel_at : function(d) { return { travels : { $elemMatch : {
-    $or : [
-      { $and : [ { travelStartYear : { $lte : +d, $ne : 0 } } , { travelEndYear : { $gte : +d } } ] },
-      { $and : [ { travelStartYear : +d } , { travelEndYear : 0 } ] },
-    ]
-  } } } },
-
+  travel_date : function(d) {
+    if (d.at) {
+      return { travels : { $elemMatch : {
+        $or : [
+          { $and : [ { travelStartYear : { $lte : +d.at, $ne : 0 } } , { travelEndYear : { $gte : +d.at } } ] },
+          { $and : [ { travelStartYear : +d.at } , { travelEndYear : 0 } ] },
+        ]
+      } } };
+    } else {
+      var and = [];
+      if (d.start) {
+        and.push({ travelEndYear: { $gte : +d.start, $ne : 0 } });
+      }
+      if (d.end) {
+        and.push({ travelStartYear: { $lte : +d.end, $ne : 0 } });
+      }
+      return { travels : { $elemMatch : { $and : and } } };
+    }
+  },
+  
   entry : function(d) {
     var or = [];
     for (var section in d) {

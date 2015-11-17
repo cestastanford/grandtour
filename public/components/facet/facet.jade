@@ -13,11 +13,14 @@
 
     div.margin-bottom(ng-show="uniques.length")
       a.small(ng-click="open=!open") {{ open ? 'Show selected only' : 'Show all' }}  
+      div.select-facet-sorting.btn-group.btn-group-xs(ng-model="sortingSelection", ng-init="sortingSelection = '-count'")
+        button.btn.btn-default#sort-by-count(type="button", ng-click="sortingSelection = '-count'") #
+        button.btn.btn-default(type="button", ng-click="sortingSelection = '_id'") A
     
     .mini-table(ng-show="uniques.length")
       table.table
         tbody
-          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:['-count'])", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
+          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection)", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
             td
               .checkbox
                 label
@@ -28,4 +31,3 @@
             td 
               span.text-light Sorry, no results for 
                 strong {{search._id}}
-    

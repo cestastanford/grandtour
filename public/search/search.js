@@ -44,7 +44,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
     //  setup for travel date range search
     if ($scope.query.travel_date) {
       if ($scope.query.travel_date.at) {
-        $scope.travelDateQuery.at = $scope.query.travel_date.at;
+        $scope.travelDateQuery.atYear = $scope.query.travel_date.at.year;
       } else {
         $scope.travelDateQueryType = 'range';
         if ($scope.query.travel_date.start) $scope.travelDateQuery.start = $scope.query.travel_date.start;
@@ -78,7 +78,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
 
   //  support for travel date range search
   $scope.$watch('travelDateQuery', function(tQ) {
-    if (tQ.at) $scope.query.travel_date = { at: tQ.at };
+    if (tQ.atYear) $scope.query.travel_date = { at: { year : tQ.atYear } };
     else if (tQ.start || tQ.end) {
       $scope.query.travel_date = {};
       if (tQ.start) $scope.query.travel_date.start = tQ.start;

@@ -203,12 +203,29 @@ var searchMapRE = {
   travel_place : function(d) { return { travels : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
   travel_date : function(d) {
     if (d.at) {
-      return { travels : { $elemMatch : {
-        $or : [
-          { $and : [ { travelStartYear : { $lte : +d.at, $ne : 0 } } , { travelEndYear : { $gte : +d.at } } ] },
-          { $and : [ { travelStartYear : +d.at } , { travelEndYear : 0 } ] },
+      var queryObj = { travels : { $elemMatch : {
+        $and : [
+          {
+            $or : [
+              { $and : [ { travelStartYear : { $lte : +d.at.year, $ne : 0 } } , { travelEndYear : { $gte : +d.at.year } } ] },
+              { $and : [ { travelStartYear : +d.at.year } , { travelEndYear : 0 } ] },
+            ]
+          }
         ]
       } } };
+      if (d.at.month) queryObj.travels.$elemMatch.$and.push({
+        $or : [
+          { $and : [ { travelStartMonth : { $lte : +d.at.month, $ne : 0 } } , { travelEndMonth : { $gte : +d.at.month } } ] },
+          { $and : [ { travelStartMonth : +d.at.month } , { travelEndMonth : 0 } ] },
+        ]
+      });
+      if (d.at.day) queryObj.travels.$elemMatch.$and.push({
+        $or : [
+          { $and : [ { travelStartDay : { $lte : +d.at.day, $ne : 0 } } , { travelEndDay : { $gte : +d.at.day } } ] },
+          { $and : [ { travelStartDay : +d.at.day } , { travelEndDay : 0 } ] },
+        ]
+      });
+      return queryObj;
     } else {
       var and = [];
       if (d.start) {

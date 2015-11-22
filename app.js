@@ -55,7 +55,7 @@ passport.deserializeUser(User.deserializeUser());
 // Connect mongoose gt3 'mongodb://localhost/gt3'
 // mongoose.connect('mongodb://localhost/gt3' , function(err) {
 
-mongoose.connect('mongodb://gte:gte2015@ds051883.mongolab.com:51883/heroku_5z0x0w56' , function(err) {
+mongoose.connect('mongodb://localhost:27017' , function(err) {
   if (err) {
     console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
   }

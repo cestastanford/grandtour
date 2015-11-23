@@ -10,18 +10,18 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   $scope.freeSearchSections = { biography: true, tours: true, narrative: true, notes: true };
 
   // setup for travel date range search
-  $scope.travelDateQueryType = 'exact';
-  $scope.travelDateQuery = {};
-
-  $scope.setTravelDateQueryType = function(type) {
-    $scope.travelDateQueryType = type;
-    $scope.travelDateQuery = {};
+  $scope.resetTravelDateModel = function(type) {
+    travelDateModel = { queryType: type, query: {} };
+    $scope.travelDateModel = travelDateModel;
     delete $scope.query.travel_date;
-  }
+  };
+  var travelDateModel;
+  $scope.resetTravelDateModel('exact');
 
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
     $scope.searching = true;
+    console.log('query posted: ', $scope.query);
     $http.post('/api/entries/search2', {
         query: $scope.query
       }
@@ -43,13 +43,12 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
 
     //  setup for travel date range search
     if ($scope.query.travel_date) {
-      if ($scope.query.travel_date.at) {
-        $scope.travelDateQuery.atYear = $scope.query.travel_date.at.year;
-      } else {
-        $scope.travelDateQueryType = 'range';
-        if ($scope.query.travel_date.start) $scope.travelDateQuery.start = $scope.query.travel_date.start;
-        if ($scope.query.travel_date.end) $scope.travelDateQuery.end = $scope.query.travel_date.end;
+      if ($scope.query.travel_date.startYear !== $scope.query.travel_date.endYear ||
+          $scope.query.travel_date.startMonth !== $scope.query.travel_date.endMonth ||
+          $scope.query.travel_date.startDay !== $scope.query.travel_date.endDay) {
+        travelDateModel.queryType = 'range';
       }
+      travelDateModel.query = $scope.query.travel_date;
     }
   }
 
@@ -77,15 +76,15 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   });
 
   //  support for travel date range search
-  $scope.$watch('travelDateQuery', function(tQ) {
-    if (tQ.atYear) $scope.query.travel_date = { at: { year : tQ.atYear } };
-    else if (tQ.start || tQ.end) {
-      $scope.query.travel_date = {};
-      if (tQ.start) $scope.query.travel_date.start = tQ.start;
-      if (tQ.end) $scope.query.travel_date.end = tQ.end;
+  $scope.$watchCollection('travelDateModel.query', function(query) {
+    for (key in query) if (!query[key]) delete query[key];
+    if (travelDateModel.queryType === 'exact') {
+      if (query.startYear) query.endYear = query.startYear;
+      if (query.startMonth) query.endMonth = query.startMonth;
+      if (query.startDay) query.endDay = query.startDay;
     }
-    else delete $scope.query.travel_date;
-  }, true)
+    if (Object.getOwnPropertyNames(query).length > 0) $scope.query.travel_date = query;
+  })
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );

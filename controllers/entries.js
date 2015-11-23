@@ -202,40 +202,64 @@ var searchMapRE = {
 
   travel_place : function(d) { return { travels : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
   travel_date : function(d) {
-    if (d.at) {
-      var queryObj = { travels : { $elemMatch : {
-        $and : [
-          {
-            $or : [
-              { $and : [ { travelStartYear : { $lte : +d.at.year, $ne : 0 } } , { travelEndYear : { $gte : +d.at.year } } ] },
-              { $and : [ { travelStartYear : +d.at.year } , { travelEndYear : 0 } ] },
-            ]
-          }
-        ]
-      } } };
-      if (d.at.month) queryObj.travels.$elemMatch.$and.push({
-        $or : [
-          { $and : [ { travelStartMonth : { $lte : +d.at.month, $ne : 0 } } , { travelEndMonth : { $gte : +d.at.month } } ] },
-          { $and : [ { travelStartMonth : +d.at.month } , { travelEndMonth : 0 } ] },
-        ]
+    
+    var outer = [];
+
+    if (d.startYear) {
+
+      outer.push({
+        $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [ { travelEndYear : +d.startYear } ] } ]
       });
-      if (d.at.day) queryObj.travels.$elemMatch.$and.push({
-        $or : [
-          { $and : [ { travelStartDay : { $lte : +d.at.day, $ne : 0 } } , { travelEndDay : { $gte : +d.at.day } } ] },
-          { $and : [ { travelStartDay : +d.at.day } , { travelEndDay : 0 } ] },
-        ]
-      });
-      return queryObj;
-    } else {
-      var and = [];
-      if (d.start) {
-        and.push({ travelEndYear: { $gte : +d.start, $ne : 0 } });
+
+      if (d.startMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [ { travelEndMonth : +d.startMonth } ] } ]
+        });
+
+        if (d.startDay) {
+
+          var inner = middle[0].$or[1].$and;
+          inner.push({
+            $or : [ { travelEndDay : { $gte : +d.startDay } } ]
+          });
+
+        }
+
       }
-      if (d.end) {
-        and.push({ travelStartYear: { $lte : +d.end, $ne : 0 } });
-      }
-      return { travels : { $elemMatch : { $and : and } } };
+
     }
+
+    if (d.endYear) {
+
+      outer.push({
+        $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.endYear } ] } ]
+      });
+
+      if (d.endMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.endMonth } ] } ]
+        });
+
+        if (d.endDay) {
+
+          var inner = middle[0].$or[1].$and;
+          inner.push({
+            $or : [ { travelStartDay : { $lte : +d.endDay, $ne : 0 } } ]
+          });
+
+        }
+
+      }
+
+    }
+
+    console.log(JSON.stringify(outer));
+    return { travels : { $elemMatch : { $and : outer } } };
+
   },
 
   entry : function(d) {

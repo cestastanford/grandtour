@@ -220,7 +220,7 @@ var searchMapRE = {
 
         if (d.startDay) {
 
-          var inner = middle[0].$or[1].$and;
+          var inner = middle[1].$or[1].$and;
           inner.push({
             $or : [ { travelEndDay : { $gte : +d.startDay } } ]
           });
@@ -246,7 +246,7 @@ var searchMapRE = {
 
         if (d.endDay) {
 
-          var inner = middle[0].$or[1].$and;
+          var inner = middle[1].$or[1].$and;
           inner.push({
             $or : [ { travelStartDay : { $lte : +d.endDay, $ne : 0 } } ]
           });

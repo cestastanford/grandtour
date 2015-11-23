@@ -21,7 +21,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
     $scope.searching = true;
-    console.log('query posted: ', $scope.query);
     $http.post('/api/entries/search2', {
         query: $scope.query
       }
@@ -77,12 +76,12 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
 
   //  support for travel date range search
   $scope.$watchCollection('travelDateModel.query', function(query) {
-    for (key in query) if (!query[key]) delete query[key];
     if (travelDateModel.queryType === 'exact') {
-      if (query.startYear) query.endYear = query.startYear;
-      if (query.startMonth) query.endMonth = query.startMonth;
-      if (query.startDay) query.endDay = query.startDay;
+      query.endYear = query.startYear;
+      query.endMonth = query.startMonth;
+      query.endDay = query.startDay;
     }
+    for (key in query) if (!query[key]) delete query[key];
     if (Object.getOwnPropertyNames(query).length > 0) $scope.query.travel_date = query;
   })
 

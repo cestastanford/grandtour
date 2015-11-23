@@ -44,14 +44,12 @@ app
   initFreeSearchModel();
 
   // setup for travel date range search
-  var travelDateModel = {};
   $scope.resetTravelDateModel = function(type) {
-    travelDateModel = {};
-    travelDateModel.queryType = type;
-    travelDateModel.query = {};
+    travelDateModel = { queryType: type, query: {} };
     $scope.travelDateModel = travelDateModel;
     delete $scope.query.travel_date;
   };
+  var travelDateModel;
   $scope.resetTravelDateModel('exact');
 
   $scope.dimensions = [
@@ -73,7 +71,7 @@ app
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', field : 'exhibitions', suggestions : 'exhibitions.title' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
     { type : 'facet', active : false, label : 'Travel', subgroup: 'Place', field : 'travel_place', suggestions : 'travels.place' },
-    { type : 'traveldate', active : false, label : 'Travel', subgroup: 'Year', field : 'travel_date' },
+    { type : 'traveldate', active : false, label : 'Travel', subgroup: 'Date', field : 'travel_date' },
     { type : 'freesearch', active : false, label : 'Free search', field : 'entry' },
   ]
 
@@ -96,13 +94,12 @@ app
 
     //  setup for travel date range search
     if ($scope.query.travel_date) {
-      if ($scope.query.travel_date.at) {
-        travelDateModel.query.at = $scope.query.travel_date.at;
-      } else {
+      if ($scope.query.travel_date.startYear !== $scope.query.travel_date.endYear ||
+          $scope.query.travel_date.startMonth !== $scope.query.travel_date.endMonth ||
+          $scope.query.travel_date.startDay !== $scope.query.travel_date.endDay) {
         travelDateModel.queryType = 'range';
-        if ($scope.query.travel_date.start) travelDateModel.query.start = $scope.query.travel_date.start;
-        if ($scope.query.travel_date.end) travelDateModel.query.end = $scope.query.travel_date.end;
       }
+      travelDateModel.query = $scope.query.travel_date;
     }
   }
 
@@ -132,15 +129,17 @@ app
   });
 
   //  support for travel date range search
-  $scope.$watch('travelDateModel.query', function(tQ) {
-    if (tQ.at) $scope.query.travel_date = { at: tQ.at };
-    else if (tQ.start || tQ.end) {
-      $scope.query.travel_date = {};
-      if (tQ.start) $scope.query.travel_date.start = tQ.start;
-      if (tQ.end) $scope.query.travel_date.end = tQ.end;
+  $scope.$watchCollection('travelDateModel.query', function(query) {
+    if (travelDateModel.queryType === 'exact') {
+      query.endYear = query.startYear;
+      query.endMonth = query.startMonth;
+      query.endDay = query.startDay;
     }
+    for (key in query) if (!query[key]) delete query[key];
+    if (Object.getOwnPropertyNames(query).length > 0) $scope.query.travel_date = query;
     else delete $scope.query.travel_date;
-  }, true)
+  });
+
 
   $scope.$watch('dimensions',function(dimensions){
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })

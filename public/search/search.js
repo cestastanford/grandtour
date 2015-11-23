@@ -83,7 +83,8 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
     }
     for (key in query) if (!query[key]) delete query[key];
     if (Object.getOwnPropertyNames(query).length > 0) $scope.query.travel_date = query;
-  })
+    else delete $scope.query.travel_date;
+  });
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );

@@ -257,7 +257,6 @@ var searchMapRE = {
 
     }
 
-    console.log(JSON.stringify(outer));
     return { travels : { $elemMatch : { $and : outer } } };
 
   },
@@ -309,23 +308,63 @@ var searchMap = {
 
   travel_place : function(d) { return { travels : { $elemMatch : { place : d}  } } },
   travel_date : function(d) {
-    if (d.at) {
-      return { travels : { $elemMatch : {
-        $or : [
-          { $and : [ { travelStartYear : { $lte : +d.at, $ne : 0 } } , { travelEndYear : { $gte : +d.at } } ] },
-          { $and : [ { travelStartYear : +d.at } , { travelEndYear : 0 } ] },
-        ]
-      } } };
-    } else {
-      var and = [];
-      if (d.start) {
-        and.push({ travelEndYear: { $gte : +d.start, $ne : 0 } });
+    
+    var outer = [];
+
+    if (d.startYear) {
+
+      outer.push({
+        $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [ { travelEndYear : +d.startYear } ] } ]
+      });
+
+      if (d.startMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [ { travelEndMonth : +d.startMonth } ] } ]
+        });
+
+        if (d.startDay) {
+
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelEndDay : { $gte : +d.startDay } } ]
+          });
+
+        }
+
       }
-      if (d.end) {
-        and.push({ travelStartYear: { $lte : +d.end, $ne : 0 } });
-      }
-      return { travels : { $elemMatch : { $and : and } } };
+
     }
+
+    if (d.endYear) {
+
+      outer.push({
+        $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.endYear } ] } ]
+      });
+
+      if (d.endMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.endMonth } ] } ]
+        });
+
+        if (d.endDay) {
+
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelStartDay : { $lte : +d.endDay, $ne : 0 } } ]
+          });
+
+        }
+
+      }
+
+    }
+
+    return { travels : { $elemMatch : { $and : outer } } };
+
   },
   
   entry : function(d) {

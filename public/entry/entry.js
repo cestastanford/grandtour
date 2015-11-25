@@ -66,6 +66,17 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $location.path('search/' + JSON.stringify(query) );
   }
 
+  $scope.searchTravel = function(travel) {
+    var query = { travel_place: travel.place, travel_date: {} };
+    if (travel.travelStartYear) query.travel_date.startYear = travel.travelStartYear;
+    if (travel.travelStartMonth) query.travel_date.startMonth = travel.travelStartMonth;
+    if (travel.travelStartDay) query.travel_date.startDay = travel.travelStartDay;
+    if (travel.travelEndYear) query.travel_date.endYear = travel.travelEndYear;
+    if (travel.travelEndMonth) query.travel_date.endMonth = travel.travelEndMonth;
+    if (travel.travelEndDay) query.travel_date.endDay = travel.travelEndDay;
+    $location.path('search/' + JSON.stringify(query));
+  }
+
   function clean(obj){
 
     for (var key in obj) {

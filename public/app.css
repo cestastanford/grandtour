@@ -562,3 +562,7 @@ hr {
   font-weight: 800;
   cursor: default;
 }
+
+.entry-travel:hover {
+  background-color: #DEF;
+}

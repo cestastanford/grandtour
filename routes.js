@@ -225,7 +225,10 @@ function routes(io) {
   router.get('/api/reset', admin, function(req, res){
     database.reset(req, res, io)
   });
-  router.get('/api/lists/mylists', auth, lists.mylists);
+
+  // lists
+  router.post('/api/lists/mylists', auth, lists.mylists);
+  router.post('/api/lists/newlist', auth, lists.newlist)
 
   return router;
 

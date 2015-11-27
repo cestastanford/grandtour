@@ -1,3 +1,9 @@
 .container.main-view
 
-  h3 {{ currentUser.fullName }}'s lists
+    h3 {{ currentUser.fullName }}'s lists
+    div(ng-repeat="list in mylists")
+        span list name: {{ list.name }}
+        span {{ list.entryIDs.length }} items
+    div
+        input(ng-model="newListName", placeholder="name")
+        a(ng-click="newList(newListName)") create new list

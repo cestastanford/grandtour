@@ -2,15 +2,27 @@
  * Lists controller
 ***********************************************************************/
 
-app.controller('ListsCtrl', function($scope, $http) {
+app.controller('ListsCtrl', function($scope, $http, $rootScope) {
 
-    $scope.response = 'loading...';
-    $http.get('/api/lists', {
-        request: 'nothing'
-      }
-    )
-    .success(function(res){
-        console.log(res);
+    $http.post('/api/lists/mylists', {
+        username: $rootScope.currentUser.username
+    })
+    .success(function(res) {
+        $scope.mylists = res.entries;
     });
+
+    $scope.newList = function(name) {
+        $http.post('/api/lists/newlist', {
+            username: $rootScope.currentUser.username,
+            name: name
+        })
+        .success(function(res) {
+            if (res.error) {
+                console.log(res.error);
+            } else {
+                $scope.mylists.push(res.newList);
+            }
+        });
+    };
 
 });

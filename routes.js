@@ -227,8 +227,9 @@ function routes(io) {
   });
 
   // lists
-  router.post('/api/lists/mylists', auth, lists.mylists);
-  router.post('/api/lists/newlist', auth, lists.newlist)
+  router.post('/api/lists/mylists', auth, lists.myLists);
+  router.post('/api/lists/newlist', auth, lists.newList);
+  router.post('/api/lists/deletelist', auth, lists.deleteList);
 
   return router;
 

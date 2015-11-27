@@ -1,9 +1,10 @@
 .container.main-view
 
     h3 {{ currentUser.fullName }}'s lists
-    div(ng-repeat="list in mylists")
+    div(ng-repeat="list in myLists")
         span list name: {{ list.name }}
         span {{ list.entryIDs.length }} items
+        a(ng-click="deleteList(list)") delete list
     div
         input(ng-model="newListName", placeholder="name")
         a(ng-click="newList(newListName)") create new list

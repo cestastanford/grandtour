@@ -148,6 +148,15 @@ var app = angular.module('app', [
       }
     })
 
+    .state('lists', {
+      url: "/lists",
+      templateUrl: "views/lists",
+      controller: "ListsCtrl",
+      resolve: {
+        loggedin: checkLoggedin
+      }
+    })
+
   //$locationProvider.html5Mode(true);
 
 

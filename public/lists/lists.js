@@ -8,8 +8,8 @@ app.controller('ListsCtrl', function($scope, $http, $rootScope) {
         username: $rootScope.currentUser.username
     })
     .success(function(res) {
-        $scope.myLists = res.entries;
-        console.log(res.entries);
+        if (res.error) console.error(res.error);
+        else $scope.myLists = res.entries;
     });
 
     $scope.newList = function(name) {
@@ -18,10 +18,11 @@ app.controller('ListsCtrl', function($scope, $http, $rootScope) {
             name: name
         })
         .success(function(res) {
-            if (res.error) {
-                console.log(res.error);
-            } else {
+            if (res.error) console.error(res.error);
+            else {
                 $scope.myLists.push(res.newList);
+                $scope.activeList = res.newList;
+                $scope.newListName = '';
             }
         });
     };
@@ -39,6 +40,11 @@ app.controller('ListsCtrl', function($scope, $http, $rootScope) {
                 $scope.myLists.splice(index, 1);
             }
         })
+    }
+
+    $scope.selectList = function(list) {
+        if ($scope.activeList === list) $scope.activeList = null;
+        else $scope.activeList = list;
     }
 
 });

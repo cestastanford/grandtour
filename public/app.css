@@ -566,3 +566,7 @@ hr {
 .entry-travel:hover {
   background-color: #DEF;
 }
+
+.list-delete-button {
+  float: right;
+}

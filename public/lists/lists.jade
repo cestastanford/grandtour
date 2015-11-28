@@ -1,10 +1,23 @@
 .container.main-view
 
-    h3 {{ currentUser.fullName }}'s lists
-    div(ng-repeat="list in myLists")
-        span list name: {{ list.name }}
-        span {{ list.entryIDs.length }} items
-        a(ng-click="deleteList(list)") delete list
-    div
-        input(ng-model="newListName", placeholder="name")
-        a(ng-click="newList(newListName)") create new list
+    .row
+        h3 {{ currentUser.fullName }}'s lists
+        hr
+    .row
+        .col-lg-3.border-right
+            .list-group
+                .list-group-item.disabled(ng-hide="myLists.length") No lists
+                a.list-group-item(ng-repeat="list in myLists", ng-click="selectList(list)", ng-class="{ active: list === activeList }")
+                    h4.list-group-item-heading {{ list.name }}
+                    p.list-group-item-text {{ list.entryIDs.length }} items
+                .list-group-item
+                    form
+                        .form-group
+                            input.form-control(ng-model="newListName", placeholder="name")
+                        button.btn.btn-default(ng-click="newList(newListName)", type="submit", ng-disabled="!newListName") Create New List
+                
+        
+        .col-lg-9
+            input(type="checkbox")
+            a delete list
+            a 

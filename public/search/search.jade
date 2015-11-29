@@ -284,9 +284,22 @@
           | results
         
         .list-group
-          a.list-group-item(ng-repeat="entry in entries", ng-href="#/entries/{{entry.index}}")
+          .list-group-item(ng-repeat="entry in entries", ng-href="#/entries/{{entry.index}}")
             h4.list-group-item-heading {{entry.fullName}}
             p.list-group-item-text {{entry.biography.slice(0,200)}} ...
+              div.btn-group.add-to-list-btn(ng-click="downloadLists()")
+                button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                  span Add to List
+                  span.caret
+                ul.dropdown-menu
+                  li(ng-show="loadingLists")
+                    span Loading lists...
+                  li(ng-show="lists && !lists.length")
+                    span (you don't have any lists)
+                  li(ng-repeat="list in lists")
+                    a(ng-click="addToList(list, entry)") {{ list.name }}
+              span.add-to-list-label.label.label-success(ng-show="entry.success") Added to list!
+              span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list; didn't add.
         
       div(ng-show="noResults && !searching")
         p No results

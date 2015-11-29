@@ -18,12 +18,12 @@ exports.myLists = function(req, res) {
 
 exports.newList = function(req, res) {
 
-    var listOwner = req.body.username;
+    var user = req.body.username;
     var listName = req.body.name;
 
     var newList = new List({
         name: listName,
-        owner: listOwner,
+        owner: user,
         entryIDs: []
     });
 
@@ -43,3 +43,20 @@ exports.deleteList = function(req, res) {
     });
 
 };
+
+exports.addToList = function(req, res) {
+
+    var user = req.body.username;
+    var id = req.body.listID;
+    var entryIndex = req.body.entryIndex;
+
+    List.findOneAndUpdate(
+        { _id: id },
+        { $push : { entryIDs : entryIndex } },
+        { new : true },
+        function(error, doc) {
+            if (error) res.json({ error: error});
+            else res.json({ list : doc });
+        });
+
+}

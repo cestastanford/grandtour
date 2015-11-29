@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
+app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, $rootScope) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -128,5 +128,36 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams) {
   }
 
   $('.tooltip').remove();
+
+  $scope.downloadLists = function() {
+    if (!$scope.lists) {
+      $scope.loadingLists = true;
+      $http.post('/api/lists/mylists', {
+        username: $rootScope.currentUser.username
+      })
+      .success(function(res) {
+        if (res.error) console.error(res.error);
+        else $scope.lists = res.entries;
+        $scope.loadingLists = false;
+      });
+    }
+  };
+
+  $scope.addToList = function(list, entry) {
+    if (list.entryIDs.indexOf(entry.index) === -1) {
+      $http.post('/api/lists/addtolist', {
+        username: $rootScope.currentUser.username,
+        listID: list._id,
+        entryIndex: entry.index
+      })
+      .success(function(res) {
+        if (res.error) console.error(error);
+        else {
+          list.entryIDs.push(entry.index);
+          entry.success = true;
+        }
+      });
+    } else entry.alreadyInList = true;
+  };
 
 });

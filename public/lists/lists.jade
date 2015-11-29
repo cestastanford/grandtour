@@ -10,11 +10,11 @@
                 .list-group-item.list-group-item-warning(ng-show="listModel.myLists && !listModel.myLists.length") No lists
                 a.list-group-item(ng-repeat="list in listModel.myLists", ng-click="selectList(list)", ng-class="{ active: list === listModel.selectedList }")
                     h4.list-group-item-heading {{ list.name }}
-                    p.list-group-item-text {{ list.entryIDs.length }} items
+                    p.list-group-item-text {{ list.entryIDs.length }} {{ list.entryIDs.length === 1 ? 'entry' : 'entries' }}
                 .list-group-item
                     form
                         .form-group
-                            input.form-control(ng-model="listModel.newListName", placeholder="name")
+                            input.form-control(ng-model="listModel.newListName", placeholder="new list name")
                         button.btn.btn-default(ng-click="newList(listModel.newListName)", type="submit", ng-disabled="!listModel.newListName") Create New List
                 
         

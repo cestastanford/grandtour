@@ -574,3 +574,20 @@ hr {
 .list-delete {
   float: right;
 }
+
+.add-to-list-btn {
+  float: right;
+  position: relative;
+  bottom: 10px;
+  right: -7px;
+}
+
+.add-to-list-label {
+  float: right;
+  position: relative;
+  bottom: 7px;
+}
+
+.add-to-list-btn .caret {
+  margin-left: 5px;
+}

@@ -33,7 +33,7 @@ app.controller('ListsCtrl', function($scope, $http, $rootScope) {
             if (res.error) console.error(res.error);
             else {
                 listModel.myLists.push(res.newList);
-                listModel.selectedList = res.newList;
+                $scope.selectList(res.newList);
                 listModel.newListName = '';
             }
         });
@@ -47,9 +47,9 @@ app.controller('ListsCtrl', function($scope, $http, $rootScope) {
         .success(function(res) {
             if (res.error) console.error(res.error);
             else {
-                console.log('list "' + list.name + '" deleted!');
                 var index = listModel.myLists.indexOf(list);
                 listModel.myLists.splice(index, 1);
+                listModel.selectedList = null;
             }
         });
     };
@@ -68,13 +68,14 @@ app.controller('ListsCtrl', function($scope, $http, $rootScope) {
         else for (var i = 0; i < list.entryIDs.length; i++) {
             var id = list.entryIDs[i];
             $http.get('/api/entries/' + id)
-            .success(function(res) {
+            .success((function(res) {
                 if (res.error) console.error(error);
                 else {
-                    list.entries[id] = res.entry;
+                    var i = this;
+                    list.entries[i] = res.entry;
                     if (list.entries.length === list.entryIDs.length) list.entriesLoaded = true;
                 }
-            });
+            }).bind(i));
         }
     };
 

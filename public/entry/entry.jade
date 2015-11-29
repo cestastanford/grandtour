@@ -179,10 +179,9 @@
                     th.text-right to
                     //th.text-right before
                 tbody
-                  tr(ng-repeat="travel in tour.values")
-
+                  tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;")
                     td(ng-class="{'bordered':travel.parent}")
-                      a(ng-click="search({travel_place:travel.place})") {{travel.place}}
+                      span {{travel.place}}
                     //td.text-right.tnum-lnum {{travel.gte}}
                     td.text-right.tnum-lnum
                       span(ng-show="travel.travelStartYear == '0'") -

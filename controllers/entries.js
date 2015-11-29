@@ -201,14 +201,79 @@ var searchMapRE = {
   military : function(d) { return { military : { $elemMatch : { rank : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
 
   travel_place : function(d) { return { travels : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-  travel_at : function(d) { return { travels : { $elemMatch : {
-    $or : [
-      { $and : [ { travelStartYear : { $lte : +d, $ne : 0 } } , { travelEndYear : { $gte : +d } } ] },
-      { $and : [ { travelStartYear : +d } , { travelEndYear : 0 } ] },
-    ]
-  } } } },
+  travel_date : function(d) {
+    
+    var outer = [];
 
-  entry : function(d) { return { entry : { $regex : new RegExp(escapeRegExp(d), "gi") } } },
+    if (d.startYear) {
+
+      outer.push({
+        $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [ { travelEndYear : +d.startYear } ] } ]
+      });
+
+      if (d.startMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [ { travelEndMonth : +d.startMonth } ] } ]
+        });
+
+        if (d.startDay) {
+
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelEndDay : { $gte : +d.startDay } } ]
+          });
+
+        }
+
+      }
+
+    }
+
+    if (d.endYear) {
+
+      outer.push({
+        $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.endYear } ] } ]
+      });
+
+      if (d.endMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.endMonth } ] } ]
+        });
+
+        if (d.endDay) {
+
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelStartDay : { $lte : +d.endDay, $ne : 0 } } ]
+          });
+
+        }
+
+      }
+
+    }
+
+    return { travels : { $elemMatch : { $and : outer } } };
+
+  },
+
+  entry : function(d) {
+    var or = [];
+    for (var section in d) {
+      queryObj = {};
+      if (section === 'tours') {
+
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp(escapeRegExp(d[section]), "gi") } } };
+
+      } else queryObj[section] = { $regex : new RegExp(escapeRegExp(d[section]), "gi") };
+      or.push(queryObj);
+    }
+    return { $or : or };
+  },
 
 }
 
@@ -242,14 +307,79 @@ var searchMap = {
   military : function(d) { return { military : { $elemMatch : { rank : d  } } } },
 
   travel_place : function(d) { return { travels : { $elemMatch : { place : d}  } } },
-  travel_at : function(d) { return { travels : { $elemMatch : {
-    $or : [
-      { $and : [ { travelStartYear : { $lte : +d, $ne : 0 } } , { travelEndYear : { $gte : +d } } ] },
-      { $and : [ { travelStartYear : +d } , { travelEndYear : 0 } ] },
-    ]
-  } } } },
+  travel_date : function(d) {
+    
+    var outer = [];
 
-  entry : function(d) { return { entry : { $regex : new RegExp(escapeRegExp(d), "gi") } } },
+    if (d.startYear) {
+
+      outer.push({
+        $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [ { travelEndYear : +d.startYear } ] } ]
+      });
+
+      if (d.startMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [ { travelEndMonth : +d.startMonth } ] } ]
+        });
+
+        if (d.startDay) {
+
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelEndDay : { $gte : +d.startDay } } ]
+          });
+
+        }
+
+      }
+
+    }
+
+    if (d.endYear) {
+
+      outer.push({
+        $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.endYear } ] } ]
+      });
+
+      if (d.endMonth) {
+
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.endMonth } ] } ]
+        });
+
+        if (d.endDay) {
+
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelStartDay : { $lte : +d.endDay, $ne : 0 } } ]
+          });
+
+        }
+
+      }
+
+    }
+
+    return { travels : { $elemMatch : { $and : outer } } };
+
+  },
+  
+  entry : function(d) {
+    var or = [];
+    for (var section in d) {
+      queryObj = {};
+      if (section === 'tours') {
+
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp(escapeRegExp(d[section]), "gi") } } };
+
+      } else queryObj[section] = { $regex : new RegExp(escapeRegExp(d[section]), "gi") };
+      or.push(queryObj);
+    }
+    return { $or : or };
+  },
 
 }
 
@@ -272,7 +402,7 @@ function merge(obj1, obj2) {
 function parseQuery(query) {
   var o = []
   for (var k in query){
-    if (typeof query[k] == 'object') {
+    if (query[k].constructor === Array) {
       var s = { $or : [] }
       for (var i in query[k]) {
         s.$or.push( searchMap[k](query[k][i]) );
@@ -346,13 +476,7 @@ exports.search = function (req, res) {
 function parseQuery2(query) {
   var o = []
   for (var k in query){
-    if (typeof query[k] == 'object') {
-      var s = { $or : [] }
-      for (var i in query[k]) {
-        s.$or.push( searchMapRE[k](query[k][i]) );
-      }
-    }
-    else var s = searchMapRE[k](query[k]);
+    var s = searchMapRE[k](query[k]);
 
     o.push(s)
 

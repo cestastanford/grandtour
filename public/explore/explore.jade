@@ -34,6 +34,107 @@
                       label {{dimension.label}} 
                         span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
                       input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:1000}")
+                  div(ng-switch-when="freesearch")
+                    .form-group    
+                      label {{dimension.label}} 
+                        span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
+                      input.input-sm.form-control(type="text", ng-model="freeSearchModel.query", ng-model-options="{debounce:1000}")
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.biography", ng-model-options="{debounce:1000}")
+                          div Biography
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.tours", ng-model-options="{debounce:1000}")
+                          div Tours
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.narrative", ng-model-options="{debounce:1000}")
+                          div Narrative
+                      .checkbox
+                        label
+                          input(type="checkbox", ng-model="freeSearchModel.sections.notes", ng-model-options="{debounce:1000}")
+                          div Notes
+                  div(ng-switch-when="traveldate")
+                    .form-group    
+                      label {{dimension.label}} 
+                        span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.startYear",
+                          placeholder="year",
+                          ng-class="{ filled : travelDateModel.query.startYear }",
+                          ng-show="travelDateModel.queryType === 'exact'",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.startMonth",
+                          placeholder="month",
+                          ng-class="{ filled : travelDateModel.query.startMonth }",
+                          ng-show="travelDateModel.queryType === 'exact'",
+                          ng-disabled="!travelDateModel.query.startYear && !travelDateModel.query.startMonth",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.startDay",
+                          placeholder="day",
+                          ng-class="{ filled : travelDateModel.query.startDay }",
+                          ng-show="travelDateModel.queryType === 'exact'",
+                          ng-disabled="!travelDateModel.query.startMonth && !travelDateModel.query.startDay",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.startYear",
+                          placeholder="start year",
+                          ng-class="{ filled : travelDateModel.query.startYear }",
+                          ng-show="travelDateModel.queryType === 'range'",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.startMonth",
+                          placeholder="start month",
+                          ng-class="{ filled : travelDateModel.query.startMonth }",
+                          ng-show="travelDateModel.queryType === 'range'",
+                          ng-disabled="!travelDateModel.query.startYear && !travelDateModel.query.startMonth",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.startDay",
+                          placeholder="start day",
+                          ng-class="{ filled : travelDateModel.query.startDay }",
+                          ng-show="travelDateModel.queryType === 'range'",
+                          ng-disabled="!travelDateModel.query.startMonth && !travelDateModel.query.startDay",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.endYear",
+                          placeholder="end year",
+                          ng-class="{ filled : travelDateModel.query.endYear }",
+                          ng-show="travelDateModel.queryType === 'range'",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.endMonth",
+                          placeholder="end month",
+                          ng-class="{ filled : travelDateModel.query.endMonth }",
+                          ng-show="travelDateModel.queryType === 'range'",
+                          ng-disabled="!travelDateModel.query.endYear && !travelDateModel.query.endMonth",
+                          ng-model-options="{debounce:1000}")
+                        input.input-sm.form-control.margin-top(
+                          type="text", 
+                          ng-model="travelDateModel.query.endDay",
+                          placeholder="end day",
+                          ng-class="{ filled : travelDateModel.query.endDay }",
+                          ng-show="travelDateModel.queryType === 'range'",
+                          ng-disabled="!travelDateModel.query.endMonth && !travelDateModel.query.endDay",
+                          ng-model-options="{debounce:1000}")
+                        span.date-query-type.label.explore search by: 
+                        span.date-query-type(
+                          ng-click="resetTravelDateModel('exact')",
+                          ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
+                        span.date-query-type(
+                          ng-click="resetTravelDateModel('range')",
+                          ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
         
     .col-lg-12 
     

@@ -131,7 +131,7 @@ var app = angular.module('app', [
     })
 
     .state('explore', {
-      url: "/explore/",
+      url: "/explore/:query",
       templateUrl: "views/explore",
       controller: "ExploreCtrl",
       resolve: {
@@ -143,6 +143,15 @@ var app = angular.module('app', [
       url: "/entries/:id",
       templateUrl: "views/entry",
       controller: "EntryCtrl",
+      resolve: {
+        loggedin: checkLoggedin
+      }
+    })
+
+    .state('lists', {
+      url: "/lists",
+      templateUrl: "views/lists",
+      controller: "ListsCtrl",
       resolve: {
         loggedin: checkLoggedin
       }

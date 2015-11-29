@@ -2,10 +2,12 @@ var passport = require('passport');
 var router = require('express').Router();
 var User = require('./models/user');
 var Entry = require('./models/entry');
+var List = require('./models/list');
 
 var	users = require('./controllers/users');
 var	entries = require('./controllers/entries');
 var	database = require('./controllers/database');
+var lists = require('./controllers/lists');
 
 
 /*
@@ -223,6 +225,11 @@ function routes(io) {
   router.get('/api/reset', admin, function(req, res){
     database.reset(req, res, io)
   });
+
+  // lists
+  router.post('/api/lists/mylists', auth, lists.myLists);
+  router.post('/api/lists/newlist', auth, lists.newList);
+  router.post('/api/lists/deletelist', auth, lists.deleteList);
 
   return router;
 

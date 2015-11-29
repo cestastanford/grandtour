@@ -1,0 +1,34 @@
+.container.main-view
+
+    .row
+        h3 {{ currentUser.fullName }}'s lists
+        hr
+    .row
+        .col-lg-3
+            .list-group
+                .list-group-item.list-group-item-info(ng-show="listModel.listsLoading") Loading lists...
+                .list-group-item.list-group-item-warning(ng-show="listModel.myLists && !listModel.myLists.length") No lists
+                a.list-group-item(ng-repeat="list in listModel.myLists", ng-click="selectList(list)", ng-class="{ active: list === listModel.selectedList }")
+                    h4.list-group-item-heading {{ list.name }}
+                    p.list-group-item-text {{ list.entryIDs.length }} items
+                .list-group-item
+                    form
+                        .form-group
+                            input.form-control(ng-model="listModel.newListName", placeholder="name")
+                        button.btn.btn-default(ng-click="newList(listModel.newListName)", type="submit", ng-disabled="!listModel.newListName") Create New List
+                
+        
+        .col-lg-9
+            .row(ng-show="!listModel.selectedList")
+                .text-center no list selected
+            .row(ng-show="listModel.selectedList")
+                a.small.list-option(ng-click="selectAllEntries(listModel.selectedList)") select all
+                a.small.list-option(ng-click="selectNoEntries(listModel.selectedList)") select none
+                a.small.list-delete(ng-click="deleteList(listModel.selectedList)") delete this list
+            .row(ng-show="listModel.selectedList")
+                .list-group.margin-top
+                    .list-group-item.list-group-item-info(ng-show="!listModel.selectedList.entriesLoaded") Loading entries...
+                    .list-group-item.list-group-item-warning(ng-show="listModel.selectedList.entriesLoaded && !listModel.selectedList.entryIDs.length") No entries
+                    a.list-group-item(ng-repeat="entry in listModel.selectedList.entries", ng-href="#/entries/{{entry.index}}")
+                        h4.list-group-item-heading {{entry.fullName}}
+                        p.list-group-item-text {{entry.biography.slice(0,200)}} ...

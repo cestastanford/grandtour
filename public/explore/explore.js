@@ -29,10 +29,28 @@ app
   };
 })
 
-.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $q, httpQuery) {
+.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $state, $q, httpQuery) {
 
   $scope.query = {};
   $scope.untouched = true;
+
+  // setup for free search by section
+  var freeSearchModel = {};
+  function initFreeSearchModel() {
+    freeSearchModel = {};
+    freeSearchModel.sections = { biography: true, tours: true, narrative: true, notes: true };
+    $scope.freeSearchModel = freeSearchModel;
+  };
+  initFreeSearchModel();
+
+  // setup for travel date range search
+  $scope.resetTravelDateModel = function(type) {
+    travelDateModel = { queryType: type, query: {} };
+    $scope.travelDateModel = travelDateModel;
+    delete $scope.query.travel_date;
+  };
+  var travelDateModel;
+  $scope.resetTravelDateModel('exact');
 
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName' },
@@ -47,37 +65,92 @@ app
     { type : 'facet', active : false, label : 'Societies & Academies', subgroup: 'Role', field : 'societies_role', suggestions : 'societies.role' },
     { type : 'facet', active : true, label : 'Education', subgroup: 'Institution', field : 'education_institution', suggestions : 'education.institution' },
     { type : 'facet', active : false, label : 'Education', subgroup: 'Place', field : 'education_place', suggestions : 'education.place' },
-    { type : 'facet', active : false, label : 'Education', subgroup: 'Teacher', field : 'education_tacher', suggestions : 'education.teacher' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Teacher', field : 'education_teacher', suggestions : 'education.teacher' },
     { type : 'facet', active : false, label : 'Education', subgroup: 'Degree', field : 'education_degree', suggestions : 'education.fullDegree' },
     { type : 'facet', active : false, label : 'Military careers', field : 'military', suggestions : 'military.rank' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', field : 'exhibitions', suggestions : 'exhibitions.title' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
     { type : 'facet', active : false, label : 'Travel', subgroup: 'Place', field : 'travel_place', suggestions : 'travels.place' },
-    { type : 'number', active : false, label : 'Travel', subgroup: 'Year', field : 'travel_at' },
-    { type : 'text', active : false, label : 'Free search', field : 'entry' },
+    { type : 'traveldate', active : false, label : 'Travel', subgroup: 'Date', field : 'travel_date' },
+    { type : 'freesearch', active : false, label : 'Free search', field : 'entry' },
   ]
 
   $scope.activeDimensions = [];
 
-  $scope.$watch('dimensions',function(dimensions){
-    $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
-  },true)
-
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
-    $scope.searching = true;
-    $http.post('/api/entries/search', {
-        query: $scope.query
+    for (queryField in $scope.query) {
+      var dimension = $scope.dimensions.filter(function(d) { return d.field === queryField; })[0];
+      dimension.active = true;
+    };
+
+    //  setup for free search by section
+    if ($scope.query.entry) {
+      for (var k in freeSearchModel.sections) {
+        if ($scope.query.entry[k]) $scope.freeSearchModel.query = $scope.query.entry[k];
+        else $scope.freeSearchModel.sections[k] = false;
       }
-    )
-    .success(function(res){
-      $scope.searching = false;
-      $scope.entries = res.entries;
-      if (res.entries.length) $scope.noResults = false;
-      else $scope.noResults = true;
-      $('[data-toggle="tooltip"]').tooltip()
-    });
+    }
+
+    //  setup for travel date range search
+    if ($scope.query.travel_date) {
+      if ($scope.query.travel_date.startYear !== $scope.query.travel_date.endYear ||
+          $scope.query.travel_date.startMonth !== $scope.query.travel_date.endMonth ||
+          $scope.query.travel_date.startDay !== $scope.query.travel_date.endDay) {
+        travelDateModel.queryType = 'range';
+      }
+      travelDateModel.query = $scope.query.travel_date;
+    }
   }
+
+  //  support for free search by section
+  $scope.$watch('freeSearchModel.query', function(newValue) {
+    for (var section in freeSearchModel.sections) {
+      if (freeSearchModel.sections[section] && freeSearchModel.query) {
+        if (!$scope.query.entry) $scope.query.entry = {};
+        $scope.query.entry[section] = freeSearchModel.query;
+      } else if ($scope.query.entry) delete $scope.query.entry[section];
+    }
+    queryUpdated($scope.query);
+  });
+
+  $scope.$watchCollection('freeSearchModel.sections', function(newValues) {
+    for (var section in freeSearchModel.sections) {
+      if (freeSearchModel.sections[section] && freeSearchModel.query) {
+        if (!$scope.query.entry) $scope.query.entry = {};
+        $scope.query.entry[section] = freeSearchModel.query;
+      }
+      else if ($scope.query.entry) {
+        delete $scope.query.entry[section];
+        if (Object.keys($scope.query.entry).length === 0) delete $scope.query.entry;
+      }
+    }
+    queryUpdated($scope.query);
+  });
+
+  //  support for travel date range search
+  $scope.$watchCollection('travelDateModel.query', function(query) {
+    if (travelDateModel.queryType === 'exact') {
+      query.endYear = query.startYear;
+      query.endMonth = query.startMonth;
+      query.endDay = query.startDay;
+    }
+    for (key in query) if (!query[key]) delete query[key];
+    if (Object.getOwnPropertyNames(query).length > 0) $scope.query.travel_date = query;
+    else delete $scope.query.travel_date;
+  });
+
+
+  $scope.$watch('dimensions',function(dimensions){
+    $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
+    for (var i = 0; i < dimensions.length; i++) {
+      if (!dimensions[i].active) {
+        $scope.removeFromQuery(dimensions[i].field);
+        if (dimensions[i].field === 'entry') initFreeSearchModel();
+        if (dimensions[i].field === 'travel_date') $scope.resetTravelDateModel('exact');
+      };
+    }
+  },true)
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );
@@ -97,8 +170,7 @@ app
     });
   };
 
-
-  $scope.$watch('query', function(query){
+  function queryUpdated(query){
     for (var k in query){
       if (!/\S/.test(query[k])) delete query[k]
     }
@@ -106,9 +178,12 @@ app
     $('[data-toggle="tooltip"]').tooltip();
     if (!Object.getOwnPropertyNames(query).length) $scope.clear();
 
+    $state.go('explore', { query: JSON.stringify(clean(query)) }, { notify: false, reload: false });
     runQuery(query);
 
-  }, true)
+  }
+
+  $scope.$watch('query', queryUpdated, true);
 
   $scope.getSuggestions = function(field, value){
     return $http.post('/api/entries/suggest/', {  field : field, value : value })

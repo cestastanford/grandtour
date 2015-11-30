@@ -228,7 +228,7 @@ var app = angular.module('app', [
       entryIndex: entry.index
     })
     .then(function(res) {
-      if (res.data.error) console.error(error);
+      if (res.data.error) console.error(res.data.error);
       else {
         list.entryIDs.splice(index, 1);
         callback();

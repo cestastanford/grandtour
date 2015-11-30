@@ -283,28 +283,39 @@
           strong {{entries.length}} 
           | results
         
-        .list-group
-          .list-group-item(ng-repeat="entry in entries", ng-href="#/entries/{{entry.index}}")
-            h4.list-group-item-heading {{entry.fullName}}
-            p.list-group-item-text {{entry.biography.slice(0,200)}} ...
-              div.btn-group.add-to-list-btn
-                button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
-                  span Add to List
-                  span.caret
-                ul.dropdown-menu
-                  li(ng-show="sharedListModel.listsLoading")
-                    span Loading lists...
-                  li(ng-repeat="list in sharedListModel.myLists")
-                    a(ng-click="addToList(entry, list)") {{ list.name }}
-                  li.divider(role="separator")
-                  li.dropdown-header or add to a new list:
-                  li
-                    form.input-group.input-group-sm
-                       input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
-                       span.input-group-btn
-                         button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addToNewList(entry)") Create & Add
-              span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
-              span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
+        .panel.panel-default
+          .panel-heading
+            button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
+            button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
+            div.btn-group.add-to-list-btn
+              button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                span Add Selected Entries to List
+                span.caret
+              ul.dropdown-menu
+                li(ng-show="sharedListModel.listsLoading")
+                  span Loading lists...
+                li(ng-repeat="list in sharedListModel.myLists")
+                  a(ng-click="addSelectedEntriesToList(list)") {{ list.name }}
+                li.divider(role="separator")
+                li.dropdown-header or add to a new list:
+                li
+                  form.input-group.input-group-sm
+                    input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+                    span.input-group-btn
+                      button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") Create & Add
+          .panel-body
+            table.table.table-hover
+              tbody.entry-row
+                tr(ng-repeat="entry in entries", ng-class="{ warning: entry.selected }")
+                  td.entry-checkbox
+                    input(type="checkbox", ng-model="entry.selected")
+                  td.entry-list-item
+                      a(ng-href="#/entries/{{entry.index}}")
+                        h4 {{ entry.fullName }}
+                        p {{ entry.biography.slice(0, 200) }} ...
+                          span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
+                          span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
+    
       div(ng-show="noResults && !searching")
         p No results
       

@@ -140,21 +140,39 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
   //  expose shared list model to scope
   $scope.sharedListModel = listService.sharedListModel
 
-  $scope.addToList = function(entry, list) {
-    entry.addedToList = entry.alreadyInList = false;
-    listService.addToList(list, entry, function(result) {
-      if (result.addedToList) {
-        entry.addedToList = true;
-      }
-      if (result.alreadyInList) entry.alreadyInList = true;
-    });
+  //  selection/delection commands
+  $scope.selectAllEntries = function() {
+    for (var i = 0; i < $scope.entries.length; i++) {
+      $scope.entries[i].selected = true;
+    }
   };
 
-  $scope.addToNewList = function(entry) {
+  $scope.deselectAllEntries = function() {
+    for (var i = 0; i < $scope.entries.length; i++) {
+      $scope.entries[i].selected = false;
+    }
+  };
+
+  $scope.addSelectedEntriesToList = function(list) {
+    for(var i = 0; i < $scope.entries.length; i++) {
+      var entry = $scope.entries[i];
+      if (entry.selected) {
+        entry.addedToList = entry.alreadyInList = false;
+        listService.addToList(list, entry, function(result) {
+          if (result.addedToList) {
+            entry.addedToList = true;
+          }
+          if (result.alreadyInList) entry.alreadyInList = true;
+        });
+      }
+    }
+  };
+
+  $scope.addSelectedEntriesToNewList = function() {
     listService.newList(viewModel.newListName, function(list) {
       viewModel.newListName = '';
       console.log('list created: ' + list.name);
-      $scope.addSelectedEntriesToList(entry, list);
+      $scope.addSelectedEntriesToList(list);
     });
   };
 

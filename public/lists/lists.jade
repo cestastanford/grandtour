@@ -4,7 +4,7 @@
         h3 {{ currentUser.fullName }}'s lists
         hr
     .row
-        .col-lg-3
+        .col-lg-3.border-right
             .list-group
                 .list-group-item.list-group-item-info(ng-show="sharedListModel.listsLoading") Loading lists...
                 .list-group-item.list-group-item-warning(ng-show="sharedListModel.myLists && !sharedListModel.myLists.length") No lists
@@ -19,17 +19,44 @@
                 
         
         .col-lg-9
-            .row(ng-show="!viewModel.selectedList")
-                .text-center no list selected
-            .row(ng-show="viewModel.selectedList")
-                a.small.list-option(ng-click="selectAllEntries()") select all
-                a.small.list-option(ng-click="deselectAllEntries()") deselect all
-                a.small.list-option(ng-click="removeSelectedEntriesFromList()") remove selected entries from list
-                a.small.list-delete(ng-click="deleteList()") delete this list
-            .row(ng-show="viewModel.selectedList")
-                .list-group.margin-top
-                    .list-group-item.list-group-item-info(ng-show="!viewModel.selectedListEntries") Loading entries...
-                    .list-group-item.list-group-item-warning(ng-show="viewModel.selectedListEntries && !viewModel.selectedListEntries.length") No entries
-                    a.list-group-item(ng-repeat="entry in viewModel.selectedListEntries", ng-href="#/entries/{{entry.index}}")
-                        h4.list-group-item-heading {{entry.fullName}}
-                        p.list-group-item-text {{entry.biography.slice(0,200)}} ...
+            .panel.panel-warning(ng-hide="viewModel.selectedList")
+                .panel-body.text-center No list selected.
+            .panel.panel-default(ng-show="viewModel.selectedList")
+                .panel-heading(ng-show="viewModel.selectedListEntries")
+                    button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
+                    button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
+                    button.btn.btn-warning.btn-xs.list-option(type="button", ng-click="removeSelectedEntriesFromList()") remove selected entries from list
+                    button.btn.btn-danger.btn-xs.pull-right(type="button", ng-click="deleteList()") delete this list
+                .panel-body.text-center(ng-hide="viewModel.selectedListEntries") Loading entries...
+                .panel-body.text-center(ng-show="viewModel.selectedListEntries && !viewModel.selectedListEntries.length") No entries.
+                .panel-body(ng-show="viewModel.selectedListEntries")
+                    table.table.table-hover
+                        tbody.entry-row
+                            tr(ng-repeat="entry in viewModel.selectedListEntries", ng-class="{ warning: entry.selected }")
+                                td.entry-checkbox
+                                    input(type="checkbox", ng-model="entry.selected")
+                                td.entry-list-item
+                                    a(ng-href="#/entries/{{entry.index}}")
+                                        h4 {{ entry.fullName }}
+                                        p {{ entry.biography.slice(0, 200) }} ...
+
+
+                    //- .list-group.margin-top
+                    //-     .list-group-item.list-group-item-info(ng-show="!viewModel.selectedListEntries") Loading entries...
+                    //-     .list-group-item.list-group-item-warning(ng-show="viewModel.selectedListEntries && !viewModel.selectedListEntries.length") No entries
+                    //-     a.list-group-item(ng-repeat="entry in viewModel.selectedListEntries", ng-href="#/entries/{{entry.index}}")
+                    //-         h4.list-group-item-heading {{entry.fullName}}
+                    //-         p.list-group-item-text {{entry.biography.slice(0,200)}} ...
+            
+
+
+            //- .panel.panel-warning(ng-show="!viewModel.selectedList")
+            //- .panel.panel-default
+            //-     .panel-heading
+            //-         span(ng-show="!viewModel.selectedList")
+            //-         span(ng-show="viewModel.selectedList && viewModel.selectedListEntries")
+            //-             a.small.list-option(ng-click="selectAllEntries()") select all
+            //-             a.small.list-option(ng-click="deselectAllEntries()") deselect all
+            //-             a.small.list-option(ng-click="removeSelectedEntriesFromList()") remove selected entries from list
+            //-             a.small.list-delete(ng-click="deleteList()") delete this list
+            //-     .panel-body {{ !viewModel.selectedList ? 'No list selected' : (!viewModel.selectedListEntries ? 'Loading entries...' : 'Array goes here.') }}

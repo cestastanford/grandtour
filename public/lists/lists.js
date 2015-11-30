@@ -78,10 +78,11 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
         for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
             var entry = viewModel.selectedListEntries[i];
             if (entry.selected) {
-                listService.removeFromList(viewModel.selectedList, entry, function() {
-                    var index = selectedList.indexOf(entry);
+                listService.removeFromList(viewModel.selectedList, entry, (function() {
+                    var entry = this;
+                    var index = viewModel.selectedListEntries.indexOf(entry);
                     viewModel.selectedListEntries.splice(index, 1);
-                });
+                }).bind(entry));
             }
         }
     };

@@ -59,7 +59,7 @@ exports.addToList = function(req, res) {
 exports.removeFromList = function(req, res) {
 
     var id = req.body.listID;
-    var entryIndex = req.entryIndex;
+    var entryIndex = req.body.entryIndex;
 
     List.findOneAndUpdate(
         { _id: id },

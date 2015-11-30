@@ -568,17 +568,12 @@ hr {
 }
 
 .list-option {
-  margin-left: 10px;
-}
-
-.list-delete {
-  float: right;
+  margin-right: 10px;
 }
 
 .add-to-list-btn {
   float: right;
   position: relative;
-  bottom: 15px;
 }
 
 .add-to-list-btn .input-group {
@@ -600,4 +595,26 @@ hr {
 .topfix:first-child .row {
   position: relative;
   top: -10px;
+}
+
+.entry-checkbox {
+  vertical-align: middle !important;
+  width: 50px;
+}
+
+.entry-checkbox input {
+  position: relative;
+  left: 17px;
+}
+
+.entry-list-item a {
+  color: #333;
+}
+
+.entry-row :first-child .entry-checkbox, .entry-row :first-child .entry-list-item {
+  border-color: #fff;
+}
+
+table.table {
+  margin-bottom: 0px;
 }

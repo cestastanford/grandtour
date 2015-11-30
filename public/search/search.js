@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, $rootScope) {
+app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, listService) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -129,35 +129,33 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, $r
 
   $('.tooltip').remove();
 
-  $scope.downloadLists = function() {
-    if (!$scope.lists) {
-      $scope.loadingLists = true;
-      $http.post('/api/lists/mylists', {
-        username: $rootScope.currentUser.username
-      })
-      .success(function(res) {
-        if (res.error) console.error(res.error);
-        else $scope.lists = res.entries;
-        $scope.loadingLists = false;
-      });
-    }
+  //  initialize view model
+  var viewModel = {
+      newListName: ''
   };
 
-  $scope.addToList = function(list, entry) {
-    if (list.entryIDs.indexOf(entry.index) === -1) {
-      $http.post('/api/lists/addtolist', {
-        username: $rootScope.currentUser.username,
-        listID: list._id,
-        entryIndex: entry.index
-      })
-      .success(function(res) {
-        if (res.error) console.error(error);
-        else {
-          list.entryIDs.push(entry.index);
-          entry.success = true;
-        }
-      });
-    } else entry.alreadyInList = true;
+  //  expose view model to scope
+  $scope.viewModel = viewModel;
+
+  //  expose shared list model to scope
+  $scope.sharedListModel = listService.sharedListModel
+
+  $scope.addToList = function(entry, list) {
+    entry.addedToList = entry.alreadyInList = false;
+    listService.addToList(list, entry, function(result) {
+      if (result.addedToList) {
+        entry.addedToList = true;
+      }
+      if (result.alreadyInList) entry.alreadyInList = true;
+    });
+  };
+
+  $scope.addToNewList = function(entry) {
+    listService.newList(viewModel.newListName, function(list) {
+      viewModel.newListName = '';
+      console.log('list created: ' + list.name);
+      $scope.addSelectedEntriesToList(entry, list);
+    });
   };
 
 });

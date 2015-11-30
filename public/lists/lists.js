@@ -2,80 +2,87 @@
  * Lists controller
 ***********************************************************************/
 
-app.controller('ListsCtrl', function($scope, $http, $rootScope) {
+app.controller('ListsCtrl', function($scope, $http, listService) {
 
-    //  model initialization
-    var listModel = {
-        myLists: null,
-        selectedList: null,
+    //  initialize view model
+    var viewModel = {
         newListName: '',
-        listsLoading: false,
+        selectedList: null,
+        selectedListEntries: null
     };
-    $scope.listModel = listModel;
 
-    //  download lists
-    listModel.listsLoading = true;
-    $http.post('/api/lists/mylists', {
-        username: $rootScope.currentUser.username
-    })
-    .success(function(res) {
-        if (res.error) console.error(res.error);
-        else listModel.myLists = res.entries;
-        listModel.listsLoading = false;
-    });
+    //  expose view model to scope
+    $scope.viewModel = viewModel;
 
-    $scope.newList = function(name) {
-        $http.post('/api/lists/newlist', {
-            username: $rootScope.currentUser.username,
-            name: name
-        })
-        .success(function(res) {
-            if (res.error) console.error(res.error);
-            else {
-                listModel.myLists.push(res.newList);
-                $scope.selectList(res.newList);
-                listModel.newListName = '';
-            }
+    //  expose shared list model to scope
+    $scope.sharedListModel = listService.sharedListModel
+
+    //  functions for list modification
+    $scope.newList = function() {
+        listService.newList(viewModel.newListName, function(list) {
+            viewModel.newListName = '';
+            viewModel.selectedList = list;
+            console.log('list created: ' + list.name);
         });
     };
 
-    $scope.deleteList = function(list) {
-        $http.post('/api/lists/deletelist', {
-            username: $rootScope.currentUser.username,
-            id: list._id
-        })
-        .success(function(res) {
-            if (res.error) console.error(res.error);
-            else {
-                var index = listModel.myLists.indexOf(list);
-                listModel.myLists.splice(index, 1);
-                listModel.selectedList = null;
-            }
+    $scope.deleteList = function() {
+        listService.deleteList(viewModel.selectedList, function() {
+            console.log('list deleted: ' + viewModel.selectedList.name);
+            viewModel.selectedList = null;
         });
     };
 
     $scope.selectList = function(list) {
-        if (listModel.selectedList === list) listModel.selectedList = null;
+        if (viewModel.selectedList === list) viewModel.selectedList = null;
         else {
-            listModel.selectedList = list;
-            if (!list.entriesLoaded) downloadEntries(list);
+            viewModel.selectedList = list;
+            viewModel.selectedListEntries = null;
+            downloadEntries(list);
         }
     };
 
     function downloadEntries(list) {
-        list.entries = [];
-        if (!list.entryIDs.length) list.entriesLoaded = true;
+        var entries = [];
+        var entriesDownloaded = 0;
+        if (!list.entryIDs.length) viewModel.selectedListEntries = entries;
         else for (var i = 0; i < list.entryIDs.length; i++) {
             var id = list.entryIDs[i];
             $http.get('/api/entries/' + id)
-            .success((function(res) {
-                if (res.error) console.error(error);
+            .then((function(res) {
+                if (res.data.error) console.error(error);
                 else {
                     var i = this;
-                    list.entries[i] = res.entry;
-                    if (list.entries.length === list.entryIDs.length) list.entriesLoaded = true;
+                    entries[i] = res.data.entry;
+                    if (++entriesDownloaded === list.entryIDs.length) {
+                        viewModel.selectedListEntries = entries;
+                    }
                 }
-            }).bind(i));
+            }).bind(i), function(res) { console.error(res); });
+        }
+    };
+
+    $scope.selectAllEntries = function() {
+        for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
+            viewModel.selectedListEntries[i].selected = true;
+        }
+    };
+
+    $scope.deselectAllEntries = function() {
+        for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
+            viewModel.selectedListEntries[i].selected = false;
+        }
+    };
+
+    $scope.removeSelectedEntriesFromList = function() {
+        for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
+            var entry = viewModel.selectedListEntries[i];
+            if (entry.selected) {
+                listService.removeFromList(viewModel.selectedList, entry, function() {
+                    var index = selectedList.indexOf(entry);
+                    viewModel.selectedListEntries.splice(index, 1);
+                });
+            }
         }
     };
 

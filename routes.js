@@ -231,6 +231,7 @@ function routes(io) {
   router.post('/api/lists/newlist', auth, lists.newList);
   router.post('/api/lists/deletelist', auth, lists.deleteList);
   router.post('/api/lists/addtolist', auth, lists.addToList);
+  router.post('/api/lists/removefromlist', auth, lists.removeFromList);
 
   return router;
 

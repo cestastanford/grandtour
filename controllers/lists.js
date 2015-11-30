@@ -13,7 +13,6 @@ exports.myLists = function(req, res) {
             res.json({ entries : response });
         }
     });
-
 };
 
 exports.newList = function(req, res) {
@@ -30,7 +29,6 @@ exports.newList = function(req, res) {
     newList.save(function(error, newList) {
         res.json({ error: error, newList: newList });
     });
-
 };
 
 exports.deleteList = function(req, res) {
@@ -41,22 +39,34 @@ exports.deleteList = function(req, res) {
     List.remove({ _id: id }, function(error) {
         res.json({ error: error });
     });
-
 };
 
 exports.addToList = function(req, res) {
 
-    var user = req.body.username;
     var id = req.body.listID;
     var entryIndex = req.body.entryIndex;
 
     List.findOneAndUpdate(
         { _id: id },
         { $push : { entryIDs : entryIndex } },
-        { new : true },
-        function(error, doc) {
+        function(error) {
             if (error) res.json({ error: error});
-            else res.json({ list : doc });
-        });
+            else res.json({ success: true });
+        }
+    );
+};
 
-}
+exports.removeFromList = function(req, res) {
+
+    var id = req.body.listID;
+    var entryIndex = req.entryIndex;
+
+    List.findOneAndUpdate(
+        { _id: id },
+        { $pull : { entryIDs : entryIndex } },
+        function(error) {
+            if (error) res.json({ error: error });
+            else res.json({ success: true });
+        }
+    );
+};

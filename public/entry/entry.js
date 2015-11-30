@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location) {
+app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, listService) {
 
   if($stateParams.id) {
     // save
@@ -100,6 +100,36 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   })
 
   //$(window).load(smartquotes);
+
+  //  initialize view model
+  var viewModel = {
+      newListName: ''
+  };
+
+  //  expose view model to scope
+  $scope.viewModel = viewModel;
+
+  //  expose shared list model to scope
+  $scope.sharedListModel = listService.sharedListModel;
+
+  $scope.addSelectedEntriesToList = function(list) {
+    var entry = $scope.entry;
+    entry.addedToList = entry.alreadyInList = false;
+    listService.addToList(list, entry, function(result) {
+      if (result.addedToList) {
+        entry.addedToList = true;
+      }
+      if (result.alreadyInList) entry.alreadyInList = true;
+    });
+  };
+
+  $scope.addSelectedEntriesToNewList = function() {
+    listService.newList(viewModel.newListName, function(list) {
+      viewModel.newListName = '';
+      console.log('list created: ' + list.name);
+      $scope.addSelectedEntriesToList(list);
+    });
+  };
 
 
 

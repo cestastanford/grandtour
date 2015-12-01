@@ -164,15 +164,15 @@
           p.pull-left.text-large
             strong {{entries.length}} 
             | matching results
-          button#export-button.btn.btn-default.btn-sm.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!entries.length")
-            i.fa.fa-download.margin-right
-            | Export results
         
         .panel.panel-default
           .panel-heading
             button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
             button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
-            div.btn-group.add-to-list-btn
+            button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!entries.length")
+              i.fa.fa-download.margin-right
+              | Export results
+            div.btn-group.add-to-list-btn.list-option
               button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
                 span Add Selected Entries to List
                 span.caret
@@ -188,6 +188,7 @@
                     input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
                     span.input-group-btn
                       button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") Create & Add
+            
           .panel-body
             table.table.table-hover
               tbody.entry-row

@@ -183,7 +183,8 @@
         p.text-serif.small {{entry.notes}}
         
 
-
+      div.col-lg-3#minimap(ng-show="entry.travels")
+        button.btn.btn-default(type="button", ng-click="reanimate(entry.travels)") Reanimate
       div.col-lg-3.entry-info
         .row
           .col-lg-12(ng-show="tours.length")
@@ -201,7 +202,7 @@
                     th.text-right to
                     //th.text-right before
                 tbody
-                  tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;")
+                  tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;", ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
                     td(ng-class="{'bordered':travel.parent}")
                       span {{travel.place}}
                     //td.text-right.tnum-lnum {{travel.gte}}

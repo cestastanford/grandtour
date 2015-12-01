@@ -618,3 +618,41 @@ hr {
 table.table {
   margin-bottom: 0px;
 }
+
+/* from minimap */
+
+#minimap svg {
+  border: 1px solid #ccc;
+}
+
+.minimap-disabled {
+
+    background-color: #ccc;
+
+}
+
+.minimap-hovered {
+
+    background-color: #ccf;
+
+}
+
+#minimap button {
+    width: 100%;
+}
+
+#minimap path {
+
+    fill: none;
+    stroke: #bbb;
+
+}
+
+#minimap text {
+
+    font-family: 'Lato', sans-serif;
+    fill: #77c;
+    stroke: #fff;
+    stroke-width: .5px;
+
+}

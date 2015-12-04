@@ -53,11 +53,11 @@ app
   $scope.resetTravelDateModel('exact');
 
   $scope.dimensions = [
-    { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName' },
-    { type : 'number', active : false, label : 'Birth date', field : 'birthDate' },
-    { type : 'facet', active : false, label : 'Birth place', field : 'birthPlace', suggestions : 'places.birthPlace' },
-    { type : 'number', active : false, label : 'Death date', field : 'deathDate' },
-    { type : 'facet', active : false, label : 'Death place', field : 'deathPlace', suggestions : 'places.deathPlace' },
+    { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
+    { type : 'number', active : false, label : 'Birth date', field : 'birthDate', sorting : 'dates[0].birthDate' },
+    { type : 'facet', active : false, label : 'Birth place', field : 'birthPlace', suggestions : 'places.birthPlace', sorting : 'places[0].birthPlace' },
+    { type : 'number', active : false, label : 'Death date', field : 'deathDate', sorting : 'dates[0].deathDate' },
+    { type : 'facet', active : false, label : 'Death place', field : 'deathPlace', suggestions : 'places.deathPlace', sorting : 'places[0].deathPlace' },
     { type : 'facet', active : true, label : 'Pursuits & Situations', field : 'pursuits', suggestions : 'pursuits.pursuit' },
     { type : 'facet', active : false, label : 'Occupations & Posts', field : 'occupations', suggestions : 'occupations.title' },
     { type : 'facet', active : true, label : 'Occupations & Posts', subgroup: 'Group', field : 'occupations_group', suggestions : 'occupations.group' },
@@ -142,13 +142,16 @@ app
 
 
   $scope.$watch('dimensions',function(dimensions){
+    sortModel.activeSortableDimensions = [];
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
     for (var i = 0; i < dimensions.length; i++) {
       if (!dimensions[i].active) {
         $scope.removeFromQuery(dimensions[i].field);
         if (dimensions[i].field === 'entry') initFreeSearchModel();
         if (dimensions[i].field === 'travel_date') $scope.resetTravelDateModel('exact');
-      };
+      } else {
+        if (dimensions[i].sorting) sortModel.activeSortableDimensions.push(dimensions[i].sorting);
+      }
     }
   },true)
 
@@ -292,5 +295,15 @@ app
       $scope.addSelectedEntriesToList(list);
     });
   };
+
+  //  support for sorting entries
+  var sortModel = {
+    activeSortableDimensions: [],
+    dimension: 'index',
+    reverseSorting: false
+  };
+
+  $scope.sortModel = sortModel;
+  $scope.console_log = function(item) { console.log(item, $scope.entries); };
 
 })

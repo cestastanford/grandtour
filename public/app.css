@@ -588,7 +588,7 @@ hr {
   margin-right: 10px;
 }
 
-.add-to-list-btn .caret {
+.btn-group .caret {
   margin-left: 5px;
 }
 
@@ -655,4 +655,11 @@ table.table {
     stroke: #fff;
     stroke-width: .5px;
 
+}
+
+.entry-order-checkbox {
+  display: inline;
+  position: relative;
+  left: 30px;
+  top: 1px;
 }

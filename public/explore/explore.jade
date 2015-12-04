@@ -164,15 +164,15 @@
           p.pull-left.text-large
             strong {{entries.length}} 
             | matching results
+          button#export-button.btn.btn-default.btn-sm.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!entries.length")
+            i.fa.fa-download.margin-right
+            | Export results
         
         .panel.panel-default
           .panel-heading
             button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
             button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
-            button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!entries.length")
-              i.fa.fa-download.margin-right
-              | Export results
-            div.btn-group.add-to-list-btn.list-option
+            div.btn-group.add-to-list-btn
               button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
                 span Add Selected Entries to List
                 span.caret
@@ -188,11 +188,27 @@
                     input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
                     span.input-group-btn
                       button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") Create & Add
-            
           .panel-body
             table.table.table-hover
               tbody.entry-row
-                tr(ng-repeat="entry in entries", ng-class="{ warning: entry.selected }")
+                tr.info
+                  td(colspan="2")
+                    div.btn-group
+                      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                        span Sort by...
+                        span.caret
+                      ul.dropdown-menu
+                        li
+                          a(ng-click="sortModel.dimension = 'index'", ng-class="{ 'bg-info' : sortModel.dimension === 'index' }") None
+                        li.divider
+                        li(ng-repeat="dimension in sortModel.activeSortableDimensions")
+                          a(ng-click="sortModel.dimension = dimension; console_log(dimension)", ng-class="{ 'bg-info' : sortModel.dimension === dimension }") {{ dimension.replace('[0]', '').split('.').join(' - ') }}
+                    .checkbox.entry-order-checkbox
+                      label
+                        input(type="checkbox", ng-model="sortModel.reverseSorting")
+                        div Reverse Order
+
+                tr(ng-repeat="entry in entries | orderBy : sortModel.dimension : sortModel.reverseSorting", ng-class="{ warning: entry.selected }")
                   td.entry-checkbox
                     input(type="checkbox", ng-model="entry.selected")
                   td.entry-list-item

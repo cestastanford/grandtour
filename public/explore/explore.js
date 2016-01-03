@@ -295,15 +295,16 @@ app
 
   //  support for sorting entries
   var sortModel = {
-    activeSortableDimensions: [],
+    activeSortableDimensions: [
+      { label : 'Fullname', sorting : 'fullName' },
+      { label : 'Birth date', sorting : 'dates[0].birthDate' },
+      { label : 'Birth place', sorting : 'places[0].birthPlace' },
+      { label : 'Death date', sorting : 'dates[0].deathDate' },
+      { label : 'Death place', sorting : 'places[0].deathPlace' },
+    ],
     dimension: 'index',
     reverseSorting: false
   };
-
-  for (var i = 0; i < $scope.dimensions.length; i++) {
-    var d = $scope.dimensions[i];
-    if (d.sorting) sortModel.activeSortableDimensions.push(d);
-  }
 
   $scope.sortModel = sortModel;
 

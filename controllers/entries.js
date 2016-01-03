@@ -496,7 +496,9 @@ exports.search2 = function (req, res) {
       .find(query, {
         index : true,
         fullName : true,
-        biography : true
+        biography : true,
+        places: true,
+        dates: true
       }, function (err, response) {
         if (err) {
           res.json({ error: err })

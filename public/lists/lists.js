@@ -87,4 +87,45 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
         }
     };
 
+    //  support for sorting entries
+    var sortModel = {
+      activeSortableDimensions: [
+        { label : 'Fullname', sorting : 'fullName' },
+        { label : 'Birth date', sorting : 'dates[0].birthDate' },
+        { label : 'Birth place', sorting : 'places[0].birthPlace' },
+        { label : 'Death date', sorting : 'dates[0].deathDate' },
+        { label : 'Death place', sorting : 'places[0].deathPlace' },
+      ],
+      dimension: 'index',
+      reverseSorting: false
+    };
+
+    $scope.sortModel = sortModel;
+
+    //  export function copied from explore.js
+    $scope.export = function(field, value){
+
+      var $btn = $('#export-button').button('loading')
+
+      $http.post('/api/entries/export/', { index_list: viewModel.selectedList.entryIDs } )
+        .success(function (res){
+
+          var entries = d3.tsv.format(res.result.entries);
+          var activities = d3.tsv.format(res.result.activities);
+          var travels = d3.tsv.format(res.result.travels);
+
+          var zip = new JSZip();
+          zip.file("Entries.tsv", entries);
+          zip.file("Activities.tsv", activities);
+          zip.file("Travels.tsv", travels);
+          var content = zip.generate({type:"blob"});
+          saveAs(content, "Grand Tour Explorer - Export.zip");
+          $btn.button('reset')
+
+        })
+
+
+
+    }
+
 });

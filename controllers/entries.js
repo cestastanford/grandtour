@@ -662,8 +662,17 @@ function parseExport(res){
 
 exports.export = function (req, res) {
 
-  var originalQuery = JSON.stringify(req.body.query);
-  var query = parseQuery(req.body.query);
+  if (req.body.query) {
+
+    var originalQuery = JSON.stringify(req.body.query);
+    var query = parseQuery(req.body.query);
+
+  } else {
+
+    var ids = req.body.index_list;
+    var query = { index : { $in : ids } };
+
+  }
 
   Entry
     .aggregate()
@@ -676,7 +685,7 @@ exports.export = function (req, res) {
       }
 
       res.json({
-        request : JSON.parse(originalQuery),
+        // request : JSON.parse(originalQuery),
         result : parseExport(response)
       });
 

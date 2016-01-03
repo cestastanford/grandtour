@@ -658,3 +658,7 @@ table.table {
   left: 30px;
   top: 1px;
 }
+
+#export-button {
+  margin-left: 10px;
+}

@@ -142,15 +142,12 @@ app
 
 
   $scope.$watch('dimensions',function(dimensions){
-    sortModel.activeSortableDimensions = [];
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
     for (var i = 0; i < dimensions.length; i++) {
       if (!dimensions[i].active) {
         $scope.removeFromQuery(dimensions[i].field);
         if (dimensions[i].field === 'entry') initFreeSearchModel();
         if (dimensions[i].field === 'travel_date') $scope.resetTravelDateModel('exact');
-      } else {
-        if (dimensions[i].sorting) sortModel.activeSortableDimensions.push(dimensions[i].sorting);
       }
     }
   },true)
@@ -298,12 +295,17 @@ app
 
   //  support for sorting entries
   var sortModel = {
-    activeSortableDimensions: [],
+    activeSortableDimensions: [
+      { label : 'Fullname', sorting : 'fullName' },
+      { label : 'Birth date', sorting : 'dates[0].birthDate' },
+      { label : 'Birth place', sorting : 'places[0].birthPlace' },
+      { label : 'Death date', sorting : 'dates[0].deathDate' },
+      { label : 'Death place', sorting : 'places[0].deathPlace' },
+    ],
     dimension: 'index',
     reverseSorting: false
   };
 
   $scope.sortModel = sortModel;
-  $scope.console_log = function(item) { console.log(item, $scope.entries); };
 
 })

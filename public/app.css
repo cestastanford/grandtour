@@ -571,11 +571,6 @@ hr {
   margin-right: 10px;
 }
 
-.add-to-list-btn {
-  float: right;
-  position: relative;
-}
-
 .add-to-list-btn .input-group {
   width: 225px;
   margin: 10px;

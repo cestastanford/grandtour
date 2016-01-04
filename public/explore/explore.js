@@ -58,7 +58,8 @@ app
     { type : 'facet', active : false, label : 'Birth place', field : 'birthPlace', suggestions : 'places.birthPlace', sorting : 'places[0].birthPlace' },
     { type : 'number', active : false, label : 'Death date', field : 'deathDate', sorting : 'dates[0].deathDate' },
     { type : 'facet', active : false, label : 'Death place', field : 'deathPlace', suggestions : 'places.deathPlace', sorting : 'places[0].deathPlace' },
-    { type : 'facet', active : true, label : 'Pursuits & Situations', field : 'pursuits', suggestions : 'pursuits.pursuit' },
+    { type : 'facet', active : false, label : 'Entry type', field : 'type', suggestions : 'type' },
+    { type : 'facet', active : true, label : 'Employments and Identifiers', field : 'pursuits', suggestions : 'pursuits.pursuit' },
     { type : 'facet', active : false, label : 'Occupations & Posts', field : 'occupations', suggestions : 'occupations.title' },
     { type : 'facet', active : true, label : 'Occupations & Posts', subgroup: 'Group', field : 'occupations_group', suggestions : 'occupations.group' },
     { type : 'facet', active : true, label : 'Societies & Academies', field : 'societies', suggestions : 'societies.title' },
@@ -142,15 +143,12 @@ app
 
 
   $scope.$watch('dimensions',function(dimensions){
-    sortModel.activeSortableDimensions = [];
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
     for (var i = 0; i < dimensions.length; i++) {
       if (!dimensions[i].active) {
         $scope.removeFromQuery(dimensions[i].field);
         if (dimensions[i].field === 'entry') initFreeSearchModel();
         if (dimensions[i].field === 'travel_date') $scope.resetTravelDateModel('exact');
-      } else {
-        if (dimensions[i].sorting) sortModel.activeSortableDimensions.push(dimensions[i].sorting);
       }
     }
   },true)
@@ -298,12 +296,17 @@ app
 
   //  support for sorting entries
   var sortModel = {
-    activeSortableDimensions: [],
+    activeSortableDimensions: [
+      { label : 'Fullname', sorting : 'fullName' },
+      { label : 'Birth date', sorting : 'dates[0].birthDate' },
+      { label : 'Birth place', sorting : 'places[0].birthPlace' },
+      { label : 'Death date', sorting : 'dates[0].deathDate' },
+      { label : 'Death place', sorting : 'places[0].deathPlace' },
+    ],
     dimension: 'index',
     reverseSorting: false
   };
 
   $scope.sortModel = sortModel;
-  $scope.console_log = function(item) { console.log(item, $scope.entries); };
 
 })

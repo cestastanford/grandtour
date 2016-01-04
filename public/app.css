@@ -571,11 +571,6 @@ hr {
   margin-right: 10px;
 }
 
-.add-to-list-btn {
-  float: right;
-  position: relative;
-}
-
 .add-to-list-btn .input-group {
   width: 225px;
   margin: 10px;
@@ -662,4 +657,8 @@ table.table {
   position: relative;
   left: 30px;
   top: 1px;
+}
+
+#export-button {
+  margin-left: 10px;
 }

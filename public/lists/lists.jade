@@ -1,7 +1,7 @@
 .container.main-view
 
     .row
-        h3 {{ currentUser.fullName }}'s lists
+        h3 Your lists
         hr
     .row
         .col-lg-3.border-right
@@ -21,42 +21,48 @@
         .col-lg-9
             .panel.panel-warning(ng-hide="viewModel.selectedList")
                 .panel-body.text-center No list selected.
+            
             .panel.panel-default(ng-show="viewModel.selectedList")
                 .panel-heading(ng-show="viewModel.selectedListEntries")
+                    
                     button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
                     button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
+                    
+
                     button.btn.btn-warning.btn-xs.list-option(type="button", ng-click="removeSelectedEntriesFromList()") remove selected entries from list
-                    button.btn.btn-danger.btn-xs.pull-right(type="button", ng-click="deleteList()") delete this list
+
+                    div.btn-group.list-option
+                      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                        span Sort by...
+                        span.caret
+                      ul.dropdown-menu
+                        li(ng-repeat="dimension in sortModel.activeSortableDimensions")
+                          a(ng-click="sortModel.dimension = dimension.sorting;", ng-class="{ 'bg-info' : sortModel.dimension === dimension.sorting }") {{ dimension.label }}
+                        li.divider
+                        li
+                          a(ng-click="sortModel.dimension = 'index'", ng-class="{ 'bg-info' : sortModel.dimension === 'index' }") Index
+                        li.divider
+                        li
+                          .checkbox.entry-order-checkbox
+                            label
+                              input(type="checkbox", ng-model="sortModel.reverseSorting")
+                              div Reverse Order  
+
+                    button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!viewModel.selectedListEntries")
+                      i.fa.fa-download.margin-right
+                      | Export results       
+
+                    button.btn.btn-danger.btn-xs.pull-right(type="button", ng-click="deleteList()") delete this list       
+                
                 .panel-body.text-center(ng-hide="viewModel.selectedListEntries") Loading entries...
                 .panel-body.text-center(ng-show="viewModel.selectedListEntries && !viewModel.selectedListEntries.length") No entries.
                 .panel-body(ng-show="viewModel.selectedListEntries")
                     table.table.table-hover
                         tbody.entry-row
-                            tr(ng-repeat="entry in viewModel.selectedListEntries", ng-class="{ warning: entry.selected }")
+                            tr(ng-repeat="entry in viewModel.selectedListEntries | orderBy : sortModel.dimension : sortModel.reverseSorting", ng-class="{ warning: entry.selected }")
                                 td.entry-checkbox
                                     input(type="checkbox", ng-model="entry.selected")
                                 td.entry-list-item
                                     a(ng-href="#/entries/{{entry.index}}")
                                         h4 {{ entry.fullName }}
                                         p {{ entry.biography.slice(0, 200) }} ...
-
-
-                    //- .list-group.margin-top
-                    //-     .list-group-item.list-group-item-info(ng-show="!viewModel.selectedListEntries") Loading entries...
-                    //-     .list-group-item.list-group-item-warning(ng-show="viewModel.selectedListEntries && !viewModel.selectedListEntries.length") No entries
-                    //-     a.list-group-item(ng-repeat="entry in viewModel.selectedListEntries", ng-href="#/entries/{{entry.index}}")
-                    //-         h4.list-group-item-heading {{entry.fullName}}
-                    //-         p.list-group-item-text {{entry.biography.slice(0,200)}} ...
-            
-
-
-            //- .panel.panel-warning(ng-show="!viewModel.selectedList")
-            //- .panel.panel-default
-            //-     .panel-heading
-            //-         span(ng-show="!viewModel.selectedList")
-            //-         span(ng-show="viewModel.selectedList && viewModel.selectedListEntries")
-            //-             a.small.list-option(ng-click="selectAllEntries()") select all
-            //-             a.small.list-option(ng-click="deselectAllEntries()") deselect all
-            //-             a.small.list-option(ng-click="removeSelectedEntriesFromList()") remove selected entries from list
-            //-             a.small.list-delete(ng-click="deleteList()") delete this list
-            //-     .panel-body {{ !viewModel.selectedList ? 'No list selected' : (!viewModel.selectedListEntries ? 'Loading entries...' : 'Array goes here.') }}

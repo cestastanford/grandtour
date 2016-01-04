@@ -12,6 +12,7 @@ var Entry = new Schema({
   fullName : String,
   places : [],
   dates : [],
+  type : String,
 
   pursuits : [],
   occupations : [],

@@ -174,6 +174,7 @@ function seek(obj) {
 var searchMapRE = {
 
   fullName : function(d) { return { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } } },
+  type : function(d) { return { type : d } },
 
   birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
   deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
@@ -202,7 +203,7 @@ var searchMapRE = {
 
   travel_place : function(d) { return { travels : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
   travel_date : function(d) {
-    
+
     var outer = [];
 
     if (d.startYear) {
@@ -281,6 +282,8 @@ var searchMap = {
 
   fullName : function(d) { return { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } } },
 
+  type : function(d) { return { type : d } },
+
   birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
   deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
 
@@ -308,7 +311,7 @@ var searchMap = {
 
   travel_place : function(d) { return { travels : { $elemMatch : { place : d}  } } },
   travel_date : function(d) {
-    
+
     var outer = [];
 
     if (d.startYear) {
@@ -366,7 +369,7 @@ var searchMap = {
     return { travels : { $elemMatch : { $and : outer } } };
 
   },
-  
+
   entry : function(d) {
     var or = [];
     for (var section in d) {
@@ -496,7 +499,9 @@ exports.search2 = function (req, res) {
       .find(query, {
         index : true,
         fullName : true,
-        biography : true
+        biography : true,
+        places: true,
+        dates: true
       }, function (err, response) {
         if (err) {
           res.json({ error: err })
@@ -526,6 +531,8 @@ function parseExport(res){
     entry.index = d.index;
     // fullName
     entry.fullName = d.fullName;
+    // gender
+    entry.gender = d.gender;
     // birthDate
     entry.birthDate = d.dates[0] ? d.dates[0].birthDate || "" : "";
     // deathDate
@@ -660,8 +667,17 @@ function parseExport(res){
 
 exports.export = function (req, res) {
 
-  var originalQuery = JSON.stringify(req.body.query);
-  var query = parseQuery(req.body.query);
+  if (req.body.query) {
+
+    var originalQuery = JSON.stringify(req.body.query);
+    var query = parseQuery(req.body.query);
+
+  } else {
+
+    var ids = req.body.index_list;
+    var query = { index : { $in : ids } };
+
+  }
 
   Entry
     .aggregate()
@@ -674,7 +690,7 @@ exports.export = function (req, res) {
       }
 
       res.json({
-        request : JSON.parse(originalQuery),
+        // request : JSON.parse(originalQuery),
         result : parseExport(response)
       });
 

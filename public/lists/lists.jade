@@ -1,7 +1,7 @@
 .container.main-view
 
     .row
-        h3 {{ currentUser.fullName }}'s lists
+        h3 Your lists
         hr
     .row
         .col-lg-3.border-right
@@ -66,4 +66,3 @@
                                     a(ng-href="#/entries/{{entry.index}}")
                                         h4 {{ entry.fullName }}
                                         p {{ entry.biography.slice(0, 200) }} ...
-

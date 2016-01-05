@@ -79,6 +79,14 @@
         {
             "field" : "travel_day",
             "query" : { "$or" : [ { "travels.travelStartDay" : { "$ne" : 0 } }, { "travels.travelEndDay" : { "$ne" : 0 } } ] }
+        },
+        {
+            "field" : "exhibitions",
+            "query" : { "exhibitions.title" : { "$exists" : true } }
+        },
+        {
+            "field" : "exhibitions_activity",
+            "query" : { "exhibitions.activity" : { "$exists" : true } }
         }
     ]
 }

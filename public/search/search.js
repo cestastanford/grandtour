@@ -217,4 +217,11 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
   }
 
+  //  download counts
+  $http.get('/api/getcount')
+  .then(function(res) {
+    if (res.data.error) console.error(res.data.error);
+    else $scope.counts = res.data.counts;
+  });
+
 });

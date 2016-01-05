@@ -228,14 +228,8 @@ function routes(io) {
   });
 
   //  for counting entries
-  router.get('/api/recount', admin, function(req, res) {
-    database.recount(req, res);
-  });
-
-  console.log(database.getCount)
-  router.get('/api/getcount', auth, function(req, res) {
-    try { database.getCount(req, res); } catch(error) { console.error(error); }
-  });
+  router.get('/api/recount', admin, database.recount);
+  router.get('/api/getcount', auth, database.getCount);
 
   // lists
   router.post('/api/lists/mylists', auth, lists.myLists);

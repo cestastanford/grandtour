@@ -231,7 +231,7 @@ exports.recount = function(req, res) {
       
       var d = this.d;
 
-      if (error) console.error(error);
+      if (error) res.json({ error: error });
       else {
 
         var newCount = new Count({
@@ -241,7 +241,6 @@ exports.recount = function(req, res) {
 
         newCount.save(function(error) { if (error) console.error(error); });
         newCounts[d.field] = number;
-        console.log(d.field + ': ' + number);
         if (++n_counted === counts.length) res.json({ status: 200 });
 
       }
@@ -257,7 +256,7 @@ exports.getCount = function(req, res) {
   
   Count.find({}, function(error, counts) {
 
-    if (error) console.error(error);
+    if (error) res.json({ error: error });
     else {
 
       var countsObject = {};

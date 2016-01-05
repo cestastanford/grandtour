@@ -88,6 +88,40 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
         }
     };
 
+    $scope.copySelectedEntriesToList = function(list) {
+        for(var i = 0; i < viewModel.selectedListEntries.length; i++) {
+            var entry = viewModel.selectedListEntries[i];
+            if (entry.selected) {
+                entry.addedToList = entry.alreadyInList = false;
+                listService.addToList(list, entry, function(result) {
+                    if (result.addedToList) {
+                        entry.addedToList = true;
+                    }
+                    if (result.alreadyInList) entry.alreadyInList = true;
+                });
+            }
+        }
+    };
+
+    $scope.copySelectedEntriesToNewList = function() {
+        listService.newList(viewModel.newListName, function(list) {
+            viewModel.newListName = '';
+            console.log('list created: ' + list.name);
+            $scope.copySelectedEntriesToList(list);
+        });
+    };
+
+    $scope.duplicateList = function() {
+        listService.newList(viewModel.newListName, function(list) {
+            viewModel.newListName = '';
+            console.log('list created: ' + list.name);
+            for(var i = 0; i < viewModel.selectedListEntries.length; i++) {
+                var entry = viewModel.selectedListEntries[i];
+                listService.addToList(list, entry, function(result) { return; });
+            }
+        }); 
+    }
+
     //  support for sorting entries
     var sortModel = {
       activeSortableDimensions: [

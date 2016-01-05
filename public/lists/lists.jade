@@ -28,8 +28,25 @@
                     button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
                     button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
                     
+                    div.btn-group.add-to-list-btn.list-option
+                        button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                            span copy
+                            span.caret
+                        ul.dropdown-menu
+                            li.dropdown-header copy selected entries to list:
+                            li(ng-show="sharedListModel.listsLoading")
+                                span loading lists...
+                            li(ng-repeat="list in sharedListModel.myLists")
+                                a(ng-click="copySelectedEntriesToList(list)") {{ list.name }}
+                            li.divider(role="separator")
+                            li.dropdown-header or copy to a new list:
+                            li
+                                form.input-group.input-group-sm
+                                    input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+                                    span.input-group-btn
+                                        button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="copySelectedEntriesToNewList()") create & copy
 
-                    button.btn.btn-warning.btn-xs.list-option(type="button", ng-click="removeSelectedEntriesFromList()") remove selected entries from list
+                    button.btn.btn-warning.btn-xs.list-option(type="button", ng-click="removeSelectedEntriesFromList()") remove
 
                     div.btn-group.list-option
                       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
@@ -51,6 +68,17 @@
                     button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!viewModel.selectedListEntries")
                       i.fa.fa-download.margin-right
                       | Export results       
+                    
+                    div#duplicate-button.btn-group.add-to-list-btn.pull-right
+                        button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                            span duplicate list
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                form.input-group.input-group-sm
+                                    input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+                                    span.input-group-btn
+                                        button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="duplicateList()") duplicate
 
                     button.btn.btn-danger.btn-xs.pull-right(type="button", ng-click="deleteList()") delete this list       
                 

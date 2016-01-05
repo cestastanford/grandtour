@@ -255,15 +255,4 @@ var app = angular.module('app', [
     removeFromList: removeFromList
   };
 
-})
-
-
-//  shared count access services
-.factory('listService', function($rootScope, $http) {
-
-  //  public service object
-  var sharedCountModel = {
-    counts: null,
-  };
-
 });

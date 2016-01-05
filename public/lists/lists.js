@@ -54,6 +54,7 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
                 else {
                     var i = this;
                     entries[i] = res.data.entry;
+                    calculateFirstTravelOrders([res.data.entry]);
                     if (++entriesDownloaded === list.entryIDs.length) {
                         viewModel.selectedListEntries = entries;
                     }
@@ -93,14 +94,34 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
         { label : 'Fullname', sorting : 'fullName' },
         { label : 'Birth date', sorting : 'dates[0].birthDate' },
         { label : 'Birth place', sorting : 'places[0].birthPlace' },
-        { label : 'Death date', sorting : 'dates[0].deathDate' },
-        { label : 'Death place', sorting : 'places[0].deathPlace' },
+        { label : 'Date of first travel', sorting : 'firstTravelUTC' },
       ],
       dimension: 'index',
       reverseSorting: false
     };
 
     $scope.sortModel = sortModel;
+
+    function calculateFirstTravelOrders(entries) {
+        for (var i = 0; i < entries.length; i++) {
+
+            var entry = entries[i];
+            if (entry.travels) {
+
+                for (var j = 0; j < entry.travels.length; j++) {
+
+                    var travel = entry.travels[j];
+                    if (travel.travelStartYear) {
+
+                        entry.firstTravelUTC = Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay);
+                        break;
+
+                    }
+                }
+            }
+        }
+    }
+
 
     //  export function copied from explore.js
     $scope.export = function(field, value){

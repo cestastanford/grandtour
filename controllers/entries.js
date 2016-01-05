@@ -433,7 +433,8 @@ exports.search = function (req, res) {
         fullName : true,
         biography : true,
         places: true,
-        dates: true
+        dates: true,
+        travels: true
       }, function (err, response) {
         if (err) {
           res.json({ error: err })
@@ -501,7 +502,8 @@ exports.search2 = function (req, res) {
         fullName : true,
         biography : true,
         places: true,
-        dates: true
+        dates: true,
+        travels: true
       }, function (err, response) {
         if (err) {
           res.json({ error: err })

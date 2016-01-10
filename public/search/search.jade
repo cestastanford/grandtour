@@ -13,7 +13,7 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.fullName",
-            placeholder="Search",
+            placeholder="Search ({{ counts.fullName }} entries)",
             ng-class="{ filled : query.fullName }"
             typeahead="item for item in getSuggestions('fullName', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -23,12 +23,12 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.birthDate",
-            placeholder="year",
+            placeholder="year ({{ counts.birthDate }} entries)",
             ng-class="{ filled : query.birthDate }")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.birthPlace",
-            placeholder="place",
+            placeholder="place ({{ counts.birthPlace }} entries)",
             ng-class="{ filled : query.birthPlace }"
             typeahead="item for item in getSuggestions('places.birthPlace', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -38,12 +38,12 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.deathDate",
-            placeholder="year",
+            placeholder="year ({{ counts.deathDate }} entries)",
             ng-class="{ filled : query.deathDate }")
           input.input-sm.margin-top.form-control(
             type="text", 
             ng-model="query.deathPlace",
-            placeholder="place",
+            placeholder="place ({{ counts.birthPlace }} entries)",
             ng-class="{ filled : query.deathPlace }"
             typeahead="item for item in getSuggestions('places.deathPlace', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -53,7 +53,7 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.pursuits",
-            placeholder="pursuit",
+            placeholder="pursuit ({{ counts.pursuits }} entries)",
             ng-class="{ filled : query.pursuits }"
             typeahead="item for item in getSuggestions('pursuits.pursuit', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -63,21 +63,21 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.occupations",
-            placeholder="occupation",
+            placeholder="occupation ({{ counts.occupations }} entries)",
             ng-class="{ filled : query.occupations }"
             typeahead="item for item in getSuggestions('occupations.title', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.occupations_group",
-            placeholder="group",
+            placeholder="group ({{ counts.occupations_group }} entries)",
             ng-class="{ filled : query.occupations_group }"
             typeahead="item for item in getSuggestions('occupations.group', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.occupations_place",
-            placeholder="place",
+            placeholder="place ({{ counts.occupations_place }} entries)",
             ng-class="{ filled : query.occupations_place }"
             typeahead="item for item in getSuggestions('occupations.place', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -87,7 +87,7 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.military",
-            placeholder="rank",
+            placeholder="rank ({{ counts.military }} entries)",
             ng-class="{ filled : query.military }"
             typeahead="item for item in getSuggestions('military.rank', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -98,14 +98,14 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.societies",
-            placeholder="society",
+            placeholder="society ({{ counts.societies }} entries)",
             ng-class="{ filled : query.societies }"
             typeahead="item for item in getSuggestions('societies.title', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.societies_role",
-            placeholder="role",
+            placeholder="role ({{ counts.societies_role }} entries)",
             ng-class="{ filled : query.societies_role }"
             typeahead="item for item in getSuggestions('societies.role', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -116,14 +116,14 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.exhibitions",
-            placeholder="institution",
+            placeholder="institution ({{ counts.exhibitions }} entries)",
             ng-class="{ filled : query.exhibitions }"
             typeahead="item for item in getSuggestions('exhibitions.title', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.exhibitions_activity",
-            placeholder="activity",
+            placeholder="activity ({{ counts.exhibitions_activity }} entries)",
             ng-class="{ filled : query.exhibitions_activity }"
             typeahead="item for item in getSuggestions('exhibitions.activity', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
@@ -133,28 +133,28 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.education_institution",
-            placeholder="institution",
+            placeholder="institution ({{ counts.education_institution }} entries)",
             ng-class="{ filled : query.education_institution }"
             typeahead="item for item in getSuggestions('education.institution', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.education_place",
-            placeholder="place",
+            placeholder="place ({{ counts.education_place }} entries)",
             ng-class="{ filled : query.education_place }"
             typeahead="item for item in getSuggestions('education.place', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.education_teacher",
-            placeholder="teacher",
+            placeholder="teacher ({{ counts.education_teacher }} entries)",
             ng-class="{ filled : query.education_teacher }"
             typeahead="item for item in getSuggestions('education.teacher', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.education_degree",
-            placeholder="degree",
+            placeholder="degree ({{ counts.education_degree }} entries)",
             ng-class="{ filled : query.education_degree }"
             typeahead="item for item in getSuggestions('education.fullDegree', $viewValue)"
             typeahead-min-length="2", typeahead-wait-ms="100")
@@ -166,67 +166,67 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.travel_place",
-            placeholder="place",
+            placeholder="place ({{ counts.travel_place }} entries)",
             ng-class="{ filled : query.travel_place }"
             typeahead="item for item in getSuggestions('travels.place', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.startYear",
-            placeholder="year",
+            placeholder="year ({{ counts.travel_year }} entries)",
             ng-class="{ filled : travelDateModel.query.startYear }",
             ng-show="travelDateModel.queryType === 'exact'")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.startMonth",
-            placeholder="month",
+            placeholder="month ({{ counts.travel_month }} entries)",
             ng-class="{ filled : travelDateModel.query.startMonth }",
             ng-show="travelDateModel.queryType === 'exact'",
             ng-disabled="!travelDateModel.query.startYear && !travelDateModel.query.startMonth")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.startDay",
-            placeholder="day",
+            placeholder="day ({{ counts.travel_day }} entries)",
             ng-class="{ filled : travelDateModel.query.startDay }",
             ng-show="travelDateModel.queryType === 'exact'",
             ng-disabled="!travelDateModel.query.startMonth && !travelDateModel.query.startDay")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.startYear",
-            placeholder="start year",
+            placeholder="start year ({{ counts.travel_year }} entries)",
             ng-class="{ filled : travelDateModel.query.startYear }",
             ng-show="travelDateModel.queryType === 'range'")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.startMonth",
-            placeholder="start month",
+            placeholder="start month ({{ counts.travel_month }} entries)",
             ng-class="{ filled : travelDateModel.query.startMonth }",
             ng-show="travelDateModel.queryType === 'range'",
             ng-disabled="!travelDateModel.query.startYear && !travelDateModel.query.startMonth")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.startDay",
-            placeholder="start day",
+            placeholder="start day ({{ counts.travel_day }} entries)",
             ng-class="{ filled : travelDateModel.query.startDay }",
             ng-show="travelDateModel.queryType === 'range'",
             ng-disabled="!travelDateModel.query.startMonth && !travelDateModel.query.startDay")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.endYear",
-            placeholder="end year",
+            placeholder="end year ({{ counts.travel_year }} entries)",
             ng-class="{ filled : travelDateModel.query.endYear }",
             ng-show="travelDateModel.queryType === 'range'")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.endMonth",
-            placeholder="end month",
+            placeholder="end month ({{ counts.travel_month }} entries)",
             ng-class="{ filled : travelDateModel.query.endMonth }",
             ng-show="travelDateModel.queryType === 'range'",
             ng-disabled="!travelDateModel.query.endYear && !travelDateModel.query.endMonth")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="travelDateModel.query.endDay",
-            placeholder="end day",
+            placeholder="end day ({{ counts.travel_day }} entries)",
             ng-class="{ filled : travelDateModel.query.endDay }",
             ng-show="travelDateModel.queryType === 'range'",
             ng-disabled="!travelDateModel.query.endMonth && !travelDateModel.query.endDay")
@@ -245,7 +245,7 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="freeSearchQuery",
-            placeholder="text",
+            placeholder="text ({{ counts.fullName }} entries)",
             ng-class="{ filled : freeSearchQuery }")
           .checkbox
             label

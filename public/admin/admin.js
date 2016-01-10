@@ -161,4 +161,28 @@ app.controller('AdminCtrl', function($scope, $http) {
 
 //  var socket = io.connect('http://localhost');
 
+  $scope.counting = false;
+
+  $scope.recount = function() {
+    $scope.counting = true;
+    $http.get('/api/recount')
+    .then(function(res) {
+      $scope.counting = false;
+      if (res.data.error) console.error(res.data.error);
+      else {
+        getCount();
+      }
+    }, function(res) { console.error(res); });
+  };
+
+  function getCount() {
+    $http.get('/api/getcount')
+    .then(function(res) {
+      if (res.data.error) console.error(res.data.error);
+      else $scope.counts = res.data.counts;
+    })
+  };
+
+  getCount();
+
 });

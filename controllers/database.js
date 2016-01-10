@@ -2,7 +2,8 @@ var	mongoose = require('mongoose')
   , fs = require('fs')
   , d3 = require('d3')
   , jsondiffpatch = require('jsondiffpatch')
-  , Entry = mongoose.model('Entry');
+  , Entry = mongoose.model('Entry')
+  , Count = mongoose.model('Count');
 
 //var GoogleSpreadsheet = require("google-spreadsheet");
 var Spreadsheet = require('edit-google-spreadsheet');
@@ -215,3 +216,60 @@ exports.reset = function(req, res, io){
 
 
 }
+
+//  Recounts the number of entries with data in a specific field.
+exports.recount = function(req, res) {
+  
+  var counts = readJSONFile('./tsv/counts.json', 'counts');
+  Count.collection.drop();
+
+  var newCounts = {};
+  var n_counted = 0;
+  counts.forEach(function(d) {
+
+    var count = Entry.count(d.query, (function(error, number) {
+      
+      var d = this.d;
+
+      if (error) res.json({ error: error });
+      else {
+
+        var newCount = new Count({
+          field: d.field,
+          count: number
+        });
+
+        newCount.save(function(error) { if (error) console.error(error); });
+        newCounts[d.field] = number;
+        if (++n_counted === counts.length) res.json({ status: 200 });
+
+      }
+
+    }).bind({ d: d }));
+
+  });
+
+};
+
+//  Recounts the number of entries with data in a specific field.
+exports.getCount = function(req, res) {
+  
+  Count.find({}, function(error, counts) {
+
+    if (error) res.json({ error: error });
+    else {
+
+      var countsObject = {};
+      for (var i = 0; i < counts.length; i++) {
+
+        countsObject[counts[i].field] = counts[i].count;
+
+      }
+
+      res.json({ counts: countsObject });
+
+    }
+
+  });
+
+};

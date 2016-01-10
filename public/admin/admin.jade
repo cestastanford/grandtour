@@ -122,6 +122,29 @@
         
 
       a#reload.btn.btn-danger(ng-click="reload()", data-loading-text="Loading...") Reload selected
+      
+      hr
+
+      h3 Counts
+
+      p You can view and recount the number of entries containing data for each field here.
+      
+      .col-lg-6.well
+
+        table.table
+          thead
+            tr
+              th field name
+              th count
+          tbody
+            tr(ng-repeat="(field, count) in counts")
+              td {{ field }}
+              td {{ count }}
+
+      .col-lg-1
+      .col-lg-5.well
+
+        a.btn.btn-default(ng-click="recount()", ng-disabled="counting === true") {{ counting ? 'Counting...' : 'Recount' }}
 
       .row
         .col-lg-12

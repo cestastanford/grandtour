@@ -3,6 +3,7 @@ var router = require('express').Router();
 var User = require('./models/user');
 var Entry = require('./models/entry');
 var List = require('./models/list');
+var Count = require('./models/count');
 
 var	users = require('./controllers/users');
 var	entries = require('./controllers/entries');
@@ -225,6 +226,10 @@ function routes(io) {
   router.get('/api/reset', admin, function(req, res){
     database.reset(req, res, io)
   });
+
+  //  for counting entries
+  router.get('/api/recount', admin, database.recount);
+  router.get('/api/getcount', auth, database.getCount);
 
   // lists
   router.post('/api/lists/mylists', auth, lists.myLists);

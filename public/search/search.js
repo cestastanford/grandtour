@@ -28,6 +28,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
     .success(function(res){
       $scope.searching = false;
       $scope.entries = res.entries;
+      calculateFirstTravelOrders(res.entries);
       if (res.entries.length) $scope.noResults = false;
       else $scope.noResults = true;
     });
@@ -182,14 +183,33 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
       { label : 'Fullname', sorting : 'fullName' },
       { label : 'Birth date', sorting : 'dates[0].birthDate' },
       { label : 'Birth place', sorting : 'places[0].birthPlace' },
-      { label : 'Death date', sorting : 'dates[0].deathDate' },
-      { label : 'Death place', sorting : 'places[0].deathPlace' },
+      { label : 'Date of first travel', sorting : 'firstTravelUTC' },
     ],
     dimension: 'index',
     reverseSorting: false
   };
 
   $scope.sortModel = sortModel;
+
+  function calculateFirstTravelOrders(entries) {
+    for (var i = 0; i < entries.length; i++) {
+
+      var entry = entries[i];
+      if (entry.travels) {
+
+        for (var j = 0; j < entry.travels.length; j++) {
+
+          var travel = entry.travels[j];
+          if (travel.travelStartYear) {
+
+            entry.firstTravelUTC = Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay);
+            break;
+
+          }
+        }
+      }
+    }
+  }
 
   //  export function copied from explore.js
   $scope.export = function(field, value){
@@ -216,5 +236,12 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
 
   }
+
+  //  download counts
+  $http.get('/api/getcount')
+  .then(function(res) {
+    if (res.data.error) console.error(res.data.error);
+    else $scope.counts = res.data.counts;
+  });
 
 });

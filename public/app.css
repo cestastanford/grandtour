@@ -659,6 +659,6 @@ table.table {
   top: 1px;
 }
 
-#export-button {
+#export-button, #duplicate-button {
   margin-left: 10px;
 }

@@ -183,8 +183,10 @@
         p.text-serif.small {{entry.notes}}
         
 
-      div.col-lg-3#minimap(ng-show="entry.travels")
-        button.btn.btn-default(type="button", ng-click="reanimate(entry.travels)") Reanimate
+      div.col-lg-3(ng-show="entry.travels")
+        button.btn.btn-default.btn-xs.btn-block(type="button", ng-click="reanimate(entry.travels)") Reanimate
+        br
+        #minimap
       div.col-lg-3.entry-info
         .row
           .col-lg-12(ng-show="tours.length")

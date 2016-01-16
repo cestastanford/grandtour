@@ -662,3 +662,8 @@ table.table {
 #export-button, #duplicate-button {
   margin-left: 10px;
 }
+
+.explore-count {
+  position: relative;
+  top: 6px;
+}

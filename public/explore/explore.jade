@@ -9,6 +9,7 @@
           label Dimensions
           ul.list-unstyled
             li.border-top(ng-repeat="dimension in dimensions")
+              span.small.text-light.pull-right.explore-count {{ counts[dimension.field] }}
               .checkbox
                 label
                   input(type="checkbox", ng-model="dimension.active")

@@ -21,6 +21,10 @@
             "query" : { "places.0.deathPlace" : { "$exists" : true } }
         },
         {
+            "field" : "type",
+            "query" : { "type" : { "$ne" : null } }
+        },
+        {
             "field" : "societies",
             "query" : { "societies.title" : { "$exists" : true } }
         },
@@ -67,6 +71,10 @@
         {
             "field" : "travel_place",
             "query" : { "travels.place" : { "$exists" : true } }
+        },
+        {
+            "field" : "travel_date",
+            "query" : { "$or" : [ { "travels.travelStartYear" : { "$ne" : 0 } }, { "travels.travelEndYear" : { "$ne" : 0 } } ] }
         },
         {
             "field" : "travel_year",

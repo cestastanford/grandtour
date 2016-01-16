@@ -251,7 +251,7 @@ exports.recount = function(req, res) {
 
 };
 
-//  Recounts the number of entries with data in a specific field.
+//  Gets the current counts.
 exports.getCount = function(req, res) {
   
   Count.find({}, function(error, counts) {

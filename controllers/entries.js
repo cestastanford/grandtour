@@ -263,14 +263,17 @@ var searchMapRE = {
   },
 
   entry : function(d) {
+
+    console.log(d);
+
     var or = [];
     for (var section in d) {
       queryObj = {};
       if (section === 'tours') {
 
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp(escapeRegExp(d[section]), "gi") } } };
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") } } };
 
-      } else queryObj[section] = { $regex : new RegExp(escapeRegExp(d[section]), "gi") };
+      } else queryObj[section] = { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };
@@ -376,9 +379,9 @@ var searchMap = {
       queryObj = {};
       if (section === 'tours') {
 
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp(escapeRegExp(d[section]), "gi") } } };
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") } } };
 
-      } else queryObj[section] = { $regex : new RegExp(escapeRegExp(d[section]), "gi") };
+      } else queryObj[section] = { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };

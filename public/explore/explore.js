@@ -279,12 +279,13 @@ app
       var entry = $scope.entries[i];
       if (entry.selected) {
         entry.addedToList = entry.alreadyInList = false;
-        listService.addToList(list, entry, function(result) {
+        listService.addToList(list, entry, (function(result) {
           if (result.addedToList) {
-            entry.addedToList = true;
+            this.entry.addedToList = true;
+          } else if (result.alreadyInList) {
+            this.entry.alreadyInList = true;
           }
-          if (result.alreadyInList) entry.alreadyInList = true;
-        });
+        }).bind({ entry: entry }));
       }
     }
   };

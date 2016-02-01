@@ -219,10 +219,10 @@
                     input(type="checkbox", ng-model="entry.selected")
                   td.entry-list-item
                       a(ng-href="#/entries/{{entry.index}}")
+                        span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
+                        span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
                         h4 {{ entry.fullName }}
                         p {{ entry.biography.slice(0, 200) }} ...
-                          span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
-                          span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
         
       div(ng-show="noResults && !searching")
         p No results

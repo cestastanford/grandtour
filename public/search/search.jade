@@ -271,9 +271,9 @@
       // pre.query {{query}}
       
       p
-        .pill(ng-repeat="(k,v) in query") 
-          .pill-dimension {{k.split('_').join(' ')}}
-          .pill-value {{v}} 
+        .pill(ng-repeat="pill in pills") 
+          .pill-dimension {{ pill.dimension }}
+          .pill-value {{ pill.value }} 
       
       div.text-muted(ng-show="untouched") Use the fields on the left and press Enter or click the Search button to start searching.
 

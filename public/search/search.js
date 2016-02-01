@@ -244,4 +244,62 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
     else $scope.counts = res.data.counts;
   });
 
+
+  //  helper functions for displaying complex queries in pills
+  $scope.$watch('query', function(query) {
+
+    $scope.pills = [];
+
+    for (key in query) {
+      if (query.hasOwnProperty(key)) {
+
+        var pill = {};
+        switch (key) {
+
+          case 'entry':
+            pill.dimension = 'free search in ' + Object.keys($scope.freeSearchSections).join(', ');
+            pill.value = $scope.freeSearchQuery;
+            break;
+
+          case 'travel_date':
+            pill.dimension = 'travel date';
+
+            pill.value = query.travel_date.startYear;
+            if (query.travel_date.startMonth) {
+              
+              pill.value += '/' + query.travel_date.startMonth;
+              if (query.travel_date.startDay) {
+
+                pill.value += '/' + query.travel_date.startDay;
+              }
+            }
+            
+            if ($scope.travelDateModel.queryType === 'range') {
+
+              pill.dimension += ' range';
+              pill.value = 'from ' + pill.value + ' to ' + query.travel_date.endYear;
+              if (query.travel_date.endMonth) {
+                
+                pill.value += '/' + query.travel_date.endMonth;
+                if (query.travel_date.endDay) {
+
+                  pill.value += '/' + query.travel_date.endDay;
+                }
+              }
+            }
+
+            break;
+
+          default:
+            pill.dimension = key.split('_').join(' ');
+            pill.value = query[key];
+
+        }
+        $scope.pills.push(pill);
+
+      }
+    }
+
+  }, true);
+
 });

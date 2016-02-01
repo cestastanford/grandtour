@@ -141,15 +141,15 @@
     
       strong Your filters
       p
-        .pill(ng-repeat="(k,v) in query") 
-          .pill-dimension {{k.split('_').join(' ')}}
+        .pill(ng-repeat="pill in pills") 
+          .pill-dimension {{ pill.dimension }}
           .pill-value
-            span(ng-show="v | isArray" ng-repeat="value in v")
+            span(ng-show="pill.value | isArray" ng-repeat="value in pill.value track by $index")
               span(ng-show="$index > 0") or 
-              strong {{value}} 
-            strong(ng-hide="v | isArray") {{v}}
+              strong {{ value }} 
+            strong(ng-hide="pill.value | isArray") {{ pill.value }}
           .pill-value.border-left
-            a.text-danger(ng-click="removeFromQuery(k)", data-toggle="tooltip", title="Remove")
+            a.text-danger(ng-click="removeFromQuery(pill.key)", data-toggle="tooltip", title="Remove")
               i.fa.fa-trash-o
 
         //button.btn.btn-success.pull-right(ng-click="search()", type="submit", tabindex="1") Search

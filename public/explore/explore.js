@@ -243,6 +243,8 @@ app
 
   $scope.removeFromQuery = function(k){
     delete $scope.query[k];
+    if (k === 'entry') initFreeSearchModel();
+    if (k === 'travel_date') $scope.resetTravelDateModel();
   }
 
   $('.tooltip').remove();
@@ -336,5 +338,65 @@ app
     if (res.data.error) console.error(res.data.error);
     else $scope.counts = res.data.counts;
   });
+
+
+  //  helper functions for displaying complex queries in pills
+  $scope.$watch('query', function(query) {
+
+    $scope.pills = [];
+
+    for (key in query) {
+      if (query.hasOwnProperty(key)) {
+
+        var pill = {};
+        switch (key) {
+
+          case 'entry':
+            pill.dimension = 'free search in ' + Object.keys(freeSearchModel.sections).join(', ');
+            pill.value = freeSearchModel.query;
+            break;
+
+          case 'travel_date':
+            pill.dimension = 'travel date';
+
+            pill.value = query.travel_date.startYear;
+            if (query.travel_date.startMonth) {
+              
+              pill.value += '/' + query.travel_date.startMonth;
+              if (query.travel_date.startDay) {
+
+                pill.value += '/' + query.travel_date.startDay;
+              }
+            }
+            
+            if ($scope.travelDateModel.queryType === 'range') {
+
+              pill.dimension += ' range';
+              pill.value = 'from ' + pill.value + ' to ' + query.travel_date.endYear;
+              if (query.travel_date.endMonth) {
+                
+                pill.value += '/' + query.travel_date.endMonth;
+                if (query.travel_date.endDay) {
+
+                  pill.value += '/' + query.travel_date.endDay;
+                }
+              }
+            }
+
+            break;
+
+          default:
+            pill.dimension = key.split('_').join(' ');
+            pill.value = query[key];
+
+        }
+
+        pill.key = key;
+        $scope.pills.push(pill);
+
+      }
+    }
+
+  }, true);
 
 })

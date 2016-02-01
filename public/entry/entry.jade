@@ -187,37 +187,37 @@
         button.btn.btn-default.btn-xs.btn-block(type="button", ng-click="reanimate(entry.travels)") Reanimate
         br
         #minimap
-      div.col-lg-3.entry-info
-        .row
-          .col-lg-12(ng-show="tours.length")
-            
-            .panel.panel-default(ng-repeat="tour in tours")
-              .panel-heading
-                span Tour {{tour.key}} 
-                span.pull-right {{tour.start}}/{{tour.end}}
-              table.table
-                thead
-                  tr
-                    th Place
-                    //th.text-right after
-                    th.text-right from
-                    th.text-right to
-                    //th.text-right before
-                tbody
-                  tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;", ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
-                    td(ng-class="{'bordered':travel.parent}")
-                      span {{travel.place}}
-                    //td.text-right.tnum-lnum {{travel.gte}}
-                    td.text-right.tnum-lnum
-                      span(ng-show="travel.travelStartYear == '0'") -
-                      span(ng-show="travel.travelStartYear != '0'") {{travel.travelStartYear}}
-                      span(ng-show="travel.travelStartMonth != '0'") /{{travel.travelStartMonth}}
-                      span(ng-show="travel.travelStartDay != '0'") /{{travel.travelStartDay}}
-                    td.text-right.tnum-lnum
-                      span(ng-show="travel.travelEndYear == '0'") -
-                      span(ng-show="travel.travelEndYear != '0'") {{travel.travelEndYear}}
-                      span(ng-show="travel.travelEndMonth != '0'") /{{travel.travelEndMonth}}
-                      span(ng-show="travel.travelEndDay != '0'") /{{travel.travelEndDay}}
-                    //td.text-right.tnum-lnum {{travel.lte}}
+        div.entry-info
+          .row
+            .col-lg-12(ng-show="tours.length")
+              
+              .panel.panel-default(ng-repeat="tour in tours")
+                .panel-heading
+                  span Tour {{tour.key}} 
+                  span.pull-right {{tour.start}}/{{tour.end}}
+                table.table
+                  thead
+                    tr
+                      th Place
+                      //th.text-right after
+                      th.text-right from
+                      th.text-right to
+                      //th.text-right before
+                  tbody
+                    tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;", ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
+                      td(ng-class="{'bordered':travel.parent}")
+                        span {{travel.place}}
+                      //td.text-right.tnum-lnum {{travel.gte}}
+                      td.text-right.tnum-lnum
+                        span(ng-show="travel.travelStartYear == '0'") -
+                        span(ng-show="travel.travelStartYear != '0'") {{travel.travelStartYear}}
+                        span(ng-show="travel.travelStartMonth != '0'") /{{travel.travelStartMonth}}
+                        span(ng-show="travel.travelStartDay != '0'") /{{travel.travelStartDay}}
+                      td.text-right.tnum-lnum
+                        span(ng-show="travel.travelEndYear == '0'") -
+                        span(ng-show="travel.travelEndYear != '0'") {{travel.travelEndYear}}
+                        span(ng-show="travel.travelEndMonth != '0'") /{{travel.travelEndMonth}}
+                        span(ng-show="travel.travelEndDay != '0'") /{{travel.travelEndDay}}
+                      //td.text-right.tnum-lnum {{travel.lte}}
               
     

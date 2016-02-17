@@ -273,3 +273,117 @@ exports.getCount = function(req, res) {
   });
 
 };
+
+
+//  Calculates best guesses for travel dates when data is
+//  missing, using tour info and preceding and succeeding
+//  travels.
+exports.calculateBeforeAndAfter = function(req, res) {
+
+  var N_ENTRIES = 5293;
+  var completed = 0;
+
+  for (var i = 0; i < N_ENTRIES; i++) {
+    
+    Entry.findOne({ index : i }, (function(error, entry) {
+      
+      var i = this.i;
+
+      if (entry.travels) {
+
+        Entry.findOneAndUpdate(
+          { index : i },
+          { travels : calculateApproximates(entry.travels) },
+          (function() {
+            var i = this.i;
+            completed++;
+            if (completed % 100 === 0) console.log(completed + ' / ' + N_ENTRIES + ' approximates calculated.');
+            if (completed === N_ENTRIES) res.json({ completed: true });
+          }).bind({ i: i })
+        );
+
+      } else {
+        completed++;
+        if (completed % 100 === 0) console.log(completed + ' / ' + N_ENTRIES + ' approximates calculated.');
+        if (completed === N_ENTRIES) res.json({ completed: true });
+      }
+
+    }).bind({ i: i }));
+
+  };
+
+};
+
+//  add beforeDate and afterDate fields to
+//  each entry's travels.
+function calculateApproximates(travels) {
+
+  delete travels.travelAfterYear;
+  delete travels.travelAfterMonth;
+  delete travels.travelAfterDay;
+  delete travels.travelBeforeYear;
+  delete travels.travelBeforeMonth;
+  delete travels.travelBeforeDay;
+
+  var latestAfterDate = { year: travels[0].tourStartFrom };
+  
+  for (var i = 0; i < travels.length; i++) {
+
+    var travel = travels[i];
+
+    if (travel.tourStartFrom > latestAfterDate.year) {
+      latestAfterDate = { year: travel.tourStartFrom };
+    }
+
+    if (travel.travelEndYear) {
+      latestAfterDate = { year: travel.travelEndYear };
+      if (travel.travelEndMonth) {
+        latestAfterDate.month = travel.travelEndMonth;
+        if (travel.travelEndDay) {
+          latestAfterDate.day = travel.travelEndDay;
+        }
+      }
+    }
+
+    else {
+      travel.travelAfterYear = latestAfterDate.year;
+      travel.travelAfterMonth = latestAfterDate.month || 1;
+      travel.travelAfterDay = latestAfterDate.day || 1;
+    }
+
+  }
+
+  var earliestBeforeDate = { year: travels[travels.length - 1].tourEndFrom };
+  
+  for (var i = travels.length - 1; i > -1; i--) {
+
+    var travel = travels[i];
+
+    if (travel.tourEndFrom < earliestBeforeDate.year) {
+      earliestBeforeDate = { year: travel.tourEndFrom };
+    }
+
+    if (travel.travelStartYear) {
+      earliestBeforeDate = { year: travel.travelStartYear };
+      if (travel.travelStartMonth) {
+        earliestBeforeDate.month = travel.travelStartMonth;
+        if (travel.travelStartDay) {
+          earliestBeforeDate.day = travel.travelStartDay;
+        }
+      }
+    }
+
+    else {
+      travel.travelBeforeYear = earliestBeforeDate.year;
+      travel.travelBeforeMonth = earliestBeforeDate.month || 12;
+      travel.travelBeforeDay = earliestBeforeDate.day ||
+        (new Date(travel.travelBeforeYear, travel.travelBeforeMonth, 0)).getDate(); // returns last day of preceding month
+    }
+
+  }
+
+  return travels;
+
+};
+
+

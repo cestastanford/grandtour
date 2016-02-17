@@ -85,67 +85,80 @@
                 
     .col-lg-12(ng-show="view=='data'")
       
-      h3 Data
-      
-      p You can reload the data from here.
+      .row
+
+        h3 Data Reload
         
-      form
-            
-        table.table.reload-table
-          thead
-            tr
-              th
-                input(type="checkbox", ng-model="allReload", ng-change="setReload(allReload)")
-              th Data dimension
-              th Sheet name
-              th Spreadsheet Id
-          tbody
-            tr(ng-repeat="sheet in defaults.sheets")
-              td
-                input(type="checkbox", ng-model="sheet.reload")
-              td {{sheet.label}}
-              td(ng-show="sheet.info && !sheet.error")
-                input.form-control.text-mono(ng-model="sheet.sheetName", placeholder="{{sheet.sheetName}}" ng-disabled="!sheet.reload")
-              td(ng-show="sheet.info && !sheet.error")
-                input.form-control.text-mono(ng-model="sheet.spreadsheetId", placeholder="{{sheet.spreadsheetId}}" ng-disabled="!sheet.reload")
-              td(colspan="2", ng-show="sheet.error")
-                .alert.alert-danger {{sheet.error}}
-              td(colspan="2", ng-show="sheet.started && !sheet.error")
-                progressbar.progress-striped.active(value="sheet.total", max="sheet.total", type="warning")
-                  span Loading {{sheet.rows}} rows and {{sheet.columns}} columns
-              td(colspan="2", ng-show="sheet.loading")
-                progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="info")
-                  span {{sheet.count}}
-              td(colspan="2", ng-show="sheet.finished")
-                progressbar(value="sheet.total", max="sheet.total", type="success")
-                  span {{sheet.rows}} successfully loaded
+        p You can reload the data from here.
+          
+        form
+              
+          table.table.reload-table
+            thead
+              tr
+                th
+                  input(type="checkbox", ng-model="allReload", ng-change="setReload(allReload)")
+                th Data dimension
+                th Sheet name
+                th Spreadsheet Id
+            tbody
+              tr(ng-repeat="sheet in defaults.sheets")
+                td
+                  input(type="checkbox", ng-model="sheet.reload")
+                td {{sheet.label}}
+                td(ng-show="sheet.info && !sheet.error")
+                  input.form-control.text-mono(ng-model="sheet.sheetName", placeholder="{{sheet.sheetName}}" ng-disabled="!sheet.reload")
+                td(ng-show="sheet.info && !sheet.error")
+                  input.form-control.text-mono(ng-model="sheet.spreadsheetId", placeholder="{{sheet.spreadsheetId}}" ng-disabled="!sheet.reload")
+                td(colspan="2", ng-show="sheet.error")
+                  .alert.alert-danger {{sheet.error}}
+                td(colspan="2", ng-show="sheet.started && !sheet.error")
+                  progressbar.progress-striped.active(value="sheet.total", max="sheet.total", type="warning")
+                    span Loading {{sheet.rows}} rows and {{sheet.columns}} columns
+                td(colspan="2", ng-show="sheet.loading")
+                  progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="info")
+                    span {{sheet.count}}
+                td(colspan="2", ng-show="sheet.finished")
+                  progressbar(value="sheet.total", max="sheet.total", type="success")
+                    span {{sheet.rows}} successfully loaded
+          
+
+        a#reload.btn.btn-danger(ng-click="reload()", data-loading-text="Loading...") Reload selected
         
+      .row
 
-      a#reload.btn.btn-danger(ng-click="reload()", data-loading-text="Loading...") Reload selected
-      
-      hr
+        hr
 
-      h3 Counts
+        h3 Counts
 
-      p You can view and recount the number of entries containing data for each field here.
-      
-      .col-lg-6.well
+        p You can view and recount the number of entries containing data for each field here.
+        
+        .col-lg-6.well
 
-        table.table
-          thead
-            tr
-              th field name
-              th count
-          tbody
-            tr(ng-repeat="(field, count) in counts")
-              td {{ field }}
-              td {{ count }}
+          table.table
+            thead
+              tr
+                th field name
+                th count
+            tbody
+              tr(ng-repeat="(field, count) in counts")
+                td {{ field }}
+                td {{ count }}
 
-      .col-lg-1
-      .col-lg-5.well
+        .col-lg-1
+        .col-lg-5.well
 
-        a.btn.btn-default(ng-click="recount()", ng-disabled="counting === true") {{ counting ? 'Counting...' : 'Recount' }}
+          a.btn.btn-default(ng-click="recount()", ng-disabled="counting === true") {{ counting ? 'Counting...' : 'Recount' }}
 
       .row
-        .col-lg-12
-          
+
+        hr
+
+        h3 Travel Date Approximations
+
+        p You can recalculate approximate travel dates (using tour dates and preceding/following travel dates) here.
+        
+        .col-lg-6.well
+
+          a.btn.btn-default(ng-click="calculateBeforeAndAfter()", ng-disabled="calculatingBeforeAndAfter") {{ calculatingBeforeAndAfter ? 'Calculating...' : 'Recalculate' }}
+              

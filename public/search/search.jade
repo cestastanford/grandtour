@@ -230,13 +230,19 @@
             ng-class="{ filled : travelDateModel.query.endDay }",
             ng-show="travelDateModel.queryType === 'range'",
             ng-disabled="!travelDateModel.query.endMonth && !travelDateModel.query.endDay")
-          span.date-query-type.label search by: 
-          span.date-query-type(
-            ng-click="resetTravelDateModel('exact')",
-            ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
-          span.date-query-type(
-            ng-click="resetTravelDateModel('range')",
-            ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
+          .margin-top
+            span.date-query-type.date-query-type-label search by: 
+            span.date-query-type(
+              ng-click="resetTravelDateModel('exact', travelDateModel.estimated)",
+              ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
+            span.date-query-type(
+              ng-click="resetTravelDateModel('range', travelDateModel.estimated)",
+              ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
+          .margin-top.include-estimates
+            .checkbox
+              label
+                input(type="checkbox", ng-model="travelDateModel.estimated")
+                div include estimated dates
 
         hr
 
@@ -273,7 +279,7 @@
       p
         .pill(ng-repeat="pill in pills") 
           .pill-dimension {{ pill.dimension }}
-          .pill-value {{ pill.value }} 
+          strong.pill-value {{ pill.value }} 
       
       div.text-muted(ng-show="untouched") Use the fields on the left and press Enter or click the Search button to start searching.
 

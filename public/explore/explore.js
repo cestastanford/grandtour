@@ -44,13 +44,13 @@ app
   initFreeSearchModel();
 
   // setup for travel date range search
-  $scope.resetTravelDateModel = function(type) {
-    travelDateModel = { queryType: type, query: {} };
+  $scope.resetTravelDateModel = function(type, estimated) {
+    travelDateModel = { queryType: type, query: {}, estimated: estimated };
     $scope.travelDateModel = travelDateModel;
     delete $scope.query.travel_date;
   };
   var travelDateModel;
-  $scope.resetTravelDateModel('exact');
+  $scope.resetTravelDateModel('exact', false);
 
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
@@ -100,8 +100,9 @@ app
           $scope.query.travel_date.startDay !== $scope.query.travel_date.endDay) {
         travelDateModel.queryType = 'range';
       }
+      travelDateModel.estimated = ($scope.query.travel_date.estimated === 'yes');
       travelDateModel.query = $scope.query.travel_date;
-    }
+      delete travelDateModel.query.estimated;    }
   }
 
   //  support for free search by section
@@ -137,8 +138,14 @@ app
       query.endDay = query.startDay;
     }
     for (key in query) if (!query[key]) delete query[key];
-    if (Object.getOwnPropertyNames(query).length > 0) $scope.query.travel_date = query;
-    else delete $scope.query.travel_date;
+    if (Object.getOwnPropertyNames(query).length > 0) {
+      $scope.query.travel_date = query;
+      $scope.query.travel_date.estimated = travelDateModel.estimated ? 'yes' : 'no';
+    } else delete $scope.query.travel_date;
+  });
+
+  $scope.$watch('travelDateModel.estimated', function(estimated) {
+    if ($scope.query.travel_date) $scope.query.travel_date.estimated = estimated ? 'yes' : 'no';
   });
 
 
@@ -369,7 +376,6 @@ app
                 pill.value += '/' + query.travel_date.startDay;
               }
             }
-            
             if ($scope.travelDateModel.queryType === 'range') {
 
               pill.dimension += ' range';
@@ -382,6 +388,10 @@ app
                   pill.value += '/' + query.travel_date.endDay;
                 }
               }
+            }
+
+            if (query.travel_date.estimated === 'yes') {
+              pill.value += ' (including estimated dates)'
             }
 
             break;

@@ -204,63 +204,61 @@ var searchMapRE = {
   travel_place : function(d) { return { travels : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
   travel_date : function(d) {
 
-    console.log(d);
+    var outer = [];
 
-    if (d.estimated === 'yes') console.log(JSON.stringify( { travels : { $elemMatch : { $and : [
+    if (d.startYear) {
 
-      { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndYear : { $gt : +d.startYear } }, { travelBeforeYear : { $gt : +d.startYear } } ] }, { $and : [
-        
-        { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndYear : +d.startYear }, { travelBeforeYear : +d.startYear } ] },
-        d.endMonth ? { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndMonth : { $gt : +d.startMonth } }, { travelBeforeMonth : { $gt : +d.startMonth } } ] }, { $and : [
+      outer.push({
+        $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [ { travelEndYear : +d.startYear } ] } ]
+      });
 
-          { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndMonth : +d.startMonth }, { travelBeforeMonth : +d.startMonth } ] },
-          d.endDay ? { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndDay : { $gte : +d.startDay } }, { travelBeforeDay : { $gte : +d.startDay } } ] } : {},
+      if (d.startMonth) {
 
-        ] } ] } : {},
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [ { travelEndMonth : +d.startMonth } ] } ]
+        });
 
-      ] } ] },
+        if (d.startDay) {
 
-      { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { travelAfterYear : { $lt : +d.endYear, $ne : 0 } } ] }, { $and : [
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelEndDay : { $gte : +d.startDay } } ]
+          });
 
-        { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartYear : +d.endYear }, { travelAfterYear : +d.endYear } ] },
-        d.startMonth ? { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { travelAfterMonth : { $lt : +d.endMonth, $ne : 0 } } ] }, { $and : [
+        }
 
-          { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartMonth : +d.endMonth }, { travelAfterMonth : +d.endMonth } ] },
-          d.startDay ? { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartDay : { $lte : +d.endDay, $ne : 0 } }, { travelAfterDay : { $lte : +d.endDay, $ne : 0 } } ] } : {},
+      }
 
-        ] } ] } : {},
+    }
 
-      ] } ] },
+    if (d.endYear) {
 
-    ] } } } , null, 2));
+      outer.push({
+        $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.endYear } ] } ]
+      });
 
-    else return { travels : { $elemMatch : { $and : [
+      if (d.endMonth) {
 
-      { $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [
-        
-        { travelEndYear : +d.startYear },
-        d.endMonth ? { $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [
+        var middle = outer[0].$or[1].$and;
+        middle.push({
+          $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.endMonth } ] } ]
+        });
 
-          { travelEndMonth : +d.startMonth },
-          d.endDay ? { travelEndDay : { $gte : +d.startDay } } : {},
+        if (d.endDay) {
 
-        ] } ] } : {},
+          var inner = middle[1].$or[1].$and;
+          inner.push({
+            $or : [ { travelStartDay : { $lte : +d.endDay, $ne : 0 } } ]
+          });
 
-      ] } ] },
+        }
 
-      { $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [
+      }
 
-        { travelStartYear : +d.endYear },
-        d.startMonth ? { $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [
+    }
 
-          { travelStartMonth : +d.endMonth },
-          d.startDay ? { travelStartDay : { $lte : +d.endDay, $ne : 0 } } : {},
-
-        ] } ] } : {},
-
-      ] } ] },
-
-    ] } } };  
+    return { travels : { $elemMatch : { $and : outer } } };
 
   },
 

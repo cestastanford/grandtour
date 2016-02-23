@@ -206,67 +206,33 @@ var searchMapRE = {
 
     console.log(d);
 
-    if (d.estimated === 'yes') return { travels : { $elemMatch : { $cond : {
+    if (d.estimated === 'yes') console.log(JSON.stringify( { travels : { $elemMatch : { $and : [
 
-      if : { travelStartYear : { $ne : 0 } },
-      
-      then : { $and : [
+      { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndYear : { $gt : +d.startYear } }, { travelBeforeYear : { $gt : +d.startYear } } ] }, { $and : [
+        
+        { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndYear : +d.startYear }, { travelBeforeYear : +d.startYear } ] },
+        d.endMonth ? { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndMonth : { $gt : +d.startMonth } }, { travelBeforeMonth : { $gt : +d.startMonth } } ] }, { $and : [
 
-        { $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [
-          
-          { travelEndYear : +d.startYear },
-          d.endMonth ? { $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [
+          { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndMonth : +d.startMonth }, { travelBeforeMonth : +d.startMonth } ] },
+          d.endDay ? { $cond : [ { travelStartYear : { $ne : 0 } }, { travelEndDay : { $gte : +d.startDay } }, { travelBeforeDay : { $gte : +d.startDay } } ] } : {},
 
-            { travelEndMonth : +d.startMonth },
-            d.endDay ? { travelEndDay : { $gte : +d.startDay } } : null,
+        ] } ] } : {},
 
-          ] } ] } : null,
+      ] } ] },
 
-        ] } ] },
+      { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { travelAfterYear : { $lt : +d.endYear, $ne : 0 } } ] }, { $and : [
 
-        { $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [
+        { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartYear : +d.endYear }, { travelAfterYear : +d.endYear } ] },
+        d.startMonth ? { $or : [ { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { travelAfterMonth : { $lt : +d.endMonth, $ne : 0 } } ] }, { $and : [
 
-          { travelStartYear : +d.endYear },
-          d.startMonth ? { $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [
+          { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartMonth : +d.endMonth }, { travelAfterMonth : +d.endMonth } ] },
+          d.startDay ? { $cond : [ { travelStartYear : { $ne : 0 } }, { travelStartDay : { $lte : +d.endDay, $ne : 0 } }, { travelAfterDay : { $lte : +d.endDay, $ne : 0 } } ] } : {},
 
-            { travelStartMonth : +d.endMonth },
-            d.startDay ? { travelStartDay : { $lte : +d.endDay, $ne : 0 } } : null,
+        ] } ] } : {},
 
-          ] } ] } : null,
+      ] } ] },
 
-        ] } ] },
-
-      ] },
-      
-      else : { $and : [
-
-        { $or : [ { travelBeforeYear : { $gt : +d.startYear } }, { $and : [
-          
-          { travelBeforeYear : +d.startYear },
-          d.endMonth ? { $or : [ { travelBeforeMonth : { $gt : +d.startMonth } }, { $and : [
-
-            { travelBeforeMonth : +d.startMonth },
-            d.endDay ? { travelBeforeDay : { $gte : +d.startDay } } : null,
-
-          ] } ] } : null,
-
-        ] } ] },
-
-        { $or : [ { travelAfterYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [
-
-          { travelAfterYear : +d.endYear },
-          d.startMonth ? { $or : [ { travelAfterMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [
-
-            { travelAfterMonth : +d.endMonth },
-            d.startDay ? { travelAfterDay : { $lte : +d.endDay, $ne : 0 } } : null,
-
-          ] } ] } : null,
-
-        ] } ] },
-
-      ] },
-
-    } } } };
+    ] } } } , null, 2));
 
     else return { travels : { $elemMatch : { $and : [
 
@@ -276,9 +242,9 @@ var searchMapRE = {
         d.endMonth ? { $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [
 
           { travelEndMonth : +d.startMonth },
-          d.endDay ? { travelEndDay : { $gte : +d.startDay } } : null,
+          d.endDay ? { travelEndDay : { $gte : +d.startDay } } : {},
 
-        ] } ] } : null,
+        ] } ] } : {},
 
       ] } ] },
 
@@ -288,9 +254,9 @@ var searchMapRE = {
         d.startMonth ? { $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [
 
           { travelStartMonth : +d.endMonth },
-          d.startDay ? { travelStartDay : { $lte : +d.endDay, $ne : 0 } } : null,
+          d.startDay ? { travelStartDay : { $lte : +d.endDay, $ne : 0 } } : {},
 
-        ] } ] } : null,
+        ] } ] } : {},
 
       ] } ] },
 
@@ -535,25 +501,19 @@ exports.search2 = function (req, res) {
   var originalQuery = JSON.stringify(req.body.query);
   var query = parseQuery2(req.body.query);
 
-    Entry
-      .find(query, {
-        index : true,
-        fullName : true,
-        biography : true,
-        places: true,
-        dates: true,
-        travels: true
-      }, function (err, response) {
-        console.log(err, response);
-        if (err) {
-          res.json({ error: err })
-          return;
-        }
-        res.json({
-          request : JSON.parse(originalQuery),
-          entries : response
-        });
-      } )
+  Entry.aggregate()
+  .match(query)
+  .exec(function (err, response) {
+    if (err) {
+      res.json({ error: err.toString() })
+      return;
+    }
+    res.json({
+      request : JSON.parse(originalQuery),
+      entries : response
+    });
+  });
+
 }
 
 

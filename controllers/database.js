@@ -318,25 +318,23 @@ exports.calculateBeforeAndAfter = function(req, res) {
 //  each entry's travels.
 function calculateApproximates(travels) {
 
-  delete travels.travelAfterYear;
-  delete travels.travelAfterMonth;
-  delete travels.travelAfterDay;
-  delete travels.travelBeforeYear;
-  delete travels.travelBeforeMonth;
-  delete travels.travelBeforeDay;
-
   var latestAfterDate = { year: travels[0].tourStartFrom };
   
   for (var i = 0; i < travels.length; i++) {
 
     var travel = travels[i];
 
+    travel.estimatedTravelDates = false;
+
     if (travel.tourStartFrom > latestAfterDate.year) {
       latestAfterDate = { year: travel.tourStartFrom };
     }
 
-    if (travel.travelEndYear) {
-      latestAfterDate = { year: travel.travelEndYear };
+    if (travel.travelEndYear)
+      if (travel.travelEndYear > latestAfterDate.year) {
+        latestAfterDate = { year: travel.travelEndYear };
+      }
+      //  this whole thing is messed up; look over it all.
       if (travel.travelEndMonth) {
         latestAfterDate.month = travel.travelEndMonth;
         if (travel.travelEndDay) {
@@ -346,9 +344,9 @@ function calculateApproximates(travels) {
     }
 
     else {
-      travel.travelAfterYear = latestAfterDate.year;
-      travel.travelAfterMonth = latestAfterDate.month || 1;
-      travel.travelAfterDay = latestAfterDate.day || 1;
+      travel.travelStartYear = latestAfterDate.year;
+      travel.travelStartMonth = latestAfterDate.month || 1;
+      travel.travelStartDay = latestAfterDate.day || 1;
     }
 
   }
@@ -374,10 +372,12 @@ function calculateApproximates(travels) {
     }
 
     else {
-      travel.travelBeforeYear = earliestBeforeDate.year;
-      travel.travelBeforeMonth = earliestBeforeDate.month || 12;
-      travel.travelBeforeDay = earliestBeforeDate.day ||
-        (new Date(travel.travelBeforeYear, travel.travelBeforeMonth, 0)).getDate(); // returns last day of preceding month
+      travel.travelEndYear = earliestBeforeDate.year;
+      travel.travelEndMonth = earliestBeforeDate.month || 12;
+      travel.travelEndDay = earliestBeforeDate.day ||
+        (new Date(travel.travelEndYear, travel.travelEndMonth, 0)).getDate(); // returns last day of preceding month
+
+      travel.estimatedTravelDates = true;
     }
 
   }

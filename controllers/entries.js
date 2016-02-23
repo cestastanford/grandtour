@@ -204,61 +204,97 @@ var searchMapRE = {
   travel_place : function(d) { return { travels : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
   travel_date : function(d) {
 
-    var outer = [];
+    console.log(d);
 
-    if (d.startYear) {
+    if (d.estimated === 'yes') return { travels : { $elemMatch : { $cond : {
 
-      outer.push({
-        $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [ { travelEndYear : +d.startYear } ] } ]
-      });
+      if : { travelStartYear : { $ne : 0 } },
+      
+      then : { $and : [
 
-      if (d.startMonth) {
+        { $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [
+          
+          { travelEndYear : +d.startYear },
+          d.endMonth ? { $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [
 
-        var middle = outer[0].$or[1].$and;
-        middle.push({
-          $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [ { travelEndMonth : +d.startMonth } ] } ]
-        });
+            { travelEndMonth : +d.startMonth },
+            d.endDay ? { travelEndDay : { $gte : +d.startDay } } : null,
 
-        if (d.startDay) {
+          ] } ] } : null,
 
-          var inner = middle[1].$or[1].$and;
-          inner.push({
-            $or : [ { travelEndDay : { $gte : +d.startDay } } ]
-          });
+        ] } ] },
 
-        }
+        { $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [
 
-      }
+          { travelStartYear : +d.endYear },
+          d.startMonth ? { $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [
 
-    }
+            { travelStartMonth : +d.endMonth },
+            d.startDay ? { travelStartDay : { $lte : +d.endDay, $ne : 0 } } : null,
 
-    if (d.endYear) {
+          ] } ] } : null,
 
-      outer.push({
-        $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.endYear } ] } ]
-      });
+        ] } ] },
 
-      if (d.endMonth) {
+      ] },
+      
+      else : { $and : [
 
-        var middle = outer[0].$or[1].$and;
-        middle.push({
-          $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.endMonth } ] } ]
-        });
+        { $or : [ { travelBeforeYear : { $gt : +d.startYear } }, { $and : [
+          
+          { travelBeforeYear : +d.startYear },
+          d.endMonth ? { $or : [ { travelBeforeMonth : { $gt : +d.startMonth } }, { $and : [
 
-        if (d.endDay) {
+            { travelBeforeMonth : +d.startMonth },
+            d.endDay ? { travelBeforeDay : { $gte : +d.startDay } } : null,
 
-          var inner = middle[1].$or[1].$and;
-          inner.push({
-            $or : [ { travelStartDay : { $lte : +d.endDay, $ne : 0 } } ]
-          });
+          ] } ] } : null,
 
-        }
+        ] } ] },
 
-      }
+        { $or : [ { travelAfterYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [
 
-    }
+          { travelAfterYear : +d.endYear },
+          d.startMonth ? { $or : [ { travelAfterMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [
 
-    return { travels : { $elemMatch : { $and : outer } } };
+            { travelAfterMonth : +d.endMonth },
+            d.startDay ? { travelAfterDay : { $lte : +d.endDay, $ne : 0 } } : null,
+
+          ] } ] } : null,
+
+        ] } ] },
+
+      ] },
+
+    } } } };
+
+    else return { travels : { $elemMatch : { $and : [
+
+      { $or : [ { travelEndYear : { $gt : +d.startYear } }, { $and : [
+        
+        { travelEndYear : +d.startYear },
+        d.endMonth ? { $or : [ { travelEndMonth : { $gt : +d.startMonth } }, { $and : [
+
+          { travelEndMonth : +d.startMonth },
+          d.endDay ? { travelEndDay : { $gte : +d.startDay } } : null,
+
+        ] } ] } : null,
+
+      ] } ] },
+
+      { $or : [ { travelStartYear : { $lt : +d.endYear, $ne : 0 } }, { $and : [
+
+        { travelStartYear : +d.endYear },
+        d.startMonth ? { $or : [ { travelStartMonth : { $lt : +d.endMonth, $ne : 0 } }, { $and : [
+
+          { travelStartMonth : +d.endMonth },
+          d.startDay ? { travelStartDay : { $lte : +d.endDay, $ne : 0 } } : null,
+
+        ] } ] } : null,
+
+      ] } ] },
+
+    ] } } };  
 
   },
 
@@ -508,6 +544,7 @@ exports.search2 = function (req, res) {
         dates: true,
         travels: true
       }, function (err, response) {
+        console.log(err, response);
         if (err) {
           res.json({ error: err })
           return;

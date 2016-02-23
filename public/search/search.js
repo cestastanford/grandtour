@@ -31,27 +31,28 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
       calculateFirstTravelOrders(res.entries);
       if (res.entries.length) $scope.noResults = false;
       else $scope.noResults = true;
+
+      //  setup for free search by section
+      if ($scope.query.entry) {
+        for (var k in $scope.freeSearchSections) {
+          if ($scope.query.entry[k]) $scope.freeSearchQuery = $scope.query.entry[k];
+          else $scope.freeSearchSections[k] = false;
+        }
+      }
+
+      //  setup for travel date range search
+      if ($scope.query.travel_date) {
+        if ($scope.query.travel_date.startYear !== $scope.query.travel_date.endYear ||
+            $scope.query.travel_date.startMonth !== $scope.query.travel_date.endMonth ||
+            $scope.query.travel_date.startDay !== $scope.query.travel_date.endDay) {
+          travelDateModel.queryType = 'range';
+        }
+        travelDateModel.estimated = ($scope.query.travel_date.estimated === 'yes');
+        travelDateModel.query = $scope.query.travel_date;
+        delete travelDateModel.query.estimated;
+      }
+      
     });
-
-    //  setup for free search by section
-    if ($scope.query.entry) {
-      for (var k in $scope.freeSearchSections) {
-        if ($scope.query.entry[k]) $scope.freeSearchQuery = $scope.query.entry[k];
-        else $scope.freeSearchSections[k] = false;
-      }
-    }
-
-    //  setup for travel date range search
-    if ($scope.query.travel_date) {
-      if ($scope.query.travel_date.startYear !== $scope.query.travel_date.endYear ||
-          $scope.query.travel_date.startMonth !== $scope.query.travel_date.endMonth ||
-          $scope.query.travel_date.startDay !== $scope.query.travel_date.endDay) {
-        travelDateModel.queryType = 'range';
-      }
-      travelDateModel.estimated = ($scope.query.travel_date.estimated === 'yes');
-      travelDateModel.query = $scope.query.travel_date;
-      delete travelDateModel.query.estimated;
-    }
   }
 
   //  support for free search by section
@@ -78,22 +79,18 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
   });
 
   //  support for travel date range search
-  $scope.$watchCollection('travelDateModel.query', function(query) {
+  $scope.$watch('travelDateModel', function(travelDateModel) {
     if (travelDateModel.queryType === 'exact') {
-      query.endYear = query.startYear;
-      query.endMonth = query.startMonth;
-      query.endDay = query.startDay;
+      travelDateModel.query.endYear = travelDateModel.query.startYear;
+      travelDateModel.query.endMonth = travelDateModel.query.startMonth;
+      travelDateModel.query.endDay = travelDateModel.query.startDay;
     }
-    for (key in query) if (!query[key]) delete query[key];
-    if (Object.getOwnPropertyNames(query).length > 0) {
-      $scope.query.travel_date = query;
+    for (key in travelDateModel.query) if (!travelDateModel.query[key]) delete travelDateModel.query[key];
+    if (Object.getOwnPropertyNames(travelDateModel.query).length > 0) {
+      $scope.query.travel_date = travelDateModel.query;
       $scope.query.travel_date.estimated = travelDateModel.estimated ? 'yes' : 'no';
     } else delete $scope.query.travel_date;
-  });
-
-  $scope.$watch('travelDateModel.estimated', function(estimated) {
-    if ($scope.query.travel_date) $scope.query.travel_date.estimated = estimated ? 'yes' : 'no';
-  });
+  }, true);
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );

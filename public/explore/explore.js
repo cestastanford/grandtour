@@ -131,22 +131,18 @@ app
   });
 
   //  support for travel date range search
-  $scope.$watchCollection('travelDateModel.query', function(query) {
+  $scope.$watch('travelDateModel', function(travelDateModel) {
     if (travelDateModel.queryType === 'exact') {
-      query.endYear = query.startYear;
-      query.endMonth = query.startMonth;
-      query.endDay = query.startDay;
+      travelDateModel.query.endYear = travelDateModel.query.startYear;
+      travelDateModel.query.endMonth = travelDateModel.query.startMonth;
+      travelDateModel.query.endDay = travelDateModel.query.startDay;
     }
-    for (key in query) if (!query[key]) delete query[key];
-    if (Object.getOwnPropertyNames(query).length > 0) {
-      $scope.query.travel_date = query;
+    for (key in travelDateModel.query) if (!travelDateModel.query[key]) delete travelDateModel.query[key];
+    if (Object.getOwnPropertyNames(travelDateModel.query).length > 0) {
+      $scope.query.travel_date = travelDateModel.query;
       $scope.query.travel_date.estimated = travelDateModel.estimated ? 'yes' : 'no';
     } else delete $scope.query.travel_date;
-  });
-
-  $scope.$watch('travelDateModel.estimated', function(estimated) {
-    if ($scope.query.travel_date) $scope.query.travel_date.estimated = estimated ? 'yes' : 'no';
-  });
+  }, true);
 
 
   $scope.$watch('dimensions',function(dimensions){
@@ -360,7 +356,9 @@ app
         switch (key) {
 
           case 'entry':
-            pill.dimension = 'free search in ' + Object.keys(freeSearchModel.sections).join(', ');
+            pill.dimension = 'free search in ' + Object.keys(freeSearchModel.sections)
+              .filter((function(section) { return freeSearchModel.sections[section]; }).bind(this))
+              .join(', ');
             pill.value = freeSearchModel.query;
             break;
 

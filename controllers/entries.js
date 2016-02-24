@@ -258,7 +258,7 @@ var searchMapRE = {
 
     }
 
-    if (!d.estimated) outer.push({ estimatedTravelDates : false });
+    if (d.estimated === 'no') outer.push({ estimatedTravelDates : false });
 
     return { travels : { $elemMatch : { $and : outer } } };
 
@@ -371,7 +371,7 @@ var searchMap = {
 
     }
 
-    if (!d.estimated) outer.push({ estimatedTravelDates : false });
+    if (d.estimated === 'no') outer.push({ estimatedTravelDates : false });
 
     return { travels : { $elemMatch : { $and : outer } } };
 

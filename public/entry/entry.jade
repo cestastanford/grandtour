@@ -209,15 +209,15 @@
                         span {{travel.place}}
                       //td.text-right.tnum-lnum {{travel.gte}}
                       td.text-right.tnum-lnum
-                        span(ng-show="travel.travelStartYear == '0'") -
-                        span(ng-show="travel.travelStartYear != '0'") {{travel.travelStartYear}}
-                        span(ng-show="travel.travelStartMonth != '0'") /{{travel.travelStartMonth}}
-                        span(ng-show="travel.travelStartDay != '0'") /{{travel.travelStartDay}}
+                        span(ng-show="travel.travelStartYear == '0' || travel.estimatedTravelDates") -
+                        span(ng-show="travel.travelStartYear != '0' && !travel.estimatedTravelDates") {{travel.travelStartYear}}
+                        span(ng-show="travel.travelStartMonth != '0' && !travel.estimatedTravelDates") /{{travel.travelStartMonth}}
+                        span(ng-show="travel.travelStartDay != '0' && !travel.estimatedTravelDates") /{{travel.travelStartDay}}
                       td.text-right.tnum-lnum
-                        span(ng-show="travel.travelEndYear == '0'") -
-                        span(ng-show="travel.travelEndYear != '0'") {{travel.travelEndYear}}
-                        span(ng-show="travel.travelEndMonth != '0'") /{{travel.travelEndMonth}}
-                        span(ng-show="travel.travelEndDay != '0'") /{{travel.travelEndDay}}
+                        span(ng-show="travel.travelEndYear == '0' ||  travel.estimatedTravelDates") -
+                        span(ng-show="travel.travelEndYear != '0' && !travel.estimatedTravelDates") {{travel.travelEndYear}}
+                        span(ng-show="travel.travelEndMonth != '0' && !travel.estimatedTravelDates") /{{travel.travelEndMonth}}
+                        span(ng-show="travel.travelEndDay != '0' && !travel.estimatedTravelDates") /{{travel.travelEndDay}}
                       //td.text-right.tnum-lnum {{travel.lte}}
               
     

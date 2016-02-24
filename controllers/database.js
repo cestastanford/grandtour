@@ -319,22 +319,17 @@ exports.calculateBeforeAndAfter = function(req, res) {
 function calculateApproximates(travels) {
 
   var latestAfterDate = { year: travels[0].tourStartFrom };
-  
+
   for (var i = 0; i < travels.length; i++) {
 
     var travel = travels[i];
-
-    travel.estimatedTravelDates = false;
 
     if (travel.tourStartFrom > latestAfterDate.year) {
       latestAfterDate = { year: travel.tourStartFrom };
     }
 
-    if (travel.travelEndYear)
-      if (travel.travelEndYear > latestAfterDate.year) {
-        latestAfterDate = { year: travel.travelEndYear };
-      }
-      //  this whole thing is messed up; look over it all.
+    if (travel.travelEndYear) {
+      latestAfterDate = { year: travel.travelEndYear };
       if (travel.travelEndMonth) {
         latestAfterDate.month = travel.travelEndMonth;
         if (travel.travelEndDay) {
@@ -344,9 +339,9 @@ function calculateApproximates(travels) {
     }
 
     else {
-      travel.travelStartYear = latestAfterDate.year;
-      travel.travelStartMonth = latestAfterDate.month || 1;
-      travel.travelStartDay = latestAfterDate.day || 1;
+      travel.travelAfterYear = latestAfterDate.year;
+      travel.travelAfterMonth = latestAfterDate.month || 1;
+      travel.travelAfterDay = latestAfterDate.day || 1;
     }
 
   }
@@ -372,13 +367,29 @@ function calculateApproximates(travels) {
     }
 
     else {
-      travel.travelEndYear = earliestBeforeDate.year;
-      travel.travelEndMonth = earliestBeforeDate.month || 12;
-      travel.travelEndDay = earliestBeforeDate.day ||
+      travel.travelBeforeYear = earliestBeforeDate.year;
+      travel.travelBeforeMonth = earliestBeforeDate.month || 12;
+      travel.travelBeforeDay = earliestBeforeDate.day ||
         (new Date(travel.travelEndYear, travel.travelEndMonth, 0)).getDate(); // returns last day of preceding month
-
-      travel.estimatedTravelDates = true;
     }
+
+  }
+
+  for (var i = 0; i < travels.length; i++) {
+
+    var travel = travels[i];
+
+    if (travel.travelAfterYear) {
+
+      travel.travelStartYear = travel.travelAfterYear;
+      travel.travelStartMonth = travel.travelAfterMonth;
+      travel.travelStartDay = travel.travelAfterDay;
+      travel.travelEndYear = travel.travelBeforeYear;
+      travel.travelEndMonth = travel.travelBeforeMonth;
+      travel.travelEndDay = travel.travelBeforeDay;
+      travel.estimatedTravelDates = true;
+
+    } else travel.estimatedTravelDates = false;
 
   }
 

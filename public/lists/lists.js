@@ -21,7 +21,7 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
     $scope.newList = function() {
         listService.newList(viewModel.newListName, function(list) {
             viewModel.newListName = '';
-            viewModel.selectedList = list;
+            $scope.selectList(list);
             console.log('list created: ' + list.name);
         });
     };

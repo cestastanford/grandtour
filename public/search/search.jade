@@ -230,13 +230,19 @@
             ng-class="{ filled : travelDateModel.query.endDay }",
             ng-show="travelDateModel.queryType === 'range'",
             ng-disabled="!travelDateModel.query.endMonth && !travelDateModel.query.endDay")
-          span.date-query-type.label search by: 
-          span.date-query-type(
-            ng-click="resetTravelDateModel('exact')",
-            ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
-          span.date-query-type(
-            ng-click="resetTravelDateModel('range')",
-            ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
+          .margin-top
+            span.date-query-type.date-query-type-label search by: 
+            span.date-query-type(
+              ng-click="resetTravelDateModel('exact', travelDateModel.estimated)",
+              ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
+            span.date-query-type(
+              ng-click="resetTravelDateModel('range', travelDateModel.estimated)",
+              ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
+          .margin-top.include-estimates
+            .checkbox
+              label
+                input(type="checkbox", ng-model="travelDateModel.estimated")
+                div include estimated dates
 
         hr
 
@@ -271,9 +277,9 @@
       // pre.query {{query}}
       
       p
-        .pill(ng-repeat="(k,v) in query") 
-          .pill-dimension {{k.split('_').join(' ')}}
-          .pill-value {{v}} 
+        .pill(ng-repeat="pill in pills") 
+          .pill-dimension {{ pill.dimension }}
+          strong.pill-value {{ pill.value }} 
       
       div.text-muted(ng-show="untouched") Use the fields on the left and press Enter or click the Search button to start searching.
 
@@ -336,10 +342,10 @@
                     input(type="checkbox", ng-model="entry.selected")
                   td.entry-list-item
                       a(ng-href="#/entries/{{entry.index}}")
+                        span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
+                        span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
                         h4 {{ entry.fullName }}
                         p {{ entry.biography.slice(0, 200) }} ...
-                          span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
-                          span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
     
       div(ng-show="noResults && !searching")
         p No results

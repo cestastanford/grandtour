@@ -185,4 +185,15 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   getCount();
 
+  $scope.calculateBeforeAndAfter = function() {
+    $scope.calculatingBeforeAndAfter = true;
+    $http.get('/api/calculate-before-and-after')
+    .then(function(res) {
+      if (res.data.error) console.error(res.data.error);
+      else {
+        $scope.calculatingBeforeAndAfter = false;
+      }
+    });
+  }
+
 });

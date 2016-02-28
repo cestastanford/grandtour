@@ -9,6 +9,7 @@
           label Dimensions
           ul.list-unstyled
             li.border-top(ng-repeat="dimension in dimensions")
+              span.small.text-light.pull-right.explore-count {{ counts[dimension.field] }}
               .checkbox
                 label
                   input(type="checkbox", ng-model="dimension.active")
@@ -128,27 +129,33 @@
                           ng-show="travelDateModel.queryType === 'range'",
                           ng-disabled="!travelDateModel.query.endMonth && !travelDateModel.query.endDay",
                           ng-model-options="{debounce:1000}")
-                        span.date-query-type.label.explore search by: 
-                        span.date-query-type(
-                          ng-click="resetTravelDateModel('exact')",
-                          ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
-                        span.date-query-type(
-                          ng-click="resetTravelDateModel('range')",
-                          ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
+                        .margin-top
+                          span.date-query-type.date-query-type-label.explore search by: 
+                          span.date-query-type.explore(
+                            ng-click="resetTravelDateModel('exact', travelDateModel.estimated)",
+                            ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
+                          span.date-query-type.explore(
+                            ng-click="resetTravelDateModel('range', travelDateModel.estimated)",
+                            ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
+                        .margin-top.include-estimates
+                          .checkbox
+                            label
+                              input(type="checkbox", ng-model="travelDateModel.estimated")
+                              div.include-estimates-label-explore include estimated dates
         
     .col-lg-12 
     
       strong Your filters
       p
-        .pill(ng-repeat="(k,v) in query") 
-          .pill-dimension {{k.split('_').join(' ')}}
+        .pill(ng-repeat="pill in pills") 
+          .pill-dimension {{ pill.dimension }}
           .pill-value
-            span(ng-show="v | isArray" ng-repeat="value in v")
+            span(ng-show="pill.value | isArray" ng-repeat="value in pill.value track by $index")
               span(ng-show="$index > 0") or 
-              strong {{value}} 
-            strong(ng-hide="v | isArray") {{v}}
+              strong {{ value }} 
+            strong(ng-hide="pill.value | isArray") {{ pill.value }}
           .pill-value.border-left
-            a.text-danger(ng-click="removeFromQuery(k)", data-toggle="tooltip", title="Remove")
+            a.text-danger(ng-click="removeFromQuery(pill.key)", data-toggle="tooltip", title="Remove")
               i.fa.fa-trash-o
 
         //button.btn.btn-success.pull-right(ng-click="search()", type="submit", tabindex="1") Search
@@ -218,10 +225,10 @@
                     input(type="checkbox", ng-model="entry.selected")
                   td.entry-list-item
                       a(ng-href="#/entries/{{entry.index}}")
+                        span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
+                        span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
                         h4 {{ entry.fullName }}
                         p {{ entry.biography.slice(0, 200) }} ...
-                          span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
-                          span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
         
       div(ng-show="noResults && !searching")
         p No results

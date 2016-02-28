@@ -540,21 +540,18 @@ hr {
   font-weight: 400;
   text-decoration: underline;
   font-size: 12px;
-  margin-left: 5px;
+  margin-left: 10px;
   color: gray;
   cursor: pointer;
 }
 
-.date-query-type.label {
+.date-query-type.date-query-type-label {
   text-decoration: none;
   cursor: default;
 }
 
-.date-query-type.label.explore {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  cursor: default;
+.date-query-type.explore {
+  font-size: 11px;
 }
 
 .date-query-type.selected {
@@ -579,7 +576,6 @@ hr {
 .add-to-list-label {
   float: right;
   position: relative;
-  bottom: 12px;
   margin-right: 10px;
 }
 
@@ -662,3 +658,21 @@ table.table {
 #export-button, #duplicate-button {
   margin-left: 10px;
 }
+
+.explore-count {
+  position: relative;
+  top: 6px;
+}
+
+.include-estimates {
+  color: gray;
+  margin-left: 10px;
+}
+
+.include-estimates-label-explore {
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+
+

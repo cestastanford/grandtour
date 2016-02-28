@@ -258,19 +258,24 @@ var searchMapRE = {
 
     }
 
+    if (d.estimated === 'no') outer.push({ estimatedTravelDates : false });
+
     return { travels : { $elemMatch : { $and : outer } } };
 
   },
 
   entry : function(d) {
+
+    console.log(d);
+
     var or = [];
     for (var section in d) {
       queryObj = {};
       if (section === 'tours') {
 
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp(escapeRegExp(d[section]), "gi") } } };
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") } } };
 
-      } else queryObj[section] = { $regex : new RegExp(escapeRegExp(d[section]), "gi") };
+      } else queryObj[section] = { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };
@@ -366,6 +371,8 @@ var searchMap = {
 
     }
 
+    if (d.estimated === 'no') outer.push({ estimatedTravelDates : false });
+
     return { travels : { $elemMatch : { $and : outer } } };
 
   },
@@ -376,9 +383,9 @@ var searchMap = {
       queryObj = {};
       if (section === 'tours') {
 
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp(escapeRegExp(d[section]), "gi") } } };
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") } } };
 
-      } else queryObj[section] = { $regex : new RegExp(escapeRegExp(d[section]), "gi") };
+      } else queryObj[section] = { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };
@@ -496,24 +503,19 @@ exports.search2 = function (req, res) {
   var originalQuery = JSON.stringify(req.body.query);
   var query = parseQuery2(req.body.query);
 
-    Entry
-      .find(query, {
-        index : true,
-        fullName : true,
-        biography : true,
-        places: true,
-        dates: true,
-        travels: true
-      }, function (err, response) {
-        if (err) {
-          res.json({ error: err })
-          return;
-        }
-        res.json({
-          request : JSON.parse(originalQuery),
-          entries : response
-        });
-      } )
+  Entry.aggregate()
+  .match(query)
+  .exec(function (err, response) {
+    if (err) {
+      res.json({ error: err.toString() })
+      return;
+    }
+    res.json({
+      request : JSON.parse(originalQuery),
+      entries : response
+    });
+  });
+
 }
 
 

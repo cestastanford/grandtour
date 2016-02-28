@@ -231,6 +231,9 @@ function routes(io) {
   router.get('/api/recount', admin, database.recount);
   router.get('/api/getcount', auth, database.getCount);
 
+  //  for adding travel date guesses to entries
+  router.get('/api/calculate-before-and-after', admin, database.calculateBeforeAndAfter);
+
   // lists
   router.post('/api/lists/mylists', auth, lists.myLists);
   router.post('/api/lists/newlist', auth, lists.newList);

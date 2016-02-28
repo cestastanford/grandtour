@@ -72,12 +72,23 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
 
   $scope.searchTravel = function(travel) {
     var query = { travel_place: travel.place, travel_date: {} };
-    if (travel.travelStartYear) query.travel_date.startYear = travel.travelStartYear;
-    if (travel.travelStartMonth) query.travel_date.startMonth = travel.travelStartMonth;
-    if (travel.travelStartDay) query.travel_date.startDay = travel.travelStartDay;
-    if (travel.travelEndYear) query.travel_date.endYear = travel.travelEndYear;
-    if (travel.travelEndMonth) query.travel_date.endMonth = travel.travelEndMonth;
-    if (travel.travelEndDay) query.travel_date.endDay = travel.travelEndDay;
+    if (travel.travelStartYear) {
+      query.travel_date.startYear = travel.travelStartYear;
+      if (travel.travelStartMonth) {
+        query.travel_date.startMonth = travel.travelStartMonth;
+        if (travel.travelStartDay) {
+          query.travel_date.startDay = travel.travelStartDay;
+        }
+      }
+    } else if (travel.travelEndYear) {
+      query.travel_date.endYear = travel.travelEndYear;
+      if (travel.travelEndMonth) {
+        query.travel_date.endMonth = travel.travelEndMonth;
+        if (travel.travelEndDay) {
+          query.travel_date.endDay = travel.travelEndDay;
+        }
+      }
+    } else delete query.travel_date;
     $location.path('search/' + JSON.stringify(query));
   }
 

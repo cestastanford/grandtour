@@ -10,13 +10,13 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
   $scope.freeSearchSections = { biography: true, tours: true, narrative: true, notes: true };
 
   // setup for travel date range search
-  $scope.resetTravelDateModel = function(type) {
-    travelDateModel = { queryType: type, query: {} };
+  $scope.resetTravelDateModel = function(type, estimated) {
+    travelDateModel = { queryType: type, query: {}, estimated: estimated };
     $scope.travelDateModel = travelDateModel;
     delete $scope.query.travel_date;
   };
   var travelDateModel;
-  $scope.resetTravelDateModel('exact');
+  $scope.resetTravelDateModel('exact', false);
 
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
@@ -26,14 +26,28 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
       }
     )
     .success(function(res){
+
+      if (res.error) console.error(res.error);
+
       $scope.searching = false;
       $scope.entries = res.entries;
       calculateFirstTravelOrders(res.entries);
       if (res.entries.length) $scope.noResults = false;
       else $scope.noResults = true;
-    });
 
-    //  setup for free search by section
+      setupFreeSearch();
+      setupTravelDateSearch();
+
+    });
+  } else {
+
+    setupTravelDateSearch();
+
+  }
+
+  //  support for free search by section
+  function setupFreeSearch() {
+
     if ($scope.query.entry) {
       for (var k in $scope.freeSearchSections) {
         if ($scope.query.entry[k]) $scope.freeSearchQuery = $scope.query.entry[k];
@@ -41,51 +55,59 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
       }
     }
 
-    //  setup for travel date range search
+    //  support for free search by section
+    $scope.$watch('freeSearchQuery', function(newValue) {
+      for (var section in $scope.freeSearchSections) {
+        if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
+          if (!$scope.query.entry) $scope.query.entry = {};
+          $scope.query.entry[section] = $scope.freeSearchQuery;
+        }
+      }
+    });
+
+    $scope.$watchCollection('freeSearchSections', function(newValues) {
+      for (var section in $scope.freeSearchSections) {
+        if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
+          if (!$scope.query.entry) $scope.query.entry = {};
+          $scope.query.entry[section] = $scope.freeSearchQuery;
+        }
+        else if ($scope.query.entry) {
+          delete $scope.query.entry[section];
+          if (Object.keys($scope.query.entry).length === 0) delete $scope.query.entry;
+        }
+      }
+    });
+
+  }
+
+  //  support for travel date range search
+  function setupTravelDateSearch() {
+
     if ($scope.query.travel_date) {
       if ($scope.query.travel_date.startYear !== $scope.query.travel_date.endYear ||
           $scope.query.travel_date.startMonth !== $scope.query.travel_date.endMonth ||
           $scope.query.travel_date.startDay !== $scope.query.travel_date.endDay) {
         travelDateModel.queryType = 'range';
       }
+      travelDateModel.estimated = ($scope.query.travel_date.estimated === 'yes');
       travelDateModel.query = $scope.query.travel_date;
+      delete travelDateModel.query.estimated;
     }
-  }
 
-  //  support for free search by section
-  $scope.$watch('freeSearchQuery', function(newValue) {
-    for (var section in $scope.freeSearchSections) {
-      if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
-        if (!$scope.query.entry) $scope.query.entry = {};
-        $scope.query.entry[section] = $scope.freeSearchQuery;
+    $scope.$watch('travelDateModel', function(travelDateModel) {
+      if (travelDateModel.queryType === 'exact') {
+        travelDateModel.query.endYear = travelDateModel.query.startYear;
+        travelDateModel.query.endMonth = travelDateModel.query.startMonth;
+        travelDateModel.query.endDay = travelDateModel.query.startDay;
       }
-    }
-  });
+      for (key in travelDateModel.query) if (!travelDateModel.query[key]) delete travelDateModel.query[key];
+      if (Object.getOwnPropertyNames(travelDateModel.query).length > 0) {
+        $scope.query.travel_date = travelDateModel.query;
+        $scope.query.travel_date.estimated = travelDateModel.estimated ? 'yes' : 'no';
+      } else delete $scope.query.travel_date;
+    }, true);
 
-  $scope.$watchCollection('freeSearchSections', function(newValues) {
-    for (var section in $scope.freeSearchSections) {
-      if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
-        if (!$scope.query.entry) $scope.query.entry = {};
-        $scope.query.entry[section] = $scope.freeSearchQuery;
-      }
-      else if ($scope.query.entry) {
-        delete $scope.query.entry[section];
-        if (Object.keys($scope.query.entry).length === 0) delete $scope.query.entry;
-      }
-    }
-  });
-
-  //  support for travel date range search
-  $scope.$watchCollection('travelDateModel.query', function(query) {
-    if (travelDateModel.queryType === 'exact') {
-      query.endYear = query.startYear;
-      query.endMonth = query.startMonth;
-      query.endDay = query.startDay;
-    }
-    for (key in query) if (!query[key]) delete query[key];
-    if (Object.getOwnPropertyNames(query).length > 0) $scope.query.travel_date = query;
-    else delete $scope.query.travel_date;
-  });
+  };
 
   $scope.search = function(){
     $location.path('search/' + JSON.stringify(clean($scope.query)) );
@@ -159,12 +181,13 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
       var entry = $scope.entries[i];
       if (entry.selected) {
         entry.addedToList = entry.alreadyInList = false;
-        listService.addToList(list, entry, function(result) {
+        listService.addToList(list, entry, (function(result) {
           if (result.addedToList) {
-            entry.addedToList = true;
+            this.entry.addedToList = true;
+          } else if (result.alreadyInList) {
+            this.entry.alreadyInList = true;
           }
-          if (result.alreadyInList) entry.alreadyInList = true;
-        });
+        }).bind({ entry: entry }));
       }
     }
   };
@@ -243,5 +266,69 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
     if (res.data.error) console.error(res.data.error);
     else $scope.counts = res.data.counts;
   });
+
+
+  //  helper functions for displaying complex queries in pills
+  $scope.$watch('query', function(query) {
+
+    $scope.pills = [];
+
+    for (key in query) {
+      if (query.hasOwnProperty(key)) {
+
+        var pill = {};
+        switch (key) {
+
+          case 'entry':
+            pill.dimension = 'free search in ' + Object.keys($scope.freeSearchSections)
+              .filter(function(section) { return $scope.freeSearchSections[section]; })
+              .join(', ');
+            pill.value = $scope.freeSearchQuery;
+            break;
+
+          case 'travel_date':
+            pill.dimension = 'travel date';
+
+            pill.value = query.travel_date.startYear;
+            if (query.travel_date.startMonth) {
+              
+              pill.value += '/' + query.travel_date.startMonth;
+              if (query.travel_date.startDay) {
+
+                pill.value += '/' + query.travel_date.startDay;
+              }
+            }
+            
+            if ($scope.travelDateModel.queryType === 'range') {
+
+              pill.dimension += ' range';
+              pill.value = 'from ' + pill.value + ' to ' + query.travel_date.endYear;
+              if (query.travel_date.endMonth) {
+                
+                pill.value += '/' + query.travel_date.endMonth;
+                if (query.travel_date.endDay) {
+
+                  pill.value += '/' + query.travel_date.endDay;
+                }
+              }
+            }
+
+            if (query.travel_date.estimated === 'yes') {
+              pill.value += ' (including estimated dates)'
+            }
+
+            break;
+
+          default:
+            pill.dimension = key.split('_').join(' ');
+            pill.value = query[key];
+
+        }
+        $scope.pills.push(pill);
+
+      }
+    }
+
+  }, true);
 
 });

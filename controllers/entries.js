@@ -503,19 +503,25 @@ exports.search2 = function (req, res) {
   var originalQuery = JSON.stringify(req.body.query);
   var query = parseQuery2(req.body.query);
 
-  Entry.aggregate()
-  .match(query)
-  .exec(function (err, response) {
-    if (err) {
-      res.json({ error: err.toString() })
-      return;
-    }
-    res.json({
-      request : JSON.parse(originalQuery),
-      entries : response
-    });
-  });
-
+    Entry
+      .find(query, {
+        index : true,
+        fullName : true,
+        biography : true,
+        places: true,
+        dates: true,
+        travels: true
+      }, function (err, response) {
+        console.log(err, response);
+        if (err) {
+          res.json({ error: err })
+          return;
+        }
+        res.json({
+          request : JSON.parse(originalQuery),
+          entries : response
+        });
+      } )
 }
 
 

@@ -40,6 +40,11 @@
                       label {{dimension.label}} 
                         span.text-muted(ng-show="dimension.subgroup") {{dimension.subgroup}} 
                       input.input-sm.form-control(type="text", ng-model="freeSearchModel.query", ng-model-options="{debounce:1000}")
+                      .checkbox.pull-right
+                        label
+                          input.small(type="checkbox", ng-model="freeSearchModel.beginnings")
+                          div.small.free-search-beginning-of-word Search beginnings of words only
+                      .clearfix
                       .checkbox
                         label
                           input(type="checkbox", ng-model="freeSearchModel.sections.biography", ng-model-options="{debounce:1000}")

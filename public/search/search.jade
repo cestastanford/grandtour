@@ -253,6 +253,11 @@
             ng-model="freeSearchQuery",
             placeholder="text ({{ counts.fullName }} entries)",
             ng-class="{ filled : freeSearchQuery }")
+          .checkbox.pull-right
+            label
+              input.small(type="checkbox", ng-model="freeSearchBeginnings")
+              div.small.free-search-beginning-of-word Search beginnings of words only
+          .clearfix
           .checkbox
             label
               input(type="checkbox", ng-model="freeSearchSections.biography")

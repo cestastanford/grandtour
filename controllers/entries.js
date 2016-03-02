@@ -266,16 +266,14 @@ var searchMapRE = {
 
   entry : function(d) {
 
-    console.log(d);
-
     var or = [];
-    for (var section in d) {
+    for (var section in d.sections) {
       queryObj = {};
       if (section === 'tours') {
 
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") } } };
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") } } };
 
-      } else queryObj[section] = { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") };
+      } else queryObj[section] = { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };
@@ -379,13 +377,13 @@ var searchMap = {
 
   entry : function(d) {
     var or = [];
-    for (var section in d) {
+    for (var section in d.sections) {
       queryObj = {};
       if (section === 'tours') {
 
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") } } };
+        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") } } };
 
-      } else queryObj[section] = { $regex : new RegExp('\\b' + escapeRegExp(d[section]), "gi") };
+      } else queryObj[section] = { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };
@@ -431,8 +429,6 @@ exports.search = function (req, res) {
 
   var originalQuery = JSON.stringify(req.body.query);
   var query = parseQuery(req.body.query);
-
-  console.log(JSON.stringify(query))
 
     Entry
       .find(query, {

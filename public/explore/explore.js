@@ -39,6 +39,7 @@ app
   function initFreeSearchModel() {
     freeSearchModel = {};
     freeSearchModel.sections = { biography: true, tours: true, narrative: true, notes: true };
+    freeSearchModel.beginnings = true;
     $scope.freeSearchModel = freeSearchModel;
   };
   initFreeSearchModel();
@@ -106,28 +107,32 @@ app
   }
 
   //  support for free search by section
-  $scope.$watch('freeSearchModel.query', function(newValue) {
+  $scope.$watch('freeSearchModel.query', function(query) {
     for (var section in freeSearchModel.sections) {
-      if (freeSearchModel.sections[section] && freeSearchModel.query) {
-        if (!$scope.query.entry) $scope.query.entry = {};
-        $scope.query.entry[section] = freeSearchModel.query;
-      } else if ($scope.query.entry) delete $scope.query.entry[section];
+      if (freeSearchModel.sections[section] && query) {
+        if (!$scope.query.entry) $scope.query.entry = { sections: {} };
+        $scope.query.entry.sections[section] = query;
+      } else if ($scope.query.entry) delete $scope.query.entry.sections[section];
     }
     queryUpdated($scope.query);
   });
 
-  $scope.$watchCollection('freeSearchModel.sections', function(newValues) {
-    for (var section in freeSearchModel.sections) {
-      if (freeSearchModel.sections[section] && freeSearchModel.query) {
-        if (!$scope.query.entry) $scope.query.entry = {};
-        $scope.query.entry[section] = freeSearchModel.query;
+  $scope.$watchCollection('freeSearchModel.sections', function(sections) {
+    for (var section in sections) {
+      if (sections[section] && freeSearchModel.query) {
+        if (!$scope.query.entry) $scope.query.entry = { sections: {} };
+        $scope.query.entry.sections[section] = freeSearchModel.query;
       }
       else if ($scope.query.entry) {
-        delete $scope.query.entry[section];
-        if (Object.keys($scope.query.entry).length === 0) delete $scope.query.entry;
+        delete $scope.query.entry.sections[section];
+        if (Object.keys($scope.query.entry.sections).length === 0) delete $scope.query.entry;
       }
     }
     queryUpdated($scope.query);
+  });
+
+  $scope.$watch('freeSearchModel.beginnings', function(beginnings) {
+    if ($scope.query.entry) $scope.query.entry.beginnings = beginnings ? 'yes' : 'no';
   });
 
   //  support for travel date range search
@@ -356,10 +361,8 @@ app
         switch (key) {
 
           case 'entry':
-            pill.dimension = 'free search in ' + Object.keys(freeSearchModel.sections)
-              .filter((function(section) { return freeSearchModel.sections[section]; }).bind(this))
-              .join(', ');
-            pill.value = freeSearchModel.query;
+            pill.dimension = 'free search in ' + Object.keys($scope.query.entry.sections).join(', ');
+            pill.value = $scope.query.entry.sections[Object.keys($scope.query.entry.sections)[0]];
             break;
 
           case 'travel_date':

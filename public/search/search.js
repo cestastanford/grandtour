@@ -8,6 +8,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
   // setup for free search by section
   $scope.freeSearchSections = { biography: true, tours: true, narrative: true, notes: true };
+  $scope.freeSearchBeginnings = true;
 
   // setup for travel date range search
   $scope.resetTravelDateModel = function(type, estimated) {
@@ -41,6 +42,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
     });
   } else {
 
+    setupFreeSearch();
     setupTravelDateSearch();
 
   }
@@ -50,32 +52,39 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
     if ($scope.query.entry) {
       for (var k in $scope.freeSearchSections) {
-        if ($scope.query.entry[k]) $scope.freeSearchQuery = $scope.query.entry[k];
+        if ($scope.query.entry.sections[k]) $scope.freeSearchQuery = $scope.query.entry.sections[k];
         else $scope.freeSearchSections[k] = false;
       }
+      if ($scope.query.entry.beginnings === 'no') $scope.freeSearchBeginnings = false;
     }
 
     //  support for free search by section
-    $scope.$watch('freeSearchQuery', function(newValue) {
+    $scope.$watch('freeSearchQuery', function(freeSearchQuery) {
       for (var section in $scope.freeSearchSections) {
-        if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
-          if (!$scope.query.entry) $scope.query.entry = {};
-          $scope.query.entry[section] = $scope.freeSearchQuery;
+        if ($scope.freeSearchSections[section] && freeSearchQuery) {
+          if (!$scope.query.entry) $scope.query.entry = { sections: {} };
+          $scope.query.entry.sections[section] = freeSearchQuery;
         }
       }
+      if ($scope.query.entry) $scope.query.entry.beginnings = $scope.freeSearchBeginnings ? 'yes' : 'no';
     });
 
-    $scope.$watchCollection('freeSearchSections', function(newValues) {
-      for (var section in $scope.freeSearchSections) {
-        if ($scope.freeSearchSections[section] && $scope.freeSearchQuery) {
-          if (!$scope.query.entry) $scope.query.entry = {};
-          $scope.query.entry[section] = $scope.freeSearchQuery;
+    $scope.$watchCollection('freeSearchSections', function(freeSearchSections) {
+      for (var section in freeSearchSections) {
+        if (freeSearchSections[section] && $scope.freeSearchQuery) {
+          if (!$scope.query.entry) $scope.query.entry = { sections: {} };
+          $scope.query.entry.sections[section] = $scope.freeSearchQuery;
         }
         else if ($scope.query.entry) {
-          delete $scope.query.entry[section];
-          if (Object.keys($scope.query.entry).length === 0) delete $scope.query.entry;
+          delete $scope.query.entry.sections[section];
+          if (Object.keys($scope.query.entry.sections).length === 0) delete $scope.query.entry;
         }
       }
+      if ($scope.query.entry) $scope.query.entry.beginnings = $scope.freeSearchBeginnings ? 'yes' : 'no';
+    });
+
+    $scope.$watch('freeSearchBeginnings', function(freeSearchBeginnings) {
+      if ($scope.query.entry) $scope.query.entry.beginnings = freeSearchBeginnings ? 'yes' : 'no';
     });
 
   }
@@ -270,7 +279,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
   //  helper functions for displaying complex queries in pills
   $scope.$watch('query', function(query) {
-
     $scope.pills = [];
 
     for (key in query) {
@@ -280,10 +288,8 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
         switch (key) {
 
           case 'entry':
-            pill.dimension = 'free search in ' + Object.keys($scope.freeSearchSections)
-              .filter(function(section) { return $scope.freeSearchSections[section]; })
-              .join(', ');
-            pill.value = $scope.freeSearchQuery;
+            pill.dimension = 'free search in ' + Object.keys($scope.query.entry.sections).join(', ');
+            pill.value = $scope.query.entry.sections[Object.keys($scope.query.entry.sections)[0]];
             break;
 
           case 'travel_date':

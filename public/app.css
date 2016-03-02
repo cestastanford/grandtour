@@ -662,6 +662,7 @@ table.table {
 .explore-count {
   position: relative;
   top: 6px;
+  z-index: 1;
 }
 
 .include-estimates {

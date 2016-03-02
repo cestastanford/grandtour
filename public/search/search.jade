@@ -165,83 +165,83 @@
           label Travel
           input.input-sm.form-control(
             type="text", 
-            ng-model="query.travel_place",
+            ng-model="travelModel.place",
             placeholder="place ({{ counts.travel_place }} entries)",
-            ng-class="{ filled : query.travel_place }"
+            ng-class="{ filled : travelModel.place }"
             typeahead="item for item in getSuggestions('travels.place', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.startYear",
+            ng-model="travelModel.date.query.startYear",
             placeholder="year ({{ counts.travel_year }} entries)",
-            ng-class="{ filled : travelDateModel.query.startYear }",
-            ng-show="travelDateModel.queryType === 'exact'")
+            ng-class="{ filled : travelModel.date.query.startYear }",
+            ng-show="travelModel.date.queryType === 'exact'")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.startMonth",
+            ng-model="travelModel.date.query.startMonth",
             placeholder="month ({{ counts.travel_month }} entries)",
-            ng-class="{ filled : travelDateModel.query.startMonth }",
-            ng-show="travelDateModel.queryType === 'exact'",
-            ng-disabled="!travelDateModel.query.startYear && !travelDateModel.query.startMonth")
+            ng-class="{ filled : travelModel.date.query.startMonth }",
+            ng-show="travelModel.date.queryType === 'exact'",
+            ng-disabled="!travelModel.date.query.startYear && !travelModel.date.query.startMonth")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.startDay",
+            ng-model="travelModel.date.query.startDay",
             placeholder="day ({{ counts.travel_day }} entries)",
-            ng-class="{ filled : travelDateModel.query.startDay }",
-            ng-show="travelDateModel.queryType === 'exact'",
-            ng-disabled="!travelDateModel.query.startMonth && !travelDateModel.query.startDay")
+            ng-class="{ filled : travelModel.date.query.startDay }",
+            ng-show="travelModel.date.queryType === 'exact'",
+            ng-disabled="!travelModel.date.query.startMonth && !travelModel.date.query.startDay")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.startYear",
+            ng-model="travelModel.date.query.startYear",
             placeholder="start year ({{ counts.travel_year }} entries)",
-            ng-class="{ filled : travelDateModel.query.startYear }",
-            ng-show="travelDateModel.queryType === 'range'")
+            ng-class="{ filled : travelModel.date.query.startYear }",
+            ng-show="travelModel.date.queryType === 'range'")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.startMonth",
+            ng-model="travelModel.date.query.startMonth",
             placeholder="start month ({{ counts.travel_month }} entries)",
-            ng-class="{ filled : travelDateModel.query.startMonth }",
-            ng-show="travelDateModel.queryType === 'range'",
-            ng-disabled="!travelDateModel.query.startYear && !travelDateModel.query.startMonth")
+            ng-class="{ filled : travelModel.date.query.startMonth }",
+            ng-show="travelModel.date.queryType === 'range'",
+            ng-disabled="!travelModel.date.query.startYear && !travelModel.date.query.startMonth")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.startDay",
+            ng-model="travelModel.date.query.startDay",
             placeholder="start day ({{ counts.travel_day }} entries)",
-            ng-class="{ filled : travelDateModel.query.startDay }",
-            ng-show="travelDateModel.queryType === 'range'",
-            ng-disabled="!travelDateModel.query.startMonth && !travelDateModel.query.startDay")
+            ng-class="{ filled : travelModel.date.query.startDay }",
+            ng-show="travelModel.date.queryType === 'range'",
+            ng-disabled="!travelModel.date.query.startMonth && !travelModel.date.query.startDay")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.endYear",
+            ng-model="travelModel.date.query.endYear",
             placeholder="end year ({{ counts.travel_year }} entries)",
-            ng-class="{ filled : travelDateModel.query.endYear }",
-            ng-show="travelDateModel.queryType === 'range'")
+            ng-class="{ filled : travelModel.date.query.endYear }",
+            ng-show="travelModel.date.queryType === 'range'")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.endMonth",
+            ng-model="travelModel.date.query.endMonth",
             placeholder="end month ({{ counts.travel_month }} entries)",
-            ng-class="{ filled : travelDateModel.query.endMonth }",
-            ng-show="travelDateModel.queryType === 'range'",
-            ng-disabled="!travelDateModel.query.endYear && !travelDateModel.query.endMonth")
+            ng-class="{ filled : travelModel.date.query.endMonth }",
+            ng-show="travelModel.date.queryType === 'range'",
+            ng-disabled="!travelModel.date.query.endYear && !travelModel.date.query.endMonth")
           input.input-sm.form-control.margin-top(
             type="text", 
-            ng-model="travelDateModel.query.endDay",
+            ng-model="travelModel.date.query.endDay",
             placeholder="end day ({{ counts.travel_day }} entries)",
-            ng-class="{ filled : travelDateModel.query.endDay }",
-            ng-show="travelDateModel.queryType === 'range'",
-            ng-disabled="!travelDateModel.query.endMonth && !travelDateModel.query.endDay")
+            ng-class="{ filled : travelModel.date.query.endDay }",
+            ng-show="travelModel.date.queryType === 'range'",
+            ng-disabled="!travelModel.date.query.endMonth && !travelModel.date.query.endDay")
           .margin-top
             span.date-query-type.date-query-type-label search by: 
             span.date-query-type(
-              ng-click="resetTravelDateModel('exact', travelDateModel.estimated)",
-              ng-class="{selected: travelDateModel.queryType === 'exact'}") exact year
+              ng-click="resetTravelDate('exact', travelModel.date.estimated)",
+              ng-class="{selected: travelModel.date.queryType === 'exact'}") exact year
             span.date-query-type(
-              ng-click="resetTravelDateModel('range', travelDateModel.estimated)",
-              ng-class="{selected: travelDateModel.queryType === 'range'}") range of years
+              ng-click="resetTravelDate('range', travelModel.date.estimated)",
+              ng-class="{selected: travelModel.date.queryType === 'range'}") range of years
           .margin-top.include-estimates
             .checkbox
               label
-                input(type="checkbox", ng-model="travelDateModel.estimated")
+                input(type="checkbox", ng-model="travelModel.date.estimated")
                 div include estimated dates
 
         hr

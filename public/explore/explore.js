@@ -114,6 +114,7 @@ app
         $scope.query.entry.sections[section] = query;
       } else if ($scope.query.entry) delete $scope.query.entry.sections[section];
     }
+    if ($scope.query.entry) $scope.query.entry.beginnings = freeSearchModel.beginnings ? 'yes' : 'no';
     queryUpdated($scope.query);
   });
 
@@ -128,6 +129,7 @@ app
         if (Object.keys($scope.query.entry.sections).length === 0) delete $scope.query.entry;
       }
     }
+    if ($scope.query.entry) $scope.query.entry.beginnings = freeSearchModel.beginnings ? 'yes' : 'no';
     queryUpdated($scope.query);
   });
 
@@ -362,6 +364,7 @@ app
 
           case 'entry':
             pill.dimension = 'free search in ' + Object.keys($scope.query.entry.sections).join(', ');
+            if ($scope.query.entry.beginnings === 'yes') pill.dimension += ' (word beginnings only)'
             pill.value = $scope.query.entry.sections[Object.keys($scope.query.entry.sections)[0]];
             break;
 

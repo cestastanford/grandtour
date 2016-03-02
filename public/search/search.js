@@ -289,6 +289,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
           case 'entry':
             pill.dimension = 'free search in ' + Object.keys($scope.query.entry.sections).join(', ');
+            if ($scope.query.entry.beginnings === 'yes') pill.dimension += ' (word beginnings only)'
             pill.value = $scope.query.entry.sections[Object.keys($scope.query.entry.sections)[0]];
             break;
 

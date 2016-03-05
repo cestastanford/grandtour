@@ -662,6 +662,7 @@ table.table {
 .explore-count {
   position: relative;
   top: 6px;
+  z-index: 1;
 }
 
 .include-estimates {
@@ -674,5 +675,7 @@ table.table {
   margin-top: 2px;
 }
 
-
+.free-search-beginning-of-word {
+  color: gray;
+}
 

@@ -52,12 +52,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Connect mongoose gt3 'mongodb://localhost/gt3'
-// mongoose.connect('mongodb://localhost/gt3' , function(err) {
-
-mongoose.connect('heroku_sstkq4mv:u19fp90o4ti0fn6n30kvksjc2p@ds053858.mongolab.com:53858/heroku_sstkq4mv' , function(err) {
+mongoose.connect(process.env['MONGODB_URI'], function(err) {
   if (err) {
-    console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
+    console.error('Could not connect to MongoDB at the specified URI.');
+    process.exit(1);
   }
 });
 

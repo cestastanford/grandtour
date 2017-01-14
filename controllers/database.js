@@ -164,55 +164,9 @@ function update(s, r) {
 /* Reset the dataset */
 exports.reset = function(req, res, io){
 
-  try {
-    // loading
-    //var entries = readFile('./tsv/entries.tsv').values();
-    var entries = readJSONFile('./tsv/entries.json', 'entries');
-/*    var fullName = readFile('./tsv/fullName.tsv');
-    var dates = readFile('./tsv/dates.tsv');
-    var education = readFile('./tsv/education.tsv', true);
-    var marriages = readFile('./tsv/marriages.tsv', true);
-    var parents = readFile('./tsv/parents.tsv');
-    var travels = readFile('./tsv/travels.txt', true);*/
-
-    var errors = [];
-
-    // drop the Entries
-    Entry.collection.drop();
-
-    var counter = 0;
-
-    entries.forEach(function(data, i){
-
-      var entry = new Entry({
-
-        index : data.index,
-        biography : data.biography,
-        tours : data.tours,
-        narrative : data.narrative,
-        notes : data.notes,
-        entry : [data.biography, data.tours.map(function(d){ return d.text}).join(), data.narrative, data.notes].join(),
-
-      });
-
-      entry.save(function(err, e){
-        if (err) {
-          errors.push(err);
-        }
-      });
-
-
-
-    })
-
-    res.json({ status: 200, errors : errors})
-
-  }
-
-  catch(error) {
-    res.json({error:error});
-  }
-
+  // drop the Entries
+  Entry.collection.drop();
+  res.json({ status: 200 });
 
 }
 

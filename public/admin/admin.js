@@ -11,7 +11,7 @@ app.controller('AdminCtrl', function($scope, $http) {
   $scope.defaults = {
     sheets : [
       // Entries
-      { info: true, value: 'Entries', multiple : false, label : 'Entries', sheetName: 'Entries', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : false },
+      { info: true, value: 'entries', multiple : false, label : 'Entries', sheetName: 'Entries', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       // Fullnames
       { info: true, value: 'fullName', multiple : false, label : 'Fullnames', sheetName: 'Fullnames', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       // Alternate names
@@ -46,7 +46,7 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   $scope.setReload = function(allReload){
     d3.values($scope.defaults.sheets).forEach(function(d){
-      d.reload = allReload;
+      if (d.value !== 'entries') d.reload = allReload;
     })
   }
 

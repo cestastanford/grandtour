@@ -104,7 +104,8 @@
             tbody
               tr(ng-repeat="sheet in defaults.sheets")
                 td
-                  input(type="checkbox", ng-model="sheet.reload")
+                  input(type="checkbox", ng-model="sheet.reload", ng-if="sheet.value !== 'entries'")
+                  input(type="checkbox", ng-model="sheet.reload", ng-if="sheet.value === 'entries'", disabled)
                 td {{sheet.label}}
                 td(ng-show="sheet.info && !sheet.error")
                   input.form-control.text-mono(ng-model="sheet.sheetName", placeholder="{{sheet.sheetName}}" ng-disabled="!sheet.reload")

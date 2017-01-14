@@ -10,8 +10,12 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   $scope.defaults = {
     sheets : [
+      // Entries
+      { info: true, value: 'Entries', multiple : false, label : 'Entries', sheetName: 'Entries', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : false },
       // Fullnames
       { info: true, value: 'fullName', multiple : false, label : 'Fullnames', sheetName: 'Fullnames', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      // Alternate names
+      { info: true, value: 'alternateNames', multiple : true, label : 'Alternate Names', sheetName: 'Alternate Names', spreadsheetId: '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload: true },
       // Dates
       { info: true, value: 'dates', multiple : true, label : 'Dates', sheetName: 'Dates', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       // Places

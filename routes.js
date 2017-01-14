@@ -223,10 +223,6 @@ function routes(io) {
     database.reload(req, res, io)
   });
 
-  router.get('/api/reset', admin, function(req, res){
-    database.reset(req, res, io)
-  });
-
   //  for counting entries
   router.get('/api/recount', admin, database.recount);
   router.get('/api/getcount', auth, database.getCount);

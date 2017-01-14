@@ -97,67 +97,66 @@ exports.reload = function(req, res, io){
 
   })
 
+}
 
-  function parseRows(rows) {
+function parseRows(rows) {
 
-    var header = rows[1];
-    var data = [];
+  var header = rows[1];
+  var data = [];
 
-    d3.values(rows).forEach(function(row,i){
-      if (i == 0) return;
-      var obj = {};
-      for (var key in row) {
-        obj[header[key]] = row[key];
-      }
-      data.push(obj);
-    })
-
-    return data;
-
-  }
-
-  function update(s, r) {
-
-    var entries = 5293;
-    var rows = parseRows(r);
-    var data;
-    var count = 0;
-    // map for data
-    if (!s.multiple) data = d3.map(rows, function(d){ return d.index; });
-    else {
-      data = d3.map();
-      rows.forEach(function(d){
-        if (!data.has(d.index)) data.set(d.index, []);
-        data.get(d.index).push(d);
-      })
+  d3.values(rows).forEach(function(row,i){
+    if (i == 0) return;
+    var obj = {};
+    for (var key in row) {
+      obj[header[key]] = row[key];
     }
+    data.push(obj);
+  })
 
-    io.emit('reload-progress', { message: 'cominciamo fare cose', sheet: s } );
+  return data;
 
-    d3.range(entries).forEach(function(index){
-      var condition = { index : index };
-      var doc = {};
-      doc[s.value] = s.multiple ? data.get(index) : data.get(index) ? data.get(index)[s.value] : null;
-      Entry.findOneAndUpdate(condition, doc, { upsert : true }, function(err, raw){
-        if (err) {
-          io.emit('reload-error', { error: err, sheet: s });
-        }
-        count++;
-        if(count == entries-1) {
-          io.emit('reload-finished', { message: 'finito mongo', sheet:s } );
-          totalCount++;
-          if(totalCount == total) {
-            io.emit('reload-finished-all', { message: 'finito tutto' } );
-            res.json({ status:200 })
-          }
-        }
-        else if(count % Math.round(entries/10) == 0) io.emit('reload-progress', { count: count, sheet:s } );
+}
 
-        // diff
-      })
+function update(s, r) {
+
+  var entries = 5293;
+  var rows = parseRows(r);
+  var data;
+  var count = 0;
+  // map for data
+  if (!s.multiple) data = d3.map(rows, function(d){ return d.index; });
+  else {
+    data = d3.map();
+    rows.forEach(function(d){
+      if (!data.has(d.index)) data.set(d.index, []);
+      data.get(d.index).push(d);
     })
-
   }
+
+  io.emit('reload-progress', { message: 'cominciamo fare cose', sheet: s } );
+
+  d3.range(entries).forEach(function(index){
+    var condition = { index : index };
+    var doc = {};
+    doc[s.value] = s.multiple ? data.get(index) : data.get(index) ? data.get(index)[s.value] : null;
+    Entry.findOneAndUpdate(condition, doc, { upsert : true }, function(err, raw){
+      if (err) {
+        io.emit('reload-error', { error: err, sheet: s });
+      }
+      count++;
+      if(count == entries-1) {
+        io.emit('reload-finished', { message: 'finito mongo', sheet:s } );
+        totalCount++;
+        if(totalCount == total) {
+          io.emit('reload-finished-all', { message: 'finito tutto' } );
+          res.json({ status:200 })
+        }
+      }
+      else if(count % Math.round(entries/10) == 0) io.emit('reload-progress', { count: count, sheet:s } );
+
+      // diff
+    })
+  })
 
 }
 

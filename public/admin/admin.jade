@@ -104,8 +104,7 @@
             tbody
               tr(ng-repeat="sheet in defaults.sheets")
                 td
-                  input(type="checkbox", ng-model="sheet.reload", ng-if="sheet.value !== 'entries'")
-                  input(type="checkbox", ng-model="sheet.reload", ng-if="sheet.value === 'entries'", disabled)
+                  input(type="checkbox", ng-model="sheet.reload")
                 td {{sheet.label}}
                 td(ng-show="sheet.info && !sheet.error")
                   input.form-control.text-mono(ng-model="sheet.sheetName", placeholder="{{sheet.sheetName}}" ng-disabled="!sheet.reload")
@@ -114,14 +113,14 @@
                 td(colspan="2", ng-show="sheet.error")
                   .alert.alert-danger {{sheet.error}}
                 td(colspan="2", ng-show="sheet.started && !sheet.error")
-                  progressbar.progress-striped.active(value="sheet.total", max="sheet.total", type="warning")
-                    span Loading {{sheet.rows}} rows and {{sheet.columns}} columns
+                  progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="warning")
+                    span {{sheet.message}}
                 td(colspan="2", ng-show="sheet.loading")
                   progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="info")
-                    span {{sheet.count}}
+                    span {{sheet.count}} / {{sheet.total}}
                 td(colspan="2", ng-show="sheet.finished")
-                  progressbar(value="sheet.total", max="sheet.total", type="success")
-                    span {{sheet.rows}} successfully loaded
+                  progressbar(value="sheet.count", max="sheet.total", type="success")
+                    span {{sheet.message}}
           
 
         a#reload.btn.btn-danger(ng-click="reload()", data-loading-text="Loading...") Reload selected

@@ -44,131 +44,145 @@ function readJSONFile(path, obj){
   return m;*/
 }
 
+
+/*
+* Exported Function: reload
+* -------------------------
+* This API function is called when the user clicks the Reload button
+* on the Manage screen.  It erases the existing collection of entries,
+* then downloads each selected spreadsheet and adds them to the
+* database, one by one.  It sends status updates through the socket.
+*/
 exports.reload = function(req, res, io){
 
-  var sheets = req.body.sheets;
-  var count = 0;
-  var result = [];
-  var total = sheets.filter(function(d){ return d.reload; }).length;
-  var totalCount = 0;
+  //  Erases existing entries
+  Entry.collection.drop(function(err) {
 
-  var data = {};
+    if (err) console.log(err);
 
-  sheets
-    .filter(function(d){ return d.reload; })
-    .forEach(function(sheet){
+    //  Downloads spreadsheets
+    var sheetsToReload = req.body.sheets.filter(function(sheet) { return sheet.reload; });
+    var sheetReloadStatus = { nSheetsToReload: sheetsToReload.length, sheetsReloaded: 0 };
+    sheetsToReload.forEach(function(sheet) {
+
+      io.emit('reload-start', { message: 'Retrieving database...' , sheet: sheet});
 
       Spreadsheet.load({
-          debug: true,
-          spreadsheetId: sheet.spreadsheetId,
-          worksheetName: sheet.sheetName,
-          oauth : {
-            email: '502880495910-ldtkd1okd08lfk00lhjjscdusmgua9qe@developer.gserviceaccount.com',
-            keyFile: __dirname + '/key.pem'
-          }
-        }, function sheetReady(err, spreadsheet) {
+        debug: true,
+        spreadsheetId: sheet.spreadsheetId,
+        worksheetName: sheet.sheetName,
+        oauth: {
+          email: '502880495910-ldtkd1okd08lfk00lhjjscdusmgua9qe@developer.gserviceaccount.com',
+          keyFile: __dirname + '/key.pem',
+        },
+      }, function sheetReady(err, spreadsheet) {
 
-            // something got wrong
-            if (err) {
-              io.emit('reload-error', { error: err, sheet: sheet });
-              totalCount++;
-              return;
+        if (err) io.emit('reload-error', { error: err, sheet: sheet });
+        else {
+
+          spreadsheet.metadata(function(err, metadata) {
+
+            if (err) io.emit('reload-error', { error: err, sheet: sheet });
+            else io.emit('reload-start', { message: 'Downloading ' + metadata.rowCount + ' rows with ' + metadata.colCount + ' columns...', sheet: sheet });
+
+          });
+
+          spreadsheet.receive(function(err, rows, info) {
+
+            if (err) io.emit('reload-error', { error: err, sheet: sheet });
+            else {
+
+              io.emit('reload-start', { message: 'Preparing downloaded data for database...', sheet: sheet });
+              saveSheetToDatabase(sheet, rows, sheetReloadStatus, res, io);
+
             }
-            // starting to get the data
-            spreadsheet.metadata(function(err, metadata){
-              if(err) {
-                totalCount++;
-                io.emit('reload-error', { error: err, sheet: sheet });
-              }
-              io.emit('reload-start', { metadata: metadata, sheet: sheet } );
-            });
 
-            spreadsheet.receive(function(err, rows, info) {
-              // something wrong when fetching
-              if (err) {
-                io.emit('reload-error', { error: err, sheet: sheet });
-                totalCount++;
-                return;
-              }
-              io.emit('reload-progress', { message: 'finito caricare', sheet: sheet } );
-              update(sheet, rows);
-            });
-        });
+          });
 
-  })
+        }
 
-}
+      });
 
-function parseRows(rows) {
-
-  var header = rows[1];
-  var data = [];
-
-  d3.values(rows).forEach(function(row,i){
-    if (i == 0) return;
-    var obj = {};
-    for (var key in row) {
-      obj[header[key]] = row[key];
-    }
-    data.push(obj);
-  })
-
-  return data;
-
-}
-
-function update(s, r) {
-
-  var entries = 5293;
-  var rows = parseRows(r);
-  var data;
-  var count = 0;
-  // map for data
-  if (!s.multiple) data = d3.map(rows, function(d){ return d.index; });
-  else {
-    data = d3.map();
-    rows.forEach(function(d){
-      if (!data.has(d.index)) data.set(d.index, []);
-      data.get(d.index).push(d);
     })
+
+  });
+
+}
+
+
+/*
+* Function: saveSheetToDatabase
+* ------------------------
+* This function saves the contents of a sheet to the database.
+* It loops through each entry in the sheet and adds it to the
+* corresponding entry in the database, adding a new entry if the
+* entry doesn't yet exist.
+*/
+function saveSheetToDatabase(sheet, rows, sheetReloadStatus, res, io) {
+
+  //  Constants
+  var UPDATES_PER_RELOAD = 20;
+
+  //  Extracts the header row
+  var header = rows['1'];
+  delete rows['1'];
+
+  //  Transforms each row into a keyed object, saved by index in 'entries'
+  var entries = {};
+  for (rowNumber in rows) {
+
+    var entry = {};
+    for (cellNumber in rows[rowNumber]) {
+      entry[header[cellNumber]] = rows[rowNumber][cellNumber];
+    }
+    if (sheet.multiple) {
+      if (!entries[entry.index]) entries[entry.index] = [];
+      entries[entry.index].push(entry);
+    } else entries[entry.index] = entry;
+
   }
 
-  io.emit('reload-progress', { message: 'cominciamo fare cose', sheet: s } );
+  //  Sends status update
+  io.emit('reload-start', { message: 'Starting transfer to database...', sheet: sheet });
 
-  d3.range(entries).forEach(function(index){
-    var condition = { index : index };
+  //  Adds entries to database
+  var keys = Object.keys(entries);
+  keys.forEach(function(key, i) {
+
+    var query = { index: keys[i] };
     var doc = {};
-    doc[s.value] = s.multiple ? data.get(index) : data.get(index) ? data.get(index)[s.value] : null;
-    Entry.findOneAndUpdate(condition, doc, { upsert : true }, function(err, raw){
-      if (err) {
-        io.emit('reload-error', { error: err, sheet: s });
-      }
-      count++;
-      if(count == entries-1) {
-        io.emit('reload-finished', { message: 'finito mongo', sheet:s } );
-        totalCount++;
-        if(totalCount == total) {
-          io.emit('reload-finished-all', { message: 'finito tutto' } );
-          res.json({ status:200 })
+    if (sheet.value === 'entries') {
+      doc = entries[keys[i]];
+      doc.entry = [doc.biography, doc.tours, doc.narrative, doc.notes].join();
+    } else {
+      doc[sheet.value] = sheet.multiple ? entries[keys[i]] : entries[keys[i]] && entries[keys[i]][sheet.value];
+    }
+
+    Entry.findOneAndUpdate(query, doc, { upsert: true }, function(err) {
+
+      //  Sends status update depending on outcome
+      if (err) io.emit('reload-error', { error: err, sheet: sheet });
+      else if (i === keys.length - 1) {
+
+        io.emit('reload-finished', { message: 'Finished transfer to database!', sheet: sheet });
+        sheetReloadStatus.sheetsReloaded++;
+        if (sheetReloadStatus.sheetsReloaded === sheetReloadStatus.nSheetsToReload) {
+
+          io.emit('reload-finished-all', { message: 'All reloads complete!' });
+          res.json({ status: 200 });
+
         }
+
+      } else {
+        io.emit('reload-progress', { count: i, total: keys.length, sheet: sheet });
       }
-      else if(count % Math.round(entries/10) == 0) io.emit('reload-progress', { count: count, sheet:s } );
 
-      // diff
-    })
-  })
+    });
 
-}
-
-
-/* Reset the dataset */
-exports.reset = function(req, res, io){
-
-  // drop the Entries
-  Entry.collection.drop();
-  res.json({ status: 200 });
+  });
 
 }
+
 
 //  Recounts the number of entries with data in a specific field.
 exports.recount = function(req, res) {

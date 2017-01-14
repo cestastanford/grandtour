@@ -46,7 +46,7 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   $scope.setReload = function(allReload){
     d3.values($scope.defaults.sheets).forEach(function(d){
-      if (d.value !== 'entries') d.reload = allReload;
+      d.reload = allReload;
     })
   }
 
@@ -58,10 +58,11 @@ app.controller('AdminCtrl', function($scope, $http) {
     })[0];
     s.info = false;
     s.started = true;
-    s.rows = res.metadata.rowCount;
-    s.count = 0;
-    s.total = 5292;
-    s.columns = res.metadata.colCount;
+    s.loading = false;
+    s.finished = false;
+    s.count = 1;
+    s.total = 1;
+    s.message = res.message;
     $scope.$apply();
   });
 
@@ -69,9 +70,12 @@ app.controller('AdminCtrl', function($scope, $http) {
     var s = d3.values($scope.defaults.sheets).filter(function(d){
       return d.value == res.sheet.value;
     })[0];
+    s.info = false;
     s.started = false;
     s.loading = true;
-    s.count = +res.count;
+    s.finished = false;
+    s.count = res.count;
+    s.total = res.total;
     $scope.$apply();
   });
 
@@ -79,9 +83,12 @@ app.controller('AdminCtrl', function($scope, $http) {
     var s = d3.values($scope.defaults.sheets).filter(function(d){
       return d.value == res.sheet.value;
     })[0];
+    s.info = false;
+    s.started = false;
     s.loading = false;
     s.finished = true;
     s.count = s.total;
+    s.message = res.message;
     $scope.$apply();
   });
 

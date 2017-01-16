@@ -69,7 +69,18 @@ exports.suggest = function (req, res) {
         res.json({ error: err })
         return;
       }
-      res.json({
+      var filteredResponse = response.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; });
+      if (field === 'fullName') {
+        var secondField = 'alternateNames';
+        var secondCondition = { alternateNames : { $elemMatch : { alternateName : condition[field] } } };
+        Entry.distinct(secondField, secondCondition, function(err, secondResponse) {
+          if (err) res.json({ error: err });
+          else {
+            var secondFilteredResponse = secondResponse.filter(function(d){ return d.alternateName.search(new RegExp(value, "i")) !== -1; });
+            res.json({ results: filteredResponse.concat(secondFilteredResponse.map(function(r) { return r.alternateName; })) });
+          }
+        });
+      } else res.json({
         results: response.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; })
       });
     })
@@ -173,7 +184,10 @@ function seek(obj) {
 
 var searchMapRE = {
 
-  fullName : function(d) { return { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } } },
+  fullName : function(d) { return { $or : [
+    { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } },
+    { alternateNames : { $elemMatch : { alternateName : { $regex : new RegExp(escapeRegExp(d), "gi") } } } },
+  ] } },
   type : function(d) { return { type : d } },
 
   birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },

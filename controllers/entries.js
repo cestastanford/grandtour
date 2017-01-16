@@ -127,6 +127,27 @@ exports.uniques = function (req, res) {
     if (field.split('.').length > 1) {
       pipeline.push({ $unwind: '$' + field.split('.')[0] })
     }
+    if (field === 'fullName') {
+      pipeline.push({
+        $project : {
+          index : true,
+          fullName : {
+            $concatArrays : [
+              { $ifNull : [
+                { $map : {
+                  input : '$alternateNames',
+                  as : 'grade',
+                  in : '$$grade.alternateName',
+                } },
+                [],
+              ] },
+              [ '$fullName' ],
+            ]
+          }
+        }
+      });
+      pipeline.push({ $unwind : '$fullName' });
+    }
     pipeline.push( { $group : group } )
     pipeline.push( { $group : { _id : '$_id.d', count: { $sum: 1 } } } )
     pipeline.push( { $sort : { count : -1 } } )
@@ -302,7 +323,10 @@ var searchMapRE = {
 
 var searchMap = {
 
-  fullName : function(d) { return { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } } },
+  fullName : function(d) { return { $or : [
+    { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } },
+    { alternateNames : { $elemMatch : { alternateName : { $regex : new RegExp(escapeRegExp(d), "gi") } } } },
+  ] } },
 
   type : function(d) { return { type : d } },
 

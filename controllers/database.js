@@ -5,43 +5,24 @@ var	mongoose = require('mongoose')
   , Entry = mongoose.model('Entry')
   , Count = mongoose.model('Count');
 
-//var GoogleSpreadsheet = require("google-spreadsheet");
 var Spreadsheet = require('edit-google-spreadsheet');
-
-
 
 function readFile(path, multiple){
   var file = fs.readFileSync(path, "utf8");
   var entries = d3.tsv.parse(file.toString());
-
   if (!multiple) return d3.map(entries, function(d){ return d.index; });
-
   var m = d3.map();
-
   entries.forEach(function(d){
     if (!m.has(d.index)) m.set(d.index, []);
     m.get(d.index).push(d);
   })
-
   return m;
 }
 
 function readJSONFile(path, obj){
   var file = fs.readFileSync(path, "utf8");
   var entries = JSON.parse(file.toString())[obj];
-
   return entries;
-
-//  if (!multiple) return d3.map(entries, function(d){ return d.index; });
-
-  /*var m = d3.map();
-
-  entries.forEach(function(d){
-    if (!m.has(d.index)) m.set(d.index, []);
-    m.get(d.index).push(d);
-  })
-
-  return m;*/
 }
 
 
@@ -152,8 +133,11 @@ function saveSheetToDatabase(sheet, rows, sheetReloadStatus, res, io) {
         if (!entries[entry.index]) entries[entry.index] = [];
         entries[entry.index].push(entry);
       } else entries[entry.index] = entry;
-      
+
     }
+
+    //  For memory management
+    delete rows[rowNumber];
 
   }
 
@@ -179,6 +163,9 @@ function saveSheetToDatabase(sheet, rows, sheetReloadStatus, res, io) {
       if (err) io.emit('reload-error', { error: [err, doc], sheet: sheet });
       else {
 
+        //  For memory management
+        delete entries[key];
+        
         nUpdated++;
         
         if (nUpdated % Math.floor(keys.length / UPDATES_PER_RELOAD) === 0) {
@@ -264,128 +251,3 @@ exports.getCount = function(req, res) {
   });
 
 };
-
-
-//  Calculates best guesses for travel dates when data is
-//  missing, using tour info and preceding and succeeding
-//  travels.
-exports.calculateBeforeAndAfter = function(req, res) {
-
-  var N_ENTRIES = 5293;
-  var completed = 0;
-
-  for (var i = 0; i < N_ENTRIES; i++) {
-    
-    Entry.findOne({ index : i }, (function(error, entry) {
-      
-      var i = this.i;
-
-      if (entry.travels) {
-
-        Entry.findOneAndUpdate(
-          { index : i },
-          { travels : calculateApproximates(entry.travels) },
-          (function() {
-            var i = this.i;
-            completed++;
-            if (completed % 100 === 0) console.log(completed + ' / ' + N_ENTRIES + ' approximates calculated.');
-            if (completed === N_ENTRIES) res.json({ completed: true });
-          }).bind({ i: i })
-        );
-
-      } else {
-        completed++;
-        if (completed % 100 === 0) console.log(completed + ' / ' + N_ENTRIES + ' approximates calculated.');
-        if (completed === N_ENTRIES) res.json({ completed: true });
-      }
-
-    }).bind({ i: i }));
-
-  };
-
-};
-
-//  add beforeDate and afterDate fields to
-//  each entry's travels.
-function calculateApproximates(travels) {
-
-  var latestAfterDate = { year: travels[0].tourStartFrom };
-
-  for (var i = 0; i < travels.length; i++) {
-
-    var travel = travels[i];
-
-    if (travel.tourStartFrom > latestAfterDate.year) {
-      latestAfterDate = { year: travel.tourStartFrom };
-    }
-
-    if (travel.travelEndYear) {
-      latestAfterDate = { year: travel.travelEndYear };
-      if (travel.travelEndMonth) {
-        latestAfterDate.month = travel.travelEndMonth;
-        if (travel.travelEndDay) {
-          latestAfterDate.day = travel.travelEndDay;
-        }
-      }
-    }
-
-    else {
-      travel.travelAfterYear = latestAfterDate.year;
-      travel.travelAfterMonth = latestAfterDate.month || 1;
-      travel.travelAfterDay = latestAfterDate.day || 1;
-    }
-
-  }
-
-  var earliestBeforeDate = { year: travels[travels.length - 1].tourEndFrom };
-  
-  for (var i = travels.length - 1; i > -1; i--) {
-
-    var travel = travels[i];
-
-    if (travel.tourEndFrom < earliestBeforeDate.year) {
-      earliestBeforeDate = { year: travel.tourEndFrom };
-    }
-
-    if (travel.travelStartYear) {
-      earliestBeforeDate = { year: travel.travelStartYear };
-      if (travel.travelStartMonth) {
-        earliestBeforeDate.month = travel.travelStartMonth;
-        if (travel.travelStartDay) {
-          earliestBeforeDate.day = travel.travelStartDay;
-        }
-      }
-    }
-
-    else {
-      travel.travelBeforeYear = earliestBeforeDate.year;
-      travel.travelBeforeMonth = earliestBeforeDate.month || 12;
-      travel.travelBeforeDay = earliestBeforeDate.day ||
-        (new Date(travel.travelEndYear, travel.travelEndMonth, 0)).getDate(); // returns last day of preceding month
-    }
-
-  }
-
-  for (var i = 0; i < travels.length; i++) {
-
-    var travel = travels[i];
-
-    if (travel.travelAfterYear) {
-
-      travel.travelStartYear = travel.travelAfterYear;
-      travel.travelStartMonth = travel.travelAfterMonth;
-      travel.travelStartDay = travel.travelAfterDay;
-      travel.travelEndYear = travel.travelBeforeYear;
-      travel.travelEndMonth = travel.travelBeforeMonth;
-      travel.travelEndDay = travel.travelBeforeDay;
-      travel.estimatedTravelDates = true;
-
-    } else travel.estimatedTravelDates = false;
-
-  }
-
-  return travels;
-
-};
-
-

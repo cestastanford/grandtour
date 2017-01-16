@@ -154,11 +154,11 @@
 
         hr
 
-        h3 Travel Date Approximations
+        h3 Clear All Entries
 
-        p You can recalculate approximate travel dates (using tour dates and preceding/following travel dates) here.
+        p Click this button to erase all entries from the database.
         
         .col-lg-6.well
 
-          a.btn.btn-default(ng-click="calculateBeforeAndAfter()", ng-disabled="calculatingBeforeAndAfter") {{ calculatingBeforeAndAfter ? 'Calculating...' : 'Recalculate' }}
+          a.btn.btn-default(ng-click="clearAll()", ng-disabled="clearing") {{ clearing ? 'Clearing...' : 'Clear All' }}
               

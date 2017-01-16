@@ -199,15 +199,13 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   getCount();
 
-  $scope.calculateBeforeAndAfter = function() {
-    $scope.calculatingBeforeAndAfter = true;
-    $http.get('/api/calculate-before-and-after')
+  $scope.clearAll = function() {
+    $scope.clearing = true;
+    $http.get('/api/clear-all')
     .then(function(res) {
+      $scope.clearing = false;
       if (res.data.error) console.error(res.data.error);
-      else {
-        $scope.calculatingBeforeAndAfter = false;
-      }
-    });
+    }, console.error.bind(console));
   }
 
 });

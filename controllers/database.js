@@ -53,6 +53,9 @@ exports.clearAll = function(req, res) {
 */
 exports.reload = function(req, res, io){
 
+  //  Return initial server response
+  res.json({ status: 200 });
+
   //  Downloads spreadsheets
   var sheetsToReload = req.body.sheets.filter(function(sheet) { return sheet.reload; });
   var sheetReloadStatus = { nSheetsToReload: sheetsToReload.length, sheetsReloaded: 0 };
@@ -86,7 +89,7 @@ exports.reload = function(req, res, io){
           else {
 
             io.emit('reload-start', { message: 'Preparing downloaded data for database...', sheet: sheet });
-            saveSheetToDatabase(sheet, rows, sheetReloadStatus, res, io);
+            saveSheetToDatabase(sheet, rows, sheetReloadStatus, io);
 
           }
 
@@ -109,7 +112,7 @@ exports.reload = function(req, res, io){
 * corresponding entry in the database, adding a new entry if the
 * entry doesn't yet exist.
 */
-function saveSheetToDatabase(sheet, rows, sheetReloadStatus, res, io) {
+function saveSheetToDatabase(sheet, rows, sheetReloadStatus, io) {
 
   //  Constants
   var UPDATES_PER_RELOAD = 20;
@@ -180,7 +183,6 @@ function saveSheetToDatabase(sheet, rows, sheetReloadStatus, res, io) {
           if (sheetReloadStatus.sheetsReloaded === sheetReloadStatus.nSheetsToReload) {
 
             io.emit('reload-finished-all', { message: 'All reloads complete!' });
-            res.json({ status: 200 });
 
           }
 

@@ -115,10 +115,10 @@
                 td(colspan="2", ng-show="sheet.started && !sheet.error")
                   progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="warning")
                     span {{sheet.message}}
-                td(colspan="2", ng-show="sheet.loading")
+                td(colspan="2", ng-show="sheet.loading && !sheet.error")
                   progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="info")
                     span {{sheet.count}} / {{sheet.total}}
-                td(colspan="2", ng-show="sheet.finished")
+                td(colspan="2", ng-show="sheet.finished && !sheet.error")
                   progressbar(value="sheet.count", max="sheet.total", type="success")
                     span {{sheet.message}}
           

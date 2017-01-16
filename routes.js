@@ -222,6 +222,7 @@ function routes(io) {
   router.post('/api/reload', admin, function(req, res){
     database.reload(req, res, io)
   });
+  router.get('/api/clear-all', admin, database.clearAll);
 
   //  for counting entries
   router.get('/api/recount', admin, database.recount);

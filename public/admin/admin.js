@@ -23,7 +23,7 @@ app.controller('AdminCtrl', function($scope, $http) {
       // Gender
       { info: true, value: 'type', multiple : false, label : 'Type', sheetName: 'Type', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       // Pursuits
-      { info: true, value: 'pursuits', multiple : true, label : 'Pursuits & Situations', sheetName: 'Pursuits & Situations', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'pursuits', multiple : true, label : 'Pursuits & Situations', sheetName: 'Employments and Identifiers', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       { info: true, value: 'occupations', multiple : true, label : 'Occupations & Posts', sheetName: 'Occupations & Posts', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       { info: true, value: 'parents', multiple : false, label : 'Parents', sheetName: 'Parents', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
       { info: true, value: 'marriages', multiple : true, label : 'Marriages', sheetName: 'Marriages', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
@@ -101,7 +101,10 @@ app.controller('AdminCtrl', function($scope, $http) {
     var s = d3.values($scope.defaults.sheets).filter(function(d){
       return d.value == res.sheet.value;
     })[0];
-    s.started = true;
+    s.info = false;
+    s.started = false;
+    s.loading = false;
+    s.finished = false;
     s.error = res.error;
     $scope.$apply();
   });

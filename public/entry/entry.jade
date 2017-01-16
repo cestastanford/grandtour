@@ -1,7 +1,7 @@
 .container.main-view
 
   .div(ng-show="noEntry")
-    p Opps
+    p No entry with that index found!
 
   .div(ng-show="entry")
     
@@ -15,6 +15,13 @@
       div.col-lg-3.entry-info
         .row
           
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.alternateNames.length") 
+            .panel.panel-default
+              .panel-heading Alternate Names
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.alternateNames")
+                  span {{e.alternateName}}
+
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].birthDate || entry.places[0].birthPlace")
             .panel.panel-default
               .panel-heading Born

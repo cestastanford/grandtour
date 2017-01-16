@@ -5,6 +5,10 @@
             "query" : { "fullName" : { "$ne" : null } }
         },
         {
+            "field" : "alternateNames",
+            "query" : { "alternateNames" : { "$exists" : true } }
+        },
+        {
             "field" : "birthDate",
             "query" : { "dates.0.birthDate" : { "$exists" : true } }
         },

@@ -10,6 +10,7 @@ var Entry = new Schema({
   entry : String,
 
   fullName : String,
+  alternateNames: [],
   places : [],
   dates : [],
   type : String,

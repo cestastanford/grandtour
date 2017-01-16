@@ -6,9 +6,9 @@
   .div(ng-show="entry")
     
     h1 {{entry.fullName}}
-      a.pull-right(ng-href="#/entries/{{id+1}}")
+      a.pull-right(ng-href="#/entries/{{nextIndex}}")
         i.fa.fa-angle-right.margin-left
-      a.pull-right(ng-href="#/entries/{{id-1}}")
+      a.pull-right(ng-href="#/entries/{{previousIndex}}")
         i.fa.fa-angle-left 
 
     .row

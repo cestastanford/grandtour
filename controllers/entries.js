@@ -811,10 +811,17 @@ exports.old_search = function (req, res) {
 
 
 exports.single = function(req, res){
-  Entry.findOne({index:req.params.id}, function(err, entry){
-    if (err) {
-      res.json({error:err});
-    }
-    res.json({entry:entry});
-  })
+  Entry.findOne({index:req.params.id}, function(err, response){
+    if (err) res.json({error:err});
+    var entry = response;
+    Entry.findOne({ index : { $gt : req.params.id } }).sort('index').limit(1).select('index').exec(function(err, response) {
+      if (err) res.json({error:err});
+      var nextIndex = response ? response.index : req.params.id;
+      Entry.findOne({ index : { $lt : req.params.id } }).sort('-index').limit(1).select('index').exec(function(err, response) {
+        if (err) res.json({error:err});
+        var previousIndex = response ? response.index : req.params.id;
+        res.json({entry: entry, nextIndex: nextIndex, previousIndex: previousIndex });
+      });
+    });
+  });
 }

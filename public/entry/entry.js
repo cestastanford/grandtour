@@ -9,7 +9,8 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
       $scope.entry = res.entry;
-      console.log(res.entry);
+      $scope.nextIndex = res.nextIndex;
+      $scope.previousIndex = res.previousIndex;
       if (!res.entry) $scope.noEntry = true;
       else $scope.noEntry = false;
 

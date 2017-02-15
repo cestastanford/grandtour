@@ -136,6 +136,11 @@ a:focus,
   text-decoration: none;
 }
 
+.alternate-name-see {
+  margin-left: .35em;
+  font-style: italic;
+}
+
 .query {
   font-size: 12px;
   color: #888;

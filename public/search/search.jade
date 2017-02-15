@@ -15,7 +15,8 @@
             ng-model="query.fullName",
             placeholder="Search ({{ counts.fullName }} entries)",
             ng-class="{ filled : query.fullName }"
-            typeahead="item for item in getSuggestions('fullName', $viewValue)"
+            typeahead="item.nameMatch as item for item in getSuggestions('fullName', $viewValue)"
+            typeahead-template-url="components/fullname-search-suggestion"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100")
 
         .form-group

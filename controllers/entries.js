@@ -63,29 +63,51 @@ exports.suggest = function (req, res) {
     condition[field] = query;
   }
 
-  Entry.
-    distinct(field, condition, function (err, response) {
+  if (field === 'fullName') {
+
+    var query = { $or : [ { fullName: condition[field] }, { alternateNames: { $elemMatch : { alternateName : condition[field] } } } ] };
+    var fields = { fullName: true, alternateNames: true };
+    Entry.find(query, fields, function(error, response) {
+
+      if (error) res.json({ error: error });
+      else {
+
+        var matches = [];
+        var doesMatch = function(d) { return d.search( new RegExp(value, "i") ) != -1; };
+        response.forEach(function(entry) {
+
+          if (doesMatch(entry.fullName)) matches.push({ nameMatch: entry.fullName });
+          entry.alternateNames.forEach(function(alternateName) {
+
+            if (doesMatch(alternateName.alternateName)) matches.push({
+              nameMatch: alternateName.alternateName,
+              see: entry.fullName,
+            });
+
+          });
+
+        });
+
+        res.json({ results: matches });
+
+      };
+
+    });
+
+  } else {
+
+    Entry.distinct(field, condition, function (err, response) {
       if (err) {
         res.json({ error: err })
         return;
       }
       var filteredResponse = response.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; });
-      if (field === 'fullName') {
-        var secondField = 'alternateNames';
-        var secondCondition = { alternateNames : { $elemMatch : { alternateName : condition[field] } } };
-        Entry.distinct(secondField, secondCondition, function(err, secondResponse) {
-          if (err) res.json({ error: err });
-          else {
-            var secondFilteredResponse = secondResponse.filter(function(d){ return d.alternateName.search(new RegExp(value, "i")) !== -1; });
-            res.json({ results: filteredResponse.concat(secondFilteredResponse.map(function(r) { return r.alternateName; })) });
-          }
-        });
-      } else res.json({
+      res.json({
         results: response.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; })
       });
-    })
+    });
 
-
+  }
 }
 
 

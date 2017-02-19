@@ -23,10 +23,11 @@
           tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection)", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
             td
               .checkbox
-                label
+                label(ng-class="field === 'fullName' && u.parentFullName !== u._id ? 'explore-alternate-name' : ''")
                   input(type="checkbox", ng-model="u.selected", ng-change="refresh(u)", ng-disabled="!u.count")
                   span {{u._id}} 
                   span.text-light.pull-right {{u.count}}
+                  span.alternate-name-see(ng-show="field === 'fullName' && u.parentFullName !== u._id") (see {{u.parentFullName}})
           tr(ng-show='!filtered.length')
             td 
               span.text-light Sorry, no results for 

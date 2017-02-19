@@ -140,7 +140,9 @@ exports.uniques = function (req, res) {
     })*/
 
     var group = {}
-    group['_id'] = { d: "$" + field, u: '$index' };
+
+    if (field === 'fullName') group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' };
+    else group['_id'] = { d: '$' + field, u: '$index' };
     group['count'] = { $sum : 1 }
 
     var pipeline = [];
@@ -153,6 +155,7 @@ exports.uniques = function (req, res) {
       pipeline.push({
         $project : {
           index : true,
+          parentFullName: '$fullName',
           fullName : {
             $concatArrays : [
               { $ifNull : [
@@ -172,6 +175,15 @@ exports.uniques = function (req, res) {
     }
     pipeline.push( { $group : group } )
     pipeline.push( { $group : { _id : '$_id.d', count: { $sum: 1 } } } )
+    if (field === 'fullName') {
+      pipeline.push({
+        $project : {
+          _id: '$_id.fullName',
+          parentFullName: '$_id.parentFullName',
+          count: true,
+        }
+      });
+    }
     pipeline.push( { $sort : { count : -1 } } )
 
     Entry

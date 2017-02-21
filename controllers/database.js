@@ -117,6 +117,7 @@ function getSheetValues(sheet, io) {
         const requestOptions = {
             spreadsheetId: sheet.spreadsheetId,
             range: sheet.sheetName + '!A1:Z',
+            valueRenderOption: 'UNFORMATTED_VALUE',
         };
 
         return sheetValueRequest(requestOptions, (error, response) => {

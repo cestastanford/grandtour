@@ -151,9 +151,9 @@ function parseSheetValues(sheet, io, unparsedValues) {
         const index = currentRow[0];
         if (!Number.isNaN(+index)) {
 
-            var entry = {};
+            const update = {};
             for (let j = 1; j < currentRow.length; j++) {
-                if (currentRow[j]) entry[header[j]] = currentRow[j];
+                if (currentRow[j] !== '') update[header[j]] = currentRow[j];
             }
 
             if (sheet.multiple) {
@@ -164,18 +164,18 @@ function parseSheetValues(sheet, io, unparsedValues) {
                     updates[index][sheet.value] = [];
 
                 }
-                updates[index][sheet.value].push(entry);
+                updates[index][sheet.value].push(update);
 
             } else if (sheet.value === 'entries') {
                 
-                entry.entry = [entry.biography, entry.tours, entry.narrative, entry.notes].join(' ');
-                if (entry.tours) entry.tours = entry.tours.split(/\. \[?-?\d{4}(?![^(]*\))/g).map(tour => ({ text: tour }));
-                updates[index] = entry;
+                update.entry = [update.biography, update.tours, update.narrative, update.notes].join(' ');
+                if (typeof update.tours === 'string') update.tours = update.tours.split(/\. \[?-?\d{4}(?![^(]*\))/g).map(tour => ({ text: tour }));
+                updates[index] = update;
 
             } else {
 
                 updates[index] = {};
-                updates[index][sheet.value] = entry && entry[sheet.value];
+                updates[index][sheet.value] = update && update[sheet.value];
 
             }
 
@@ -183,7 +183,6 @@ function parseSheetValues(sheet, io, unparsedValues) {
 
     }
 
-    console.log(sheet.value, updates[10]);
     return updates;
 
 }

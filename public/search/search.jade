@@ -256,11 +256,6 @@
             span.date-query-type(
               ng-click="resetTravelDate('range', travelModel.date.estimated)",
               ng-class="{selected: travelModel.date.queryType === 'range'}") range of years
-          .margin-top.include-estimates
-            .checkbox
-              label
-                input(type="checkbox", ng-model="travelModel.date.estimated")
-                div include estimated dates
 
         hr
 

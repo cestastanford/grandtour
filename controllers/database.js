@@ -208,8 +208,6 @@ function applySheetValues(sheet, io, updates) {
 
         return new Promise(resolve => {
 
-            try {
-
             Entry.findOneAndUpdate({ index }, updates[index], { upsert: true }, error => {
 
                 nUpdated++;
@@ -226,8 +224,6 @@ function applySheetValues(sheet, io, updates) {
                 }
 
             });
-
-        } catch (error) { throw [ error, sheet, updates[index] ] }
 
         });
 

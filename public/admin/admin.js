@@ -99,7 +99,8 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   socket.on('reload-error', function(res){
     var s = d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
+      if (res.sheet) return d.value == res.sheet.value;
+      return true;
     })[0];
     s.info = false;
     s.started = false;

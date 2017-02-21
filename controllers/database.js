@@ -16,21 +16,26 @@ const Count = mongoose.model('Count');
 */
 exports.reload = function(req, res, io) {
 
-    //  Return initial server response
+    //  Returns initial server response
     res.json({ status: 200 });
 
-    //  Gets the sheets selected for reloading
+    //  Creates requests for the sheets selected for reloading
     const sheetsToReload = req.body.sheets.filter(sheet => sheet.reload);
+    const reloadRequests = getReloadRequests(sheetsToReload, io);
 
     //  Kicks off the reloading process.
-    Promise.resolve()
-    .then(authenticate)
-    .then(getReloadRequests.bind(null, sheetsToReload, io))
-    .then(io.emit.bind(io, 'reload-finished-all'))
+    let promise = authenticate();
+
+    //  Attaches reload requests
+    reloadRequests.forEach(request => promise = promise.then(request));
+
+    //  Attaches success/failure callbacks
+    promise = promise.then(io.emit.bind(io, 'reload-finished-all'))
     .catch(error => {
 
         console.error(error);
         io.emit('reload-error', { error: error.message });
+        io.emit('reload-finished-all');
 
     });
 
@@ -77,7 +82,7 @@ function authenticate() {
 function getReloadRequests(sheetsToReload, io) {
 
     //  Generates the request Promises
-    const reloadRequests = sheetsToReload.map(sheet => new Promise(resolve => {
+    const reloadRequests = sheetsToReload.map(sheet => () => new Promise(resolve => {
 
         Promise.resolve()
         .then(getSheetValues.bind(null, sheet, io))
@@ -97,7 +102,7 @@ function getReloadRequests(sheetsToReload, io) {
 
     }));
 
-    return Promise.all(reloadRequests);
+    return reloadRequests;
 
 }
 

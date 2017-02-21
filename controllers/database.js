@@ -1,198 +1,238 @@
-var	mongoose = require('mongoose')
-  , fs = require('fs')
-  , d3 = require('d3')
-  , jsondiffpatch = require('jsondiffpatch')
-  , Entry = mongoose.model('Entry')
-  , Count = mongoose.model('Count');
+const fs = require('fs');
+const google = require('googleapis');
+const sheetValueRequest = google.sheets('v4').spreadsheets.values.get;
+const mongoose = require('mongoose');
+const Entry = mongoose.model('Entry');
+const Count = mongoose.model('Count');
 
-var Spreadsheet = require('edit-google-spreadsheet');
-
-function readFile(path, multiple){
-  var file = fs.readFileSync(path, "utf8");
-  var entries = d3.tsv.parse(file.toString());
-  if (!multiple) return d3.map(entries, function(d){ return d.index; });
-  var m = d3.map();
-  entries.forEach(function(d){
-    if (!m.has(d.index)) m.set(d.index, []);
-    m.get(d.index).push(d);
-  })
-  return m;
-}
-
-function readJSONFile(path, obj){
-  var file = fs.readFileSync(path, "utf8");
-  var entries = JSON.parse(file.toString())[obj];
-  return entries;
-}
 
 
 /*
-* Exported Function: clearAll
-* ---------------------------
-* This API function clears all entries from the database.
+*   Exported Function: reload
+*   -------------------------
+*   This function downloads the indicated Google Spreadsheet pages
+*   and applies them to the database, updating the client with progress
+*   via SocketIO.
 */
-exports.clearAll = function(req, res) {
+exports.reload = function(req, res, io) {
 
-  Entry.collection.drop(function(error) {
+    //  Return initial server response
+    res.json({ status: 200 });
 
-    if (error) res.json({ status: 500, error: error });
-    else res.json({ status: 200 });
+    //  Gets the sheets selected for reloading
+    const sheetsToReload = req.body.sheets.filter(sheet => sheet.reload);
 
-  });
+    //  Kicks off the reloading process.
+    Promise.resolve()
+    .then(authenticate)
+    .then(getReloadRequests.bind(null, sheetsToReload, io))
+    .then(io.emit.bind(io, 'reload-finished-all'))
+    .catch(error => {
 
-}
-
-
-/*
-* Exported Function: reload
-* -------------------------
-* This API function is called when the user clicks the Reload button
-* on the Manage screen.  It erases the existing collection of entries,
-* then downloads each selected spreadsheet and adds them to the
-* database, one by one.  It sends status updates through the socket.
-*/
-exports.reload = function(req, res, io){
-
-  //  Return initial server response
-  res.json({ status: 200 });
-
-  //  Downloads spreadsheets
-  var sheetsToReload = req.body.sheets.filter(function(sheet) { return sheet.reload; });
-  var sheetReloadStatus = { nSheetsToReload: sheetsToReload.length, sheetsReloaded: 0 };
-  sheetsToReload.forEach(function(sheet) {
-
-    io.emit('reload-start', { message: 'Retrieving database...' , sheet: sheet});
-
-    Spreadsheet.load({
-      debug: true,
-      spreadsheetId: sheet.spreadsheetId,
-      worksheetName: sheet.sheetName,
-      oauth: {
-        email: '502880495910-ldtkd1okd08lfk00lhjjscdusmgua9qe@developer.gserviceaccount.com',
-        keyFile: __dirname + '/key.pem',
-      },
-    }, function sheetReady(err, spreadsheet) {
-
-      if (err) io.emit('reload-error', { error: err, sheet: sheet });
-      else {
-
-        spreadsheet.metadata(function(err, metadata) {
-
-          if (err) io.emit('reload-error', { error: err, sheet: sheet });
-          else io.emit('reload-start', { message: 'Downloading ' + metadata.rowCount + ' rows with ' + metadata.colCount + ' columns...', sheet: sheet });
-
-        });
-
-        spreadsheet.receive(function(err, rows, info) {
-
-          if (err) io.emit('reload-error', { error: err, sheet: sheet });
-          else {
-
-            io.emit('reload-start', { message: 'Preparing downloaded data for database...', sheet: sheet });
-            saveSheetToDatabase(sheet, rows, sheetReloadStatus, io);
-
-          }
-
-        });
-
-      }
+        console.error(error);
+        io.emit('reload-error', { error: error.message });
 
     });
 
-  });
+}
+
+
+/*
+*   Function: authenticate
+*   ----------------------
+*   This function returns a promise for authenticating with Google
+*   to access the specified sheets.
+*/
+function authenticate() {
+
+    return new Promise(resolve => {
+
+        const scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
+        const email = process.env.SHEETS_EMAIL;
+        const key = process.env.SHEETS_PRIVATE_KEY.split('\\n').join('\n');
+
+        const auth = new google.auth.JWT(email, null, key, scopes, null);
+        auth.authorize(function (error, tokens) {
+            
+            if (error) { throw error; }
+            else {
+                google.options({ auth });
+                resolve();
+            }
+            
+        });
+
+    });
 
 }
 
 
 /*
-* Function: saveSheetToDatabase
-* ------------------------
-* This function saves the contents of a sheet to the database.
-* It loops through each entry in the sheet and adds it to the
-* corresponding entry in the database, adding a new entry if the
-* entry doesn't yet exist.
+*   Function: getReloadRequests
+*   ---------------------------
+*   This function returns the result of Promise.all() called on
+*   an array of Promises, each for downloading then applying a single
+*   sheet's values.
 */
-function saveSheetToDatabase(sheet, rows, sheetReloadStatus, io) {
+function getReloadRequests(sheetsToReload, io) {
 
-  //  Constants
-  var UPDATES_PER_RELOAD = 20;
+    //  Generates the request Promises
+    const reloadRequests = sheetsToReload.map(sheet => new Promise(resolve => {
 
-  //  Extracts the header row
-  var header = rows['1'];
-  delete rows['1'];
+        Promise.resolve()
+        .then(getSheetValues.bind(null, sheet, io))
+        .then(parseSheetValues.bind(null, sheet, io))
+        .then(applySheetValues.bind(null, sheet, io))
+        .then(() => {
 
-  //  Transforms each row into a keyed object, saved by index in 'entries'
-  var entries = {};
-  for (rowNumber in rows) {
+            io.emit('reload-finished', { message: 'Finished transfer to database!', sheet: sheet });
+            resolve();
 
-    //  Avoids rows that don't have numbers as indices
-    if (!Number.isNaN(+rows[rowNumber]['1'])) {
+        }).catch(error => {
 
-      var entry = {};
-      for (cellNumber in rows[rowNumber]) {
-        entry[header[cellNumber]] = rows[rowNumber][cellNumber];
-      }
-      if (sheet.multiple) {
-        if (!entries[entry.index]) entries[entry.index] = [];
-        entries[entry.index].push(entry);
-      } else entries[entry.index] = entry;
+            console.error(error);
+            io.emit('reload-error', { error: error.message, sheet });
 
-    }
+        });
 
-    //  For memory management
-    delete rows[rowNumber];
+    }));
 
-  }
+    return Promise.all(reloadRequests);
 
-  //  Sends status update
-  io.emit('reload-start', { message: 'Starting transfer to database...', sheet: sheet });
+}
 
-  //  Adds entries to database
-  var keys = Object.keys(entries);
-  var nUpdated = 0;
-  keys.forEach(function(key) {
 
-    var query = { index: key };
-    var doc = {};
-    if (sheet.value === 'entries') {
-      doc = entries[key];
-      doc.entry = [doc.biography, doc.tours, doc.narrative, doc.notes].join();
-    } else {
-      doc[sheet.value] = sheet.multiple ? entries[key] : entries[key] && entries[key][sheet.value];
-    }
+/*
+*   Function: getSheetValues
+*   ------------------------
+*   This function returns a Promise for downloading the specified
+*   Google Spreadsheets sheet and returning the values.
+*/
+function getSheetValues(sheet, io) {
 
-    Entry.findOneAndUpdate(query, doc, { upsert: true }, function(err) {
+    return new Promise((resolve, reject) => {
 
-      if (err) io.emit('reload-error', { error: [err, doc], sheet: sheet });
-      else {
+        io.emit('reload-start', { message: 'Retrieving data...' , sheet: sheet});
 
-        //  For memory management
-        delete entries[key];
-        
-        nUpdated++;
-        
-        if (nUpdated % Math.floor(keys.length / UPDATES_PER_RELOAD) === 0) {
-          io.emit('reload-progress', { count: nUpdated, total: keys.length, sheet: sheet });
-        }
+        const requestOptions = {
+            spreadsheetId: sheet.spreadsheetId,
+            range: sheet.sheetName + '!A1:Z',
+        };
 
-        if (nUpdated === keys.length) {
-
-          io.emit('reload-finished', { message: 'Finished transfer to database!', sheet: sheet });
-          sheetReloadStatus.sheetsReloaded++;
-          
-          if (sheetReloadStatus.sheetsReloaded === sheetReloadStatus.nSheetsToReload) {
-
-            io.emit('reload-finished-all', { message: 'All reloads complete!' });
-
-          }
-
-        }
-
-      }
+        return sheetValueRequest(requestOptions, (error, response) => {
+            if (error) reject(error);
+            else resolve(response.values);
+        });
 
     });
 
-  });
+}
+
+
+/*
+*   Function: parseSheetValues
+*   --------------------------
+*   This function parses the sheet values into a form ready to be
+*   entered into the database.
+*/
+function parseSheetValues(sheet, io, unparsedValues) {
+
+    io.emit('reload-start', { message: 'Preparing data for database...', sheet: sheet });
+
+    //  Extracts the header row
+    const header = unparsedValues.shift();
+
+    //  Transforms each row into a keyed object, saved by index in 'entries'
+    const updates = {};
+    let currentRow;
+    while (currentRow = unparsedValues.shift()) {
+
+        //  Avoids rows that don't have numbers as indices
+        const index = currentRow[0];
+        if (!Number.isNaN(+index)) {
+
+            var entry = {};
+            for (let j = 1; j < currentRow.length; j++) {
+                if (currentRow[j]) entry[header[j]] = currentRow[j];
+            }
+
+            if (sheet.multiple) {
+
+                if (!updates[index]) {
+
+                    updates[index] = {};
+                    updates[index][sheet.value] = [];
+
+                }
+                updates[index][sheet.value].push(entry);
+
+            } else if (sheet.value === 'entries') {
+                
+                entry.entry = [entry.biography, entry.tours, entry.narrative, entry.notes].join(' ');
+                updates[index] = entry;
+
+            } else {
+
+                updates[index] = {};
+                updates[index][sheet.value] = entry && entry[sheet.value];
+
+            }
+
+        }
+
+    }
+
+    console.log(sheet.value, updates[10]);
+    return updates;
+
+}
+
+
+/*
+*   Function: applySheetValues
+*   --------------------------
+*   This function returns a Promise for applying the parsed sheet
+*   values to the database.
+*/
+function applySheetValues(sheet, io, updates) {
+
+    io.emit('reload-start', { message: 'Starting transfer to database...', sheet: sheet });
+
+    const UPDATES_PER_RELOAD = 20;
+    let nUpdated = 0;
+
+    //  Creates an array of database request Promises
+    const indices = Object.keys(updates);
+    const databaseRequests = indices.map(index => {
+
+        return new Promise(resolve => {
+
+            try {
+
+            Entry.findOneAndUpdate({ index }, updates[index], { upsert: true }, error => {
+
+                nUpdated++;
+                if (error) { throw [ error, updates[index] ]; }
+                else {
+
+                    resolve();
+                    if (nUpdated % Math.floor(indices.length / UPDATES_PER_RELOAD) === 0) {
+                        
+                        io.emit('reload-progress', { count: nUpdated, total: indices.length, sheet: sheet });
+                    
+                    }
+
+                }
+
+            });
+
+        } catch (error) { throw [ error, sheet, updates[index] ] }
+
+        });
+
+    });
+
+    return Promise.all(databaseRequests);
 
 }
 
@@ -231,6 +271,15 @@ exports.recount = function(req, res) {
 
 };
 
+
+//  Reads a JSON file.
+function readJSONFile(path, obj){
+  var file = fs.readFileSync(path, "utf8");
+  var entries = JSON.parse(file.toString())[obj];
+  return entries;
+}
+
+
 //  Gets the current counts.
 exports.getCount = function(req, res) {
   
@@ -253,3 +302,20 @@ exports.getCount = function(req, res) {
   });
 
 };
+
+
+/*
+* Exported Function: clearAll
+* ---------------------------
+* This API function clears all entries from the database.
+*/
+exports.clearAll = function(req, res) {
+
+  Entry.collection.drop(function(error) {
+
+    if (error) res.json({ status: 500, error: error });
+    else res.json({ status: 200 });
+
+  });
+
+}

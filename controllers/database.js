@@ -170,7 +170,7 @@ function parseSheetValues(sheet, io, unparsedValues) {
             } else if (sheet.value === 'entries') {
                 
                 update.entry = [update.biography, update.tours, update.narrative, update.notes].join(' ');
-                if (typeof update.tours === 'string') update.tours = update.tours.split(/\. \[?-?\d{4}(?![^(]*\))/g).map(tour => ({ text: tour }));
+                if (typeof update.tours === 'string') update.tours = update.tours.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g).map(tour => ({ text: tour }));
                 updates[index] = update;
 
             } else {

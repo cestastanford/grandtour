@@ -169,6 +169,7 @@ function parseSheetValues(sheet, io, unparsedValues) {
             } else if (sheet.value === 'entries') {
                 
                 entry.entry = [entry.biography, entry.tours, entry.narrative, entry.notes].join(' ');
+                if (entry.tours) entry.tours = entry.tours.split(/\. \[?-?\d{4}(?![^(]*\))/g).map(tour => ({ text: tour }));
                 updates[index] = entry;
 
             } else {

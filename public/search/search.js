@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, listService) {
+app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, listService, entryHighlightingService) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -30,6 +30,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
       if (res.error) console.error(res.error);
 
+      entryHighlightingService.saveQuery(res.request)
       $scope.searching = false;
       $scope.entries = res.entries;
       calculateFirstTravelOrders(res.entries);

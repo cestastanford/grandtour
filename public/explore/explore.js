@@ -29,7 +29,7 @@ app
   };
 })
 
-.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $state, $q, httpQuery, listService) {
+.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $state, $q, httpQuery, listService, entryHighlightingService) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -184,6 +184,7 @@ app
     var httpPromise = someQuery(query);
     $scope.searching = true;
     httpPromise.then(function (data) {
+      entryHighlightingService.saveQuery(data.request);
       $scope.searching = false;
       $scope.entries = data.entries;
       calculateFirstTravelOrders(data.entries);

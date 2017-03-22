@@ -255,4 +255,40 @@ var app = angular.module('app', [
     removeFromList: removeFromList
   };
 
+})
+
+
+//  shared service that highlights search terms in entries
+.factory('entryHighlightingService', function() {
+
+  //  private saved query
+  var savedQuery = null;
+
+  //  public query-saving function
+  var saveQuery = function(query) {
+    savedQuery = query;
+  }
+
+  //  public query-clearing function
+  var clearQuery = function() {
+    savedQuery = null;
+  }
+
+  //  public function that annotates entry text with highlighting
+  //  indicators
+  var highlightEntry = function(entry) {
+
+    console.log('entry to highlight: ', entry);
+    console.log('query to hightlight: ', savedQuery);
+    return entry;
+
+  }
+
+  //  return public service properties
+  return {
+    highlightEntry: highlightEntry,
+    saveQuery: saveQuery,
+    clearQuery: clearQuery,
+  }
+
 });

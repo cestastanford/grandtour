@@ -1,14 +1,15 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, listService, MiniMapService, $compile, $interval) {
+app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, listService, MiniMapService, $compile, $interval, entryHighlightingService) {
 
   if($stateParams.id) {
     // save
     $scope.id = parseInt($stateParams.id);
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
-      $scope.entry = res.entry;
+      var highlightedEntry = entryHighlightingService.highlightEntry(res.entry);
+      $scope.entry = highlightedEntry;
       $scope.nextIndex = res.nextIndex;
       $scope.previousIndex = res.previousIndex;
       if (!res.entry) $scope.noEntry = true;

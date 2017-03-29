@@ -26,8 +26,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     })
   }
 
-  $scope.highlighted = function(propertyName) {
-    var value = $scope.entry && $scope.entry[propertyName];
+  $scope.highlighted = function(propertyName, value) {
     if (value) {
       var highlightedHtml = entryHighlightingService.highlight(propertyName, value);
       return $sce.trustAsHtml(highlightedHtml);
@@ -316,7 +315,7 @@ function setupVisualization(element, travels, applyFn) {
         addListeners(applyFn)
 
     }
-    
+
 
 };
 
@@ -798,5 +797,3 @@ var getAverageStay = function() {
     }
 
 };
-
-

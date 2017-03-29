@@ -269,22 +269,25 @@ var app = angular.module('app', [
     savedQuery = query;
   }
 
-  //  public function that annotates entry text with highlighting
-  //  indicators
-  var highlightEntryProperty = function(propertyName, value) {
+  //  public function that generates te highlighted HTML
+  var highlightEntryProperty = function(propertyName, propertyValue) {
 
-    if (savedQuery && savedQuery[propertyName]) {
+    console.log(propertyName, propertyValue, savedQuery)
+
+    var value = '' + propertyValue;
+    var query = '' + (savedQuery && savedQuery[propertyName] || '');
+    if (value && query) {
 
       var lowercaseValue = value.toLowerCase();
-      var lowercaseQueryTerm = savedQuery[propertyName].toLowerCase();
-      var segments = lowercaseValue.split(lowercaseQueryTerm);
+      var lowercaseQuery = query.toLowerCase();
+      var segments = lowercaseValue.split(lowercaseQuery);
 
       var highlightEnd = value.length;
       while (segments.length > 1) {
 
         var segment = segments.pop()
         highlightEnd -= segment.length;
-        var highlightStart = highlightEnd - lowercaseQueryTerm.length;
+        var highlightStart = highlightEnd - lowercaseQuery.length;
 
         value = value.slice(0, highlightStart) +
             '<span class="highlighted">' +

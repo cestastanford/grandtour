@@ -5,7 +5,8 @@
 
   .div(ng-show="entry")
     
-    h1(ng-bind-html="highlighted('fullName')")
+    h1
+      span(ng-bind-html="highlighted('fullName', entry.fullName)")
       a.pull-right(ng-href="#/entries/{{nextIndex}}")
         i.fa.fa-angle-right.margin-left
       a.pull-right(ng-href="#/entries/{{previousIndex}}")
@@ -20,7 +21,7 @@
               .panel-heading Alternate Names
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.alternateNames")
-                  span {{e.alternateName}}
+                  span(ng-bind-html="highlighted('fullName', e.alternateName)")
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].birthDate || entry.places[0].birthPlace")
             .panel.panel-default
@@ -28,10 +29,14 @@
               ul.list-group
                 li.list-group-item
                   span(ng-show="entry.dates[0].birthDate")
-                    a(ng-click="search({birthDate:entry.dates[0].birthDate})") {{entry.dates[0].birthDate}}
+                    a(ng-click="search({birthDate:entry.dates[0].birthDate})",
+                      ng-bind-html="highlighted('birthDate', entry.dates[0].birthDate)"
+                    )
                   span(ng-show="entry.dates[0].birthDate && entry.places[0].birthPlace") , 
                   span(ng-show="entry.places[0].birthPlace") 
-                    a(ng-click="search({birthPlace:entry.places[0].birthPlace})") {{entry.places[0].birthPlace}}
+                    a(ng-click="search({birthPlace:entry.places[0].birthPlace})",
+                      ng-bind-html="highlighted('birthPlace', entry.places[0].birthPlace)"
+                    )
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].deathDate || entry.places[0].deathPlace")
             .panel.panel-default
@@ -39,10 +44,14 @@
               ul.list-group
                 li.list-group-item
                   span(ng-show="entry.dates[0].deathDate")
-                    a(ng-click="search({deathDate:entry.dates[0].deathDate})") {{entry.dates[0].deathDate}}
+                      a(ng-click="search({deathDate:entry.dates[0].deathDate})",
+                        ng-bind-html="highlighted('deathDate', entry.dates[0].deathDate)"
+                      )
                   span(ng-show="entry.dates[0].deathDate && entry.places[0].deathPlace") , 
                   span(ng-show="entry.places[0].deathPlace")
-                    a(ng-click="search({deathPlace:entry.places[0].deathPlace})") {{entry.places[0].deathPlace}}
+                      a(ng-click="search({deathPlace:entry.places[0].deathPlace})",
+                        ng-bind-html="highlighted('deathPlace', entry.places[0].deathPlace)"
+                      )
 
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].flourishedStartDate || entry.dates[0].flourishedEndDate")

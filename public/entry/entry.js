@@ -8,8 +8,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $scope.id = parseInt($stateParams.id);
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
-      var highlightedEntry = entryHighlightingService.highlightEntry(res.entry);
-      $scope.entry = highlightedEntry;
+      $scope.entry = res.entry;
       $scope.nextIndex = res.nextIndex;
       $scope.previousIndex = res.previousIndex;
       if (!res.entry) $scope.noEntry = true;
@@ -25,6 +24,14 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       setupMinimap();
 
     })
+  }
+
+  $scope.highlighted = function(propertyName) {
+    var value = $scope.entry && $scope.entry[propertyName];
+    if (value) {
+      var highlightedHtml = entryHighlightingService.highlight(propertyName, value);
+      return $sce.trustAsHtml(highlightedHtml);
+    }
   }
 
   function createTours(travels){

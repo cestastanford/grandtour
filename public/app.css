@@ -689,3 +689,6 @@ table.table {
   color: gray;
 }
 
+span.highlighted {
+    background-color: #feb;
+}

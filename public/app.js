@@ -269,26 +269,43 @@ var app = angular.module('app', [
     savedQuery = query;
   }
 
-  //  public query-clearing function
-  var clearQuery = function() {
-    savedQuery = null;
-  }
-
   //  public function that annotates entry text with highlighting
   //  indicators
-  var highlightEntry = function(entry) {
+  var highlightEntryProperty = function(propertyName, value) {
 
-    console.log('entry to highlight: ', entry);
-    console.log('query to hightlight: ', savedQuery);
-    return entry;
+    if (savedQuery && savedQuery[propertyName]) {
+
+      var lowercaseValue = value.toLowerCase();
+      var lowercaseQueryTerm = savedQuery[propertyName].toLowerCase();
+      var segments = lowercaseValue.split(lowercaseQueryTerm);
+
+      var highlightEnd = value.length;
+      while (segments.length > 1) {
+
+        var segment = segments.pop()
+        highlightEnd -= segment.length;
+        var highlightStart = highlightEnd - lowercaseQueryTerm.length;
+
+        value = value.slice(0, highlightStart) +
+            '<span class="highlighted">' +
+            value.slice(highlightStart, highlightEnd) +
+            '</span>' +
+            value.slice(highlightEnd);
+
+        highlightEnd = highlightStart;
+
+      }
+
+    }
+
+    return value;
 
   }
 
   //  return public service properties
   return {
-    highlightEntry: highlightEntry,
+    highlight: highlightEntryProperty,
     saveQuery: saveQuery,
-    clearQuery: clearQuery,
   }
 
 });

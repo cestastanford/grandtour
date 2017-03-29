@@ -272,8 +272,6 @@ var app = angular.module('app', [
   //  public function that generates te highlighted HTML
   var highlightEntryProperty = function(propertyName, propertyValue) {
 
-    console.log(propertyName, propertyValue, savedQuery)
-
     var value = '' + propertyValue;
     var query = '' + (savedQuery && savedQuery[propertyName] || '');
     if (value && query) {

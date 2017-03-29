@@ -91,7 +91,9 @@
               .panel-heading Employments and Identifiers
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.pursuits") 
-                  a(ng-click="search({pursuits:e.pursuit})") {{e.pursuit}}
+                  a(ng-click="search({pursuits:e.pursuit})",
+                    ng-bind-html="highlighted('pursuits', e.pursuit)"
+                  )
                 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.occupations.length") 
             .panel.panel-default
@@ -100,12 +102,19 @@
                 li.list-group-item(ng-repeat="o in occupations")
                   .panel.panel-default.panel-nested
                     .panel-heading
-                      span(ng-click="search({occupations_group:o.key})") {{o.key}}
+                      span(ng-click="search({occupations_group:o.key})",
+                        ng-bind-html="highlighted('occupations_group', o.key)"
+                      )
                     ul.list-group
                       li.list-group-item(ng-repeat="e in o.values")
-                        a(ng-click="search({occupations:e.title})") {{e.title}}
+                        a(ng-click="search({occupations:e.title})"
+                          ng-bind-html="highlighted('occupations', e.title)"
+                        )
                         span(ng-show="e.place") , 
-                        a(ng-show="e.place", ng-click="search({occupations_place:e.place})") {{e.place}}
+                        a(ng-show="e.place",
+                          ng-click="search({occupations_place:e.place})",
+                          ng-bind-html="highlighted('occupations_place', e.place)"
+                        )
                         span(ng-show="e.from || e.to")  (
                         span(ng-show="e.from") {{e.from}}
                         span(ng-show="e.to") -{{e.to}}
@@ -116,7 +125,9 @@
               .panel-heading Military careers
               ul.list-group
                 li.list-group-item(ng-repeat="e in military") 
-                  a(ng-click="search({military:e.rank})") {{e.rank}}
+                  a(ng-click="search({military:e.rank})",
+                    ng-bind-html="highlighted('military', e.rank)"
+                  ) {{e.rank}}
                   span(ng-show="e.rankStart || e.rankEnd")  (
                   span(ng-show="e.rankStart") {{e.rankStart}}
                   span(ng-show="e.rankEnd") -{{e.rankEnd}}
@@ -127,13 +138,26 @@
               .panel-heading Education
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.education")
-                  a(ng-show="e.degree", ng-click="search({education_degree:e.fullDegree})") {{e.fullDegree}}
+                  a(ng-show="e.degree",
+                    ng-click="search({education_degree:e.fullDegree})",
+                    ng-bind-html="highlighted('education_degree', e.fullDegree)"
+                  )
                   span(ng-show="e.degree && e.institution") , 
-                  a(ng-show="e.institution", ng-click="search({education_institution:e.institution})") {{e.institution}}
+                  a(ng-show="e.institution",
+                    ng-click="search({education_institution:e.institution})",
+                    ng-bind-html="highlighted('education_institution', e.institution)"
+                  )
                   span(ng-show="(e.degree || e.institution) && e.place") , 
-                  a(ng-show="e.place" ng-click="search({education_place:e.place})") {{e.place}}
+                  a(ng-show="e.place",
+                    ng-click="search({education_place:e.place})",
+                    ng-bind-html="highlighted('education_place', e.place)"
+                  )
                   span(ng-show="(e.degree || e.institution || e.place) && e.teacher") , 
-                  a(ng-show="e.teacher" ng-click="search({education_teacher:e.teacher})") under {{e.teacher}} 
+                  span(ng-show="e.teacher") under 
+                  a(ng-show="e.teacher",
+                    ng-click="search({education_teacher:e.teacher})",
+                    ng-bind-html="highlighted('education_teacher', e.teacher)"
+                  )
                   span(ng-show="e.from")  ({{e.from}}
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )
@@ -144,8 +168,13 @@
               .panel-heading Societies & Academies
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.societies") 
-                  a(ng-click="search({societies:e.title})") {{e.title}}
-                  span , {{e.role}} 
+                  a(ng-click="search({societies:e.title})",
+                    ng-bind-html="highlighted('societies', e.title)"
+                  )
+                  span(ng-show="e.title && e.role") , 
+                  a(ng-click="search({societies_role:e.role})",
+                    ng-bind-html="highlighted('societies_role', e.role)"
+                  )
                   span(ng-show="e.from || e.to") (
                   span(ng-show="e.from") {{e.from}}
                   span(ng-show="e.to") -{{e.to}}
@@ -156,9 +185,13 @@
               .panel-heading Exhibitions & Awards
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.exhibitions") 
-                  a(ng-click="search({exhibitions:e.title})") {{e.title}}
+                  a(ng-click="search({exhibitions:e.title})",
+                    ng-bind-html="highlighted('exhibitions', e.title)"
+                  )
                   span(ng-show="e.title && e.activity") , 
-                  a(ng-click="search({exhibitions_activity:e.activity})") {{e.activity}}
+                  a(ng-click="search({exhibitions_activity:e.activity})",
+                    ng-bind-html="highlighted('exhibitions_activity', e.activity)"
+                  )
                   span(ng-show="e.from || e.to")  (
                   span(ng-show="e.from") {{e.from}}
                   span(ng-show="e.to") -{{e.to}}

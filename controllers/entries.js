@@ -328,8 +328,6 @@ var searchMapRE = {
 
       }
 
-      if (d.date.estimated === 'no') outer.push({ estimatedTravelDates : false });
-
     }
 
     if (d.place) outer.push({ place : { $regex : new RegExp(escapeRegExp(d.place), "gi") } });
@@ -448,8 +446,6 @@ var searchMap = {
         }
 
       }
-
-      if (d.date.estimated === 'no') outer.push({ estimatedTravelDates : false });
 
     }
 

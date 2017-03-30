@@ -11,8 +11,8 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
   $scope.freeSearchBeginnings = true;
 
   // setup for travel date range search
-  $scope.resetTravelDate = function(type, estimated) {
-    travelDate = { queryType: type, query: {}, estimated: estimated };
+  $scope.resetTravelDate = function(type) {
+    travelDate = { queryType: type, query: {} };
     travelModel.date = travelDate;
   };
   var travelModel = { date: {}, place: '' };
@@ -100,14 +100,12 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
             $scope.query.travel.date.startDay !== $scope.query.travel.date.endDay) {
           travelModel.date.queryType = 'range';
         }
-        travelModel.date.estimated = ($scope.query.travel.date.estimated === 'yes');
         travelModel.date.query = $scope.query.travel.date;
-        delete travelModel.date.query.estimated;
       }
       if ($scope.query.travel.place) {
         travelModel.place = $scope.query.travel.place;
       }
-      
+
     }
 
     $scope.$watch('travelModel', function(travelModel) {
@@ -120,7 +118,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
       if (Object.getOwnPropertyNames(travelModel.date.query).length > 0) {
         $scope.query.travel = $scope.query.travel || { date: {} };
         $scope.query.travel.date = travelModel.date.query;
-        $scope.query.travel.date.estimated = travelModel.date.estimated ? 'yes' : 'no';
       } else if ($scope.query.travel) delete $scope.query.travel.date;
       if (travelModel.place) {
         $scope.query.travel = $scope.query.travel || {};
@@ -309,7 +306,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
           case 'travel':
             pill.dimension = 'travel ';
             pill.value = '';
-            
+
             if (query.travel.place) {
 
               if (query.travel.date) {
@@ -325,7 +322,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
             if (query.travel.date) {
 
               pill.dimension += 'date'
-              
+
               if ($scope.travelModel.date.queryType === 'range') {
                 pill.dimension += ' range';
                 if (query.travel.date.startYear) pill.value += 'from '
@@ -340,8 +337,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
                 if (query.travel.date.endMonth) pill.value += '/' + query.travel.date.endMonth;
                 if (query.travel.date.endDay) pill.value += '/' + query.travel.date.endDay;
               }
-
-              if (query.travel.date.estimated === 'yes') pill.value += ' (including estimated dates)'
 
             }
 

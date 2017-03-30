@@ -251,10 +251,10 @@
           .margin-top
             span.date-query-type.date-query-type-label search by: 
             span.date-query-type(
-              ng-click="resetTravelDate('exact', travelModel.date.estimated)",
+              ng-click="resetTravelDate('exact')",
               ng-class="{selected: travelModel.date.queryType === 'exact'}") exact year
             span.date-query-type(
-              ng-click="resetTravelDate('range', travelModel.date.estimated)",
+              ng-click="resetTravelDate('range')",
               ng-class="{selected: travelModel.date.queryType === 'range'}") range of years
 
         hr

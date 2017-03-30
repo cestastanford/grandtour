@@ -8,6 +8,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $scope.id = parseInt($stateParams.id);
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
+      console.log(res.entry);
       $scope.entry = res.entry;
       $scope.nextIndex = res.nextIndex;
       $scope.previousIndex = res.previousIndex;
@@ -79,25 +80,37 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   }
 
   $scope.searchTravel = function(travel) {
-    var query = { travel_place: travel.place, travel_date: {} };
-    if (travel.travelStartYear) {
-      query.travel_date.startYear = travel.travelStartYear;
-      if (travel.travelStartMonth) {
-        query.travel_date.startMonth = travel.travelStartMonth;
-        if (travel.travelStartDay) {
-          query.travel_date.startDay = travel.travelStartDay;
+
+    var travelQuery = { place: travel.place };
+
+    if (travel.travelStartYear || travel.travelEndYear) {
+
+        travelQuery.date = {};
+
+        if (travel.travelStartYear) {
+          travelQuery.date.startYear = travel.travelStartYear;
+          if (travel.travelStartMonth) {
+            travelQuery.date.startMonth = travel.travelStartMonth;
+            if (travel.travelStartDay) {
+              travelQuery.date.startDay = travel.travelStartDay;
+            }
+          }
         }
-      }
-    } else if (travel.travelEndYear) {
-      query.travel_date.endYear = travel.travelEndYear;
-      if (travel.travelEndMonth) {
-        query.travel_date.endMonth = travel.travelEndMonth;
-        if (travel.travelEndDay) {
-          query.travel_date.endDay = travel.travelEndDay;
+
+        if (travel.travelEndYear) {
+          travelQuery.date.endYear = travel.travelEndYear;
+          if (travel.travelEndMonth) {
+            travelQuery.date.endMonth = travel.travelEndMonth;
+            if (travel.travelEndDay) {
+              travelQuery.date.endDay = travel.travelEndDay;
+            }
+          }
         }
-      }
-    } else delete query.travel_date;
-    $location.path('search/' + JSON.stringify(query));
+
+    }
+
+    $location.path('search/' + JSON.stringify({ travel: travelQuery }));
+
   }
 
   function clean(obj){

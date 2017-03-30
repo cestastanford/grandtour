@@ -269,11 +269,14 @@ var app = angular.module('app', [
 
     savedQuery = Object.assign({}, query);
     if (savedQuery.entry) {
-        for (key in savedQuery.entry.sections) {
-            savedQuery['entry_' + key] = savedQuery.entry.sections[key];
-        }
-        savedQuery.entry_beginnings = savedQuery.entry.beginnings;
-        delete savedQuery.entry;
+      for (key in savedQuery.entry.sections) {
+        savedQuery['entry_' + key] = savedQuery.entry.sections[key];
+      }
+      savedQuery.entry_beginnings = savedQuery.entry.beginnings;
+      delete savedQuery.entry;
+    }
+    if (savedQuery.travel) {
+        savedQuery.travel_place = savedQuery.travel.place;
     }
 
   }
@@ -283,6 +286,12 @@ var app = angular.module('app', [
 
     var value = '' + propertyValue;
     var query = '' + (savedQuery && savedQuery[propertyName] || '');
+
+    if (propertyName === 'travel_place') {
+        value = propertyValue.place;
+        if (!highlightTravel(propertyValue)) return value;
+    }
+
     if (value && query) {
 
       var lowercaseValue = value.toLowerCase();
@@ -290,8 +299,8 @@ var app = angular.module('app', [
       var segments = lowercaseValue.split(lowercaseQuery);
 
       if (propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings === 'yes') {
-          var regexp = new RegExp('\\s' + escapeRegExp(lowercaseQuery), 'g');
-          segments = lowercaseValue.split(regexp);
+        var regexp = new RegExp('\\s' + escapeRegExp(lowercaseQuery), 'g');
+        segments = lowercaseValue.split(regexp);
       }
 
       var highlightEnd = value.length;
@@ -302,10 +311,10 @@ var app = angular.module('app', [
         var highlightStart = highlightEnd - lowercaseQuery.length;
 
         value = value.slice(0, highlightStart) +
-            '<span class="highlighted">' +
-            value.slice(highlightStart, highlightEnd) +
-            '</span>' +
-            value.slice(highlightEnd);
+          '<span class="highlighted">' +
+          value.slice(highlightStart, highlightEnd) +
+          '</span>' +
+          value.slice(highlightEnd);
 
         highlightEnd = highlightStart;
 
@@ -317,9 +326,35 @@ var app = angular.module('app', [
 
   }
 
+  //  public function that determines whether a travel place or date should be
+  //  highlighted
+  var highlightTravel = function(travel) {
+    if (travel && savedQuery && savedQuery.travel) {
+      var qT = savedQuery.travel;
+      var t = travel;
+      console.log(qT, t);
+      if (qT.place.toLowerCase().indexOf(t.place.toLowerCase()) > -1) {
+        if (qT.date) {
+          if (
+            (!qT.date.startYear || !t.travelEndYear || qT.date.startYear <= t.travelEndYear) &&
+            (!qT.date.startMonth || !t.travelEndMonth || qT.date.startMonth <= t.travelEndMonth) &&
+            (!qT.date.startDay || !t.travelEndDay || qT.date.startDay <= t.travelEndDay) &&
+            (!qT.date.endYear || !t.travelStartYear || qT.date.endYear >= t.travelStartYear) &&
+            (!qT.date.endMonth || t.travelStartMonth || qT.date.endMonth <= t.travelStartMonth) &&
+            (!qT.date.endDay || t.travelStartDay || qT.date.endDay <= t.travelStartDay)
+          ) {
+            return true;
+          }
+        } else return true;
+      }
+    }
+    return false;
+  }
+
   //  return public service properties
   return {
     highlight: highlightEntryProperty,
+    highlightTravel: highlightTravel,
     saveQuery: saveQuery,
   }
 

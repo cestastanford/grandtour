@@ -33,6 +33,8 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     }
   }
 
+  $scope.highlightTravel = entryHighlightingService.highlightTravel;
+
   function createTours(travels){
     if (!travels) return;
     var nest = d3.nest()

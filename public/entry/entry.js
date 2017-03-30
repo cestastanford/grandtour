@@ -18,7 +18,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       createOccupations(res.entry.occupations);
       createMilitary(res.entry.military);
 
-      $timeout(smartquotes);
+      // $timeout(smartquotes);
       $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
 
       setupMinimap();

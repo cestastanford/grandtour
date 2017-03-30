@@ -281,6 +281,21 @@ var app = angular.module('app', [
 
   }
 
+  //  private string-highlighting function
+  var highlightString = function(needle, haystack, beginningsOnly) {
+
+    var regExpStr = '(' + escapeRegExp(needle) + ')';
+    if (beginningsOnly) {
+      regExpStr = '(\\s|^)' + regExpStr;
+    }
+    var regExp = new RegExp(regExpStr, 'gi');
+    return haystack.replace(regExp, function(m, m1, m2) {
+      if (beginningsOnly) return m1 + '<span class="highlighted">' + m2 + '</span>';
+      else return '<span class="highlighted">' + m1 + '</span>';
+    });
+
+  }
+
   //  public function that generates te highlighted HTML
   var highlightEntryProperty = function(propertyName, propertyValue) {
 
@@ -294,31 +309,8 @@ var app = angular.module('app', [
 
     if (value && query) {
 
-      var lowercaseValue = value.toLowerCase();
-      var lowercaseQuery = query.toLowerCase();
-      var segments = lowercaseValue.split(lowercaseQuery);
-
-      if (propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings === 'yes') {
-        var regexp = new RegExp('\\s' + escapeRegExp(lowercaseQuery), 'g');
-        segments = lowercaseValue.split(regexp);
-      }
-
-      var highlightEnd = value.length;
-      while (segments.length > 1) {
-
-        var segment = segments.pop()
-        highlightEnd -= segment.length;
-        var highlightStart = highlightEnd - lowercaseQuery.length;
-
-        value = value.slice(0, highlightStart) +
-          '<span class="highlighted">' +
-          value.slice(highlightStart, highlightEnd) +
-          '</span>' +
-          value.slice(highlightEnd);
-
-        highlightEnd = highlightStart;
-
-      }
+      var beginningsOnly = propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings === 'yes';
+      value = highlightString(query, value, beginningsOnly);
 
     }
 

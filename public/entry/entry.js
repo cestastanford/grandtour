@@ -8,7 +8,6 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $scope.id = parseInt($stateParams.id);
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
-      console.log(res.entry);
       $scope.entry = res.entry;
       $scope.nextIndex = res.nextIndex;
       $scope.previousIndex = res.previousIndex;

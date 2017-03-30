@@ -71,7 +71,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + t + "\">[" + p2 + "]</sup>";
     }
 
-    return $sce.trustAsHtml(text.replace(/(\.|\,|'|;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r)/gi, replacer));
+    return text.replace(/(\.|\,|'|;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r)/gi, replacer);
   }
 
   $scope.search = function(query){

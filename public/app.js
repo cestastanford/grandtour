@@ -266,7 +266,16 @@ var app = angular.module('app', [
 
   //  public query-saving function
   var saveQuery = function(query) {
-    savedQuery = query;
+
+    savedQuery = Object.assign({}, query);
+    if (savedQuery.entry) {
+        for (key in savedQuery.entry.sections) {
+            savedQuery['entry_' + key] = savedQuery.entry.sections[key];
+        }
+        savedQuery.entry_beginnings = savedQuery.entry.beginnings;
+        delete savedQuery.entry;
+    }
+
   }
 
   //  public function that generates te highlighted HTML
@@ -279,6 +288,11 @@ var app = angular.module('app', [
       var lowercaseValue = value.toLowerCase();
       var lowercaseQuery = query.toLowerCase();
       var segments = lowercaseValue.split(lowercaseQuery);
+
+      if (propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings === 'yes') {
+          var regexp = new RegExp('\\s' + escapeRegExp(lowercaseQuery), 'g');
+          segments = lowercaseValue.split(regexp);
+      }
 
       var highlightEnd = value.length;
       while (segments.length > 1) {
@@ -310,3 +324,8 @@ var app = angular.module('app', [
   }
 
 });
+
+//  regex-escaping function from controllers/entries.js
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}

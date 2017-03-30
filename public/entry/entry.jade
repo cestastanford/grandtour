@@ -222,14 +222,14 @@
 
         
       div.col-lg-6
-        p.text-serif.check-html(ng-bind-html="superscript(entry.biography, entry.notes)")
+        p.text-serif.check-html(ng-bind-html="highlighted('entry_biography', superscript(entry.biography, entry.notes))")
         p.text-serif.check-html(ng-repeat="tour in entry.tours")
-          span.check-html(ng-bind-html="superscript(tour.text, tour.notes)")
+          span.check-html(ng-bind-html="highlighted('entry_tours', superscript(tour.text, tour.notes))")
           span.small
             br
             | {{tour.notes}}
-        p.text-serif.check-html(ng-bind-html="superscript(entry.narrative, entry.notes)")
-        p.text-serif.small {{entry.notes}}
+        p.text-serif.check-html(ng-bind-html="highlighted('entry_narrative', superscript(entry.narrative, entry.notes))")
+        p.text-serif.small(ng-bind-html="highlighted('entry_notes', entry.notes)")
         
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")

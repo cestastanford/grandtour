@@ -330,7 +330,6 @@ var app = angular.module('app', [
     if (travel && savedQuery && savedQuery.travel) {
       var qT = savedQuery.travel;
       var t = travel;
-      console.log(qT, t);
       if (qT.place.toLowerCase().indexOf(t.place.toLowerCase()) > -1) {
         if (qT.date) {
           if (

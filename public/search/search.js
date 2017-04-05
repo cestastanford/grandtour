@@ -90,6 +90,25 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
   }
 
+  //  Updates the travel model in response to $watch or manual trigger
+  function updateTravelModel(travelModel) {
+    if (travelModel.date.queryType === 'exact') {
+      travelModel.date.query.endYear = travelModel.date.query.startYear;
+      travelModel.date.query.endMonth = travelModel.date.query.startMonth;
+      travelModel.date.query.endDay = travelModel.date.query.startDay;
+    }
+    for (key in travelModel.date.query) if (!travelModel.date.query[key]) delete travelModel.date.query[key];
+    if (Object.getOwnPropertyNames(travelModel.date.query).length > 0) {
+      $scope.query.travel = $scope.query.travel || { date: {} };
+      $scope.query.travel.date = travelModel.date.query;
+    } else if ($scope.query.travel) delete $scope.query.travel.date;
+    if (travelModel.place) {
+      $scope.query.travel = $scope.query.travel || {};
+      $scope.query.travel.place = travelModel.place;
+    } else if ($scope.query.travel) delete $scope.query.travel.place;
+    if ($scope.query.travel && !$scope.query.travel.place && !$scope.query.travel.date) delete $scope.query.travel;
+  }
+
   //  support for travel date range search
   function setupTravelSearch() {
 
@@ -108,28 +127,13 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, li
 
     }
 
-    $scope.$watch('travelModel', function(travelModel) {
-      if (travelModel.date.queryType === 'exact') {
-        travelModel.date.query.endYear = travelModel.date.query.startYear;
-        travelModel.date.query.endMonth = travelModel.date.query.startMonth;
-        travelModel.date.query.endDay = travelModel.date.query.startDay;
-      }
-      for (key in travelModel.date.query) if (!travelModel.date.query[key]) delete travelModel.date.query[key];
-      if (Object.getOwnPropertyNames(travelModel.date.query).length > 0) {
-        $scope.query.travel = $scope.query.travel || { date: {} };
-        $scope.query.travel.date = travelModel.date.query;
-      } else if ($scope.query.travel) delete $scope.query.travel.date;
-      if (travelModel.place) {
-        $scope.query.travel = $scope.query.travel || {};
-        $scope.query.travel.place = travelModel.place;
-      } else if ($scope.query.travel) delete $scope.query.travel.place;
-      if ($scope.query.travel && !$scope.query.travel.place && !$scope.query.travel.date) delete $scope.query.travel;
-    }, true);
+    $scope.$watch('travelModel', updateTravelModel, true);
 
   };
 
   $scope.search = function(){
-    $location.path('search/' + JSON.stringify(clean($scope.query)) );
+    updateTravelModel($scope.travelModel);
+    $location.path('search/' + JSON.stringify(clean($scope.query)));
   }
 
   $scope.$watch('query', function(query){

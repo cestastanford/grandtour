@@ -300,19 +300,25 @@ var app = angular.module('app', [
   var highlightEntryProperty = function(propertyName, propertyValue) {
 
     var value = '' + propertyValue;
-    var query = '' + (savedQuery && savedQuery[propertyName] || '');
+
+    var queries = null;
+    if (savedQuery && savedQuery[propertyName]) {
+      if (Array.isArray(savedQuery[propertyName]) && savedQuery[propertyName].length) {
+        queries = savedQuery[propertyName].map(function(query) { return '' + query; });
+      } else queries = [ '' + savedQuery[propertyName] ];
+    }
 
     if (propertyName === 'travel_place') {
         value = propertyValue.place;
         if (!highlightTravel(propertyValue)) return value;
     }
 
-    if (value && query) {
+    if (value && queries) queries.forEach(function(query) {
 
       var beginningsOnly = propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings === 'yes';
       value = highlightString(query, value, beginningsOnly);
 
-    }
+    });
 
     return value;
 

@@ -334,12 +334,15 @@ var app = angular.module('app', [
       if (qT.place.toLowerCase().indexOf(t.place.toLowerCase()) > -1) {
         if (qT.date) {
           if (
-            (!qT.date.startYear || !t.travelEndYear || qT.date.startYear <= t.travelEndYear) &&
-            (!qT.date.startMonth || !t.travelEndMonth || qT.date.startMonth <= t.travelEndMonth) &&
-            (!qT.date.startDay || !t.travelEndDay || qT.date.startDay <= t.travelEndDay) &&
-            (!qT.date.endYear || !t.travelStartYear || qT.date.endYear >= t.travelStartYear) &&
-            (!qT.date.endMonth || t.travelStartMonth || qT.date.endMonth <= t.travelStartMonth) &&
-            (!qT.date.endDay || t.travelStartDay || qT.date.endDay <= t.travelStartDay)
+            (!qT.date.startYear || !t.travelEndYear || qT.date.startYear < t.travelEndYear || (qT.date.startYear === t.travelEndYear && (
+              !qT.date.startMonth || !t.travelEndMonth || qT.date.startMonth < t.travelEndMonth || (qT.date.startMonth < t.travelEndMonth && (
+                !qT.date.startDay || !t.travelEndDay || qT.date.startDay <= t.travelEndDay
+              ))
+            ))) && (!qT.date.endYear || !t.travelStartYear || qT.date.endYear > t.travelStartYear || (qT.date.endYear === t.travelStartYear && (
+              !qT.date.endMonth || !t.travelStartMonth || qT.date.endMonth > t.travelStartMonth || (qT.date.endMonth < t.travelStartMonth && (
+                !qT.date.endDay || !t.travelStartDay || qT.date.endDay >= t.travelStartDay
+              ))
+            )))
           ) {
             return true;
           }

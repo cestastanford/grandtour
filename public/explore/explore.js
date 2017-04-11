@@ -88,7 +88,7 @@ app
     //  setup for free search by section
     if ($scope.query.entry) {
       for (var k in freeSearchModel.sections) {
-        if ($scope.query.entry[k]) $scope.freeSearchModel.query = $scope.query.entry[k];
+        if ($scope.query.entry.sections[k]) $scope.freeSearchModel.query = $scope.query.entry.sections[k];
         else $scope.freeSearchModel.sections[k] = false;
       }
     }

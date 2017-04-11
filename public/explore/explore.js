@@ -45,13 +45,13 @@ app
   initFreeSearchModel();
 
   // setup for travel date range search
-  $scope.resetTravelDate = function(type, estimated) {
-    travelDate = { queryType: type, query: {}, estimated: estimated };
-    travelModel.date = travelDate;
+  $scope.resetTravelModel = function(type, estimated) {
+    travelModel.date = { queryType: type, query: {}, estimated: estimated };
+    travelModel.place = '';
   };
-  var travelModel = { date: {}, place: '' };
+  var travelModel = {};
   $scope.travelModel = travelModel;
-  $scope.resetTravelDate('exact', false);
+  $scope.resetTravelModel('exact');
 
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
@@ -169,7 +169,7 @@ app
       if (!dimensions[i].active) {
         $scope.removeFromQuery(dimensions[i].field);
         if (dimensions[i].field === 'entry') initFreeSearchModel();
-        if (dimensions[i].field === 'travel_date') $scope.resetTravelDateModel('exact');
+        if (dimensions[i].field === 'travel') $scope.resetTravelModel('exact');
       }
     }
   },true)
@@ -266,7 +266,7 @@ app
   $scope.removeFromQuery = function(k){
     delete $scope.query[k];
     if (k === 'entry') initFreeSearchModel();
-    if (k === 'travel_date') $scope.resetTravelDateModel();
+    if (k === 'travel') $scope.resetTravelModel('exact');
   }
 
   $('.tooltip').remove();

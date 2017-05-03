@@ -16,6 +16,7 @@ app.directive('facet', function($http) {
       scope.open = true;
       scope.uniques = [];
       scope.loading = false;
+      scope.limit = 25;
 
       scope.$watch('search', function(search){
         if (search && search._id.length) scope.open = true;

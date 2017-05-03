@@ -20,7 +20,7 @@
     .mini-table(ng-show="uniques.length")
       table.table
         tbody
-          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection)", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
+          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection) | limitTo:limit", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
             td
               .checkbox
                 label(ng-class="field === 'fullName' && u.parentFullName !== u._id ? 'explore-alternate-name' : ''")
@@ -28,6 +28,11 @@
                   span {{u._id}} 
                   span.text-light.pull-right {{u.count}}
                   span.alternate-name-see(ng-show="field === 'fullName' && u.parentFullName !== u._id") (see {{u.parentFullName}})
+          
+          tr(ng-show="filtered.length > limit")
+            td.see-more
+              a(ng-click="limit = 25 + limit") Show more...
+
           tr(ng-show='!filtered.length')
             td 
               span.text-light Sorry, no results for 

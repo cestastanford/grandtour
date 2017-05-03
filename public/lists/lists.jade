@@ -22,75 +22,12 @@
             .panel.panel-warning(ng-hide="viewModel.selectedList")
                 .panel-body.text-center No list selected.
             
-            .panel.panel-default(ng-show="viewModel.selectedList")
-                .panel-heading(ng-show="viewModel.selectedListEntries")
-                    
-                    button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
-                    button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
-                    
-                    div.btn-group.add-to-list-btn.list-option
-                        button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
-                            span copy
-                            span.caret
-                        ul.dropdown-menu
-                            li.dropdown-header copy selected entries to list:
-                            li(ng-show="sharedListModel.listsLoading")
-                                span loading lists...
-                            li(ng-repeat="list in sharedListModel.myLists")
-                                a(ng-click="copySelectedEntriesToList(list)") {{ list.name }}
-                            li.divider(role="separator")
-                            li.dropdown-header or copy to a new list:
-                            li
-                                form.input-group.input-group-sm
-                                    input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
-                                    span.input-group-btn
-                                        button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="copySelectedEntriesToNewList()") create & copy
-
-                    button.btn.btn-warning.btn-xs.list-option(type="button", ng-click="removeSelectedEntriesFromList()") remove
-
-                    div.btn-group.list-option
-                      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
-                        span Sort by...
-                        span.caret
-                      ul.dropdown-menu
-                        li(ng-repeat="dimension in sortModel.activeSortableDimensions")
-                          a(ng-click="sortModel.dimension = dimension.sorting;", ng-class="{ 'bg-info' : sortModel.dimension === dimension.sorting }") {{ dimension.label }}
-                        li.divider
-                        li
-                          a(ng-click="sortModel.dimension = 'index'", ng-class="{ 'bg-info' : sortModel.dimension === 'index' }") Index
-                        li.divider
-                        li
-                          .checkbox.entry-order-checkbox
-                            label
-                              input(type="checkbox", ng-model="sortModel.reverseSorting")
-                              div Reverse Order  
-
-                    button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="Loading...", ng-click="export()", ng-disabled="!viewModel.selectedListEntries")
-                      i.fa.fa-download.margin-right
-                      | Export results       
-                    
-                    div#duplicate-button.btn-group.add-to-list-btn.pull-right
-                        button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
-                            span duplicate list
-                            span.caret
-                        ul.dropdown-menu
-                            li
-                                form.input-group.input-group-sm
-                                    input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
-                                    span.input-group-btn
-                                        button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="duplicateList()") duplicate
-
-                    button.btn.btn-danger.btn-xs.pull-right(type="button", ng-click="deleteList()") delete this list       
-                
-                .panel-body.text-center(ng-hide="viewModel.selectedListEntries") Loading entries...
-                .panel-body.text-center(ng-show="viewModel.selectedListEntries && !viewModel.selectedListEntries.length") No entries.
-                .panel-body(ng-show="viewModel.selectedListEntries")
-                    table.table.table-hover
-                        tbody.entry-row
-                            tr(ng-repeat="entry in viewModel.selectedListEntries | orderBy : sortModel.dimension : sortModel.reverseSorting", ng-class="{ warning: entry.selected }")
-                                td.entry-checkbox
-                                    input(type="checkbox", ng-model="entry.selected")
-                                td.entry-list-item
-                                    a(ng-href="#/entries/{{entry.index}}")
-                                        h4 {{ entry.fullName }}
-                                        p {{ entry.biography.slice(0, 200) }} ...
+            entry-list(
+                ng-show="viewModel.selectedList",
+                entries="viewModel.selectedListEntries",
+                export="export",
+                is-saved-list-view="true",
+                remove-selected-entries-from-list="removeSelectedEntriesFromList()",
+                duplicate-list="duplicateList()",
+                delete-list="deleteList()",
+            )

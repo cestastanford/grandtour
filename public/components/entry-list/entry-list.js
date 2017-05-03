@@ -2,9 +2,18 @@ app.directive('entryList', function(listService) {
   
   return {
     restrict: 'E',
-    scope: { entries: '=', export: '&' },
+    scope: {
+      entries: '=',
+      export: '&',
+      isSavedListView: '=?',
+      removeSelectedEntriesFromList: '&?',
+      duplicateList: '&?',
+      deleteList: '&?',
+    },
     templateUrl: 'components/entry-list',
     link: function(scope) {
+
+      console.log(scope.isSavedListView);
 
       if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
 

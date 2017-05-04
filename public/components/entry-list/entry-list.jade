@@ -41,6 +41,16 @@
               input(type="checkbox", ng-model="sortModel.reverseSorting")
               div reverse order
 
+    div.btn-group.list-option
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+        span entries per page
+        span.caret
+      ul.dropdown-menu
+        li(ng-repeat="n in [5, 10, 25, 50, 100, 500]")
+          a(ng-click="setEntriesPerPage(n)", ng-class="{ 'bg-info' : entriesPerPage === n }") {{ n }}
+        li
+          a(ng-click="setEntriesPerPage(0)", ng-class="{ 'bg-info' : entriesPerPage === 0 }") all entries
+
     button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="loading...", ng-click="export()", ng-disabled="!entries.length")
       i.fa.fa-download.margin-right
       | export results
@@ -63,7 +73,7 @@
   .panel-body(ng-show="entries && entries.length")
     table.table.table-hover
       tbody.entry-row
-        tr(ng-repeat="entry in entries | orderBy : sortModel.dimension : sortModel.reverseSorting | limitTo : entriesPerPage : entriesPerPage * pageNumber", ng-class="{ warning: entry.selected }")
+        tr(ng-repeat="entry in entries | orderBy : sortModel.dimension : sortModel.reverseSorting | limitTo : entriesPerPage || null : entriesPerPage * pageNumber", ng-class="{ warning: entry.selected }")
           td.entry-checkbox
             input(type="checkbox", ng-model="entry.selected")
           td.entry-list-item

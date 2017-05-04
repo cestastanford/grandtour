@@ -114,7 +114,7 @@ app.directive('entryList', function(listService) {
 
       scope.getPages = function() {
         var arr = [];
-        var nPages = Math.ceil(scope.entries.length / scope.entriesPerPage);
+        var nPages = scope.entriesPerPage ? Math.ceil(scope.entries.length / scope.entriesPerPage) : 1;
         for (var i = 0; i < nPages; i++) arr.push(i);
         return arr;
       }

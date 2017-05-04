@@ -76,11 +76,10 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
         }
     };
 
-    $scope.duplicateList = function() {
-        listService.newList(viewModel.newListName, function(list) {
-            viewModel.newListName = '';
+    $scope.duplicateList = function(name) {
+        listService.newList(name, function(list) {
             console.log('list created: ' + list.name);
-            for(var i = 0; i < viewModel.selectedListEntries.length; i++) {
+            for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
                 var entry = viewModel.selectedListEntries[i];
                 listService.addToList(list, entry, function(result) { return; });
             }

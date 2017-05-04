@@ -13,8 +13,6 @@ app.directive('entryList', function(listService) {
     templateUrl: 'components/entry-list',
     link: function(scope) {
 
-      console.log(scope.isSavedListView);
-
       if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
 
       //  initialize view model
@@ -64,6 +62,11 @@ app.directive('entryList', function(listService) {
           scope.addSelectedEntriesToList(list);
         });
       };
+
+      scope.handleDuplicateListClick = function() {
+        if (scope.duplicateList) scope.duplicateList({ name: viewModel.newListName });
+        viewModel.newListName = '';
+      }
 
       //  support for sorting entries
       var sortModel = {

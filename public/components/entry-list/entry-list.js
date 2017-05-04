@@ -11,7 +11,7 @@ app.directive('entryList', function(listService) {
       deleteList: '&?',
     },
     templateUrl: 'components/entry-list',
-    link: function(scope) {
+    link: function(scope, element, attributes) {
 
       if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
 
@@ -100,6 +100,46 @@ app.directive('entryList', function(listService) {
             }
           }
         }
+      }
+
+      //  support for pagination
+
+      function resetPageModel() {
+        scope.pageNumber = 0;
+        scope.entriesPerPage = 25;
+      }
+
+      scope.$watchCollection('entries', resetPageModel);
+      resetPageModel();
+
+      scope.getPages = function() {
+        var arr = [];
+        var nPages = Math.ceil(scope.entries.length / scope.entriesPerPage);
+        for (var i = 0; i < nPages; i++) arr.push(i);
+        return arr;
+      }
+
+      scope.setPage = function(index) {
+        if (index > -1 && index < scope.getPages().length) scope.pageNumber = index;
+      }
+
+      scope.isPage = function(index) {
+        return scope.pageNumber === index;
+      }
+
+      scope.getStartPageLink = function() {
+        if (scope.getPages().length > 9) {
+          if (scope.pageNumber >= 5) {
+            if (scope.pageNumber >= scope.getPages().length - 5) return scope.getPages().length - 9;
+            else return scope.pageNumber - 4;
+          }
+        }
+        return 0;
+      }
+
+      scope.setEntriesPerPage = function(n) {
+        scope.entriesPerPage = n;
+        scope.pageNumber = 0;
       }
 
     },

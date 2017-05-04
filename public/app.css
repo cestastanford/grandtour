@@ -630,6 +630,30 @@ table.table {
   margin-bottom: 0px;
 }
 
+.page-controls {
+  text-align: center;
+}
+
+.page-controls a {
+  margin: 0 1em;
+}
+
+.page-controls a[disabled] {
+  color: #888;
+  cursor: default;
+}
+
+.page-controls a[disabled]:hover {
+  color: #888;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.page-controls a.page-number[disabled],
+.page-controls a.page-number[disabled]:hover {
+  background-color: #fdffca;
+}
+
 /* from minimap */
 
 #minimap svg {

@@ -13,6 +13,9 @@ app.directive('entryList', function(listService) {
     templateUrl: 'components/entry-list',
     link: function(scope, element, attributes) {
 
+      attributes.$observe('entries', function(entries) {
+        if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
+      })
       if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
 
       //  initialize view model
@@ -114,8 +117,10 @@ app.directive('entryList', function(listService) {
 
       scope.getPages = function() {
         var arr = [];
-        var nPages = scope.entriesPerPage ? Math.ceil(scope.entries.length / scope.entriesPerPage) : 1;
-        for (var i = 0; i < nPages; i++) arr.push(i);
+        if (scope.entries && scope.entries.length) {
+          var nPages = scope.entriesPerPage ? Math.ceil(scope.entries.length / scope.entriesPerPage) : 1;
+          for (var i = 0; i < nPages; i++) arr.push(i);
+        }
         return arr;
       }
 

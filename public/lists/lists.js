@@ -54,7 +54,6 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
                 else {
                     var i = this;
                     entries[i] = res.data.entry;
-                    calculateFirstTravelOrders([res.data.entry]);
                     if (++entriesDownloaded === list.entryIDs.length) {
                         viewModel.selectedListEntries = entries;
                     }

@@ -601,6 +601,15 @@ exports.search2 = function (req, res) {
 }
 
 
+exports.getAllEntries = function(req, res) {
+
+  Entry.find({}, 'index fullName entry type', function(err, response) {
+
+    res.json(response);
+
+  });
+
+}
 
 
 function parseExport(res){

@@ -139,6 +139,15 @@ var app = angular.module('app', [
       }
     })
 
+    .state('visualizations', {
+      url: "/visualizations",
+      templateUrl: "views/visualizations",
+      controller: "VisualizationsCtrl",
+      resolve: {
+        loggedin: checkLoggedin
+      }
+    })
+
     .state('/entry', {
       url: "/entries/:id",
       templateUrl: "views/entry",

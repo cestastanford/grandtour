@@ -6,6 +6,13 @@ const Dots = entries => {
 
 
     /*
+    *   Exposes variables for development.
+    */
+
+    window.entries = entries
+
+
+    /*
     *   Colors
     */
 
@@ -35,8 +42,9 @@ const Dots = entries => {
 
     const assignColors = () => {
         entries.forEach(e => {
-            if (e.type === 'Woman') e.color = COLORS.green
+            if (e.type === 'Man') e.color = COLORS.green
             else e.color = COLORS.orange
+            // e.color = COLORS.blue
         })
     }
 
@@ -46,29 +54,25 @@ const Dots = entries => {
     */
 
     const deselectDots = () => {
-        // entries = entries.filter(e => e.entry.length > 500)
-        entries.forEach(e => e.color = (e.entry.length < 1000 ? e.color : COLORS.grey))
+        // entries = entries.filter(e => e.type !== 'Man')
+        // entries.forEach(e => e.color = (e.entry.length > 5000 ? COLORS.grey : e.color))
     }
-
-    
-    /*
-    *   Interpolators for calculating X and Y positions
-    */
-
-    const boundsX = d3.interpolate(EDGE_PADDING, CANVAS_WIDTH - EDGE_PADDING)
-    const boundsY = d3.interpolate(EDGE_PADDING, CANVAS_HEIGHT - EDGE_PADDING)
 
     
     /*
     *   Assigns dot radius based on entry length.
     */
 
+    let baseDotRadius
     const assignRadii = () => {
-        const baseDotRadius = SIZING_COEFFICIENT * (Math.sqrt(boundsX(1) * boundsY(1) / entries.length) - MIN_DOT_SPACING) / (2 * MAX_DOT_SIZE_COEFFICIENT)
+        const availableWidth = CANVAS_WIDTH - 2 * EDGE_PADDING
+        const availableHeight = CANVAS_HEIGHT - 2 * EDGE_PADDING
+        baseDotRadius = SIZING_COEFFICIENT * (Math.sqrt(availableWidth * availableHeight / entries.length) - MIN_DOT_SPACING) / (2 * MAX_DOT_SIZE_COEFFICIENT)
         const radius = d3.interpolate(baseDotRadius, MAX_DOT_SIZE_COEFFICIENT * baseDotRadius)
         entries.sort((a, b) => a.entry.length < b.entry.length ? -1 : 1)
         entries.forEach((e, i) => {
             e.r = radius(i / entries.length)
+            // e.r = radius(.5)
         })
     }
 
@@ -78,6 +82,8 @@ const Dots = entries => {
     */
 
     const assignRandomLocations = () => {
+        const boundsX = d3.interpolate(EDGE_PADDING + (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT), CANVAS_WIDTH - EDGE_PADDING - (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT))
+        const boundsY = d3.interpolate(EDGE_PADDING + (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT), CANVAS_HEIGHT - EDGE_PADDING - (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT))
         entries.sort((a, b) => a.r > b.r ? -1 : 1)
         entries.forEach((e, i) => {
             let x, y, overlaps
@@ -100,21 +106,15 @@ const Dots = entries => {
 
     const render = () => {
         
-        const selection = svg.selectAll('circle')
+        svg.selectAll('circle')
         .data(entries)
-
-        selection.exit()
-        .remove()
-
-        selection.enter()
+        .enter()
         .append('circle')
-
-        selection
         .attr('cx', d => d.x)
         .attr('cy', d => d.y)
         .attr('r', d => d.r)
         .attr('fill', d => d.color)
-        
+
     }
 
     
@@ -128,9 +128,9 @@ const Dots = entries => {
     .style('border', '1px solid #ccc')
     .style('margin', '1em')
 
-    assignRadii()
     assignColors()
     deselectDots()
+    assignRadii()
     assignRandomLocations()
     render()
 
@@ -152,8 +152,18 @@ app.controller('VisualizationsCtrl', function($scope) {
     }
 
     const selectedVisualization = Dots
-    const promise = downloadEntries()
+    downloadEntries()
     .then(selectedVisualization)
     .catch(console.error.bind(console))
+    $scope.prepareDownload = () => {
+        const button = document.querySelector('button.prepare-download')
+        const svg = document.querySelector('svg')
+        const downloadLink = document.createElement('a')
+        downloadLink.setAttribute('href-lang', 'image/svg+xml')
+        downloadLink.setAttribute('href', 'data:image/svg+xml;utf8,' + svg.outerHTML)
+        downloadLink.setAttribute('download', '')
+        downloadLink.innerText = 'Download'
+        button.parentElement.appendChild(downloadLink)
+    }
 
 })

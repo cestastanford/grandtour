@@ -6,13 +6,6 @@ const Dots = entries => {
 
 
     /*
-    *   Exposes variables for development.
-    */
-
-    window.entries = entries
-
-
-    /*
     *   Colors
     */
 
@@ -32,8 +25,8 @@ const Dots = entries => {
     const CANVAS_HEIGHT = 715
     const EDGE_PADDING = 10
     const MAX_DOT_SIZE_COEFFICIENT = 2
-    const MIN_DOT_SPACING = 1
-    const SIZING_COEFFICIENT = .75
+    const MIN_DOT_SPACING = 2.5
+    const SIZING_COEFFICIENT = 1
 
     
     /*
@@ -54,7 +47,7 @@ const Dots = entries => {
     */
 
     const deselectDots = () => {
-        // entries = entries.filter(e => e.type !== 'Man')
+        // entries = entries.filter(e => e.entry.length < 50)
         // entries.forEach(e => e.color = (e.entry.length > 5000 ? COLORS.grey : e.color))
     }
 
@@ -74,29 +67,41 @@ const Dots = entries => {
             e.r = radius(i / entries.length)
             // e.r = radius(.5)
         })
+        entries.sort(() => Math.random() * 2 - 1)
     }
 
-    
+
     /*
-    *   Gives dots random locations.
+    *   Applies force simulation to dots.
     */
 
-    const assignRandomLocations = () => {
+    let simulation
+    const applyForceSimulation = () => {
+
+        //  Applies an initial position in the center.
         const boundsX = d3.interpolate(EDGE_PADDING + (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT), CANVAS_WIDTH - EDGE_PADDING - (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT))
         const boundsY = d3.interpolate(EDGE_PADDING + (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT), CANVAS_HEIGHT - EDGE_PADDING - (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT))
-        entries.sort((a, b) => a.r > b.r ? -1 : 1)
-        entries.forEach((e, i) => {
-            let x, y, overlaps
-            do {
-                x = boundsX(Math.random())
-                y = boundsY(Math.random())
-                overlaps = entries.filter(e2 => Math.hypot(x - e2.x, y - e2.y) < (MIN_DOT_SPACING + e.r + e2.r))
-            } while (overlaps.length)
-            e.x = x
-            e.y = y
-            if (i % 100 === 0) console.log(`Placed ${i} dots of ${entries.length}`)
+        entries.forEach(e => {
+            e.x = boundsX(Math.random())
+            e.y = boundsY(Math.random())
         })
-        console.log(`Placed all ${entries.length} dots!`)
+
+        const repulsionForce = d3.forceCollide()
+        .radius(d => d.r + MIN_DOT_SPACING / 2)
+        .strength(1)
+
+        const centeringXForce = d3.forceX()
+        .x(d => d.type !== 'Man' ? 3 * CANVAS_WIDTH / 20 : 13 * CANVAS_WIDTH / 20)
+        .strength(d => d.type !== 'Man' ? .05 : .05)
+        
+        const centeringYForce = d3.forceY(CANVAS_HEIGHT / 2).strength(.01)
+
+        //  Sets up simulation with forces.
+        simulation = d3.forceSimulation()
+        .force('repulsion', repulsionForce)
+        .force('centeringX', centeringXForce)
+        .force('centeringY', centeringYForce)
+
     }
 
     
@@ -104,16 +109,34 @@ const Dots = entries => {
     *   Renders dots on the SVG.
     */
 
-    const render = () => {
+    const setup = () => {
         
         svg.selectAll('circle')
         .data(entries)
         .enter()
         .append('circle')
+        .attr('r', 0)
+        .attr('fill', d => COLORS.grey)
         .attr('cx', d => d.x)
         .attr('cy', d => d.y)
+
+        simulation.nodes(entries)
+        .stop()
+
+        const repulsionForce = simulation.force('repulsion')
+        simulation.force('repulsion', null)
+        for (var i = 0; i < 100; i++) simulation.tick()
+        simulation.force('centeringX', null)
+        simulation.force('centeringY', null)
+        simulation.force('repulsion', repulsionForce)
+        for (var i = 0; i < 500; i++) simulation.tick()
+
+        svg.selectAll('circle')
+        .data(entries)
         .attr('r', d => d.r)
         .attr('fill', d => d.color)
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y)
 
     }
 
@@ -131,8 +154,9 @@ const Dots = entries => {
     assignColors()
     deselectDots()
     assignRadii()
-    assignRandomLocations()
-    render()
+    applyForceSimulation()
+
+    setup()
 
 }
 

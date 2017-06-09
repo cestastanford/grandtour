@@ -115,28 +115,38 @@ const Dots = entries => {
         .data(entries)
         .enter()
         .append('circle')
-        .attr('r', 0)
-        .attr('fill', d => COLORS.grey)
+        .attr('r', d => d.r)
+        .attr('fill', d => d.color)
         .attr('cx', d => d.x)
         .attr('cy', d => d.y)
 
         simulation.nodes(entries)
         .stop()
 
+        const update = () => new Promise(resolve => {
+            requestAnimationFrame(() => {
+                simulation.tick()
+                svg.selectAll('circle')
+                .data(entries)
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y)
+                resolve()
+            })
+            
+        })
+
+        let promise = Promise.resolve()
+
         const repulsionForce = simulation.force('repulsion')
         simulation.force('repulsion', null)
-        for (var i = 0; i < 100; i++) simulation.tick()
-        simulation.force('centeringX', null)
-        simulation.force('centeringY', null)
-        simulation.force('repulsion', repulsionForce)
-        for (var i = 0; i < 500; i++) simulation.tick()
-
-        svg.selectAll('circle')
-        .data(entries)
-        .attr('r', d => d.r)
-        .attr('fill', d => d.color)
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y)
+        for (let i = 0; i < 100; i++) promise = promise.then(update)
+        promise = promise.then(() => {
+            simulation.force('centeringX', null)
+            simulation.force('centeringY', null)
+            simulation.force('repulsion', repulsionForce)
+        })
+        
+        for (let i = 0; i < 500; i++) promise = promise.then(update)
 
     }
 

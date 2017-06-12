@@ -11,28 +11,28 @@ app.controller('AdminCtrl', function($scope, $http) {
   $scope.defaults = {
     sheets : [
       // Entries
-      { info: true, value: 'entries', multiple : false, label : 'Entries', sheetName: 'Entries', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'entries', multiple : false, label : 'Entries', sheetName: 'Entries', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
       // Fullnames
-      { info: true, value: 'fullName', multiple : false, label : 'Fullnames', sheetName: 'Fullnames', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'fullName', multiple : false, label : 'Fullnames', sheetName: 'Fullnames', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
       // Alternate names
-      { info: true, value: 'alternateNames', multiple : true, label : 'Alternate Names', sheetName: 'Alternate Names', spreadsheetId: '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload: true },
+      { info: true, value: 'alternateNames', multiple : true, label : 'Alternate Names', sheetName: 'Alternate Names', spreadsheetId: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload: true },
       // Dates
-      { info: true, value: 'dates', multiple : true, label : 'Dates', sheetName: 'Dates', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'dates', multiple : true, label : 'Dates', sheetName: 'Dates', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
       // Places
-      { info: true, value: 'places', multiple : true, label : 'Places', sheetName: 'Places', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'places', multiple : true, label : 'Places', sheetName: 'Places', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
       // Gender
-      { info: true, value: 'type', multiple : false, label : 'Type', sheetName: 'Type', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'type', multiple : false, label : 'Type', sheetName: 'Type', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
       // Pursuits
-      { info: true, value: 'pursuits', multiple : true, label : 'Pursuits & Situations', sheetName: 'Employments and Identifiers', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'occupations', multiple : true, label : 'Occupations & Posts', sheetName: 'Occupations & Posts', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'parents', multiple : false, label : 'Parents', sheetName: 'Parents', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'marriages', multiple : true, label : 'Marriages', sheetName: 'Marriages', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'mistress', multiple : true, label : 'Mistresses', sheetName: 'Mistresses', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'societies', multiple : true, label : 'Societies', sheetName: 'Societies', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'exhibitions', multiple : true, label : 'Exhibitions & Awards', sheetName: 'Exhibitions & Awards', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'education', multiple : true, label : 'Education', sheetName: 'Education', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'military', multiple : true, label : 'Military Career', sheetName: 'Military career', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'travels', multiple : true, label : 'Travels', sheetName: 'Travels', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
+      { info: true, value: 'pursuits', multiple : true, label : 'Pursuits & Situations', sheetName: 'Employments and Identifiers', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'occupations', multiple : true, label : 'Occupations & Posts', sheetName: 'Occupations & Posts', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'parents', multiple : false, label : 'Parents', sheetName: 'Parents', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'marriages', multiple : true, label : 'Marriages', sheetName: 'Marriages', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'mistress', multiple : true, label : 'Mistresses', sheetName: 'Mistresses', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'societies', multiple : true, label : 'Societies', sheetName: 'Societies', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'exhibitions', multiple : true, label : 'Exhibitions & Awards', sheetName: 'Exhibitions & Awards', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'education', multiple : true, label : 'Education', sheetName: 'Education', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'military', multiple : true, label : 'Military Career', sheetName: 'Military career', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
+      { info: true, value: 'travels', multiple : true, label : 'Travels', sheetName: 'Travels', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
     ]
   }
 

@@ -52,7 +52,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-mongoose.connect(process.env['MONGODB_URI'], function(err) {
+var options = {
+  server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+  replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
+};       
+
+mongoose.connect(process.env['MONGODB_URI'], options, function(err) {
   if (err) {
     console.error('Could not connect to MongoDB at the specified URI.');
     process.exit(1);

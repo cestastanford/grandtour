@@ -109,7 +109,7 @@ const Dots = entries => {
     *   Renders dots on the SVG.
     */
 
-    const setup = () => {
+    const run = () => {
         
         svg.selectAll('circle')
         .data(entries)
@@ -150,7 +150,7 @@ const Dots = entries => {
 
     }
 
-    
+
     /*
     *   Execution entry point.
     */
@@ -165,8 +165,78 @@ const Dots = entries => {
     deselectDots()
     assignRadii()
     applyForceSimulation()
+    run()
 
-    setup()
+}
+
+
+/*
+*   Runs the Timeline visualization.
+*/
+
+const Timeline = entries => {
+
+    /*
+    *   Constants
+    */
+
+    const CANVAS_WIDTH = 840
+    const CANVAS_HEIGHT = 715
+
+
+    /*
+    *   Execution entry point.
+    */
+
+    const svg = d3.select('svg')
+    .attr('width', CANVAS_WIDTH)
+    .attr('height', CANVAS_HEIGHT)
+    .style('border', '1px solid #ccc')
+    .style('margin', '1em')
+
+    let tours = []
+    const entriesWithTours = []
+
+    entries.forEach(entry => {
+                    
+        const travelTours = []
+        entry.travels.forEach(travel => {
+
+            if (!travelTours.filter(tour => tour.tourIndex === travel.tourIndex).length) {
+
+                travelTours.push({
+
+                    entryIndex: entry.index,
+                    tourIndex: travel.tourIndex,
+                    start: travel.tourStartFrom,
+                    end: travel.tourEndFrom,
+
+                })
+
+            }
+        
+        })
+
+        tours = [ ...tours, ...travelTours ]
+        if (travelTours.length) entriesWithTours.push(travelTours)
+           
+    })
+
+    const years = {}
+    tours.forEach(tour => {
+
+        for (var i = tour.start; i <= tour.end; i++) {
+
+            if (!years[i]) years[i] = 1
+            else years[i]++
+
+        }
+
+    })
+
+    console.log(years)
+    console.log(Object.keys(years).length, Math.max(...Object.keys(years).map(k => years[k])))
+    console.log(tours.length, entriesWithTours.length)
 
 }
 

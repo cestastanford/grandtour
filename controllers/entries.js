@@ -603,7 +603,7 @@ exports.search2 = function (req, res) {
 
 exports.getAllEntries = function(req, res) {
 
-  Entry.find({}, 'index fullName entry type', function(err, response) {
+  Entry.find({}, 'index fullName entry type travels', function(err, response) {
 
     res.json(response);
 

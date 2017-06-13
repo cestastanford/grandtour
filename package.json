@@ -25,5 +25,8 @@
     "passport-local": "*",
     "passport-local-mongoose": "^1.0.0",
     "socket.io": "^1.3.5"
+  },
+  "engines": {
+    "node": "8.1.0"
   }
 }

@@ -1,30 +1,31 @@
-var mongoose = require('mongoose')
-  , Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-var Entry = new Schema({
-  index : Number,
-  biography : String,
-  tours : [],
-  narrative : String,
-  notes : String,
-  entry : String,
+const Entry = new mongoose.Schema({
+  
+  index: Number,
+  biography: String,
+  tours: [],
+  narrative: String,
+  notes: String,
+  entry: String,
 
-  fullName : String,
+  fullName: String,
   alternateNames: [],
-  places : [],
-  dates : [],
-  type : String,
+  places: [],
+  dates: [],
+  type: String,
 
-  pursuits : [],
-  occupations : [],
-  education : [],
-  societies : [],
-  exhibitions : [],
-  military : [],
-  marriages : [],
-  mistress : [],
-  parents : {},
-  travels : []
-});
+  pursuits: [],
+  occupations: [],
+  education: [],
+  societies: [],
+  exhibitions: [],
+  military: [],
+  marriages: [],
+  mistress: [],
+  parents: {},
+  travels: [],
 
-mongoose.model('Entry', Entry);
+})
+
+module.exports = mongoose.model('Entry', Entry)

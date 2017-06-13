@@ -1,10 +1,11 @@
-var mongoose = require('mongoose')
-  , Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-var List = new Schema({
+const List = new mongoose.Schema({
+  
   name: String,
   owner: String,
-  entryIDs: [Number]
-});
+  entryIDs: [Number],
 
-mongoose.model('List', List);
+})
+
+module.exports = mongoose.model('List', List)

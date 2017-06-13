@@ -1,10 +1,13 @@
-const fs = require('fs');
-const google = require('googleapis');
-const sheetValueRequest = google.sheets('v4').spreadsheets.values.get;
-const mongoose = require('mongoose');
-const Entry = mongoose.model('Entry');
-const Count = mongoose.model('Count');
 
+/*
+*   Imports
+*/
+
+const fs = require('fs')
+const google = require('googleapis')
+const sheetValueRequest = google.sheets('v4').spreadsheets.values.get
+const Entry = require('../models/entry.js')
+const Count = require('../models/count.js')
 
 
 /*
@@ -321,29 +324,3 @@ exports.clearAll = function(req, res) {
   });
 
 }
-
-
-/*
-*   Counts travel places
-*/
-
-// Entry.find({}, function(error, entries) {
-
-//     var travelPlacesObject = {};
-//     entries.forEach(function(entry) {
-//         if (entry.travels) entry.travels.forEach(function(travel) {
-//             if (!travelPlacesObject[travel.place || '* Unnamed *']) travelPlacesObject[travel.place || '* Unnamed *'] = 1;
-//             else travelPlacesObject[travel.place || '* Unnamed *']++;
-//         })
-//     })
-//     var travelPlacesArray = [];
-//     for (var k in travelPlacesObject) {
-//         travelPlacesArray.push({ name: k, count: travelPlacesObject[k]})
-//     }
-//     travelPlacesArray.sort(function(a, b) { return b.count - a.count; });
-//     console.log('Travel Places\n----------------------');
-//     travelPlacesArray.forEach(function(place) { console.log('' + place.name + ': ' + place.count); });
-//     console.log('----------------------');
-//     console.log('Total Count: ', travelPlacesArray.length);
-
-// });

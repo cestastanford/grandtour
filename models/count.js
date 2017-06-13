@@ -1,11 +1,10 @@
-var mongoose = require('mongoose')
-  , Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-var Count = new Schema({
+const Count = new mongoose.Schema({
   
-  field : String,
-  count : Number
+  field: String,
+  count: Number,
 
-});
+})
 
-mongoose.model('Count', Count);
+module.exports = mongoose.model('Count', Count)

@@ -67,46 +67,38 @@ app.controller('AdminCtrl', function($scope, $http) {
   });
 
   socket.on('reload-progress', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    })[0];
-    s.info = false;
-    s.started = false;
-    s.loading = true;
-    s.finished = false;
-    s.count = res.count;
-    s.total = res.total;
+    $scope.defaults.sheets.forEach(function(s) {
+      s.info = false;
+      s.started = false;
+      s.loading = true;
+      s.finished = false;
+      s.count = res.count;
+      s.total = res.total;
+    });
     $scope.$apply();
   });
 
   socket.on('reload-finished', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    })[0];
-    s.info = false;
-    s.started = false;
-    s.loading = false;
-    s.finished = true;
-    s.count = s.total;
-    s.message = res.message;
+    $scope.defaults.sheets.forEach(function(s) {
+      s.info = false;
+      s.started = false;
+      s.loading = false;
+      s.finished = true;
+      s.count = s.total;
+      s.message = 'Reloaded!';
+    });
+    $('#reload').button('reset');
     $scope.$apply();
   });
 
-  socket.on('reload-finished-all', function(res){
-    $scope.loading = false;
-    $('#reload').button('reset');
-  });
-
   socket.on('reload-error', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
-      if (res.sheet) return d.value == res.sheet.value;
-      return true;
-    })[0];
-    s.info = false;
-    s.started = false;
-    s.loading = false;
-    s.finished = false;
-    s.error = res.error;
+    $scope.defaults.sheets.forEach(function(s) {
+      s.info = false;
+      s.started = false;
+      s.loading = false;
+      s.finished = false;
+      s.error = res.error;
+    });
     $scope.$apply();
   });
 

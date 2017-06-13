@@ -1,4 +1,3 @@
-
 /*
 *   Imports
 */
@@ -11,180 +10,159 @@ const Count = require('../models/count.js')
 
 
 /*
-*   Exported Function: reload
-*   -------------------------
-*   This function downloads the indicated Google Spreadsheet pages
-*   and applies them to the database, updating the client with progress
-*   via SocketIO.
+*   Handles a database reload request.  Downloads the indicated
+*   Google Spreadsheet data, generates updated entries in memory,
+*   and applies the changes to the database.  Client is updated
+*   via socket.io.
 */
-exports.reload = function(req, res, io) {
 
-    //  Returns initial server response
-    res.json({ status: 200 });
+exports.reload = (req, res, io) => {
 
-    //  Creates requests for the sheets selected for reloading
-    const sheetsToReload = req.body.sheets.filter(sheet => sheet.reload);
-    const reloadRequests = getReloadRequests(sheetsToReload, io);
-
-    //  Kicks off the reloading process.
-    let promise = authenticate();
-
-    //  Attaches reload requests
-    reloadRequests.forEach(request => promise = promise.then(request));
-
-    //  Attaches success/failure callbacks
-    promise = promise.then(io.emit.bind(io, 'reload-finished-all'))
+    res.json({ status: 200 })
+    const sheetsToReload = req.body.sheets.filter(sheet => sheet.reload)
+    
+    getEntryUpdates(sheetsToReload, io)
+    .then(entryUpdates => applyEntryUpdates(entryUpdates, io))
     .catch(error => {
 
-        console.error(error);
-        io.emit('reload-error', { error: error.message });
-        io.emit('reload-finished-all');
+        console.error(error)
+        io.emit('reload-error', { error: error.message })
+        io.emit('reload-finished-all')
 
+    })
+
+}
+
+
+/*
+*   Authenticates with Google Sheets, then retrieves the indicated
+*   Sheets data and adds the data from each sheet to the in-memory
+*   temporary entry buffer.
+*/
+
+const getEntryUpdates = async (sheets, io) => {
+
+    io.emit('authenticating')
+    await authenticate()
+
+    const entries = {}
+    for (let i = 0; i < sheets.length; i++) {
+
+        const sheet = sheets[i]
+
+        io.emit('reload-start', { message: 'Retrieving data...' , sheet })
+        const values = await getSheetValues(sheet)
+        
+        io.emit('reload-start', { message: 'Parsing data...' , sheet})
+        const entryUpdates = await parseSheetValues(sheet, values)
+        
+        io.emit('reload-start', { message: 'Saving data...' , sheet})
+        for (let index in entryUpdates) {
+
+            if (!entries[index]) entries[index] = entryUpdates[index]
+            else entries[index] = Object.assign({}, entries[index], entryUpdates[index])
+
+        }
+
+        io.emit('reload-start', { message: 'Waiting...' , sheet})
+
+    }
+
+    return entries
+
+}
+
+
+/*
+*   Returns a promise for authenticating with Google to access the
+*   specified sheets.
+*/
+
+const authenticate = () => new Promise(resolve => {
+
+    const scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+    const email = process.env.SHEETS_EMAIL
+    const key = process.env.SHEETS_PRIVATE_KEY.split('\\n').join('\n')
+
+    const auth = new google.auth.JWT(email, null, key, scopes, null)
+    auth.authorize(function (error, tokens) {
+        
+        if (error) { throw error }
+        else {
+            google.options({ auth })
+            resolve()
+        }
+        
     });
 
-}
+})
 
 
 /*
-*   Function: authenticate
-*   ----------------------
-*   This function returns a promise for authenticating with Google
-*   to access the specified sheets.
+*   Returns a Promise for downloading the specified Google Spreadsheets
+*   sheet and returning the values.
 */
-function authenticate() {
 
-    return new Promise(resolve => {
+const getSheetValues = sheet => new Promise(resolve => {
 
-        const scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
-        const email = process.env.SHEETS_EMAIL;
-        const key = process.env.SHEETS_PRIVATE_KEY.split('\\n').join('\n');
+    const requestOptions = {
+        spreadsheetId: sheet.spreadsheetId,
+        range: sheet.sheetName + '!A1:Z',
+        valueRenderOption: 'UNFORMATTED_VALUE',
+    }
 
-        const auth = new google.auth.JWT(email, null, key, scopes, null);
-        auth.authorize(function (error, tokens) {
-            
-            if (error) { throw error; }
-            else {
-                google.options({ auth });
-                resolve();
-            }
-            
-        });
+    return sheetValueRequest(requestOptions, (error, response) => {
+        if (error) { throw error }
+        else resolve(response.values)
+    })
 
-    });
-
-}
+})
 
 
 /*
-*   Function: getReloadRequests
-*   ---------------------------
-*   This function returns the result of Promise.all() called on
-*   an array of Promises, each for downloading then applying a single
-*   sheet's values.
+*   Parses the sheet values into the database's entry object model
+*   format, returning an object of entry updates.
 */
-function getReloadRequests(sheetsToReload, io) {
 
-    //  Generates the request Promises
-    const reloadRequests = sheetsToReload.map(sheet => () => new Promise(resolve => {
-
-        Promise.resolve()
-        .then(getSheetValues.bind(null, sheet, io))
-        .then(parseSheetValues.bind(null, sheet, io))
-        .then(applySheetValues.bind(null, sheet, io))
-        .then(() => {
-
-            io.emit('reload-finished', { message: 'Finished transfer to database!', sheet: sheet });
-            resolve();
-
-        }).catch(error => {
-
-            console.error(error);
-            io.emit('reload-error', { error: error.message, sheet });
-
-        });
-
-    }));
-
-    return reloadRequests;
-
-}
-
-
-/*
-*   Function: getSheetValues
-*   ------------------------
-*   This function returns a Promise for downloading the specified
-*   Google Spreadsheets sheet and returning the values.
-*/
-function getSheetValues(sheet, io) {
-
-    return new Promise((resolve, reject) => {
-
-        io.emit('reload-start', { message: 'Retrieving data...' , sheet: sheet});
-
-        const requestOptions = {
-            spreadsheetId: sheet.spreadsheetId,
-            range: sheet.sheetName + '!A1:Z',
-            valueRenderOption: 'UNFORMATTED_VALUE',
-        };
-
-        return sheetValueRequest(requestOptions, (error, response) => {
-            if (error) reject(error);
-            else resolve(response.values);
-        });
-
-    });
-
-}
-
-
-/*
-*   Function: parseSheetValues
-*   --------------------------
-*   This function parses the sheet values into a form ready to be
-*   entered into the database.
-*/
-function parseSheetValues(sheet, io, unparsedValues) {
-
-    io.emit('reload-start', { message: 'Preparing data for database...', sheet: sheet });
+const parseSheetValues = (sheet, unparsedValues) => {
 
     //  Extracts the header row
-    const header = unparsedValues.shift();
+    const header = unparsedValues.shift()
 
     //  Transforms each row into a keyed object, saved by index in 'entries'
-    const updates = {};
-    let currentRow;
+    const updates = {}
+    let currentRow
     while (currentRow = unparsedValues.shift()) {
 
         //  Avoids rows that don't have numbers as indices
-        const index = currentRow[0];
+        const index = currentRow[0]
         if (!Number.isNaN(+index)) {
 
-            const update = {};
+            const update = {}
             for (let j = 1; j < currentRow.length; j++) {
-                if (currentRow[j] !== '') update[header[j]] = currentRow[j];
+                if (currentRow[j] !== '') update[header[j]] = currentRow[j]
             }
 
             if (sheet.multiple) {
 
                 if (!updates[index]) {
 
-                    updates[index] = {};
-                    updates[index][sheet.value] = [];
+                    updates[index] = {}
+                    updates[index][sheet.value] = []
 
                 }
-                updates[index][sheet.value].push(update);
+                updates[index][sheet.value].push(update)
 
             } else if (sheet.value === 'entries') {
                 
-                update.entry = [update.biography, update.tours, update.narrative, update.notes].join(' ');
-                if (typeof update.tours === 'string') update.tours = update.tours.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g).map(tour => ({ text: tour }));
-                updates[index] = update;
+                update.entry = [update.biography, update.tours, update.narrative, update.notes].join(' ')
+                if (typeof update.tours === 'string') update.tours = update.tours.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g).map(tour => ({ text: tour }))
+                updates[index] = update
 
             } else {
 
-                updates[index] = {};
-                updates[index][sheet.value] = update && update[sheet.value];
+                updates[index] = {}
+                updates[index][sheet.value] = update && update[sheet.value]
 
             }
 
@@ -192,52 +170,34 @@ function parseSheetValues(sheet, io, unparsedValues) {
 
     }
 
-    return updates;
+    return updates
 
 }
 
 
 /*
-*   Function: applySheetValues
-*   --------------------------
-*   This function returns a Promise for applying the parsed sheet
-*   values to the database.
+*   Applies the entry updates to the database.
 */
-function applySheetValues(sheet, io, updates) {
 
-    io.emit('reload-start', { message: 'Starting transfer to database...', sheet: sheet });
+const applyEntryUpdates = async (entryUpdates, io) => {
 
+    io.emit('reload-start', { message: 'Starting transfer to database...' })
+    
     const UPDATES_PER_RELOAD = 20;
-    let nUpdated = 0;
+    const indices = Object.keys(entryUpdates)
+    for (let i = 0; i < indices.length; i++) {
 
-    //  Creates an array of database request Promises
-    const indices = Object.keys(updates);
-    const databaseRequests = indices.map(index => {
+        index = indices[i]
+        await Entry.findOneAndUpdate({ index }, entryUpdates[index], { upsert: true })
+        if (i % Math.floor(indices.length / UPDATES_PER_RELOAD) === 0) {
+            
+            io.emit('reload-progress', { count: i, total: indices.length, })
+        
+        }
 
-        return new Promise(resolve => {
+    }
 
-            Entry.findOneAndUpdate({ index }, updates[index], { upsert: true }, error => {
-
-                nUpdated++;
-                if (error) { throw [ error, updates[index] ]; }
-                else {
-
-                    resolve();
-                    if (nUpdated % Math.floor(indices.length / UPDATES_PER_RELOAD) === 0) {
-                        
-                        io.emit('reload-progress', { count: nUpdated, total: indices.length, sheet: sheet });
-                    
-                    }
-
-                }
-
-            });
-
-        });
-
-    });
-
-    return Promise.all(databaseRequests);
+    io.emit('reload-finished')
 
 }
 

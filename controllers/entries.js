@@ -844,7 +844,6 @@ exports.single = function(req, res){
   Entry.findOne({index:req.params.id}, function(err, response){
     if (err) res.json({error:err});
     var entry = response;
-    if (entry.travels && entry.travels.length) entry.travels.sort(sortTravels);
     Entry.findOne({ index : { $gt : req.params.id } }).sort('index').limit(1).select('index').exec(function(err, response) {
       if (err) res.json({error:err});
       var nextIndex = response ? response.index : req.params.id;
@@ -855,15 +854,4 @@ exports.single = function(req, res){
       });
     });
   });
-}
-
-
-const sortTravels = (a, b) => {
-  if (a.tourIndex < b.tourIndex) return -1;
-  if (a.tourIndex > b.tourIndex) return 1;
-  if (a.tourIndex === b.tourIndex) {
-    if (a.travelIndex < b.travelIndex) return -1;
-    if (a.travelIndex > b.travelIndex) return 1;
-  }
-  return 0;
 }

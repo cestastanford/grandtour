@@ -183,7 +183,7 @@ const applyEntryUpdates = async (entryUpdates, io) => {
 
     io.emit('reload-start', { message: 'Starting transfer to database...' })
     
-    const UPDATES_PER_RELOAD = 20;
+    const UPDATES_PER_RELOAD = 50;
     const indices = Object.keys(entryUpdates)
     for (let i = 0; i < indices.length; i++) {
 
@@ -205,7 +205,7 @@ const applyEntryUpdates = async (entryUpdates, io) => {
 //  Recounts the number of entries with data in a specific field.
 exports.recount = function(req, res) {
   
-  var counts = readJSONFile('./tsv/counts.json', 'counts');
+  var counts = readJSONFile('./mappings/counts.json', 'counts');
   Count.collection.drop();
 
   var newCounts = {};

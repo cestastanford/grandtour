@@ -53,21 +53,26 @@ app.controller('AdminCtrl', function($scope, $http) {
   var socket = io();
 
   socket.on('reload-start', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
+    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
       return d.value == res.sheet.value;
-    })[0];
-    s.info = false;
-    s.started = true;
-    s.loading = false;
-    s.finished = false;
-    s.count = 1;
-    s.total = 1;
-    s.message = res.message;
+    }) : $scope.defaults.sheets
+    sheets.forEach(function(s) {
+      s.info = false;
+      s.started = true;
+      s.loading = false;
+      s.finished = false;
+      s.count = 1;
+      s.total = 1;
+      s.message = res.message;
+    });
     $scope.$apply();
   });
 
   socket.on('reload-progress', function(res){
-    $scope.defaults.sheets.forEach(function(s) {
+    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
+      return d.value == res.sheet.value;
+    }) : $scope.defaults.sheets
+    sheets.forEach(function(s) {
       s.info = false;
       s.started = false;
       s.loading = true;
@@ -79,7 +84,10 @@ app.controller('AdminCtrl', function($scope, $http) {
   });
 
   socket.on('reload-finished', function(res){
-    $scope.defaults.sheets.forEach(function(s) {
+    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
+      return d.value == res.sheet.value;
+    }) : $scope.defaults.sheets
+    sheets.forEach(function(s) {
       s.info = false;
       s.started = false;
       s.loading = false;
@@ -92,7 +100,10 @@ app.controller('AdminCtrl', function($scope, $http) {
   });
 
   socket.on('reload-error', function(res){
-    $scope.defaults.sheets.forEach(function(s) {
+    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
+      return d.value == res.sheet.value;
+    }) : $scope.defaults.sheets
+    sheets.forEach(function(s) {
       s.info = false;
       s.started = false;
       s.loading = false;

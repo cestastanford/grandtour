@@ -84,10 +84,7 @@ app.controller('AdminCtrl', function($scope, $http) {
   });
 
   socket.on('reload-finished', function(res){
-    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    }) : $scope.defaults.sheets
-    sheets.forEach(function(s) {
+    $scope.defaults.sheets.forEach(function(s) {
       s.info = false;
       s.started = false;
       s.loading = false;

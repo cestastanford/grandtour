@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "start-dev": "heroku local -f Procfile.dev"
   },
   "dependencies": {
     "body-parser": "^1.12.2",
@@ -28,5 +29,8 @@
   },
   "engines": {
     "node": "8.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }

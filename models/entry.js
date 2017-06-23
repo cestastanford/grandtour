@@ -1,31 +1,37 @@
+/*
+*   Entry documents contain all updates of the data for a single
+*   entry.  Each individual revision of entry data is saved as an
+*   EntryUpdate embedded document.
+*/
+
+const path = require('path')
+const fs = require('fs')
 const mongoose = require('mongoose')
 
-const Entry = new mongoose.Schema({
-  
-  index: Number,
-  biography: String,
-  tours: [],
-  narrative: String,
-  notes: String,
-  entry: String,
+/*
+*   Generates the entryUpdateSchema from all field modules found
+*   in './entry-fields'.
+*/
 
-  fullName: String,
-  alternateNames: [],
-  places: [],
-  dates: [],
-  type: String,
+const ENTRY_FIELDS_DIR = 'entry-fields'
+const entryUpdateSchema = mongoose.Schema({})
+fs.readdirSync(path.join(__dirname, ENTRY_FIELDS_DIR)).forEach(filename => {
 
-  pursuits: [],
-  occupations: [],
-  education: [],
-  societies: [],
-  exhibitions: [],
-  military: [],
-  marriages: [],
-  mistress: [],
-  parents: {},
-  travels: [],
+    const { key, type } = require(`./${ENTRY_FIELDS_DIR}/${filename}`)
+    entryUpdateSchema.add({ [key]: type })
 
 })
 
-module.exports = mongoose.model('Entry', Entry)
+const ENTRY = 'Entry'
+const entrySchema = new mongoose.Schema({
+  
+    index: Number,
+    updates: [ entryUpdateSchema ],
+
+})
+
+module.exports = {
+
+    Entry: mongoose.model(ENTRY, entrySchema),
+
+}

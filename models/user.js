@@ -1,13 +1,25 @@
+/*
+*   User objects contain personal and authentication info, plus
+*   the currently-selected data revision.
+*/
+
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
-
-const User = new mongoose.Schema({
+const { REVISION } = require('./revision')
+const ROLES = { viewer: 'viewer', editor: 'editor', administrator: 'administrator' }
+const userSchema = new mongoose.Schema({
   
   fullName: String,
   email: String,
-  role: { type: String, default: 'viewer' },
+  role: { type: String, default: ROLES.viewer },
+  activeRevisionIndex: { type: Number, ref: REVISION },
 
 })
 
-User.plugin(passportLocalMongoose)
-module.exports = mongoose.model('User', User)
+userSchema.plugin(passportLocalMongoose)
+module.exports = {
+
+    ROLES,
+    User: mongoose.model('User', userSchema),
+
+}

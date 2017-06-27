@@ -6,9 +6,8 @@ const mongoose = require('mongoose')
 const REVISION = 'Revision'
 const revisionSchema = mongoose.Schema({
     
-    _id: Number,
+    index: { type: Number, index: true },
     name: String,
-    locked: Boolean,
 
 })
 

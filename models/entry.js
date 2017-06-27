@@ -7,25 +7,26 @@
 const path = require('path')
 const fs = require('fs')
 const mongoose = require('mongoose')
+const { REVISION } = require('./revision')
+const entryFields = require('./entry-fields')
 
 /*
 *   Generates the entryUpdateSchema from all field modules found
 *   in './entry-fields'.
 */
 
-const ENTRY_FIELDS_DIR = 'entry-fields'
-const entryUpdateSchema = mongoose.Schema({})
-fs.readdirSync(path.join(__dirname, ENTRY_FIELDS_DIR)).forEach(filename => {
+const entryUpdateSchema = mongoose.Schema({
 
-    const { key, type } = require(`./${ENTRY_FIELDS_DIR}/${filename}`)
-    entryUpdateSchema.add({ [key]: type })
+    revision: { type: Number, ref: REVISION, index: true }
 
 })
+
+entryFields.forEach(({ key, type }) => entryUpdateSchema.add({ [key]: type }))
 
 const ENTRY = 'Entry'
 const entrySchema = new mongoose.Schema({
   
-    index: Number,
+    index: { type: Number, index: true },
     updates: [ entryUpdateSchema ],
 
 })

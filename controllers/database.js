@@ -6,7 +6,7 @@ const fs = require('fs')
 const google = require('googleapis')
 const sheetValueRequest = google.sheets('v4').spreadsheets.values.get
 const Entry = require('../models/entry.js')
-const Count = require('../models/count.js')
+const { Count } = require('../models/count.js')
 
 
 /*

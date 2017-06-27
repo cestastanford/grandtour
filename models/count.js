@@ -1,10 +1,19 @@
-const mongoose = require('mongoose')
+/*
+*   Count documents save the number of entries with a non-null value
+*   for a given field.
+*/
 
-const Count = new mongoose.Schema({
+const mongoose = require('mongoose')
+const COUNT = 'Count'
+const countSchema = new mongoose.Schema({
   
   field: String,
   count: Number,
 
 })
 
-module.exports = mongoose.model('Count', Count)
+module.exports = {
+
+    Count: mongoose.model(COUNT, countSchema),
+
+}

@@ -5,6 +5,7 @@ module.exports = {
     label: 'Narrative',
     sheet: {
 
+        spreadsheet: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8',
         name: 'Entries',
         column: 'narrative',
 

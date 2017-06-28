@@ -9,7 +9,7 @@ const Entry = require('./models/entry')
 const List = require('./models/list')
 const Count = require('./models/count')
 const entries = require('./controllers/entries')
-const database = require('./controllers/database')
+const importing = require('./controllers/import')
 const lists = require('./controllers/lists')
 
 
@@ -42,10 +42,10 @@ routes.get('/components/:name', (req, res) => {
 /*
 *   User management routes:
 *
-*    - Check if a user is logged in
-*    - Register new user
-*    - Login
-*    - Logout
+*   - Check if a user is logged in
+*   - Register new user
+*   - Login
+*   - Logout
 */
 
 routes.get('/loggedin', (req, res) => {
@@ -105,10 +105,10 @@ var admin = (req, res, next) => {
 /*
 *   API routes for user management:
 *
-*    - Get all users
-*    - Add new user
-*    - Remove user
-*    - Update user
+*   - Get all users
+*   - Add new user
+*   - Remove user
+*   - Update user
 */
 
 routes.post('/api/users/add', admin, (req, res, next) => {
@@ -138,12 +138,12 @@ routes.post('/api/users/update', admin, (req, res, next) => {
 /*
 *   API routes for Entry management:
 *   
-*    - Get all entries
-*    - Get single entry
-*    - Search for entries (original and revised)
-*    - Get entry suggestions
-*    - Export entries
-*    - Get unique entry field values
+*   - Get all entries
+*   - Get single entry
+*   - Search for entries (original and revised)
+*   - Get entry suggestions
+*   - Export entries
+*   - Get unique entry field values
 */
 
 routes.get('/api/entries', entries.index)
@@ -156,31 +156,22 @@ routes.post('/api/entries/uniques', auth, entries.uniques)
 
 
 /*
-*   API routes for database management:
+*   API routes for importing to and exporting from the database:
 *   
-*    - Reload database from Google Sheets (original)
-*    - Remove all entries
-*    - Import from Google Sheets into new Revision
-*    - Recount field values
-*    - Get count of field values
+*   - Importing from Google Shets into new Revision
 */
 
-
-routes.post('/api/reload', admin, database.reload)
-routes.get('/api/clear-all', admin, database.clearAll)
-routes.post('/api/sheets-import', database.sheetsImport)
-routes.get('/api/recount', admin, database.recount)
-routes.get('/api/getcount', auth, database.getCount)
+routes.post('/api/import/sheets', importing.sheets)
 
 
 /*
 *   API routes for List management:
 *
-*    - Get current user's lists
-*    - Create a new list
-*    - Delete a list
-*    - Add entries to a list
-*    - Remove entries from a list
+*   - Get current user's lists
+*   - Create a new list
+*   - Delete a list
+*   - Add entries to a list
+*   - Remove entries from a list
 */
 
 routes.post('/api/lists/mylists', auth, lists.myLists)

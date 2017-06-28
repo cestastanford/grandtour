@@ -3,10 +3,22 @@
 *   the currently-selected data revision.
 */
 
-const { randomBytes } = require('crypto')
+
+/*
+*   Imports
+*/
+
+const crypto = require('crypto')
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
-const { REVISION, LATEST_REVISION } = require('./revision')
+const { REVISION_MODEL, LATEST_REVISION_INDEX } = require('./revision')
+const { statics, methods } = require('../controllers/user')
+
+
+/*
+*   Defines the User schema.
+*/
+
 const ROLES = { viewer: 'viewer', editor: 'editor', administrator: 'administrator' }
 const userSchema = new mongoose.Schema({
   
@@ -14,54 +26,25 @@ const userSchema = new mongoose.Schema({
     fullName: String,
     email: String,
     role: { type: String, default: ROLES.viewer },
-    activeRevisionIndex: { type: Number, ref: REVISION, default: LATEST_REVISION },
+    activeRevisionIndex: { type: Number, ref: REVISION_MODEL, default: LATEST_REVISION_INDEX },
 
 })
 
+
+/*
+*   Attaches the Passport plugin andstatic and instance methods,
+*   then creates model.
+*/
+
+userSchema.statics = statics
+userSchema.methods = methods
 userSchema.plugin(passportLocalMongoose)
-const User = mongoose.model('User', userSchema)
+const USER_MODEL = 'User'
+const User = mongoose.model(USER_MODEL, userSchema)
 
 
 /*
-*   Registers a new administrator user if no user exists on app
-*   launch.
+*   Exports
 */
 
-const registerDefaultAdmin = async () => {
-
-    if (await User.count() === 0) {
-
-        const defaultAdmin = new User({
-
-            username: 'default-admin',
-            fullName: 'Administrator',
-            email: 'none',
-            role: ROLES.administrator,
-
-        })
-
-        const password = randomBytes(11).toString('hex')
-
-        User.register(defaultAdmin, password, (err, user) => {
-            
-            if (err) { throw err }
-            else {
-                console.log('Default administrator user created:')
-                console.log(' - username: default-admin')
-                console.log(' - password: ' + password)
-                console.log('-----------------------------------')
-            }
-            
-        })
-
-    }
-
-}
-
-module.exports = {
-
-    User,
-    ROLES,
-    registerDefaultAdmin,
-
-}
+module.exports = { User, ROLES }

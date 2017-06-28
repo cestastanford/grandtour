@@ -16,7 +16,7 @@ const entryFields = require('../models/entry-fields')
 *   Client is updated via socket.io.
 */
 
-exports.sheetsImport = (req, res) => {
+exports.sheets = (req, res) => {
 
     //  Sends HTTP response first so client doesn't re-attempt request
     res.json({ status: 200 })
@@ -47,6 +47,9 @@ beginSheetsImport = async (fieldRequestsFromRequest, sendUpdate) => {
     //  Saves entry updates to database
     const revision = await createRevision(sendUpdate)
     await saveEntryUpdates(revision, entryUpdates, sendUpdate)
+
+    //  Creates a new Revision on top of the import
+    await Revision.create(`Revision started on ${(new Date()).toLocaleString()}`)
 
 }
 
@@ -225,17 +228,9 @@ const getEntryUpdates = (fieldRequests, sendUpdate) => {
 const createRevision = async sendUpdate => {
 
     sendUpdate('Preparing to save entry updates to database')
-
-    //  Creates a new Revision with a sequential index
-    const nRevisions = await Revision.count()
-    const revision = new Revision({
-        index: nRevisions,
-        name: `Import from Google Sheets on ${(new Date()).toLocaleString()}`,
-    })
-
-    //  Saves Revision to database and returns
-    await revision.save()
-    return revision
+    
+    const name = `Import from Google Sheets on ${(new Date()).toLocaleString()}`
+    return await Revision.create(name)
 
 }
 
@@ -264,9 +259,3 @@ const saveEntryUpdates = async (revision, entryUpdates, sendUpdate) => {
     }
 
 }
-
-
-exports.reload = () => {}
-exports.clearAll = () => {}
-exports.recount = () => {}
-exports.getCount = () => {}

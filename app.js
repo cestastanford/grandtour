@@ -62,12 +62,8 @@ app.use(allowCrossDomain);
 const routes = require('./routes')
 app.use('/', routes)
 
-/*
-*   Creates a default admin user if none exists.
-*/
-
-const { registerDefaultAdmin } = require('./models/user')
-registerDefaultAdmin()
+// Creates a default admin user if none exists.
+User.registerDefaultAdmin()
 
 // Generates 404 errors for non-error requests not handled by routes
 app.use(function(err, req, res, next) {

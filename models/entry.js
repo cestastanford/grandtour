@@ -4,21 +4,26 @@
 *   EntryUpdate embedded document.
 */
 
-const path = require('path')
-const fs = require('fs')
+
+/*
+*   Imports
+*/
+
 const mongoose = require('mongoose')
-const { REVISION } = require('./revision')
+const { REVISION_MODEL } = require('./revision')
 const entryFields = require('./entry-fields')
+const { statics, methods } = require('../controllers/entry')
 
 
 /*
-*   Generates the entryUpdateSchema from all field modules found
-*   in './entry-fields'.
+*   Generates the EntryUpdate schema from all field modules found
+*   in './entry-fields', then incorporates it as a subdocument in
+*   the Entry schema.
 */
 
 const entryUpdateSchema = mongoose.Schema({
 
-    revision: { type: Number, ref: REVISION, index: true }
+    revision: { type: Number, ref: REVISION_MODEL, index: true }
 
 })
 
@@ -31,7 +36,6 @@ for (let key in entryFields) entryUpdateSchema.add({
 
 })
 
-const ENTRY = 'Entry'
 const entrySchema = new mongoose.Schema({
   
     index: { type: Number, index: true },
@@ -41,19 +45,17 @@ const entrySchema = new mongoose.Schema({
 
 
 /*
-*   Applies a set of updated fields to an entry under the specified
-*   Revision.
+*   Attaches static and instance methods and creates model.
 */
 
-entrySchema.statics.commitUpdate = async function(index, revisionIndex, updatedFields) {
+entrySchema.statics = statics
+entrySchema.methods = methods
+const ENTRY_MODEL = 'Entry'
+const Entry = mongoose.model(ENTRY_MODEL, entrySchema)
 
-    const entryUpdate = Object.assign({}, { revision: revisionIndex }, updatedFields)
-    await this.update({ index }, { $push: { updates: entryUpdate } }, { upsert: true })
 
-}
+/*
+*   Exports
+*/
 
-module.exports = {
-
-    Entry: mongoose.model(ENTRY, entrySchema),
-
-}
+module.exports = { Entry }

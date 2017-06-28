@@ -4,7 +4,7 @@
 
 const express = require('express')
 const passport = require('passport')
-const { User, ROLES } = require('./models/user')
+const User = require('./models/user')
 const Entry = require('./models/entry')
 const List = require('./models/list')
 const Count = require('./models/count')

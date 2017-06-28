@@ -12,14 +12,14 @@ const crypto = require('crypto')
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 const { REVISION_MODEL, LATEST_REVISION_INDEX } = require('./revision')
-const { statics, methods } = require('../controllers/user')
+const UserClass = require('../controllers/user')
+const { ROLES } = require('../constants')
 
 
 /*
 *   Defines the User schema.
 */
 
-const ROLES = { viewer: 'viewer', editor: 'editor', administrator: 'administrator' }
 const userSchema = new mongoose.Schema({
   
     username: String,
@@ -36,15 +36,13 @@ const userSchema = new mongoose.Schema({
 *   then creates model.
 */
 
-userSchema.statics = statics
-userSchema.methods = methods
+userSchema.loadClass(UserClass)
 userSchema.plugin(passportLocalMongoose)
-const USER_MODEL = 'User'
-const User = mongoose.model(USER_MODEL, userSchema)
+const User = mongoose.model('User', userSchema)
 
 
 /*
 *   Exports
 */
 
-module.exports = { User, ROLES }
+module.exports = User

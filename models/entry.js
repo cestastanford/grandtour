@@ -10,9 +10,9 @@
 */
 
 const mongoose = require('mongoose')
-const { REVISION_MODEL } = require('./revision')
+const Revision = require('./revision')
 const entryFields = require('./entry-fields')
-const { statics, methods } = require('../controllers/entry')
+const EntryClass = require('../controllers/entry')
 
 
 /*
@@ -23,7 +23,7 @@ const { statics, methods } = require('../controllers/entry')
 
 const entryUpdateSchema = mongoose.Schema({
 
-    revision: { type: Number, ref: REVISION_MODEL, index: true }
+    revision: { type: Number, ref: Revision, index: true }
 
 })
 
@@ -48,14 +48,12 @@ const entrySchema = new mongoose.Schema({
 *   Attaches static and instance methods and creates model.
 */
 
-entrySchema.statics = statics
-entrySchema.methods = methods
-const ENTRY_MODEL = 'Entry'
-const Entry = mongoose.model(ENTRY_MODEL, entrySchema)
+entrySchema.loadClass(EntryClass)
+const Entry = mongoose.model('Entry', entrySchema)
 
 
 /*
 *   Exports
 */
 
-module.exports = { Entry }
+module.exports = Entry

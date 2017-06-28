@@ -10,15 +10,8 @@ const session = require('cookie-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const socket = require('./socket')
-const routes = require('./routes')
-const { User } = require('./models/user')
-
-
-/*
-*   Configures Passport.
-*/
-
-mongoose.Promise = Promise
+const router = require('./router')
+const User = require('./models/user')
 
 
 /*
@@ -62,6 +55,7 @@ socket.init(server)
 *   Connects Mongoose to MongoDB.
 */
 
+mongoose.Promise = Promise
 const mongoOptions = {
     server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
     replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
@@ -81,7 +75,7 @@ mongoose.connect(process.env['MONGODB_URI'], mongoOptions, err => {
 
 app.use(express.static(__dirname + '/public'))
 app.use('/bower_components', express.static(__dirname + '/bower_components'))
-app.use('/', routes)
+app.use('/', router)
 
 
 /*
@@ -89,6 +83,7 @@ app.use('/', routes)
 */
 
 User.registerDefaultAdmin()
+.catch(console.error.bind(console))
 
 
 /*
@@ -97,13 +92,14 @@ User.registerDefaultAdmin()
 *   and returning the error status code.
 */
 
+app.use((req, res, next) => {
+    err = new Error('Not Found')
+    err.status = 404
+    next(err)
+})
+
 app.use((err, req, res) => {
-  
-    if (!err) {
-        err = new Error('Not Found')
-        res.status = 404
-    }
-    res.status(err.status | 500)
+    req.status(err.status | 500)
     console.error('Express caught an error: ', err)
 
 })

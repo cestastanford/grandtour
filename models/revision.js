@@ -8,14 +8,13 @@
 */
 
 const mongoose = require('mongoose')
-const { statics, methods } = require('../controllers/revision')
+const RevisionClass = require('../controllers/revision')
 
 
 /*
 *   Defines the Revision schema.
 */
 
-const LATEST_REVISION_INDEX = -1
 const revisionSchema = mongoose.Schema({
     
     index: { type: Number, index: true },
@@ -28,20 +27,12 @@ const revisionSchema = mongoose.Schema({
 *   Attaches static and instance methods and creates Revision model.
 */
 
-revisionSchema.statics = statics
-revisionSchema.methods = methods
-const REVISION_MODEL = 'Revision'
-const Revision = mongoose.model(REVISION_MODEL, revisionSchema)
+revisionSchema.loadClass(RevisionClass)
+const Revision = mongoose.model('Revision', revisionSchema)
 
 
 /*
 *   Exports
 */
 
-module.exports = {
-
-    REVISION_MODEL,
-    Revision,
-    LATEST_REVISION_INDEX,
-
-}
+module.exports = Revision

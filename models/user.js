@@ -17,9 +17,10 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.plugin(passportLocalMongoose)
+
 module.exports = {
 
-    ROLES,
     User: mongoose.model('User', userSchema),
+    ROLES,
 
 }

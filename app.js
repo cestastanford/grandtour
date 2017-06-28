@@ -13,7 +13,6 @@ var { User } = require('./models/user');
 
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -21,15 +20,6 @@ var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   next();
 };
-
-
-//  socket connection console updates
-io.on('connection', () => {
-  console.log('Client socket connected')
-  io.on('disconnect', () => {
-    console.log('Client socket disconnected')
-  })
-})
 
 app.set('views', __dirname + '/public/');
 app.set('view engine', 'jade');
@@ -69,7 +59,8 @@ mongoose.connect(process.env['MONGODB_URI'], options, function(err) {
 app.use(allowCrossDomain);
 
 // Register routes
-app.use('/', require('./routes')(io));
+const routes = require('./routes')
+app.use('/', routes)
 
 // Generates 404 errors for non-error requests not handled by routes
 app.use(function(err, req, res, next) {

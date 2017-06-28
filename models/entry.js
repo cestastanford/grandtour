@@ -45,9 +45,9 @@ const entrySchema = new mongoose.Schema({
 *   Revision.
 */
 
-entrySchema.statics.commitUpdate = async function(index, revisionId, updatedFields) {
+entrySchema.statics.commitUpdate = async function(index, revisionIndex, updatedFields) {
 
-    const entryUpdate = Object.assign({}, { revision: revisionId }, updatedFields)
+    const entryUpdate = Object.assign({}, { revision: revisionIndex }, updatedFields)
     await this.update({ index }, { $push: { updates: entryUpdate } }, { upsert: true })
 
 }

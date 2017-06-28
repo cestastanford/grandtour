@@ -3,6 +3,7 @@
 */
 
 const router = require('express').Router()
+const { isViewer } = require('./auth')
 const Entry = require('../models/entry')
 
 
@@ -10,9 +11,11 @@ const Entry = require('../models/entry')
 *   Retrieves a single Entry.
 */
 
-router.get('/api/entries/:id', (req, res) => {
+router.get('/api/entries', isViewer, (req, res, next) => {
 
-    res.json(req.user)
+    Entry.findAtRevision({}, req.user.activeRevisionIndex)
+    .then(entries => res.json(entries))
+    .catch(next)
 
 })
 

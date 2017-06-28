@@ -2,16 +2,17 @@
 *   Initializes and exports the Socket.IO controller.
 */
 
+const Server = require('socket.io')
 module.exports = {
     
-    init(server) {
+    init(httpServer) {
 
-        this.io = require('socket.io')(server)
-        this.io.on('connection', () => {
+        this.socket = new Server(httpServer)
+        this.socket.on('connection', () => {
             
-            console.log('Client socket connected')
-            this.io.on('disconnect', () => {
-                console.log('Client socket disconnected')
+            console.log('Socket client connected')
+            this.socket.on('disconnect', () => {
+                console.log('Socket client disconnected')
             })
         
         })

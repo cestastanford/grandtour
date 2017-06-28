@@ -2,11 +2,19 @@
 *   Imports
 */
 
-const { io } = require('../socket')
+const socketIO = require('../socket')
 const google = require('googleapis')
-const { Revision } = require('../models/revision')
-const { Entry } = require('../models/entry')
+const Revision = require('../models/revision')
+const Entry = require('../models/entry')
 const entryFields = require('../models/entry-fields')
+
+
+//  Used for sending progress updates to socket-connected clients
+const sendUpdate = (message, progress) => {
+    const { socket } = socketIO
+    socket.emit('sheets-import', { message, progress })
+    console.log(message) 
+}
 
 
 /*
@@ -16,37 +24,19 @@ const entryFields = require('../models/entry-fields')
 *   Client is updated via socket.io.
 */
 
-exports.sheets = (req, res) => {
-
-    //  Sends HTTP response first so client doesn't re-attempt request
-    res.json({ status: 200 })
-
-    //  Used for sending progress updates to socket-connected clients
-    const sendUpdate = (message, progress) => {
-        io.emit('sheets-import', { message, progress })
-        console.log(message) 
-    }
-
-    //  Kicks off async importing process
-    beginSheetsImport(req.body.fieldRequests, sendUpdate)
-    .then()
-    .catch(console.error.bind(console))
-
-}
-
-beginSheetsImport = async (fieldRequestsFromRequest, sendUpdate) => {
+exports.fromSheets = async (fieldRequestsFromRequest) => {
 
     //  Requests sheet data from Google Spreadsheets
     const fieldRequests = fieldRequestsFromRequest || Object.values(entryFields)
-    const sheetRequests = getSheetRequests(fieldRequests, sendUpdate)
-    await getSheets(sheetRequests, sendUpdate)
+    const sheetRequests = getSheetRequests(fieldRequests)
+    await getSheets(sheetRequests)
 
     //  Applies data from sheets to an in-memory entry collection representation
-    const entryUpdates = getEntryUpdates(fieldRequests, sendUpdate)
+    const entryUpdates = getEntryUpdates(fieldRequests)
 
     //  Saves entry updates to database
-    const revision = await createRevision(sendUpdate)
-    await saveEntryUpdates(revision, entryUpdates, sendUpdate)
+    const revision = await createRevision()
+    await saveEntryUpdates(revision, entryUpdates)
 
     //  Creates a new Revision on top of the import
     await Revision.create(`Revision started on ${(new Date()).toLocaleString()}`)
@@ -59,7 +49,7 @@ beginSheetsImport = async (fieldRequestsFromRequest, sendUpdate) => {
 *   in the request.
 */
 
-const getSheetRequests = (fieldRequests, sendUpdate) => {
+const getSheetRequests = (fieldRequests) => {
 
     sendUpdate('Generating download requests')    
 
@@ -87,7 +77,7 @@ const getSheetRequests = (fieldRequests, sendUpdate) => {
 *   response data into objects.
 */
 
-const getSheets = async (sheetRequests, sendUpdate) => {
+const getSheets = async (sheetRequests) => {
 
     sendUpdate('Downloading sheet values')
 
@@ -166,7 +156,7 @@ const normalizeSheetValues = rows => {
 *   field definitions.
 */
 
-const getEntryUpdates = (fieldRequests, sendUpdate) => {
+const getEntryUpdates = (fieldRequests) => {
 
     sendUpdate('Processing downloaded sheets')
     
@@ -225,7 +215,7 @@ const getEntryUpdates = (fieldRequests, sendUpdate) => {
 *   updates.
 */
 
-const createRevision = async sendUpdate => {
+const createRevision = async () => {
 
     sendUpdate('Preparing to save entry updates to database')
     
@@ -239,7 +229,7 @@ const createRevision = async sendUpdate => {
 *   Saves entry updates to the database under the just-created revision.
 */
 
-const saveEntryUpdates = async (revision, entryUpdates, sendUpdate) => {
+const saveEntryUpdates = async (revision, entryUpdates) => {
 
     const nEntries = Object.keys(entryUpdates).length
     let nEntriesUpdated = 0

@@ -2,6 +2,7 @@
 *   Imports
 */
 
+const http = require('http')
 const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
@@ -9,7 +10,7 @@ const bodyParser = require('body-parser')
 const session = require('cookie-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
-const socket = require('./socket')
+const socketIO = require('./socket')
 const router = require('./router')
 const User = require('./models/user')
 
@@ -47,8 +48,8 @@ passport.deserializeUser(User.deserializeUser())
 *   Sets up Socket.IO.
 */
 
-const server = require('http').Server(app)
-socket.init(server)
+const server = http.Server(app)
+socketIO.init(server)
 
 
 /*

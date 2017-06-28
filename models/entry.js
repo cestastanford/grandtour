@@ -31,7 +31,7 @@ for (let key in entryFields) entryUpdateSchema.add({
 
     [key]: {
         type: entryFields[key].type,
-        default: null,
+        default: undefined,
     }
 
 })

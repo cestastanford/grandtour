@@ -14,7 +14,7 @@ statics.create = async function(name) {
 
     const nRevisions = await this.count()
     const newRevision = new this({
-        index: nRevisions,
+        index: nRevisions + 1,
         name,
     })
 

@@ -24,19 +24,19 @@ statics.commitUpdate = async function(index, revisionIndex, updatedFields) {
 *   up to 
 */
 
-methods.getEntryAtRevision = async function(revisionIndex) {
+statics.getEntryAtRevision = async function(index, revisionIndex) {
 
     const entry = await this.find({ index })
     const entryAtRevision = { index }
     entry.updates.forEach(update => {
 
-        if (update.revisionIndex <= revisionIndex) {
+        if (!revisionIndex || update.revisionIndex <= revisionIndex) {
 
-            for (let key in update) {
+            Object.keys(update).forEach(key => {
 
-                if (update[key]) entryAtRevision[key] = update[key]
+                if (update[key] || update[key] === null) entryAtRevision[key] = update[key]
 
-            }
+            })
 
         }
 

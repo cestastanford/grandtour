@@ -10,6 +10,7 @@ const mongoose = require('mongoose')
 const { REVISION } = require('./revision')
 const entryFields = require('./entry-fields')
 
+
 /*
 *   Generates the entryUpdateSchema from all field modules found
 *   in './entry-fields'.
@@ -21,7 +22,14 @@ const entryUpdateSchema = mongoose.Schema({
 
 })
 
-entryFields.forEach(({ key, type }) => entryUpdateSchema.add({ [key]: type }))
+for (let key in entryFields) entryUpdateSchema.add({
+
+    [key]: {
+        type: entryFields[key].type,
+        default: null,
+    }
+
+})
 
 const ENTRY = 'Entry'
 const entrySchema = new mongoose.Schema({
@@ -30,6 +38,19 @@ const entrySchema = new mongoose.Schema({
     updates: [ entryUpdateSchema ],
 
 })
+
+
+/*
+*   Applies a set of updated fields to an entry under the specified
+*   Revision.
+*/
+
+entrySchema.statics.commitUpdate = async function(index, revisionId, updatedFields) {
+
+    const entryUpdate = Object.assign({}, { revision: revisionId }, updatedFields)
+    await this.update({ index }, { $push: { updates: entryUpdate } }, { upsert: true })
+
+}
 
 module.exports = {
 

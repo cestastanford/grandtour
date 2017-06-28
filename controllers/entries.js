@@ -4,7 +4,7 @@ var	mongoose = require('mongoose')
 
 exports.index = function(req, res){
 
-  Entry.find({}, 'index fullName pursuits occupations education', function(err, entries){
+  Entry.find({}, function(err, entries){
     if (err) {
       res.json({error:err});
     //  return;

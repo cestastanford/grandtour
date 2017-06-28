@@ -1,10 +1,15 @@
 /*
-*   Returns all entry schema field objects.
+*   Returns all entry field definition objects.
 */
 
 const fs = require('fs')
-module.exports = fs.readdirSync(__dirname).map(filename => {
 
-    return filename !== 'index.js' ? require(`./${filename}`) : null 
+const entryFields = {}
+fs.readdirSync(__dirname).filter(filename => filename !== 'index.js').forEach(filename => {
 
-}).filter(d => d)
+    const entryField = require(`./${filename}`)
+    entryFields[entryField.key] = entryField
+
+})
+
+module.exports = entryFields

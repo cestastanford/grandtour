@@ -210,7 +210,7 @@ function routes(io) {
 
 
   // entries
-  router.get('/api/entries', auth, entries.index);
+  router.get('/api/entries', entries.index);
   router.get('/api/entries/:id', entries.single);
   router.post('/api/entries/search', auth, entries.search);
   router.post('/api/entries/search2', auth, entries.search2);
@@ -223,6 +223,7 @@ function routes(io) {
     database.reload(req, res, io)
   });
   router.get('/api/clear-all', admin, database.clearAll);
+  router.post('/api/sheets-import', (req, res) =>  database.sheetsImport(req, res, io))
 
   //  for counting entries
   router.get('/api/recount', admin, database.recount);

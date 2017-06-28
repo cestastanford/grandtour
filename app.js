@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
 
+mongoose.Promise = Promise
+
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var { User } = require('./models/user');
@@ -21,14 +23,13 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 
-//server.listen(app.get('port'));
-// socket.io
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('disconnected')
-  });
-});
+//  socket connection console updates
+io.on('connection', () => {
+  console.log('Client socket connected')
+  io.on('disconnect', () => {
+    console.log('Client socket disconnected')
+  })
+})
 
 app.set('views', __dirname + '/public/');
 app.set('view engine', 'jade');
@@ -70,38 +71,20 @@ app.use(allowCrossDomain);
 // Register routes
 app.use('/', require('./routes')(io));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
+// Generates 404 errors for non-error requests not handled by routes
+app.use(function(err, req, res, next) {
+  if (!err) {
+    err = new Error('Not Found')
+    err.status = 404;
+  }
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      title: 'error1',
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
+//  Prints errors to the console and returns the appropriate code
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    title: 'error1',
-    message: err.message,
-    error: {}
-  });
-});
+  res.status(err.status | 500);
+  console.error(err);
+})
 
 app.set('port', process.env.PORT || 4000);
 

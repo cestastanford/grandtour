@@ -8,7 +8,6 @@ const { User, ROLES } = require('./models/user')
 const Entry = require('./models/entry')
 const List = require('./models/list')
 const Count = require('./models/count')
-const users = require('./controllers/users')
 const entries = require('./controllers/entries')
 const database = require('./controllers/database')
 const lists = require('./controllers/lists')
@@ -111,8 +110,6 @@ var admin = (req, res, next) => {
 *    - Remove user
 *    - Update user
 */
-
-routes.get('/api/users', admin, users.index)
 
 routes.post('/api/users/add', admin, (req, res, next) => {
   User.register(new User(req.body), req.body.password, (err, data) => {

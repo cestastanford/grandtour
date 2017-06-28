@@ -2,6 +2,7 @@
 *   Imports
 */
 
+const { io } = require('../socket')
 const google = require('googleapis')
 const { Revision } = require('../models/revision')
 const { Entry } = require('../models/entry')
@@ -15,7 +16,7 @@ const entryFields = require('../models/entry-fields')
 *   Client is updated via socket.io.
 */
 
-exports.sheetsImport = (req, res, io) => {
+exports.sheetsImport = (req, res) => {
 
     //  Sends HTTP response first so client doesn't re-attempt request
     res.json({ status: 200 })

@@ -4,6 +4,7 @@
 
 const mongoose = require('mongoose')
 const REVISION = 'Revision'
+const LATEST_REVISION = -1
 const revisionSchema = mongoose.Schema({
     
     index: { type: Number, index: true },
@@ -14,6 +15,7 @@ const revisionSchema = mongoose.Schema({
 module.exports = {
 
     REVISION,
+    LATEST_REVISION,
     Revision: mongoose.model(REVISION, revisionSchema),
 
 }

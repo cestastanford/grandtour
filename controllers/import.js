@@ -9,7 +9,10 @@ const Entry = require('../models/entry')
 const entryFields = require('../models/entry-fields')
 
 
-//  Used for sending progress updates to socket-connected clients
+/*
+*   Sends progress updates to socket-connected clients.
+*/
+
 const sendUpdate = (message, progress) => {
     const { socket } = socketIO
     socket.emit('sheets-import', { message, progress })
@@ -173,7 +176,7 @@ const getEntryUpdates = (fieldRequests) => {
 
             //  Extracts value or value object from sheet
             let value
-            let transform = entryField.sheet.fromSheet || (d => d)
+            const transform = entryField.sheet.fromSheet || (d => d)
             if (entryField.sheet.columns) {
                 
                 const valueObject = {}

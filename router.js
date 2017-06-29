@@ -3,19 +3,21 @@
 */
 
 const router = require('express').Router()
-const userRoutes = require('./routers/user')
-const entryRoutes = require('./routers/entry')
-const importRoutes = require('./routers/import')
-const revisionRoutes = require('./routers/revision')
+const userRoutes = require('./routes/user')
+const entryRoutes = require('./routes/entry')
+const importRoutes = require('./routes/import')
+const exportRoutes = require('./routes/export')
+const revisionRoutes = require('./routes/revision')
 
 
 /*
-*   Applies sub-router routes to main router.
+*   Applies routes to main router.
 */
 
 router.use(userRoutes)
 router.use(entryRoutes)
 router.use(importRoutes)
+router.use(exportRoutes)
 router.use(revisionRoutes)
 
 

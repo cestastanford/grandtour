@@ -11,7 +11,7 @@ const Revision = require('../models/revision')
 *   Returns all Revisions.
 */
 
-router.get('/revisions', isEditor, async (req, res, next) => {
+router.get('/api/revisions', isEditor, async (req, res, next) => {
 
     try {
         const revisions = await Revision.find({})
@@ -27,7 +27,7 @@ router.get('/revisions', isEditor, async (req, res, next) => {
 *   Creates a new Revision.
 */
 
-router.post('/revisions', isEditor, (req, res, next) => {
+router.post('/api/revisions', isEditor, (req, res, next) => {
 
     Revision.create(`Revision started on ${(new Date()).toLocaleString()}`)
     .catch(next)

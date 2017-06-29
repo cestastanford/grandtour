@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 module.exports = {
 
     key: 'parents',
-    type: mongoose.Schema.Types.Mixed,
+    type: {},
     label: 'Parents',
     sheet: {
 

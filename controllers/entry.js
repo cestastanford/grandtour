@@ -25,8 +25,9 @@ module.exports = class Entry {
 
     static async findAtRevision(query, revisionIndex) {
 
-        const entries = await this.find(query)
-        return entries.map(this.getRevision.bind(null, revisionIndex))
+        const entries = await this.find(query, { _id: 0 })
+        return entries.map(entry => entry.toObject())
+        .map(this.reduceToRevision.bind(null, revisionIndex))
 
     }
 
@@ -36,11 +37,11 @@ module.exports = class Entry {
     *   latest revision if null) into a single object of Entry fields.
     */
 
-    static getRevision(revisionIndex, entry) {
+    static reduceToRevision(revisionIndex, entry) {
 
         const entryAtRevision = entry.updates.reduce((accumulator, update) => {
 
-            if (!revisionIndex || update.revisionIndex <= revisionIndex) {
+            if (!revisionIndex || update.revision <= revisionIndex) {
 
                 Object.keys(update).forEach(key => {
 
@@ -52,10 +53,11 @@ module.exports = class Entry {
 
             return accumulator
 
-        })
+        }, {})
 
         entryAtRevision.lastUpdatedRevision = entryAtRevision.revision
         delete entryAtRevision.revision
+        entryAtRevision.index = entry.index
         return entryAtRevision
 
     }

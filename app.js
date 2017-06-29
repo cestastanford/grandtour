@@ -5,6 +5,7 @@
 const http = require('http')
 const express = require('express')
 const mongoose = require('mongoose')
+mongoose.Promise = Promise
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('cookie-session')
@@ -56,7 +57,6 @@ socketIO.init(server)
 *   Connects Mongoose to MongoDB.
 */
 
-mongoose.Promise = Promise
 const mongoOptions = {
     server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
     replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
@@ -94,7 +94,7 @@ User.registerDefaultAdmin()
 */
 
 app.use((req, res, next) => {
-    err = new Error('Not Found')
+    err = new Error(`Not Found: ${req.originalUrl}`)
     err.status = 404
     next(err)
 })

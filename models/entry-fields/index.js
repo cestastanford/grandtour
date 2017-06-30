@@ -5,7 +5,7 @@
 const fs = require('fs')
 
 const entryFields = {}
-fs.readdirSync(__dirname).filter(filename => filename !== 'index.js').forEach(filename => {
+fs.readdirSync(__dirname).filter(filename => filename.match(/\.js$/) && filename !== 'index.js').forEach(filename => {
 
     const entryField = require(`./${filename}`)
     entryFields[entryField.key] = entryField

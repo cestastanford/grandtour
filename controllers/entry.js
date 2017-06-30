@@ -4,7 +4,7 @@
 
 const Revision = require('../models/revision')
 const entryFields = require('../models/entry-fields')
-const countMappings = require('../mappings/counts.json')
+const searchFields = require('../search-fields')
 
 
 /*
@@ -167,15 +167,59 @@ module.exports = class Entry {
 
     static async getCounts() {
 
+        const countMappings = []
+        Object.values(searchFields).forEach(field => {
+
+            if (Array.isArray(field.queries)) field.queries.forEach(query => {
+                const key = [ field.key, query.subkey ].filter(e => e).join('_')
+                countMappings.push({ key, query: query.count })
+            })
+
+            else countMappings.push({ key: field.key, query: field.queries.count })
+
+        })
+
         const counts = {}
-        await Promise.all(countMappings.counts.map(async mapping => {
+        await Promise.all(countMappings.map(async mapping => {
 
             const count = await this.count(mapping.query)
-            counts[mapping.field] = count
+            counts[mapping.key] = count
 
         }))
 
         return { counts }
+
+    }
+
+
+    /*
+    *   Performs a search referencing the field schemas contained
+    *   in './search-fields/'.
+    */
+
+    static async fieldSearch(query) {
+
+        const $and = []
+        for (var key in query) {
+            
+            const keyParts = key.split('_')
+            let getQuery
+            if (keyParts[1]) getQuery = searchFields[keyParts[0]].queries.filter(q => q.subkey === keyParts[1])[0].match
+            else getQuery = searchFields[keyParts[0]].queries.match
+            
+            let fieldQuery
+            if (Array.isArray(query[key])) {
+                const $or = query[key].map(getQuery)
+                fieldQuery = { $or }
+            } else fieldQuery = getQuery(query[key]);
+
+            $and.push(fieldQuery)
+
+        }
+
+        console.log(JSON.stringify($and))
+        
+        return await ($and.length ? this.find({ $and }) : [])
 
     }
 

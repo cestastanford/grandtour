@@ -103,6 +103,20 @@ router.get('/api/getcount', isViewer, (req, res, next) => {
 
 
 /*
+*   Performs a search for entries based on the supplied queries.
+*/
+
+router.post('/api/entries/search', (req, res, next) => {
+
+    Entry.fieldSearch(req.body.query)
+    .then(results => results.map(result => result.latest))
+    .then(results => res.json(results))
+    .catch(next)
+
+})
+
+
+/*
 *   Exports
 */
 

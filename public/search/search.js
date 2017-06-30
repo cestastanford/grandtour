@@ -22,7 +22,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
     $scope.searching = true;
-    $http.post('/api/entries/search2', {
+    $http.post('/api/entries/search', {
         query: $scope.query
       }
     )

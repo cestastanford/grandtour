@@ -22,4 +22,19 @@ module.exports = class Revision {
 
     }
 
+
+    /*
+    *   Retrieves the latest Revision index.
+    */
+
+    static async getLatestIndex() {
+
+        const revision = await this.findOne({})
+        .sort({ index: 'desc' })
+        .limit(1)
+
+        return revision.index
+
+    }
+
 }

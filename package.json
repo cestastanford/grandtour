@@ -20,7 +20,7 @@
     "googleapis": "^16.1.0",
     "jade": "^1.9.2",
     "jsondiffpatch": "^0.1.33",
-    "mongoose": "^4.8.4",
+    "mongoose": "^4.11.0",
     "morgan": "^1.5.2",
     "passport": "*",
     "passport-local": "*",

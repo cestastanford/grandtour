@@ -25,7 +25,7 @@ const entryUpdateSchema = mongoose.Schema({
 
     revision: { type: Number, ref: Revision, index: true }
 
-})
+}, { _id: false })
 
 for (let key in entryFields) entryUpdateSchema.add({
 
@@ -38,7 +38,7 @@ for (let key in entryFields) entryUpdateSchema.add({
 
 const entrySchema = new mongoose.Schema({
   
-    index: { type: Number, index: true },
+    index: { type: String, index: true, required: true },
     updates: [ entryUpdateSchema ],
 
 })

@@ -13,12 +13,9 @@ const Revision = require('../models/revision')
 
 router.get('/api/revisions', isEditor, async (req, res, next) => {
 
-    try {
-        const revisions = await Revision.find({})
-        res.json(revisions)
-    } catch (error) {
-        next(error)
-    }
+    Revision.find({})
+    .then(revisions => res.json(revisions))
+    .catch(next)
 
 })
 
@@ -30,6 +27,7 @@ router.get('/api/revisions', isEditor, async (req, res, next) => {
 router.post('/api/revisions', isEditor, (req, res, next) => {
 
     Revision.create(`Revision started on ${(new Date()).toLocaleString()}`)
+    .then(revision => res.status(201).json(revision))
     .catch(next)
 
 })

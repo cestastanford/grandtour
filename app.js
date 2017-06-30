@@ -89,20 +89,15 @@ User.registerDefaultAdmin()
 
 /*
 *   Handles errors, generating 404 errors for non-error requests
-*   not handled by routes, then printing the errors to the console
-*   and returning the error status code.
+*   not handled by routes, then handing handling off to the default
+*   error handler, which prints the errors to the console and returns
+*   the error status code.
 */
 
 app.use((req, res, next) => {
-    err = new Error(`Not Found: ${req.originalUrl}`)
+    const err = new Error(`Not Found: ${req.originalUrl}`)
     err.status = 404
     next(err)
-})
-
-app.use((err, req, res) => {
-    req.status(err.status | 500)
-    console.error('Express caught an error: ', err)
-
 })
 
 

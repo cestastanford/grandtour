@@ -5,8 +5,7 @@
 const router = require('express').Router()
 const userRoutes = require('./routes/user')
 const entryRoutes = require('./routes/entry')
-const importRoutes = require('./routes/import')
-const exportRoutes = require('./routes/export')
+const databaseRoutes = require('./routes/database')
 const revisionRoutes = require('./routes/revision')
 
 
@@ -16,8 +15,7 @@ const revisionRoutes = require('./routes/revision')
 
 router.use(userRoutes)
 router.use(entryRoutes)
-router.use(importRoutes)
-router.use(exportRoutes)
+router.use(databaseRoutes)
 router.use(revisionRoutes)
 
 

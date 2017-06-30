@@ -3,6 +3,7 @@
 */
 
 const crypto = require('crypto')
+const Revision = require('../models/revision')
 const { ROLES } = require('../constants')
 
 
@@ -46,17 +47,6 @@ module.exports = class User {
             }))
 
         }
-
-    }
-
-
-    /*
-    *   Updates a User's active Revision.
-    */
-
-    async setActiveRevision(activeRevisionIndex) {
-
-        await this.update({ activeRevisionIndex })
 
     }
 

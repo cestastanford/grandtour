@@ -38,8 +38,8 @@ exports.fromSheets = async (fieldRequestsFromRequest) => {
     const entryUpdates = getEntryUpdates(fieldRequests)
 
     //  Saves entry updates to database
-    const revision = await createRevision()
-    await saveEntryUpdates(revision, entryUpdates)
+    await createRevision()
+    await saveEntryUpdates(entryUpdates)
 
     //  Creates a new Revision on top of the import
     await Revision.create(`Revision started on ${(new Date()).toLocaleString()}`)
@@ -159,7 +159,7 @@ const normalizeSheetValues = rows => {
 *   field definitions.
 */
 
-const getEntryUpdates = (fieldRequests) => {
+const getEntryUpdates = fieldRequests => {
 
     sendUpdate('Processing downloaded sheets')
     
@@ -220,10 +220,10 @@ const getEntryUpdates = (fieldRequests) => {
 
 const createRevision = async () => {
 
-    sendUpdate('Preparing to save entry updates to database')
+    sendUpdate('Creating new Revision for imported entry data')
     
     const name = `Import from Google Sheets on ${(new Date()).toLocaleString()}`
-    return await Revision.create(name)
+    await Revision.create(name)
 
 }
 
@@ -232,13 +232,15 @@ const createRevision = async () => {
 *   Saves entry updates to the database under the just-created revision.
 */
 
-const saveEntryUpdates = async (revision, entryUpdates) => {
+const saveEntryUpdates = async entryUpdates => {
 
     const nEntries = Object.keys(entryUpdates).length
     let nEntriesUpdated = 0
     for (let index in entryUpdates) {
 
-        await Entry.commitUpdate(index, revision.index, entryUpdates[index])
+        let entry = await Entry.findOne({ index })
+        if (!entry) entry = new Entry({ index })
+        await entry.saveToLatestRevision(entryUpdates[index])
         
         nEntriesUpdated++
         if (nEntriesUpdated % 1000 === 0) {

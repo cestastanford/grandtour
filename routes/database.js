@@ -41,19 +41,6 @@ router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
 
 
 /*
-*   Deletes all Entries (including all updates).
-*/
-
-router.delete('/api/entries', isAdministrator, (req, res, next) => {
-
-    Entry.deleteMany({})
-    .then(() => res.status(200).send())
-    .catch(next)
-
-})
-
-
-/*
 *   Exports
 */
 

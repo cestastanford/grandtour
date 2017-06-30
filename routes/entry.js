@@ -46,8 +46,8 @@ router.patch('/api/entries/:index', isEditor, (req, res, next) => {
     Entry.findOne({ index: req.params.index })
     .then(entry => {
         if (entry) {
-            entry.saveToLatestRevision(req.body)
-            return entry.atRevision(req.user.activeRevisionIndex)
+            return entry.saveToLatestRevision(req.body)
+            .then(() => entry.atRevision(req.user.activeRevisionIndex))
         } else { throw null /*  Triggers the 404 Not Found error handler  */ }
     })
     .then(entry => res.json(entry))

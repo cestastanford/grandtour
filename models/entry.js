@@ -40,6 +40,7 @@ const entrySchema = new mongoose.Schema({
   
     index: { type: String, index: true, required: true },
     updates: [ entryUpdateSchema ],
+    latest: entryUpdateSchema,
 
 })
 

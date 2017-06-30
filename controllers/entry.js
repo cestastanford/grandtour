@@ -76,9 +76,10 @@ module.exports = class Entry {
         }
 
         for (let key in entryFields) {
-            if (updatedFields[key]) update[key] = updatedFields[key]
+            if (updatedFields[key] || updatedFields[key] === null) update[key] = updatedFields[key]
         }
-        
+
+        this.latest = this.atRevision()
         await this.save()
 
     }
@@ -133,6 +134,27 @@ module.exports = class Entry {
         const newEntry = foundEntry || new Entry({ index })
         await newEntry.saveToLatestRevision(entryFields)
         return newEntry.atRevision()
+
+    }
+
+
+    /*
+    *   Deletes all updates from all Entries for a given Revision.
+    */
+
+    static async deleteUpdatesForRevision(revisionIndex) {
+
+        const entries = await this.find({})
+        await Promise.all(entries.map(async entry => {
+
+            const matchingUpdate = entry.updates.filter(update => update.revision === +revisionIndex)[0]
+            if (matchingUpdate) {
+                entry.updates.pull(matchingUpdate)
+                entry.latest = entry.atRevision()
+                await entry.save()
+            }
+
+        }))
 
     }
 

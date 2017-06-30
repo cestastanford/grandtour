@@ -21,25 +21,6 @@ const routes = express.Router()
 
 
 /*
-*   Renders Angular-driven pages.
-*/
-
-routes.get('/', (req, res) => {
-    res.render('index')
-})
-
-routes.get('/views/:name', (req, res) => {
-    const name = req.params.name
-    res.render(name + '/' + name)
-})
-
-routes.get('/components/:name', (req, res) => {
-    const name = req.params.name
-    res.render('components/' + name + '/' + name)
-})
-
-
-/*
 *   API routes for Entry management:
 *   
 *   - Get all entries
@@ -66,23 +47,6 @@ routes.post('/api/entries/uniques', auth, entries.uniques)
 */
 
 routes.post('/api/import/sheets', importing.sheets)
-
-
-/*
-*   API routes for List management:
-*
-*   - Get current user's lists
-*   - Create a new list
-*   - Delete a list
-*   - Add entries to a list
-*   - Remove entries from a list
-*/
-
-routes.post('/api/lists/mylists', auth, lists.myLists)
-routes.post('/api/lists/newlist', auth, lists.newList)
-routes.post('/api/lists/deletelist', auth, lists.deleteList)
-routes.post('/api/lists/addtolist', auth, lists.addToList)
-routes.post('/api/lists/removefromlist', auth, lists.removeFromList)
 
 
 module.exports = routes

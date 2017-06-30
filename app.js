@@ -22,7 +22,7 @@ const User = require('./models/user')
 
 const app = express()
 app.set('views', __dirname + '/public/')
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser())

@@ -9,7 +9,7 @@ html(lang="en", ng-app="app")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Cousine:400,700")  
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
-    link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
     link(rel='stylesheet', href='/app.css')
 
   body
@@ -37,8 +37,7 @@ html(lang="en", ng-app="app")
             li(ng-show="currentUser.role=='admin'")
               a(ui-sref="admin") Manage
             li
-              a 
-                {{currentUser.fullName || currentUser.username}}
+              a {{currentUser.fullName || currentUser.username}}
             a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
               //i.fa.fa-sign-out.margin-right
               | Logout

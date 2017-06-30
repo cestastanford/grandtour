@@ -11,7 +11,7 @@ const { ROLES } = require('../constants.js')
 *   of editors, and editors have all of the privileges of viewers.
 */
 
-exports.isViewer = (req, res, next) => {
+const isViewer = (req, res, next) => {
     if (req.isAuthenticated()) {
         next()
     } else {
@@ -19,7 +19,7 @@ exports.isViewer = (req, res, next) => {
     }
 }
 
-exports.isEditor = (req, res, next) => {
+const isEditor = (req, res, next) => {
     if (req.isAuthenticated() && (
         req.user.role === ROLES.editor ||
         req.user.role === ROLES.administrator
@@ -30,10 +30,17 @@ exports.isEditor = (req, res, next) => {
     }
 }
 
-exports.isAdministrator = (req, res, next) => {
+const isAdministrator = (req, res, next) => {
     if (req.isAuthenticated() && req.user.role === ROLES.administrator) {
         next()
     } else {
         res.send(401)
     }
 }
+
+
+/*
+*   Exports
+*/
+
+module.exports = { isViewer, isEditor, isAdministrator }

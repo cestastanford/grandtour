@@ -4,6 +4,7 @@
 
 const Revision = require('../models/revision')
 const entryFields = require('../models/entry-fields')
+const countMappings = require('../mappings/counts.json')
 
 
 /*
@@ -155,6 +156,26 @@ module.exports = class Entry {
             }
 
         }))
+
+    }
+
+
+    /*
+    *   Calculates the counts of entries with values for each field
+    *   query mapping.
+    */
+
+    static async getCounts() {
+
+        const counts = {}
+        await Promise.all(countMappings.counts.map(async mapping => {
+
+            const count = await this.count(mapping.query)
+            counts[mapping.field] = count
+
+        }))
+
+        return { counts }
 
     }
 

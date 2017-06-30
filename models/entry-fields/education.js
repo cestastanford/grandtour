@@ -6,7 +6,7 @@ module.exports = {
     sheet: {
 
         spreadsheet: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8',
-        name: 'Occupations & Posts',
+        name: 'Education',
         columns: [ 'education', 'from', 'to', 'degree', 'fullDegree', 'degreeDate', 'teacher', 'institution', 'place' ],
 
     }

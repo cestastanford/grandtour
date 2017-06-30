@@ -89,6 +89,20 @@ router.post('/api/entries', isEditor, (req, res, next) => {
 
 
 /*
+*   Retrieves the counts of entries that have values for the queries
+*   defined in './mappings/counts".
+*/
+
+router.get('/api/getcount', isViewer, (req, res, next) => {
+
+    Entry.getCounts()
+    .then(counts => res.json(counts))
+    .catch(next)
+
+})
+
+
+/*
 *   Exports
 */
 

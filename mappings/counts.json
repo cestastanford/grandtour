@@ -2,103 +2,103 @@
     "counts" : [
         {
             "field" : "fullName",
-            "query" : { "fullName" : { "$ne" : null } }
+            "query" : { "latest.fullName" : { "$ne" : null } }
         },
         {
             "field" : "alternateNames",
-            "query" : { "alternateNames" : { "$exists" : true } }
+            "query" : { "latest.alternateNames" : { "$exists" : true } }
         },
         {
-            "field" : "birthDate",
-            "query" : { "dates.0.birthDate" : { "$exists" : true } }
+            "field" : "birthYear",
+            "query" : { "latest.birthYear" : { "$exists" : true } }
         },
         {
             "field" : "birthPlace",
-            "query" : { "places.0.birthPlace" : { "$exists" : true } }
+            "query" : { "latest.birthPlace" : { "$exists" : true } }
         },
         {
-            "field" : "deathDate",
-            "query" : { "dates.0.deathDate" : { "$exists" : true } }
+            "field" : "deathYear",
+            "query" : { "latest.deathYear" : { "$exists" : true } }
         },
         {
             "field" : "deathPlace",
-            "query" : { "places.0.deathPlace" : { "$exists" : true } }
+            "query" : { "latest.deathPlace" : { "$exists" : true } }
         },
         {
             "field" : "type",
-            "query" : { "type" : { "$ne" : null } }
+            "query" : { "latest.gender" : { "$ne" : null } }
         },
         {
             "field" : "societies",
-            "query" : { "societies.title" : { "$exists" : true } }
+            "query" : { "latest.societies.title" : { "$exists" : true } }
         },
         {
             "field" : "societies_role",
-            "query" : { "societies.role" : { "$exists" : true } }
+            "query" : { "latest.societies.role" : { "$exists" : true } }
         },
         {
             "field" : "education_institution",
-            "query" : { "education.institution" : { "$exists" : true } }
+            "query" : { "latest.education.institution" : { "$exists" : true } }
         },
         {
             "field" : "education_place",
-            "query" : { "education.place" : { "$exists" : true } }
+            "query" : { "latest.education.place" : { "$exists" : true } }
         },
         {
             "field" : "education_degree",
-            "query" : { "education.degree" : { "$exists" : true } }
+            "query" : { "latest.education.degree" : { "$exists" : true } }
         },
         {
             "field" : "education_teacher",
-            "query" : { "education.teacher" : { "$exists" : true } }
+            "query" : { "latest.education.teacher" : { "$exists" : true } }
         },
         {
             "field" : "pursuits",
-            "query" : { "pursuits" : { "$ne" : null } }
+            "query" : { "latest.employments" : { "$ne" : null } }
         },
         {
             "field" : "occupations",
-            "query" : { "occupations.title" : { "$exists" : true } }
+            "query" : { "latest.occupations.title" : { "$exists" : true } }
         },
         {
             "field" : "occupations_group",
-            "query" : { "occupations.group" : { "$exists" : true } }
+            "query" : { "latest.occupations.group" : { "$exists" : true } }
         },
         {
             "field" : "occupations_place",
-            "query" : { "occupations.place" : { "$exists" : true } }
+            "query" : { "latest.occupations.place" : { "$exists" : true } }
         },
         {
             "field" : "military",
-            "query" : { "military.rank" : { "$exists" : true } }
+            "query" : { "latest.militaryCareers.rank" : { "$exists" : true } }
         },
         {
             "field" : "travel_place",
-            "query" : { "travels.place" : { "$exists" : true } }
+            "query" : { "latest.travels.place" : { "$exists" : true } }
         },
         {
             "field" : "travel_date",
-            "query" : { "$or" : [ { "travels.travelStartYear" : { "$ne" : 0 } }, { "travels.travelEndYear" : { "$ne" : 0 } } ] }
+            "query" : { "$or" : [ { "latest.travels.travelStartYear" : { "$ne" : "0" } }, { "latest.travels.travelEndYear" : { "$ne" : "0" } } ] }
         },
         {
             "field" : "travel_year",
-            "query" : { "$or" : [ { "travels.travelStartYear" : { "$ne" : 0 } }, { "travels.travelEndYear" : { "$ne" : 0 } } ] }
+            "query" : { "$or" : [ { "latest.travels.travelStartYear" : { "$ne" : "0" } }, { "latest.travels.travelEndYear" : { "$ne" : "0" } } ] }
         },
         {
             "field" : "travel_month",
-            "query" : { "$or" : [ { "travels.travelStartMonth" : { "$ne" : 0 } }, { "travels.travelEndMonth" : { "$ne" : 0 } } ] }
+            "query" : { "$or" : [ { "latest.travels.travelStartMonth" : { "$ne" : "0" } }, { "latest.travels.travelEndMonth" : { "$ne" : "0" } } ] }
         },
         {
             "field" : "travel_day",
-            "query" : { "$or" : [ { "travels.travelStartDay" : { "$ne" : 0 } }, { "travels.travelEndDay" : { "$ne" : 0 } } ] }
+            "query" : { "$or" : [ { "latest.travels.travelStartDay" : { "$ne" : "0" } }, { "latest.travels.travelEndDay" : { "$ne" : "0" } } ] }
         },
         {
             "field" : "exhibitions",
-            "query" : { "exhibitions.title" : { "$exists" : true } }
+            "query" : { "latest.exhibitions.title" : { "$exists" : true } }
         },
         {
             "field" : "exhibitions_activity",
-            "query" : { "exhibitions.activity" : { "$exists" : true } }
+            "query" : { "latest.exhibitions.activity" : { "$exists" : true } }
         }
     ]
 }

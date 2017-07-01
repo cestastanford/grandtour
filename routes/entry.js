@@ -5,6 +5,9 @@
 const router = require('express').Router()
 const { isViewer, isEditor } = require('./auth')
 const Entry = require('../models/entry')
+const searchFields = require('../search-fields')
+const entries = require('../controllers/entries')
+
 
 
 /*
@@ -108,12 +111,43 @@ router.get('/api/getcount', isViewer, (req, res, next) => {
 
 router.post('/api/entries/search', (req, res, next) => {
 
-    Entry.fieldSearch(req.body.query)
+    Entry.find(assembleQuery(req.body.query))
     .then(results => results.map(result => result.latest))
-    .then(results => res.json(results))
+    .then(entries => res.json({ entries }))
     .catch(next)
 
 })
+
+
+/*
+*   Helper function for parsing and assembling MongoDB queries from
+*   submitted field values.
+*/
+
+const assembleQuery = fields => {
+
+    const $and = []
+    for (var key in fields) {
+        
+        const keyParts = key.split('_')
+        let getQuery
+        if (keyParts[1]) getQuery = searchFields[keyParts[0]].queries.filter(q => q.subkey === keyParts[1])[0].match
+        else getQuery = searchFields[keyParts[0]].queries.match
+        
+        let fieldQuery
+        if (Array.isArray(fields[key])) {
+            const $or = fields[key].map(getQuery)
+            fieldQuery = { $or }
+        } else fieldQuery = getQuery(fields[key]);
+
+        $and.push(fieldQuery)
+
+    }
+
+    console.log(JSON.stringify($and))
+    return $and.length ? { $and } : {}
+
+}
 
 
 /*

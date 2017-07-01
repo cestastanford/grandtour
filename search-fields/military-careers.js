@@ -5,7 +5,7 @@ module.exports = {
     queries: {
         label: 'rank',
         count: { 'latest.militaryCareers.rank': { $exists: true } },
-        match: d => ({ 'latest.military.rank': { $regex: new RegExp(d, "gi") } }),
+        match: d => ({ 'latest.militaryCareers.rank': { $regex: new RegExp(d, "gi") } }),
     }
 
 }

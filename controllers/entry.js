@@ -191,36 +191,4 @@ module.exports = class Entry {
 
     }
 
-
-    /*
-    *   Performs a search referencing the field schemas contained
-    *   in './search-fields/'.
-    */
-
-    static async fieldSearch(query) {
-
-        const $and = []
-        for (var key in query) {
-            
-            const keyParts = key.split('_')
-            let getQuery
-            if (keyParts[1]) getQuery = searchFields[keyParts[0]].queries.filter(q => q.subkey === keyParts[1])[0].match
-            else getQuery = searchFields[keyParts[0]].queries.match
-            
-            let fieldQuery
-            if (Array.isArray(query[key])) {
-                const $or = query[key].map(getQuery)
-                fieldQuery = { $or }
-            } else fieldQuery = getQuery(query[key]);
-
-            $and.push(fieldQuery)
-
-        }
-
-        console.log(JSON.stringify($and))
-        
-        return await ($and.length ? this.find({ $and }) : [])
-
-    }
-
 }

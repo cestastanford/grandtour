@@ -7,7 +7,7 @@ module.exports = {
             subkey: 'place',
             label: 'place',
             count: { 'latest.travels.place': { $exists: true } },
-            match: d => ({ 'latest.travels.place': { $regex: new RegExp(d.place, 'gi') } }),
+            match: d => ({ 'latest.travels.place': { $regex: new RegExp(d, 'gi') } }),
         },
         {
             subkey: 'year',

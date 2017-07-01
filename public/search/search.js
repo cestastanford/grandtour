@@ -147,7 +147,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
   $scope.getSuggestions = function(field, value){
     return $http.post('/api/entries/suggest/', {  field : field, value : value })
     .then(function (res){
-      return res.data.results;//.map(function(d){ return { value: d } });
+      return res.data.results;
     })
   }
 

@@ -57,16 +57,18 @@ exports.suggest = function (req, res) {
     var elemMatch = {};
     elemMatch[field.split('.')[1]] = { $regex : new RegExp(value, "i") };
     var query = { $elemMatch : elemMatch };
-    condition[field.split('.')[0]] = query;
+    condition['latest.' + field.split('.')[0]] = query;
   } else {
     var query = { $regex : new RegExp(value, "i") };
-    condition[field] = query;
+    condition['latest.' + field] = query;
   }
 
-  if (field === 'fullName') {
+  field = 'latest.' + field
 
-    var query = { $or : [ { fullName: condition[field] }, { alternateNames: { $elemMatch : { alternateName : condition[field] } } } ] };
-    var fields = { fullName: true, alternateNames: true };
+  if (field === 'latest.fullName') {
+
+    var query = { $or : [ { 'latest.fullName': condition[field] }, { 'latest.alternateNames': condition[field] } ] };
+    var fields = { 'latest.fullName': true, 'latest.alternateNames': true };
     Entry.find(query, fields, function(error, response) {
 
       if (error) res.json({ error: error });
@@ -74,13 +76,13 @@ exports.suggest = function (req, res) {
 
         var matches = [];
         var doesMatch = function(d) { return d.search( new RegExp(value, "i") ) != -1; };
-        response.forEach(function(entry) {
+        response.map(d => ({ fullName: d.latest.fullName, alternateNames: d.latest.alternateNames })).forEach(function(entry) {
 
           if (doesMatch(entry.fullName)) matches.push({ nameMatch: entry.fullName });
-          entry.alternateNames.forEach(function(alternateName) {
+          if (entry.alternateNames) entry.alternateNames.forEach(function(alternateName) {
 
-            if (doesMatch(alternateName.alternateName)) matches.push({
-              nameMatch: alternateName.alternateName,
+            if (doesMatch(alternateName)) matches.push({
+              nameMatch: alternateName,
               see: entry.fullName,
             });
 

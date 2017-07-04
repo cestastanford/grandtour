@@ -11,8 +11,6 @@
 const crypto = require('crypto')
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
-const Revision = require('./revision')
-const UserClass = require('../controllers/user')
 const { ROLES } = require('../constants')
 
 
@@ -26,9 +24,55 @@ const userSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     role: { type: String, default: ROLES.viewer, enum: Object.values(ROLES), required: true },
-    activeRevisionIndex: { type: Number, ref: Revision, default: null },
+    activeRevisionIndex: Number,
 
 })
+
+
+/*
+*   Defines the static and instance methods for the User class.
+*/
+
+class User {
+
+
+    /*
+    *   Registers a new administrator user if no user exists on app
+    *   launch.
+    */
+
+    static async registerDefaultAdmin() {
+
+        if (await this.count() === 0) {
+
+            const defaultAdmin = new this({
+
+                username: 'default-admin',
+                fullName: 'Administrator',
+                email: 'none',
+                role: ROLES.administrator,
+
+            })
+
+            const password = crypto.randomBytes(11).toString('hex')
+            await new Promise(resolve => this.register(defaultAdmin, password, (err, user) => {
+                
+                if (err) { throw err }
+                else {
+                    console.log('Default administrator user created:')
+                    console.log(' - username: default-admin')
+                    console.log(' - password: ' + password)
+                    console.log('-----------------------------------')
+                    resolve()
+                }
+                
+            }))
+
+        }
+
+    }
+
+}
 
 
 /*
@@ -36,13 +80,13 @@ const userSchema = new mongoose.Schema({
 *   then creates model.
 */
 
-userSchema.loadClass(UserClass)
+userSchema.loadClass(User)
 userSchema.plugin(passportLocalMongoose)
-const User = mongoose.model('User', userSchema)
+const userModel = mongoose.model('User', userSchema)
 
 
 /*
 *   Exports
 */
 
-module.exports = User
+module.exports = userModel

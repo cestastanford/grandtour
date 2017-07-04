@@ -2,11 +2,29 @@
 *   Imports
 */
 
+const router = require('express').Router()
+const { isAdministrator } = require('./auth')
 const socketIO = require('../socket')
 const google = require('googleapis')
 const Revision = require('../models/revision')
 const Entry = require('../models/entry')
 const entryFields = require('../models/entry-fields')
+
+
+/*
+*   Exports the indicated revision to Google Sheets.
+*/
+
+router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
+
+    //  Sends HTTP response first so client doesn't re-attempt request
+    res.json({ status: 200 })
+
+    //  Kicks off async exporting process
+    exportToSheets(req.body.revisionIndex)
+    .catch(next)
+
+})
 
 
 /*
@@ -25,7 +43,7 @@ const sendUpdate = (message, progress) => {
 *   a link to the spreadsheet.
 */
 
-exports.toSheets = async revisionIndex => {
+const exportToSheets = async revisionIndex => {
 
     sendUpdate('Retrieving entries')
     const entries = await Entry.findAtRevision({}, revisionIndex)
@@ -286,3 +304,11 @@ const saveToSheet = async (spreadsheet, sheet) => {
     sendUpdate(`Saved entry data to sheet ${sheet.name}`)
 
 }
+
+
+
+/*
+*   Exports
+*/
+
+module.exports = router

@@ -216,8 +216,8 @@ class Entry {
     async getAdjacentIndices(revisionIndex) {
 
         const query = revisionIndex
-        ? { updates: { revisionIndex: revisionIndex, _deleted: false } }
-        : { _deleted: false }
+        ? { _revisions: { $elemMatch: { revisionIndex: revisionIndex, _deleted: false } } }
+        : { _deleted: { $ne: true } }
 
         const previous = await this.constructor.findOne(query)
         .lt('_id', this._id)

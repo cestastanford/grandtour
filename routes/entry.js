@@ -31,8 +31,8 @@ router.get('/api/entries/:index', isViewer, (req, res, next) => {
     Entry.findById(req.params.index)
     .then(entry => {
         if (entry) return Promise.all([
-            Promise.resolve(entry.atRevision()),
-            entry.getAdjacentIndices(this.user.revisionIndex),
+            Promise.resolve(entry.getObject(req.user.activeRevisionIndex)),
+            entry.getAdjacentIndices(req.user.revisionIndex),
         ])
         else { throw null /*  Triggers the 404 Not Found error handler  */ }
     })

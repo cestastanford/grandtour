@@ -8,7 +8,6 @@
 */
 
 const mongoose = require('mongoose')
-const ListClass = require('../controllers/list')
 
 
 /*

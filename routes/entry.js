@@ -5,8 +5,6 @@
 const router = require('express').Router()
 const { isViewer, isEditor } = require('./auth')
 const Entry = require('../models/entry')
-const searchFields = require('../search-fields')
-const entries = require('../controllers/entries')
 
 
 /*

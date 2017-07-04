@@ -1,6 +1,6 @@
 module.exports = {
 
-    key: 'gender',
+    key: 'type',
     type: String,
     label: 'Gender',
     sheet: {

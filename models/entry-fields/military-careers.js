@@ -1,6 +1,6 @@
 module.exports = {
 
-    key: 'militaryCareers',
+    key: 'military',
     type: [],
     label: 'Military Careers',
     sheet: {

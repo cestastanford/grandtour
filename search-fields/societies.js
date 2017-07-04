@@ -6,14 +6,14 @@ module.exports = {
         {
             subkey: 'title',
             label: 'society',
-            count: { 'latest.societies.title': { $exists: true } },
-            match: d => ({ 'latest.societies.title': { $regex: new RegExp(d, 'gi') } }),
+            count: { 'societies.title': { $exists: true } },
+            match: d => ({ 'societies.title': { $regex: new RegExp(d, 'gi') } }),
         },
         {
             subkey: 'role',
             label: 'role',
-            count: { 'latest.societies.role': { $exists: true } },
-            match: d => ({ 'latest.societies.role': { $regex: new RegExp(d, 'gi') } }),
+            count: { 'societies.role': { $exists: true } },
+            match: d => ({ 'societies.role': { $regex: new RegExp(d, 'gi') } }),
         },
     ],
   

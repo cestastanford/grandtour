@@ -4,10 +4,10 @@ module.exports = {
     name: 'Full Name',
     queries: {
         label: 'name',
-        count: { 'latest.fullName': { $ne: null } },
+        count: { 'fullName': { $exists: true } },
         match: d => ({ $or: [
-            { 'latest.fullName': { $regex: new RegExp(d, 'gi') } },
-            { 'latest.alternateNames.alternateName': { $regex: new RegExp(d, 'gi') } },
+            { 'fullName': { $regex: new RegExp(d, 'gi') } },
+            { 'alternateNames': { $regex: new RegExp(d, 'gi') } },
         ] })
     }
 

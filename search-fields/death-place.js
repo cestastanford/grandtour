@@ -4,8 +4,8 @@ module.exports = {
     name: 'Death Place',
     queries: {
         label: 'place',
-        count: { 'latest.deathPlace': { $exists: true } },
-        match: d => ({ 'latest.deathPlace' : { $regex : new RegExp(d, 'gi') } }),
+        count: { deathPlace: { $exists: true } },
+        match: d => ({ deathPlace: { $regex: new RegExp(d, 'gi') } }),
     }
 
 }

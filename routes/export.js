@@ -46,7 +46,7 @@ const sendUpdate = (message, progress) => {
 const exportToSheets = async revisionIndex => {
 
     sendUpdate('Retrieving entries')
-    const entries = await Entry.findAtRevision({}, revisionIndex)
+    const entries = await Entry.find().atRevision(revisionIndex)
     const sheets = saveEntriesToSheets(entries)
     await saveSheetsToGoogleSpreadsheet(sheets)
 

@@ -4,8 +4,8 @@ module.exports = {
     name: 'Birth Year',
     queries: {
         label: 'year',
-        count: { 'latest.birthYear': { $exists: true } },
-        match: d => ({ 'latest.birthYear': +d }),
+        count: { birthYear: { $exists: true } },
+        match: d => ({ birthYear: +d }),
     }
 
 }

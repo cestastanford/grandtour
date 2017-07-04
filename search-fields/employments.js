@@ -4,8 +4,8 @@ module.exports = {
     name: 'Employments & Identifiers',
     queries: {
         label: 'pursuit',
-        count: { 'latest.employments': { '$ne': null } },
-        match: d => ({ 'latest.employments': { $regex: new RegExp(d, 'gi') } }),
+        count: { employments: { $ne: [] } },
+        match: d => ({ employments: { $regex: new RegExp(d, 'gi') } }),
     }
 
 }

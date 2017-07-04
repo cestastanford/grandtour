@@ -6,14 +6,14 @@ module.exports = {
         {
             subkey: 'title',
             label: 'exhibition',
-            count: { 'latest.exhibitions.title': { $exists: true } },
-            match: d => ({ 'latest.exhibitions.title': { $regex: new RegExp(d, 'gi') } }),
+            count: { 'exhibitions.title': { $exists: true } },
+            match: d => ({ 'exhibitions.title': { $regex: new RegExp(d, 'gi') } }),
         },
         {
             subkey: 'activity',
             label: 'activity',
-            count: { 'latest.exhibitions.activity': { $exists: true } },
-            match: d => ({ 'latest.exhibitions.activity': { $regex: new RegExp(d, 'gi') } }),
+            count: { 'exhibitions.activity': { $exists: true } },
+            match: d => ({ 'exhibitions.activity': { $regex: new RegExp(d, 'gi') } }),
         },
     ],
   

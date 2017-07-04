@@ -4,7 +4,7 @@ module.exports = {
     name: 'Free Search in entry text',
     queries: {
         label: 'text',
-        count: { 'latest': { $ne: null } },
+        count: { biography: { $exists: true } },
         match: d => {
             const or = [];
             for (let section in d.sections) {

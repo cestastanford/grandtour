@@ -4,8 +4,8 @@ module.exports = {
     name: 'Gender',
     queries: {
         label: 'gender',
-        count: { 'latest.gender': { $ne: null } },
-        match: d => ({ 'latest.gender': d }),
+        count: { gender: { $exists: true } },
+        match: d => ({ gender: d }),
     } 
 
 }

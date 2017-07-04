@@ -40,7 +40,7 @@ router.post('/api/revisions', isAdministrator, (req, res, next) => {
 
 router.patch('/api/revisions/:index', isAdministrator, (req, res, next) => {
 
-    Revision.findByIdAndUpdate(req.params.index, { name: req.body.name })
+    Revision.findByIdAndUpdate(req.params.index, { name: req.body.name }, { new: true })
     .then(revision => {
         if (!revision) { throw null /* Triggers 404 Not Found handler */ } 
         else return revision
@@ -59,7 +59,7 @@ router.delete('/api/revisions/:index', isAdministrator, (req, res, next) => {
 
     Revision.findByIdAndRemove(req.params.index)
     .then(revision => {
-        if (revision) return Promise.all(Entry.find({}).map(entry => entry.deleteRevision(revision._id)))
+        if (revision) return Entry.deleteMany({ _revisionIndex: revision._id })
         else { throw null /* Triggers 404 Not Found handler */ } 
     })
     .then(() => res.status(200).send())

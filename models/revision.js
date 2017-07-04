@@ -37,7 +37,7 @@ class Revision {
 
     static async getLatestRevisionIndex() {
 
-        const latestRevision = await this.findOne({})
+        const latestRevision = await this.findOne()
         .sort('-_id')
         .select('_id')
 
@@ -47,8 +47,8 @@ class Revision {
 
     
     /*
-    *   Creates a new Revision, saving all entries' current versions
-    *   to their respective _revision arrays.
+    *   Creates a new Revision, saving all Entries' current versions
+    *   to a new versioned document.
     */
 
     static async create(name) {
@@ -59,10 +59,35 @@ class Revision {
             name,
         })
 
-        const entries = await Entry.find({})
+        const entries = await Entry.find().atRevision()
         await Promise.all(entries.map(entry => entry.saveRevision(newRevisionIndex)))
-        await newRevision.save()
-        return newRevision
+        return await newRevision.save()
+
+    }
+
+
+    /*
+    *   Deletes a Revision, removing associated versions of all Entries.
+    */
+
+    async delete(name) {
+
+        await Entry.deleteMany({ _revisionIndex: this._id })
+        return await this.remove()
+
+    }
+
+
+    /*
+    *   Deletes the latest set of changes, setting the previous
+    *   Revision as the latest.
+    */
+
+    static async deleteLatest() {
+
+        await Entry.deleteMany({ _revisionIndex: null })
+        const latestRevisionIndex = await getLatestRevisionIndex()
+        await Entry.updateMany({ _revisionIndex: latestRevisionIndex }, { _revisionIndex: null })
 
     }
 

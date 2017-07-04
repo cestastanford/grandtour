@@ -240,7 +240,10 @@ const saveEntryUpdates = async entryUpdates => {
     let nEntriesUpdated = 0
     for (let index in entryUpdates) {
 
-        await Entry.findByIdAndUpdate(index, entryUpdates[index], { upsert: true, setDefaultsOnInsert: true })
+        await Entry
+        .findOneAndUpdate({ index }, entryUpdates[index], { upsert: true, setDefaultsOnInsert: true })
+        .atRevision()
+        
         nEntriesUpdated++
         if (nEntriesUpdated % 1000 === 0) {
             sendUpdate(`Saved ${nEntriesUpdated} of ${nEntries} entry updates to database`)

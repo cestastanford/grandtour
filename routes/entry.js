@@ -15,8 +15,8 @@ const entries = require('../controllers/entries')
 
 router.get('/api/entries', isViewer, (req, res, next) => {
 
-    Entry.find({})
-    .then(entries => res.json(entries.map(entry => entry.getObject())))
+    Entry.find().atRevision(req.user.activeRevisionIndex)
+    .then(entries => res.json(entries))
     .catch(next)
 
 })
@@ -28,13 +28,14 @@ router.get('/api/entries', isViewer, (req, res, next) => {
 
 router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
-    Entry.findById(req.params.index)
+    Entry.findOne({ index: req.params.index }).atRevision(req.user.activeRevisionIndex)
     .then(entry => {
+        console.log(entry)
         if (entry) return Promise.all([
-            Promise.resolve(entry.getObject(req.user.activeRevisionIndex)),
-            entry.getAdjacentIndices(req.user.revisionIndex),
+            Promise.resolve(entry),
+            entry.getAdjacentIndices(),
         ])
-        else { throw null /*  Triggers the 404 Not Found error handler  */ }
+        else { throw null /* Triggers the 404 Not Found error handler */ }
     })
     .then(([ entry, { previous, next } ]) => res.json({ entry, previous, next }))
     .catch(next)
@@ -48,12 +49,11 @@ router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
 router.patch('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.findByIdAndUpdate(req.params.index, req.body)
+    Entry.findOneAndUpdate({ index: req.params.index }, req.body, { new: true }).atRevision()
     .then(entry => {
-        if (!entry) { throw null /*  Triggers the 404 Not Found error handler  */ }
-        return entry
+        if (entry) return res.json(entry)
+        else { throw null /* Triggers the 404 Not Found error handler */ }
     })
-    .then(entry => res.json(entry))
     .catch(next)
 
 })
@@ -65,14 +65,11 @@ router.patch('/api/entries/:index', isEditor, (req, res, next) => {
 
 router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.findById(req.params.index)
+    Entry.findOneAndRemove({ index: req.params.index }).atRevision()
     .then(entry => {
-        if (entry) {
-            const oldEntryJSON = entry.toJSON()
-            return entry.delete().then(() => oldEntryJSON)
-        } else { throw null /*  Triggers the 404 Not Found error handler  */ }
+        if (entry) return res.json(entry)
+        else { throw null /* Triggers the 404 Not Found error handler */ }
     })
-    .then(oldEntry => res.json(oldEntry))
     .catch(next)
 
 })
@@ -86,7 +83,7 @@ router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 router.post('/api/entries', isEditor, (req, res, next) => {
 
     Entry.create(req.body)
-    .then(newEntry => res.json(newEntry))
+    .then(entry => res.json(entry))
     .catch(next)
 
 })

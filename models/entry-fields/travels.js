@@ -1,7 +1,20 @@
 module.exports = {
 
     key: 'travels',
-    type: [],
+    type: [{
+        tourIndex: Number,
+        travelIndex: Number,
+        tourStartFrom: Number,
+        tourStartTo: Number,
+        tourEndFrom: Number,
+        tourEndTo: Number,
+        travelStartDay: Number,
+        travelStartMonth: Number,
+        travelEndDay: Number,
+        travelEndMonth: Number,
+        travelStartYear: Number,
+        travelEndYear: Number,
+    }],
     label: 'Travels',
     sheet: {
 

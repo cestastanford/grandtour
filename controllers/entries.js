@@ -2,15 +2,11 @@ var mongoose = require('mongoose')
   , d3 = require('d3')
   , Entry = mongoose.model('Entry')
 
-exports.index = function(req, res){
+exports.index = function(req, res, next) {
 
-  Entry.find({}, 'index fullName pursuits occupations education', function(err, entries){
-    if (err) {
-      res.json({error:err});
-    //  return;
-    }
-    res.json({entries:entries});
-  })
+  Entry.find({}, 'index fullName pursuits occupations education').atRevision()
+  .then(entries => res.json({ entries }))
+  .catch(next)
 
 }
 
@@ -47,7 +43,7 @@ function getQuery2(obj){
 
 
 
-exports.suggest = function (req, res) {
+exports.suggest = function (req, res, next) {
 
   var field = req.body.field;
   var value = req.body.value;
@@ -67,45 +63,43 @@ exports.suggest = function (req, res) {
 
     var query = { $or : [ { fullName: condition[field] }, { alternateNames: { $elemMatch : { alternateName : condition[field] } } } ] };
     var fields = { fullName: true, alternateNames: true };
-    Entry.find(query, fields, function(error, response) {
+    Entry.find(query, fields)
+    .atRevision()
+    .sort(field)
+    .then(response => {
 
-      if (error) res.json({ error: error });
-      else {
+      var matches = [];
+      var doesMatch = function(d) { return d.search( new RegExp(value, "i") ) != -1; };
+      response.forEach(function(entry) {
 
-        var matches = [];
-        var doesMatch = function(d) { return d.search( new RegExp(value, "i") ) != -1; };
-        response.forEach(function(entry) {
+        if (doesMatch(entry.fullName)) matches.push({ nameMatch: entry.fullName });
+        entry.alternateNames.forEach(function(alternateName) {
 
-          if (doesMatch(entry.fullName)) matches.push({ nameMatch: entry.fullName });
-          entry.alternateNames.forEach(function(alternateName) {
-
-            if (doesMatch(alternateName.alternateName)) matches.push({
-              nameMatch: alternateName.alternateName,
-              see: entry.fullName,
-            });
-
+          if (doesMatch(alternateName.alternateName)) matches.push({
+            nameMatch: alternateName.alternateName,
+            see: entry.fullName,
           });
 
         });
 
-        res.json({ results: matches });
+      });
 
-      };
+      res.json({ results: matches });
 
-    });
+    })
+    .catch(next)
 
   } else {
 
-    Entry.distinct(field, condition, function (err, response) {
-      if (err) {
-        res.json({ error: err })
-        return;
-      }
+    Entry.distinct(field, condition)
+    .atRevision()
+    .then(response => {
       var filteredResponse = response.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; });
       res.json({
         results: response.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; })
       });
-    });
+    })
+    .catch(next)
 
   }
 }
@@ -148,6 +142,7 @@ exports.uniques = function (req, res) {
     var pipeline = [];
 
     pipeline.push( { $match : query } )
+    pipeline.push({ $match: {_revisionIndex: null } })
     if (field.split('.').length > 1) {
       pipeline.push({ $unwind: '$' + field.split('.')[0] })
     }
@@ -201,22 +196,20 @@ exports.uniques = function (req, res) {
 }
 
 
-exports.new_suggest = function (req, res) {
+exports.new_suggest = function (req, res, next) {
 
   var field = req.body.field;
   var value = req.body.value;
   var condition = searchMap[field](value);
   // console.log(field,value, condition)
   Entry.
-    distinct(field, condition, function (err, response) {
-      if (err) {
-        res.json({ error: err })
-        return;
-      }
+    distinct(field, condition).atRevision()
+    .then(response => {
       res.json({
         results: response//.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; })
       });
     })
+    .catch(next)
 }
 
 
@@ -245,8 +238,8 @@ var searchMapRE = {
   ] } },
   type : function(d) { return { type : d } },
 
-  birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
-  deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
+  birthDate : function(d) { return { dates : { $elemMatch : { birthDate : d } } } },
+  deathDate : function(d) { return { dates : { $elemMatch : { deathDate : d } } } },
 
   birthPlace : function(d) { return { places : { $elemMatch : { birthPlace : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
   deathPlace : function(d) { return { places : { $elemMatch : { deathPlace : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
@@ -341,11 +334,7 @@ var searchMapRE = {
     var or = [];
     for (var section in d.sections) {
       queryObj = {};
-      if (section === 'tours') {
-
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") } } };
-
-      } else queryObj[section] = { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") };
+      queryObj[section] = { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };
@@ -362,8 +351,8 @@ var searchMap = {
 
   type : function(d) { return { type : d } },
 
-  birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
-  deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
+  birthDate : function(d) { return { dates : { $elemMatch : { birthDate : d } } } },
+  deathDate : function(d) { return { dates : { $elemMatch : { deathDate : d } } } },
 
   birthPlace : function(d) { return { places : { $elemMatch : { birthPlace : d  } } } },
   deathPlace : function(d) { return { places : { $elemMatch : { deathPlace : d  } } } },
@@ -388,8 +377,6 @@ var searchMap = {
   military : function(d) { return { military : { $elemMatch : { rank : d  } } } },
 
   travel : function(d) {
-
-    console.log(d)
 
     var outer = [];
 
@@ -459,11 +446,7 @@ var searchMap = {
     var or = [];
     for (var section in d.sections) {
       queryObj = {};
-      if (section === 'tours') {
-
-        queryObj[section] = { $elemMatch : { text : { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") } } };
-
-      } else queryObj[section] = { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") };
+      queryObj[section] = { $regex : new RegExp((d.beginnings === 'yes' ? '\\b' : '') + escapeRegExp(d.sections[section]), "gi") };
       or.push(queryObj);
     }
     return { $or : or };
@@ -505,8 +488,8 @@ function parseQuery(query) {
 }
 
 
-exports.search = function (req, res) {
-  try {
+exports.search = function (req, res, next) {
+
   var originalQuery = JSON.stringify(req.body.query);
   var query = parseQuery(req.body.query);
 
@@ -518,17 +501,16 @@ exports.search = function (req, res) {
         places: true,
         dates: true,
         travels: true
-      }, function (err, response) {
-        if (err) {
-          res.json({ error: err })
-          return;
-        }
+      })
+      .atRevision()
+      .then(response => {
         res.json({
           request : JSON.parse(originalQuery),
           entries : response
         });
       } )
-  } catch (error) { console.error(error); };
+      .catch(next)
+
 /*
     Entry
       .aggregate()
@@ -575,10 +557,13 @@ function parseQuery2(query) {
 }
 
 
-exports.search2 = function (req, res) {
+exports.search2 = function (req, res, next) {
 
   var originalQuery = JSON.stringify(req.body.query);
   var query = parseQuery2(req.body.query);
+
+  console.log(JSON.stringify(query))
+
 
     Entry
       .find(query, {
@@ -588,16 +573,15 @@ exports.search2 = function (req, res) {
         places: true,
         dates: true,
         travels: true
-      }, function (err, response) {
-        if (err) {
-          res.json({ error: err })
-          return;
-        }
+      })
+      .atRevision()
+      .then(response => {
         res.json({
           request : JSON.parse(originalQuery),
           entries : response
         });
-      } )
+      })
+      .catch(next)
 }
 
 
@@ -768,6 +752,7 @@ exports.export = function (req, res) {
   Entry
     .aggregate()
     .match(query)
+    .match({ _revisionIndex: null })
     .exec(function (err, response) {
 
       if (err) {
@@ -902,7 +887,6 @@ exports.getCounts = async function() {
 
     }))
 
-    console.log(counts)
     return { counts }
 
 }

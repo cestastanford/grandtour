@@ -9,8 +9,9 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
       $scope.entry = res.entry;
-      $scope.nextIndex = res.nextIndex;
-      $scope.previousIndex = res.previousIndex;
+      console.log($scope.entry)
+      $scope.nextIndex = res.next;
+      $scope.previousIndex = res.previous;
       if (!res.entry) $scope.noEntry = true;
       else $scope.noEntry = false;
 
@@ -24,6 +25,10 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       setupMinimap();
 
     })
+  }
+
+  $scope.splitTours = function(tours) {
+    return tours ? tours.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g) : []
   }
 
   $scope.highlighted = function(propertyName, value) {

@@ -1,10 +1,10 @@
-var	mongoose = require('mongoose')
+var mongoose = require('mongoose')
   , d3 = require('d3')
   , Entry = mongoose.model('Entry')
 
 exports.index = function(req, res){
 
-  Entry.find({}, function(err, entries){
+  Entry.find({}, 'index fullName pursuits occupations education', function(err, entries){
     if (err) {
       res.json({error:err});
     //  return;
@@ -57,18 +57,16 @@ exports.suggest = function (req, res) {
     var elemMatch = {};
     elemMatch[field.split('.')[1]] = { $regex : new RegExp(value, "i") };
     var query = { $elemMatch : elemMatch };
-    condition['latest.' + field.split('.')[0]] = query;
+    condition[field.split('.')[0]] = query;
   } else {
     var query = { $regex : new RegExp(value, "i") };
-    condition['latest.' + field] = query;
+    condition[field] = query;
   }
 
-  field = 'latest.' + field
+  if (field === 'fullName') {
 
-  if (field === 'latest.fullName') {
-
-    var query = { $or : [ { 'latest.fullName': condition[field] }, { 'latest.alternateNames': condition[field] } ] };
-    var fields = { 'latest.fullName': true, 'latest.alternateNames': true };
+    var query = { $or : [ { fullName: condition[field] }, { alternateNames: { $elemMatch : { alternateName : condition[field] } } } ] };
+    var fields = { fullName: true, alternateNames: true };
     Entry.find(query, fields, function(error, response) {
 
       if (error) res.json({ error: error });
@@ -76,13 +74,13 @@ exports.suggest = function (req, res) {
 
         var matches = [];
         var doesMatch = function(d) { return d.search( new RegExp(value, "i") ) != -1; };
-        response.map(d => ({ fullName: d.latest.fullName, alternateNames: d.latest.alternateNames })).forEach(function(entry) {
+        response.forEach(function(entry) {
 
           if (doesMatch(entry.fullName)) matches.push({ nameMatch: entry.fullName });
-          if (entry.alternateNames) entry.alternateNames.forEach(function(alternateName) {
+          entry.alternateNames.forEach(function(alternateName) {
 
-            if (doesMatch(alternateName)) matches.push({
-              nameMatch: alternateName,
+            if (doesMatch(alternateName.alternateName)) matches.push({
+              nameMatch: alternateName.alternateName,
               see: entry.fullName,
             });
 

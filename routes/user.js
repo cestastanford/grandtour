@@ -59,6 +59,14 @@ router.post('/logout', function(req, res){
 *   - Update user
 */
 
+router.get('/api/users', isAdministrator, (req, res, next) => {
+
+    User.find()
+    .then(users => res.json({ users }))
+    .catch(next)
+
+});
+
 router.post('/api/users/add', isAdministrator, (req, res, next) => {
   User.register(new User(req.body), req.body.password, (err, data) => {
     // problem registering the new user...

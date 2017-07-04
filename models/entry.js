@@ -142,23 +142,41 @@ class Entry {
 
     static async getCounts() {
 
-        const countMappings = []
-        Object.values(searchFields).forEach(field => {
-
-            if (Array.isArray(field.queries)) field.queries.forEach(query => {
-                const key = [ field.key, query.subkey ].filter(e => e).join('_')
-                countMappings.push({ key, query: query.count })
-            })
-
-            else countMappings.push({ key: field.key, query: field.queries.count })
-
-        })
+        const countQueries = {
+            
+            fullName: { fullName : { $ne : null } },
+            alternateNames: { alternateNames : { $exists : true } },
+            birthDate: { 'dates.0.birthDate' : { $exists : true } },
+            birthPlace: { 'places.0.birthPlace' : { $exists : true } },
+            deathDate: { 'dates.0.deathDate' : { $exists : true } },
+            deathPlace: { 'places.0.deathPlace' : { $exists : true } },
+            type: { type : { $ne : null } },
+            societies: { 'societies.title' : { $exists : true } },
+            societies_role: { 'societies.role' : { $exists : true } },
+            education_institution: { 'education.institution' : { $exists : true } },
+            education_place: { 'education.place' : { $exists : true } },
+            education_degree: { 'education.degree' : { $exists : true } },
+            education_teacher: { 'education.teacher' : { $exists : true } },
+            pursuits: { pursuits : { $ne : null } },
+            occupations: { 'occupations.title' : { $exists : true } },
+            occupations_group: { 'occupations.group' : { $exists : true } },
+            occupations_place: { 'occupations.place' : { $exists : true } },
+            military: { 'military.rank' : { $exists : true } },
+            travel_place: { 'travels.place' : { $exists : true } },
+            travel_date: { $or : [ { 'travels.travelStartYear' : { $ne : 0 } }, { 'travels.travelEndYear' : { $ne : 0 } } ] },
+            travel_year: { $or : [ { 'travels.travelStartYear' : { $ne : 0 } }, { 'travels.travelEndYear' : { $ne : 0 } } ] },
+            travel_month: { $or : [ { 'travels.travelStartMonth' : { $ne : 0 } }, { 'travels.travelEndMonth' : { $ne : 0 } } ] },
+            travel_day: { $or : [ { 'travels.travelStartDay' : { $ne : 0 } }, { 'travels.travelEndDay' : { $ne : 0 } } ] },
+            exhibitions: { 'exhibitions.title' : { $exists : true } },
+            exhibitions_activity: { 'exhibitions.activity' : { $exists : true } },
+        
+        }
 
         const counts = {}
-        await Promise.all(countMappings.map(async mapping => {
+        await Promise.all(Object.keys(countQueries).map(async key => {
 
-            const count = await this.count(mapping.query)
-            counts[mapping.key] = count
+            const count = await this.count(countQueries[key])
+            counts[key] = count
 
         }))
 

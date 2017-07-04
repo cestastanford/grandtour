@@ -68,16 +68,11 @@ const assembleQuery = fields => {
 }
 
 
-/*
-*   Old API routes for Entry management:
-*   - Get entry suggestions
-*   - Export entries
-*   - Get unique entry field values
-*/
-
-router.post('/api/entries/suggest', isViewer, entries.suggest)
-router.post('/api/entries/export', isViewer, entries.export)
-router.post('/api/entries/uniques', isViewer, entries.uniques)
+router.post('/api/entries/search', auth, entries.search);
+router.post('/api/entries/search2', auth, entries.search2);
+router.post('/api/entries/suggest', auth, entries.suggest);
+router.post('/api/entries/export', auth, entries.export);
+router.post('/api/entries/uniques', auth, entries.uniques);
 
 
 /*

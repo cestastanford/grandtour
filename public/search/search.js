@@ -22,7 +22,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
     $scope.searching = true;
-    $http.post('/api/entries/search', {
+    $http.post('/api/entries/search2', {
         query: $scope.query
       }
     )
@@ -147,7 +147,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
   $scope.getSuggestions = function(field, value){
     return $http.post('/api/entries/suggest/', {  field : field, value : value })
     .then(function (res){
-      return res.data.results;
+      return res.data.results;//.map(function(d){ return { value: d } });
     })
   }
 

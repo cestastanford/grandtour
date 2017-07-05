@@ -27,14 +27,10 @@ router.get('/api/entries', isViewer, (req, res, next) => {
 router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
     Entry.findOne({ index: req.params.index }).atRevision(req.user.activeRevisionIndex)
-    .then(entry => {
-        console.log(entry)
-        if (entry) return Promise.all([
-            Promise.resolve(entry),
-            entry.getAdjacentIndices(),
-        ])
-        else { throw null /* Triggers the 404 Not Found error handler */ }
-    })
+    .then(entry => Promise.all([
+        Promise.resolve(entry),
+        Entry.getAdjacentIndices(req.params.index, req.user.activeRevisionIndex),
+    ]))
     .then(([ entry, { previous, next } ]) => res.json({ entry, previous, next }))
     .catch(next)
 

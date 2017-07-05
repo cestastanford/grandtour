@@ -737,3 +737,9 @@ table.table {
   transform: translateY(-50%);
   font-size: 1.25em;
 }
+
+.revision-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

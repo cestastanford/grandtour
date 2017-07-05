@@ -1,0 +1,24 @@
+.revision-status.alert(
+    ng-class="{ 'alert-info': activeRevision.index === null, 'alert-warning': activeRevision.index !== null }",
+    ng-show="activeRevision",
+)
+    
+    .revision-status-label
+        strong Active Revision: 
+        span {{ activeRevision.name }}
+
+    .btn-group.btn-group-sm(role="group")
+        button.btn.btn-default(
+            type="button",
+            ng-show="activeRevision.index !== null",
+            ng-click="setActiveRevision(revisions[0])"
+        ) Activate Latest
+      
+        .btn-group.btn-group-sm(role="group")
+            button.btn.btn-default.dropdown-toggle(type="button", data-toggle="dropdown")
+                | Activate Another Revision
+                span.caret
+        
+            ul.dropdown-menu.dropdown-menu-right
+                li(ng-repeat="revision in revisions", ng-class="{ disabled: revision === activeRevision }")
+                    a(ng-click="revision === activeRevision ? null : setActiveRevision(revision)") {{ revision.name }}

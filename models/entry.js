@@ -21,8 +21,7 @@ const entryFields = require('./entry-fields')
 
 const entrySchema = mongoose.Schema({
 
-    index: Number,
-    _deleted: Boolean,
+    index: { type: Number, required: true },
     _revisionIndex: Number,
 
 })
@@ -155,19 +154,25 @@ class Entry {
     *   given revision.
     */
 
-    async getAdjacentIndices() {
+    static async getAdjacentIndices(index, revisionIndex) {
 
-        const previous = await this.constructor.findOne()
-        .atRevision(this._revisionIndex)
-        .lt('index', this.index)
+        let previous = await this.findOne()
+        .atRevision(revisionIndex)
+        .lt('index', index)
         .sort('-index')
-        .select('index')
 
-        const next = await this.constructor.findOne()
-        .atRevision(this._revisionIndex)
-        .gt('index', this.index)
+        if (!previous) previous = await this.findOne()
+        .atRevision(revisionIndex)
+        .sort('-index')
+
+        let next = await this.findOne()
+        .atRevision(revisionIndex)
+        .gt('index', index)
         .sort('index')
-        .select('index')
+
+        if (!next) next = await this.findOne()
+        .atRevision(revisionIndex)
+        .sort('index')
 
         return {
             previous: previous ? previous.index : null,

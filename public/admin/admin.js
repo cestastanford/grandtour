@@ -1,7 +1,7 @@
 /**********************************************************************
  * Admin controller
  **********************************************************************/
-app.controller('AdminCtrl', function($scope, $http) {
+app.controller('AdminCtrl', function($scope, $http, $window) {
 
   $scope.view = 'revisions';
 
@@ -59,27 +59,31 @@ app.controller('AdminCtrl', function($scope, $http) {
   }
 
   $scope.deleteRevision = function(revision) {
-    revision.deleting = true
-    $scope.revisions = $scope.revisions
-    $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
-    $http.delete('/api/revisions/' + revision.index)
-    .then(function() {
-      revision.deleting = false
+    if ($window.confirm('Are you sure you want to delete this revision, erasing all entry updates contained within?')) {
+      revision.deleting = true
       $scope.revisions = $scope.revisions
-      if (revision.active) return $scope.setActiveRevision({ index: null })
-    })
-    .catch(console.error.bind(console))
+      $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
+      $http.delete('/api/revisions/' + revision.index)
+      .then(function() {
+        revision.deleting = false
+        $scope.revisions = $scope.revisions
+        if (revision.active) return $scope.setActiveRevision({ index: null })
+      })
+      .catch(console.error.bind(console))
+    }
   }
 
   $scope.clearLatest = function() {
-    $scope.revisions[0].clearing = true
-    $scope.revisions = $scope.revisions
-    $http.delete('/api/revisions/latest')
-    .then(function(response) {
-      $scope.revisions[0].clearing = false
+    if ($window.confirm('Are you sure you want to clear latest changes, resetting all entries to their state as of the previous revision?  If no previous revision exists, all entry data will be erased.')) {
+      $scope.revisions[0].clearing = true
       $scope.revisions = $scope.revisions
-    })
-    .catch(console.error.bind(console))
+      $http.delete('/api/revisions/latest')
+      .then(function(response) {
+        $scope.revisions[0].clearing = false
+        $scope.revisions = $scope.revisions
+      })
+      .catch(console.error.bind(console))
+    }
   }
 
   $scope.saveNewRevision = function() {
@@ -107,6 +111,7 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   socket.on('sheets-import-status', function(response) {
     $scope.importStatus = response
+    if ($scope.importStatus.done) reloadRevisions()
     $scope.$apply()
   });
 

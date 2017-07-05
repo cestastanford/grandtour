@@ -118,10 +118,17 @@
         .form-group
           .col-sm-3
           .col-sm-9
-            .checkbox
-              label
-                input(type="checkbox", name="role", ng-model="user.role") 
-                | Set as administrator
+            .dropdown
+              button.btn.btn-default.dropdown-toggle(
+                type="button"
+                data-toggle="dropdown"
+              ) 
+                | Role: {{ user.role }} 
+                span.caret
+              
+              ul.dropdown-menu
+                li(ng-repeat="role in [ 'admin', 'editor', 'viewer' ]")
+                  a(ng-click="user.role = role") {{ role }}
               
         .form-group
           .col-sm-offset-3.col-sm-9
@@ -151,7 +158,19 @@
                 input.form-control(ng-model="user.fullName", placeholder="{{user.fullName}}")
               td
                 input.form-control(ng-model="user.email", placeholder="{{user.email}}")  
-              td {{user.role}}
+              td
+                .dropdown
+                  button.btn.btn-default.dropdown-toggle(
+                    type="button"
+                    data-toggle="dropdown"
+                  ) 
+                    | Role: {{ user.role }} 
+                    span.caret
+                  
+                  ul.dropdown-menu
+                    li(ng-repeat="role in [ 'admin', 'editor', 'viewer' ]")
+                      a(ng-click="user.role = role") {{ role }}
+              
               td
                 button.btn.btn-sm.btn-danger(ng-disabled="currentUser.username==user.username" ng-click="remove(user.username)") Delete
                 span &nbsp;

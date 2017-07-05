@@ -19,12 +19,10 @@ app.controller('AdminCtrl', function($scope, $http) {
     $scope.revisions = [ { index: null, name: 'Latest', latest: true } ]
     $http.get('/api/revisions')
     .then(function(response) {
-      console.log(response.data)
       $scope.revisions = $scope.revisions.concat(response.data)
     })
     .then(function() { return $http.get('/loggedin') })
     .then(function(response) {
-      console.log(response)
       markActiveRevision(response.data.activeRevisionIndex)
     })
     .catch(console.error.bind(console))
@@ -45,7 +43,6 @@ app.controller('AdminCtrl', function($scope, $http) {
     revision.editing = false
     $http.patch('/api/revisions/' + revision.index, { name: revision.name })
     .then(function(response) {
-      console.log(response)
       revision.name = response.data.name
       $scope.revisions = $scope.revisions
     })
@@ -56,7 +53,6 @@ app.controller('AdminCtrl', function($scope, $http) {
     markActiveRevision(revision.index)
     $http.post('/api/users/update', { activeRevisionIndex: revision.index })
     .then(function(response) {
-      console.log(response)
       markActiveRevision(response.data.activeRevisionIndex)
     })
     .catch(console.error.bind(console))
@@ -67,7 +63,6 @@ app.controller('AdminCtrl', function($scope, $http) {
     $scope.revisions = $scope.revisions
     $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
     $http.delete('/api/revisions/' + revision.index)
-    .then(function(response) { console.log(response) })
     .then(function() {
       revision.deleting = false
       $scope.revisions = $scope.revisions
@@ -81,7 +76,6 @@ app.controller('AdminCtrl', function($scope, $http) {
     $scope.revisions = $scope.revisions
     $http.delete('/api/revisions/latest')
     .then(function(response) {
-      console.log(response)
       $scope.revisions[0].clearing = false
       $scope.revisions = $scope.revisions
     })
@@ -94,7 +88,6 @@ app.controller('AdminCtrl', function($scope, $http) {
     $scope.revisions = $scope.revisions
     $http.post('/api/revisions', {})
     .then(function(response) {
-      console.log(response)
       $scope.revisions[$scope.revisions.indexOf(newRevision)] = response.data
       $scope.revisions = $scope.revisions
     })
@@ -113,22 +106,28 @@ app.controller('AdminCtrl', function($scope, $http) {
   var socket = io();
 
   socket.on('sheets-import-status', function(response) {
-    console.log(response)
-    $scope.reloadStatus = response
-    if (response.done) {
-      $('#reload').button('reset');
-    }
+    $scope.importStatus = response
     $scope.$apply()
   });
 
-  $scope.reload = function() {
-    if ($scope.reloadStatus) return;
-    $scope.reloadStatus = {};
-    $('#reload').button('loading')
+  $scope.import = function() {
+    if ($scope.importStatus) return;
+    $scope.importStatus = {};
+    $('#import').button('loading')
     $http.post('/api/import/from-sheets')
-    .then(function(res) {
-      $scope.message = 'Reload initiated.';
-    })
+    .catch(console.error.bind(console))
+  }
+
+  socket.on('sheets-export-status', function(response) {
+    $scope.exportStatus = response
+    $scope.$apply()
+  });
+
+  $scope.export = function() {
+    if ($scope.exportStatus) return;
+    $scope.exportStatus = {};
+    $('#export').button('loading')
+    $http.post('/api/export/to-sheets')
     .catch(console.error.bind(console))
   }
 

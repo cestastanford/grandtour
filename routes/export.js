@@ -31,9 +31,9 @@ router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
 *   Sends progress updates to socket-connected clients.
 */
 
-const sendUpdate = (message, progress) => {
+const sendUpdate = (message, progress, done) => {
     const { socket } = socketIO
-    socket.emit('sheets-export', { message, progress })
+    socket.emit('sheets-export-status', { message, progress, done })
     console.log(message) 
 }
 
@@ -126,7 +126,7 @@ const saveEntriesToSheets = entries => {
         })
 
         nFormatted++
-        if (nFormatted % 1000 === 0) sendUpdate(`Formatted ${nFormatted} of ${entries.length} entries for spreadsheet`)
+        if (nFormatted % 100 === 0) sendUpdate(`Formatted ${nFormatted} of ${entries.length} entries for spreadsheet`, { value: nFormatted, max: entries.length })
 
     })
 
@@ -185,8 +185,9 @@ const saveSheetsToGoogleSpreadsheet = async sheets => {
     const spreadsheet = await createNewSpreadsheet(sheets)
     await setSpreadsheetPermissions(spreadsheet)
     sendUpdate(`Saving entry data to spreadsheet`)
-    await Promise.all(sheets.map(sheet => saveToSheet(spreadsheet, sheet)))
-    sendUpdate(`Export complete to spreadsheet ${spreadsheet.spreadsheetUrl}`)
+    const progress = { value: 0, max: sheets.length }
+    await Promise.all(sheets.map(sheet => saveToSheet(spreadsheet, sheet, progress)))
+    sendUpdate(`Export complete to spreadsheet ${spreadsheet.spreadsheetUrl}`, null, true)
 
 }
 
@@ -279,7 +280,7 @@ const setSpreadsheetPermissions = spreadsheet => new Promise(resolve => {
 *   Saves a sheet rows to a new sheet on the Google Spreadsheet.
 */
 
-const saveToSheet = async (spreadsheet, sheet) => {
+const saveToSheet = async (spreadsheet, sheet, progress) => {
 
     const insertDataRequest = {
 
@@ -301,7 +302,8 @@ const saveToSheet = async (spreadsheet, sheet) => {
 
     })
 
-    sendUpdate(`Saved entry data to sheet ${sheet.name}`)
+    progress.value++
+    sendUpdate(`Saved entry data to sheet ${sheet.name}`, progress)
 
 }
 

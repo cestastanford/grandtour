@@ -158,18 +158,31 @@
                 button.btn.btn-sm.btn-info(ng-click="update(user)") Update
                 
     .col-lg-12(ng-show="view=='data'")
-      
       .row
+        h3 Import from Google Sheets
+        p Click "Import from Sheets" to initiate data import from Google Sheets.  Entry data will be applied to the latest Revision.
+        button#import.btn.btn-danger(type="button" ng-click="import()", data-loading-text="Importing...") Import from Sheets
+        hr(ng-show="importStatus")
+        progressbar.progress-striped(
+            ng-class="{ active: !importStatus.done, 'progress-striped': !importStatus.done && !importStatus.progress }",
+            value="importStatus.progress ? importStatus.progress.value : 100",
+            max="importStatus.progress ? importStatus.progress.max : 100",
+            type="{{importStatus.progress ? 'info' : (importStatus.done ? 'success' : 'warning')}}",
+            ng-show="importStatus",
+          )
+            span {{importStatus.message}}
 
-        h3 Data Reload
-        p Click the button to initiate data reload from Google Sheets.
-        button#reload.btn.btn-danger(type="button" ng-click="reload()", data-loading-text="Loading...") Reload selected
+      .row
+        hr
+        h3 Export to Google Sheets
+        p Select a Revision and click "Export to Sheets" to initiate data export to Google Sheets.
+        button#export.btn.btn-danger(type="button" ng-click="export()", data-loading-text="Exporting...") Export to Sheets
         hr
         progressbar.progress-striped(
-            ng-class="{ active: !reloadStatus.done, 'progress-striped': !reloadStatus.done && !reloadStatus.progress }",
-            value="reloadStatus.progress ? reloadStatus.progress.value : 100",
-            max="reloadStatus.progress ? reloadStatus.progress.max : 100",
-            type="{{reloadStatus.progress ? 'info' : (reloadStatus.done ? 'success' : 'warning')}}",
-            ng-show="reloadStatus",
+            ng-class="{ active: !exportStatus.done, 'progress-striped': !exportStatus.done && !exportStatus.progress }",
+            value="exportStatus.progress ? exportStatus.progress.value : 100",
+            max="exportStatus.progress ? exportStatus.progress.max : 100",
+            type="{{exportStatus.progress ? 'info' : (exportStatus.done ? 'success' : 'warning')}}",
+            ng-show="exportStatus",
           )
-            span {{reloadStatus.message}}
+            span {{exportStatus.message}}

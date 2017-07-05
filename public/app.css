@@ -772,3 +772,21 @@ table.table {
 .edit-status-entry-index .input-group {
   width: 7.5em;
 }
+
+.mentioned-names-popup {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: white;
+  z-index: 1;
+  box-shadow: 0 2px 10px #ccc;
+  border-radius: 2px;
+  padding: .5em 1em;
+  width: 100%;
+}
+
+li:hover > .mentioned-names-popup {
+  display: block;
+  background-color: white;
+}

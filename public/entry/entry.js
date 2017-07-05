@@ -9,6 +9,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
       $scope.entry = res.entry;
+      console.log(res.entry.mentionedNames)
       $scope.nextIndex = res.next;
       $scope.previousIndex = res.previous;
       if (!res.entry) $scope.noEntry = true;
@@ -19,6 +20,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
         createTours(res.entry.travels);
         createOccupations(res.entry.occupations);
         createMilitary(res.entry.military);
+        downloadMentionedNames(res.entry.mentionedNames);
 
         // $timeout(smartquotes);
         $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
@@ -61,6 +63,19 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
 
   function createMilitary(military){
     $scope.military = military ? military.filter(function(d){ return d.rank; }) : [];
+  }
+
+  function downloadMentionedNames(mentionedNames) {
+    Promise.all(mentionedNames.map(function(name) {
+      if (name.entryIndex) return $http.get('/api/entries/' + name.entryIndex)
+      else return (Promise.resolve(null))
+    }))
+    .then(function(responses) {
+      responses.forEach(function(response, i) {
+        if (response) mentionedNames[i].entry = response.data.entry
+      })
+    })
+    .catch(console.error.bind(console))
   }
 
   function createOccupations(occupations){

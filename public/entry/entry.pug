@@ -236,6 +236,18 @@
                   span(ng-show="e.from") {{e.from}}
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length") 
+            .panel.panel-default
+              .panel-heading Mentioned Names
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.mentionedNames") 
+                    div(style="font-style: italic;", ng-show="!e.entry") {{ e.name }}
+                    div(style="cursor: pointer;", ng-show="e.entry") {{ e.name }}
+                    a.mentioned-names-popup(ng-show="e.entry", ng-href="#/entries/{{e.entryIndex}}")
+                      h4 {{ e.entry.fullName }}
+                      p {{ e.entry.biography.slice(0, 100) }}...
+          
           .col-lg-12.col-md-4.col-sm-6
             div.btn-group.add-to-list-btn.pull-left
               button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")

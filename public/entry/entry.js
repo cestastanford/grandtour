@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, listService, MiniMapService, $compile, $interval, entryHighlightingService) {
+app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, listService, MiniMapService, $compile, $interval, entryHighlightingService, $window) {
 
   if($stateParams.id) {
     // save
@@ -12,16 +12,22 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       $scope.nextIndex = res.next;
       $scope.previousIndex = res.previous;
       if (!res.entry) $scope.noEntry = true;
-      else $scope.noEntry = false;
+      else {
 
-      createTours(res.entry.travels);
-      createOccupations(res.entry.occupations);
-      createMilitary(res.entry.military);
+        $scope.noEntry = false;
 
-      // $timeout(smartquotes);
-      $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
+        createTours(res.entry.travels);
+        createOccupations(res.entry.occupations);
+        createMilitary(res.entry.military);
 
-      setupMinimap();
+        // $timeout(smartquotes);
+        $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
+
+        setupMinimap();
+
+      }
+
+      setupEditing();
 
     })
   }
@@ -208,6 +214,64 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       i++;
 
     };
+  }
+
+
+  /*
+  * Sets up the Edit bar for the entry.
+  */
+
+  function setupEditing() {
+
+    $http.get('/loggedin')
+    .then(function(response) {
+
+      var user = response.data
+      if (user.role === 'editor' || user.role === 'admin') {
+
+        var editStatus = {}
+        if (user.activeRevisionIndex !== null) editStatus.mustActivateLatest = true
+        if ($scope.entry) editStatus.exists = true
+        $scope.editStatus = editStatus
+
+      }
+
+    })
+
+  }
+
+
+  /*
+  * Deletes the current entry.
+  */
+
+  $scope.deleteEntry = function() {
+
+    $scope.editStatus.deleting = true
+    $http.delete('/api/entries/' + $scope.entry.index)
+    .then(function() {
+      $scope.editStatus.deleting = false
+      $window.location.reload()
+    })
+    .catch(console.error.bind(console))
+
+  }
+
+
+  /*
+  * Creates a new entry with the current index.
+  */
+
+  $scope.createEntry = function() {
+
+    $scope.editStatus.creating = true
+    $http.post('/api/entries', { index: $stateParams.id, fullName: 'New Entry' })
+    .then(function() {
+      $scope.editStatus.creating = false
+      $window.location.reload()
+    })
+    .catch(console.error.bind(console))
+
   }
 
 

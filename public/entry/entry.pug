@@ -3,10 +3,45 @@
   .row
     .col-lg-12
       revision-status
+  
   br
 
-  .div(ng-show="noEntry")
-    p No entry with that index found!
+  .row(ng-show="editStatus")
+    .col-lg-12
+      .edit-status.alert.alert-success
+        
+        .edit-status-entry-index
+          span Entry Index: 
+          a.alert-link(ng-click="editStatus.editingIndex = true", ng-show="!editStatus.editingIndex") {{ $stateParams.id }}
+          em(ng-show="!editStatus.exists && !editStatus.editingIndex") (Empty)
+          .input-group.input-group-sm(ng-show="editStatus.editingIndex")
+            input.form-control(type="text", ng-model="editingIndex.newIndex")
+            span.input-group-btn
+              a.btn.btn-default(ng-href="#/entries/{{editingIndex.newIndex}}") Go
+
+        strong(ng-show="editStatus.mustActivateLatest") Activate the Latest revision to edit this entry.
+        .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && editStatus.exists")
+          a.btn.btn-default(type="button" ng-href="#/entries/{{entry.index}}/edit") Edit This Entry
+          button.btn.btn-warning(
+            ng-class="{ disabled: editStatus.deleting }",
+            type="button",
+            ng-click="editStatus.deleting ? null : deleteEntry()"
+          ) {{ editStatus.deleting ? 'Deleting...' : 'Delete This Entry' }}
+
+        .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && !editStatus.exists")
+          button.btn.btn-sm.btn-default(
+            ng-class="{ disabled: editStatus.creating }",
+            type="button",
+            ng-click="editStatus.creating ? null : createEntry()",
+          ) {{ editStatus.creating ? 'Creating...' : 'Create Entry' }}
+
+  br
+
+  .div(ng-show="!entry")
+    .row
+      .col-lg-12
+        br
+        p No entry data.
 
   .div(ng-show="entry")
     

@@ -743,3 +743,32 @@ table.table {
   justify-content: space-between;
   align-items: center;
 }
+
+.edit-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-status-entry-index {
+  display: flex;
+  align-items: center;
+}
+
+.edit-status-entry-index > span {
+  margin-right: .5em;
+  flex-shrink: 0;
+}
+
+.edit-status-entry-index a {
+  font-size: 1.15em;
+  text-decoration: underline;
+}
+
+.edit-status-entry-index em {
+  margin-left: .5em;
+}
+
+.edit-status-entry-index .input-group {
+  width: 7.5em;
+}

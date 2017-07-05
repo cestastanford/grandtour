@@ -71,6 +71,13 @@ mongoose.connect(process.env['MONGODB_URI'], mongoOptions, err => {
 
 
 /*
+*   Creates an artificial delay for server testing purposes.
+*/
+
+if (process.env.NODE_ENV !== 'production') app.use((req, res, next) => setTimeout(next, 250))
+
+
+/*
 *   Registers static and dynamic routes.
 */
 

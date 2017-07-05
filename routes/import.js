@@ -31,9 +31,9 @@ router.post('/api/import/from-sheets', isAdministrator, (req, res, next) => {
 *   Sends progress updates to socket-connected clients.
 */
 
-const sendUpdate = (message, progress) => {
+const sendUpdate = (message, progress, done) => {
     const { socket } = socketIO
-    socket.emit('sheets-import', { message, progress })
+    socket.emit('sheets-import-status', { message, progress, done })
     console.log(message) 
 }
 
@@ -108,7 +108,8 @@ const getSheets = async (sheetRequests) => {
         google.sheets('v4').spreadsheets.values.get(request, (error, response) => {
             if (error) { throw error }
             else {
-                sendUpdate(`Downloaded ${++downloaded} of ${sheetRequests.length} sheets`)
+                downloaded++
+                sendUpdate(`Downloaded ${downloaded} of ${sheetRequests.length} sheets`, { value: downloaded, max: sheetRequests.length })
                 request.values = normalizeSheetValues(response.values)
                 resolve()
             }
@@ -236,6 +237,8 @@ const getEntryUpdates = fieldRequests => {
 
 const saveEntryUpdates = async entryUpdates => {
 
+    sendUpdate(`Saving entry updates to database`)
+
     const nEntries = Object.keys(entryUpdates).length
     let nEntriesUpdated = 0
     for (let index in entryUpdates) {
@@ -245,8 +248,8 @@ const saveEntryUpdates = async entryUpdates => {
         .atRevision()
         
         nEntriesUpdated++
-        if (nEntriesUpdated % 1000 === 0) {
-            sendUpdate(`Saved ${nEntriesUpdated} of ${nEntries} entry updates to database`)
+        if (nEntriesUpdated % 100 === 0) {
+            sendUpdate(`Saved ${nEntriesUpdated} of ${nEntries} entry updates to database`, { value: nEntriesUpdated, max: nEntries })
         }
 
         if (nEntriesUpdated === nEntries) {
@@ -267,7 +270,7 @@ const commitRevision = async () => {
     sendUpdate('Saving imported entry data as new Revision')
     const name = `Import from Google Sheets on ${(new Date()).toLocaleString()}`
     await Revision.create(name)
-    sendUpdate('Done!')
+    sendUpdate('Done!', null, true)
 
 }
 

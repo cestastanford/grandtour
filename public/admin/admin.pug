@@ -162,39 +162,14 @@
       .row
 
         h3 Data Reload
-        
-        p You can reload the data from here.
-          
-        form
-              
-          table.table.reload-table
-            thead
-              tr
-                th
-                  input(type="checkbox", ng-model="allReload", ng-change="setReload(allReload)")
-                th Data dimension
-                th Sheet name
-                th Spreadsheet Id
-            tbody
-              tr(ng-repeat="sheet in defaults.sheets")
-                td
-                  input(type="checkbox", ng-model="sheet.reload")
-                td {{sheet.label}}
-                td(ng-show="sheet.info && !sheet.error")
-                  input.form-control.text-mono(ng-model="sheet.sheetName", placeholder="{{sheet.sheetName}}" ng-disabled="!sheet.reload")
-                td(ng-show="sheet.info && !sheet.error")
-                  input.form-control.text-mono(ng-model="sheet.spreadsheetId", placeholder="{{sheet.spreadsheetId}}" ng-disabled="!sheet.reload")
-                td(colspan="2", ng-show="sheet.error")
-                  .alert.alert-danger {{sheet.error}}
-                td(colspan="2", ng-show="sheet.started && !sheet.error")
-                  progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="warning")
-                    span {{sheet.message}}
-                td(colspan="2", ng-show="sheet.loading && !sheet.error")
-                  progressbar.progress-striped.active(value="sheet.count", max="sheet.total", type="info")
-                    span {{sheet.count}} / {{sheet.total}}
-                td(colspan="2", ng-show="sheet.finished && !sheet.error")
-                  progressbar(value="sheet.count", max="sheet.total", type="success")
-                    span {{sheet.message}}
-          
-
-        a#reload.btn.btn-danger(ng-click="reload()", data-loading-text="Loading...") Reload selected
+        p Click the button to initiate data reload from Google Sheets.
+        button#reload.btn.btn-danger(type="button" ng-click="reload()", data-loading-text="Loading...") Reload selected
+        hr
+        progressbar.progress-striped(
+            ng-class="{ active: !reloadStatus.done, 'progress-striped': !reloadStatus.done && !reloadStatus.progress }",
+            value="reloadStatus.progress ? reloadStatus.progress.value : 100",
+            max="reloadStatus.progress ? reloadStatus.progress.max : 100",
+            type="{{reloadStatus.progress ? 'info' : (reloadStatus.done ? 'success' : 'warning')}}",
+            ng-show="reloadStatus",
+          )
+            span {{reloadStatus.message}}

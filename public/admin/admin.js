@@ -103,122 +103,33 @@ app.controller('AdminCtrl', function($scope, $http) {
 
   reloadRevisions()
 
-  
-
   $scope.user = {};
-
-  var count = 0;
-
-  $scope.defaults = {
-    sheets : [
-      // Entries
-      { info: true, value: 'entries', multiple : false, label : 'Entries', sheetName: 'Entries', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      // Fullnames
-      { info: true, value: 'fullName', multiple : false, label : 'Fullnames', sheetName: 'Fullnames', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      // Alternate names
-      { info: true, value: 'alternateNames', multiple : true, label : 'Alternate Names', sheetName: 'Alternate Names', spreadsheetId: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload: true },
-      // Dates
-      { info: true, value: 'dates', multiple : true, label : 'Dates', sheetName: 'Dates', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      // Places
-      { info: true, value: 'places', multiple : true, label : 'Places', sheetName: 'Places', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      // Gender
-      { info: true, value: 'type', multiple : false, label : 'Type', sheetName: 'Type', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      // Pursuits
-      { info: true, value: 'pursuits', multiple : true, label : 'Pursuits & Situations', sheetName: 'Employments and Identifiers', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'occupations', multiple : true, label : 'Occupations & Posts', sheetName: 'Occupations & Posts', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'parents', multiple : false, label : 'Parents', sheetName: 'Parents', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'marriages', multiple : true, label : 'Marriages', sheetName: 'Marriages', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'mistress', multiple : true, label : 'Mistresses', sheetName: 'Mistresses', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'societies', multiple : true, label : 'Societies', sheetName: 'Societies', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'exhibitions', multiple : true, label : 'Exhibitions & Awards', sheetName: 'Exhibitions & Awards', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'education', multiple : true, label : 'Education', sheetName: 'Education', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'military', multiple : true, label : 'Military Career', sheetName: 'Military career', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-      { info: true, value: 'travels', multiple : true, label : 'Travels', sheetName: 'Travels', spreadsheetId : '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8', reload : true },
-    ]
-  }
-
-  $scope.allReload = true;
-  $scope.loading = false;
 
   $scope.$watch('view', function(){
     $scope.user = {};
     $scope.message = null;
   })
 
-  $scope.setReload = function(allReload){
-    d3.values($scope.defaults.sheets).forEach(function(d){
-      d.reload = allReload;
-    })
-  }
-
   var socket = io();
 
-  socket.on('reload-start', function(res){
-    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    }) : $scope.defaults.sheets
-    sheets.forEach(function(s) {
-      s.info = false;
-      s.started = true;
-      s.loading = false;
-      s.finished = false;
-      s.count = 1;
-      s.total = 1;
-      s.message = res.message;
-    });
-    $scope.$apply();
+  socket.on('sheets-import-status', function(response) {
+    console.log(response)
+    $scope.reloadStatus = response
+    if (response.done) {
+      $('#reload').button('reset');
+    }
+    $scope.$apply()
   });
 
-  socket.on('reload-progress', function(res){
-    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    }) : $scope.defaults.sheets
-    sheets.forEach(function(s) {
-      s.info = false;
-      s.started = false;
-      s.loading = true;
-      s.finished = false;
-      s.count = res.count;
-      s.total = res.total;
-    });
-    $scope.$apply();
-  });
-
-  socket.on('reload-finished', function(res){
-    $scope.defaults.sheets.forEach(function(s) {
-      s.info = false;
-      s.started = false;
-      s.loading = false;
-      s.finished = true;
-      s.count = s.total;
-      s.message = 'Reloaded!';
-    });
-    $('#reload').button('reset');
-    $scope.$apply();
-  });
-
-  socket.on('reload-error', function(res){
-    var sheets = res.sheet ? d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    }) : $scope.defaults.sheets
-    sheets.forEach(function(s) {
-      s.info = false;
-      s.started = false;
-      s.loading = false;
-      s.finished = false;
-      s.error = res.error;
-    });
-    $scope.$apply();
-  });
-
-  $scope.reload = function(){
-    if ($scope.loading) return;
-    $scope.loading = true;
+  $scope.reload = function() {
+    if ($scope.reloadStatus) return;
+    $scope.reloadStatus = {};
     $('#reload').button('loading')
-    $http.post('/api/reload/', $scope.defaults)
-    .success(function (res){
-      $scope.message = res;
+    $http.post('/api/import/from-sheets')
+    .then(function(res) {
+      $scope.message = 'Reload initiated.';
     })
+    .catch(console.error.bind(console))
   }
 
   $http.get('/api/users/')
@@ -274,40 +185,5 @@ app.controller('AdminCtrl', function($scope, $http) {
       $scope.message = error.message;
     });
   };
-
-//  var socket = io.connect('http://localhost');
-
-  $scope.counting = false;
-
-  $scope.recount = function() {
-    $scope.counting = true;
-    $http.get('/api/recount')
-    .then(function(res) {
-      $scope.counting = false;
-      if (res.data.error) console.error(res.data.error);
-      else {
-        getCount();
-      }
-    }, function(res) { console.error(res); });
-  };
-
-  function getCount() {
-    $http.get('/api/getcount')
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else $scope.counts = res.data.counts;
-    })
-  };
-
-  getCount();
-
-  $scope.clearAll = function() {
-    $scope.clearing = true;
-    $http.get('/api/clear-all')
-    .then(function(res) {
-      $scope.clearing = false;
-      if (res.data.error) console.error(res.data.error);
-    }, console.error.bind(console));
-  }
 
 });

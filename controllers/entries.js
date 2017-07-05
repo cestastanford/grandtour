@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 exports.index = function(req, res, next) {
 
-  Entry.find({}, 'index fullName pursuits occupations education').atRevision()
+  Entry.find({}, 'index fullName pursuits occupations education').atRevision(req.user.activeRevisionIndex)
   .then(entries => res.json({ entries }))
   .catch(next)
 
@@ -64,7 +64,7 @@ exports.suggest = function (req, res, next) {
     var query = { $or : [ { fullName: condition[field] }, { alternateNames: { $elemMatch : { alternateName : condition[field] } } } ] };
     var fields = { fullName: true, alternateNames: true };
     Entry.find(query, fields)
-    .atRevision()
+    .atRevision(req.user.activeRevisionIndex)
     .sort(field)
     .then(response => {
 
@@ -92,7 +92,7 @@ exports.suggest = function (req, res, next) {
   } else {
 
     Entry.distinct(field, condition)
-    .atRevision()
+    .atRevision(req.user.activeRevisionIndex)
     .then(response => {
       var filteredResponse = response.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; });
       res.json({
@@ -142,7 +142,7 @@ exports.uniques = function (req, res) {
     var pipeline = [];
 
     pipeline.push( { $match : query } )
-    pipeline.push({ $match: {_revisionIndex: null } })
+    pipeline.push({ $match: {_revisionIndex: req.user.activeRevisionIndex } })
     if (field.split('.').length > 1) {
       pipeline.push({ $unwind: '$' + field.split('.')[0] })
     }
@@ -203,7 +203,7 @@ exports.new_suggest = function (req, res, next) {
   var condition = searchMap[field](value);
   // console.log(field,value, condition)
   Entry.
-    distinct(field, condition).atRevision()
+    distinct(field, condition).atRevision(req.user.activeRevisionIndex)
     .then(response => {
       res.json({
         results: response//.filter(function(d){ return d.search( new RegExp(value, "i") ) != -1; })
@@ -502,7 +502,7 @@ exports.search = function (req, res, next) {
         dates: true,
         travels: true
       })
-      .atRevision()
+      .atRevision(req.user.activeRevisionIndex)
       .then(response => {
         res.json({
           request : JSON.parse(originalQuery),
@@ -574,7 +574,7 @@ exports.search2 = function (req, res, next) {
         dates: true,
         travels: true
       })
-      .atRevision()
+      .atRevision(req.user.activeRevisionIndex)
       .then(response => {
         res.json({
           request : JSON.parse(originalQuery),
@@ -752,7 +752,7 @@ exports.export = function (req, res) {
   Entry
     .aggregate()
     .match(query)
-    .match({ _revisionIndex: null })
+    .match({ _revisionIndex: req.user.activeRevisionIndex })
     .exec(function (err, response) {
 
       if (err) {
@@ -847,7 +847,7 @@ exports.single = function(req, res){
 *   query mapping.
 */
 
-exports.getCounts = async function() {
+exports.getCounts = async function(revisionIndex) {
 
     const countQueries = {
         
@@ -882,7 +882,7 @@ exports.getCounts = async function() {
     const counts = {}
     await Promise.all(Object.keys(countQueries).map(async key => {
 
-        const count = await Entry.count(countQueries[key]).atRevision()
+        const count = await Entry.count(countQueries[key]).atRevision(revisionIndex)
         counts[key] = count
 
     }))

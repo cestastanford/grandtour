@@ -15,7 +15,7 @@
     .col-lg-12(ng-show="view === 'revisions'")
 
       h1 Revisions
-      p Use this page to manage data revisions.
+      p Use this page to manage data revisions.  The currently-active revision will be used for searching, exploring, visualizations, lists and exports.
       br
 
       ul.list-group
@@ -160,7 +160,7 @@
     .col-lg-12(ng-show="view=='data'")
       .row
         h3 Import from Google Sheets
-        p Click "Import from Sheets" to initiate data import from Google Sheets.  Entry data will be applied to the latest Revision.
+        p Click "Import from Sheets" to initiate data import from Google Sheets.  Entry data will be applied to the latest revision.
         button#import.btn.btn-danger(type="button" ng-click="import()", data-loading-text="Importing...") Import from Sheets
         hr(ng-show="importStatus")
         progressbar.progress-striped(
@@ -175,9 +175,9 @@
       .row
         hr
         h3 Export to Google Sheets
-        p Select a Revision and click "Export to Sheets" to initiate data export to Google Sheets.
+        p Select a Revision and click "Export to Sheets" to initiate data export to Google Sheets.  The currently-active revision will be exported.
         button#export.btn.btn-danger(type="button" ng-click="export()", data-loading-text="Exporting...") Export to Sheets
-        hr
+        hr(ng-show="exportStatus")
         progressbar.progress-striped(
             ng-class="{ active: !exportStatus.done, 'progress-striped': !exportStatus.done && !exportStatus.progress }",
             value="exportStatus.progress ? exportStatus.progress.value : 100",
@@ -186,3 +186,7 @@
             ng-show="exportStatus",
           )
             span {{exportStatus.message}}
+
+        hr(ng-show="exportStatus.url")
+        .well.well-sm(ng-show="exportStatus.url")
+          a(href="{{exportStatus.url}}") Access exported spreadsheet at {{exportStatus.url}}

@@ -155,7 +155,7 @@ class Entry {
     *   given revision.
     */
 
-    async getAdjacentIndices(revisionIndex) {
+    async getAdjacentIndices() {
 
         const previous = await this.constructor.findOne()
         .atRevision(this._revisionIndex)

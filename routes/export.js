@@ -31,9 +31,9 @@ router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
 *   Sends progress updates to socket-connected clients.
 */
 
-const sendUpdate = (message, progress, done) => {
+const sendUpdate = (message, progress, done, url) => {
     const { socket } = socketIO
-    socket.emit('sheets-export-status', { message, progress, done })
+    socket.emit('sheets-export-status', { message, progress, done, url })
     console.log(message) 
 }
 
@@ -187,7 +187,7 @@ const saveSheetsToGoogleSpreadsheet = async sheets => {
     sendUpdate(`Saving entry data to spreadsheet`)
     const progress = { value: 0, max: sheets.length }
     await Promise.all(sheets.map(sheet => saveToSheet(spreadsheet, sheet, progress)))
-    sendUpdate(`Export complete to spreadsheet ${spreadsheet.spreadsheetUrl}`, null, true)
+    sendUpdate('Done!', null, true, spreadsheet.spreadsheetUrl)
 
 }
 

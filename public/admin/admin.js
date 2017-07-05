@@ -123,11 +123,11 @@ app.controller('AdminCtrl', function($scope, $http) {
     $scope.$apply()
   });
 
-  $scope.export = function() {
+  $scope.export = function(revisionIndex) {
     if ($scope.exportStatus) return;
     $scope.exportStatus = {};
     $('#export').button('loading')
-    $http.post('/api/export/to-sheets')
+    $http.post('/api/export/to-sheets', { revisionIndex: revisionIndex })
     .catch(console.error.bind(console))
   }
 

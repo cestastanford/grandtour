@@ -24,6 +24,25 @@ const revisionSchema = mongoose.Schema({
 
 
 /*
+*   Defines a toJSON method that converts the _id field to an index
+*   field.
+*/
+
+revisionSchema.set('toJSON', {
+
+    versionKey: false,
+    transform: (doc, ret) => {
+
+        ret.index = ret._id
+        delete ret._id
+        return ret
+
+    }
+
+})
+
+
+/*
 *   Defines the static and instance methods for the Revision class.
 */
 
@@ -83,11 +102,11 @@ class Revision {
     *   Revision as the latest.
     */
 
-    static async deleteLatest() {
+    static async clearLatest() {
 
-        await Entry.deleteMany({ _revisionIndex: null })
-        const latestRevisionIndex = await getLatestRevisionIndex()
-        await Entry.updateMany({ _revisionIndex: latestRevisionIndex }, { _revisionIndex: null })
+        const latestRevisionIndex = await this.getLatestRevisionIndex()
+        const entries = await Entry.find({ _revisionIndex: null })
+        await Promise.all(entries.map(entry => entry.resetLatestToRevision(latestRevisionIndex)))
 
     }
 

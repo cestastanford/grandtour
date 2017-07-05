@@ -3,7 +3,108 @@
  **********************************************************************/
 app.controller('AdminCtrl', function($scope, $http) {
 
-  $scope.view = 'data';
+  $scope.view = 'revisions';
+
+
+  /*
+  * Sets up Revisions tab.
+  */
+
+  function markActiveRevision(activeIndex) {
+    $scope.revisions.forEach(function(revision) { revision.active = revision.index === activeIndex })
+    $scope.revisions = $scope.revisions
+  }
+
+  function reloadRevisions() {
+    $scope.revisions = [ { index: null, name: 'Latest', latest: true } ]
+    $http.get('/api/revisions')
+    .then(function(response) {
+      console.log(response.data)
+      $scope.revisions = $scope.revisions.concat(response.data)
+    })
+    .then(function() { return $http.get('/loggedin') })
+    .then(function(response) {
+      console.log(response)
+      markActiveRevision(response.data.activeRevisionIndex)
+    })
+    .catch(console.error.bind(console))
+  }
+
+  $scope.editRevision = function(revision) {
+    revision.newName = revision.name
+    revision.editing = true
+  }
+
+  $scope.cancelRevisionEdit = function(revision) {
+    delete revision.newName
+    revision.editing = false
+  }
+
+  $scope.saveRevisionEdit = function(revision) {
+    revision.name = revision.newName
+    revision.editing = false
+    $http.patch('/api/revisions/' + revision.index, { name: revision.name })
+    .then(function(response) {
+      console.log(response)
+      revision.name = response.data.name
+      $scope.revisions = $scope.revisions
+    })
+    .catch(console.error.bind(console))
+  }
+
+  $scope.setActiveRevision = function(revision) {
+    markActiveRevision(revision.index)
+    $http.post('/api/users/update', { activeRevisionIndex: revision.index })
+    .then(function(response) {
+      console.log(response)
+      markActiveRevision(response.data.activeRevisionIndex)
+    })
+    .catch(console.error.bind(console))
+  }
+
+  $scope.deleteRevision = function(revision) {
+    revision.deleting = true
+    $scope.revisions = $scope.revisions
+    $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
+    $http.delete('/api/revisions/' + revision.index)
+    .then(function(response) { console.log(response) })
+    .then(function() {
+      revision.deleting = false
+      $scope.revisions = $scope.revisions
+      if (revision.active) return $scope.setActiveRevision({ index: null })
+    })
+    .catch(console.error.bind(console))
+  }
+
+  $scope.clearLatest = function() {
+    $scope.revisions[0].clearing = true
+    $scope.revisions = $scope.revisions
+    $http.delete('/api/revisions/latest')
+    .then(function(response) {
+      console.log(response)
+      $scope.revisions[0].clearing = false
+      $scope.revisions = $scope.revisions
+    })
+    .catch(console.error.bind(console))
+  }
+
+  $scope.saveNewRevision = function() {
+    var newRevision = { name: 'Saving...', temporary: true }
+    $scope.revisions.splice(1, 0, newRevision)
+    $scope.revisions = $scope.revisions
+    $http.post('/api/revisions', {})
+    .then(function(response) {
+      console.log(response)
+      $scope.revisions[$scope.revisions.indexOf(newRevision)] = response.data
+      $scope.revisions = $scope.revisions
+    })
+    .catch(console.error.bind(console))
+  }
+
+  reloadRevisions()
+
+  
+
   $scope.user = {};
 
   var count = 0;

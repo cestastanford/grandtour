@@ -122,14 +122,29 @@ class Entry {
 
 
     /*
-    *   Saves an entry's latest state in as a previous Revision and
-    *   creates a new 
+    *   Saves an entry's latest state as a new Revision.
     */
 
     async saveRevision(newRevisionIndex) {
 
         const newVersion = new this.constructor(this.toObject())
         newVersion._revisionIndex = newRevisionIndex
+        await newVersion.save()
+
+    }
+
+
+    /*
+    *   Resets the latest version of an entry to the version specified
+    *   by the passed revisionIndex
+    */
+
+    async resetLatestToRevision(revisionIndex) {
+
+        const { index } = await this.remove()
+        const sourceVersion = await this.constructor.findOne({ index }).atRevision(revisionIndex)
+        const newVersion = new this.constructor(sourceVersion ? sourceVersion.toObject() : {})
+        newVersion._revisionIndex = null
         await newVersion.save()
 
     }

@@ -726,3 +726,14 @@ table.table {
 .highlighted {
     background-color: #feb;
 }
+
+.revision {
+  overflow: auto;
+}
+
+.revision-label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25em;
+}

@@ -1,6 +1,8 @@
 .container.main-view
 
   ul.nav.nav-tabs
+    li(role="revisions", ng-class="{ active: view === 'revisions' }")
+      a(ng-click="view = 'revisions'") Revisions
     li(role="presentation", ng-class="{active:view=='data'}")
       a(ng-click="view='data'") Data
     li(role="presentation", ng-class="{active:view=='users'}")
@@ -9,6 +11,78 @@
       a(ng-click="view='addUser'") Add user
 
   .row
+
+    .col-lg-12(ng-show="view === 'revisions'")
+
+      h1 Revisions
+      p Use this page to manage data revisions.
+      br
+
+      ul.list-group
+        li.revision.list-group-item(
+          ng-repeat="revision in revisions",
+          ng-class="{ 'list-group-item-info': revision.active, latest: revision.latest }"
+        )
+          
+          span.revision-label(ng-show="!revision.editing") {{revision.name}}
+          span.btn-group.pull-right(role="group", ng-show="!revision.editing && !revision.temporary")
+            button(
+              type="button",
+              class="btn btn-sm btn-default",
+              ng-click="editRevision(revision)",
+              ng-show="!revision.latest",
+            ) edit name
+
+            button(
+              type="button",
+              class="btn btn-sm btn-info",
+              ng-click="setActiveRevision(revision)",
+              ng-show="!revision.active"
+            ) activate
+            
+            button(
+              type="button",
+              class="btn btn-sm btn-danger",
+              ng-click="revision.deleting ? null : deleteRevision(revision)",
+              ng-show="!revision.latest"
+              ng-class="{ disabled: revision.deleting }"
+            ) {{ revision.deleting ? 'deleting...' : 'delete' }}
+
+            button(
+              type="button",
+              class="btn btn-sm btn-danger",
+              ng-click="revision.clearing ? null : clearLatest()",
+              ng-show="revision.latest"
+              ng-class="{ disabled: revision.clearing }"
+            ) {{ revision.clearing ? 'clearing...' : 'clear latest changes' }}
+
+            button(
+              type="button",
+              class="btn btn-sm btn-success",
+              ng-click="saveNewRevision()",
+              ng-show="revision.latest"
+            ) save as new revision
+
+
+          .input-group(ng-show="revision.editing")
+            input.form-control(
+              type="text",
+              ng-model="revision.newName",
+            )
+
+            .input-group-btn(role="group")
+              button(
+                type="button",
+                class="btn btn-sm btn-warning",
+                ng-click="cancelRevisionEdit(revision)",
+              ) cancel
+
+              button(
+                type="button",
+                class="btn btn-sm btn-success",
+                ng-click="saveRevisionEdit(revision)",
+              ) save
+
 
     .col-lg-12(ng-show="view=='addUser'")
 
@@ -124,41 +198,3 @@
           
 
         a#reload.btn.btn-danger(ng-click="reload()", data-loading-text="Loading...") Reload selected
-        
-      .row
-
-        hr
-
-        h3 Counts
-
-        p You can view and recount the number of entries containing data for each field here.
-        
-        .col-lg-6.well
-
-          table.table
-            thead
-              tr
-                th field name
-                th count
-            tbody
-              tr(ng-repeat="(field, count) in counts")
-                td {{ field }}
-                td {{ count }}
-
-        .col-lg-1
-        .col-lg-5.well
-
-          a.btn.btn-default(ng-click="recount()", ng-disabled="counting === true") {{ counting ? 'Counting...' : 'Recount' }}
-
-      .row
-
-        hr
-
-        h3 Clear All Entries
-
-        p Click this button to erase all entries from the database.
-        
-        .col-lg-6.well
-
-          a.btn.btn-default(ng-click="clearAll()", ng-disabled="clearing") {{ clearing ? 'Clearing...' : 'Clear All' }}
-              

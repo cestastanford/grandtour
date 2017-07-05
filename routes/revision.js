@@ -15,6 +15,7 @@ const Entry = require('../models/entry')
 router.get('/api/revisions', isEditor, async (req, res, next) => {
 
     Revision.find({})
+    .sort('-_id')
     .then(revisions => res.json(revisions))
     .catch(next)
 
@@ -27,7 +28,7 @@ router.get('/api/revisions', isEditor, async (req, res, next) => {
 
 router.post('/api/revisions', isAdministrator, (req, res, next) => {
 
-    Revision.create(req.body.name || `Revision started on ${(new Date()).toLocaleString()}`)
+    Revision.create(req.body.name || `Revision saved on ${(new Date()).toLocaleString()}`)
     .then(revision => res.status(201).json(revision))
     .catch(next)
 
@@ -46,6 +47,20 @@ router.patch('/api/revisions/:index', isAdministrator, (req, res, next) => {
         else return revision
     })
     .then(revision => res.json(revision))
+    .catch(next)
+
+})
+
+
+/*
+*   Clears the latest Revision, resetting all associated entries
+*   to the previously-saved version.
+*/
+
+router.delete('/api/revisions/latest', isAdministrator, (req, res, next) => {
+
+    Revision.clearLatest()
+    .then(() => res.status(200).send())
     .catch(next)
 
 })

@@ -84,9 +84,9 @@ router.post('/api/users/remove', isAdministrator, (req, res, next) => {
 })
 
 router.post('/api/users/update', isAdministrator, (req, res, next) => {
-  User.update({ username: req.body.username }, req.body, (err, data) => {
+  User.findOneAndUpdate({ username: req.body.username || req.user.username }, req.body, { new: true }, (err, data) => {
     if (err) { return res.status(401).send(err) }
-    return res.status(200).send({ updated: data })
+    return res.status(200).send(data)
   })
 })
 

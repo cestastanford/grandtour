@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     role: { type: String, default: ROLES.viewer, enum: Object.values(ROLES), required: true },
-    activeRevisionIndex: Number,
+    activeRevisionIndex: { type: Number, default: null },
 
 })
 

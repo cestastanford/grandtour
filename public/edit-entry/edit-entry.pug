@@ -1,0 +1,51 @@
+.container.main-view(ng-show="entry")
+    .row
+        .col-lg-12
+            .edit-status.alert.alert-warning
+                .edit-status-entry-index
+                    span Editing Entry Index: 
+                    a.alert-link(ng-click="editingIndex = true", ng-show="!editingIndex") {{ $stateParams.id }}
+                    .input-group.input-group-sm(ng-show="editingIndex")
+                        input.form-control(type="text", ng-model="newIndex")
+                        span.input-group-btn
+                            a.btn.btn-default(ng-href="#/entries/{{newIndex}}/edit") Go
+
+                
+                .btn-group.btn-group-sm(role="group")
+                    
+                    a.btn.btn-default(
+                        type="button",
+                        ng-href="#/entries/{{ entry.index }}",
+                    ) Done Editing
+
+                    button.btn.btn-warning(
+                        type="button",
+                        ng-click="!unsavedChanges || reverting ? null : revertChanges()",
+                        ng-class="{ disabled: !unsavedChanges || reverting }"
+                    ) {{ reverting ? 'Reverting...' : 'Revert Changes' }}
+                
+                    button.btn.btn-default(
+                        type="button",
+                        ng-click="!unsavedChanges || saving ? null : saveChanges()",
+                        ng-class="{ disabled: !unsavedChanges || saving }"
+                    ) {{ saving ? 'Saving...' : 'Save Changes' }}
+
+    br
+    h1
+        span(
+            ng-show="currentlyEditing !== 'fullName'",
+            ng-click="edit('fullName')",
+        ) {{ entry.fullName }}
+
+        input#fullName(
+            ng-show="currentlyEditing === 'fullName'",
+            type="text",
+            ng-model="entry.fullName",
+            ng-change="edited('fullName')"
+        )
+        
+        a.pull-right(ng-href="#/entries/{{next}}/edit")
+            i.fa.fa-angle-right.margin-left
+        
+        a.pull-right(ng-href="#/entries/{{previous}}/edit")
+            i.fa.fa-angle-left

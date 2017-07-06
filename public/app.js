@@ -139,7 +139,16 @@ var app = angular.module('app', [
       }
     })
 
-    .state('/entry', {
+    .state('edit-entry', {
+      url: "/entries/:id/edit",
+      templateUrl: "views/edit-entry",
+      controller: "EditEntryCtrl",
+      resolve: {
+        loggedin: checkLoggedin
+      }
+    })
+
+    .state('entry', {
       url: "/entries/:id",
       templateUrl: "views/entry",
       controller: "EntryCtrl",

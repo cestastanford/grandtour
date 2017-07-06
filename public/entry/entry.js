@@ -9,7 +9,6 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     $http.get('/api/entries/' + $stateParams.id )
     .success(function (res){
       $scope.entry = res.entry;
-      console.log(res.entry.mentionedNames)
       $scope.nextIndex = res.next;
       $scope.previousIndex = res.previous;
       if (!res.entry) $scope.noEntry = true;
@@ -261,14 +260,18 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   */
 
   $scope.deleteEntry = function() {
-
-    $scope.editStatus.deleting = true
-    $http.delete('/api/entries/' + $scope.entry.index)
-    .then(function() {
-      $scope.editStatus.deleting = false
-      $window.location.reload()
-    })
-    .catch(console.error.bind(console))
+    
+    if ($window.confirm('Are you sure you want to delete this entry?')) {
+      
+      $scope.editStatus.deleting = true
+      $http.delete('/api/entries/' + $scope.entry.index)
+      .then(function() {
+        $scope.editStatus.deleting = false
+        $window.location.reload()
+      })
+      .catch(console.error.bind(console))
+    
+    }
 
   }
 

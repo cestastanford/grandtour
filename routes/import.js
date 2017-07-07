@@ -184,7 +184,7 @@ const getEntryUpdates = fieldRequests => {
     const entryUpdates = {}
     fieldRequests.forEach(fieldRequest => {
 
-        const entryField = entryFields[fieldRequest.key]
+        const field = entryFields[fieldRequest.key]
         const sheetValues = fieldRequest.sheetRequest.values
         sheetValues.forEach(row => {
 
@@ -192,13 +192,14 @@ const getEntryUpdates = fieldRequests => {
             if (!entryUpdates[row.index]) entryUpdates[row.index] = {}
             const entry = entryUpdates[row.index]
 
-            //  Extracts value or value object from sheet
             let value
-            const transform = entryField.sheet.fromSheet || (d => d)
-            if (entryField.sheet.columns) {
+            const transform = field.sheet.fromSheet || (d => d)
+
+            //  Extracts an value object from the sheet data
+            if (field.valueIsObject()) {
                 
                 const valueObject = {}
-                entryField.sheet.columns.forEach(column => {
+                Object.keys(field.getValueType()).forEach(column => {
                     if (row[column]) valueObject[column] = row[column]
                 })
                 
@@ -206,22 +207,23 @@ const getEntryUpdates = fieldRequests => {
                     value = transform(valueObject)
                 }
             
-            } else if (row[entryField.sheet.column]) {
-                value = transform(row[entryField.sheet.column])
-            }
+            //  Extracts a value primitive from the sheet data
+            } else value = transform(row[fieldRequest.key])
 
-            //  Saves value as entry property or as element in entry property array
+            //  Saves value to in-memory entry
             if (value) {
 
-                if (Array.isArray(entryField.type)) {
+                //  Appends value to array value field
+                if (field.isArrayOfValues()) {
 
-                    if (!entry[entryField.key]) entry[entryField.key] = []
-                    entry[entryField.key].push(value)
+                    if (!entry[field.key]) entry[field.key] = []
+                    entry[field.key].push(value)
 
-                } else entry[entryField.key] = value
+                //  Saves value to non-array value field
+                } else entry[field.key] = value
 
             }
-            
+
         })
 
     })

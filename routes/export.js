@@ -34,7 +34,8 @@ router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
 const sendUpdate = (message, progress, done, url) => {
     const { socket } = socketIO
     socket.emit('sheets-export-status', { message, progress, done, url })
-    console.log(message) 
+    console.log(message)
+    if (done) console.log(url)
 }
 
 
@@ -74,23 +75,25 @@ const saveEntriesToSheets = entries => {
                 const transform = field.sheet.toSheet || (d => d)
 
                 //  For fields that accept an array of values
-                if (Array.isArray(field.type)) {
+                if (field.isArrayOfValues()) {
 
                     const newRows = value.map(valueArrayElement => {
 
                         const row = []
-                        row[sheet.header.indexOf('index')] = entry.index
+                        row[0] = entry.index
 
                         //  For fields whose values are objects
-                        if (field.sheet.columns) {
+                        if (field.valueIsObject()) {
 
-                            for (let key in valueArrayElement) {
-                                row[sheet.header.indexOf(key)] = transform(valueArrayElement[key])
-                            }
+                            Object.keys(valueArrayElement.toObject()).forEach(key => {
+                                if (sheet.columnMap[key]) {
+                                    row[sheet.columnMap[key]] = transform(valueArrayElement[key])
+                                }
+                            })
 
                         //  For fields whose values are primitives
-                        } else row[sheet.header.indexOf(field.sheet.column)] = transform(valueArrayElement)
-
+                        } else row[sheet.columnMap[field.key]] = transform(valueArrayElement)
+                        
                         return row
 
                     })
@@ -100,24 +103,26 @@ const saveEntriesToSheets = entries => {
                 //  For fields that accept a single value
                 } else {
 
-                    let row = sheet.rows.filter(row => row[sheet.header.indexOf('index')] === entry.index)[0]
+                    let row = sheet.rows.filter(row => row[0] === entry.index)[0]
                     if (!row) {
 
                         row = []
-                        row[sheet.header.indexOf('index')] = entry.index
+                        row[0] = entry.index
                         sheet.rows = [ ...sheet.rows, row ]
 
                     }
 
                     //  For fields whose values are objects
-                    if (field.sheet.columns) {
+                    if (field.valueIsObject()) {
 
-                        for (let key in value) {
-                            row[sheet.header.indexOf(key)] = transform(value[key])
-                        }
+                        Object.keys(value).forEach(key => {
+                            if (sheet.columnMap[key]) {
+                                row[sheet.columnMap[key]] = transform(value[key])
+                            }
+                        })
 
                     //  For fields whose values are primitives
-                    } else row[sheet.header.indexOf(field.sheet.column)] = transform(value)
+                    } else row[sheet.columnMap[field.key]] = transform(value)
 
                 }
 
@@ -133,8 +138,8 @@ const saveEntriesToSheets = entries => {
     const sheetsArray = Object.values(sheets)
     sheetsArray.forEach(sheet => {
 
-        sheet.rows.sort((a, b) => +a[0] > +b[0] ? 1 : (+b[0] > +a[0] ? -1 : 0))
-        sheet.rows.unshift(sheet.header)
+        //sheet.rows.sort((a, b) => +a[0] > +b[0] ? 1 : (+b[0] > +a[0] ? -1 : 0))
+        sheet.rows.unshift(sheet.columns)
     
     })
 
@@ -157,18 +162,27 @@ const createSheets = () => {
 
             sheets[field.sheet.name] = {
                 name: field.sheet.name,
-                header: [ 'index' ],
+                columns: [ 'index' ],
                 rows: [],
             }
 
         }
 
         const sheet = sheets[field.sheet.name]
-        if (field.sheet.column) sheet.header = [ ...sheet.header, field.sheet.column ]
-        else sheet.header = [ ...sheet.header, ...field.sheet.columns ]
+        if (field.valueIsObject()) sheet.columns = [
+            ...sheet.columns,
+            ...Object.keys(field.getValueType()),
+        ]
+            
+        else sheet.columns = [ ...sheet.columns, field.key ]
 
     })
 
+    Object.values(sheets).forEach(sheet => {
+        sheet.columnMap = {}
+        sheet.columns.forEach((column, i) => sheet.columnMap[column] = i)
+    })
+    
     return sheets
 
 }
@@ -238,6 +252,7 @@ const createNewSpreadsheet = sheets => new Promise(resolve => {
                     title: sheet.name,
                     gridProperties: {
                         frozenRowCount: 1,
+                        frozenColumnCount: 1,
                     }
                 },
             })),

@@ -14,13 +14,22 @@ module.exports = {
         travelEndMonth: Number,
         travelStartYear: Number,
         travelEndYear: Number,
+        place: String,
+        markers: String,
+        travelindexTotal: String,
+        latitude: String,
+        longitude: String,
+        lte: String,
+        gte: String,
+        parent: String,
+        notes: String,
+        'period of time calculations': String,
     }],
     label: 'Travels',
     sheet: {
 
         spreadsheet: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8',
         name: 'Travels',
-        columns: [ 'tourIndex', 'travelIndex', 'tourStartFrom', 'tourStartTo', 'tourEndFrom', 'tourEndTo', 'travelStartDay', 'travelStartMonth', 'travelEndDay', 'travelEndMonth', 'travelStartYear', 'travelEndYear', 'place', 'markers', 'travelindexTotal', 'latitude', 'longitude', 'lte', 'gte', 'parent', 'notes', 'period of time calculations' ],
 
     }
 

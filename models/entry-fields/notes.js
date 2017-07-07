@@ -7,7 +7,6 @@ module.exports = {
 
         spreadsheet: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8',
         name: 'Entries',
-        column: 'notes',
 
     }
 

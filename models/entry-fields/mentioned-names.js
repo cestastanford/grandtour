@@ -1,13 +1,17 @@
 module.exports = {
 
     key: 'mentionedNames',
-    type: [],
+    type: [{
+        name: String,
+        entryIndex1: Number,
+        entryIndex2: Number,
+        entryIndex3: Number,
+    }],
     label: 'Mentioned Names',
     sheet: {
 
         spreadsheet: '1PnBTlQnHfqj-sl32mcUpB-j2vL-BqJMx7BAiXe5TrRA',
         name: 'Mentioned Names',
-        columns: [ 'name', 'entryIndex1', 'entryIndex2', 'entryIndex3' ],
         fromSheet: (d) => ({
             name: d.name,
             entryIndex: d.entryIndex1 !== '-1' ? d.entryIndex1 : (

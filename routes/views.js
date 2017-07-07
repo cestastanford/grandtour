@@ -18,6 +18,10 @@ router.get('/views/:name', (req, res) => {
     res.render(name + '/' + name)
 })
 
+router.get('/components/:name/:subname', (req, res) => {
+    res.render('components/' + req.params.name + '/' + req.params.subname)
+})
+
 router.get('/components/:name', (req, res) => {
     const name = req.params.name
     res.render('components/' + name + '/' + name)

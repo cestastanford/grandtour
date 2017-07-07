@@ -1,5 +1,23 @@
 app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $window) {
 
+
+    /*
+    *   Downloads the entry field schemas for rendering.
+    */
+
+    function refreshEntryFields() {
+
+        return $http.get('/api/entry-fields')
+        .then(function(response) {
+
+            $scope.entryFields = response.data
+
+        })
+        .catch(console.error.bind(console))
+
+    }
+
+
     /*
     *   Downloads entry data.
     */
@@ -40,26 +58,13 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
 
 
     /*
-    *   Opens the editor for a given field.
-    */
-
-    $scope.edit = function(fieldName) {
-
-        $scope.currentlyEditing = fieldName
-        var element = document.getElementById(fieldName)
-        $window.setTimeout(function() { element.focus() }, 0)
-
-    }
-
-
-    /*
     *   Marks a field as edited.
     */
 
-    $scope.edited = function(fieldName) {
+    $scope.edited = function(fieldName, value) {
 
         if (!$scope.unsavedChanges) $scope.unsavedChanges = {}
-        $scope.unsavedChanges[fieldName] = true
+        $scope.unsavedChanges[fieldName] = value
 
     }
 
@@ -72,12 +77,7 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
 
         $scope.currentlyEditing = null
         $scope.saving = true
-        var update = {}
-        for (var fieldName in $scope.unsavedChanges) {
-            update[fieldName] = $scope.entry[fieldName]
-        }
-
-        $http.patch('/api/entries/' + $scope.entry.index, update)
+        $http.patch('/api/entries/' + $scope.entry.index, $scope.unsavedChanges)
         .then(function(response) {
             $scope.entry = response.data
             $scope.unsavedChanges = null
@@ -108,6 +108,13 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     }
 
 
-    refreshEntry()
+    /*
+    *   Initially downloads assets and sets up inter-scope communication
+    *   objects.
+    */
+
+    refreshEntryFields()
+    .then(refreshEntry)
+    .catch(console.error.bind(console))
 
 });

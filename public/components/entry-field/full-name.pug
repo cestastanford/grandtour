@@ -1,0 +1,11 @@
+span(
+    ng-show="!currentlyEditing",
+    ng-click="handleClick()",
+) {{ value }}
+
+input.focus(
+    ng-show="currentlyEditing",
+    type="text",
+    ng-model="value",
+    ng-change="edited({ value: value })"
+)

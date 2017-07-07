@@ -32,16 +32,13 @@
 
     br
     h1
-        span(
-            ng-show="currentlyEditing !== 'fullName'",
-            ng-click="edit('fullName')",
-        ) {{ entry.fullName }}
-
-        input#fullName(
-            ng-show="currentlyEditing === 'fullName'",
-            type="text",
-            ng-model="entry.fullName",
-            ng-change="edited('fullName')"
+        entry-field(
+            field="entryFields.fullName",
+            value="unsavedChanges.fullName || entry.fullName",
+            currently-editing="currentlyEditing === 'fullName'",
+            start-editing="currentlyEditing = 'fullName'",
+            edited="edited('fullName', value)",
+            template="full-name",
         )
         
         a.pull-right(ng-href="#/entries/{{next}}/edit")

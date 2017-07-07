@@ -5,6 +5,7 @@
 const router = require('express').Router()
 const { isViewer, isEditor } = require('./auth')
 const Entry = require('../models/entry')
+const entryFields = require('../models/entry-fields')
 
 
 /*
@@ -79,6 +80,17 @@ router.post('/api/entries', isEditor, (req, res, next) => {
     Entry.create(req.body)
     .then(entry => res.json(entry))
     .catch(next)
+
+})
+
+
+/*
+*   Retrieves and returns the entry field definitions.
+*/
+
+router.get('/api/entry-fields', isViewer, (req, res, next) => {
+
+    res.json(entryFields)
 
 })
 

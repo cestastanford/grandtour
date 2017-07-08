@@ -12,6 +12,8 @@ app.directive('entryField', function($window) {
             */
 
             scope.fieldKey = attributes.fieldKey
+            scope.facetTemplate = attributes.facetTemplate
+            console.log(scope.facetTemplate)
 
 
             /*
@@ -62,6 +64,16 @@ app.directive('entryField', function($window) {
 
                 openObjectEditModal(newObject, save)
 
+            }
+
+
+            /*
+            *   Handles a resort of the array elements.
+            */
+
+            scope.arraySorted = function() {
+                scope.startEditing()
+                scope.edited(scope.fieldKey)
             }
 
 

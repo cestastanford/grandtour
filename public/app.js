@@ -6,6 +6,7 @@
 var app = angular.module('app', [
     'ngSanitize',
     'ngAnimate',
+    'ng-sortable',
     'ui.router',
     'ui.bootstrap',
 ])

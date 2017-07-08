@@ -18,13 +18,13 @@
     "express": "^4.12.3",
     "google-auth-library": "^0.10.0",
     "googleapis": "^16.1.0",
-    "jade": "^1.9.2",
     "jsondiffpatch": "^0.1.33",
     "mongoose": "^4.11.0",
     "morgan": "^1.5.2",
     "passport": "*",
     "passport-local": "*",
     "passport-local-mongoose": "^1.0.0",
+    "pug": "^2.0.0-rc.2",
     "socket.io": "^1.3.5"
   },
   "engines": {

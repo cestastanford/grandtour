@@ -1,0 +1,29 @@
+.panel.panel-default(ng-if="entryFields[fieldKey].typeInfo.isArrayOfValues")
+    .panel-heading {{ entryFields[fieldKey].label }}
+    ul.list-group.entry-facet(ng-sortable="{ onUpdate: arraySorted }")
+        li.list-group-item(ng-repeat="fieldValue in entry[fieldKey]")
+            ng-include.data(src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')")
+            .controls
+                a.small.pull-right(ng-click="deleteFromArray(fieldValue)") delete 
+                a.small.pull-right.margin-right(ng-click="editObject(fieldValue)") edit 
+    
+    a.small.italic(ng-click="addToArray()") Add New
+    
+.panel.panel-default(ng-if="!entryFields[fieldKey].typeInfo.isArrayOfValues")
+    .panel-heading {{ entryFields[fieldKey].label }}
+    ul.list-group.entry-facet
+        li.list-group-item
+            ng-include.data(src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')", ng-init="fieldValue = entry[fieldKey]")
+            a.controls.small.pull-right.margin-right(ng-click="editObject(fieldValue)") edit 
+
+.custom-modal(ng-show="modalModel")
+    .modal-inner
+        h4 Edit Item
+        form
+            .input-group.input-group-sm(ng-repeat="field in modalModel")
+                span.input-group-addon {{ field.name }}
+                input.form-control(type="text", ng-model="field.value")
+
+            .btn-group.btn-group-sm
+                button.btn.btn-sm.btn-warning(type="submit", ng-click="modalCancel()") Cancel
+                button.btn.btn-sm.btn-info(type="submit", ng-click="modalSave()") Apply

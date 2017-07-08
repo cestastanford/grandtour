@@ -46,14 +46,23 @@
     .row
         div.col-lg-3.entry-info
             .row
-                
-
-
                 entry-field.col-lg-12.col-md-4.col-sm-6(
                     ng-repeat="fieldKey in [ 'alternateNames', 'dates', 'places', 'parents', 'marriages', 'mistress', 'pursuits', 'occupations', 'military', 'education', 'societies', 'exhibitions', 'mentionedNames' ]",
                     field-key="{{ fieldKey }}",
-                    template="object",
+                    template="facet-wrapper",
                 )
 
+        div.col-lg-6
+            entry-field(
+                ng-repeat="fieldKey in [ 'biography', 'tour', 'narrative', 'notes' ]",
+                field-key="{{ fieldKey }}",
+                template="entry-text",
+            )
 
-                
+        div.col-lg-3.entry-info
+            .row
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="travels",
+                    template="facet-wrapper",
+                    facet-template="travels",
+                )

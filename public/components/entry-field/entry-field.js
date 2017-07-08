@@ -60,7 +60,7 @@ app.directive('entryField', function($window) {
                     scope.edited(scope.fieldKey)
                 }
 
-                editObject(newObject, save)
+                openObjectEditModal(newObject, save)
 
             }
 
@@ -69,16 +69,14 @@ app.directive('entryField', function($window) {
             *   Edits an array item.
             */
 
-            scope.editInArray = function(item) {
+            scope.editObject = function(item) {
                 scope.startEditing()
-                var array = scope.entry[scope.fieldKey]
-                var index = array.indexOf(item)
                 var save = function(updatedObject) {
-                    array[index] = updatedObject
+                    Object.assign(item, updatedObject)
                     scope.edited(scope.fieldKey)
                 }
 
-                editObject(item, save)
+                openObjectEditModal(item, save)
             }
 
 
@@ -86,7 +84,7 @@ app.directive('entryField', function($window) {
             *   Brings up a modal window for editing an object's properties.
             */
 
-            function editObject(originalObject, saveFn) {
+            function openObjectEditModal(originalObject, saveFn) {
 
                 var type = scope.entryFields[scope.fieldKey].serializedValueType
                 var modalModel = type.map(function(key) { return { name: key, value: originalObject[key] } })

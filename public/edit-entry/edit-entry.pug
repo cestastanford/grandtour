@@ -46,7 +46,14 @@
     .row
         div.col-lg-3.entry-info
             .row
+                
+
+
                 entry-field.col-lg-12.col-md-4.col-sm-6(
-                    field-key="alternateNames",
-                    template="array-of-objects",
+                    ng-repeat="fieldKey in [ 'alternateNames', 'dates', 'places', 'parents', 'marriages', 'mistress', 'pursuits', 'occupations', 'military', 'education', 'societies', 'exhibitions', 'mentionedNames' ]",
+                    field-key="{{ fieldKey }}",
+                    template="object",
                 )
+
+
+                

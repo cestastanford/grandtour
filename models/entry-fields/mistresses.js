@@ -1,6 +1,6 @@
 module.exports = {
 
-    key: 'mistresses',
+    key: 'mistress',
     type: [{
         of: String,
         from: Number,

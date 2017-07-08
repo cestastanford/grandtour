@@ -791,6 +791,16 @@ li:hover > .mentioned-names-popup {
   background-color: white;
 }
 
+ul.list-group.entry-facet > li {
+  display: flex;
+  align-items: center;
+}
+
+ul.list-group.entry-facet > li .controls {
+  margin: 0 .25em;
+  flex-shrink: 0;
+}
+
 .italic {
   font-style: italic;
 }
@@ -805,11 +815,26 @@ li:hover > .mentioned-names-popup {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
-.modal-inner {
+.custom-modal .modal-inner {
   background-color: white;
   padding: 2em;
   border-radius: 5px;
   box-shadow: 0px 1px 5px #444;
+  text-align: center;
+}
+
+.custom-modal .modal-inner form {
+  max-width: 25em;
+  margin-top: 2em;
+}
+
+.custom-modal .modal-inner form .input-group {
+  margin-bottom: 1em;
+}
+
+.custom-modal .modal-inner form .btn-group {
+  margin-top: 2em;
 }

@@ -1,0 +1,34 @@
+.panel.panel-default
+    .panel-heading {{ entryFields[fieldKey].label }}
+    ul.list-group.entry-facet
+        li.list-group-item(ng-if="entryFields[fieldKey].typeInfo.isArrayOfValues" ng-repeat="e in entry[fieldKey]")
+            .data
+                span(ng-repeat="(key, value) in e")
+                    strong {{ key }}: 
+                    span {{ value }}
+                    span(ng-if="!$last") , 
+            .controls
+                a.small.pull-right(ng-click="deleteFromArray(e)") delete 
+                a.small.pull-right.margin-right(ng-click="editObject(e)") edit 
+        li.list-group-item(ng-if="entryFields[fieldKey].typeInfo.isArrayOfValues")
+            a.small.italic(ng-click="addToArray()") Add New
+        li.list-group-item(ng-if="!entryFields[fieldKey].typeInfo.isArrayOfValues")
+            .data
+                span(ng-repeat="(key, value) in entry[fieldKey]")
+                    strong {{ key }}: 
+                    span {{ value }}
+                    span(ng-if="!$last") , 
+            a.controls.small.pull-right.margin-right(ng-click="editObject(entry[fieldKey])") edit 
+
+.custom-modal(ng-show="modalModel")
+    .modal-inner
+        h4 Edit Item
+        form
+            .input-group.input-group-sm(ng-repeat="field in modalModel")
+                span.input-group-addon {{ field.name }}
+                input.form-control(type="text", ng-model="field.value")
+
+            .btn-group.btn-group-sm
+                button.btn.btn-sm.btn-warning(type="submit", ng-click="modalCancel()") Cancel
+                button.btn.btn-sm.btn-info(type="submit", ng-click="modalSave()") Apply
+

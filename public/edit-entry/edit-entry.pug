@@ -24,7 +24,7 @@
                         ng-class="{ disabled: !unsavedChanges || reverting }"
                     ) {{ reverting ? 'Reverting...' : 'Revert Changes' }}
                 
-                    button.btn.btn-default(
+                    button.btn.btn-info(
                         type="button",
                         ng-click="!unsavedChanges || saving ? null : saveChanges()",
                         ng-class="{ disabled: !unsavedChanges || saving }"
@@ -33,11 +33,7 @@
     br
     h1
         entry-field(
-            field="entryFields.fullName",
-            value="unsavedChanges.fullName || entry.fullName",
-            currently-editing="currentlyEditing === 'fullName'",
-            start-editing="currentlyEditing = 'fullName'",
-            edited="edited('fullName', value)",
+            field-key="fullName",
             template="full-name",
         )
         
@@ -46,3 +42,11 @@
         
         a.pull-right(ng-href="#/entries/{{previous}}/edit")
             i.fa.fa-angle-left
+
+    .row
+        div.col-lg-3.entry-info
+            .row
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="alternateNames",
+                    template="array-of-objects",
+                )

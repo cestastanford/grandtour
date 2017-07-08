@@ -192,25 +192,28 @@ const getEntryUpdates = fieldRequests => {
             if (!entryUpdates[row.index]) entryUpdates[row.index] = {}
             const entry = entryUpdates[row.index]
 
-            let value
-            const transform = field.sheet.fromSheet || (d => d)
+            //  Uses specified transform function, or uses the default,
+            //  which either copies a primitive value or creates a
+            //  new object from the indicated fields.
+            const transform = field.sheet.fromSheet || (row => {
 
-            //  Extracts an value object from the sheet data
-            if (field.valueIsObject()) {
+                //  Extracts an value object from the sheet data
+                if (field.valueIsObject()) {
+                    
+                    const valueObject = {}
+                    Object.keys(field.getValueType()).forEach(column => {
+                        if (row[column]) valueObject[column] = row[column]
+                    })
+                    
+                    if (Object.keys(valueObject).length) return valueObject
                 
-                const valueObject = {}
-                Object.keys(field.getValueType()).forEach(column => {
-                    if (row[column]) valueObject[column] = row[column]
-                })
-                
-                if (Object.keys(valueObject).length) {
-                    value = transform(valueObject)
-                }
-            
-            //  Extracts a value primitive from the sheet data
-            } else value = transform(row[fieldRequest.key])
+                //  Extracts a value primitive from the sheet data
+                } else return row[fieldRequest.key]
+
+            })
 
             //  Saves value to in-memory entry
+            const value = transform(row)
             if (value) {
 
                 //  Appends value to array value field

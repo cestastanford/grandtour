@@ -1,0 +1,21 @@
+.panel.panel-default
+    .panel-heading {{ entryFields[fieldKey].label }}
+    ul.list-group
+        li.list-group-item(ng-repeat="e in entry[fieldKey]")
+            span {{ e.alternateName }}
+            a.small.pull-right(ng-click="deleteFromArray(e)") delete 
+            a.small.pull-right.margin-right(ng-click="editInArray(e)") edit 
+        li.list-group-item
+            a.small.italic(ng-click="addToArray()") Add New
+
+.custom-modal(ng-show="modalModel")
+    .modal-inner
+        h4 Edit Item
+        ul
+            li(ng-repeat="field in modalModel")
+                span {{ field.name }}
+                input(type="text", ng-model="field.value")
+
+        a(ng-click="modalSave()") Save
+        a(ng-click="modalCancel()") Cancel
+

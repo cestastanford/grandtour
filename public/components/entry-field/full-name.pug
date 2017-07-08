@@ -1,11 +1,11 @@
 span(
-    ng-show="!currentlyEditing",
-    ng-click="handleClick()",
-) {{ value }}
+    ng-show="!isEditing()",
+    ng-click="startEditing()",
+) {{ entry[fieldKey] }}
 
 input.focus(
-    ng-show="currentlyEditing",
+    ng-show="isEditing()",
     type="text",
-    ng-model="value",
-    ng-change="edited({ value: value })"
+    ng-model="entry[fieldKey]",
+    ng-change="edited(fieldKey)",
 )

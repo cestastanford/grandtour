@@ -19,6 +19,9 @@ class EntryField {
 
     constructor(properties) {
         Object.assign(this, properties)
+        if (this.valueIsObject()) {
+            this.serializedValueType = Object.keys(this.getValueType())
+        }
     }
 
 

@@ -3,20 +3,18 @@ module.exports = {
     key: 'mentionedNames',
     type: [{
         name: String,
-        entryIndex1: Number,
-        entryIndex2: Number,
-        entryIndex3: Number,
+        entryIndex: Number,
     }],
     label: 'Mentioned Names',
     sheet: {
 
         spreadsheet: '1PnBTlQnHfqj-sl32mcUpB-j2vL-BqJMx7BAiXe5TrRA',
         name: 'Mentioned Names',
-        fromSheet: (d) => ({
-            name: d.name,
-            entryIndex: d.entryIndex1 !== '-1' ? d.entryIndex1 : (
-                d.entryIndex2 !== '-1' ? d.entryIndex2 : (
-                    d.entryIndex3 !== '-1' ? d.entryIndex3 : null
+        fromSheet: row => ({
+            name: row.name,
+            entryIndex: row.entryIndex1 !== '-1' ? row.entryIndex1 : (
+                row.entryIndex2 !== '-1' ? row.entryIndex2 : (
+                    row.entryIndex3 !== '-1' ? row.entryIndex3 : null
                 )
             )
         })

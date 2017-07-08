@@ -61,12 +61,19 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     *   Marks a field as edited.
     */
 
-    $scope.edited = function(fieldName, value) {
+    $scope.edited = function(fieldKey) {
 
         if (!$scope.unsavedChanges) $scope.unsavedChanges = {}
-        $scope.unsavedChanges[fieldName] = value
+        $scope.unsavedChanges[fieldKey] = $scope.entry[fieldKey]
 
     }
+
+
+    /*
+    *   Sets the currently-editing field.
+    */
+
+    $scope.setCurrentlyEditing = function(fieldKey) { $scope.currentlyEditing = fieldKey }
 
 
     /*

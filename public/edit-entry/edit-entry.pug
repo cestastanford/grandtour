@@ -31,8 +31,11 @@
                     ) {{ saveStatus.saving ? 'Saving...' : 'Save Changes' }}
 
             br
-            .edit-status.alert.alert-success(ng-show="saveStatus.saved") Successfully saved changes!
-            .edit-status.alert.alert-danger(ng-show="saveStatus.error") Save failed!  {{ saveStatus.error }}
+            .alert.alert-success(ng-show="saveStatus.saved") Successfully saved changes!
+            .alert.alert-danger(ng-show="saveStatus.error")
+                div Save failed!  Please record your changes and reload the page.
+                br
+                strong.small(ng-bind-html="saveStatus.error")
 
     br
     h1

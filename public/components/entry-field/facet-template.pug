@@ -1,4 +1,4 @@
-span(ng-repeat="(key, value) in fieldValue")
+span(ng-repeat="(key, value) in fieldValue" ng-if="value")
     strong {{ key }}: 
     span {{ value }}
     span(ng-if="!$last") , 

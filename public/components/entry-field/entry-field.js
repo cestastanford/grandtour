@@ -13,7 +13,7 @@ app.directive('entryField', function($window) {
 
             scope.fieldKey = attributes.fieldKey
             scope.facetTemplate = attributes.facetTemplate
-            console.log(scope.facetTemplate)
+            scope.$watch('entry.' + scope.fieldKey, function(fieldValue) { scope.fieldValue = fieldValue }, true)
 
 
             /*
@@ -81,14 +81,18 @@ app.directive('entryField', function($window) {
             *   Edits an array item.
             */
 
-            scope.editObject = function(item) {
+            scope.editObject = function(object) {
+                
                 scope.startEditing()
-                var save = function(updatedObject) {
-                    Object.assign(item, updatedObject)
-                    scope.edited(scope.fieldKey)
+                if (!object) {
+                    object = {}
+                    scope.entry[scope.fieldKey] = object
                 }
 
-                openObjectEditModal(item, save)
+                openObjectEditModal(object, function() {
+                    scope.edited(scope.fieldKey)
+                })
+            
             }
 
 
@@ -96,16 +100,15 @@ app.directive('entryField', function($window) {
             *   Brings up a modal window for editing an object's properties.
             */
 
-            function openObjectEditModal(originalObject, saveFn) {
+            function openObjectEditModal(object, saveFn) {
 
                 var type = scope.entryFields[scope.fieldKey].serializedValueType
-                var modalModel = type.map(function(key) { return { name: key, value: originalObject[key] } })
+                var modalModel = type.map(function(key) { return { name: key, value: object[key] } })
                 scope.modalModel = modalModel
                 scope.modalSave = function() {
-                    var updatedObject = {}
-                    scope.modalModel.forEach(function(field) { updatedObject[field.name] = field.value })
+                    modalModel.forEach(function(field) { object[field.name] = field.value })
                     delete scope.modalModel
-                    saveFn(updatedObject)
+                    saveFn()
                 }
 
                 scope.modalCancel = function() {

@@ -2,7 +2,9 @@ p.text-serif(
     ng-class="{ small: fieldKey === 'notes' }"
     ng-show="!isEditing()",
     ng-click="startEditing()",
-) {{ entry[fieldKey] }}
+)
+    span(ng-if="entry[fieldKey]") {{ entry[fieldKey] }}
+    em(ng-if="!entry[fieldKey]") ({{ fieldKey }} empty)
 
 textarea.focus.form-control.text-serif(
     ng-class="{ small: fieldKey === 'notes' }"

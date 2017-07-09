@@ -32,7 +32,6 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
                 $scope.entry = response.data.entry
                 $scope.previous = response.data.previous
                 $scope.next = response.data.next
-                console.log($scope.entry)
             }
 
         })
@@ -74,7 +73,12 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     *   Sets the currently-editing field.
     */
 
-    $scope.setCurrentlyEditing = function(fieldKey) { $scope.currentlyEditing = fieldKey }
+    $scope.setCurrentlyEditing = function(fieldKey) {
+        $scope.currentlyEditing = fieldKey
+        $scope.saved = false
+        $scope.error = false
+        $scope.errorMessage = null
+    }
 
 
     /*
@@ -84,14 +88,17 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     $scope.saveChanges = function() {
 
         $scope.currentlyEditing = null
-        $scope.saving = true
+        $scope.saveStatus = { saving: true }
         $http.patch('/api/entries/' + $scope.entry.index, $scope.unsavedChanges)
         .then(function(response) {
             $scope.entry = response.data
             $scope.unsavedChanges = null
-            $scope.saving = false
+            $scope.saveStatus = { saved: true }
         })
-        .catch(console.error.bind(console))
+        .catch(function(error) {
+            console.error.bind(console)
+            $scope.saveStatus = { error: error.data }
+        })
 
     }
 

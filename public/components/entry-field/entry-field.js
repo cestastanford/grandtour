@@ -56,13 +56,8 @@ app.directive('entryField', function($window) {
                 
                 scope.startEditing()
                 var array = scope.entry[scope.fieldKey]
-                var newObject = {}
-                var save = function(updatedObject) {
-                    array.push(updatedObject)
-                    scope.edited(scope.fieldKey)
-                }
-
-                openObjectEditModal(newObject, save)
+                array.push({})
+                scope.edited(scope.fieldKey)
 
             }
 

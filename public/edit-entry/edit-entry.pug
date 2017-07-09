@@ -26,9 +26,13 @@
                 
                     button.btn.btn-info(
                         type="button",
-                        ng-click="!unsavedChanges || saving ? null : saveChanges()",
-                        ng-class="{ disabled: !unsavedChanges || saving }"
-                    ) {{ saving ? 'Saving...' : 'Save Changes' }}
+                        ng-click="!unsavedChanges || saveStatus.saving ? null : saveChanges()",
+                        ng-class="{ disabled: !unsavedChanges || saveStatus.saving }"
+                    ) {{ saveStatus.saving ? 'Saving...' : 'Save Changes' }}
+
+            br
+            .edit-status.alert.alert-success(ng-show="saveStatus.saved") Successfully saved changes!
+            .edit-status.alert.alert-danger(ng-show="saveStatus.error") Save failed!  {{ saveStatus.error }}
 
     br
     h1

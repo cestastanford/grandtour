@@ -79,7 +79,10 @@ class Revision {
         })
 
         const entries = await Entry.find().atRevision()
-        await Promise.all(entries.map(entry => entry.saveRevision(newRevisionIndex)))
+        for (let i = 0; i < entries.length; i++) {
+            await entry.saveRevision(newRevisionIndex)
+        }
+        
         return await newRevision.save()
 
     }

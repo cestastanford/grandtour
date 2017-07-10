@@ -80,7 +80,8 @@ class Revision {
 
         const entries = await Entry.find().atRevision()
         for (let i = 0; i < entries.length; i++) {
-            await entry.saveRevision(newRevisionIndex)
+            await entries[i].saveRevision(newRevisionIndex)
+            if (i % 100 === 0) console.log(`Created new Revision for ${i}/${entries.length} entries`)
         }
         
         return await newRevision.save()

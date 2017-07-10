@@ -12,7 +12,7 @@
 */
 
 const mongoose = require('mongoose')
-const entryFields = require('./entry-fields')
+const entryFields = require('./entry-fields')()
 
 
 /*

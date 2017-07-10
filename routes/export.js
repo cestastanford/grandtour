@@ -8,7 +8,7 @@ const socketIO = require('../socket')
 const google = require('googleapis')
 const Revision = require('../models/revision')
 const Entry = require('../models/entry')
-const entryFields = require('../models/entry-fields')
+const entryFields = require('../models/entry-fields')()
 
 
 /*

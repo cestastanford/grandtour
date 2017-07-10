@@ -78,7 +78,7 @@ class Revision {
             name,
         })
 
-        const entries = await Entry.find().atRevision()
+        const entries = await Entry.find().select('-_id').atRevision()
         for (let i = 0; i < entries.length; i++) {
             await entries[i].saveRevision(newRevisionIndex)
             if (i % 100 === 0) console.log(`Created new Revision for ${i}/${entries.length} entries`)

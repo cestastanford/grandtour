@@ -66,18 +66,23 @@ class EntryField {
 
 }
 
+const getEntryFields = () => {
 
-const entryFields = {}
-fs.readdirSync(__dirname).filter(filename => filename.match(/\.js$/) && filename !== 'index.js').forEach(filename => {
+    const entryFields = {}
+    fs.readdirSync(__dirname).filter(filename => filename.match(/\.js$/) && filename !== 'index.js').forEach(filename => {
 
-    const entryField = require(`./${filename}`)
-    entryFields[entryField.key] = new EntryField(entryField)
+        const entryField = require(`./${filename}`)
+        entryFields[entryField.key] = new EntryField(entryField)
 
-})
+    })
+
+    return entryFields
+
+}
 
 
 /*
 *   Exports
 */
 
-module.exports = entryFields
+module.exports = getEntryFields

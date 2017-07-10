@@ -5,7 +5,7 @@
 const router = require('express').Router()
 const { isViewer, isEditor } = require('./auth')
 const Entry = require('../models/entry')
-const entryFields = require('../models/entry-fields')
+const entryFields = require('../models/entry-fields')()
 
 
 /*

@@ -143,6 +143,39 @@ class Entry {
 
 
     /*
+    *   Finds the indices of the previous and next entries in a
+    *   given revision.
+    */
+
+    static async getAdjacentIndices(index, revisionIndex) {
+
+        let previous = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
+        .lt('index', index)
+        .sort('-index -_revisionIndex')
+
+        if (!previous) previous = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
+        .sort('-index -_revisionIndex')
+
+        let next = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
+        .gt('index', index)
+        .sort('index -_revisionIndex')
+
+        if (!next) next = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
+        .sort('index -_revisionIndex')
+
+        return {
+            previous: previous ? previous.index : null,
+            next: next ? next.index : null,
+        }
+
+    }
+
+
+    /*
     *   Finds a single Entry by query as of the latest Revision
     *   and applies the specified changes, creating a version for
     *   the latest Revision if it doesn't yet exist.
@@ -191,34 +224,67 @@ class Entry {
 
 
     /*
-    *   Finds the indices of the previous and next entries in a
-    *   given revision.
+    *   Calculates the counts of entries with values for each field
+    *   query mapping.
     */
 
-    static async getAdjacentIndices(index, revisionIndex) {
+    static async getCounts(revisionIndex) {
 
-        let previous = await this.findOne({ _deleted: false })
-        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
-        .lt('index', index)
-        .sort('-index -_revisionIndex')
-
-        if (!previous) previous = await this.findOne({ _deleted: false })
-        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
-        .sort('-index -_revisionIndex')
-
-        let next = await this.findOne({ _deleted: false })
-        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
-        .gt('index', index)
-        .sort('index -_revisionIndex')
-
-        if (!next) next = await this.findOne({ _deleted: false })
-        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
-        .sort('index -_revisionIndex')
-
-        return {
-            previous: previous ? previous.index : null,
-            next: next ? next.index : null,
+        const countQueries = {
+            
+            fullName: { fullName : { $ne : null } },
+            alternateNames: { 'alternateNames.alternateName' : { $exists : true } },
+            birthDate: { 'dates.0.birthDate' : { $exists : true } },
+            birthPlace: { 'places.0.birthPlace' : { $exists : true } },
+            deathDate: { 'dates.0.deathDate' : { $exists : true } },
+            deathPlace: { 'places.0.deathPlace' : { $exists : true } },
+            type: { type : { $ne : null } },
+            societies: { 'societies.title' : { $exists : true } },
+            societies_role: { 'societies.role' : { $exists : true } },
+            education_institution: { 'education.institution' : { $exists : true } },
+            education_place: { 'education.place' : { $exists : true } },
+            education_degree: { 'education.degree' : { $exists : true } },
+            education_teacher: { 'education.teacher' : { $exists : true } },
+            pursuits: { pursuits : { $ne : [] } },
+            occupations: { 'occupations.title' : { $exists : true } },
+            occupations_group: { 'occupations.group' : { $exists : true } },
+            occupations_place: { 'occupations.place' : { $exists : true } },
+            military: { 'military.rank' : { $exists : true } },
+            travel_place: { 'travels.place' : { $exists : true } },
+            travel_date: { $or : [ { 'travels.travelStartYear' : { $ne : '0' } }, { 'travels.travelEndYear' : { $ne : '0' } } ] },
+            travel_year: { $or : [ { 'travels.travelStartYear' : { $ne : '0' } }, { 'travels.travelEndYear' : { $ne : '0' } } ] },
+            travel_month: { $or : [ { 'travels.travelStartMonth' : { $ne : '0' } }, { 'travels.travelEndMonth' : { $ne : '0' } } ] },
+            travel_day: { $or : [ { 'travels.travelStartDay' : { $ne : '0' } }, { 'travels.travelEndDay' : { $ne : '0' } } ] },
+            exhibitions: { 'exhibitions.title' : { $exists : true } },
+            exhibitions_activity: { 'exhibitions.activity' : { $exists : true } },
+        
         }
+
+        const facets = {}
+        Object.keys(countQueries).forEach(key => {
+
+            facets[key] = [
+                { $match: countQueries[key] },
+                { $count: 'count' },
+            ]
+
+        })
+
+        const results = await this.aggregate()
+        .match({ _revisionIndex: { $lte: revisionIndex || getLatestRevisionIndex() } })
+        .sort({ _revisionIndex: -1 })
+        .group({ _id: '$index', latest: { $first: '$$ROOT' } })
+        .append({ $replaceRoot: { newRoot: '$latest' } })
+        .match({ _deleted: false })
+        .sort({ index: 1 })
+        .facet(facets)
+
+        const counts = {}
+        Object.keys(results[0]).forEach(key => {
+            counts[key] = results[0][key][0].count
+        })
+
+        return { counts }
 
     }
 

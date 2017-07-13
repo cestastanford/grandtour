@@ -15,7 +15,7 @@ const entries = require('../controllers/entries')
 
 router.get('/api/getcount', isViewer, (req, res, next) => {
 
-    entries.getCounts(req.user.activeRevisionIndex)
+    Entry.getCounts(req.user.activeRevisionIndex)
     .then(counts => res.json(counts))
     .catch(next)
 

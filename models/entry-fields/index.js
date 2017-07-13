@@ -22,7 +22,6 @@ class EntryField {
         Object.assign(this, properties)
         if (this.valueIsObject()) {
             this.serializedValueType = Object.keys(this.getValueType())
-            this.getValueType()._id = false
         }
 
         //  For JSON responses

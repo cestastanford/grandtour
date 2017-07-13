@@ -14,6 +14,7 @@ const passport = require('passport')
 const socketIO = require('./socket')
 const router = require('./router')
 const User = require('./models/user')
+const Revision = require('./models/revision')
 
 
 /*
@@ -87,14 +88,6 @@ app.use('/', router)
 
 
 /*
-*   Creates a default admin user if none exists.
-*/
-
-User.registerDefaultAdmin()
-.catch(console.error.bind(console))
-
-
-/*
 *   Handles errors, generating 404 errors for non-error requests
 *   not handled by routes, then handing handling off to the default
 *   error handler, which prints the errors to the console and returns
@@ -109,10 +102,18 @@ app.use((req, res, next) => {
 
 
 /*
-*   Initiates server listening on indicated port.
+*   Runs initialization tasks, then starts server listening on indicated port.
 */
 
-app.set('port', process.env.PORT || 4000)
-server.listen(app.get('port'), () => {
-    console.log("Node app is running at localhost:" + app.get('port'))
+Promise.resolve()
+.then(() => User.registerDefaultAdmin())
+.then(() => Revision.createInitialRevision())
+.then(() => {
+
+    app.set('port', process.env.PORT || 4000)
+    server.listen(app.get('port'), () => {
+        console.log("Node app is running at localhost:" + app.get('port'))
+    })
+
 })
+.catch(console.error.bind(console))

@@ -19,6 +19,7 @@
     "google-auth-library": "^0.10.0",
     "googleapis": "^16.1.0",
     "jsondiffpatch": "^0.1.33",
+    "memory-cache": "^0.2.0",
     "mongoose": "^4.11.0",
     "morgan": "^1.5.2",
     "passport": "*",

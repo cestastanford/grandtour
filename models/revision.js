@@ -9,6 +9,7 @@
 
 const mongoose = require('mongoose')
 const Entry = require('./entry')
+const { setLatestRevisionIndex } = require('../cache')
 
 
 /*
@@ -28,18 +29,14 @@ const revisionSchema = mongoose.Schema({
 *   field.
 */
 
-revisionSchema.set('toJSON', {
-
-    versionKey: false,
-    transform: (doc, ret) => {
+revisionSchema.set('toJSON', { transform: (doc, ret) => {
 
         ret.index = ret._id
         delete ret._id
+        delete ret.__v
         return ret
 
-    }
-
-})
+} })
 
 
 /*
@@ -47,6 +44,24 @@ revisionSchema.set('toJSON', {
 */
 
 class Revision {
+
+
+    /*
+    *   Creates a first Revision if one doesn't yet exist.
+    */
+
+    static async createInitialRevision() {
+
+        if (await this.count() === 0) {
+            
+            const initialRevision = await this.create()
+            console.log(`Initial Revision created: ${initialRevision.name}`)
+            console.log('-----------------------------------')
+            return initialRevision
+        
+        } else setLatestRevisionIndex(await this.getLatestRevisionIndex())
+    
+    }
 
 
     /*
@@ -58,7 +73,6 @@ class Revision {
 
         const latestRevision = await this.findOne()
         .sort('-_id')
-        .select('_id')
 
         return latestRevision ? latestRevision._id : 0
 
@@ -75,21 +89,12 @@ class Revision {
         const newRevisionIndex = (await this.getLatestRevisionIndex()) + 1
         const newRevision = new this({
             _id: newRevisionIndex,
-            name,
+            name: name || `Revision started on ${(new Date()).toLocaleString()}`,
         })
-
-        const entries = await Entry.find().select('-_id').atRevision()
-        for (let i = 0; i < entries.length; i++) {
-            
-            await entries[i].saveRevision(newRevisionIndex)
-            if (i % 100 === 0) console.log(`Created new Revision for ${i}/${entries.length} entries`)
         
-            //  For memory-saving
-            entries[i] = null
-
-        }
-        
-        return await newRevision.save()
+        await newRevision.save()
+        setLatestRevisionIndex(await this.getLatestRevisionIndex())
+        return newRevision
 
     }
 
@@ -101,21 +106,9 @@ class Revision {
     async delete(name) {
 
         await Entry.deleteMany({ _revisionIndex: this._id })
-        return await this.remove()
-
-    }
-
-
-    /*
-    *   Deletes the latest set of changes, setting the previous
-    *   Revision as the latest.
-    */
-
-    static async clearLatest() {
-
-        const latestRevisionIndex = await this.getLatestRevisionIndex()
-        const entries = await Entry.find({ _revisionIndex: null })
-        await Promise.all(entries.map(entry => entry.resetLatestToRevision(latestRevisionIndex)))
+        const oldRevision = await this.remove()
+        setLatestRevisionIndex(await this.getLatestRevisionIndex())
+        return oldRevision
 
     }
 
@@ -129,6 +122,7 @@ class Revision {
 
 revisionSchema.loadClass(Revision)
 const revisionModel = mongoose.model('Revision', revisionSchema)
+
 
 
 /*

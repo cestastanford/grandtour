@@ -9,46 +9,14 @@ const entryFields = require('../models/entry-fields')()
 
 
 /*
-*   Retrieves all Entries.
+*   Creates a new entry under the latest revision with the specified
+*   index and any other fields.
 */
 
-router.get('/api/entries', isViewer, (req, res, next) => {
+router.put('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.find().atRevision(req.user.activeRevisionIndex)
-    .then(entries => res.json(entries))
-    .catch(next)
-
-})
-
-
-/*
-*   Retrieves a single Entry.
-*/
-
-router.get('/api/entries/:index', isViewer, (req, res, next) => {
-
-    Entry.findOne({ index: req.params.index }).atRevision(req.user.activeRevisionIndex)
-    .then(entry => Promise.all([
-        Promise.resolve(entry),
-        Entry.getAdjacentIndices(req.params.index, req.user.activeRevisionIndex),
-    ]))
-    .then(([ entry, { previous, next } ]) => res.json({ entry, previous, next }))
-    .catch(next)
-
-})
-
-
-/*
-*   Updates a single Entry under the latest Revision.
-*/
-
-router.patch('/api/entries/:index', isEditor, (req, res, next) => {
-
-    Entry.findOneAndUpdate({ index: req.params.index }, req.body, { new: true }).atRevision()
-    .then(entry => {
-        if (entry) return res.json(entry)
-        else { throw null /* Triggers the 404 Not Found error handler */ }
-    })
+    Entry.createAtLatest(req.params.index, req.body)
+    .then(entry => res.json(entry))
     .catch(next)
 
 })
@@ -60,9 +28,9 @@ router.patch('/api/entries/:index', isEditor, (req, res, next) => {
 
 router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.findOneAndRemove({ index: req.params.index }).atRevision()
+    Entry.deleteAtLatest(req.params.index)
     .then(entry => {
-        if (entry) return res.json(entry)
+        if (entry) res.json(entry)
         else { throw null /* Triggers the 404 Not Found error handler */ }
     })
     .catch(next)
@@ -71,13 +39,46 @@ router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 
 
 /*
-*   Creates a new entry under the latest revision with the specified
-*   index and any other fields.
+*   Retrieves a single Entry.
 */
 
-router.post('/api/entries', isEditor, (req, res, next) => {
+router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
-    Entry.create(req.body)
+    Entry.findOneAtRevision({ index: req.params.index }, req.user.activeRevisionIndex)
+    .then(entry => Promise.all([
+        Promise.resolve(entry),
+        Entry.getAdjacentIndices(req.params.index, req.user.activeRevisionIndex),
+    ]))
+    .then(([ entry, { previous, next } ]) => res.json({ entry, previous, next }))
+    .catch(next)
+
+})
+
+
+/*
+*   Retrieves all Entries.
+*/
+
+router.get('/api/entries', isViewer, (req, res, next) => {
+
+    Entry.findAtRevision({}, req.user.activeRevisionIndex)
+    .then(entries => res.json(entries))
+    .catch(next)
+
+})
+
+
+/*
+*   Updates a single Entry under the latest Revision.
+*/
+
+router.patch('/api/entries/:index', isEditor, (req, res, next) => {
+
+    Entry.findOneAtRevision({ index: req.params.index })
+    .then(entry => {
+        if (entry && entry.toObject()) return entry.updateAtLatest(req.body)
+        else { throw null /* Triggers the 404 Not Found error handler */ }
+    })
     .then(entry => res.json(entry))
     .catch(next)
 

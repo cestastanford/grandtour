@@ -55,23 +55,6 @@ socketIO.init(server)
 
 
 /*
-*   Connects Mongoose to MongoDB.
-*/
-
-const mongoOptions = {
-    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
-    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
-}  
-
-mongoose.connect(process.env['MONGODB_URI'], mongoOptions, err => {
-    if (err) {
-        console.error('Could not connect to MongoDB at the specified URI.')
-        process.exit(1)
-    }
-})
-
-
-/*
 *   Creates an artificial delay for server testing purposes.
 */
 
@@ -102,10 +85,16 @@ app.use((req, res, next) => {
 
 
 /*
-*   Runs initialization tasks, then starts server listening on indicated port.
+*   Connects to MongoDB, runs initialization tasks, then starts server
+*   listening on indicated port.
 */
 
-Promise.resolve()
+const options = {
+    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
+}  
+
+mongoose.connect(process.env['MONGODB_URI'], options)
 .then(() => User.registerDefaultAdmin())
 .then(() => Revision.createInitialRevision())
 .then(() => {
@@ -116,4 +105,4 @@ Promise.resolve()
     })
 
 })
-.catch(console.error.bind(console))
+.catch(error => { throw error })

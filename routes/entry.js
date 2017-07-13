@@ -44,7 +44,7 @@ router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 
 router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
-    Entry.findOneAtRevision({ index: req.params.index }, req.user.activeRevisionIndex)
+    Entry.findByIndexAtRevision(req.params.index, req.user.activeRevisionIndex)
     .then(entry => Promise.all([
         Promise.resolve(entry),
         Entry.getAdjacentIndices(req.params.index, req.user.activeRevisionIndex),
@@ -74,12 +74,11 @@ router.get('/api/entries', isViewer, (req, res, next) => {
 
 router.patch('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.findOneAtRevision({ index: req.params.index })
+    Entry.findByIndexAndUpdateAtLatest(req.params.index, req.body)
     .then(entry => {
-        if (entry && entry.toObject()) return entry.updateAtLatest(req.body)
+        if (entry) res.json(entry)
         else { throw null /* Triggers the 404 Not Found error handler */ }
     })
-    .then(entry => res.json(entry))
     .catch(next)
 
 })

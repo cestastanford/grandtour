@@ -47,7 +47,6 @@ for (let key in entryFields) entrySchema.add({
 const toObject = (doc, ret) => {
 
     const returnedObject = ret || doc
-    if (returnedObject._deleted) return null
     delete returnedObject._id
     delete returnedObject.__v
     delete returnedObject._revisionIndex
@@ -115,12 +114,10 @@ class Entry {
 
     static async deleteAtLatest(index) {
 
-        const existingEntry = await this.findOneAtRevision({ index })
+        const existingEntry = await this.findByIndexAtRevision(index)
         if (existingEntry) {
-            const _revisionIndex = getLatestRevisionIndex()
-            await this.remove({ index, _revisionIndex })
-            const newDeletedEntry = new this({ index, _deleted: true })
-            await newDeletedEntry.save()
+            await this.remove({ index: existingEntry.index, _revisionIndex: getLatestRevisionIndex() })
+            await (new this({ index, _deleted: true })).save()
         }
 
         return existingEntry
@@ -129,34 +126,43 @@ class Entry {
 
 
     /*
-    *   Applies changes to the Entry specified by index, creating
-    *   a version for the latest Revision if it doesn't yet exist.
-    */
-
-    updateAtLatest(updatedEntryFields) {
-
-        let latest
-        if (this._revisionIndex === getLatestRevisionIndex()) latest = this
-        else latest = new this.constructor(this.toObject())
-        Object.keys(entryFields).forEach(key => {
-            if (updatedEntryFields[key]) latest[key] = updatedEntryFields[key]
-        })
-
-        return latest.save()
-
-    } 
-
-
-    /*
-    *   Finds a single Entry by query as of the specified Revision,
+    *   Finds a single Entry by index as of the specified Revision,
     *   or the latest Revision if null, returning the query promise.
     */
 
-    static findOneAtRevision(query, revisionIndex) {
+    static async findByIndexAtRevision(index, revisionIndex) {
 
-        return this.findOne(query)
+        const result = await this.findOne({ index })
         .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
         .sort('-_revisionIndex')
+
+        if (result && result._deleted) return null
+        return result
+
+    }
+
+
+    /*
+    *   Finds a single Entry by query as of the latest Revision
+    *   and applies the specified changes, creating a version for
+    *   the latest Revision if it doesn't yet exist.
+    */
+
+    static async findByIndexAndUpdateAtLatest(index, updatedEntryFields, upsert) {
+
+        const entry = await this.findByIndexAtRevision(index)
+        if (entry || upsert) {
+
+            let latest
+            if (entry && entry._revisionIndex === getLatestRevisionIndex()) latest = entry
+            else latest = new this(entry && entry.toObject() || { index })
+            Object.keys(entryFields).forEach(key => {
+                if (updatedEntryFields[key]) latest[key] = updatedEntryFields[key]
+            })
+
+            return latest.save()
+
+        } else return null
 
     }
 
@@ -168,17 +174,18 @@ class Entry {
 
     static async findAtRevision(query, revisionIndex) {
 
-        const results = await this.aggregate([
+        const cursor = await this.aggregate()
+        .match({ _revisionIndex: { $lte: revisionIndex || getLatestRevisionIndex() } })
+        .sort({ _revisionIndex: -1 })
+        .group({ _id: '$index', latest: { $first: '$$ROOT' } })
+        .append({ $replaceRoot: { newRoot: '$latest' } })
+        .match({ _deleted: false })
+        .sort({ index: 1 })
+        .cursor()
+        .exec()
 
-            { $match: { _revisionIndex: { $lte: revisionIndex || getLatestRevisionIndex() } } },
-            { $sort: { _revisionIndex: -1 } },
-            { $group: { _id: '$index', latest: { $first: '$$ROOT' } } },
-            { $replaceRoot: { newRoot: '$latest' } },
-            { $sort: { index: 1 } },
-
-        ])
-
-        return results.map(result => toObject(result)).filter(result => result)
+        const results = await cursor.toArray()
+        return results.map(result => toObject(result))
 
     }
 
@@ -190,19 +197,23 @@ class Entry {
 
     static async getAdjacentIndices(index, revisionIndex) {
 
-        let previous = await this.findOneAtRevision({ _deleted: false }, revisionIndex)
+        let previous = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
         .lt('index', index)
-        .sort('-index')
+        .sort('-index -_revisionIndex')
 
-        if (!previous) previous = await this.findOneAtRevision({ _deleted: false }, revisionIndex)
-        .sort('-index')
+        if (!previous) previous = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
+        .sort('-index -_revisionIndex')
 
-        let next = await this.findOneAtRevision({ _deleted: false }, revisionIndex)
+        let next = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
         .gt('index', index)
-        .sort('index')
+        .sort('index -_revisionIndex')
 
-        if (!next) next = await this.findOneAtRevision({ _deleted: false }, revisionIndex)
-        .sort('index')
+        if (!next) next = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
+        .sort('index -_revisionIndex')
 
         return {
             previous: previous ? previous.index : null,

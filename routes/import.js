@@ -55,11 +55,11 @@ const importFromSheets = async fieldRequestsFromRequest => {
     //  Applies data from sheets to an in-memory entry collection representation
     const entryUpdates = getEntryUpdates(fieldRequests)
 
-    //  Saves entry updates to database
+    //  Saves entry updates to database in a new Revision
+    await Revision.create(`Import from Google Sheets on ${(new Date()).toLocaleString()}`)
     await saveEntryUpdates(entryUpdates)
-
-    //  Creates a new Revision on top of the import
-    await commitRevision()
+    await Revision.create()
+    sendUpdate('Done!', null, true)
 
 }
 
@@ -248,9 +248,7 @@ const saveEntryUpdates = async entryUpdates => {
     let nEntriesUpdated = 0
     for (let index in entryUpdates) {
 
-        await Entry
-        .findOneAndUpdate({ index }, entryUpdates[index], { upsert: true, setDefaultsOnInsert: true })
-        .atRevision()
+        const entry = await Entry.findByIndexAndUpdateAtLatest(index, entryUpdates[index], true)
         
         nEntriesUpdated++
         if (nEntriesUpdated % 100 === 0) {
@@ -265,20 +263,6 @@ const saveEntryUpdates = async entryUpdates => {
         delete entryUpdates[index]
 
     }
-
-}
-
-
-/*
-*   Commits the latest set of changes as a Revision.
-*/
-
-const commitRevision = async () => {
-
-    sendUpdate('Saving imported entry data as new Revision')
-    const name = `Import from Google Sheets on ${(new Date()).toLocaleString()}`
-    await Revision.create(name)
-    sendUpdate('Done!', null, true)
 
 }
 

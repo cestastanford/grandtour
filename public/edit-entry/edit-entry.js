@@ -61,11 +61,9 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     *   Marks a field as edited.
     */
 
-    $scope.edited = function(fieldKey) {
-
+    $scope.edited = function(fieldKey, newValue) {
         if (!$scope.unsavedChanges) $scope.unsavedChanges = {}
-        $scope.unsavedChanges[fieldKey] = $scope.entry[fieldKey]
-
+        $scope.unsavedChanges[fieldKey] = newValue
     }
 
 

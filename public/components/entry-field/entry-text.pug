@@ -11,5 +11,5 @@ textarea.focus.form-control.text-serif(
     rows="10",
     ng-show="isEditing()",
     ng-model="entry[fieldKey]",
-    ng-change="edited(fieldKey)",
+    ng-change="edited(fieldKey, entry[fieldKey])",
 )

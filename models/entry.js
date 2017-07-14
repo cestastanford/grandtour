@@ -44,7 +44,10 @@ const entrySchema = mongoose.Schema({
 for (let key in entryFields) entrySchema.add({
 
     [key]: {
-        type: entryFields[key].type,
+        type: entryFields[key].isArrayOfValues() || !entryFields[key].valueIsObject() ?
+            entryFields[key].type :
+            mongoose.Schema(entryFields[key].type),
+        
         default: null,
     }
 
@@ -59,18 +62,13 @@ for (let key in entryFields) entrySchema.add({
 
 const toObject = (doc, ret) => {
 
+    console.log(ret)
+
     const returnedObject = ret || doc
     delete returnedObject._id
     delete returnedObject.__v
     delete returnedObject._revisionIndex
     delete returnedObject._deleted
-    Object.values(entryFields).forEach(field => {
-        if (field.valueIsObject()) {
-            delete field.getValueType()._id
-            delete returnedObject.__v
-        }
-    })
-
     return returnedObject
 
 }

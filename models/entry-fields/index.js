@@ -6,6 +6,33 @@ const fs = require('fs')
 
 
 /*
+*   Transforms primitive type constructors into strings.
+*/
+
+const getTypeAsString = type => {
+
+    if (type === String) return 'string'
+    else if (type === Number) return 'number'
+    else if (type === Boolean) return 'boolean'
+
+}
+
+
+/*
+*   Transforms an object of primitive type constructors into an
+*   object of strings.
+*/
+
+const getTypeObjectAsStringObject = typeObject => {
+
+    const stringObject = {}
+    for (let key in typeObject) stringObject[key] = getTypeAsString(typeObject[key])
+    return stringObject
+
+}
+
+
+/*
 *   Defines the EntryField class, with helper instance methods.
 */
 
@@ -20,14 +47,18 @@ class EntryField {
     constructor(properties) {
         
         Object.assign(this, properties)
-        if (this.valueIsObject()) {
-            this.serializedValueType = Object.keys(this.getValueType())
-        }
 
         //  For JSON responses
-        this.typeInfo = {
+        this.serialized = {
             isArrayOfValues: this.isArrayOfValues(),
             valueIsObject: this.valueIsObject(),
+            type: this.valueIsObject() ?
+                getTypeObjectAsStringObject(this.getValueType()) :
+                getTypeAsString(this.getValueType()),
+        }
+
+        if (this.valueIsObject()) {
+            this.getValueType()._id = false
         }
 
     }

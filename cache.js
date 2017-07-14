@@ -23,4 +23,7 @@ exports.getLatestRevisionIndex = () => cache.get('latestRevisionIndex')
 
 exports.setQueryCounts = queryCounts => cache.put('queryCounts', queryCounts)
 exports.getQueryCounts = () => cache.get('queryCounts')
-exports.invalidateQueryCounts = () => cache.put('queryCounts', null)
+exports.invalidateQueryCounts = () => {
+    console.log('Query count cache invalidated')
+    cache.put('queryCounts', null)
+}

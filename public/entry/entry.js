@@ -283,7 +283,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   $scope.createEntry = function() {
 
     $scope.editStatus.creating = true
-    $http.post('/api/entries', { index: $stateParams.id, fullName: 'New Entry' })
+    $http.put('/api/entries/' + $stateParams.id, { fullName: 'New Entry' })
     .then(function() {
       $scope.editStatus.creating = false
       $window.location.reload()

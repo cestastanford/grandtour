@@ -13,7 +13,14 @@ app.directive('entryField', function($window) {
 
             scope.fieldKey = attributes.fieldKey
             scope.facetTemplate = attributes.facetTemplate
-            scope.$watch('entry.' + scope.fieldKey, function(fieldValue) { scope.fieldValue = fieldValue }, true)
+            scope.$watch('entry.' + scope.fieldKey, function(value) {
+                
+                if (scope.entryFields) {
+                    if (scope.entryFields[scope.fieldKey].serialized.isArrayOfValues) scope.fieldValueArray = value
+                    else scope.fieldValue = value
+                }
+
+            }, true)
 
 
             /*
@@ -41,10 +48,9 @@ app.directive('entryField', function($window) {
 
             scope.deleteFromArray = function(item) {
                 scope.startEditing()
-                var array = scope.entry[scope.fieldKey]
-                var index = array.indexOf(item)
-                array.splice(index, 1)
-                scope.edited(scope.fieldKey)
+                var index = scope.fieldValueArray.indexOf(item)
+                scope.fieldValueArray.splice(index, 1)
+                scope.edited(scope.fieldKey, scope.fieldValueArray)
             }
 
 
@@ -55,9 +61,8 @@ app.directive('entryField', function($window) {
             scope.addToArray = function() {
                 
                 scope.startEditing()
-                var array = scope.entry[scope.fieldKey]
-                array.push({})
-                scope.edited(scope.fieldKey)
+                scope.fieldValueArray.push({})
+                scope.edited(scope.fieldKey, scope.fieldValueArray)
 
             }
 
@@ -68,42 +73,50 @@ app.directive('entryField', function($window) {
 
             scope.arraySorted = function() {
                 scope.startEditing()
-                scope.edited(scope.fieldKey)
+                scope.edited(scope.fieldKey, scope.fieldValueArray)
             }
 
 
             /*
-            *   Edits an array item.
+            *   Brings up a modal window for editing an object's properties
+            *   or a primitive value.
             */
 
-            scope.editObject = function(object) {
-                
+            scope.editInModal = function(value, valueArrayIndex) {
+
                 scope.startEditing()
-                if (!object) {
-                    object = {}
-                    scope.entry[scope.fieldKey] = object
-                }
+                var fieldKey = scope.fieldKey
+                var entryField = scope.entryFields[fieldKey].serialized
+                var modalModel = []
+                if (entryField.valueIsObject) {
 
-                openObjectEditModal(object, function() {
-                    scope.edited(scope.fieldKey)
-                })
-            
-            }
+                    if (!value) value = {}
+                    for (var key in entryField.type) {
+                        modalModel.push({ name: key, type: entryField.type[key], value: value[key] })
+                    }
 
-
-            /*
-            *   Brings up a modal window for editing an object's properties.
-            */
-
-            function openObjectEditModal(object, saveFn) {
-
-                var type = scope.entryFields[scope.fieldKey].serializedValueType
-                var modalModel = type.map(function(key) { return { name: key, value: object[key] } })
+                } else modalModel.push({ name: fieldKey, type: entryField.type, value: value })
+                
                 scope.modalModel = modalModel
                 scope.modalSave = function() {
-                    modalModel.forEach(function(field) { object[field.name] = field.value })
+
+                    console.log(JSON.parse(JSON.stringify(value)), JSON.parse(JSON.stringify(modalModel)))
+
+                    if (entryField.valueIsObject) modalModel.forEach(function(field) {
+                        value[field.name] = field.value
+                    })
+
+                    else value = modalModel[0].value
+                    if (entryField.isArrayOfValues) {
+                        scope.fieldValueArray[valueArrayIndex] = value
+                        value = scope.fieldValueArray
+                    }
+
+                    console.log(fieldKey, JSON.parse(JSON.stringify(value)), JSON.parse(JSON.stringify(modalModel)))
+                    
+                    scope.edited(fieldKey, value)
                     delete scope.modalModel
-                    saveFn()
+
                 }
 
                 scope.modalCancel = function() {
@@ -111,6 +124,13 @@ app.directive('entryField', function($window) {
                 }
 
             }
+
+
+            /*
+            *   Helper function to determine type of variable in expression.
+            */
+
+            scope.typeof = function(value) { return typeof value }
 
         },
     };

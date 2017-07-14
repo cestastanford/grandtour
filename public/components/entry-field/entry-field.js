@@ -61,8 +61,10 @@ app.directive('entryField', function($window) {
             scope.addToArray = function() {
                 
                 scope.startEditing()
-                scope.fieldValueArray.push({})
+                var newItem = {}
+                scope.fieldValueArray.push(newItem)
                 scope.edited(scope.fieldKey, scope.fieldValueArray)
+                scope.editInModal(newItem, scope.fieldValueArray.length - 1)
 
             }
 

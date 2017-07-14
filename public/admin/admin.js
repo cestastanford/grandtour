@@ -174,7 +174,6 @@ app.controller('AdminCtrl', function($scope, $http, $window) {
   };
 
   $scope.register = function(){
-    $scope.user.role = $scope.user.role == true ? 'admin' : 'viewer';
     $http.post('/api/users/add', $scope.user)
     .success(function(res){
       $scope.message = 'User ' + res.user.username + ' successfully created!';

@@ -21,8 +21,8 @@ const { ROLES } = require('../constants')
 const userSchema = new mongoose.Schema({
   
     username: { type: String, required: true },
-    fullName: { type: String, required: true },
-    email: { type: String, required: true },
+    fullName: String,
+    email: String,
     role: { type: String, default: ROLES.viewer, enum: Object.values(ROLES), required: true },
     activeRevisionIndex: { type: Number, default: null },
 

@@ -4,8 +4,7 @@
 
 const router = require('express').Router()
 const { isViewer } = require('./auth')
-const Entry = require('../models/entry')
-const entries = require('../controllers/entries')
+const queries = require('../query.js')
 
 
 /*
@@ -15,7 +14,7 @@ const entries = require('../controllers/entries')
 
 router.get('/api/getcount', isViewer, (req, res, next) => {
 
-    Entry.getCounts(req.user.activeRevisionIndex)
+    queries.getCounts(req.user.activeRevisionIndex)
     .then(counts => res.json(counts))
     .catch(next)
 
@@ -26,11 +25,11 @@ router.get('/api/getcount', isViewer, (req, res, next) => {
 *   Previously-existing entry search routes.
 */
 
-router.post('/api/entries/search', isViewer, entries.search);
-router.post('/api/entries/search2', isViewer, entries.search2);
-router.post('/api/entries/suggest', isViewer, entries.suggest);
-router.post('/api/entries/export', isViewer, entries.export);
-router.post('/api/entries/uniques', isViewer, entries.uniques);
+router.post('/api/entries/search', isViewer, queries.search);
+router.post('/api/entries/search2', isViewer, queries.search2);
+router.post('/api/entries/suggest', isViewer, queries.suggest);
+router.post('/api/entries/export', isViewer, queries.export);
+router.post('/api/entries/uniques', isViewer, queries.uniques);
 
 
 /*

@@ -201,19 +201,35 @@ class Entry {
 
 
     /*
-    *   Queries for multiple entries as of the specified Revision,
-    *   returning an aggregation pipeline promise.
+    *   Returns the beginning of an aggregation pipeline that finds
+    *   the latest version of each entry, if it exists and hasn't
+    *   been deleted.
     */
 
-    static async findAtRevision(query, revisionIndex) {
-
-        const cursor = await this.aggregate()
+    static aggregateAtRevision(revisionIndex) {
+        
+        return this.aggregate()
         .match({ _revisionIndex: { $lte: revisionIndex || getLatestRevisionIndex() } })
         .sort({ _revisionIndex: -1 })
         .group({ _id: '$index', latest: { $first: '$$ROOT' } })
         .append({ $replaceRoot: { newRoot: '$latest' } })
         .match({ _deleted: false })
         .sort({ index: 1 })
+    
+    }
+
+
+    /*
+    *   Queries for multiple entries as of the specified Revision,
+    *   returning an aggregation pipeline promise.
+    */
+
+    static async findAtRevision(query, revisionIndex, projection, sort) {
+
+        const cursor = await this.aggregateAtRevision(revisionIndex)
+        .match(query || {})
+        .sort(sort || { index: 1 })
+        .project(projection || { _id: false })
         .cursor()
         .exec()
 
@@ -224,67 +240,19 @@ class Entry {
 
 
     /*
-    *   Calculates the counts of entries with values for each field
-    *   query mapping.
+    *   Retrieves an array of unique values for a given field in
+    *   the Entry schema.
     */
 
-    static async getCounts(revisionIndex) {
+    static async distinctAtRevision(field, query, revisionIndex) {
 
-        const countQueries = {
-            
-            fullName: { fullName : { $ne : null } },
-            alternateNames: { 'alternateNames.alternateName' : { $exists : true } },
-            birthDate: { 'dates.0.birthDate' : { $exists : true } },
-            birthPlace: { 'places.0.birthPlace' : { $exists : true } },
-            deathDate: { 'dates.0.deathDate' : { $exists : true } },
-            deathPlace: { 'places.0.deathPlace' : { $exists : true } },
-            type: { type : { $ne : null } },
-            societies: { 'societies.title' : { $exists : true } },
-            societies_role: { 'societies.role' : { $exists : true } },
-            education_institution: { 'education.institution' : { $exists : true } },
-            education_place: { 'education.place' : { $exists : true } },
-            education_degree: { 'education.degree' : { $exists : true } },
-            education_teacher: { 'education.teacher' : { $exists : true } },
-            pursuits: { pursuits : { $ne : [] } },
-            occupations: { 'occupations.title' : { $exists : true } },
-            occupations_group: { 'occupations.group' : { $exists : true } },
-            occupations_place: { 'occupations.place' : { $exists : true } },
-            military: { 'military.rank' : { $exists : true } },
-            travel_place: { 'travels.place' : { $exists : true } },
-            travel_date: { $or : [ { 'travels.travelStartYear' : { $ne : '0' } }, { 'travels.travelEndYear' : { $ne : '0' } } ] },
-            travel_year: { $or : [ { 'travels.travelStartYear' : { $ne : '0' } }, { 'travels.travelEndYear' : { $ne : '0' } } ] },
-            travel_month: { $or : [ { 'travels.travelStartMonth' : { $ne : '0' } }, { 'travels.travelEndMonth' : { $ne : '0' } } ] },
-            travel_day: { $or : [ { 'travels.travelStartDay' : { $ne : '0' } }, { 'travels.travelEndDay' : { $ne : '0' } } ] },
-            exhibitions: { 'exhibitions.title' : { $exists : true } },
-            exhibitions_activity: { 'exhibitions.activity' : { $exists : true } },
-        
-        }
+        const results = await this.aggregateAtRevision(revisionIndex)
+        .unwind('$' + field.split('.')[0])
+        .match(query)
+        .group({ _id: '$' + field })
+        .sort('_id')
 
-        const facets = {}
-        Object.keys(countQueries).forEach(key => {
-
-            facets[key] = [
-                { $match: countQueries[key] },
-                { $count: 'count' },
-            ]
-
-        })
-
-        const results = await this.aggregate()
-        .match({ _revisionIndex: { $lte: revisionIndex || getLatestRevisionIndex() } })
-        .sort({ _revisionIndex: -1 })
-        .group({ _id: '$index', latest: { $first: '$$ROOT' } })
-        .append({ $replaceRoot: { newRoot: '$latest' } })
-        .match({ _deleted: false })
-        .sort({ index: 1 })
-        .facet(facets)
-
-        const counts = {}
-        Object.keys(results[0]).forEach(key => {
-            counts[key] = results[0][key][0].count
-        })
-
-        return { counts }
+        return results.map(result => result._id)
 
     }
 

@@ -61,7 +61,7 @@ router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
 router.get('/api/entries', isViewer, (req, res, next) => {
 
-    Entry.findAtRevision({}, req.user.activeRevisionIndex)
+    Entry.findAtRevision(null, req.user.activeRevisionIndex)
     .then(entries => res.json(entries))
     .catch(next)
 

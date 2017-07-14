@@ -825,6 +825,8 @@ ul.list-group.entry-facet > li .controls {
   border-radius: 5px;
   box-shadow: 0px 1px 5px #444;
   text-align: center;
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .custom-modal .modal-inner form {

@@ -15,7 +15,7 @@ exports.getCounts = async revisionIndex => {
 
     const countQueries = {
 
-        fullName: { fullName : { $ne : null } },
+        fullName: { fullName : { $exists : true } },
         alternateNames: { 'alternateNames.alternateName' : { $exists : true } },
         birthDate: { 'dates.0.birthDate' : { $exists : true } },
         birthPlace: { 'places.0.birthPlace' : { $exists : true } },
@@ -53,12 +53,12 @@ exports.getCounts = async revisionIndex => {
 
     })
 
-    const results = await Entry.aggregateToRevision(revisionIndex)
+    const results = await Entry.aggregateAtRevision(revisionIndex)
     .facet(facets)
 
     const counts = {}
     Object.keys(results[0]).forEach(key => {
-        counts[key] = results[0][key][0].count
+        counts[key] = results[0][key][0] ? results[0][key][0].count : 0
     })
 
     return { counts }
@@ -185,8 +185,8 @@ fullName : function(d) { return { $or : [
 ] } },
 type : function(d) { return { type : d } },
 
-birthDate : function(d) { return { dates : { $elemMatch : { birthDate : d } } } },
-deathDate : function(d) { return { dates : { $elemMatch : { deathDate : d } } } },
+birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
+deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
 
 birthPlace : function(d) { return { places : { $elemMatch : { birthPlace : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
 deathPlace : function(d) { return { places : { $elemMatch : { deathPlace : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
@@ -299,8 +299,8 @@ var searchMap = {
 
     type : function(d) { return { type : d } },
 
-    birthDate : function(d) { return { dates : { $elemMatch : { birthDate : d } } } },
-    deathDate : function(d) { return { dates : { $elemMatch : { deathDate : d } } } },
+    birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
+    deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
 
     birthPlace : function(d) { return { places : { $elemMatch : { birthPlace : d  } } } },
     deathPlace : function(d) { return { places : { $elemMatch : { deathPlace : d  } } } },

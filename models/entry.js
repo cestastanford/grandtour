@@ -17,6 +17,18 @@ const { getLatestRevisionIndex } = require('../cache')
 
 
 /*
+*   Defines a function for logging entry update operations.
+*/
+
+const OP_TYPES = { CREATE: 'CREATE', UPDATE: 'UPDATE', UPSERT: 'UPSERT', DELETE: 'DELETE' }
+const logEntryModification = (opType, index, update) => {
+
+    console.log(`Entry Modification: ${opType} ${index} ${update ? Object.keys(update).join(', ') : ''}`)
+
+}
+
+
+/*
 *   Defines schema.
 */
 
@@ -83,25 +95,16 @@ class Entry {
 
     static async createAtLatest(index, newEntryFields) {
 
-        const foundEntry = await this.findOne({ index, _revisionIndex: getLatestRevisionIndex() })
+        logEntryModification(OP_TYPES.CREATE, index, newEntryFields)
+        
+        const foundEntry = await this.findByIndexAtRevision(index)
         if (foundEntry) {
-            
-            if (foundEntry._deleted) {
-                await foundEntry.remove()
-            } else {
-                const error = new Error('Entry with specified index already exists')
-                error.status = 409
-                throw error
-            }
-
+            const error = new Error('Entry with specified index already exists')
+            error.status = 409
+            throw error
         }
 
-        const newEntry = new this({ index })
-        Object.keys(entryFields).forEach(key => {
-            if (newEntryFields[key]) newEntry[key] = newEntryFields[key]
-        })
-        
-        return newEntry.save()
+        return this.findByIndexAndUpdateAtLatest(index, Object.assign({ _deleted: false }, newEntryFields), true)
 
     }
 
@@ -113,6 +116,8 @@ class Entry {
     */
 
     static async deleteAtLatest(index) {
+
+        logEntryModification(OP_TYPES.DELETE, index)
 
         const existingEntry = await this.findByIndexAtRevision(index)
         if (existingEntry) {
@@ -178,17 +183,22 @@ class Entry {
     /*
     *   Finds a single Entry by query as of the latest Revision
     *   and applies the specified changes, creating a version for
-    *   the latest Revision if it doesn't yet exist.
+    *   the latest Revision if it doesn't yet exist.  If inserting
+    *   is true, the function will create the entry if no previous
+    *   versions exist.
     */
 
-    static async findByIndexAndUpdateAtLatest(index, updatedEntryFields, upsert) {
+    static async findByIndexAndUpdateAtLatest(index, updatedEntryFields, insert) {
+
+        if (!insert) logEntryModification(OP_TYPES.UPDATE, index, updatedEntryFields)
 
         const entry = await this.findByIndexAtRevision(index)
-        if (entry || upsert) {
+        if (entry || insert) {
 
             let latest
             if (entry && entry._revisionIndex === getLatestRevisionIndex()) latest = entry
             else latest = new this(entry && entry.toObject() || { index })
+
             Object.keys(entryFields).forEach(key => {
                 if (updatedEntryFields[key]) latest[key] = updatedEntryFields[key]
             })

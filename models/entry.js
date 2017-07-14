@@ -13,17 +13,18 @@
 
 const mongoose = require('mongoose')
 const entryFields = require('./entry-fields')()
-const { getLatestRevisionIndex } = require('../cache')
+const { getLatestRevisionIndex, invalidateQueryCounts } = require('../cache')
 
 
 /*
-*   Defines a function for logging entry update operations.
+*   Logs entry modifications and invalidates query count cache.
 */
 
 const OP_TYPES = { CREATE: 'CREATE', UPDATE: 'UPDATE', UPSERT: 'UPSERT', DELETE: 'DELETE' }
 const logEntryModification = (opType, index, update) => {
 
     console.log(`Entry Modification: ${opType} ${index} ${update ? Object.keys(update).join(', ') : ''}`)
+    invalidateQueryCounts()
 
 }
 
@@ -200,7 +201,7 @@ class Entry {
             else latest = new this(entry && entry.toObject() || { index })
 
             Object.keys(entryFields).forEach(key => {
-                if (updatedEntryFields[key]) latest[key] = updatedEntryFields[key]
+                if (updatedEntryFields[key] !== undefined) latest[key] = updatedEntryFields[key]
             })
 
             return latest.save()

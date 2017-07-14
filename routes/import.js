@@ -9,6 +9,7 @@ const google = require('googleapis')
 const Revision = require('../models/revision')
 const Entry = require('../models/entry')
 const entryFields = require('../models/entry-fields')()
+const { invalidateQueryCounts } = require('../cache')
 
 
 /*
@@ -59,6 +60,7 @@ const importFromSheets = async fieldRequestsFromRequest => {
     await Revision.create(`Import from Google Sheets on ${(new Date()).toLocaleString()}`)
     await saveEntryUpdates(entryUpdates)
     await Revision.create()
+    invalidateQueryCounts()
     sendUpdate('Done!', null, true)
 
 }

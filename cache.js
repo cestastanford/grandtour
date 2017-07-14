@@ -15,3 +15,12 @@ exports.setLatestRevisionIndex = latestRevisionIndex => {
 }
 
 exports.getLatestRevisionIndex = () => cache.get('latestRevisionIndex')
+
+
+/*
+*   Caches the counts of entries with values for specified queries.
+*/
+
+exports.setQueryCounts = queryCounts => cache.put('queryCounts', queryCounts)
+exports.getQueryCounts = () => cache.get('queryCounts')
+exports.invalidateQueryCounts = () => cache.put('queryCounts', null)

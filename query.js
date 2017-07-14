@@ -3,7 +3,7 @@
 */
 
 const Entry = require('./models/entry')
-const { getLatestRevisionIndex } = require('./cache')
+const { getLatestRevisionIndex, getQueryCounts, setQueryCounts } = require('./cache')
 
 
 /*
@@ -13,53 +13,60 @@ const { getLatestRevisionIndex } = require('./cache')
 
 exports.getCounts = async revisionIndex => {
 
-    const countQueries = {
+    let counts = getQueryCounts()
+    if (!counts) {
 
-        fullName: { fullName : { $exists : true } },
-        alternateNames: { 'alternateNames.alternateName' : { $exists : true } },
-        birthDate: { 'dates.0.birthDate' : { $exists : true } },
-        birthPlace: { 'places.0.birthPlace' : { $exists : true } },
-        deathDate: { 'dates.0.deathDate' : { $exists : true } },
-        deathPlace: { 'places.0.deathPlace' : { $exists : true } },
-        type: { type : { $ne : null } },
-        societies: { 'societies.title' : { $exists : true } },
-        societies_role: { 'societies.role' : { $exists : true } },
-        education_institution: { 'education.institution' : { $exists : true } },
-        education_place: { 'education.place' : { $exists : true } },
-        education_degree: { 'education.degree' : { $exists : true } },
-        education_teacher: { 'education.teacher' : { $exists : true } },
-        pursuits: { pursuits : { $ne : [] } },
-        occupations: { 'occupations.title' : { $exists : true } },
-        occupations_group: { 'occupations.group' : { $exists : true } },
-        occupations_place: { 'occupations.place' : { $exists : true } },
-        military: { 'military.rank' : { $exists : true } },
-        travel_place: { travels : { $not : { $size : 0 } }, 'travels.place' : { $exists : true } },
-        travel_date: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartYear' : { $ne : 0 } }, { 'travels.travelEndYear' : { $ne : 0 } } ] },
-        travel_year: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartYear' : { $ne : 0 } }, { 'travels.travelEndYear' : { $ne : 0 } } ] },
-        travel_month: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartMonth' : { $ne : 0 } }, { 'travels.travelEndMonth' : { $ne : 0 } } ] },
-        travel_day: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartDay' : { $ne : 0 } }, { 'travels.travelEndDay' : { $ne : 0 } } ] },
-        exhibitions: { 'exhibitions.title' : { $exists : true } },
-        exhibitions_activity: { 'exhibitions.activity' : { $exists : true } },
+        const countQueries = {
+
+            fullName: { fullName : { $ne : null } },
+            alternateNames: { 'alternateNames.alternateName' : { $exists : true } },
+            birthDate: { 'dates.0.birthDate' : { $exists : true } },
+            birthPlace: { 'places.0.birthPlace' : { $exists : true } },
+            deathDate: { 'dates.0.deathDate' : { $exists : true } },
+            deathPlace: { 'places.0.deathPlace' : { $exists : true } },
+            type: { type : { $ne : null } },
+            societies: { 'societies.title' : { $exists : true } },
+            societies_role: { 'societies.role' : { $exists : true } },
+            education_institution: { 'education.institution' : { $exists : true } },
+            education_place: { 'education.place' : { $exists : true } },
+            education_degree: { 'education.degree' : { $exists : true } },
+            education_teacher: { 'education.teacher' : { $exists : true } },
+            pursuits: { pursuits : { $ne : [] } },
+            occupations: { 'occupations.title' : { $exists : true } },
+            occupations_group: { 'occupations.group' : { $exists : true } },
+            occupations_place: { 'occupations.place' : { $exists : true } },
+            military: { 'military.rank' : { $exists : true } },
+            travel_place: { travels : { $not : { $size : 0 } }, 'travels.place' : { $exists : true } },
+            travel_date: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartYear' : { $ne : 0 } }, { 'travels.travelEndYear' : { $ne : 0 } } ] },
+            travel_year: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartYear' : { $ne : 0 } }, { 'travels.travelEndYear' : { $ne : 0 } } ] },
+            travel_month: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartMonth' : { $ne : 0 } }, { 'travels.travelEndMonth' : { $ne : 0 } } ] },
+            travel_day: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartDay' : { $ne : 0 } }, { 'travels.travelEndDay' : { $ne : 0 } } ] },
+            exhibitions: { 'exhibitions.title' : { $exists : true } },
+            exhibitions_activity: { 'exhibitions.activity' : { $exists : true } },
+
+        }
+
+        const facets = {}
+        Object.keys(countQueries).forEach(key => {
+
+            facets[key] = [
+                { $match: countQueries[key] },
+                { $count: 'count' },
+            ]
+
+        })
+
+        const results = await Entry.aggregateAtRevision(revisionIndex)
+        .facet(facets)
+
+        counts = {}
+        Object.keys(results[0]).forEach(key => {
+            counts[key] = results[0][key][0] ? results[0][key][0].count : 0
+        })
+
+        setQueryCounts(counts)
 
     }
-
-    const facets = {}
-    Object.keys(countQueries).forEach(key => {
-
-        facets[key] = [
-            { $match: countQueries[key] },
-            { $count: 'count' },
-        ]
-
-    })
-
-    const results = await Entry.aggregateAtRevision(revisionIndex)
-    .facet(facets)
-
-    const counts = {}
-    Object.keys(results[0]).forEach(key => {
-        counts[key] = results[0][key][0] ? results[0][key][0].count : 0
-    })
 
     return { counts }
 

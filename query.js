@@ -480,7 +480,7 @@ exports.search2 = (req, res, next) => {
 }
 
 
-function parseExport(res){
+function parseExport(res) {
 
     var activities = [];
     var activityIndex = 0;
@@ -505,7 +505,7 @@ function parseExport(res){
         // deathPlace
         entry.deathPlace = d.dates[0] ? d.dates[0].deathPlace || "" : "";
         // parents
-        entry.parents = d.parents || "";
+        entry.parents = (d.parents && d.parents.parents) || "";
 
         // activities
 
@@ -637,7 +637,7 @@ exports.export = (req, res, next) => {
 
     Entry.aggregateAtRevision(req.user.activeRevisionIndex)
     .match(query)
-    .then(result => res.json({ result: parseExport(response) }))
+    .then(result => res.json({ result: parseExport(result) }))
     .catch(next)
 
 }

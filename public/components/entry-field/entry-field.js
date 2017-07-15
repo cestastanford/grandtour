@@ -102,10 +102,9 @@ app.directive('entryField', function($window) {
                 scope.modalModel = modalModel
                 scope.modalSave = function() {
 
-                    console.log(JSON.parse(JSON.stringify(value)), JSON.parse(JSON.stringify(modalModel)))
-
                     if (entryField.valueIsObject) modalModel.forEach(function(field) {
-                        value[field.name] = field.value
+                        if (field.value || field.value === 0 || field.value === false) value[field.name] = field.value
+                        else if (value[field.name]) delete value[field.name]
                     })
 
                     else value = modalModel[0].value
@@ -113,8 +112,6 @@ app.directive('entryField', function($window) {
                         scope.fieldValueArray[valueArrayIndex] = value
                         value = scope.fieldValueArray
                     }
-
-                    console.log(fieldKey, JSON.parse(JSON.stringify(value)), JSON.parse(JSON.stringify(modalModel)))
                     
                     scope.edited(fieldKey, value)
                     delete scope.modalModel

@@ -58,7 +58,7 @@ socketIO.init(server)
 *   Creates an artificial delay for server testing purposes.
 */
 
-if (process.env.NODE_ENV !== 'production') app.use((req, res, next) => setTimeout(next, 1000))
+//  if (process.env.NODE_ENV !== 'production') app.use((req, res, next) => setTimeout(next, 1000))
 
 
 /*

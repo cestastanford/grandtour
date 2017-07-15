@@ -24,7 +24,7 @@ const OP_TYPES = { CREATE: 'CREATE', UPDATE: 'UPDATE', UPSERT: 'UPSERT', DELETE:
 const logEntryModification = (opType, index, update) => {
 
     console.log(`Entry Modification: ${opType} ${index} ${update ? Object.keys(update).join(', ') : ''}`)
-    invalidateQueryCounts()
+    invalidateQueryCounts(getLatestRevisionIndex())
 
 }
 
@@ -61,8 +61,6 @@ for (let key in entryFields) entrySchema.add({
 */
 
 const toObject = (doc, ret) => {
-
-    console.log(ret)
 
     const returnedObject = ret || doc
     delete returnedObject._id

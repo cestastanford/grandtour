@@ -21,7 +21,7 @@ router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
     res.json({ status: 200 })
 
     //  Kicks off async exporting process
-    exportToSheets(req.body.revisionIndex)
+    exportToSheets(req.user.activeRevisionIndex)
     .catch(next)
 
 })
@@ -47,7 +47,7 @@ const sendUpdate = (message, progress, done, url) => {
 const exportToSheets = async revisionIndex => {
 
     sendUpdate('Retrieving entries')
-    const entries = await Entry.find().atRevision(revisionIndex)
+    const entries = await Entry.findAtRevision(null, revisionIndex)
     const sheets = saveEntriesToSheets(entries)
     await saveSheetsToGoogleSpreadsheet(sheets)
 
@@ -85,7 +85,7 @@ const saveEntriesToSheets = entries => {
                         //  For fields whose values are objects
                         if (field.valueIsObject()) {
 
-                            Object.keys(valueArrayElement.toObject()).forEach(key => {
+                            Object.keys(valueArrayElement).forEach(key => {
                                 if (sheet.columnMap[key]) {
                                     row[sheet.columnMap[key]] = transform(valueArrayElement[key])
                                 }
@@ -171,7 +171,7 @@ const createSheets = () => {
         const sheet = sheets[field.sheet.name]
         if (field.valueIsObject()) sheet.columns = [
             ...sheet.columns,
-            ...Object.keys(field.getValueType()),
+            ...Object.keys(field.getValueType()).filter(key => key !== '_id'),
         ]
             
         else sheet.columns = [ ...sheet.columns, field.key ]

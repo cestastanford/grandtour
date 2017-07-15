@@ -2,7 +2,6 @@ div(ng-if="entryFields[fieldKey].serialized.valueIsObject" ng-repeat="(key, valu
     strong.small {{ key }}: 
     span(ng-if="fieldValue[key] !== undefined") {{ fieldValue[key] }}
     em(ng-if="fieldValue[key] === undefined") (empty)
-    span(ng-if="!$last") , 
     
 div(ng-if="!entryFields[fieldKey].serialized.valueIsObject")
     span(ng-if="fieldValue !== undefined") {{ fieldValue }}

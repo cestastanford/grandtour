@@ -13,7 +13,7 @@ const { getLatestRevisionIndex, getQueryCounts, setQueryCounts } = require('./ca
 
 exports.getCounts = async revisionIndex => {
 
-    let counts = getQueryCounts()
+    let counts = getQueryCounts(revisionIndex)
     if (!counts) {
 
         const countQueries = {
@@ -64,7 +64,7 @@ exports.getCounts = async revisionIndex => {
             counts[key] = results[0][key][0] ? results[0][key][0].count : 0
         })
 
-        setQueryCounts(counts)
+        setQueryCounts(revisionIndex, counts)
 
     }
 

@@ -28,7 +28,7 @@ router.get('/api/revisions', isEditor, async (req, res, next) => {
 
 router.post('/api/revisions', isAdministrator, (req, res, next) => {
 
-    Revision.create(req.body.name || `Revision saved on ${(new Date()).toLocaleString()}`)
+    Revision.create()
     .then(revision => res.status(201).json(revision))
     .catch(next)
 

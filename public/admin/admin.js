@@ -10,95 +10,106 @@ app.controller('AdminCtrl', function($scope, $http, $window) {
   * Sets up Revisions tab.
   */
 
-  function markActiveRevision(activeIndex) {
-    $scope.revisions.forEach(function(revision) { revision.active = revision.index === activeIndex })
+  function processRevisions(activeIndex) {
+    
+    $scope.revisions.forEach(function(revision, i) {
+
+      revision.latest = i === 0
+      revision.active = revision.index === activeIndex || (revision.latest && !activeIndex)
+    
+    })
+
     $scope.revisions = $scope.revisions
+  
   }
 
+
   function reloadRevisions() {
-    $scope.revisions = [ { index: null, name: 'Latest', latest: true } ]
     $http.get('/api/revisions')
     .then(function(response) {
-      $scope.revisions = $scope.revisions.concat(response.data)
+      $scope.revisions = response.data
     })
     .then(function() { return $http.get('/loggedin') })
     .then(function(response) {
-      markActiveRevision(response.data.activeRevisionIndex)
+      processRevisions(response.data.activeRevisionIndex)
     })
     .catch(console.error.bind(console))
   }
 
+
   $scope.editRevision = function(revision) {
-    revision.newName = revision.name
     revision.editing = true
+    revision.newName = revision.name
   }
+
 
   $scope.cancelRevisionEdit = function(revision) {
-    delete revision.newName
     revision.editing = false
+    delete revision.newName
   }
 
+
   $scope.saveRevisionEdit = function(revision) {
-    revision.name = revision.newName
-    revision.editing = false
-    $http.patch('/api/revisions/' + revision.index, { name: revision.name })
+    
+    revision.savingEdit = true
+    $http.patch('/api/revisions/' + revision.index, { name: revision.newName })
     .then(function(response) {
+      revision.savingEdit = false
+      revision.editing = false
       revision.name = response.data.name
       $scope.revisions = $scope.revisions
     })
     .catch(console.error.bind(console))
+  
   }
+
 
   $scope.setActiveRevision = function(revision) {
-    markActiveRevision(revision.index)
-    $http.post('/api/users/update', { activeRevisionIndex: revision.index })
+    
+    revision.activating = true
+    $http.post('/api/users/update', { activeRevisionIndex: revision.latest ? null : revision.index })
     .then(function(response) {
-      markActiveRevision(response.data.activeRevisionIndex)
+      revision.activating = false
+      processRevisions(response.data.activeRevisionIndex)
     })
     .catch(console.error.bind(console))
+  
   }
 
+
   $scope.deleteRevision = function(revision) {
+    
     if ($window.confirm('Are you sure you want to delete this revision, erasing all entry updates contained within?')) {
       revision.deleting = true
-      $scope.revisions = $scope.revisions
-      $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
       $http.delete('/api/revisions/' + revision.index)
       .then(function() {
         revision.deleting = false
-        $scope.revisions = $scope.revisions
-        if (revision.active) return $scope.setActiveRevision({ index: null })
+        $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
+        if (revision.active) return $scope.setActiveRevision($scope.revisions[0])
       })
       .catch(console.error.bind(console))
     }
+  
   }
 
-  $scope.clearLatest = function() {
-    if ($window.confirm('Are you sure you want to clear latest changes, resetting all entries to their state as of the previous revision?  If no previous revision exists, all entry data will be erased.')) {
-      $scope.revisions[0].clearing = true
-      $scope.revisions = $scope.revisions
-      $http.delete('/api/revisions/latest')
-      .then(function(response) {
-        $scope.revisions[0].clearing = false
-        $scope.revisions = $scope.revisions
-      })
-      .catch(console.error.bind(console))
-    }
-  }
 
-  $scope.saveNewRevision = function() {
-    var newRevision = { name: 'Saving...', temporary: true }
-    $scope.revisions.splice(1, 0, newRevision)
-    $scope.revisions = $scope.revisions
+  $scope.createNewRevision = function() {
+    
+    $scope.creating = true
     $http.post('/api/revisions', {})
     .then(function(response) {
-      $scope.revisions[$scope.revisions.indexOf(newRevision)] = response.data
+      $scope.creating = false
+      $scope.revisions.unshift(response.data)
       $scope.revisions = $scope.revisions
+      return $scope.setActiveRevision($scope.revisions[0])
     })
     .catch(console.error.bind(console))
+  
   }
 
+
   reloadRevisions()
+
 
   $scope.user = {};
 

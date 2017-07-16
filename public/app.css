@@ -841,3 +841,24 @@ ul.list-group.entry-facet > li .controls {
 .custom-modal .modal-inner form .btn-group {
   margin-top: 2em;
 }
+
+.free-search-input {
+  margin-bottom: .5em;
+}
+
+.free-search-input input {
+  width: 90%;
+  display: inline-block;
+}
+
+.free-search-input a {
+  width: 10%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.add-word {
+  float: left;
+  margin-top: .6em;
+}

@@ -50,44 +50,26 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
   //  support for free search by section
   function setupFreeSearch() {
 
-    if ($scope.query.entry) {
-      for (var k in $scope.freeSearchSections) {
-        if ($scope.query.entry.sections[k]) $scope.freeSearchQuery = $scope.query.entry.sections[k];
-        else $scope.freeSearchSections[k] = false;
-      }
-      if ($scope.query.entry.beginnings === 'no') $scope.freeSearchBeginnings = false;
-    }
+    if ($scope.query.entry) $scope.freeSearchModel = $scope.query.entry
+    else $scope.freeSearchModel = { terms: [ { value: '' } ], sections: [
+      { key: 'biography', name: 'Biography', checked: true },
+      { key: 'narrative', name: 'Narrative', checked: true },
+      { key: 'tours', name: 'Tours', checked: true },
+      { key: 'notes', name: 'Notes', checked: true }
+    ], beginnings: true }
+    
+    $scope.$watch('freeSearchModel', function(freeSearchModel) { 
 
-    //  support for free search by section
-    $scope.$watch('freeSearchQuery', function(freeSearchQuery) {
-      for (var section in $scope.freeSearchSections) {
-        if ($scope.freeSearchSections[section] && freeSearchQuery) {
-          if (!$scope.query.entry) $scope.query.entry = { sections: {} };
-          $scope.query.entry.sections[section] = freeSearchQuery;
-        }
+      $scope.query.entry = {
+        terms: $scope.freeSearchModel.terms.filter(term => term.value),
+        sections: $scope.freeSearchModel.sections,
+        beginnings: $scope.freeSearchModel.beginnings,
       }
-      if ($scope.query.entry) $scope.query.entry.beginnings = $scope.freeSearchBeginnings ? 'yes' : 'no';
-    });
 
-    $scope.$watchCollection('freeSearchSections', function(freeSearchSections) {
-      for (var section in freeSearchSections) {
-        if (freeSearchSections[section] && $scope.freeSearchQuery) {
-          if (!$scope.query.entry) $scope.query.entry = { sections: {} };
-          $scope.query.entry.sections[section] = $scope.freeSearchQuery;
-        }
-        else if ($scope.query.entry) {
-          delete $scope.query.entry.sections[section];
-          if (Object.keys($scope.query.entry.sections).length === 0) delete $scope.query.entry;
-        }
-      }
-      if ($scope.query.entry) $scope.query.entry.beginnings = $scope.freeSearchBeginnings ? 'yes' : 'no';
-    });
-
-    $scope.$watch('freeSearchBeginnings', function(freeSearchBeginnings) {
-      if ($scope.query.entry) $scope.query.entry.beginnings = freeSearchBeginnings ? 'yes' : 'no';
-    });
+    }, true)
 
   }
+
 
   //  Updates the travel model in response to $watch or manual trigger
   function updateTravelModel(travelModel) {

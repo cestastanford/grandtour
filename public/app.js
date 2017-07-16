@@ -279,15 +279,17 @@ var app = angular.module('app', [
 
     savedQuery = Object.assign({}, query);
     if (savedQuery.entry) {
-      for (key in savedQuery.entry.sections) {
-        savedQuery['entry_' + key] = savedQuery.entry.sections[key];
-      }
+      savedQuery.entry.sections.map(function(section) {
+        savedQuery['entry_' + section.key] = savedQuery.entry.terms.map(function(term) { return term.value })
+      })
       savedQuery.entry_beginnings = savedQuery.entry.beginnings;
       delete savedQuery.entry;
     }
     if (savedQuery.travel) {
         savedQuery.travel_place = savedQuery.travel.place;
     }
+
+    console.log(savedQuery)
 
   }
 
@@ -296,7 +298,7 @@ var app = angular.module('app', [
 
     var regExpStr = '(' + escapeRegExp(needle) + ')';
     if (beginningsOnly) {
-      regExpStr = '(\\s|^)' + regExpStr;
+      regExpStr = '(\\b|^)' + regExpStr;
     }
     var regExp = new RegExp(regExpStr, 'gi');
     return haystack.replace(regExp, function(m, m1, m2) {
@@ -325,12 +327,14 @@ var app = angular.module('app', [
 
     if (value && queries) queries.forEach(function(query) {
 
-      var beginningsOnly = propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings === 'yes';
+      var beginningsOnly = propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings;
       value = highlightString(query, value, beginningsOnly);
 
     });
 
     return value;
+
+    console.log(value)
 
   }
 

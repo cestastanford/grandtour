@@ -60,11 +60,16 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
     
     $scope.$watch('freeSearchModel', function(freeSearchModel) { 
 
-      $scope.query.entry = {
-        terms: $scope.freeSearchModel.terms.filter(term => term.value),
-        sections: $scope.freeSearchModel.sections,
-        beginnings: $scope.freeSearchModel.beginnings,
-      }
+      var terms = $scope.freeSearchModel.terms.filter(function(term) { return term.value })
+      if (terms.length) {
+
+        $scope.query.entry = {
+          terms: terms,
+          sections: $scope.freeSearchModel.sections,
+          beginnings: $scope.freeSearchModel.beginnings,
+        }
+
+      } else delete $scope.query.entry
 
     }, true)
 

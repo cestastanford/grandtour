@@ -397,7 +397,7 @@ var searchMap = {
     entry: d => ({
         $and: d.terms.map(term => ({
             $or: d.sections.map(section => ({
-                [section]: { $regex: new RegExp((d.beginnings ? '\\b' : '') + escapeRegExp(term.value), 'gi') }
+                [section.key]: { $regex: new RegExp((d.beginnings ? '\\b' : '') + escapeRegExp(term.value), 'gi') }
             }))
         }))
     }),
@@ -436,7 +436,7 @@ exports.search = function (req, res, next) {
             fullName: true,
             biography: true,
         }
-        )
+    )
     .then(response => res.json({ request: JSON.parse(originalQuery), entries: response }))
     .catch(next)
 

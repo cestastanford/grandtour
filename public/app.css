@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Poly');
+
+
 body {
-  font: 13px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font: 13px 'Open Sans', sans-serif;
   padding-bottom: 100px;
 }
 
@@ -51,7 +54,7 @@ body {
 }
 
 .text-serif {
-  font-family: "freight-text-pro", "Georgia", serif;
+  font-family: 'Poly', serif;
   font-size: 18px;
   line-height: 1.7;
 }
@@ -101,14 +104,14 @@ label {
 
 
 .h1, h1, .h3, h3 {
-  font-family: "freight-text-pro";
+  font-family: 'Poly', serif;
   font-weight: 500;
   margin-bottom: 20px;
   line-height: 1.6;
 }
 
 .h1, h1 {
-  font-family: "freight-text-pro", "Georgia", serif;
+  font-family: 'Poly', serif;
   font-weight: 200;
 }
 
@@ -121,7 +124,7 @@ label {
 
 .h4, h4 {
   font-size: 15px;
-  font-family: "freight-text-pro", "Georgia", serif;
+  font-family: 'Poly', serif;
   font-weight: 600;
 }
 
@@ -224,7 +227,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .navbar-default .navbar-brand {
-  font-family: "freight-text-pro", "Georgia", serif;
+  font-family: 'Poly', serif;
   color: #222;
 }
 
@@ -257,7 +260,7 @@ sup {
 /* Panels */
 
 .panel {
-  font-family: "freight-text-pro";
+  font-family: 'Poly', serif;
 }
 
 .panel a {
@@ -340,7 +343,7 @@ sup {
 .list-group-item-text {
   line-height: 1.6;
   font-size: 13px;
-  font-family: "freight-text-pro", "Georgia", serif;
+  font-family: 'Poly', serif;
 }
 
 .list-group-item:first-child {
@@ -405,7 +408,7 @@ sup {
 .mini-table label {
   display: block;
   font-size: 11px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: 'Open Sans', sans-serif;
   min-height: 0px;
   padding-top: 3px;
   padding-bottom: 3px;
@@ -468,7 +471,7 @@ sup {
 /* Popover */
 
 .popover {
-  font-family: "freight-text-pro";
+  font-family: 'Poly', serif;
   font-size: 14px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -685,7 +688,7 @@ table.table {
 
 #minimap text {
 
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     fill: #77c;
     stroke: #fff;
     stroke-width: .5px;

@@ -86,24 +86,24 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
     }
 
     //  export function copied from explore.js
-    $scope.export = function(field, value){
-
-      var $btn = $('#export-button').button('loading')
-
-      $http.post('/api/entries/export/', { index_list: viewModel.selectedList.entryIDs } )
+    $scope.export = function(field, value) {
+    
+        var $btn = $('#export-button').button('loading')
+    
+        $http.post('/api/entries/export/', { index_list: viewModel.selectedList.entryIDs } )
         .success(function (res){
 
-          var entries = d3.tsv.format(res.result.entries);
-          var activities = d3.tsv.format(res.result.activities);
-          var travels = d3.tsv.format(res.result.travels);
+            var entries = d3.tsv.format(res.result.entries);
+            var activities = d3.tsv.format(res.result.activities);
+            var travels = d3.tsv.format(res.result.travels);
 
-          var zip = new JSZip();
-          zip.file("Entries.tsv", entries);
-          zip.file("Activities.tsv", activities);
-          zip.file("Travels.tsv", travels);
-          var content = zip.generate({type:"blob"});
-          saveAs(content, "Grand Tour Explorer - Export.zip");
-          $btn.button('reset')
+            var zip = new JSZip();
+            zip.file("Entries.tsv", entries);
+            zip.file("Activities.tsv", activities);
+            zip.file("Travels.tsv", travels);
+            var content = zip.generate({type:"blob"});
+            saveAs(content, "Grand Tour Explorer - Export.zip");
+            $btn.button('reset')
 
         })
     }

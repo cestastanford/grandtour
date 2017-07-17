@@ -289,8 +289,6 @@ var app = angular.module('app', [
         savedQuery.travel_place = savedQuery.travel.place;
     }
 
-    console.log(savedQuery)
-
   }
 
   //  private string-highlighting function

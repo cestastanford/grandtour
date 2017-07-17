@@ -28,13 +28,19 @@ app.directive('revisionStatus', function($http, $window) {
             
             function reloadRevisions() {
               
-                $http.get('/api/revisions')
+                $http.get('/loggedin')
                 .then(function(response) {
-                    scope.revisions = response.data
-                })
-                .then(function() { return $http.get('/loggedin') })
-                .then(function(response) {
-                    processRevisions(response.data.activeRevisionIndex)
+                    var currentUser = response.data
+                    if (currentUser.role !== 'viewer') {
+
+                        $http.get('/api/revisions')
+                        .then(function(response) {
+                            scope.revisions = response.data
+                            processRevisions(currentUser.activeRevisionIndex)
+                        })
+                        .catch(console.error.bind(console))
+
+                    }
                 })
                 .catch(console.error.bind(console))
             

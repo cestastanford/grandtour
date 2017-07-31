@@ -865,3 +865,14 @@ ul.list-group.entry-facet > li .controls {
   float: left;
   margin-top: .6em;
 }
+
+.travel-marker-heading {
+  font-size: .8em;
+  vertical-align: bottom !important;
+  padding-bottom: .4em !important;
+  padding-left: .5em !important;
+}
+
+.travel-marker-body {
+  font-size: .8em;
+}

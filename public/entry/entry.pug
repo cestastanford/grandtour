@@ -297,15 +297,13 @@
                   thead
                     tr
                       th Place
-                      //th.text-right after
                       th.text-right from
                       th.text-right to
-                      //th.text-right before
+                      th.text-right.travel-marker-heading markers
                   tbody
                     tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;", ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
                       td(ng-class="{'bordered':travel.parent}")
                         span(ng-bind-html="highlighted('travel_place', travel)")
-                      //td.text-right.tnum-lnum {{travel.gte}}
                       td.text-right.tnum-lnum
                         span(ng-class="{'highlighted': highlightTravel(travel)}")
                           span(ng-show="travel.travelStartYear == '0' || travel.estimatedTravelDates") -
@@ -318,6 +316,6 @@
                           span(ng-show="travel.travelEndYear != '0' && !travel.estimatedTravelDates") {{travel.travelEndYear}}
                           span(ng-show="travel.travelEndMonth != '0' && !travel.estimatedTravelDates") /{{travel.travelEndMonth}}
                           span(ng-show="travel.travelEndDay != '0' && !travel.estimatedTravelDates") /{{travel.travelEndDay}}
-                      //td.text-right.tnum-lnum {{travel.lte}}
-              
-    
+                      td.text-right.tnum-lnum.travel-marker-body(ng-show="travel.markers")
+                        span(ng-class="{'highlighted': highlightTravel(travel)}") {{ travel.markers }}
+

@@ -876,3 +876,15 @@ ul.list-group.entry-facet > li .controls {
 .travel-marker-body {
   font-size: .8em;
 }
+
+.body-text {
+  margin-bottom: 1em;
+}
+
+.body-text .heading {
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-weight: bold;
+  color: #888;
+  font-size: .65em;
+}

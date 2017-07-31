@@ -270,16 +270,26 @@
             .label.label-success(ng-show="entry.addedToList") Added to list
             .label.label-info(ng-show="entry.alreadyInList") Already in list
 
-
-
-        
       div.col-lg-6
-        p.text-serif.check-html(ng-bind-html="highlighted('entry_biography', superscript(entry.biography, entry.notes))")
-        p.text-serif.check-html(ng-repeat="tour in splitTours(entry.tours)")
-          span.check-html(ng-bind-html="highlighted('entry_tours', tour)")
-        p.text-serif.check-html(ng-bind-html="highlighted('entry_narrative', superscript(entry.narrative, entry.notes))")
-        p.text-serif.small(ng-bind-html="highlighted('entry_notes', entry.notes)")
+        div.text-serif.check-html.body-text
+          div.heading Biography
+          p(ng-bind-html="highlighted('entry_biography', superscript(entry.biography, entry.notes))")
         
+        div.text-serif.check-html.body-text
+          div.heading Tours
+          p(ng-repeat="tour in splitTours(entry.tours)")
+            span(ng-bind-html="highlighted('entry_tours', tour)")
+        
+        div.text-serif.check-html.body-text
+          div.heading Narrative
+          p(
+            ng-repeat="narrativeParagraph in entry.narrative.split('\\n')"
+            ng-bind-html="highlighted('entry_narrative', superscript(narrativeParagraph, entry.notes))"
+          )
+        
+        div.text-serif.small.body-text
+          div.heading Notes
+          p(ng-bind-html="highlighted('entry_notes', entry.notes)")
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")
         button.btn.btn-default.btn-xs.btn-block(type="button", ng-click="reanimate(entry.travels)") Reanimate

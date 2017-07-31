@@ -198,3 +198,27 @@
         hr(ng-show="exportStatus.url")
         .well.well-sm(ng-show="exportStatus.url")
           a(href="{{exportStatus.url}}" target="_blank") Access exported spreadsheet at {{exportStatus.url}}
+
+      .row
+        hr
+        h3 Import Linked Footnotes from Google Sheets
+        p Enter a spreadsheet ID and click "Import Linked Footnotes" to save the linked footnotes to the database.  Click "Clear All" to remove all saved linked footnotes.  Linked footnote data must be in a sheet named "Linked Footnotes".
+        input.form-control.linked-footnote-sheet-id(
+          type="text",
+          ng-model="linkedFootnoteSheetId",
+          placeholder="spreadsheet ID",
+        )
+        button#import-linked-footnotes.btn.btn-danger(type="button" ng-click="importLinkedFootnotes(linkedFootnoteSheetId)", data-loading-text="Importing...") Import Linked Footnotes
+        hr(ng-show="importLinkedFootnotesStatus")
+        progressbar.progress-striped(
+            ng-class="{ active: !importLinkedFootnotesStatus.done, 'progress-striped': !importLinkedFootnotesStatus.done && !importLinkedFootnotesStatus.progress }",
+            value="importLinkedFootnotesStatus.progress ? importLinkedFootnotesStatus.progress.value : 100",
+            max="importLinkedFootnotesStatus.progress ? importLinkedFootnotesStatus.progress.max : 100",
+            type="{{importLinkedFootnotesStatus.progress ? 'info' : (importLinkedFootnotesStatus.done ? 'success' : 'warning')}}",
+            ng-show="importLinkedFootnotesStatus",
+          )
+            span {{importLinkedFootnotesStatus.message}}
+        br
+        br
+        button#clear-linked-footnotes.btn.btn-danger(type="button" ng-click="clearLinkedFootnotes()", data-loading-text="Clearing...") Clear All
+

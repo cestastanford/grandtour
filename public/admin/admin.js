@@ -122,13 +122,17 @@ app.controller('AdminCtrl', function($scope, $http, $window) {
 
   socket.on('sheets-import-status', function(response) {
     $scope.importStatus = response
-    if ($scope.importStatus.done) reloadRevisions()
+    if ($scope.importStatus.done) {
+      $('#import').button('reset')
+      delete $scope.importStatus
+      reloadRevisions()
+    }
     $scope.$apply()
   });
 
   $scope.import = function() {
     if ($scope.importStatus) return;
-    $scope.importStatus = {};
+    $scope.importStatus = {}
     $('#import').button('loading')
     $http.post('/api/import/from-sheets')
     .catch(console.error.bind(console))
@@ -136,14 +140,42 @@ app.controller('AdminCtrl', function($scope, $http, $window) {
 
   socket.on('sheets-export-status', function(response) {
     $scope.exportStatus = response
+    if ($scope.exportStatus.done) {
+      $('#export').button('reset')
+      delete $scope.exportStatus
+    }
     $scope.$apply()
   });
 
   $scope.export = function(revisionIndex) {
     if ($scope.exportStatus) return;
-    $scope.exportStatus = {};
+    $scope.exportStatus = {}
     $('#export').button('loading')
     $http.post('/api/export/to-sheets', { revisionIndex: revisionIndex })
+    .catch(console.error.bind(console))
+  }
+
+  socket.on('linked-footnotes-import-status', function(response) {
+    $scope.linkedFootnotesImportStatus = response
+    if ($scope.linkedFootnotesImportStatus.done) {
+      $('#import-linked-footnotes').button('reset')
+      delete $scope.linkedFootnotesImportStatus
+    }
+    $scope.$apply()
+  });
+
+  $scope.importLinkedFootnotes = function(sheetId) {
+    if ($scope.linkedFootnotesImportStatus) return;
+    $scope.linkedFootnotesImportStatus = {}
+    $('#import-linked-footnotes').button('loading')
+    $http.post('/api/import/linked-footnotes-from-sheets', { sheetId: sheetId })
+    .catch(console.error.bind(console))
+  }
+
+  $scope.clearLinkedFootnotes = function() {
+    $('#clear-linked-footnotes').button('loading')
+    $http.delete('/api/linked-footnotes')
+    .then(function() { $('#clear-linked-footnotes').button('reset') })
     .catch(console.error.bind(console))
   }
 

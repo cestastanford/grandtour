@@ -2,30 +2,12 @@
 *   Imports
 */
 
-const router = require('express').Router()
-const { isAdministrator } = require('./auth')
 const socketIO = require('../socket')
 const google = require('googleapis')
 const Revision = require('../models/revision')
 const Entry = require('../models/entry')
 const entryFields = require('../models/entry-fields')()
 const { invalidateQueryCounts } = require('../cache')
-
-
-/*
-*   Imports from Google Sheets into new Revision
-*/
-
-router.post('/api/import/from-sheets', isAdministrator, (req, res, next) => {
-
-    //  Sends HTTP response first so client doesn't re-attempt request
-    res.json({ status: 200 })
-
-    //  Kicks off async importing process
-    importFromSheets(req.body.fieldRequests)
-    .catch(next)
-
-})
 
 
 /*
@@ -46,7 +28,7 @@ const sendUpdate = (message, progress, done) => {
 *   Client is updated via socket.io.
 */
 
-const importFromSheets = async fieldRequestsFromRequest => {
+module.exports = async fieldRequestsFromRequest => {
 
     //  Requests sheet data from Google Spreadsheets
     const fieldRequests = fieldRequestsFromRequest || Object.values(entryFields)
@@ -267,10 +249,3 @@ const saveEntryUpdates = async entryUpdates => {
     }
 
 }
-
-
-/*
-*   Exports
-*/
-
-module.exports = router

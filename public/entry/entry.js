@@ -38,10 +38,10 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     return tours ? tours.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g) : []
   }
 
-  $scope.highlighted = function(propertyName, value) {
+  $scope.highlighted = function(propertyName, value, doNotTrust) {
     if (value) {
       var highlightedHtml = entryHighlightingService.highlight(propertyName, value);
-      return $sce.trustAsHtml(highlightedHtml);
+      return doNotTrust ? highlightedHtml : $sce.trustAsHtml(highlightedHtml);
     }
   }
 
@@ -140,15 +140,18 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     return notes.split(/\.\s[0-9]{1,2}\.\s/gi);
   }
 
-  $scope.superscript = function(text, n) {
+  $scope.superscript = function(text, n, trustAsHtml) {
     if (!text) return;
     var notes =  n ? createNotes(n) : [];
+    console.log('text and notes: ', text, notes);
     function replacer(match, p1, p2, p3, offset, string) {
       var t = p2 == 1? notes[p2-1] : p2 + ". " +  notes[p2-1];
       return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + t + "\">[" + p2 + "]</sup>";
     }
 
-    return text.replace(/(\.|\,|'|;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r)/gi, replacer);
+    var textWithNotes = text.replace(/(\.|\,|'|;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r)/gi, replacer);
+    console.log('text with notes: ', textWithNotes);
+    return trustAsHtml ? $sce.trustAsHtml(textWithNotes) : textWithNotes;
   }
 
   $scope.search = function(query){

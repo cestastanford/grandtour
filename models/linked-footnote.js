@@ -39,7 +39,29 @@ class LinkedFootnote {
 
     static async findAllFromString(str) {
 
+        const matchingFootnotes = []
+        const linkedFootnotes = await this.find({})
+        for (let i = 0; i < linkedFootnotes.length; i++) {
 
+            const footnote = linkedFootnotes[i]
+            let index 
+            while (index !== -1) {
+
+                index = str.indexOf(footnote.abbreviation, index ? index + 1 : 0)
+                if (index !== -1) matchingFootnotes.push({
+
+                    abbreviation: footnote.abbreviation,
+                    fullText: footnote.fullText,
+                    startIndex: index,
+                    endIndex: index + footnote.abbreviation.length,
+
+                })
+
+            }       
+
+        }
+
+        return matchingFootnotes
     
     }
 

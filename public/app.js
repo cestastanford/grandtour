@@ -332,8 +332,6 @@ var app = angular.module('app', [
 
     return value;
 
-    console.log(value)
-
   }
 
   //  public function that determines whether a travel place or date should be

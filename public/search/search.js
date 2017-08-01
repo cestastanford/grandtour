@@ -203,7 +203,9 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
         switch (key) {
 
           case 'entry':
-            pill.dimension = 'free search in ' + $scope.query.entry.sections.map(function(section) { return section.name }).join(', ')
+            pill.dimension = 'free search in ' + $scope.query.entry.sections.filter(function(section) { return section.checked })
+            .map(function(section) { return section.name }).join(', ')
+            
             if ($scope.query.entry.beginnings) pill.dimension += ' (word beginnings only)'
             pill.value = $scope.query.entry.terms.map(function(term) { return term.value }).join(', ')
             break

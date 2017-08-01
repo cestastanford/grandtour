@@ -20,6 +20,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
         createOccupations(res.entry.occupations);
         createMilitary(res.entry.military);
         downloadMentionedNames(res.entry.mentionedNames);
+        linkFootnotes();
 
         // $timeout(smartquotes);
         $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
@@ -77,6 +78,56 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     .catch(console.error.bind(console))
   }
 
+  function linkFootnotes() {
+    $http.get('/api/linked-footnotes/in-entry/' + $scope.entry.index)
+    .then(function(response) {
+
+      var notes = $scope.entry.notes
+      var linkedFootnotes = response.data.sort(function(a, b) { return a.startIndex - b.startIndex })
+      var linkedNoteNodes = []
+      var previousEndIndex = 0
+      linkedFootnotes.forEach(function(footnote, i) {
+
+        var popoverText = footnote.fullText
+        var linkDestination = '/#/search/' + encodeURIComponent(JSON.stringify({
+          entry: { 
+            terms: [ { value: footnote.abbreviation } ],
+            sections: [
+              { key: 'biography', name: 'Biography', checked: false },
+              { key: 'narrative', name: 'Narrative', checked: false },
+              { key: 'tours', name: 'Tours', checked: false },
+              { key: 'notes', name: 'Notes', checked: true }
+            ],
+            beginnings: false,
+          }
+        }))
+
+        linkedNoteNodes.push({ link: false, text: notes.slice(previousEndIndex, footnote.startIndex) })
+        linkedNoteNodes.push({ link: true, linkDestination: linkDestination, popoverText: popoverText, text: notes.slice(footnote.startIndex, footnote.endIndex) })
+        if (i === linkedFootnotes.length - 1) linkedNoteNodes.push({ link: false, text: notes.slice(footnote.endIndex) })
+        else previousEndIndex = footnote.endIndex
+
+      })
+
+      var linkedNotes = ''
+      linkedNoteNodes.forEach(function(node) {
+        if (node.link) {
+          linkedNotes += '<a href="' + node.linkDestination + '" data-toggle="popover" data-content="' + node.popoverText + '">'
+          linkedNotes += entryHighlightingService.highlight('entry_notes', node.text)
+          linkedNotes += '</a>'
+        } else linkedNotes += entryHighlightingService.highlight('entry_notes', node.text)
+      })
+
+      $scope.entry.linkedNotes = $sce.trustAsHtml(linkedNotes);
+      $timeout(function() {
+        $('[data-toggle="popover"]').popover({ trigger: 'hover', placement: 'top', container: 'body' });
+        $('[data-toggle="popover"]').click(function(event) { $('.popover').remove() })
+      })
+
+    })
+    .catch(console.error.bind(console))
+  }
+
   function createOccupations(occupations){
     if (!occupations) return;
     var nest = d3.nest()
@@ -89,7 +140,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     return notes.split(/\.\s[0-9]{1,2}\.\s/gi);
   }
 
-  $scope.superscript = function(text, n){
+  $scope.superscript = function(text, n) {
     if (!text) return;
     var notes =  n ? createNotes(n) : [];
     function replacer(match, p1, p2, p3, offset, string) {

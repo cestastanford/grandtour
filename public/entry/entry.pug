@@ -287,9 +287,9 @@
             ng-bind-html="highlighted('entry_narrative', superscript(narrativeParagraph, entry.notes))"
           )
         
-        div.text-serif.small.body-text
+        div.text-serif.small.body-text.check-html
           div.heading Notes
-          p(ng-bind-html="highlighted('entry_notes', entry.notes)")
+          p(ng-bind-html="entry.linkedNotes")
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")
         button.btn.btn-default.btn-xs.btn-block(type="button", ng-click="reanimate(entry.travels)") Reanimate

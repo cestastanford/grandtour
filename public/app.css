@@ -881,12 +881,13 @@ ul.list-group.entry-facet > li .controls {
   margin-bottom: 1em;
 }
 
-.body-text .heading {
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  font-weight: bold;
-  color: #888;
-  font-size: .65em;
+.body-text p {
+  margin: 0;
+}
+
+.body-text.narrative p::before {
+  content: '';
+  margin-left: 2em;
 }
 
 .linked-footnote-sheet-id {

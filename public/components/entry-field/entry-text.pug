@@ -1,15 +1,20 @@
-div.text-serif.body-text
-    div.heading {{ fieldKey }}
-    p.text-serif(
-        ng-class="{ small: fieldKey === 'notes' }"
+div.text-serif.body-text(ng-class="{ narrative: fieldKey === 'narrative' }")
+    div.text-serif(
+        ng-class="{ small: fieldKey === 'notes' }",
         ng-show="!isEditing()",
         ng-click="startEditing()",
     )
-        span(ng-if="entry[fieldKey]") {{ entry[fieldKey] }}
+        div(ng-if="entry[fieldKey]")
+            span(ng-if="fieldKey !== 'narrative'") {{ entry[fieldKey] }}
+            p(
+              ng-if="fieldKey === 'narrative'",
+              ng-repeat="narrativeParagraph in entry[fieldKey].split('\\n')",
+            ) {{ narrativeParagraph }}
+        
         em(ng-if="!entry[fieldKey]") ({{ fieldKey }} empty)
 
     textarea.focus.form-control.text-serif(
-        ng-class="{ small: fieldKey === 'notes' }"
+        ng-class="{ small: fieldKey === 'notes' }",
         rows="10",
         ng-show="isEditing()",
         ng-model="entry[fieldKey]",

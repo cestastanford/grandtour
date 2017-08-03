@@ -272,23 +272,19 @@
 
       div.col-lg-6
         div.text-serif.check-html.body-text
-          div.heading Biography
           p(ng-bind-html="superscript(highlighted('entry_biography', entry.biography, true), entry.notes, true)")
         
         div.text-serif.check-html.body-text
-          div.heading Tours
           p(ng-repeat="tour in splitTours(entry.tours)")
             span(ng-bind-html="highlighted('entry_tours', tour)")
         
-        div.text-serif.check-html.body-text
-          div.heading Narrative
+        div.text-serif.check-html.body-text.narrative
           p(
             ng-repeat="narrativeParagraph in entry.narrative.split('\\n')"
             ng-bind-html="superscript(highlighted('entry_narrative', narrativeParagraph, true), entry.notes, true)"
           )
         
         div.text-serif.small.body-text.check-html
-          div.heading Notes
           p(ng-bind-html="entry.linkedNotes")
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")

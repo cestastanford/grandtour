@@ -42,7 +42,6 @@ module.exports = async fieldRequestsFromRequest => {
     await Revision.create(`Import from Google Sheets on ${(new Date()).toLocaleString()}`)
     await saveEntryUpdates(entryUpdates)
     await Revision.create()
-    invalidateQueryCounts()
     sendUpdate('Done!', null, true)
 
 }
@@ -173,7 +172,11 @@ const getEntryUpdates = fieldRequests => {
         sheetValues.forEach(row => {
 
             //  Creates new entry if one doesn't exist
-            if (!entryUpdates[row.index]) entryUpdates[row.index] = {}
+            if (!entryUpdates[row.index]) {
+                if (field.sheet.doNotUpsert) return
+                else entryUpdates[row.index] = {}
+            }
+            
             const entry = entryUpdates[row.index]
 
             //  Uses specified transform function, or uses the default,

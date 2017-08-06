@@ -5,7 +5,7 @@ module.exports = {
     label: 'Notes',
     sheet: {
 
-        spreadsheet: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8',
+        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Entries',
 
     }

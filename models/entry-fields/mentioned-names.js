@@ -8,16 +8,8 @@ module.exports = {
     label: 'Mentioned Names',
     sheet: {
 
-        spreadsheet: '1dXckjpjDbGcGxpFS9M1ndQDjoIK5hEwTZqJznqbwRS8',
+        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Mentioned Names',
-        fromSheet: row => ({
-            name: row.name,
-            entryIndex: row.entryIndex1 !== '-1' ? row.entryIndex1 : (
-                row.entryIndex2 !== '-1' ? row.entryIndex2 : (
-                    row.entryIndex3 !== '-1' ? row.entryIndex3 : null
-                )
-            )
-        }),
         doNotUpsert: true,
 
     }

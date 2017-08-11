@@ -4,9 +4,8 @@
     .col-lg-12
       revision-status
   
-  br
-
   .row(ng-show="editStatus")
+    br
     .col-lg-12
       .edit-status.alert.alert-success
         
@@ -35,7 +34,14 @@
             ng-click="editStatus.creating ? null : createEntry()",
           ) {{ editStatus.creating ? 'Creating...' : 'Create Entry' }}
 
-  br
+  .row
+    br
+    .col-lg-12
+      entry-list-context(
+        current-entry-index="{{ entry.index }}",
+        previous-entry-index="{{ previousIndex }}",
+        next-entry-index="{{ nextIndex }}",
+      )
 
   .div(ng-show="!entry")
     .row
@@ -47,10 +53,6 @@
     
     h1
       span(ng-bind-html="highlighted('fullName', entry.fullName)")
-      a.pull-right(ng-href="#/entries/{{nextIndex}}")
-        i.fa.fa-angle-right.margin-left
-      a.pull-right(ng-href="#/entries/{{previousIndex}}")
-        i.fa.fa-angle-left 
 
     .row
       div.col-lg-3.entry-info

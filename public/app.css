@@ -898,3 +898,26 @@ ul.list-group.entry-facet > li .controls {
   position: relative;
   top: 2px;
 }
+
+.entry-list-context {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #444;
+  background-color: #eee;
+  border-color: #ddd;
+  padding: 6px 12px;
+}
+
+.entry-list-context .status-text strong {
+  vertical-align: middle;
+}
+
+.entry-list-context .status-text .btn-group {
+  margin-left: 1em;
+}
+
+.entry-list-context .prev-next-buttons {
+  font-size: 3em;
+  line-height: 0;
+}

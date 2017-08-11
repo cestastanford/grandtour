@@ -30,12 +30,24 @@
                         ng-class="{ disabled: !unsavedChanges || saveStatus.saving }"
                     ) {{ saveStatus.saving ? 'Saving...' : 'Save Changes' }}
 
-            br
+    .row(ng-show="saveStatus.saved || saveStatus.error")
+        br
+        .col-lg-12
             .alert.alert-success(ng-show="saveStatus.saved") Successfully saved changes!
             .alert.alert-danger(ng-show="saveStatus.error")
                 div Save failed!  Please record your changes and reload the page.
                 br
                 strong.small(ng-bind-html="saveStatus.error")
+
+    .row
+        br
+        .col-lg-12
+            entry-list-context(
+              current-entry-index="{{ entry.index }}",
+              previous-entry-index="{{ previousIndex }}",
+              next-entry-index="{{ nextIndex }}",
+              editing="editing",
+            )
 
     br
     h1
@@ -43,12 +55,6 @@
             field-key="fullName",
             template="full-name",
         )
-        
-        a.pull-right(ng-href="#/entries/{{next}}/edit")
-            i.fa.fa-angle-right.margin-left
-        
-        a.pull-right(ng-href="#/entries/{{previous}}/edit")
-            i.fa.fa-angle-left
 
     .row
         div.col-lg-3.entry-info

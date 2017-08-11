@@ -35,10 +35,36 @@ app.factory('entryListContext', function($location) {
 
 
     /*
-    *   Returns the saved list context.
+    *   Returns the entry list context.
     */
 
     var getContext = function() { return context }
+
+
+    /*
+    *   Returns the previous entry given the current entry list context.
+    */
+
+    var getPreviousInContext = function(currentIndex) {
+
+        if (!context) return null
+        var index = context.entryIndexes.indexOf(+currentIndex)
+        return index === 0 ? context.entryIndexes[context.entryIndexes.length - 1] : context.entryIndexes[index - 1]
+
+    }
+
+
+    /*
+    *   Returns the enxt entry given the current entry list context.
+    */
+
+    var getNextInContext = function(currentIndex) {
+
+        if (!context) return null
+        var index = context.entryIndexes.indexOf(+currentIndex)
+        return index === context.entryIndexes.length - 1 ? context.entryIndexes[0] : context.entryIndexes[index + 1]
+
+    }
 
 
     /*
@@ -49,6 +75,8 @@ app.factory('entryListContext', function($location) {
         saveContext: saveContext,
         clearContext: function() { saveContext() },
         getContext: getContext,
+        getPreviousInContext: getPreviousInContext,
+        getNextInContext: getNextInContext,
     }
 
 })

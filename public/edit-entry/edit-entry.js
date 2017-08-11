@@ -30,8 +30,8 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
             if (!response.data.entry) $state.go('entry', { id: $stateParams.id })
             else {
                 $scope.entry = response.data.entry
-                $scope.previous = response.data.previous
-                $scope.next = response.data.next
+                $scope.previousIndex = response.data.previous
+                $scope.nextIndex = response.data.next
             }
 
         })

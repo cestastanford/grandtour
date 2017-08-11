@@ -2,7 +2,7 @@
 * Entry view controller
 */
 
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window) {
+app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, entryListContext, $state) {
 
   if($stateParams.id) {
     // save
@@ -285,6 +285,18 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       i++;
 
     };
+  }
+
+
+  /*
+  * Navigates to an entry.
+  */
+
+  $scope.goToEntry = function(index) {
+
+    entryListContext.clearContext()
+    $state.go('entry', { id: index })
+
   }
 
 

@@ -1,4 +1,4 @@
-app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $window) {
+app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $window, entryListContext) {
 
 
     /*
@@ -36,6 +36,18 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
 
         })
         .catch(console.error.bind(console))
+
+    }
+
+
+    /*
+    * Navigates to an entry's edit page.
+    */
+
+    $scope.editEntry = function(index) {
+
+      entryListContext.clearContext()
+      $state.go('edit-entry', { id: index })
 
     }
 

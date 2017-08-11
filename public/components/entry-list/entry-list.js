@@ -1,4 +1,4 @@
-app.directive('entryList', function(savedListService) {
+app.directive('entryList', function(savedListService, entryListContext) {
   
   return {
     restrict: 'E',
@@ -17,6 +17,11 @@ app.directive('entryList', function(savedListService) {
         if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
       })
       if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
+
+      //  Saves entry list view to entryListContext service
+      scope.$watchCollection('entries', function(entries) {
+        entryListContext.saveContext(entries, attributes.isSavedListView)
+      })
 
       //  initialize view model
       var viewModel = {

@@ -157,7 +157,7 @@ var app = angular.module('app', [
   })
 
   .state('lists', {
-    url: "/lists",
+    url: "/lists/:id",
     templateUrl: "views/lists",
     controller: "ListsCtrl",
     resolve: {

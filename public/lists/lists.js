@@ -76,7 +76,7 @@ app.factory('savedListService', function($rootScope, $http) {
   };
 
   //  do initial list download
-  $http.post('/api/lists/mylists', {
+  var myListsPromise = $http.post('/api/lists/mylists', {
     username: $rootScope.currentUser.username
   })
   .then(function(res) {
@@ -91,7 +91,8 @@ app.factory('savedListService', function($rootScope, $http) {
     newList: newList,
     deleteList: deleteList,
     addToList: addToList,
-    removeFromList: removeFromList
+    removeFromList: removeFromList,
+    myListsPromise: myListsPromise,
   };
 
 })
@@ -101,7 +102,7 @@ app.factory('savedListService', function($rootScope, $http) {
 *   List view controller
 */
 
-app.controller('ListsCtrl', function($scope, $http, savedListService) {
+app.controller('ListsCtrl', function($scope, $http, savedListService, $stateParams, $state) {
 
     //  initialize view model
     var viewModel = {
@@ -133,11 +134,18 @@ app.controller('ListsCtrl', function($scope, $http, savedListService) {
     };
 
     $scope.selectList = function(list) {
-        if (viewModel.selectedList === list) viewModel.selectedList = null;
-        else {
+        if (viewModel.selectedList === list) {
+          
+          viewModel.selectedList = null;
+          $state.go('lists', { id: null }, { notify: false })
+        
+        } else {
+            
+            $state.go('lists', { id: list._id }, { notify: false })
             viewModel.selectedList = list;
             viewModel.selectedListEntries = null;
             downloadEntries(list);
+        
         }
     };
 
@@ -206,5 +214,15 @@ app.controller('ListsCtrl', function($scope, $http, savedListService) {
 
         })
     }
+
+    //  Selects the list indicated by the URL, if it exists
+    
+    if ($stateParams.id) savedListService.myListsPromise.then(function() {
+
+      var list = savedListService.sharedListModel.myLists.filter(function(list) { return list._id === $stateParams.id })[0]
+      if (list) $scope.selectList(list)
+      else $state.go('lists', { id: null }, { notify: false })
+
+    })
     
 });

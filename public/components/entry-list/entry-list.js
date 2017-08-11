@@ -1,4 +1,4 @@
-app.directive('entryList', function(listService) {
+app.directive('entryList', function(savedListService) {
   
   return {
     restrict: 'E',
@@ -27,7 +27,7 @@ app.directive('entryList', function(listService) {
       scope.viewModel = viewModel;
 
       //  expose shared list model to scope
-      scope.sharedListModel = listService.sharedListModel
+      scope.sharedListModel = savedListService.sharedListModel
 
       //  selection/delection commands
       scope.selectAllEntries = function() {
@@ -47,7 +47,7 @@ app.directive('entryList', function(listService) {
           var entry = scope.entries[i];
           if (entry.selected) {
             entry.addedToList = entry.alreadyInList = false;
-            listService.addToList(list, entry, (function(result) {
+            savedListService.addToList(list, entry, (function(result) {
               if (result.addedToList) {
                 this.entry.addedToList = true;
               } else if (result.alreadyInList) {
@@ -59,7 +59,7 @@ app.directive('entryList', function(listService) {
       };
 
       scope.addSelectedEntriesToNewList = function() {
-        listService.newList(viewModel.newListName, function(list) {
+        savedListService.newList(viewModel.newListName, function(list) {
           viewModel.newListName = '';
           console.log('list created: ' + list.name);
           scope.addSelectedEntriesToList(list);

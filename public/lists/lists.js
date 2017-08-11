@@ -2,7 +2,7 @@
 *   List management service
 */
 
-app.factory('listService', function($rootScope, $http) {
+app.factory('savedListService', function($rootScope, $http) {
 
   //  public service object
   var sharedListModel = {
@@ -101,7 +101,7 @@ app.factory('listService', function($rootScope, $http) {
 *   List view controller
 */
 
-app.controller('ListsCtrl', function($scope, $http, listService) {
+app.controller('ListsCtrl', function($scope, $http, savedListService) {
 
     //  initialize view model
     var viewModel = {
@@ -114,11 +114,11 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
     $scope.viewModel = viewModel;
 
     //  expose shared list model to scope
-    $scope.sharedListModel = listService.sharedListModel
+    $scope.sharedListModel = savedListService.sharedListModel
 
     //  functions for list modification
     $scope.newList = function() {
-        listService.newList(viewModel.newListName, function(list) {
+        savedListService.newList(viewModel.newListName, function(list) {
             viewModel.newListName = '';
             $scope.selectList(list);
             console.log('list created: ' + list.name);
@@ -126,7 +126,7 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
     };
 
     $scope.deleteList = function() {
-        listService.deleteList(viewModel.selectedList, function() {
+        savedListService.deleteList(viewModel.selectedList, function() {
             console.log('list deleted: ' + viewModel.selectedList.name);
             viewModel.selectedList = null;
         });
@@ -165,7 +165,7 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
         for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
             var entry = viewModel.selectedListEntries[i];
             if (entry.selected) {
-                listService.removeFromList(viewModel.selectedList, entry, (function() {
+                savedListService.removeFromList(viewModel.selectedList, entry, (function() {
                     var entry = this;
                     var index = viewModel.selectedListEntries.indexOf(entry);
                     viewModel.selectedListEntries.splice(index, 1);
@@ -175,11 +175,11 @@ app.controller('ListsCtrl', function($scope, $http, listService) {
     };
 
     $scope.duplicateList = function(name) {
-        listService.newList(name, function(list) {
+        savedListService.newList(name, function(list) {
             console.log('list created: ' + list.name);
             for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
                 var entry = viewModel.selectedListEntries[i];
-                listService.addToList(list, entry, function(result) { return; });
+                savedListService.addToList(list, entry, function(result) { return; });
             }
         }); 
     }

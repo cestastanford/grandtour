@@ -29,7 +29,7 @@ app
   };
 })
 
-.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $state, $q, httpQuery, listService, entryHighlightingService) {
+.controller('ExploreCtrl', function($scope, $http, $location, $stateParams, $state, $q, httpQuery, entryHighlightingService) {
 
   $scope.query = {};
   $scope.untouched = true;

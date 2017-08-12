@@ -239,8 +239,7 @@
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )
 
-          //- Mentioned Names temporarily removed from view
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length") 
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length && (currentUser.role === 'admin' || currentUser.role === 'editor')") 
             .panel.panel-default
               .panel-heading Mentioned Names
               ul.list-group

@@ -2,7 +2,7 @@
 * Entry view controller
 */
 
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state) {
+app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope) {
 
   if($stateParams.id) {
     // save
@@ -31,6 +31,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       }
 
       setupEditing();
+      $scope.currentUser = $rootScope.currentUser;
 
     })
   }

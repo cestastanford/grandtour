@@ -6,6 +6,6 @@ span(
 input.focus(
     ng-show="isEditing()",
     type="text",
-    ng-model="entry[fieldKey]",
+    ng-model="fieldValue",
     ng-change="edited(fieldKey, fieldValue)",
 )

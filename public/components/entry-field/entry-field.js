@@ -131,6 +131,25 @@ app.directive('entryField', function($window) {
 
             scope.typeof = function(value) { return typeof value }
 
+
+            /*
+            *   Clears an object field.
+            */
+
+            scope.clearObjectField = function(fieldKey, arrayIndex, objectKey) {
+
+                var object
+                if (arrayIndex === null) object = scope.entry[fieldKey]
+                else object = scope.entry[fieldKey][arrayIndex]
+                delete object[objectKey]
+
+                var value
+                if (arrayIndex === null) value = object
+                else value = scope.entry[fieldKey]
+                scope.edited(fieldKey, value)
+
+            }
+
         },
     };
 });

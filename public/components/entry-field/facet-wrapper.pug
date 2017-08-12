@@ -2,7 +2,10 @@
     .panel-heading {{ entryFields[fieldKey].label }}
     ul.list-group.entry-facet(ng-sortable="{ onUpdate: arraySorted }")
         li.list-group-item(ng-repeat="fieldValue in fieldValueArray")
-            ng-include.data(src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')")
+            ng-include.data(
+                src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
+                ng-init="arrayIndex = $index;",
+            )
             .controls
                 a.small.pull-right(ng-click="deleteFromArray(fieldValue)") delete 
                 a.small.pull-right.margin-right(ng-click="editInModal(fieldValue, $index)") edit
@@ -13,7 +16,10 @@
     .panel-heading {{ entryFields[fieldKey].label }}
     ul.list-group.entry-facet
         li.list-group-item
-            ng-include.data(src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')")
+            ng-include.data(
+                src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
+                ng-init="arrayIndex = null",
+            )
             a.controls.small.pull-right.margin-right(ng-click="editInModal(fieldValue)") edit 
 
 .custom-modal(ng-show="modalModel")

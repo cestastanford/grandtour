@@ -789,7 +789,11 @@ table.table {
   width: 100%;
 }
 
-li:hover > .mentioned-names-popup {
+li.list-group-item:active {
+  z-index: 1;
+}
+
+li.list-group-item:hover .mentioned-names-popup {
   display: block;
   background-color: white;
 }

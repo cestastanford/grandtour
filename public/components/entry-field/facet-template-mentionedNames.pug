@@ -1,0 +1,17 @@
+.edit-mentioned-name(ng-mouseover="downloadMentionedNameEntry(fieldValue)")
+    div(
+        ng-if="entryFields[fieldKey].serialized.valueIsObject"
+        ng-repeat="(key, value) in entryFields[fieldKey].serialized.type"
+    )
+        strong.small {{ key }}: 
+        span(ng-if="fieldValue[key] !== undefined") {{ fieldValue[key] }}
+        a.small.italic.margin-left(
+            ng-if="fieldValue[key] !== undefined",
+            ng-click="clearObjectField(fieldKey, arrayIndex, key)",
+        ) clear
+        
+        em(ng-if="fieldValue[key] === undefined") (empty)
+
+    a.mentioned-names-popup(ng-show="fieldValue.entry", ng-href="#/entries/{{ fieldValue.entryIndex }}")
+        h4 {{ fieldValue.entry.fullName }}
+        p {{ fieldValue.entry.biography.slice(0, 100) }}...

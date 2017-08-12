@@ -60,9 +60,15 @@
         div.col-lg-3.entry-info
             .row
                 entry-field.col-lg-12.col-md-4.col-sm-6(
-                    ng-repeat="fieldKey in [ 'alternateNames', 'dates', 'places', 'parents', 'marriages', 'mistress', 'pursuits', 'occupations', 'military', 'education', 'societies', 'exhibitions', 'mentionedNames' ]",
+                    ng-repeat="fieldKey in [ 'alternateNames', 'dates', 'places', 'parents', 'marriages', 'mistress', 'pursuits', 'occupations', 'military', 'education', 'societies', 'exhibitions' ]",
                     field-key="{{ fieldKey }}",
                     template="facet-wrapper",
+                )
+
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="mentionedNames",
+                    template="facet-wrapper",
+                    facet-template="mentionedNames",
                 )
 
         div.col-lg-6

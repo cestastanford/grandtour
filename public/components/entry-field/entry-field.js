@@ -1,4 +1,4 @@
-app.directive('entryField', function($window) {
+app.directive('entryField', function($window, $http) {
   
     return {
         restrict: 'E',
@@ -147,6 +147,24 @@ app.directive('entryField', function($window) {
                 if (arrayIndex === null) value = object
                 else value = scope.entry[fieldKey]
                 scope.edited(fieldKey, value)
+
+            }
+
+
+            /*
+            *   Downloads a Mentioned Name entry details.
+            */
+
+            scope.downloadMentionedNameEntry = function(mentionedName) {
+
+                if (mentionedName.entryIndex || mentionedName.entryIndex === 0) {
+                    $http.get('/api/entries/' + mentionedName.entryIndex)
+                    .then(function(response) {
+                        mentionedName.entry = response.data.entry
+                    })
+                    .catch(console.error.bind(console))
+
+                } else delete mentionedName.entry
 
             }
 

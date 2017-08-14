@@ -925,3 +925,14 @@ ul.list-group.entry-facet > li .controls {
   font-size: 3em;
   line-height: 0;
 }
+
+.body-text {
+  position: relative;
+}
+
+.body-text .rich-text-editable-placeholder {
+  color: #888;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

@@ -1,4 +1,4 @@
-app.directive('entryField', function($window, $http) {
+app.directive('entryField', function($window, $http, $sce, $timeout) {
   
     return {
         restrict: 'E',
@@ -168,6 +168,53 @@ app.directive('entryField', function($window, $http) {
 
             }
 
+
+            /*
+            *   Initializes CKEDITOR for textarea fields.
+            */
+
+            if (attributes.template === 'entry-text') {
+                
+                //  Instantiates inline editor
+                var editableElement = element[0].querySelector('.rich-text-editable')
+                var instance = CKEDITOR.inline(editableElement, { placeholder: '(' + scope.fieldKey + ' empty)' })
+                
+                //  Defines function for loading text into editor
+                var loadData = function() { 
+                    
+                    var data = scope.fieldValue
+
+                    //  Replaces newline characters with paragraphs
+                    if (data && data.indexOf('<p>') === -1) data = '<p>' + data.split('\n').join('</p><p>') + '</p>'
+                    
+                    instance.setData(data)
+                    scope.isEmpty = !data
+                
+                }
+
+                //  Loads text into editor
+                instance.on('instanceReady', function() {
+                    if (scope.fieldValue) $timeout(loadData)
+                    scope.$watch('entry', loadData)
+                })
+
+                //  Defines handler for changes to text
+                var handleChange = function() {
+                    var oldData = scope.entry[scope.fieldKey]
+                    var newData = instance.getData()
+                    if (oldData !== newData) {
+                        scope.edited(scope.fieldKey, newData)
+                        scope.isEmpty = !newData
+                    }
+                }
+
+                //  Attaches handler
+                instance.on('change', function() {
+                    $timeout(handleChange)
+                })
+
+            }
+            
         },
     };
 });

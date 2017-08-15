@@ -17,6 +17,13 @@ const { getLatestRevisionIndex, invalidateQueryCounts } = require('../cache')
 
 
 /*
+*   Constants
+*/
+
+const FORMATTED_SUFFIX = '_formatted'
+
+
+/*
 *   Logs entry modifications and invalidates query count cache.
 */
 
@@ -41,17 +48,27 @@ const entrySchema = mongoose.Schema({
 
 })
 
-for (let key in entryFields) entrySchema.add({
+for (let key in entryFields) {
 
-    [key]: {
-        type: entryFields[key].isArrayOfValues() || !entryFields[key].valueIsObject() ?
-            entryFields[key].type :
-            mongoose.Schema(entryFields[key].type),
-        
-        default: null,
-    }
+    entrySchema.add({
 
-})
+        [key]: {
+            type: entryFields[key].isArrayOfValues() || !entryFields[key].valueIsObject()
+            ? entryFields[key].type
+            : mongoose.Schema(entryFields[key].type),
+            
+            default: null,
+        }
+
+    })
+
+    if (entryFields[key].richText) entrySchema.add({
+
+        [key + FORMATTED_SUFFIX]: { type: String, default: null },
+
+    })
+
+}
 
 
 /*
@@ -195,11 +212,7 @@ class Entry {
             let latest
             if (entry && entry._revisionIndex === getLatestRevisionIndex()) latest = entry
             else latest = new this(entry && entry.toObject() || { index })
-
-            Object.keys(entryFields).forEach(key => {
-                if (updatedEntryFields[key] !== undefined) latest[key] = updatedEntryFields[key]
-            })
-
+            Object.keys(updatedEntryFields).forEach(key => { latest[key] = updatedEntryFields[key] })
             return latest.save()
 
         } else return null

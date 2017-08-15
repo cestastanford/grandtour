@@ -273,21 +273,11 @@
             .label.label-info(ng-show="entry.alreadyInList") Already in list
 
       div.col-lg-6
-        div.text-serif.check-html.body-text
-          p(ng-bind-html="superscript(highlighted('entry_biography', entry.biography, true), entry.notes, true)")
-        
-        div.text-serif.check-html.body-text
-          p(ng-repeat="tour in splitTours(entry.tours)")
-            span(ng-bind-html="highlighted('entry_tours', tour)")
-        
-        div.text-serif.check-html.body-text.narrative
-          p(
-            ng-repeat="narrativeParagraph in entry.narrative.split('\\n')"
-            ng-bind-html="superscript(highlighted('entry_narrative', narrativeParagraph, true), entry.notes, true)"
-          )
-        
-        div.text-serif.small.body-text.check-html
-          p(ng-bind-html="entry.linkedNotes")
+        div.text-serif.check-html.body-text(
+          ng-repeat="fieldKey in [ 'biography', 'tours', 'narrative', 'notes' ]",
+          ng-class="{ narrative: fieldKey === 'narrative', small: fieldKey === 'notes' }",
+          ng-bind-html="entry[fieldKey]",
+        )
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")
         button.btn.btn-default.btn-xs.btn-block(type="button", ng-click="reanimate(entry.travels)") Reanimate

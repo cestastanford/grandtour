@@ -1,5 +1,7 @@
 app.directive('entryField', function($window, $http, $sce, $timeout) {
   
+    var FORMATTED_SUFFIX = '_formatted'
+
     return {
         restrict: 'E',
         scope: true,
@@ -21,25 +23,6 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
                 }
 
             }, true)
-
-
-            /*
-            *   Returns whether this field is the one currently
-            *   being edited.
-            */
-
-            scope.isEditing = function() { return scope.currentlyEditing === scope.fieldKey }
-            
-
-            /*
-            *   Sets this field as the one currently being edited.
-            */
-
-            scope.startEditing = function() {
-                scope.setCurrentlyEditing(scope.fieldKey)
-                var focusElement = element[0].querySelector('.focus')
-                if (focusElement) $window.setTimeout(function() { focusElement.focus() }, 0)
-            }
 
 
             /*
@@ -177,16 +160,25 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
                 
                 //  Instantiates inline editor
                 var editableElement = element[0].querySelector('.rich-text-editable')
-                var instance = CKEDITOR.inline(editableElement, { placeholder: '(' + scope.fieldKey + ' empty)' })
+                var instance = CKEDITOR.inline(editableElement, {
+                    toolbarGroups: [ { name: 'basicstyles', group: 'basicstyles' } ],
+                })
                 
                 //  Defines function for loading text into editor
                 var loadData = function() { 
                     
-                    var data = scope.fieldValue
+                    //  Retrieves formatted data for fieldKey
+                    var data = scope.entry && scope.entry[scope.fieldKey + FORMATTED_SUFFIX]
+                    if (!data) {
 
-                    //  Replaces newline characters with paragraphs
-                    if (data && data.indexOf('<p>') === -1) data = '<p>' + data.split('\n').join('</p><p>') + '</p>'
-                    
+                        //  If no formatted data, transforms unformatted data by replacing newlines with <p> tags
+                        data = scope.entry && scope.entry[scope.fieldKey]
+                        if (data && data.indexOf('\n') > -1) {
+                            data = '<p>' + data.split('\n').join('</p><p>') + '</p>'
+                        }
+
+                    }
+                                   
                     instance.setData(data)
                     scope.isEmpty = !data
                 
@@ -200,12 +192,25 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
 
                 //  Defines handler for changes to text
                 var handleChange = function() {
-                    var oldData = scope.entry[scope.fieldKey]
-                    var newData = instance.getData()
-                    if (oldData !== newData) {
-                        scope.edited(scope.fieldKey, newData)
-                        scope.isEmpty = !newData
+                    
+                    var oldDataFormatted = scope.entry[scope.fieldKey + FORMATTED_SUFFIX]
+                    var oldDataUnformatted = scope.entry[scope.fieldKey]
+                    var newDataFormatted = instance.getData()
+                    var newDataUnformatted = instance.editable().getText()
+                    if (scope.fieldKey === 'fullName') {
+                        
+                        if (oldDataUnformatted !== newDataUnformatted) {
+                            scope.edited(scope.fieldKey, newDataUnformatted)
+                            scope.isEmpty = !newDataUnformatted
+                        }
+                    
+                    } else if (oldDataFormatted !== newDataFormatted) {
+                        
+                        scope.edited(scope.fieldKey, newDataUnformatted, newDataFormatted)
+                        scope.isEmpty = !newDataFormatted
+                    
                     }
+                
                 }
 
                 //  Attaches handler

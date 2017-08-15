@@ -1,5 +1,7 @@
 app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $window, entryListContext) {
 
+    var FORMATTED_SUFFIX = '_formatted'
+
 
     /*
     *   Downloads the entry field schemas for rendering.
@@ -73,19 +75,15 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     *   Marks a field as edited.
     */
 
-    $scope.edited = function(fieldKey, newValue) {
+    $scope.edited = function(fieldKey, newValue, newValueFormatted) {
         if (!$scope.unsavedChanges) $scope.unsavedChanges = {}
         $scope.unsavedChanges[fieldKey] = newValue
         $scope.entry[fieldKey] = newValue
-    }
-
-
-    /*
-    *   Sets the currently-editing field.
-    */
-
-    $scope.setCurrentlyEditing = function(fieldKey) {
-        $scope.currentlyEditing = fieldKey
+        if (newValueFormatted) {
+            $scope.entry[fieldKey + FORMATTED_SUFFIX] = newValueFormatted
+            $scope.unsavedChanges[fieldKey + FORMATTED_SUFFIX] = newValueFormatted
+        }
+        
         $scope.saved = false
         $scope.error = false
         $scope.errorMessage = null

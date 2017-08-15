@@ -59,6 +59,10 @@ body {
   line-height: 1.7;
 }
 
+h1 .text-serif {
+  font-size: 36px;
+}
+
 .text-serif.small {
   font-size: 14px;
 }

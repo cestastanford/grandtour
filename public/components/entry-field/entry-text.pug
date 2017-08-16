@@ -1,6 +1,3 @@
 .text-serif.body-text(ng-class="{ narrative: fieldKey === 'narrative', small: fieldKey === 'notes' }")
     em.rich-text-editable-placeholder(ng-show="isEmpty") ({{ fieldKey }} empty)
-    .rich-text-editable(
-        contenteditable="true",
-        name="{{ fieldKey }}",
-    )
+    rich-text-editor

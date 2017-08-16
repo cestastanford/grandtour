@@ -76,6 +76,7 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     */
 
     $scope.edited = function(fieldKey, newValue, newValueFormatted) {
+        
         if (!$scope.unsavedChanges) $scope.unsavedChanges = {}
         $scope.unsavedChanges[fieldKey] = newValue
         $scope.entry[fieldKey] = newValue
@@ -87,6 +88,7 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
         $scope.saved = false
         $scope.error = false
         $scope.errorMessage = null
+    
     }
 
 

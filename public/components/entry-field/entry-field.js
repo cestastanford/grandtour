@@ -1,8 +1,7 @@
 app.directive('entryField', function($window, $http, $sce, $timeout) {
   
-    var FORMATTED_SUFFIX = '_formatted'
-
     return {
+        
         restrict: 'E',
         scope: true,
         templateUrl: function (elem, attrs) { return 'components/entry-field/' + attrs['template'] },
@@ -150,76 +149,9 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
                 } else delete mentionedName.entry
 
             }
-
-
-            /*
-            *   Initializes CKEDITOR for textarea fields.
-            */
-
-            if (attributes.template === 'entry-text') {
-                
-                //  Instantiates inline editor
-                var editableElement = element[0].querySelector('.rich-text-editable')
-                var instance = CKEDITOR.inline(editableElement, {
-                    toolbarGroups: [ { name: 'basicstyles', group: 'basicstyles' } ],
-                })
-                
-                //  Defines function for loading text into editor
-                var loadData = function() { 
-                    
-                    //  Retrieves formatted data for fieldKey
-                    var data = scope.entry && scope.entry[scope.fieldKey + FORMATTED_SUFFIX]
-                    if (!data) {
-
-                        //  If no formatted data, transforms unformatted data by replacing newlines with <p> tags
-                        data = scope.entry && scope.entry[scope.fieldKey]
-                        if (data && data.indexOf('\n') > -1) {
-                            data = '<p>' + data.split('\n').join('</p><p>') + '</p>'
-                        }
-
-                    }
-                                   
-                    instance.setData(data)
-                    scope.isEmpty = !data
-                
-                }
-
-                //  Loads text into editor
-                instance.on('instanceReady', function() {
-                    if (scope.fieldValue) $timeout(loadData)
-                    scope.$watch('entry', loadData)
-                })
-
-                //  Defines handler for changes to text
-                var handleChange = function() {
-                    
-                    var oldDataFormatted = scope.entry[scope.fieldKey + FORMATTED_SUFFIX]
-                    var oldDataUnformatted = scope.entry[scope.fieldKey]
-                    var newDataFormatted = instance.getData()
-                    var newDataUnformatted = instance.editable().getText()
-                    if (scope.fieldKey === 'fullName') {
-                        
-                        if (oldDataUnformatted !== newDataUnformatted) {
-                            scope.edited(scope.fieldKey, newDataUnformatted)
-                            scope.isEmpty = !newDataUnformatted
-                        }
-                    
-                    } else if (oldDataFormatted !== newDataFormatted) {
-                        
-                        scope.edited(scope.fieldKey, newDataUnformatted, newDataFormatted)
-                        scope.isEmpty = !newDataFormatted
-                    
-                    }
-                
-                }
-
-                //  Attaches handler
-                instance.on('change', function() {
-                    $timeout(handleChange)
-                })
-
-            }
             
         },
-    };
-});
+    
+    }
+
+})

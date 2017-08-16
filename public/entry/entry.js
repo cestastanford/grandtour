@@ -7,20 +7,29 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
   if ($stateParams.id) {
     
     $scope.id = parseInt($stateParams.id)
+    $scope.currentUser = $rootScope.currentUser;
     $http.get('/api/entries/' + $stateParams.id )
     .then(function(response) {
       
       $scope.previousIndex = response.data.previous
       $scope.nextIndex = response.data.next
       if (response.data.entry) {
-        $scope.entry = entryTransformationService.applyTransformations(response.data.entry)
-        $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
-        setupMinimap();
-      }
+        entryTransformationService.applyTransformations(response.data.entry).then(function(entry) {
 
-      setupLists();
-      setupEditing();
-      $scope.currentUser = $rootScope.currentUser;
+          $scope.entry = entry
+          $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
+          setupMinimap();
+          setupLists();
+          setupEditing();
+          $scope.currentUser = $rootScope.currentUser;
+
+        })
+        
+      } else {
+
+        setupEditing();
+
+      }
       
     })
 

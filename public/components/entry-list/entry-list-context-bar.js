@@ -1,4 +1,4 @@
-app.directive('entryListContext', function($state, entryListContext) {
+app.directive('entryListContext', function($state, entryListContext, entryHighlightingService) {
     
     return {
     
@@ -43,6 +43,7 @@ app.directive('entryListContext', function($state, entryListContext) {
             scope.clearContext = function() {
 
                 entryListContext.clearContext()
+                entryHighlightingService.saveQuery(null)
                 $state.reload()
 
             }

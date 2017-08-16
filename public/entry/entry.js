@@ -2,161 +2,38 @@
 * Entry view controller
 */
 
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope) {
+app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope, entryTransformationService) {
 
-  if($stateParams.id) {
-    // save
-    $scope.id = parseInt($stateParams.id);
+  if ($stateParams.id) {
+    
+    $scope.id = parseInt($stateParams.id)
     $http.get('/api/entries/' + $stateParams.id )
-    .success(function (res){
-      $scope.entry = res.entry;
-      $scope.nextIndex = res.next;
-      $scope.previousIndex = res.previous;
-      if (!res.entry) $scope.noEntry = true;
-      else {
-
-        $scope.noEntry = false;
-
-        createTours(res.entry.travels);
-        createOccupations(res.entry.occupations);
-        createMilitary(res.entry.military);
-        downloadMentionedNames(res.entry.mentionedNames);
-        linkFootnotes();
-
-        // $timeout(smartquotes);
+    .then(function(response) {
+      
+      $scope.previousIndex = response.data.previous
+      $scope.nextIndex = response.data.next
+      if (response.data.entry) {
+        $scope.entry = entryTransformationService.applyTransformations(response.data.entry)
         $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
-
         setupMinimap();
-
       }
 
+      setupLists();
       setupEditing();
       $scope.currentUser = $rootScope.currentUser;
-
+      
     })
-  }
 
-  $scope.splitTours = function(tours) {
-    return tours ? tours.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g) : []
   }
 
   $scope.highlighted = function(propertyName, value, doNotTrust) {
     if (value) {
-      var highlightedHtml = entryHighlightingService.highlight(propertyName, value);
-      return doNotTrust ? highlightedHtml : $sce.trustAsHtml(highlightedHtml);
+      var highlightedHtml = entryHighlightingService.highlight(propertyName, value)
+      return $sce.trustAsHtml(highlightedHtml)
     }
   }
 
-  $scope.highlightTravel = entryHighlightingService.highlightTravel;
-
-  function createTours(travels){
-    if (!travels) return;
-    var nest = d3.nest()
-    .key(function(d) { return d.tourIndex; })
-    .entries(travels);
-
-    nest.forEach(function(d){
-      d.start = d.values[0].tourStartFrom;
-      d.end = d.values[0].tourEndFrom;
-    })
-
-    $scope.tours = nest;
-  }
-
-  function createMilitary(military){
-    $scope.military = military ? military.filter(function(d){ return d.rank; }) : [];
-  }
-
-  function downloadMentionedNames(mentionedNames) {
-    Promise.all(mentionedNames.map(function(name) {
-      if (name.entryIndex) return $http.get('/api/entries/' + name.entryIndex)
-      else return (Promise.resolve(null))
-    }))
-    .then(function(responses) {
-      responses.forEach(function(response, i) {
-        if (response) mentionedNames[i].entry = response.data.entry
-      })
-    })
-    .catch(console.error.bind(console))
-  }
-
-  function linkFootnotes() {
-    $http.get('/api/linked-footnotes/in-entry/' + $scope.entry.index)
-    .then(function(response) {
-
-      var notes = $scope.entry.notes
-      var linkedFootnotes = response.data.sort(function(a, b) { return a.startIndex - b.startIndex })
-      var linkedNoteNodes = []
-      var previousEndIndex = 0
-      if (linkedFootnotes.length) {
-
-        linkedFootnotes.forEach(function(footnote, i) {
-
-          var popoverText = footnote.fullText
-          var linkDestination = '/#/search/' + encodeURIComponent(JSON.stringify({
-            entry: { 
-              terms: [ { value: footnote.abbreviation } ],
-              sections: [
-                { key: 'biography', name: 'Biography', checked: false },
-                { key: 'narrative', name: 'Narrative', checked: false },
-                { key: 'tours', name: 'Tours', checked: false },
-                { key: 'notes', name: 'Notes', checked: true }
-              ],
-              beginnings: false,
-            }
-          }))
-
-          linkedNoteNodes.push({ link: false, text: notes.slice(previousEndIndex, footnote.startIndex) })
-          linkedNoteNodes.push({ link: true, linkDestination: linkDestination, popoverText: popoverText, text: notes.slice(footnote.startIndex, footnote.endIndex) })
-          if (i === linkedFootnotes.length - 1) linkedNoteNodes.push({ link: false, text: notes.slice(footnote.endIndex) })
-          else previousEndIndex = footnote.endIndex
-
-        })
-
-        var linkedNotes = ''
-        linkedNoteNodes.forEach(function(node) {
-          if (node.link) {
-            linkedNotes += '<a href="' + node.linkDestination + '" data-toggle="popover" data-content="' + node.popoverText + '">'
-            linkedNotes += entryHighlightingService.highlight('entry_notes', node.text)
-            linkedNotes += '</a>'
-          } else linkedNotes += entryHighlightingService.highlight('entry_notes', node.text)
-        })
-
-        $scope.entry.linkedNotes = $sce.trustAsHtml(linkedNotes);
-        $timeout(function() {
-          $('[data-toggle="popover"]').popover({ trigger: 'hover', placement: 'top', container: 'body' });
-          $('[data-toggle="popover"]').click(function(event) { $('.popover').remove() })
-        })
-
-      } else $scope.entry.linkedNotes = $scope.entry.notes
-
-    })
-    .catch(console.error.bind(console))
-  }
-
-  function createOccupations(occupations){
-    if (!occupations) return;
-    var nest = d3.nest()
-    .key(function(d) { return d.group; })
-    .entries(occupations);
-    $scope.occupations = nest;
-  }
-
-  function createNotes(notes){
-    return notes.split(/\.\s[0-9]{1,2}\.\s/gi);
-  }
-
-  $scope.superscript = function(text, n, trustAsHtml) {
-    if (!text) return;
-    var notes =  n ? createNotes(n) : [];
-    function replacer(match, p1, p2, p3, offset, string) {
-      var t = p2 == 1? notes[p2-1] : p2 + ". " +  notes[p2-1];
-      return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + t + "\">[" + p2 + "]</sup>";
-    }
-
-    var textWithNotes = text.replace(/(\.|\,|'|;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r)/gi, replacer);
-    return trustAsHtml ? $sce.trustAsHtml(textWithNotes) : textWithNotes;
-  }
+  $scope.highlightTravel = entryHighlightingService.highlightTravel
 
   $scope.search = function(query){
     $location.path('search/' + JSON.stringify(query) );
@@ -218,37 +95,57 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     })
   })
 
-  //$(window).load(smartquotes);
 
-  //  initialize view model
-  var viewModel = {
-      newListName: ''
-  };
+  /*
+  * Sets up list integration.
+  */
 
-  //  expose view model to scope
-  $scope.viewModel = viewModel;
+  function setupLists() {
 
-  //  expose shared list model to scope
-  $scope.sharedListModel = savedListService.sharedListModel;
+    var viewModel = {
+        newListName: ''
+    }
+
+    //  expose view model to scope
+    $scope.viewModel = viewModel
+
+    //  expose shared list model to scope
+    $scope.sharedListModel = savedListService.sharedListModel
+
+  }
+
+
+  /*
+  * Adds an entry to a list.
+  */
 
   $scope.addSelectedEntriesToList = function(list) {
-    var entry = $scope.entry;
-    entry.addedToList = entry.alreadyInList = false;
+    var entry = $scope.entry
+    entry.addedToList = entry.alreadyInList = false
     savedListService.addToList(list, entry, function(result) {
       if (result.addedToList) {
-        entry.addedToList = true;
+        entry.addedToList = true
       }
-      if (result.alreadyInList) entry.alreadyInList = true;
-    });
-  };
+      if (result.alreadyInList) entry.alreadyInList = true
+    })
+  }
+
+
+  /*
+  * Adds an entry to a new list.
+  */
 
   $scope.addSelectedEntriesToNewList = function() {
     savedListService.newList(viewModel.newListName, function(list) {
-      viewModel.newListName = '';
-      console.log('list created: ' + list.name);
-      $scope.addSelectedEntriesToList(list);
-    });
-  };
+      viewModel.newListName = ''
+      $scope.addSelectedEntriesToList(list)
+    })
+  }
+
+
+  /*
+  * Sets up Minimap.
+  */  
 
   function setupMinimap() {
 
@@ -271,7 +168,11 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
 
   }
 
-  //  Hovers over every element.
+  
+  /*
+  * Performs animation to imitate hovering over every element.
+  */
+
   function doInitialAnimation(travels) {
 
     var ANIMATION_INTERVAL = 500;

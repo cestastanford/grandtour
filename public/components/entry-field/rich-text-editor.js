@@ -33,10 +33,14 @@ app.directive('richTextEditor', function($window, $http, $sce, $timeout) {
             function replaceNewlines(content) {
 
                 if (content && content.indexOf('\n') > -1) {
-                    content = '<p>' + content.split('\n').join('</p><p>') + '</p>'
+                    content = content.split('\n').join('</p><p>')
                 }
 
-                return content
+                if (scope.fieldKey === 'tours') {
+                    content = content.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g).join('</p><p>')
+                }
+
+                return '<p>' + content + '</p>'
 
             }
 

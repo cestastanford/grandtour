@@ -276,7 +276,7 @@
         div.text-serif.check-html.body-text(
           ng-repeat="fieldKey in [ 'biography', 'tours', 'narrative', 'notes' ]",
           ng-class="{ narrative: fieldKey === 'narrative', small: fieldKey === 'notes' }",
-          ng-bind-html="entry[fieldKey]",
+          ng-bind-html="entry[fieldKey + '_formatted']",
         )
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")
@@ -285,9 +285,9 @@
         #minimap
         div.entry-info
           .row
-            .col-lg-12(ng-show="tours.length")
+            .col-lg-12(ng-show="entry.travel_tours.length")
               
-              .panel.panel-default(ng-repeat="tour in tours")
+              .panel.panel-default(ng-repeat="tour in entry.travel_tours")
                 .panel-heading
                   span Tour {{tour.key}} 
                   span.pull-right {{tour.start}}/{{tour.end}}

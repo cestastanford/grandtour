@@ -33,7 +33,7 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       
     })
 
-  }
+  } else $state.go('home')
 
   $scope.highlighted = function(propertyName, value, doNotTrust) {
     if (value) {

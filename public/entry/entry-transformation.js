@@ -25,7 +25,7 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
         linkFootnotes,
         transformUnformattedEntryText.bind(null, ENTRY_TEXT_SECTIONS),
         highlightEntryText.bind(null, ENTRY_TEXT_SECTIONS),
-        superscript.bind(null, ENTRY_TEXT_SECTIONS),
+        superscript.bind(null, [ BIOGRAPHY, TOURS, NARRATIVE ]),
         trustFormattedEntryText.bind(null, ENTRY_TEXT_SECTIONS)
 
     ]

@@ -101,7 +101,7 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
             .key(function(d) { return d.group })
             .entries(entry.occupations)
             
-            entry.occupations = nest
+            entry.grouped_occupations = nest
 
         }
         
@@ -114,7 +114,7 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
 
     function createMilitary(entry) {
 
-        entry.military = entry.military ? entry.military.filter(function(d){ return d.rank }) : []
+        entry.filtered_military = entry.military ? entry.military.filter(function(d){ return d.rank }) : []
     
     }
 
@@ -215,12 +215,12 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
             if (entry[fieldKey] && !entry[fieldKey + FORMATTED_SUFFIX]) {
 
                 //  Splits tours into paragraphs
-                if (fieldKey === 'tour') {
+                if (fieldKey === TOURS) {
                     entry[fieldKey + FORMATTED_SUFFIX] = entry[fieldKey].split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g).join('</p><p>')
                 }
 
                 //  Splits narrative into paragraphs
-                else if (fieldKey === 'narrative') {
+                else if (fieldKey === NARRATIVE) {
                     entry[fieldKey + FORMATTED_SUFFIX] = entry[fieldKey].split('\n').join('</p><p>')
                 }
 

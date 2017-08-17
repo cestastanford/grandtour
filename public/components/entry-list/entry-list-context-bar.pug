@@ -2,7 +2,7 @@
     .status-text
         strong(ng-if="!context") Browsing all entries.
         div(ng-if="context")
-            strong(ng-if="!context.isSavedList") Browsing within search results.
+            strong(ng-if="!context.isSavedList") Browsing within results.
             strong(ng-if="context.isSavedList") Browsing within Saved List.
         
             .btn-group.btn-group-sm(role="group")
@@ -10,7 +10,7 @@
                     type="button",
                     ng-show="!context.isSavedList",
                     ng-href="{{ '#' + context.url }}",
-                ) Back to Search Results
+                ) Back to Results
 
                 a.btn.btn-default(
                     type="button",

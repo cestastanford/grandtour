@@ -141,7 +141,7 @@
             .panel.panel-default
               .panel-heading Occupations & Posts
               ul.list-group
-                li.list-group-item(ng-repeat="o in occupations")
+                li.list-group-item(ng-repeat="o in entry.grouped_occupations")
                   .panel.panel-default.panel-nested
                     .panel-heading
                       span(ng-click="search({occupations_group:o.key})",
@@ -162,11 +162,11 @@
                         span(ng-show="e.to") -{{e.to}}
                         span(ng-show="e.from || e.to") )
 
-          .col-lg-12.col-md-4.col-sm-6(ng-show="military.length") 
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.military.length") 
             .panel.panel-default
               .panel-heading Military careers
               ul.list-group
-                li.list-group-item(ng-repeat="e in military") 
+                li.list-group-item(ng-repeat="e in entry.filtered_military") 
                   a(ng-click="search({military:e.rank})",
                     ng-bind-html="highlighted('military', e.rank)"
                   ) {{e.rank}}

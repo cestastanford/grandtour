@@ -29,7 +29,7 @@ router.get('/api/linked-footnotes/in-entry/:entryIndex', isViewer, async (req, r
 
     Entry.findByIndexAtRevision(req.params.entryIndex)
     .then(entry => {
-        if (entry) return entry.notes ? LinkedFootnote.findAllFromString(entry.notes) : Promise.resolve([])
+        if (entry) return entry.notes ? LinkedFootnote.findAllFromString(entry.notes_formatted || entry.notes) : Promise.resolve([])
         else { throw null /* Triggers the 404 Not Found error handler */ }
     })
     .then(results => res.json(results))

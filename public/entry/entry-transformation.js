@@ -275,7 +275,7 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
                   return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + t + "\">[" + p2 + "]</sup>"
                 }
 
-                var superscriptedValue = value.replace(/(\.|\,|'|;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r|\<)/gi, replacer)
+                var superscriptedValue = value.replace(/(\.|\,|'|\s[^&]\S+;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r|\<)/gi, replacer)
                 entry[fieldKey + FORMATTED_SUFFIX] = superscriptedValue
 
             }

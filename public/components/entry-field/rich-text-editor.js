@@ -18,7 +18,7 @@ app.directive('richTextEditor', function($window, $http, $sce, $timeout) {
                 
                 //  Retrieves formatted data for fieldKey
                 var content = scope.entry && scope.entry[scope.fieldKey + FORMATTED_SUFFIX]
-                if (!content) content = scope.entry && replaceNewlines(scope.entry[scope.fieldKey])           
+                if (!content) content = scope.entry && convertToRichText(scope.entry[scope.fieldKey])           
                 instance.setData(content)
                 scope.isEmpty = !content
             
@@ -30,17 +30,23 @@ app.directive('richTextEditor', function($window, $http, $sce, $timeout) {
             *   that aren't yet rich text.
             */
 
-            function replaceNewlines(content) {
+            function convertToRichText(content) {
 
-                if (content && content.indexOf('\n') > -1) {
-                    content = content.split('\n').join('</p><p>')
+                if (content) {
+
+                    if (content && content.indexOf('\n') > -1) {
+                        content = content.split('\n').join('</p><p>')
+                    }
+
+                    if (content && scope.fieldKey === 'tours') {
+                        content = content.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g).join('</p><p>')
+                    }
+
+                    content = '<p>' + content + '</p>'
+
                 }
 
-                if (scope.fieldKey === 'tours') {
-                    content = content.split(/\. (?=\[?-?\d{4})(?![^(]*\))(?![^[]*\])/g).join('</p><p>')
-                }
-
-                return '<p>' + content + '</p>'
+                return content
 
             }
 

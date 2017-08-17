@@ -29,7 +29,6 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
             */
 
             scope.deleteFromArray = function(item) {
-                scope.startEditing()
                 var index = scope.fieldValueArray.indexOf(item)
                 scope.fieldValueArray.splice(index, 1)
                 scope.edited(scope.fieldKey, scope.fieldValueArray)
@@ -42,7 +41,6 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
 
             scope.addToArray = function() {
                 
-                scope.startEditing()
                 var newItem = {}
                 scope.fieldValueArray.push(newItem)
                 scope.edited(scope.fieldKey, scope.fieldValueArray)
@@ -56,7 +54,6 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
             */
 
             scope.arraySorted = function() {
-                scope.startEditing()
                 scope.edited(scope.fieldKey, scope.fieldValueArray)
             }
 
@@ -68,7 +65,6 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
 
             scope.editInModal = function(value, valueArrayIndex) {
 
-                scope.startEditing()
                 var fieldKey = scope.fieldKey
                 var entryField = scope.entryFields[fieldKey].serialized
                 var modalModel = []

@@ -12,6 +12,6 @@
         
         em(ng-if="fieldValue[key] === undefined") (empty)
 
-    a.mentioned-names-popup(ng-show="fieldValue.entry", ng-href="#/entries/{{ fieldValue.entryIndex }}")
+    a.mentioned-names-popup(ng-show="fieldValue.entry", ng-click="editEntry(fieldValue.entryIndex)")
         h4 {{ fieldValue.entry.fullName }}
         p {{ fieldValue.entry.biography.slice(0, 100) }}...

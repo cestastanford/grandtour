@@ -8,9 +8,11 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
     
     $scope.id = parseInt($stateParams.id)
     $scope.currentUser = $rootScope.currentUser;
+    $scope.loading = true
     $http.get('/api/entries/' + $stateParams.id )
     .then(function(response) {
-      
+     
+      $scope.loading = false 
       $scope.previousIndex = response.data.previous
       $scope.nextIndex = response.data.next
       if (response.data.entry) {

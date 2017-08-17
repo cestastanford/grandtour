@@ -43,7 +43,13 @@
         next-entry-index="{{ nextIndex }}",
       )
 
-  .div(ng-show="!entry")
+  .div(ng-show="!entry && loading")
+    .row
+      .col-lg-12
+        br
+        p Loading entry...
+
+  .div(ng-show="!entry && !loading")
     .row
       .col-lg-12
         br

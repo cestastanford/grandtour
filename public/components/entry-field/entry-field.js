@@ -137,16 +137,18 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
             *   Downloads a Mentioned Name entry details.
             */
 
-            scope.downloadMentionedNameEntry = function(mentionedName) {
+            var downloadedEntries = {}
+            scope.downloadedEntries = downloadedEntries
+            scope.downloadEntry = function(index) {
 
-                if (mentionedName.entryIndex || mentionedName.entryIndex === 0) {
-                    $http.get('/api/entries/' + mentionedName.entryIndex)
+                if ((index || index === 0) && !downloadedEntries[index]) {
+                    $http.get('/api/entries/' + index)
                     .then(function(response) {
-                        mentionedName.entry = response.data.entry
+                        downloadedEntries[index] = response.data.entry
                     })
                     .catch(console.error.bind(console))
 
-                } else delete mentionedName.entry
+                }
 
             }
             

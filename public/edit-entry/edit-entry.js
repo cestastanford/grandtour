@@ -1,4 +1,4 @@
-app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $window, entryListContext) {
+app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $window, entryListContext, entryHighlightingService) {
 
     var FORMATTED_SUFFIX = '_formatted'
 
@@ -49,6 +49,7 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     $scope.editEntry = function(index) {
 
       entryListContext.clearContext()
+      entryHighlightingService.saveQuery()
       $state.go('edit-entry', { id: index })
 
     }

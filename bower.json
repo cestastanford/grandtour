@@ -28,7 +28,8 @@
     "crossfilter": "~1.3.11",
     "jszip": "Stuk/jszip#~2.5.0",
     "FileSaver": "*",
-    "Sortable": "1.5"
+    "Sortable": "1.5",
+    "ckeditor": "^4.7.1"
   },
   "resolutions": {
     "d3": "~3.5.5",

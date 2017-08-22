@@ -1,0 +1,87 @@
+.container.main-view(ng-show="entry")
+    .row
+        .col-lg-12
+            .edit-status.alert.alert-warning
+                .edit-status-entry-index
+                    span Editing Entry Index: 
+                    a.alert-link(ng-click="editingIndex = true", ng-show="!editingIndex") {{ $stateParams.id }}
+                    .input-group.input-group-sm(ng-show="editingIndex")
+                        input.form-control(type="text", ng-model="newIndex")
+                        span.input-group-btn
+                            a.btn.btn-default(ng-click="editEntry(newIndex)") Go
+
+                
+                .btn-group.btn-group-sm(role="group")
+                    
+                    a.btn.btn-default(
+                        type="button",
+                        ng-href="#/entries/{{ entry.index }}",
+                    ) Done Editing
+
+                    button.btn.btn-warning(
+                        type="button",
+                        ng-click="!unsavedChanges || reverting ? null : revertChanges()",
+                        ng-class="{ disabled: !unsavedChanges || reverting }"
+                    ) {{ reverting ? 'Reverting...' : 'Revert Changes' }}
+                
+                    button.btn.btn-info(
+                        type="button",
+                        ng-click="!unsavedChanges || saveStatus.saving ? null : saveChanges()",
+                        ng-class="{ disabled: !unsavedChanges || saveStatus.saving }"
+                    ) {{ saveStatus.saving ? 'Saving...' : 'Save Changes' }}
+
+    .row(ng-show="saveStatus.saved || saveStatus.error")
+        br
+        .col-lg-12
+            .alert.alert-success(ng-show="saveStatus.saved") Successfully saved changes!
+            .alert.alert-danger(ng-show="saveStatus.error")
+                div Save failed!  Please record your changes and reload the page.
+                br
+                strong.small(ng-bind-html="saveStatus.error")
+
+    .row
+        br
+        .col-lg-12
+            entry-list-context(
+              current-entry-index="{{ entry.index }}",
+              previous-entry-index="{{ previousIndex }}",
+              next-entry-index="{{ nextIndex }}",
+              editing="editing",
+            )
+
+    br
+    h1
+        entry-field(
+            field-key="fullName",
+            template="entry-text",
+        )
+
+    .row
+        div.col-lg-3.entry-info
+            .row
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    ng-repeat="fieldKey in [ 'alternateNames', 'dates', 'places', 'parents', 'marriages', 'mistress', 'pursuits', 'occupations', 'military', 'education', 'societies', 'exhibitions' ]",
+                    field-key="{{ fieldKey }}",
+                    template="facet-wrapper",
+                )
+
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="mentionedNames",
+                    template="facet-wrapper",
+                    facet-template="mentionedNames",
+                )
+
+        div.col-lg-6
+            entry-field(
+                ng-repeat="fieldKey in [ 'biography', 'tours', 'narrative', 'notes' ]",
+                field-key="{{ fieldKey }}",
+                template="entry-text",
+            )
+
+        div.col-lg-3.entry-info
+            .row
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="travels",
+                    template="facet-wrapper",
+                    facet-template="travels",
+                )

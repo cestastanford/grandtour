@@ -1,105 +1,108 @@
-var express = require('express')
-var mongoose = require('mongoose')
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var session = require('cookie-session');
-var bodyParser = require('body-parser');
+/*
+*   Imports
+*/
 
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/user');
-
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
-var allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  next();
-};
+const http = require('http')
+const express = require('express')
+const mongoose = require('mongoose')
+mongoose.Promise = Promise
+const morgan = require('morgan')
+const bodyParser = require('body-parser')
+const session = require('cookie-session')
+const cookieParser = require('cookie-parser')
+const passport = require('passport')
+const socketIO = require('./socket')
+const router = require('./router')
+const User = require('./models/user')
+const Revision = require('./models/revision')
 
 
-//server.listen(app.get('port'));
-// socket.io
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('disconnected')
-  });
-});
+/*
+*   Creates and configures Express server.
+*/
 
-app.set('views', __dirname + '/public/');
-app.set('view engine', 'jade');
+const app = express()
+app.set('views', __dirname + '/public/')
+app.set('view engine', 'pug')
+app.use(morgan('dev'))
+app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(session({ keys: [
+    process.env['SECRET_KEY_1'],
+    process.env['SECRET_KEY_2'],
+    process.env['SECRET_KEY_3']
+]}))
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({ keys: ['secretkey1', 'secretkey2', '...']}));
 
-// static
-app.use(express.static(__dirname + '/public'));
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
+/*
+*   Sets up Passport authentication.
+*/
 
-// Configure passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
+const LocalStrategy = require('passport-local').Strategy
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())   
 
-passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+/*
+*   Sets up Socket.IO.
+*/
 
-mongoose.connect(process.env['MONGODB_URI'], function(err) {
-  if (err) {
-    console.error('Could not connect to MongoDB at the specified URI.');
-    process.exit(1);
-  }
-});
+const server = http.Server(app)
+socketIO.init(server)
 
-// crossdomain
-app.use(allowCrossDomain);
 
-// Register routes
-app.use('/', require('./routes')(io));
+/*
+*   Creates an artificial delay for server testing purposes.
+*/
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+//  if (process.env.NODE_ENV !== 'production') app.use((req, res, next) => setTimeout(next, 1000))
 
-// error handlers
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      title: 'error1',
-      message: err.message,
-      error: err
-    });
-  });
-}
+/*
+*   Registers static and dynamic routes.
+*/
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    title: 'error1',
-    message: err.message,
-    error: {}
-  });
-});
+app.use(express.static(__dirname + '/public'))
+app.use('/bower_components', express.static(__dirname + '/bower_components'))
+app.use('/', router)
 
-app.set('port', process.env.PORT || 4000);
 
-server.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'));
-});
+/*
+*   Handles errors, generating 404 errors for non-error requests
+*   not handled by routes, then handing handling off to the default
+*   error handler, which prints the errors to the console and returns
+*   the error status code.
+*/
+
+app.use((req, res, next) => {
+    const err = new Error(`Not Found: ${req.originalUrl}`)
+    err.status = 404
+    next(err)
+})
+
+
+/*
+*   Connects to MongoDB, runs initialization tasks, then starts server
+*   listening on indicated port.
+*/
+
+const options = {
+    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
+}  
+
+mongoose.connect(process.env['MONGODB_URI'], options)
+.then(() => User.registerDefaultAdmin())
+.then(() => Revision.createInitialRevision())
+.then(() => {
+
+    app.set('port', process.env.PORT || 4000)
+    server.listen(app.get('port'), () => {
+        console.log("Node app is running at localhost:" + app.get('port'))
+    })
+
+})
+.catch(error => { throw error })

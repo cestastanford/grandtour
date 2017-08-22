@@ -1,123 +1,182 @@
 /**********************************************************************
  * Admin controller
  **********************************************************************/
-app.controller('AdminCtrl', function($scope, $http) {
+app.controller('AdminCtrl', function($scope, $http, $window) {
 
-  $scope.view = 'data';
-  $scope.user = {};
+  $scope.view = 'revisions';
 
-  var count = 0;
 
-  $scope.defaults = {
-    sheets : [
-      // Entries
-      { info: true, value: 'entries', multiple : false, label : 'Entries', sheetName: 'Entries', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      // Fullnames
-      { info: true, value: 'fullName', multiple : false, label : 'Fullnames', sheetName: 'Fullnames', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      // Alternate names
-      { info: true, value: 'alternateNames', multiple : true, label : 'Alternate Names', sheetName: 'Alternate Names', spreadsheetId: '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload: true },
-      // Dates
-      { info: true, value: 'dates', multiple : true, label : 'Dates', sheetName: 'Dates', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      // Places
-      { info: true, value: 'places', multiple : true, label : 'Places', sheetName: 'Places', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      // Gender
-      { info: true, value: 'type', multiple : false, label : 'Type', sheetName: 'Type', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      // Pursuits
-      { info: true, value: 'pursuits', multiple : true, label : 'Pursuits & Situations', sheetName: 'Employments and Identifiers', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'occupations', multiple : true, label : 'Occupations & Posts', sheetName: 'Occupations & Posts', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'parents', multiple : false, label : 'Parents', sheetName: 'Parents', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'marriages', multiple : true, label : 'Marriages', sheetName: 'Marriages', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'mistress', multiple : true, label : 'Mistresses', sheetName: 'Mistresses', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'societies', multiple : true, label : 'Societies', sheetName: 'Societies', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'exhibitions', multiple : true, label : 'Exhibitions & Awards', sheetName: 'Exhibitions & Awards', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'education', multiple : true, label : 'Education', sheetName: 'Education', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'military', multiple : true, label : 'Military Career', sheetName: 'Military career', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-      { info: true, value: 'travels', multiple : true, label : 'Travels', sheetName: 'Travels', spreadsheetId : '1w8LD2RkdyPcMq7ffv4YlUKx5PAWAlQpzgw7A-9tbVvg', reload : true },
-    ]
+  /*
+  * Sets up Revisions tab.
+  */
+
+  function processRevisions(activeIndex) {
+    
+    $scope.revisions.forEach(function(revision, i) {
+
+      revision.latest = i === 0
+      revision.active = revision.index === activeIndex || (revision.latest && !activeIndex)
+    
+    })
+
+    $scope.revisions = $scope.revisions
+  
   }
 
-  $scope.allReload = true;
-  $scope.loading = false;
+
+  function reloadRevisions() {
+    $http.get('/api/revisions')
+    .then(function(response) {
+      $scope.revisions = response.data
+    })
+    .then(function() { return $http.get('/loggedin') })
+    .then(function(response) {
+      processRevisions(response.data.activeRevisionIndex)
+    })
+    .catch(console.error.bind(console))
+  }
+
+
+  $scope.editRevision = function(revision) {
+    revision.editing = true
+    revision.newName = revision.name
+  }
+
+
+  $scope.cancelRevisionEdit = function(revision) {
+    revision.editing = false
+    delete revision.newName
+  }
+
+
+  $scope.saveRevisionEdit = function(revision) {
+    
+    revision.savingEdit = true
+    $http.patch('/api/revisions/' + revision.index, { name: revision.newName })
+    .then(function(response) {
+      revision.savingEdit = false
+      revision.editing = false
+      revision.name = response.data.name
+      $scope.revisions = $scope.revisions
+    })
+    .catch(console.error.bind(console))
+  
+  }
+
+
+  $scope.setActiveRevision = function(revision) {
+    
+    revision.activating = true
+    $http.post('/api/users/update', { activeRevisionIndex: revision.latest ? null : revision.index })
+    .then(function(response) {
+      revision.activating = false
+      processRevisions(response.data.activeRevisionIndex)
+    })
+    .catch(console.error.bind(console))
+  
+  }
+
+
+  $scope.deleteRevision = function(revision) {
+    
+    if ($window.confirm('Are you sure you want to delete this revision, erasing all entry updates contained within?')) {
+      revision.deleting = true
+      $http.delete('/api/revisions/' + revision.index)
+      .then(function() {
+        revision.deleting = false
+        $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
+        if (revision.active) return $scope.setActiveRevision($scope.revisions[0])
+      })
+      .catch(console.error.bind(console))
+    }
+  
+  }
+
+
+  $scope.createNewRevision = function() {
+    
+    $scope.creating = true
+    $http.post('/api/revisions', {})
+    .then(function(response) {
+      $scope.creating = false
+      $scope.revisions.unshift(response.data)
+      $scope.revisions = $scope.revisions
+      return $scope.setActiveRevision($scope.revisions[0])
+    })
+    .catch(console.error.bind(console))
+  
+  }
+
+
+  reloadRevisions()
+
+
+  $scope.user = {};
 
   $scope.$watch('view', function(){
     $scope.user = {};
     $scope.message = null;
   })
 
-  $scope.setReload = function(allReload){
-    d3.values($scope.defaults.sheets).forEach(function(d){
-      d.reload = allReload;
-    })
-  }
-
   var socket = io();
 
-  socket.on('reload-start', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    })[0];
-    s.info = false;
-    s.started = true;
-    s.loading = false;
-    s.finished = false;
-    s.count = 1;
-    s.total = 1;
-    s.message = res.message;
-    $scope.$apply();
+  socket.on('sheets-import-status', function(response) {
+    $scope.importStatus = response
+    if ($scope.importStatus.done) {
+      $('#import').button('reset')
+      delete $scope.importStatus
+      reloadRevisions()
+    }
+    $scope.$apply()
   });
 
-  socket.on('reload-progress', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    })[0];
-    s.info = false;
-    s.started = false;
-    s.loading = true;
-    s.finished = false;
-    s.count = res.count;
-    s.total = res.total;
-    $scope.$apply();
+  $scope.import = function() {
+    if ($scope.importStatus) return;
+    $scope.importStatus = {}
+    $('#import').button('loading')
+    $http.post('/api/import/from-sheets')
+    .catch(console.error.bind(console))
+  }
+
+  socket.on('sheets-export-status', function(response) {
+    $scope.exportStatus = response
+    if ($scope.exportStatus.done) {
+      $('#export').button('reset')
+      delete $scope.exportStatus
+    }
+    $scope.$apply()
   });
 
-  socket.on('reload-finished', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
-      return d.value == res.sheet.value;
-    })[0];
-    s.info = false;
-    s.started = false;
-    s.loading = false;
-    s.finished = true;
-    s.count = s.total;
-    s.message = res.message;
-    $scope.$apply();
+  $scope.export = function(revisionIndex) {
+    if ($scope.exportStatus) return;
+    $scope.exportStatus = {}
+    $('#export').button('loading')
+    $http.post('/api/export/to-sheets', { revisionIndex: revisionIndex })
+    .catch(console.error.bind(console))
+  }
+
+  socket.on('linked-footnotes-import-status', function(response) {
+    $scope.linkedFootnotesImportStatus = response
+    if ($scope.linkedFootnotesImportStatus.done) {
+      $('#import-linked-footnotes').button('reset')
+      delete $scope.linkedFootnotesImportStatus
+    }
+    $scope.$apply()
   });
 
-  socket.on('reload-finished-all', function(res){
-    $scope.loading = false;
-    $('#reload').button('reset');
-  });
+  $scope.importLinkedFootnotes = function(sheetId) {
+    if ($scope.linkedFootnotesImportStatus) return;
+    $scope.linkedFootnotesImportStatus = {}
+    $('#import-linked-footnotes').button('loading')
+    $http.post('/api/import/linked-footnotes-from-sheets', { sheetId: sheetId })
+    .catch(console.error.bind(console))
+  }
 
-  socket.on('reload-error', function(res){
-    var s = d3.values($scope.defaults.sheets).filter(function(d){
-      if (res.sheet) return d.value == res.sheet.value;
-      return true;
-    })[0];
-    s.info = false;
-    s.started = false;
-    s.loading = false;
-    s.finished = false;
-    s.error = res.error;
-    $scope.$apply();
-  });
-
-  $scope.reload = function(){
-    if ($scope.loading) return;
-    $scope.loading = true;
-    $('#reload').button('loading')
-    $http.post('/api/reload/', $scope.defaults)
-    .success(function (res){
-      $scope.message = res;
-    })
+  $scope.clearLinkedFootnotes = function() {
+    $('#clear-linked-footnotes').button('loading')
+    $http.delete('/api/linked-footnotes')
+    .then(function() { $('#clear-linked-footnotes').button('reset') })
+    .catch(console.error.bind(console))
   }
 
   $http.get('/api/users/')
@@ -158,7 +217,6 @@ app.controller('AdminCtrl', function($scope, $http) {
   };
 
   $scope.register = function(){
-    $scope.user.role = $scope.user.role == true ? 'admin' : 'viewer';
     $http.post('/api/users/add', $scope.user)
     .success(function(res){
       $scope.message = 'User ' + res.user.username + ' successfully created!';
@@ -173,40 +231,5 @@ app.controller('AdminCtrl', function($scope, $http) {
       $scope.message = error.message;
     });
   };
-
-//  var socket = io.connect('http://localhost');
-
-  $scope.counting = false;
-
-  $scope.recount = function() {
-    $scope.counting = true;
-    $http.get('/api/recount')
-    .then(function(res) {
-      $scope.counting = false;
-      if (res.data.error) console.error(res.data.error);
-      else {
-        getCount();
-      }
-    }, function(res) { console.error(res); });
-  };
-
-  function getCount() {
-    $http.get('/api/getcount')
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else $scope.counts = res.data.counts;
-    })
-  };
-
-  getCount();
-
-  $scope.clearAll = function() {
-    $scope.clearing = true;
-    $http.get('/api/clear-all')
-    .then(function(res) {
-      $scope.clearing = false;
-      if (res.data.error) console.error(res.data.error);
-    }, console.error.bind(console));
-  }
 
 });

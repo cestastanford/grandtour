@@ -1,0 +1,37 @@
+.panel.panel-default(ng-if="fieldValueArray")
+    .panel-heading {{ entryFields[fieldKey].label }}
+    ul.list-group.entry-facet(ng-sortable="{ onUpdate: arraySorted }")
+        li.list-group-item(ng-repeat="fieldValue in fieldValueArray")
+            ng-include.data(
+                src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
+                ng-init="arrayIndex = $index;",
+            )
+            .controls
+                a.small.pull-right(ng-click="deleteFromArray(fieldValue)") delete 
+                a.small.pull-right.margin-right(ng-click="editInModal(fieldValue, $index)") edit
+    
+    a.small.italic(ng-click="addToArray()") Add New
+    
+.panel.panel-default(ng-if="!fieldValueArray")
+    .panel-heading {{ entryFields[fieldKey].label }}
+    ul.list-group.entry-facet
+        li.list-group-item
+            ng-include.data(
+                src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
+                ng-init="arrayIndex = null",
+            )
+            a.controls.small.pull-right.margin-right(ng-click="editInModal(fieldValue)") edit 
+
+.custom-modal(ng-show="modalModel")
+    .modal-inner
+        h4 Edit Item
+        form(onsubmit="return false")
+            .input-group.input-group-sm(ng-repeat="field in modalModel")
+                span.input-group-addon {{ field.name }}
+                input.form-control(ng-if="field.type === 'string'", type="text", ng-model="field.value")
+                input.form-control(ng-if="field.type === 'number'", type="number", ng-model="field.value")
+                input.form-control(ng-if="field.type === 'boolean'", type="checkbox", ng-model="field.value")
+
+            .btn-group.btn-group-sm
+                button.btn.btn-sm.btn-warning(type="button", ng-click="modalCancel()") Cancel
+                button.btn.btn-sm.btn-info(type="button", ng-click="modalSave()") Apply

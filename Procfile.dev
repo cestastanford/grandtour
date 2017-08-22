@@ -1,0 +1,2 @@
+db: mongod --dbpath data
+web: nodemon app.js

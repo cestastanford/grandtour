@@ -4,7 +4,6 @@
 
 const Dots = entries => {
 
-
     /*
     *   Colors
     */
@@ -62,6 +61,7 @@ const Dots = entries => {
         const availableHeight = CANVAS_HEIGHT - 2 * EDGE_PADDING
         baseDotRadius = SIZING_COEFFICIENT * (Math.sqrt(availableWidth * availableHeight / entries.length) - MIN_DOT_SPACING) / (2 * MAX_DOT_SIZE_COEFFICIENT)
         const radius = d3.interpolate(baseDotRadius, MAX_DOT_SIZE_COEFFICIENT * baseDotRadius)
+        entries.forEach(entry => entry.entry = [ 'biography', 'tours', 'narrative', 'notes' ].reduce((accum, next) => entry[next] ? accum + entry[next] : accum))
         entries.sort((a, b) => a.entry.length < b.entry.length ? -1 : 1)
         entries.forEach((e, i) => {
             e.r = radius(i / entries.length)
@@ -249,7 +249,7 @@ app.controller('VisualizationsCtrl', function($scope) {
 
     const downloadEntries = async () => {
 
-        const response = await fetch('/api/entries/all', { credentials: 'same-origin' })
+        const response = await fetch('/api/entries', { credentials: 'same-origin' })
         if (!response.ok) { throw new Error(response) }
         return response.json()
 

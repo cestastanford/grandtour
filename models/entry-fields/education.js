@@ -15,7 +15,6 @@ module.exports = {
     label: 'Education',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Education',
 
     }

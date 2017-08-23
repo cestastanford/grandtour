@@ -13,7 +13,6 @@ module.exports = {
     label: 'Military Careers',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Military career',
 
     }

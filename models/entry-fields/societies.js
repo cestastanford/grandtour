@@ -11,7 +11,6 @@ module.exports = {
     label: 'Societies',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Societies',
 
     }

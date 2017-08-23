@@ -60,7 +60,7 @@ const getSheetRequests = (fieldRequests) => {
     fieldRequests.forEach(fieldRequest => {
 
         const sheetRequest = {
-            spreadsheetId: fieldRequest.sheet.spreadsheet,
+            spreadsheetId: process.env.IMPORT_SPREADSHEET_ID,
             range: fieldRequest.sheet.name + '!A1:ZZ',
             valueRenderOption: 'UNFORMATTED_VALUE',
         }

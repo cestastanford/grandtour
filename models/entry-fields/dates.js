@@ -10,7 +10,6 @@ module.exports = {
     label: 'Dates',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Dates',
 
     }

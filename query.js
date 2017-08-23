@@ -219,29 +219,23 @@ var searchMap = {
 
     travel : function(d) {
 
-        var outer = [];
-
+        var travelMatches = { $and: [] }
         if (d.date) {
 
             if (d.date.startYear) {
 
-                outer.push({
-                    $or : [ { travelEndYear : { $gt : +d.date.startYear } }, { $and : [ { travelEndYear : +d.date.startYear } ] } ]
-                });
-
+                var laterYear = { travelEndYear : { $gt: +d.date.startYear } }
+                var sameYearLaterMonth = { $and: [ { travelEndYear: +d.date.startYear } ] }
+                travelMatches.$and.push({ $or: [ laterYear, sameYearLaterMonth ] })
                 if (d.date.startMonth) {
 
-                    var middle = outer[0].$or[1].$and;
-                    middle.push({
-                        $or : [ { travelEndMonth : { $gt : +d.date.startMonth } }, { $and : [ { travelEndMonth : +d.date.startMonth } ] } ]
-                    });
-
+                    var laterMonth = { travelEndMonth: { $gt: +d.date.startMonth } }
+                    var sameMonthLaterOrSameDay = { $and: [ { travelEndMonth: +d.date.startMonth } ] }
+                    sameYearLaterMonth.$and.push({ $or: [ laterMonth, sameMonthLaterOrSameDay ] })
                     if (d.date.startDay) {
 
-                        var inner = middle[1].$or[1].$and;
-                        inner.push({
-                            $or : [ { travelEndDay : { $gte : +d.date.startDay } } ]
-                        });
+                        var laterOrSameDay = { travelEndDay: { $gte: +d.date.startDay } }
+                        sameMonthLaterOrSameDay.$and.push(laterOrSameDay)
 
                     }
 
@@ -251,23 +245,18 @@ var searchMap = {
 
             if (d.date.endYear) {
 
-                outer.push({
-                    $or : [ { travelStartYear : { $lt : +d.date.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.date.endYear } ] } ]
-                });
-
+                var earlierYear = { travelStartYear: { $lt: +d.date.endYear, $ne: 0 } }
+                var sameYearEarlierMonth = { $and: [ { travelStartYear: +d.date.endYear } ] }
+                travelMatches.$and.push({ $or: [ earlierYear, sameYearEarlierMonth ] })
                 if (d.date.endMonth) {
 
-                    var middle = outer[0].$or[1].$and;
-                    middle.push({
-                        $or : [ { travelStartMonth : { $lt : +d.date.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.date.endMonth } ] } ]
-                    });
-
+                    var earlierMonth = { travelStartMonth: { $lt: +d.date.endMonth, $ne: 0 } }
+                    var sameMonthEarlierOrSameDay = { $and: [ { travelStartMonth: +d.date.endMonth } ] }
+                    sameYearEarlierMonth.$and.push({ $or: [ earlierMonth, sameMonthEarlierOrSameDay ] })
                     if (d.date.endDay) {
 
-                        var inner = middle[1].$or[1].$and;
-                        inner.push({
-                            $or : [ { travelStartDay : { $lte : +d.date.endDay, $ne : 0 } } ]
-                        });
+                        var earlierOrSameDay = { travelStartDay: { $lte: +d.date.endDay, $ne: 0 } }
+                        sameMonthEarlierOrSameDay.$and.push(earlierOrSameDay)
 
                     }
 
@@ -277,9 +266,8 @@ var searchMap = {
 
         }
 
-        if (d.place) outer.push({ place : { $regex : new RegExp(escapeRegExp(d.place), "gi") } });
-
-        return { travels : { $elemMatch : { $and : outer } } };
+        if (d.place) travelMatches.$and.push({ place: { $regex: new RegExp(escapeRegExp(d.place), 'gi') } })
+        return { travels: { $elemMatch: travelMatches } }
 
     },
 

@@ -17,8 +17,7 @@ app.directive('travelSearch', function() {
                 if (scope.query.travel) {
                     if (scope.query.travel.date) {
                         if (scope.query.travel.date.startYear !== scope.query.travel.date.endYear ||
-                                scope.query.travel.date.startMonth !== scope.query.travel.date.endMonth ||
-                                scope.query.travel.date.startDay !== scope.query.travel.date.endDay) {
+                                scope.query.travel.date.startMonth !== scope.query.travel.date.endMonth) {
                             scope.travelModel.date.queryType = 'range'
                         }
                         scope.travelModel.date.query = scope.query.travel.date
@@ -42,7 +41,6 @@ app.directive('travelSearch', function() {
                 if (scope.travelModel.date.queryType === 'exact') {
                     scope.travelModel.date.query.endYear = scope.travelModel.date.query.startYear
                     scope.travelModel.date.query.endMonth = scope.travelModel.date.query.startMonth
-                    scope.travelModel.date.query.endDay = scope.travelModel.date.query.startDay
                 }
                 
                 for (key in scope.travelModel.date.query) if (!scope.travelModel.date.query[key]) delete scope.travelModel.date.query[key]

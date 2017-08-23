@@ -26,14 +26,6 @@
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.startDay",
-        placeholder="day ({{ counts.travel_day }} entries)",
-        ng-class="{ filled : travelModel.date.query.startDay }",
-        ng-show="travelModel.date.queryType === 'exact'",
-        ng-disabled="!travelModel.date.query.startMonth && !travelModel.date.query.startDay")
-    
-    input.input-sm.form-control.margin-top(
-        type="text", 
         ng-model="travelModel.date.query.startYear",
         placeholder="start year ({{ counts.travel_year }} entries)",
         ng-class="{ filled : travelModel.date.query.startYear }",
@@ -49,14 +41,6 @@
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.startDay",
-        placeholder="start day ({{ counts.travel_day }} entries)",
-        ng-class="{ filled : travelModel.date.query.startDay }",
-        ng-show="travelModel.date.queryType === 'range'",
-        ng-disabled="!travelModel.date.query.startMonth && !travelModel.date.query.startDay")
-    
-    input.input-sm.form-control.margin-top(
-        type="text", 
         ng-model="travelModel.date.query.endYear",
         placeholder="end year ({{ counts.travel_year }} entries)",
         ng-class="{ filled : travelModel.date.query.endYear }",
@@ -69,14 +53,6 @@
         ng-class="{ filled : travelModel.date.query.endMonth }",
         ng-show="travelModel.date.queryType === 'range'",
         ng-disabled="!travelModel.date.query.endYear && !travelModel.date.query.endMonth")
-    
-    input.input-sm.form-control.margin-top(
-        type="text", 
-        ng-model="travelModel.date.query.endDay",
-        placeholder="end day ({{ counts.travel_day }} entries)",
-        ng-class="{ filled : travelModel.date.query.endDay }",
-        ng-show="travelModel.date.queryType === 'range'",
-        ng-disabled="!travelModel.date.query.endMonth && !travelModel.date.query.endDay")
     
     .margin-top
         span.date-query-type.date-query-type-label search by: 

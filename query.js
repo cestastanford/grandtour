@@ -77,9 +77,12 @@ exports.getCounts = async revisionIndex => {
 *   This is a large block of code that performs queries.
 */
 
+function escapeRegExp(str) {
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+}
 
 function getRegExp(str, exact) {
-    var escapedString =  str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+    var escapedString =  escapeRegExp(str)
     if (exact) escapedString = '^' + escapedString + '$'
     return new RegExp(escapedString, 'gi')
 }

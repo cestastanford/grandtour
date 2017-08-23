@@ -217,59 +217,35 @@ var searchMap = {
 
     military : function(d) { return { military : { $elemMatch : { rank : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
 
-    travel : function(d) {
-
-        var travelMatches = { $and: [] }
-        if (d.date) {
-
-            if (d.date.startYear) {
-
-                var laterYear = { travelEndYear : { $gt: +d.date.startYear } }
-                var sameYearLaterMonth = { $and: [ { travelEndYear: +d.date.startYear } ] }
-                travelMatches.$and.push({ $or: [ laterYear, sameYearLaterMonth ] })
-                if (d.date.startMonth) {
-
-                    var laterMonth = { travelEndMonth: { $gt: +d.date.startMonth } }
-                    var sameMonthLaterOrSameDay = { $and: [ { travelEndMonth: +d.date.startMonth } ] }
-                    sameYearLaterMonth.$and.push({ $or: [ laterMonth, sameMonthLaterOrSameDay ] })
-                    if (d.date.startDay) {
-
-                        var laterOrSameDay = { travelEndDay: { $gte: +d.date.startDay } }
-                        sameMonthLaterOrSameDay.$and.push(laterOrSameDay)
-
-                    }
-
-                }
-
-            }
-
-            if (d.date.endYear) {
-
-                var earlierYear = { travelStartYear: { $lt: +d.date.endYear, $ne: 0 } }
-                var sameYearEarlierMonth = { $and: [ { travelStartYear: +d.date.endYear } ] }
-                travelMatches.$and.push({ $or: [ earlierYear, sameYearEarlierMonth ] })
-                if (d.date.endMonth) {
-
-                    var earlierMonth = { travelStartMonth: { $lt: +d.date.endMonth, $ne: 0 } }
-                    var sameMonthEarlierOrSameDay = { $and: [ { travelStartMonth: +d.date.endMonth } ] }
-                    sameYearEarlierMonth.$and.push({ $or: [ earlierMonth, sameMonthEarlierOrSameDay ] })
-                    if (d.date.endDay) {
-
-                        var earlierOrSameDay = { travelStartDay: { $lte: +d.date.endDay, $ne: 0 } }
-                        sameMonthEarlierOrSameDay.$and.push(earlierOrSameDay)
-
-                    }
-
-                }
-
-            }
-
+    travel: d => ({
+        travels: {
+            $elemMatch: { $and: [
+                d.place ? { place: { $regex: new RegExp(escapeRegExp(d.place), 'gi') } } : {},
+                d.date ? { $and: [
+                    d.date.startYear ? { $or: [
+                            { travelEndYear: { $gt: +d.date.startYear } },
+                            { $and: [
+                                { travelEndYear: +d.date.startYear },
+                                d.date.startMonth ? { $or: [
+                                    { travelEndMonth: { $gte: +d.date.startMonth } },
+                                    { travelEndMonth: 0 },
+                                ] } : {},
+                            ] }
+                    ] } : {},
+                    d.date.endYear ? { $or: [
+                            { travelStartYear: { $lt: +d.date.endYear, $ne: 0 } },
+                            { $and: [
+                                { travelStartYear: +d.date.endYear },
+                                d.date.endMonth ? { $or: [
+                                    { travelStartMonth: { $lte: +d.date.endMonth } },
+                                    { travelStartMonth: 0 },
+                                ] } : {},
+                            ] }
+                    ] } : {},
+                ] } : {},
+            ] }
         }
-
-        if (d.place) travelMatches.$and.push({ place: { $regex: new RegExp(escapeRegExp(d.place), 'gi') } })
-        return { travels: { $elemMatch: travelMatches } }
-
-    },
+    }),
 
     entry: d => ({
         $and: d.terms.map(term => ({

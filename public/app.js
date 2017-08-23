@@ -31,6 +31,17 @@ var app = angular.module('app', [
       $http.post('/logout');
       $state.go('login')
     };
+
+
+    /*
+    * Sets the page title based on the current route.
+    */
+
+    $rootScope.getTitle = function() {
+      return 'The Grand Tour Explorer' + 
+        ($state.current && $state.current.title ? ' – ' + $state.current.title : '')
+    }
+
   }
 )
 
@@ -86,6 +97,7 @@ var app = angular.module('app', [
   .state('home', {
     url: "/",
     templateUrl: "views/main",
+    title: 'Home',
     resolve: {
       loggedin: isLoggedIn
     }
@@ -94,6 +106,7 @@ var app = angular.module('app', [
   .state('about', {
     url: "/about",
     templateUrl: "views/about",
+    title: 'About',
     resolve: {
       loggedin: isLoggedIn
     }
@@ -102,19 +115,22 @@ var app = angular.module('app', [
   .state('login', {
     url: "/login",
     templateUrl: "views/login",
+    title: 'Login',
     controller: "LoginCtrl"
   })
 
-  .state('register', {
-    url: "/register",
-    templateUrl: "views/register",
-    controller: "RegisterCtrl"
-  })
+  // .state('register', {
+  //   url: "/register",
+  //   templateUrl: "views/register",
+  //   title: 'Register',
+  //   controller: "RegisterCtrl"
+  // })
 
   .state('admin', {
     url: "/admin",
     templateUrl: "views/admin",
     controller: "AdminCtrl",
+    title: 'Manage',
     resolve: {
       loggedin: isAdmin
     }
@@ -124,6 +140,7 @@ var app = angular.module('app', [
     url: "/search/:query",
     templateUrl: "views/search",
     controller: "SearchCtrl",
+    title: 'Search',
     resolve: {
       loggedin: isLoggedIn
     }
@@ -133,6 +150,7 @@ var app = angular.module('app', [
     url: "/explore/:query",
     templateUrl: "views/explore",
     controller: "ExploreCtrl",
+    title: 'Explore',
     resolve: {
       loggedin: isLoggedIn
     }
@@ -142,6 +160,7 @@ var app = angular.module('app', [
     url: "/entries/:id/edit",
     templateUrl: "views/edit-entry",
     controller: "EditEntryCtrl",
+    title: 'Edit Entry',
     resolve: {
       loggedin: isLoggedIn
     }
@@ -151,6 +170,7 @@ var app = angular.module('app', [
     url: "/entries/:id",
     templateUrl: "views/entry",
     controller: "EntryCtrl",
+    title: 'Entry',
     resolve: {
       loggedin: isLoggedIn
     }
@@ -160,6 +180,7 @@ var app = angular.module('app', [
     url: "/lists/:id",
     templateUrl: "views/lists",
     controller: "ListsCtrl",
+    title: 'Saved Lists',
     resolve: {
       loggedin: isLoggedIn
     }

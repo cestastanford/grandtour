@@ -1,0 +1,11 @@
+p
+    .pill(ng-repeat="pill in pills") 
+        .pill-dimension {{ pill.dimension }}
+        .pill-value
+          span(ng-show="pill.value | isArray" ng-repeat="value in pill.value track by $index")
+            span(ng-show="$index > 0") or 
+            strong {{ value }} 
+          strong(ng-hide="pill.value | isArray") {{ pill.value }}
+        .pill-value.border-left(ng-if="allowRemove")
+          a.text-danger(ng-click="removeFromQuery(pill.key)", data-toggle="tooltip", title="Remove")
+            i.fa.fa-trash-o

@@ -49,22 +49,9 @@
     .col-lg-12 
     
       strong Your filters
-      p
-        .pill(ng-repeat="pill in pills") 
-          .pill-dimension {{ pill.dimension }}
-          .pill-value
-            span(ng-show="pill.value | isArray" ng-repeat="value in pill.value track by $index")
-              span(ng-show="$index > 0") or 
-              strong {{ value }} 
-            strong(ng-hide="pill.value | isArray") {{ pill.value }}
-          .pill-value.border-left
-            a.text-danger(ng-click="removeFromQuery(pill.key)", data-toggle="tooltip", title="Remove")
-              i.fa.fa-trash-o
-
-        //button.btn.btn-success.pull-right(ng-click="search()", type="submit", tabindex="1") Search
-            
+      pills(allow-remove="true")      
+      
       div.text-muted(ng-show="!entries.length && untouched && !searching") Use the fields on the left and press Enter or click the Search button to start searching
-
 
       div(ng-show="!noResults && entries.length && !searching")
         

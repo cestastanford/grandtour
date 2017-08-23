@@ -26,8 +26,6 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
     });
   }
 
-  setupPillUpdating();
-
   $scope.search = function() {
     $location.path('search/' + JSON.stringify(clean($scope.query)));
   }
@@ -71,6 +69,10 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
 
   $('.tooltip').remove();
 
+  $scope.removeFromQuery = function(k) {
+    delete $scope.query[k];
+  }
+
   //  export function copied from explore.js
   $scope.export = function() {
 
@@ -100,83 +102,5 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
     if (res.data.error) console.error(res.data.error);
     else $scope.counts = res.data.counts;
   });
-
-
-  //  helper functions for displaying complex queries in pills
-
-  function setupPillUpdating() {
-
-    $scope.$watch('query', function(query) {
-      
-      $scope.pills = [];
-
-      for (key in query) {
-        if (query.hasOwnProperty(key)) {
-
-          var pill = {};
-          switch (key) {
-
-            case 'entry':
-              pill.dimension = 'free search in ' + $scope.query.entry.sections.filter(function(section) { return section.checked })
-              .map(function(section) { return section.name }).join(', ')
-              
-              if ($scope.query.entry.beginnings) pill.dimension += ' (word beginnings only)'
-              pill.value = $scope.query.entry.terms.map(function(term) { return term.value }).join(', ')
-              break
-
-            case 'travel':
-              pill.dimension = 'travel ';
-              pill.value = '';
-
-              if (query.travel.place) {
-
-                if (query.travel.date) {
-                  pill.dimension += 'place and ';
-                  pill.value += (query.travel.place + ', ');
-                } else {
-                  pill.dimension += 'place';
-                  pill.value += query.travel.place;
-                }
-
-              }
-
-              if (query.travel.date) {
-
-                pill.dimension += 'date'
-
-                if (query.travel.date.queryType === 'range') {
-                  pill.dimension += ' range';
-                  if (query.travel.date.startYear) pill.value += 'from '
-                }
-
-                if (query.travel.date.startYear) pill.value += query.travel.date.startYear;
-                if (query.travel.date.startMonth) pill.value += '/' + query.travel.date.startMonth;
-                if (query.travel.date.startDay)  pill.value += '/' + query.travel.date.startDay;
-
-                if (query.travel.date.queryType === 'range') {
-                  if (query.travel.date.endYear) pill.value += ' until ' + query.travel.date.endYear;
-                  if (query.travel.date.endMonth) pill.value += '/' + query.travel.date.endMonth;
-                  if (query.travel.date.endDay) pill.value += '/' + query.travel.date.endDay;
-                }
-
-              }
-
-              break;
-
-            default:
-              pill.dimension = key.split('_').join(' ');
-              pill.value = query[key];
-
-          }
-          
-          $scope.pills.push(pill);
-
-        }
-      
-      }
-
-    }, true);
-
-  }
 
 });

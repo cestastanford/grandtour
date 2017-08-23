@@ -187,35 +187,35 @@ exports.uniques = function (req, res, next) {
 var searchMap = {
 
     fullName: d => ({ $or: [
-        { fullName: { $regex: new RegExp(escapeRegExp(d), "gi") } },
-        { alternateNames: { $elemMatch: { alternateName: { $regex: new RegExp(escapeRegExp(d), "gi") } } } },
+        { fullName: { $regex: new RegExp(escapeRegExp(d), 'gi') } },
+        { alternateNames: { $elemMatch: { alternateName: { $regex: new RegExp(escapeRegExp(d), 'gi') } } } },
     ] }),
     type: d => ({ type: d }),
 
     birthDate: d => ({ dates: { $elemMatch: { birthDate: +d } } }),
     deathDate: d => ({ dates: { $elemMatch: { deathDate: +d } } }),
 
-    birthPlace: d => ({ places: { $elemMatch: { birthPlace: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    deathPlace: d => ({ places: { $elemMatch: { deathPlace: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
+    birthPlace: d => ({ places: { $elemMatch: { birthPlace: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    deathPlace: d => ({ places: { $elemMatch: { deathPlace: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
 
-    societies: d => ({ societies: { $elemMatch: { title: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    societies_role: d => ({ societies: { $elemMatch: { role: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
+    societies: d => ({ societies: { $elemMatch: { title: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    societies_role: d => ({ societies: { $elemMatch: { role: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
 
-    education_institution: d => ({ education: { $elemMatch: { institution: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    education_place: d => ({ education: { $elemMatch: { place: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    education_degree: d => ({ education: { $elemMatch: { fullDegree: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    education_teacher: d => ({ education: { $elemMatch: { teacher: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
+    education_institution: d => ({ education: { $elemMatch: { institution: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    education_place: d => ({ education: { $elemMatch: { place: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    education_degree: d => ({ education: { $elemMatch: { fullDegree: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    education_teacher: d => ({ education: { $elemMatch: { teacher: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
 
-    pursuits: d => ({ pursuits: { $elemMatch: { pursuit: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
+    pursuits: d => ({ pursuits: { $elemMatch: { pursuit: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
 
-    occupations: d => ({ occupations: { $elemMatch: { title: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    occupations_group: d => ({ occupations: { $elemMatch: { group: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    occupations_place: d => ({ occupations: { $elemMatch: { place: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
+    occupations: d => ({ occupations: { $elemMatch: { title: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    occupations_group: d => ({ occupations: { $elemMatch: { group: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    occupations_place: d => ({ occupations: { $elemMatch: { place: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
 
-    exhibitions: d => ({ exhibitions: { $elemMatch: { title: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
-    exhibitions_activity: d => ({ exhibitions: { $elemMatch: { activity: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
+    exhibitions: d => ({ exhibitions: { $elemMatch: { title: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
+    exhibitions_activity: d => ({ exhibitions: { $elemMatch: { activity: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
 
-    military: d => ({ military: { $elemMatch: { rank: { $regex: new RegExp(escapeRegExp(d), "gi") }  } } }),
+    military: d => ({ military: { $elemMatch: { rank: { $regex: new RegExp(escapeRegExp(d), 'gi') }  } } }),
 
     travel: d => ({
         travels: {
@@ -259,14 +259,25 @@ var searchMap = {
 
 
 function parseQuery(query) {
+    
     var o = []
-    for (var k in query){
-        var s = searchMap[k](query[k]);
+    for (var k in query) {
+        
+        if (Array.isArray(query[k])) {
+            
+            var s = { $or : [] }
+            for (var i in query[k]) {
+                s.$or.push( searchMap[k](query[k][i]) )
+            }
+        
+        } else var s = searchMap[k](query[k])
 
         o.push(s)
 
     }
+    
     return o.length ? { $and: o } : {};
+
 }
 
 

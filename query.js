@@ -220,29 +220,29 @@ var searchMap = {
     travel: d => ({
         travels: {
             $elemMatch: { $and: [
-                d.place && { place: { $regex: new RegExp(escapeRegExp(d.place), 'gi') } },
-                d.date && { $and: [
-                    d.date.startYear && { $or: [
+                d.place ? { place: { $regex: new RegExp(escapeRegExp(d.place), 'gi') } } : {},
+                d.date ? { $and: [
+                    d.date.startYear ? { $or: [
                         { travelEndYear: { $gt: +d.date.startYear } },
                         { $and: [
                             { travelEndYear: +d.date.startYear },
-                            d.date.startMonth && { $or: [
+                            d.date.startMonth ? { $or: [
                                 { travelEndMonth: { $gte: +d.date.startMonth } },
                                 { travelEndMonth: 0 },
-                            ] },
+                            ] } : {},
                         ] }
-                    ] },
-                    d.date.endYear && { $or: [
+                    ] } : {},
+                    d.date.endYear ? { $or: [
                         { travelStartYear: { $lt: +d.date.endYear, $ne: 0 } },
                         { $and: [
                             { travelStartYear: +d.date.endYear },
-                            d.date.endMonth && { $or: [
+                            d.date.endMonth ? { $or: [
                                 { travelStartMonth: { $lte: +d.date.endMonth } },
                                 { travelStartMonth: 0 },
-                            ] },
+                            ] } : {},
                         ] }
-                    ] },
-                ] },
+                    ] } : {},
+                ] } : {},
             ] }
         }
     }),

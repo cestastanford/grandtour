@@ -301,7 +301,23 @@ exports.search = (req, res, next) => {
             travels: true,
         },
     )
-    .then(response => res.json({ request: JSON.parse(originalQuery), entries: response }))
+    .then(entries => entries.map(entry => ({ 
+
+        index: entry.index,
+        fullName: entry.fullName,
+        biographyExcerpt: entry.biography.slice(0, 200),
+        dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
+
+            if (accum) return accum
+            else if (travel.travelStartYear) {
+                const utc = Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay)
+                return utc
+            }
+
+        }, 0) : 0
+
+    })))
+    .then(entries => res.json({ request: JSON.parse(originalQuery), entries }))
     .catch(next)
 
 }

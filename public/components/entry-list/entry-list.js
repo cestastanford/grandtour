@@ -17,6 +17,7 @@ app.directive('entryList', function(savedListService, entryListContext, $filter)
       var saveEntryListContext = function() {
         var sortedEntries = $filter('orderBy')(scope.entries, scope.sortModel.current.sortFn, scope.sortModel.reversed)
         entryListContext.saveContext(sortedEntries, attributes.isSavedListView)
+        console.log(JSON.parse(JSON.stringify(sortedEntries)))
       }
 
       scope.$watchCollection('entries', saveEntryListContext)
@@ -80,18 +81,7 @@ app.directive('entryList', function(savedListService, entryListContext, $filter)
       var sortOptions = [
         { label: 'Index', sortFn: function(entry) { return entry.index ? entry.index : 0.1 } },
         { label: 'Full Name', sortFn: function(entry) { return entry.fullName } },
-        { label: 'Date of first travel', sortFn: function(entry) {
-
-          if (entry.travels) {
-            for (var i = 0; i < entry.travels.length; i++) {
-              var travel = entry.travels[i];
-              if (travel.travelStartYear) {
-                return Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay);
-              }
-            }
-          }
-
-        } },
+        { label: 'Date of first travel', sortFn: function(entry) { return entry.dateOfFirstTravel } },
       ]
 
       scope.sortModel = {

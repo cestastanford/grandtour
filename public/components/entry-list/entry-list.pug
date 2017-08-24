@@ -79,7 +79,7 @@
               span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
               span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
               h4 {{ entry.fullName }}
-              p {{ entry.biography.slice(0, 200) }} ...
+              p {{ entry.biographyExcerpt }} ...
   
   .panel-footer.page-controls(ng-show="entries && entries.length")
     a(ng-click="setPage(0)", ng-disabled="isPage(0)") << first page

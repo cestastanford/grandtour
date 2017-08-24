@@ -50,23 +50,11 @@ app.controller('ListsCtrl', function($scope, $http, savedListService, $statePara
     };
 
     function downloadEntries(list) {
-        var entries = [];
-        var entriesDownloaded = 0;
-        if (!list.entryIDs.length) viewModel.selectedListEntries = entries;
-        else for (var i = 0; i < list.entryIDs.length; i++) {
-            var id = list.entryIDs[i];
-            $http.get('/api/entries/' + id)
-            .then((function(res) {
-                if (res.data.error) console.error(error);
-                else {
-                    var i = this;
-                    entries[i] = res.data.entry;
-                    if (++entriesDownloaded === list.entryIDs.length) {
-                        viewModel.selectedListEntries = entries;
-                    }
-                }
-            }).bind(i), function(res) { console.error(res); });
-        }
+        $http.get('/api/lists/' + list._id + '/entries')
+        .then(function(response) {
+            viewModel.selectedListEntries = response.data
+        })
+        .catch(console.error.bind(console))
     };
 
     $scope.removeSelectedEntriesFromList = function() {

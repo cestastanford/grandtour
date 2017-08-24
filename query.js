@@ -301,26 +301,31 @@ exports.search = (req, res, next) => {
             travels: true,
         },
     )
-    .then(entries => entries.map(entry => ({ 
-
-        index: entry.index,
-        fullName: entry.fullName,
-        biographyExcerpt: entry.biography.slice(0, 200),
-        dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
-
-            if (accum) return accum
-            else if (travel.travelStartYear) {
-                const utc = Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay)
-                return utc
-            }
-
-        }, 0) : 0
-
-    })))
+    .then(entries => entries.map(projectForEntryList))
     .then(entries => res.json({ request: JSON.parse(originalQuery), entries }))
     .catch(next)
 
 }
+
+
+const projectForEntryList = entry => ({ 
+
+    index: entry.index,
+    fullName: entry.fullName,
+    biographyExcerpt: entry.biography.slice(0, 200),
+    dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
+
+        if (accum) return accum
+        else if (travel.travelStartYear) {
+            const utc = Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay)
+            return utc
+        }
+
+    }, 0) : 0
+
+})
+
+exports.projectForEntryList = projectForEntryList
 
 
 function parseExport(res) {

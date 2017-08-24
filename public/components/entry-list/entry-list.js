@@ -17,7 +17,6 @@ app.directive('entryList', function(savedListService, entryListContext, $filter)
       var saveEntryListContext = function() {
         var sortedEntries = $filter('orderBy')(scope.entries, scope.sortModel.current.sortFn, scope.sortModel.reversed)
         entryListContext.saveContext(sortedEntries, attributes.isSavedListView)
-        console.log(JSON.parse(JSON.stringify(sortedEntries)))
       }
 
       scope.$watchCollection('entries', saveEntryListContext)

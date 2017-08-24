@@ -298,6 +298,7 @@ exports.search = (req, res, next) => {
             index: true,
             fullName: true,
             biography: true,
+            travels: true,
         },
     )
     .then(response => res.json({ request: JSON.parse(originalQuery), entries: response }))

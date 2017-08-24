@@ -255,7 +255,11 @@
                 li.list-group-item(ng-repeat="e in entry.mentionedNames") 
                     div(style="font-style: italic;", ng-show="!e.entry") {{ e.name }}
                     div(style="cursor: pointer;", ng-show="e.entry") {{ e.name }}
-                    a.mentioned-names-popup(ng-show="e.entry", ng-click="goToEntry(e.entryIndex)")
+                    a.mentioned-names-popup(
+                      ng-show="e.entry",
+                      ng-href="{{ getEntryLink(e.entry.index) }}",
+                      ng-click="handleEntryClick()",
+                    )
                       h4 {{ e.entry.fullName }}
                       p {{ e.entry.biography.slice(0, 100) }}...
           

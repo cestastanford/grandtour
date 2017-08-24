@@ -8,7 +8,10 @@
                     .input-group.input-group-sm(ng-show="editingIndex")
                         input.form-control(type="text", ng-model="newIndex")
                         span.input-group-btn
-                            a.btn.btn-default(ng-click="editEntry(newIndex)") Go
+                            a.btn.btn-default(
+                                ng-href="{{ getEditLink(newIndex) }}",
+                                ng-click="handleEditClick()",
+                            ) Go
 
                 
                 .btn-group.btn-group-sm(role="group")

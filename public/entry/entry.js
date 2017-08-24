@@ -227,15 +227,25 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
 
 
   /*
-  * Navigates to an entry, clearing the navigation and highlighting
-  * context.
+  * Returns a link to an entry.
   */
 
-  $scope.goToEntry = function(index) {
+  $scope.getEntryLink = function(index) {
+
+    return index ? $state.href('entry', { id: index }) : ''
+
+  }
+
+
+  /*
+  * Clears the navigation and highlighting context when navigating
+  * to an entry.
+  */
+
+  $scope.handleEntryClick = function() {
 
     entryListContext.clearContext()
     entryHighlightingService.saveQuery()
-    $state.go('entry', { id: index })
 
   }
 

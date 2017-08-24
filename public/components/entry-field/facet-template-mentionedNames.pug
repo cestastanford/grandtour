@@ -11,7 +11,8 @@
 
     a.mentioned-names-popup(
         ng-show="downloadedEntries[fieldValue.entryIndex]",
-        ng-click="editEntry(fieldValue.entryIndex)",
+        ng-href="{{ getEditLink(fieldValue.entryIndex) }}",
+        ng-click="handleEditClick()",
     )
         h4 {{ downloadedEntries[fieldValue.entryIndex].fullName }}
         p {{ downloadedEntries[fieldValue.entryIndex].biography.slice(0, 100) }}...

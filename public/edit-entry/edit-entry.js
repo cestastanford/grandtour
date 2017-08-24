@@ -46,11 +46,21 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     * Navigates to an entry's edit page.
     */
 
-    $scope.editEntry = function(index) {
+    $scope.getEditLink = function(index) {
 
-      entryListContext.clearContext()
-      entryHighlightingService.saveQuery()
-      $state.go('edit-entry', { id: index })
+        return index ? $state.href('edit-entry', { id: index }) : ''
+
+    }
+
+
+    /*
+    * Navigates to an entry's edit page.
+    */
+
+    $scope.handleEditClick = function() {
+
+        entryListContext.clearContext()
+        entryHighlightingService.saveQuery()
 
     }
 

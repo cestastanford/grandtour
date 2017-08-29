@@ -222,35 +222,110 @@ var searchMap = {
 
     military: (d, exact) => ({ military: { $elemMatch: { rank: { $regex: getRegExp(d, exact) }  } } }),
 
-    travel: d => ({
-        travels: {
-            $elemMatch: { $and: [
-                d.place ? { place: { $regex: getRegExp(d.place) } } : {},
-                d.date ? { $and: [
-                    d.date.startYear ? { $or: [
-                        { travelEndYear: { $gt: +d.date.startYear } },
-                        { $and: [
-                            { travelEndYear: +d.date.startYear },
-                            d.date.startMonth ? { $or: [
-                                { travelEndMonth: { $gte: +d.date.startMonth } },
-                                { travelEndMonth: 0 },
-                            ] } : {},
-                        ] }
-                    ] } : {},
-                    d.date.endYear ? { $or: [
-                        { travelStartYear: { $lt: +d.date.endYear, $ne: 0 } },
-                        { $and: [
-                            { travelStartYear: +d.date.endYear },
-                            d.date.endMonth ? { $or: [
-                                { travelStartMonth: { $lte: +d.date.endMonth } },
-                                { travelStartMonth: 0 },
-                            ] } : {},
-                        ] }
-                    ] } : {},
-                ] } : {},
-            ] }
+    travel: d => {
+        
+        let travelMatchesQuery = {}
+
+        //  Matches a travel place
+        if (d.place) travelMatchesQuery = {
+            ...travelMatchesQuery,
+            place: { $regex: getRegExp(d.place) },
         }
-    }),
+
+        //  Matches a travel date
+        if (d.date) {
+
+            //  Converts an exact travel date to a range
+            const queryStartMonth = d.date.exact ? d.date.month : d.date.startMonth
+            const queryEndMonth = d.date.exact ? d.date.month : d.date.endMonth
+            const queryStartYear = d.date.exact ? d.date.year : d.date.startYear
+            const queryEndYear = d.date.exact ? d.date.year : d.date.endYear
+            const querySpecifiedBy = d.date.specifiedBy
+
+            //  Query elements
+            let queryEndMonthMatchesTravel,
+            queryStartMonthMatchesTravel,
+            queryEndYearAndMonthMatchesTravel,
+            queryStartYearAndMonthMatchesTravel,
+            specifiedByMatchesQuery
+
+            //  Matches the queried end month
+            if (queryEndMonth || queryEndMonth === null) queryEndMonthMatchesTravel = {
+
+                $or: [
+                    { travelStartMonth: { $lte: queryEndMonth } },
+                    ...querySpecifiedBy === 'year' ? [ { travelStartMonth: null } ] : [],
+                ],
+
+            }
+
+            //  Matches the queried start month
+            if (queryStartMonth || queryStartMonth === null) queryStartMonthMatchesTravel = {
+
+                $or: [
+                    { travelEndMonth: { $gte: queryStartMonth } },
+                    ...querySpecifiedBy === 'year' ? [ { travelEndMonth: null } ] : [],
+                ],
+
+            }
+
+            //  Matches the queried end year (and queried start
+            //  month, if queried start year matches travel start year)
+            if (queryEndYear || queryEndYear === null) queryEndYearAndMonthMatchesTravel = {
+
+                $or: [
+                    { 
+                        travelStartYear: { $lt: queryEndYear },
+                    },
+                    {
+                        travelStartYear: queryEndYear,
+                        ...queryEndMonth && queryEndMonthMatchesTravel,
+                    },
+                ]
+
+            }
+
+            //  Matches the queried start year (and queried end
+            //  month, if queried end year matches travel end year)
+            if (queryStartYear || queryStartYear === null) queryStartYearAndMonthMatchesTravel = {
+
+                $or: [
+                    { 
+                        travelEndYear: { $gt: queryStartYear },
+                    },
+                    {
+                        travelEndYear: queryStartYear,
+                        ...queryStartMonth && queryStartMonthMatchesTravel,
+                    },
+                ]
+
+            }
+
+            //  Matches travels whose dates came directly from the Dictionary
+            if (querySpecifiedBy !== 'year') specifiedByMatchesQuery = {
+
+                travelDateSpecifiedInDictionary: true,
+                ...querySpecifiedBy === 'day' && { travelStartDay: { $ne: null } },
+
+            }
+            
+            travelMatchesQuery = {
+                
+                ...travelMatchesQuery,
+                $and: [
+                    queryEndYearAndMonthMatchesTravel || queryEndMonthMatchesTravel || {},
+                    queryStartYearAndMonthMatchesTravel || queryStartMonthMatchesTravel || {},
+                    specifiedByMatchesQuery || {},
+                ],
+            
+            }
+
+        }
+
+        const query = { travels: { $elemMatch: travelMatchesQuery } }
+        return query
+    
+    },
 
     entry: d => ({
         $and: d.terms.map(term => ({

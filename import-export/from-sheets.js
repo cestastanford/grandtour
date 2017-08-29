@@ -200,7 +200,7 @@ const getEntryUpdates = fieldRequests => {
             })
 
             //  Saves value to in-memory entry
-            const value = transform(row)
+            const value = transform(row, field)
             if (value) {
 
                 //  Appends value to array value field

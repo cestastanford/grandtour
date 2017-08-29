@@ -96,7 +96,7 @@ app.factory('entryHighlightingService', function() {
         if (travel && savedQuery && savedQuery.travel) {
             var qT = savedQuery.travel
             var t = travel
-            if (qT.place.toLowerCase().indexOf(t.place.toLowerCase()) > -1) {
+            if (qT.place && qT.place.toLowerCase().indexOf(t.place.toLowerCase()) > -1) {
                 if (qT.date) {
                     if (
                         (!qT.date.startYear || !t.travelEndYear || qT.date.startYear < t.travelEndYear || (qT.date.startYear === t.travelEndYear && (

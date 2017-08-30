@@ -7,58 +7,64 @@
         ng-class="{ filled : travelModel.place }"
         typeahead="item for item in getSuggestions('travels.place', $viewValue)"
         typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
-        typeahead-on-select="search()")
+        typeahead-on-select="search()",
+    )
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.startYear",
+        ng-model="travelModel.date.year",
         placeholder="year ({{ counts.travel_year }} entries)",
-        ng-class="{ filled : travelModel.date.query.startYear }",
-        ng-show="travelModel.date.queryType === 'exact'")
+        ng-class="{ filled : travelModel.date.year }",
+        ng-show="!travelModel.date.range",
+    )
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.startMonth",
+        ng-model="travelModel.date.month",
         placeholder="month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : travelModel.date.query.startMonth }",
-        ng-show="travelModel.date.queryType === 'exact'",
-        ng-disabled="!travelModel.date.query.startYear && !travelModel.date.query.startMonth")
+        ng-class="{ filled : travelModel.date.month }",
+        ng-show="!travelModel.date.range",
+    )
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.startYear",
+        ng-model="travelModel.date.startYear",
         placeholder="start year ({{ counts.travel_year }} entries)",
-        ng-class="{ filled : travelModel.date.query.startYear }",
-        ng-show="travelModel.date.queryType === 'range'")
+        ng-class="{ filled : travelModel.date.startYear }",
+        ng-show="travelModel.date.range"
+    )
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.startMonth",
+        ng-model="travelModel.date.startMonth",
         placeholder="start month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : travelModel.date.query.startMonth }",
-        ng-show="travelModel.date.queryType === 'range'",
-        ng-disabled="!travelModel.date.query.startYear && !travelModel.date.query.startMonth")
+        ng-class="{ filled : travelModel.date.startMonth }",
+        ng-show="travelModel.date.range",
+    )
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.endYear",
+        ng-model="travelModel.date.endYear",
         placeholder="end year ({{ counts.travel_year }} entries)",
-        ng-class="{ filled : travelModel.date.query.endYear }",
-        ng-show="travelModel.date.queryType === 'range'")
+        ng-class="{ filled : travelModel.date.endYear }",
+        ng-show="travelModel.date.range",
+    )
     
     input.input-sm.form-control.margin-top(
         type="text", 
-        ng-model="travelModel.date.query.endMonth",
+        ng-model="travelModel.date.endMonth",
         placeholder="end month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : travelModel.date.query.endMonth }",
-        ng-show="travelModel.date.queryType === 'range'",
-        ng-disabled="!travelModel.date.query.endYear && !travelModel.date.query.endMonth")
-    
+        ng-class="{ filled : travelModel.date.endMonth }",
+        ng-show="travelModel.date.range",
+    )
+
     .margin-top
-        span.date-query-type.date-query-type-label search by: 
         span.date-query-type(
-            ng-click="travelModel.date.queryType = 'exact'",
-            ng-class="{selected: travelModel.date.queryType === 'exact'}") exact date
+            ng-click="resetTravelSearch(false)",
+            ng-class="{ selected: !travelModel.date.range }",
+        ) exact date
+        
         span.date-query-type(
-            ng-click="travelModel.date.queryType = 'range'",
-            ng-class="{selected: travelModel.date.queryType === 'range'}") range of dates
+            ng-click="resetTravelSearch(true)",
+            ng-class="{ selected: travelModel.date.range }",
+        ) range of dates

@@ -6,6 +6,7 @@ app.filter('isArray', function() {
 
 .directive('pills', function() {
     
+    var MONTHS = [ null, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
     return {
     
         restrict: 'E',
@@ -48,38 +49,38 @@ app.filter('isArray', function() {
 
                 var travelQuery = query[key]
                 var pill = {}
-                pill.dimension = 'travel '
+                pill.dimension = 'travel' +
+                    (travelQuery.place ? ' place' : '') +
+                    (travelQuery.place && travelQuery.date ? ' and' : '') +
+                    (travelQuery.date ? ' date' : '') +
+                    (travelQuery.date && travelQuery.date.range ? ' range' : '')
+
                 pill.value = ''
-
-                if (travelQuery.place) {
-
-                    if (travelQuery.date) {
-                        pill.dimension += 'place and '
-                        pill.value += (travelQuery.place + ', ')
-                    } else {
-                        pill.dimension += 'place'
-                        pill.value += travelQuery.place
-                    }
-
-                }
-
+                if (travelQuery.place) pill.value += travelQuery.place
+                if (travelQuery.place && travelQuery.date) pill.value += ', '
                 if (travelQuery.date) {
 
-                    pill.dimension += 'date'
-    
-                    if (travelQuery.date.queryType === 'range') {
-                        pill.dimension += ' range'
-                        if (travelQuery.date.startYear) pill.value += 'from '
-                    }
-    
-                    if (travelQuery.date.startYear) pill.value += travelQuery.date.startYear
-                    if (travelQuery.date.startMonth) pill.value += '/' + travelQuery.date.startMonth
-                    if (travelQuery.date.startDay)  pill.value += '/' + travelQuery.date.startDay
-    
-                    if (travelQuery.date.queryType === 'range') {
-                        if (travelQuery.date.endYear) pill.value += ' until ' + travelQuery.date.endYear
-                        if (travelQuery.date.endMonth) pill.value += '/' + travelQuery.date.endMonth
-                        if (travelQuery.date.endDay) pill.value += '/' + travelQuery.date.endDay
+                    if (travelQuery.date.range) {
+
+                        var startArr = [ 'from' ]
+                        if (travelQuery.date.startMonth) startArr.push(MONTHS[travelQuery.date.startMonth])
+                        if (travelQuery.date.startYear) startArr.push(travelQuery.date.startYear)
+                        var startStr = startArr.length > 1 ? startArr.join(' ') : ''
+
+                        var endArr = [ 'until' ]
+                        if (travelQuery.date.endMonth) endArr.push(MONTHS[travelQuery.date.endMonth])
+                        if (travelQuery.date.endYear) endArr.push(travelQuery.date.endYear)
+                        var endStr = endArr.length > 1 ? endArr.join(' ') : ''
+                        
+                        pill.value += [ startStr, endStr ].filter(function(s) { return s }).join(' ')
+
+                    } else {
+
+                        var dateArr = []
+                        if (travelQuery.date.month) dateArr.push(MONTHS[travelQuery.date.month])
+                        if (travelQuery.date.year) dateArr.push(travelQuery.date.year)
+                        pill.value += dateArr.join(' ')
+
                     }
 
                 }

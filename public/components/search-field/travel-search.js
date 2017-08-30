@@ -8,26 +8,26 @@ app.directive('travelSearch', function() {
         link: function (scope) {
         
             /*
-            *   Resets travel date model.
+            *   Resets travel date model.  Calling with parameter
+            *   range undefined copies main travel query to model.
             */
 
-            function resetTravelSearch(type) {
+            scope.resetTravelSearch = function(range) {
                 
-                scope.travelModel = { date: { queryType: type, query: {} }, place: '' }
-                if (scope.query.travel) {
-                    if (scope.query.travel.date) {
-                        if (scope.query.travel.date.startYear !== scope.query.travel.date.endYear ||
-                                scope.query.travel.date.startMonth !== scope.query.travel.date.endMonth) {
-                            scope.travelModel.date.queryType = 'range'
-                        }
-                        scope.travelModel.date.query = scope.query.travel.date
-                    }
-                    if (scope.query.travel.place) {
-                        scope.travelModel.place = scope.query.travel.place
-                    }
-                
+                scope.travelModel = {
+                    place: (scope.travelModel && scope.travelModel.place) || '',
+                    date: {
+                        range: (range === undefined ? false : range),
+                        specifiedBy: (scope.travelModel && scope.travelModel.date && scope.travelModel.date.specifiedBy) || 'year',
+                    },
                 }
-            
+                
+                if (range === undefined && scope.query.travel) {
+                    if (scope.query.travel.place) scope.travelModel.place = scope.query.travel.place
+                    if (scope.query.travel.date) scope.travelModel.date = scope.query.travel.date
+                }
+
+
             }
 
             
@@ -38,27 +38,21 @@ app.directive('travelSearch', function() {
 
             function handleTravelSearchUpdate() {
                 
-                if (scope.travelModel.date.queryType === 'exact') {
-                    scope.travelModel.date.query.endYear = scope.travelModel.date.query.startYear
-                    scope.travelModel.date.query.endMonth = scope.travelModel.date.query.startMonth
-                }
-                
-                for (key in scope.travelModel.date.query) if (!scope.travelModel.date.query[key]) delete scope.travelModel.date.query[key]
-                if (Object.getOwnPropertyNames(scope.travelModel.date.query).length > 0) {
+                var dateSet = false
+                var dateFields = [ 'year', 'month', 'startYear', 'startMonth', 'endYear', 'endMonth' ]
+                dateFields.forEach(function(key) {
+
+                    if (scope.travelModel.date[key] || scope.travelModel.date[key] === null) dateSet = true
+                    else delete scope.travelModel.date[key]
+
+                })
+
+                if (dateSet || scope.travelModel.place) {
                     
-                    scope.query.travel = scope.query.travel || { date: { queryType: scope.travelModel.date.queryType } }
-                    scope.query.travel.date = scope.travelModel.date.query
+                    scope.query.travel = scope.travelModel
+                    if (!dateSet) delete scope.query.travel.date
                 
-                } else if (scope.query.travel) delete scope.query.travel.date
-                
-                if (scope.travelModel.place) {
-                    
-                    scope.query.travel = scope.query.travel || {}
-                    scope.query.travel.place = scope.travelModel.place
-                
-                } else if (scope.query.travel) delete scope.query.travel.place
-                
-                if (scope.query.travel && !scope.query.travel.place && !scope.query.travel.date) delete scope.query.travel
+                } else delete scope.query.travel
             
             }
 
@@ -69,9 +63,9 @@ app.directive('travelSearch', function() {
 
             function setupTravelSearch() {
 
-                resetTravelSearch('exact')
+                scope.resetTravelSearch()
                 scope.$watch('travelModel', handleTravelSearchUpdate, true)
-                scope.$watch('query.travel', resetTravelSearch.bind(null, 'exact'), true)
+                scope.$watch('query.travel', function() { scope.resetTravelSearch() })
 
             }
 

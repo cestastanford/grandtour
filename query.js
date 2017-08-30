@@ -236,10 +236,10 @@ var searchMap = {
         if (d.date) {
 
             //  Converts an exact travel date to a range
-            const queryStartMonth = d.date.exact ? d.date.month : d.date.startMonth
-            const queryEndMonth = d.date.exact ? d.date.month : d.date.endMonth
-            const queryStartYear = d.date.exact ? d.date.year : d.date.startYear
-            const queryEndYear = d.date.exact ? d.date.year : d.date.endYear
+            const queryStartMonth = d.date.range ? d.date.startMonth : d.date.month
+            const queryEndMonth = d.date.range ? d.date.endMonth : d.date.month
+            const queryStartYear = d.date.range ? d.date.startYear : d.date.year
+            const queryEndYear = d.date.range ? d.date.endYear : d.date.year
             const querySpecifiedBy = d.date.specifiedBy
 
             //  Query elements
@@ -323,6 +323,8 @@ var searchMap = {
         }
 
         const query = { travels: { $elemMatch: travelMatchesQuery } }
+        console.dir(d, { depth: null })
+        console.dir(query, { depth: null })
         return query
     
     },

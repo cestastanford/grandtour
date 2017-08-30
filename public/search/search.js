@@ -27,7 +27,7 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
   }
 
   $scope.search = function() {
-    $location.path('search/' + JSON.stringify(clean($scope.query)));
+    $location.path('search/' + getQueryAsString());
   }
 
   $scope.$watch('query', function(query){
@@ -46,20 +46,24 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
     })
   }
 
-  function clean(obj){
 
-    for (var key in obj) {
-      if (!last(obj[key])) delete obj[key];
-    }
+  /*
+  * Trims strings and removes empty strings from query.
+  */
 
-    function last(o){
-      for (var k in o) {
-        if (typeof o[k] == 'object') return last(o[k]);
-        else return /\S/.test(o.value) ? o[k] : null;
+  function getQueryAsString() {
+
+    var query = $scope.query
+
+    for (var key in query) {
+      if (typeof query[key] === 'string') {
+        query[key] = query[key].trim()
+        if (!query[key]) delete query[key]
       }
     }
 
-    return obj;
+    return JSON.stringify(query)
+  
   }
 
   $scope.clear = function(){

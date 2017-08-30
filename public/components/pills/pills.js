@@ -83,6 +83,8 @@ app.filter('isArray', function() {
 
                     }
 
+                    if (travelQuery.date.specifiedBy !== 'year') pill.value += ' (specified by ' + travelQuery.date.specifiedBy + ')'
+
                 }
 
                 return pill

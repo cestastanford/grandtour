@@ -9,6 +9,17 @@
         typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
         typeahead-on-select="search()",
     )
+
+    .query-type-chooser
+        span.date-query-type(
+            ng-click="resetTravelSearch(false)",
+            ng-class="{ selected: !travelModel.date.range }",
+        ) exact date
+        
+        span.date-query-type(
+            ng-click="resetTravelSearch(true)",
+            ng-class="{ selected: travelModel.date.range }",
+        ) range of dates
     
     input.input-sm.form-control.margin-top(
         type="number", 
@@ -58,13 +69,12 @@
         ng-show="travelModel.date.range",
     )
 
-    .margin-top
-        span.date-query-type(
-            ng-click="resetTravelSearch(false)",
-            ng-class="{ selected: !travelModel.date.range }",
-        ) exact date
-        
-        span.date-query-type(
-            ng-click="resetTravelSearch(true)",
-            ng-class="{ selected: travelModel.date.range }",
-        ) range of dates
+    .specified-by-chooser
+        span include travels specified in the dictionary by 
+        span.btn-group.list-option
+          button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+            span {{ travelModel.date.specifiedBy }}
+            span.caret
+          ul.dropdown-menu
+            li(ng-repeat="option in [ 'year', 'month', 'day' ]")
+              a(ng-click="travelModel.date.specifiedBy = option", ng-class="{ 'bg-info' : travelModel.date.specifiedBy === option }") {{ option }}

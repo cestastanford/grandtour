@@ -57,7 +57,6 @@ app.filter('isArray', function() {
 
                 pill.value = ''
                 if (travelQuery.place) pill.value += travelQuery.place
-                if (travelQuery.place && travelQuery.date) pill.value += ', '
                 if (travelQuery.date) {
 
                     if (travelQuery.date.range) {
@@ -83,7 +82,11 @@ app.filter('isArray', function() {
 
                     }
 
-                    if (travelQuery.date.specifiedBy !== 'year') pill.value += ' (specified by ' + travelQuery.date.specifiedBy + ')'
+                    if (travelQuery.date.monthEmpty) pill.value += ' (month empty)'
+                    if (travelQuery.date.yearEmpty) pill.value += ' (year empty)'
+                    if (travelQuery.date.specifiedBy !== 'year') {
+                        pill.value += ' (specified by ' + travelQuery.date.specifiedBy + ')'
+                    }
 
                 }
 

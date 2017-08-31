@@ -958,3 +958,20 @@ ul.list-group.entry-facet > li .controls {
   color: #888;
   letter-spacing: .025em;s
 }
+
+.travel-date-input {
+  position: relative;
+}
+
+.empty-checkbox {
+  position: absolute;
+  right: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #666;
+}
+
+.empty-checkbox input {
+  margin-left: .5em;
+}

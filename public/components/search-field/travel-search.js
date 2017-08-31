@@ -39,12 +39,15 @@ app.directive('travelSearch', function() {
 
             function handleTravelSearchUpdate() {
                 
+                //  Removes monthEmpty property if hidden
+                if (scope.travelModel.date.specifiedBy === 'year') delete scope.travelModel.date.monthEmpty
+
                 var placeSet = !!scope.travelModel.place
-                var dateSet = false
-                var dateFields = [ 'year', 'month', 'startYear', 'startMonth', 'endYear', 'endMonth' ]
+                var dateSet = scope.travelModel.date.specifiedBy !== 'year'
+                var dateFields = [ 'year', 'yearEmpty', 'month', 'monthEmpty', 'startYear', 'startMonth', 'endYear', 'endMonth' ]
                 dateFields.forEach(function(key) {
 
-                    if (scope.travelModel.date[key] || scope.travelModel.date[key] === null) dateSet = true
+                    if (scope.travelModel.date[key]) dateSet = true
                     else delete scope.travelModel.date[key]
 
                 })
@@ -52,11 +55,22 @@ app.directive('travelSearch', function() {
                 if (dateSet || placeSet) {
                     
                     scope.query.travel = scope.query.travel || {}
-                    scope.query.travel.date = dateSet ? scope.travelModel.date : null
-                    scope.query.travel.place = placeSet ? scope.travelModel.place : null
+                    if (dateSet) scope.query.travel.date = scope.travelModel.date
+                    if (placeSet) scope.query.travel.place = scope.travelModel.place
                 
                 } else delete scope.query.travel
             
+            }
+
+
+            /*
+            *   Turns two strings into a camelCased combined string.
+            */
+
+            scope.camelCase = function(first, second) {
+
+                return first + second[0].toUpperCase() + second.substr(1)
+
             }
 
             

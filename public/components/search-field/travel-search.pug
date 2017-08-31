@@ -21,60 +21,47 @@
             ng-class="{ selected: travelModel.date.range }",
         ) range of dates
     
-    input.input-sm.form-control.margin-top(
-        type="number", 
-        ng-model="travelModel.date.year",
-        placeholder="year ({{ counts.travel_year }} entries)",
-        ng-class="{ filled : travelModel.date.year }",
-        ng-show="!travelModel.date.range",
-    )
-    
-    input.input-sm.form-control.margin-top(
-        type="number", 
-        ng-model="travelModel.date.month",
-        placeholder="month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : travelModel.date.month }",
-        ng-show="!travelModel.date.range",
-    )
-    
-    input.input-sm.form-control.margin-top(
-        type="number", 
-        ng-model="travelModel.date.startYear",
-        placeholder="start year ({{ counts.travel_year }} entries)",
-        ng-class="{ filled : travelModel.date.startYear }",
-        ng-show="travelModel.date.range"
-    )
-    
-    input.input-sm.form-control.margin-top(
-        type="number", 
-        ng-model="travelModel.date.startMonth",
-        placeholder="start month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : travelModel.date.startMonth }",
-        ng-show="travelModel.date.range",
-    )
-    
-    input.input-sm.form-control.margin-top(
-        type="number", 
-        ng-model="travelModel.date.endYear",
-        placeholder="end year ({{ counts.travel_year }} entries)",
-        ng-class="{ filled : travelModel.date.endYear }",
-        ng-show="travelModel.date.range",
-    )
-    
-    input.input-sm.form-control.margin-top(
-        type="number", 
-        ng-model="travelModel.date.endMonth",
-        placeholder="end month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : travelModel.date.endMonth }",
-        ng-show="travelModel.date.range",
-    )
+    .travel-date-input(ng-repeat="unit in [ 'year', 'month' ]")
+        label.pull-right.empty-checkbox(
+            ng-class="{ 'empty-checkbox-disabled': unit === 'month' && travelModel.date.specifiedBy === 'year' }",
+            ng-hide="unit === 'month' && travelModel.date.specifiedBy === 'year'",
+        )
+            span empty
+            input(
+                type="checkbox",
+                ng-model="travelModel.date[unit + 'Empty']",
+                ng-change="travelModel.date[unit] = null",
+            )
+        
+        input.input-sm.form-control.margin-top(
+            type="number",
+            ng-model="travelModel.date[unit]",
+            placeholder="{{ unit }} ({{ counts['travel_' + unit] }} entries)",
+            ng-class="{ filled: query.travel.date[unit] || travelModel.date[unit + 'Empty'] }",
+            ng-show="!travelModel.date.range",
+            ng-disabled="travelModel.date[unit + 'Empty']",
+        )
+
+    .travel-date-input(ng-repeat="startOrEnd in [ 'start', 'end' ]")
+        input.input-sm.form-control.margin-top(
+            ng-repeat="unit in [ 'year', 'month' ]",
+            type="number",
+            ng-model="travelModel.date[camelCase(startOrEnd, unit)]",
+            placeholder="{{ startOrEnd }} {{ unit }} ({{ counts['travel_' + unit] }} entries)",
+            ng-class="{ filled: query.travel.date[camelCase(startOrEnd, unit)] }",
+            ng-show="travelModel.date.range",
+        )
 
     .specified-by-chooser
         span include travels specified in the dictionary by 
         span.btn-group.list-option
-          button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
-            span {{ travelModel.date.specifiedBy }}
-            span.caret
-          ul.dropdown-menu
-            li(ng-repeat="option in [ 'year', 'month', 'day' ]")
-              a(ng-click="travelModel.date.specifiedBy = option", ng-class="{ 'bg-info' : travelModel.date.specifiedBy === option }") {{ option }}
+            button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                span {{ travelModel.date.specifiedBy }}
+                span.caret
+            
+            ul.dropdown-menu
+                li(ng-repeat="option in [ 'year', 'month', 'day' ]")
+                    a(
+                        ng-click="travelModel.date.specifiedBy = option",
+                        ng-class="{ 'bg-info' : travelModel.date.specifiedBy === option }"
+                    ) {{ option }}

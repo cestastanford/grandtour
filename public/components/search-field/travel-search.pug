@@ -27,7 +27,7 @@
     )
         label.pull-right.empty-checkbox(
             ng-class="{ 'empty-checkbox-disabled': unit === 'month' && travelModel.date.specifiedBy === 'year' }",
-            ng-show="unit === 'year'",
+            ng-show="unit === travelModel.date.specifiedBy",
         )
             span empty
             input(

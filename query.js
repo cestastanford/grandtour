@@ -311,7 +311,6 @@ var searchMap = {
             if (querySpecifiedBy !== 'year') specifiedByMatchesQuery = {
 
                 travelDateSpecifiedInDictionary: true,
-                ...querySpecifiedBy === 'month' && { travelStartMonth: { $ne: null } },
                 ...querySpecifiedBy === 'day' && { travelStartDay: { $ne: null } },
 
             }

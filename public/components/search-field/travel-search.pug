@@ -21,10 +21,13 @@
             ng-class="{ selected: travelModel.date.range }",
         ) range of dates
     
-    .travel-date-input(ng-repeat="unit in [ 'year', 'month' ]")
+    .travel-date-input(
+        ng-if="!travelModel.date.range",
+        ng-repeat="unit in [ 'year', 'month' ]",
+    )
         label.pull-right.empty-checkbox(
             ng-class="{ 'empty-checkbox-disabled': unit === 'month' && travelModel.date.specifiedBy === 'year' }",
-            ng-hide="unit === 'month' && travelModel.date.specifiedBy === 'year'",
+            ng-show="unit === 'year'",
         )
             span empty
             input(
@@ -38,18 +41,19 @@
             ng-model="travelModel.date[unit]",
             placeholder="{{ unit }} ({{ counts['travel_' + unit] }} entries)",
             ng-class="{ filled: query.travel.date[unit] || travelModel.date[unit + 'Empty'] }",
-            ng-show="!travelModel.date.range",
             ng-disabled="travelModel.date[unit + 'Empty']",
         )
 
-    .travel-date-input(ng-repeat="startOrEnd in [ 'start', 'end' ]")
+    .travel-date-input(
+        ng-if="travelModel.date.range",
+        ng-repeat="startOrEnd in [ 'start', 'end' ]",
+    )
         input.input-sm.form-control.margin-top(
             ng-repeat="unit in [ 'year', 'month' ]",
             type="number",
             ng-model="travelModel.date[camelCase(startOrEnd, unit)]",
             placeholder="{{ startOrEnd }} {{ unit }} ({{ counts['travel_' + unit] }} entries)",
             ng-class="{ filled: query.travel.date[camelCase(startOrEnd, unit)] }",
-            ng-show="travelModel.date.range",
         )
 
     .specified-by-chooser

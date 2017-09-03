@@ -48,49 +48,30 @@ app.filter('isArray', function() {
             getPill.travel = function(key, query) {
 
                 var travelQuery = query[key]
-                var pill = {}
-                pill.dimension = 'travel' +
-                    (travelQuery.place ? ' place' : '') +
-                    (travelQuery.place && travelQuery.date ? ' and' : '') +
-                    (travelQuery.date ? ' date' : '') +
-                    (travelQuery.date && travelQuery.date.range ? ' range' : '')
-
-                pill.value = ''
-                if (travelQuery.place) pill.value += travelQuery.place
+                var valueArray = []
+                if (travelQuery.place) valueArray.push(travelQuery.place)
                 if (travelQuery.date) {
 
-                    if (travelQuery.date.range) {
+                    var dateArray = []
+                    if (travelQuery.date.month) dateArray.push(MONTHS[travelQuery.date.month])
+                    if (travelQuery.date.year) dateArray.push(travelQuery.date.year)
+                    if (travelQuery.date.monthEmpty) dateArray.push('(month empty)')
+                    if (travelQuery.date.yearEmpty) dateArray.push('(year empty)')
+                    if (travelQuery.date.startMonth || travelQuery.date.startYear) dateArray.push('from')
+                    if (travelQuery.date.startMonth) dateArray.push(MONTHS[travelQuery.date.startMonth])
+                    if (travelQuery.date.startYear) dateArray.push(travelQuery.date.startYear)
+                    if (travelQuery.date.endMonth || travelQuery.date.endYear) dateArray.push('until')
+                    if (travelQuery.date.endMonth) dateArray.push(MONTHS[travelQuery.date.endMonth])
+                    if (travelQuery.date.endYear) dateArray.push(travelQuery.date.endYear)                        
+                    if (dateArray.length) valueArray.push(dateArray.join(' '))
 
-                        var startArr = [ 'from' ]
-                        if (travelQuery.date.startMonth) startArr.push(MONTHS[travelQuery.date.startMonth])
-                        if (travelQuery.date.startYear) startArr.push(travelQuery.date.startYear)
-                        var startStr = startArr.length > 1 ? startArr.join(' ') : ''
-
-                        var endArr = [ 'until' ]
-                        if (travelQuery.date.endMonth) endArr.push(MONTHS[travelQuery.date.endMonth])
-                        if (travelQuery.date.endYear) endArr.push(travelQuery.date.endYear)
-                        var endStr = endArr.length > 1 ? endArr.join(' ') : ''
-                        
-                        pill.value += [ startStr, endStr ].filter(function(s) { return s }).join(' ')
-
-                    } else {
-
-                        var dateArr = []
-                        if (travelQuery.date.month) dateArr.push(MONTHS[travelQuery.date.month])
-                        if (travelQuery.date.year) dateArr.push(travelQuery.date.year)
-                        pill.value += dateArr.join(' ')
-
-                    }
-
-                    if (travelQuery.date.monthEmpty) pill.value += ' (month empty)'
-                    if (travelQuery.date.yearEmpty) pill.value += ' (year empty)'
                     if (travelQuery.date.specifiedBy !== 'year') {
-                        pill.value += ' (specified by ' + travelQuery.date.specifiedBy + ')'
+                        valueArray.push('specified by ' + travelQuery.date.specifiedBy)
                     }
 
                 }
 
-                return pill
+                return { dimension: 'travel', value: valueArray.join(', ') }
 
             } 
 

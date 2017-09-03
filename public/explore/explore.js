@@ -71,7 +71,7 @@ app
   }, true)
 
   $scope.search = function(){
-    $location.path('explore/' + JSON.stringify(clean($scope.query)) );
+    $location.path('explore/' + getQueryAsString($scope.query));
   }
 
   var someQuery = httpQuery('/api/entries/search');
@@ -98,7 +98,7 @@ app
     $scope.untouched = Object.getOwnPropertyNames(query).length == 0;
     $('[data-toggle="tooltip"]').tooltip();
     if (!Object.getOwnPropertyNames(query).length) $scope.clear();
-    $state.go('explore', { query: JSON.stringify(clean(query)) }, { notify: false, reload: false });
+    $state.go('explore', { query: getQueryAsString(query) }, { notify: false, reload: false });
     runQuery(query);
 
   }
@@ -138,20 +138,23 @@ app
   }
 
 
-  function clean(obj){
+  /*
+  * Trims strings and removes empty strings from query.
+  */
 
-    for (var key in obj) {
-      if (!last(obj[key])) delete obj[key];
-    }
+  function getQueryAsString() {
 
-    function last(o){
-      for (var k in o) {
-        if (typeof o[k] == 'object') return last(o[k]);
-        else return /\S/.test(o.value) ? o[k] : null;
+    var query = $scope.query
+
+    for (var key in query) {
+      if (typeof query[key] === 'string') {
+        query[key] = query[key].trim()
+        if (!query[key]) delete query[key]
       }
     }
 
-    return obj;
+    return JSON.stringify(query)
+  
   }
 
   $scope.clear = function(){

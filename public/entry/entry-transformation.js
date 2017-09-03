@@ -18,6 +18,7 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
 
     var transformations = [
         
+        calculateDurations,
         createTours,
         createOccupations,
         createMilitary,
@@ -63,6 +64,61 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
     /*
     *   --------------------------------------------------------
     */
+
+
+    /*
+    *   Calculates durations for indicated travels.
+    */
+
+    function calculateDurations(entry) {
+
+        const DAYS_IN_MONTH = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+        const MONTHS_IN_YEAR = 12
+
+        entry.travels.forEach(function(travel) {
+
+            var dayDifference, monthDifference, yearDifference
+
+            if (travel.travelDateSpecifiedInDictionary) {
+
+                //  Calculates difference in days
+                if (travel.travelStartDay && travel.travelEndDay) {
+                    dayDifference = travel.travelEndDay - travel.travelStartDay + 1
+                }
+
+                //  Calculates difference in months
+                if (travel.travelStartMonth && travel.travelEndMonth) {
+                    
+                    monthDifference = travel.travelEndMonth - travel.travelStartMonth
+                    if (!dayDifference) monthDifference += 1
+                    if (dayDifference < 0) {
+                        dayDifference += DAYS_IN_MONTH[travel.travelEndMonth - 1 || 12]
+                        monthDifference -= 1
+                    }
+                                    
+                }
+
+                //  Calculates difference in years
+                if (travel.travelStartYear && travel.travelEndYear) {
+                    yearDifference = travel.travelEndYear - travel.travelStartYear
+                    if (!dayDifference && !monthDifference) yearDifference += 1
+                    if (monthDifference < 0) {
+                        monthDifference += MONTHS_IN_YEAR
+                        yearDifference -= 1
+                    }
+                }
+
+            }
+
+            var arr = []
+            if (yearDifference) arr.push(yearDifference + (yearDifference === 1 ? ' year' : ' years'))
+            if (monthDifference) arr.push(monthDifference + (monthDifference === 1 ? ' month' : ' months'))
+            if (dayDifference) arr.push(dayDifference + (dayDifference === 1 ? ' day' : ' days'))
+            travel.travelDurationText = arr.join(', ') || '-'
+
+        })
+
+    }
 
 
     /*

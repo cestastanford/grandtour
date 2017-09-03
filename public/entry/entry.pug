@@ -308,25 +308,40 @@
                   thead
                     tr
                       th Place
-                      th.text-right from
-                      th.text-right to
+                      th.text-right(ng-if="!travelDurationShown") from
+                      th.text-right(ng-if="!travelDurationShown") to
+                      th.text-right(ng-if="travelDurationShown") duration
                       th.text-right.travel-marker-heading markers
+                  
                   tbody
                     tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;", ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
                       td(ng-class="{'bordered':travel.parent}")
                         span(ng-bind-html="highlighted('travel_place', travel)")
-                      td.text-right.tnum-lnum
+                      td.text-right.tnum-lnum(ng-if="!travelDurationShown")
                         span(ng-class="{'highlighted': highlightTravel(travel)}")
                           span(ng-show="!travel.travelStartYear") -
                           span(ng-show="travel.travelStartYear") {{ travel.travelStartYear }}
                           span(ng-show="travel.travelStartMonth") /{{ travel.travelStartMonth }}
                           span(ng-show="travel.travelStartDay") /{{ travel.travelStartDay }}
-                      td.text-right.tnum-lnum
+                      td.text-right.tnum-lnum(ng-if="!travelDurationShown")
                         span(ng-class="{'highlighted': highlightTravel(travel)}")
                           span(ng-show="!travel.travelEndYear") -
                           span(ng-show="travel.travelEndYear") {{ travel.travelEndYear }}
                           span(ng-show="travel.travelEndMonth") /{{ travel.travelEndMonth }}
                           span(ng-show="travel.travelEndDay") /{{ travel.travelEndDay }}
+                      td.text-right.tnum-lnum(ng-if="travelDurationShown")
+                        span {{ travel.travelDurationText }}
                       td.text-right.tnum-lnum.travel-marker-body(ng-show="travel.markers")
                         span(ng-class="{'highlighted': highlightTravel(travel)}") {{ travel.markers }}
+
+              .query-type-chooser
+                span.date-query-type(
+                  ng-click="travelDurationShown = false",
+                  ng-class="{ selected: !travelDurationShown }",
+                ) travel dates
+                
+                span.date-query-type(
+                  ng-click="travelDurationShown = true",
+                  ng-class="{ selected: travelDurationShown }",
+                ) travel durations
 

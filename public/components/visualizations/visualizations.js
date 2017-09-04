@@ -70,7 +70,7 @@
                 */
 
                 var dimensionNames = scope.$eval(attributes.dimensions)
-                scope.dimensions = dimensionNames.map(function(name) {
+                var dimensions = dimensionNames.map(function(name) {
 
                     var dimension = VISUALIZABLE_DIMENSIONS[name]
                     return {
@@ -91,36 +91,44 @@
                 *   Creates view model for header categorized dimension toggle buttons.
                 */
 
-                scope.dimensionCategories = Object.keys(DOT_EFFECTS).map(function(effectKey) {
+                var dimensionCategories = Object.keys(DOT_EFFECTS).map(function(effectKey) {
 
                     return {
                         key: effectKey,
                         label: DOT_EFFECTS[effectKey].label,
-                        dimensions: scope.dimensions.filter(function(dimension) { return dimension.dotEffect === effectKey }),
+                        dimensions: dimensions.filter(function(dimension) { return dimension.dotEffect === effectKey }),
                     }
 
                 })
 
-                console.log(scope.dimensions, scope.dimensionCategories)
-
 
                 /*
-                *   Updates the visualization if the dimensions or
-                *   entries change.
+                *   Updates the visualization if the dimensions,
+                *   entries or other state values change.
                 */
 
-                scope.$watch('dimensions', updateVisualization, true)
+                var viewModel = {
+
+                    dimensionCategories: dimensionCategories,
+                    dimensions: dimensions,
+                    groupedBy: null,
+                    hideDeselectedEntries: false,
+
+                }
+
+                scope.viewModel = viewModel
+                scope.$watch('viewModel', updateVisualization, true)
                 scope.$watch('allEntries', updateVisualization)
                 var dots = []
                 function updateVisualization() {
 
-                    var selectedEntries = filterEntries(scope.allEntries, scope.dimensions)
-                    initializeVisualization(scope.groupedBy)
-                    var dots = setDotAttributes(dots, selectedEntries, scope.dimensions)
+                    var selectedEntries = filterEntries(scope.allEntries, dimensions, viewModel.hideDeselectedEntries)
+                    initializeVisualization(viewModel.groupedBy)
+                    var dots = setDotAttributes(dots, selectedEntries, dimensions)
                     updateDots(dots)
-                    if (scope.groupedBy) {
+                    if (viewModel.groupedBy) {
                         
-                        var grid = calculateDotGrid(dots, groupedBy)
+                        var grid = calculateDotGrid(dots, viewModel.groupedBy)
                         placeLabelsAndLines(grid)
                         moveDotsToGridLocation(grid, dots)
                     
@@ -148,6 +156,7 @@
                         dimension.enabled = false
                     })
 
+                    if (!newValue && viewModel.groupedBy === dimension) viewModel.groupedBy = null
                     dimension.enabled = newValue
 
                 }

@@ -1,20 +1,42 @@
 .visualizations.panel.panel-default
     .panel-heading
         .category(
-            ng-repeat="category in dimensionCategories",
+            ng-repeat="category in viewModel.dimensionCategories",
             ng-if="category.dimensions.length",
         )
-            .category-label {{ category.label }}
+            .category-dimension-label {{ category.label }}
             .category-dimensions
-                button.btn.btn-default.btn-md.category-dimension(ng-repeat="dimension in category.dimensions")(
+                button.btn.btn-default.btn-md.category-dimension-toggle(ng-repeat="dimension in category.dimensions")(
                     type="button",
                     ng-class="{ active: dimension.enabled }",
                     ng-click="toggleDimensionEnabled(dimension, category)",
                 ) {{ dimension.label }}
     
     .panel-body
-        .col-lg-9 Canvas
-        .col-lg-3 Sidebar
+        .col-lg-9.canvas
+        .col-lg-3.sidebar
+            .dimension-keys
+                div.dimension-key(ng-repeat="category in viewModel.dimensionCategories")
+                    div(
+                        ng-repeat="dimension in category.dimensions",
+                        ng-if="dimension.enabled"
+                    )
+                        .dimension-key-header
+                            .category-dimension-label {{ dimension.label }}
+                            button.btn.btn-default.btn-xs.group-dimension-toggle(
+                                type="button",
+                                ng-class="{ active: viewModel.groupedBy === dimension }",
+                                ng-click="viewModel.groupedBy = (viewModel.groupedBy === dimension ? null : dimension)",
+                            ) group
+
+                        .dimension-groupings
+                            .dimension-grouping(ng-repeat="grouping in dimension.getGroupings()") {{ grouping.label }}
+
+
+            .hide-deselected
+                label
+                    input(type="checkbox", ng-model="hideDeselectedEntries")
+                    span hide deselected entries
     
     .panel-footer.text-center
         button.btn.btn-default.btn-xs(

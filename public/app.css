@@ -961,10 +961,11 @@ ul.list-group.entry-facet > li .controls {
 }
 
 .visualizations .panel-heading .category:not(:last-child) {
-  border-right: 1px solid #aaa;
+  border-right: 1px solid #ccc;
 }
 
-.visualizations .panel-heading .category .category-label {
+.visualizations .category-dimension-label {
+  font-weight: bold;
   text-transform: uppercase;
   letter-spacing: .125em;
   color: #888;
@@ -975,12 +976,73 @@ ul.list-group.entry-facet > li .controls {
   margin: .75em 0;
 }
 
-.visualizations .panel-heading .category .category-dimensions button.category-dimension {
+.visualizations .panel-heading .category .category-dimensions .category-dimension-toggle {
   outline: none;
   margin-right: 1em;
 }
 
-.visualizations .panel-heading .category .category-dimensions button.category-dimension:last-child {
-  outline: none;
+.visualizations .panel-heading .category .category-dimensions .category-dimension-toggle:not(.active) {
+  background-color: #fff;
+}
+
+.visualizations .panel-heading .category .category-dimensions .category-dimension-toggle:last-child {
   margin-right: 0;
+}
+
+.visualizations .panel-body {
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.visualizations .panel-body .canvas {
+  height: 600px;
+}
+
+.visualizations .panel-body .sidebar {
+  border-left: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys {
+  padding: 1em;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys .dimension-key {
+  margin-bottom: 2em;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-key-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-key-header .group-dimension-toggle {
+  outline: none;
+  margin-right: 1em;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-key-header .group-dimension-toggle:not(.active) {
+  background-color: #fff;
+}
+
+.visualizations .panel-body .sidebar .hide-deselected {
+  text-align: center;
+  padding: 1em 0;
+  border-top: 1px solid #ddd;
+}
+
+.visualizations .panel-body .sidebar .hide-deselected label {
+  margin-bottom: 0;
+}
+
+.visualizations .panel-body .sidebar .hide-deselected label span {
+  margin-left: 1em;
+  letter-spacing: .05em;
+  color: #888;
+  font-weight: lighter;
 }

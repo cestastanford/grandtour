@@ -1,21 +1,21 @@
 .container.main-view
 
     .row
+        br
         .col-lg-12
             revision-status
 
-    br
     .row
+        br
         .col-lg-12
             entry-list-context(no-navigation="no-navigation")
 
-    br
     .row
+        br
         .col-lg-12
-            visualizations(dimensions="[ 'gender' ]")
-            //- visualizations(dimensions="[ 'genderVisualization', 'entryLengthVisualization', 'travelLengthVisualization', 'dateOfFirstTravelVisualization' ]")
+            visualizations(dimensions="[ 'gender', 'entryLength', 'travelLength', 'dateOfFirstTravel' ]")
 
-    br
-    .row
+    .row(ng-show="entryListVisible")
+        br
         .col-lg-12
             entry-list(entries="entries", export="export()")

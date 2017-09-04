@@ -1,6 +1,30 @@
-.panel.panel-default
-    .panel-heading Heading
+.visualizations.panel.panel-default
+    .panel-heading
+        .category(
+            ng-repeat="category in dimensionCategories",
+            ng-if="category.dimensions.length",
+        )
+            .category-label {{ category.label }}
+            .category-dimensions
+                button.btn.btn-default.btn-md.category-dimension(ng-repeat="dimension in category.dimensions")(
+                    type="button",
+                    ng-class="{ active: dimension.enabled }",
+                    ng-click="toggleDimensionEnabled(dimension, category)",
+                ) {{ dimension.label }}
+    
     .panel-body
         .col-lg-9 Canvas
         .col-lg-3 Sidebar
-    .panel-footer Footer
+    
+    .panel-footer.text-center
+        button.btn.btn-default.btn-xs(
+            type="button",
+            ng-if="!entryListVisible",
+            ng-click="setEntryListVisibility(true)",
+        ) show entry list
+
+        button.btn.btn-default.btn-xs(
+            type="button",
+            ng-if="entryListVisible",
+            ng-click="setEntryListVisibility(false)",
+        ) hide entry list

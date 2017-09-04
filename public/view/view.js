@@ -19,10 +19,11 @@ app.controller('ViewCtrl', function($scope, entryListContext, $http) {
 
 
     /*
-    *   Allows directives to update the set of entries.
+    *   Allows directives to update the entry list.
     */
 
     $scope.updateEntries = function(entries) { $scope.entries = entries }
+    $scope.setEntryListVisibility = function(visible) { $scope.entryListVisible = visible }
 
 
     /*
@@ -50,6 +51,5 @@ app.controller('ViewCtrl', function($scope, entryListContext, $http) {
     
         });
     }
-
 
 })

@@ -31,7 +31,22 @@
         gender: {
             label: 'Gender',
             dotEffect: 'color',
-        }
+        },
+
+        entryLength: {
+            label: 'Entry Length',
+            dotEffect: 'size',
+        },
+
+        travelLength: {
+            label: 'Travel Length',
+            dotEffect: 'size',
+        },
+
+        dateOfFirstTravel: {
+            label: 'Date of First Travel',
+            dotEffect: 'groupingOnly',
+        },
 
     }
 
@@ -62,6 +77,7 @@
 
                         key: name,
                         label: dimension.label,
+                        dotEffect: dimension.dotEffect,
                         enabled: false,
                         getGroupings: dimension.getGroupings,
                         deselectedGroupings: [ 0 ],
@@ -75,7 +91,7 @@
                 *   Creates view model for header categorized dimension toggle buttons.
                 */
 
-                scope.categorizedDimensions = Object.keys(DOT_EFFECTS).map(function(effectKey) {
+                scope.dimensionCategories = Object.keys(DOT_EFFECTS).map(function(effectKey) {
 
                     return {
                         key: effectKey,
@@ -85,13 +101,15 @@
 
                 })
 
+                console.log(scope.dimensions, scope.dimensionCategories)
+
 
                 /*
                 *   Updates the visualization if the dimensions or
                 *   entries change.
                 */
 
-                scope.$watch('dimensions', updateVisualization)
+                scope.$watch('dimensions', updateVisualization, true)
                 scope.$watch('allEntries', updateVisualization)
                 var dots = []
                 function updateVisualization() {
@@ -123,12 +141,14 @@
                 *   one from each effect group is selected.
                 */
 
-                scope.toggleDimensionEnabled = function(dimension, group) {
+                scope.toggleDimensionEnabled = function(dimension, category) {
 
-                    dimension.enabled = !dimension.enabled
-                    if (dimension.enabled && group.key !== 'groupingOnly') group.dimensions.forEach(function(dimension) {
+                    var newValue = !dimension.enabled
+                    if (newValue && category.key !== 'groupingOnly') category.dimensions.forEach(function(dimension) {
                         dimension.enabled = false
                     })
+
+                    dimension.enabled = newValue
 
                 }
 
@@ -246,6 +266,6 @@
         console.log('respacing dots')
 
     }
-    
+
 
 })()

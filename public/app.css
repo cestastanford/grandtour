@@ -946,3 +946,41 @@ ul.list-group.entry-facet > li .controls {
   font-style: italic;
   color: #888;
 }
+
+.visualizations .panel-heading {
+  display: flex;
+  align-items: stretch;
+}
+
+.visualizations .panel-heading .category {
+  padding: 0 1em;
+}
+
+.visualizations .panel-heading .category:first-child {
+  padding-left: 0;
+}
+
+.visualizations .panel-heading .category:not(:last-child) {
+  border-right: 1px solid #aaa;
+}
+
+.visualizations .panel-heading .category .category-label {
+  text-transform: uppercase;
+  letter-spacing: .125em;
+  color: #888;
+}
+
+.visualizations .panel-heading .category .category-dimensions {
+  display: flex;
+  margin: .75em 0;
+}
+
+.visualizations .panel-heading .category .category-dimensions button.category-dimension {
+  outline: none;
+  margin-right: 1em;
+}
+
+.visualizations .panel-heading .category .category-dimensions button.category-dimension:last-child {
+  outline: none;
+  margin-right: 0;
+}

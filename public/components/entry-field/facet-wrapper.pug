@@ -1,10 +1,9 @@
 .panel.panel-default(ng-if="fieldValueArray")
     .panel-heading {{ entryFields[fieldKey].label }}
     ul.list-group.entry-facet(ng-sortable="{ onUpdate: arraySorted }")
-        li.list-group-item(ng-repeat="fieldValue in fieldValueArray")
+        li.list-group-item(ng-repeat="(arrayIndex, fieldValue) in fieldValueArray")
             ng-include.data(
                 src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
-                ng-init="arrayIndex = $index;",
             )
             .controls
                 a.small.pull-right(ng-click="deleteFromArray(fieldValue)") delete 

@@ -183,123 +183,18 @@
         
         hr
         
-        .form-group
-          label Travel
-          input.input-sm.form-control(
-            type="text", 
-            ng-model="travelModel.place",
-            placeholder="place ({{ counts.travel_place }} entries)",
-            ng-class="{ filled : travelModel.place }"
-            typeahead="item for item in getSuggestions('travels.place', $viewValue)"
-            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
-            typeahead-on-select="search()")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.startYear",
-            placeholder="year ({{ counts.travel_year }} entries)",
-            ng-class="{ filled : travelModel.date.query.startYear }",
-            ng-show="travelModel.date.queryType === 'exact'")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.startMonth",
-            placeholder="month ({{ counts.travel_month }} entries)",
-            ng-class="{ filled : travelModel.date.query.startMonth }",
-            ng-show="travelModel.date.queryType === 'exact'",
-            ng-disabled="!travelModel.date.query.startYear && !travelModel.date.query.startMonth")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.startDay",
-            placeholder="day ({{ counts.travel_day }} entries)",
-            ng-class="{ filled : travelModel.date.query.startDay }",
-            ng-show="travelModel.date.queryType === 'exact'",
-            ng-disabled="!travelModel.date.query.startMonth && !travelModel.date.query.startDay")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.startYear",
-            placeholder="start year ({{ counts.travel_year }} entries)",
-            ng-class="{ filled : travelModel.date.query.startYear }",
-            ng-show="travelModel.date.queryType === 'range'")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.startMonth",
-            placeholder="start month ({{ counts.travel_month }} entries)",
-            ng-class="{ filled : travelModel.date.query.startMonth }",
-            ng-show="travelModel.date.queryType === 'range'",
-            ng-disabled="!travelModel.date.query.startYear && !travelModel.date.query.startMonth")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.startDay",
-            placeholder="start day ({{ counts.travel_day }} entries)",
-            ng-class="{ filled : travelModel.date.query.startDay }",
-            ng-show="travelModel.date.queryType === 'range'",
-            ng-disabled="!travelModel.date.query.startMonth && !travelModel.date.query.startDay")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.endYear",
-            placeholder="end year ({{ counts.travel_year }} entries)",
-            ng-class="{ filled : travelModel.date.query.endYear }",
-            ng-show="travelModel.date.queryType === 'range'")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.endMonth",
-            placeholder="end month ({{ counts.travel_month }} entries)",
-            ng-class="{ filled : travelModel.date.query.endMonth }",
-            ng-show="travelModel.date.queryType === 'range'",
-            ng-disabled="!travelModel.date.query.endYear && !travelModel.date.query.endMonth")
-          input.input-sm.form-control.margin-top(
-            type="text", 
-            ng-model="travelModel.date.query.endDay",
-            placeholder="end day ({{ counts.travel_day }} entries)",
-            ng-class="{ filled : travelModel.date.query.endDay }",
-            ng-show="travelModel.date.queryType === 'range'",
-            ng-disabled="!travelModel.date.query.endMonth && !travelModel.date.query.endDay")
-          .margin-top
-            span.date-query-type.date-query-type-label search by: 
-            span.date-query-type(
-              ng-click="resetTravelDate('exact')",
-              ng-class="{selected: travelModel.date.queryType === 'exact'}") exact year
-            span.date-query-type(
-              ng-click="resetTravelDate('range')",
-              ng-class="{selected: travelModel.date.queryType === 'range'}") range of years
+        travel-search
 
         hr
 
-        .form-group
-          label Free search in the entries
-          div.free-search-input(ng-repeat="term in freeSearchModel.terms track by $index")
-            input.input-sm.form-control(
-              type="text", 
-              ng-model="term.value",
-              placeholder="text ({{ counts.fullName }} entries)",
-              ng-class="{ filled: term.value }",
-            )
-            
-            a.small(
-              ng-show="freeSearchModel.terms.length > 1",
-              ng-click="freeSearchModel.terms.splice($index, 1)"
-            ) x
-          
-          a.small.add-word(ng-click="freeSearchModel.terms.push({ value: '' })") add word
-          .checkbox.pull-right
-            label
-              input.small(type="checkbox", ng-model="freeSearchModel.beginnings")
-              div.small.free-search-beginning-of-word Search beginnings of words only
-          
-          .clearfix
-          .checkbox(ng-repeat="section in freeSearchModel.sections")
-            label
-              input(type="checkbox", ng-model="section.checked")
-              div {{ section.name }}
+        free-search
 
         button.btn.btn-default(ng-click="search()", type="submit") Search
           
     .col-lg-9
       // pre.query {{query}}
       
-      p
-        .pill(ng-repeat="pill in pills") 
-          .pill-dimension {{ pill.dimension }}
-          strong.pill-value {{ pill.value }} 
+      pills
       
       div.text-muted(ng-show="untouched") Use the fields on the left and press Enter or click the Search button to start searching.
 

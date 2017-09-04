@@ -1,104 +1,4 @@
 /*
-*   List management service
-*/
-
-app.factory('savedListService', function($rootScope, $http) {
-
-  //  public service object
-  var sharedListModel = {
-    myLists: null,
-    listsLoading: true
-  };
-
-  //  create a list
-  var newList = function(name, callback) {
-    $http.post('/api/lists/newlist', {
-      username: $rootScope.currentUser.username,
-      name: name
-    })
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else {
-        sharedListModel.myLists.push(res.data.newList);
-        callback(res.data.newList);
-      }
-    }, function(res) { console.error(res); });
-  };
-
-  //  delete a list
-  var deleteList = function(list, callback) {
-    $http.post('/api/lists/deletelist', {
-      username: $rootScope.currentUser.username,
-      id: list._id
-    })
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else {
-        var index = sharedListModel.myLists.indexOf(list);
-        sharedListModel.myLists.splice(index, 1);
-        callback();
-      }
-    }, function(res) { console.error(res); });
-  };
-
-  //  add to a list
-  var addToList = function(list, entry, callback) {
-    if (list.entryIDs.indexOf(entry.index) > -1) callback({ alreadyInList: true });
-    else {
-      $http.post('/api/lists/addtolist', {
-        listID: list._id,
-        entryIndex: entry.index
-      })
-      .then(function(res) {
-        if (res.data.error) console.error(error);
-        else {
-          list.entryIDs.push(entry.index);
-          callback({ addedToList: true });
-        }
-      }, function(res) { console.error(res); });
-    }
-  };
-
-  //  remove from a list
-  var removeFromList = function(list, entry, callback) {
-    var index = list.entryIDs.indexOf(entry.index);
-    $http.post('/api/lists/removefromlist', {
-      listID: list._id,
-      entryIndex: entry.index
-    })
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else {
-        list.entryIDs.splice(index, 1);
-        callback();
-      }
-    }, function(res) { console.error(res); });
-  };
-
-  //  do initial list download
-  var myListsPromise = $http.post('/api/lists/mylists', {
-    username: $rootScope.currentUser.username
-  })
-  .then(function(res) {
-    if (res.data.error) console.error(res.data.error);
-    else sharedListModel.myLists = res.data.entries;
-    sharedListModel.listsLoading = false;
-  }, function(res) { console.error(res); });
-
-  //  return service's public fields
-  return {
-    sharedListModel: sharedListModel,
-    newList: newList,
-    deleteList: deleteList,
-    addToList: addToList,
-    removeFromList: removeFromList,
-    myListsPromise: myListsPromise,
-  };
-
-})
-
-
-/*
 *   List view controller
 */
 
@@ -150,23 +50,11 @@ app.controller('ListsCtrl', function($scope, $http, savedListService, $statePara
     };
 
     function downloadEntries(list) {
-        var entries = [];
-        var entriesDownloaded = 0;
-        if (!list.entryIDs.length) viewModel.selectedListEntries = entries;
-        else for (var i = 0; i < list.entryIDs.length; i++) {
-            var id = list.entryIDs[i];
-            $http.get('/api/entries/' + id)
-            .then((function(res) {
-                if (res.data.error) console.error(error);
-                else {
-                    var i = this;
-                    entries[i] = res.data.entry;
-                    if (++entriesDownloaded === list.entryIDs.length) {
-                        viewModel.selectedListEntries = entries;
-                    }
-                }
-            }).bind(i), function(res) { console.error(res); });
-        }
+        $http.get('/api/lists/' + list._id + '/entries')
+        .then(function(response) {
+            viewModel.selectedListEntries = response.data
+        })
+        .catch(console.error.bind(console))
     };
 
     $scope.removeSelectedEntriesFromList = function() {
@@ -219,9 +107,9 @@ app.controller('ListsCtrl', function($scope, $http, savedListService, $statePara
     
     if ($stateParams.id) savedListService.myListsPromise.then(function() {
 
-      var list = savedListService.sharedListModel.myLists.filter(function(list) { return list._id === $stateParams.id })[0]
-      if (list) $scope.selectList(list)
-      else $state.go('lists', { id: null }, { notify: false })
+        var list = savedListService.sharedListModel.myLists.filter(function(list) { return list._id === $stateParams.id })[0]
+        if (list) $scope.selectList(list)
+        else $state.go('lists', { id: null }, { notify: false })
 
     })
     

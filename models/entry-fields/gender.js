@@ -5,7 +5,6 @@ module.exports = {
     label: 'Gender',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Type',
 
     }

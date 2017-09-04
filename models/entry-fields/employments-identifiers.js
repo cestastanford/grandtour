@@ -7,7 +7,6 @@ module.exports = {
     label: 'Employments & Identifiers',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Employments and Identifiers',
 
     }

@@ -179,7 +179,7 @@ const saveSheetsToGoogleSpreadsheet = async sheets => {
 
     await authenticate()
     const spreadsheet = await createNewSpreadsheet(sheets)
-    await setSpreadsheetPermissions(spreadsheet)
+    await setSpreadsheetPermissions(spreadsheet, { type: 'user', role: 'owner', emailAddress: process.env.EXPORT_OWNER_EMAIL_ADDRESS })
     sendUpdate(`Saving entry data to spreadsheet`)
     const progress = { value: 0, max: sheets.length }
     await Promise.all(sheets.map(sheet => saveToSheet(spreadsheet, sheet, progress)))
@@ -253,16 +253,14 @@ const createNewSpreadsheet = sheets => new Promise(resolve => {
 *   Sets the permissions on the newly-created Google Spreadsheet.
 */
 
-const setSpreadsheetPermissions = spreadsheet => new Promise(resolve => {
+const setSpreadsheetPermissions = (spreadsheet, permission) => new Promise(resolve => {
 
     sendUpdate('Setting spreadsheet permissions')
 
     const setPermissionsRequest = {
         fileId: spreadsheet.spreadsheetId,
-        resource: {
-            role: 'writer',
-            type: 'anyone',
-        }
+        transferOwnership: true,
+        resource: permission,
     }
 
     google.drive('v3').permissions.create(setPermissionsRequest, error => {

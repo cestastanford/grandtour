@@ -13,14 +13,9 @@ app.directive('entryList', function(savedListService, entryListContext, $filter)
     templateUrl: 'components/entry-list',
     link: function(scope, element, attributes) {
 
-      attributes.$observe('entries', function(entries) {
-        if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
-      })
-      if (scope.entries && scope.entries.length) calculateFirstTravelOrders(scope.entries);
-
       //  Saves entry list view to entryListContext service
       var saveEntryListContext = function() {
-        var sortedEntries = $filter('orderBy')(scope.entries, sortModel.dimension, sortModel.reverseSorting)
+        var sortedEntries = $filter('orderBy')(scope.entries, scope.sortModel.current.sortFn, scope.sortModel.reversed)
         entryListContext.saveContext(sortedEntries, attributes.isSavedListView)
       }
 
@@ -81,38 +76,18 @@ app.directive('entryList', function(savedListService, entryListContext, $filter)
       }
 
       //  support for sorting entries
-      var sortModel = {
-        activeSortableDimensions: [
-          { label : 'Fullname', sorting : 'fullName' },
-          { label : 'Birth date', sorting : 'dates[0].birthDate' },
-          { label : 'Birth place', sorting : 'places[0].birthPlace' },
-          { label : 'Date of first travel', sorting : 'firstTravelUTC' },
-        ],
-        dimension: 'index',
-        reverseSorting: false
+
+      var sortOptions = [
+        { label: 'Index', sortFn: function(entry) { return entry.index ? entry.index : 0.1 } },
+        { label: 'Full Name', sortFn: function(entry) { return entry.fullName } },
+        { label: 'Date of first travel', sortFn: function(entry) { return entry.dateOfFirstTravel } },
+      ]
+
+      scope.sortModel = {
+        options: sortOptions,
+        current: sortOptions[0],
+        reversed: false,
       };
-
-      scope.sortModel = sortModel;
-
-      function calculateFirstTravelOrders(entries) {
-        for (var i = 0; i < entries.length; i++) {
-
-          var entry = entries[i];
-          if (entry.travels) {
-
-            for (var j = 0; j < entry.travels.length; j++) {
-
-              var travel = entry.travels[j];
-              if (travel.travelStartYear) {
-
-                entry.firstTravelUTC = Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay);
-                break;
-
-              }
-            }
-          }
-        }
-      }
 
       //  support for pagination
 

@@ -940,3 +940,9 @@ ul.list-group.entry-facet > li .controls {
   top: 0;
   left: 0;
 }
+
+.sorted-dimension-empty,
+.sorted-dimension-empty .entry-list-item a {
+  font-style: italic;
+  color: #888;
+}

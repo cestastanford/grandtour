@@ -77,9 +77,14 @@ exports.getCounts = async revisionIndex => {
 *   This is a large block of code that performs queries.
 */
 
-
 function escapeRegExp(str) {
-    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+}
+
+function getRegExp(str, exact) {
+    var escapedString =  escapeRegExp(str)
+    if (exact) escapedString = '^' + escapedString + '$'
+    return new RegExp(escapedString, 'gi')
 }
 
 
@@ -97,7 +102,7 @@ exports.suggest = function (req, res, next) {
         .then(response => {
 
             var matches = [];
-            var doesMatch = function(d) { return d.search( new RegExp(value, "i") ) != -1; };
+            var doesMatch = d => d.search( new RegExp(value, "i") ) != -1
             response.forEach(function(entry) {
 
                 if (doesMatch(entry.fullName)) matches.push({ nameMatch: entry.fullName });
@@ -184,104 +189,68 @@ exports.uniques = function (req, res, next) {
     }
 
 
-var searchMapRE = {
+var searchMap = {
 
-    fullName : function(d) { return { $or : [
-        { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } },
-        { alternateNames : { $elemMatch : { alternateName : { $regex : new RegExp(escapeRegExp(d), "gi") } } } },
-    ] } },
-    type : function(d) { return { type : d } },
+    fullName: (d, exact) => ({ $or: [
+        { fullName: { $regex: getRegExp(d, exact) } },
+        { alternateNames: { $elemMatch: { alternateName: { $regex: getRegExp(d, exact) } } } },
+    ] }),
+    type: d => ({ type: d }),
 
-    birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
-    deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
+    birthDate: d => ({ dates: { $elemMatch: { birthDate: +d } } }),
+    deathDate: d => ({ dates: { $elemMatch: { deathDate: +d } } }),
 
-    birthPlace : function(d) { return { places : { $elemMatch : { birthPlace : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    deathPlace : function(d) { return { places : { $elemMatch : { deathPlace : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
+    birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: { $regex: getRegExp(d, exact) }  } } }),
+    deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: { $regex: getRegExp(d, exact) }  } } }),
 
-    societies : function(d) { return { societies : { $elemMatch : { title : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    societies_role : function(d) { return { societies : { $elemMatch : { role : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
+    societies: (d, exact) => ({ societies: { $elemMatch: { title: { $regex: getRegExp(d, exact) }  } } }),
+    societies_role: (d, exact) => ({ societies: { $elemMatch: { role: { $regex: getRegExp(d, exact) }  } } }),
 
-    education_institution : function(d) { return { education : { $elemMatch : { institution : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    education_place : function(d) { return { education : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    education_degree : function(d) { return { education : { $elemMatch : { fullDegree : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    education_teacher : function(d) { return { education : { $elemMatch : { teacher : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
+    education_institution: (d, exact) => ({ education: { $elemMatch: { institution: { $regex: getRegExp(d, exact) }  } } }),
+    education_place: (d, exact) => ({ education: { $elemMatch: { place: { $regex: getRegExp(d, exact) }  } } }),
+    education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: { $regex: getRegExp(d, exact) }  } } }),
+    education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: { $regex: getRegExp(d, exact) }  } } }),
 
-    pursuits : function(d) { return { pursuits : { $elemMatch : { pursuit : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
+    pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: { $regex: getRegExp(d, exact) }  } } }),
 
-    occupations : function(d) { return { occupations : { $elemMatch : { title : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    occupations_group : function(d) { return { occupations : { $elemMatch : { group : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    occupations_place : function(d) { return { occupations : { $elemMatch : { place : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
+    occupations: (d, exact) => ({ occupations: { $elemMatch: { title: { $regex: getRegExp(d, exact) }  } } }),
+    occupations_group: (d, exact) => ({ occupations: { $elemMatch: { group: { $regex: getRegExp(d, exact) }  } } }),
+    occupations_place: (d, exact) => ({ occupations: { $elemMatch: { place: { $regex: getRegExp(d, exact) }  } } }),
 
-    exhibitions : function(d) { return { exhibitions : { $elemMatch : { title : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
-    exhibitions_activity : function(d) { return { exhibitions : { $elemMatch : { activity : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
+    exhibitions: (d, exact) => ({ exhibitions: { $elemMatch: { title: { $regex: getRegExp(d, exact) }  } } }),
+    exhibitions_activity: (d, exact) => ({ exhibitions: { $elemMatch: { activity: { $regex: getRegExp(d, exact) }  } } }),
 
-    military : function(d) { return { military : { $elemMatch : { rank : { $regex : new RegExp(escapeRegExp(d), "gi") }  } } } },
+    military: (d, exact) => ({ military: { $elemMatch: { rank: { $regex: getRegExp(d, exact) }  } } }),
 
-    travel : function(d) {
-
-        var outer = [];
-
-        if (d.date) {
-
-            if (d.date.startYear) {
-
-                outer.push({
-                    $or : [ { travelEndYear : { $gt : +d.date.startYear } }, { $and : [ { travelEndYear : +d.date.startYear } ] } ]
-                });
-
-                if (d.date.startMonth) {
-
-                    var middle = outer[0].$or[1].$and;
-                    middle.push({
-                        $or : [ { travelEndMonth : { $gt : +d.date.startMonth } }, { $and : [ { travelEndMonth : +d.date.startMonth } ] } ]
-                    });
-
-                    if (d.date.startDay) {
-
-                        var inner = middle[1].$or[1].$and;
-                        inner.push({
-                            $or : [ { travelEndDay : { $gte : +d.date.startDay } } ]
-                        });
-
-                    }
-
-                }
-
-            }
-
-            if (d.date.endYear) {
-
-                outer.push({
-                    $or : [ { travelStartYear : { $lt : +d.date.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.date.endYear } ] } ]
-                });
-
-                if (d.date.endMonth) {
-
-                    var middle = outer[0].$or[1].$and;
-                    middle.push({
-                        $or : [ { travelStartMonth : { $lt : +d.date.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.date.endMonth } ] } ]
-                    });
-
-                    if (d.date.endDay) {
-
-                        var inner = middle[1].$or[1].$and;
-                        inner.push({
-                            $or : [ { travelStartDay : { $lte : +d.date.endDay, $ne : 0 } } ]
-                        });
-
-                    }
-
-                }
-
-            }
-
+    travel: d => ({
+        travels: {
+            $elemMatch: { $and: [
+                d.place ? { place: { $regex: getRegExp(d.place) } } : {},
+                d.date ? { $and: [
+                    d.date.startYear ? { $or: [
+                        { travelEndYear: { $gt: +d.date.startYear } },
+                        { $and: [
+                            { travelEndYear: +d.date.startYear },
+                            d.date.startMonth ? { $or: [
+                                { travelEndMonth: { $gte: +d.date.startMonth } },
+                                { travelEndMonth: 0 },
+                            ] } : {},
+                        ] }
+                    ] } : {},
+                    d.date.endYear ? { $or: [
+                        { travelStartYear: { $lt: +d.date.endYear, $ne: 0 } },
+                        { $and: [
+                            { travelStartYear: +d.date.endYear },
+                            d.date.endMonth ? { $or: [
+                                { travelStartMonth: { $lte: +d.date.endMonth } },
+                                { travelStartMonth: 0 },
+                            ] } : {},
+                        ] }
+                    ] } : {},
+                ] } : {},
+            ] }
         }
-
-        if (d.place) outer.push({ place : { $regex : new RegExp(escapeRegExp(d.place), "gi") } });
-
-        return { travels : { $elemMatch : { $and : outer } } };
-
-    },
+    }),
 
     entry: d => ({
         $and: d.terms.map(term => ({
@@ -294,136 +263,30 @@ var searchMapRE = {
 }
 
 
-var searchMap = {
-
-    fullName : function(d) { return { $or : [
-        { fullName : { $regex : new RegExp(escapeRegExp(d), "gi") } },
-        { alternateNames : { $elemMatch : { alternateName : { $regex : new RegExp(escapeRegExp(d), "gi") } } } },
-    ] } },
-
-    type : function(d) { return { type : d } },
-
-    birthDate : function(d) { return { dates : { $elemMatch : { birthDate : +d } } } },
-    deathDate : function(d) { return { dates : { $elemMatch : { deathDate : +d } } } },
-
-    birthPlace : function(d) { return { places : { $elemMatch : { birthPlace : d  } } } },
-    deathPlace : function(d) { return { places : { $elemMatch : { deathPlace : d  } } } },
-
-    societies : function(d) { return { societies : { $elemMatch : { title : d } } } },
-    societies_role : function(d) { return { societies : { $elemMatch : { role :d  } } } },
-
-    education_institution : function(d) { return { education : { $elemMatch : { institution : d  } } } },
-    education_place : function(d) { return { education : { $elemMatch : { place : d  } } } },
-    education_degree : function(d) { return { education : { $elemMatch : { fullDegree : d } } } },
-    education_teacher : function(d) { return { education : { $elemMatch : { teacher : d  } } } },
-
-    pursuits : function(d) { return { pursuits : { $elemMatch : { pursuit : d  } } } },
-
-    occupations : function(d) { return { occupations : { $elemMatch : { title : d  } } } },
-    occupations_group : function(d) { return { occupations : { $elemMatch : { group : d  } } } },
-    occupations_place : function(d) { return { occupations : { $elemMatch : { place : d  } } } },
-
-    exhibitions : function(d) { return { exhibitions : { $elemMatch : { title : d  } } } },
-    exhibitions_activity : function(d) { return { exhibitions : { $elemMatch :  { activity : d  }  } } } ,
-
-    military : function(d) { return { military : { $elemMatch : { rank : d  } } } },
-
-    travel : function(d) {
-
-        var outer = [];
-
-        if (d.date) {
-
-            if (d.date.startYear) {
-
-                outer.push({
-                    $or : [ { travelEndYear : { $gt : +d.date.startYear } }, { $and : [ { travelEndYear : +d.date.startYear } ] } ]
-                });
-
-                if (d.date.startMonth) {
-
-                    var middle = outer[0].$or[1].$and;
-                    middle.push({
-                        $or : [ { travelEndMonth : { $gt : +d.date.startMonth } }, { $and : [ { travelEndMonth : +d.date.startMonth } ] } ]
-                    });
-
-                    if (d.date.startDay) {
-
-                        var inner = middle[1].$or[1].$and;
-                        inner.push({
-                            $or : [ { travelEndDay : { $gte : +d.date.startDay } } ]
-                        });
-
-                    }
-
-                }
-
-            }
-
-            if (d.date.endYear) {
-
-                outer.push({
-                    $or : [ { travelStartYear : { $lt : +d.date.endYear, $ne : 0 } }, { $and : [ { travelStartYear : +d.date.endYear } ] } ]
-                });
-
-                if (d.date.endMonth) {
-
-                    var middle = outer[0].$or[1].$and;
-                    middle.push({
-                        $or : [ { travelStartMonth : { $lt : +d.date.endMonth, $ne : 0 } }, { $and : [ { travelStartMonth : +d.date.endMonth } ] } ]
-                    });
-
-                    if (d.date.endDay) {
-
-                        var inner = middle[1].$or[1].$and;
-                        inner.push({
-                            $or : [ { travelStartDay : { $lte : +d.date.endDay, $ne : 0 } } ]
-                        });
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        if (d.place) outer.push({ place : { $regex : new RegExp(escapeRegExp(d.place), "gi") } });
-
-        return { travels : { $elemMatch : { $and : outer } } };
-
-    },
-
-    entry: d => ({
-        $and: d.terms.map(term => ({
-            $or: d.sections.map(section => ({
-                [section.key]: { $regex: new RegExp((d.beginnings ? '\\b' : '') + escapeRegExp(term.value), 'gi') }
-            }))
-        }))
-    }),
-
-}
-
-
 function parseQuery(query) {
+    
     var o = []
-    for (var k in query){
-        if (query[k].constructor === Array) {
+    for (var k in query) {
+        
+        if (Array.isArray(query[k])) {
+            
             var s = { $or : [] }
             for (var i in query[k]) {
-                s.$or.push( searchMap[k](query[k][i]) );
+                s.$or.push( searchMap[k](query[k][i], true) )
             }
-        }
-        else var s = searchMap[k](query[k]);
+        
+        } else var s = searchMap[k](query[k])
 
         o.push(s)
 
     }
+    
     return o.length ? { $and: o } : {};
+
 }
 
 
-exports.search = function (req, res, next) {
+exports.search = (req, res, next) => {
 
     const originalQuery = JSON.stringify(req.body.query);
     const query = parseQuery(req.body.query);
@@ -435,44 +298,34 @@ exports.search = function (req, res, next) {
             index: true,
             fullName: true,
             biography: true,
-        }
+            travels: true,
+        },
     )
-    .then(response => res.json({ request: JSON.parse(originalQuery), entries: response }))
+    .then(entries => entries.map(projectForEntryList))
+    .then(entries => res.json({ request: JSON.parse(originalQuery), entries }))
     .catch(next)
 
 }
 
 
-function parseQuery2(query) {
-    var o = []
-    for (var k in query){
-        var s = searchMapRE[k](query[k]);
+const projectForEntryList = entry => ({ 
 
-        o.push(s)
+    index: entry.index,
+    fullName: entry.fullName,
+    biographyExcerpt: entry.biography.slice(0, 200),
+    dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
 
-    }
-    return o.length ? { $and: o } : {};
-}
-
-
-exports.search2 = (req, res, next) => {
-
-    const originalQuery = JSON.stringify(req.body.query);
-    const query = parseQuery2(req.body.query);
-
-    Entry.findAtRevision(
-        query,
-        req.user.activeRevisionIndex,
-        {
-            index: true,
-            fullName: true,
-            biography: true,
+        if (accum) return accum
+        else if (travel.travelStartYear) {
+            const utc = Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay)
+            return utc
         }
-        )
-    .then(response => res.json({ request: JSON.parse(originalQuery), entries: response }))
-    .catch(next)
 
-}
+    }, 0) : 0
+
+})
+
+exports.projectForEntryList = projectForEntryList
 
 
 function parseExport(res) {

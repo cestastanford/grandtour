@@ -11,7 +11,6 @@ module.exports = {
     label: 'Marriages',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Marriages',
 
     }

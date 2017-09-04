@@ -6,7 +6,6 @@ module.exports = {
     label: 'Biography',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Entries',
 
     }

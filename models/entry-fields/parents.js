@@ -15,7 +15,6 @@ module.exports = {
     label: 'Parents',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Parents',
         
     }

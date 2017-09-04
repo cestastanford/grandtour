@@ -9,7 +9,6 @@ module.exports = {
     label: 'Mistresses',
     sheet: {
 
-        spreadsheet: '1t6FRVhSQf6HyiJIHxC9sJEUqDdjkRYKtPrhyDoLveJo',
         name: 'Mistresses',
 
     }

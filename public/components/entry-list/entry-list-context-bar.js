@@ -9,6 +9,7 @@ app.directive('entryListContext', function($state, entryListContext, entryHighli
             previousEntryIndex: '@',
             nextEntryIndex: '@',
             editing: '@?',
+            noNavigation: '@?',
         },
         link: function(scope, element, attributes) {
 
@@ -34,9 +35,11 @@ app.directive('entryListContext', function($state, entryListContext, entryHighli
 
             }
 
-            scope.$watch('currentEntryIndex', setPreviousNext)
-            scope.$watch('previousEntryIndex', setPreviousNext)
-            scope.$watch('nextEntryIndex', setPreviousNext)
+            if (!scope.noNavigation) {
+                scope.$watch('currentEntryIndex', setPreviousNext)
+                scope.$watch('previousEntryIndex', setPreviousNext)
+                scope.$watch('nextEntryIndex', setPreviousNext)
+            }
 
 
             //  Clears the entry list context and reloads

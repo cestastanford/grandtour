@@ -39,6 +39,52 @@ router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 
 
 /*
+*   Retrieves and returns entry objects, optimized for visualizations.
+*/
+
+router.get('/api/entries/for-visualization/:entryIndexString?', isViewer, (req, res, next) => {
+
+    let getEntriesForVisualization
+    if (req.params.entryIndexString) {
+        const indexes = JSON.parse(req.params.entryIndexString)
+        const query = { index: { $in: indexes } }
+        getEntriesForVisualization = Entry.findAtRevision(query, req.user.activeRevisionIndex)
+    } else getEntriesForVisualization = Entry.findAtRevision(null, req.user.activeRevisionIndex)
+    
+    getEntriesForVisualization
+    .then(entries => res.json(entries.map(entry => ({
+
+        index: entry.index,
+        fullName: entry.fullName,
+        biographyExcerpt: entry.biography.slice(0, 200),
+        gender: entry.type,
+        entryLength: ((entry.biograpy || '') + (entry.tours || '') + (entry.narrative || '') + (entry.notes || '')).length,
+        travelLength: entry.travels.reduce((accum, travel) => {
+
+            if (travel.tourStartFrom && travel.tourEndFrom) {
+                if (!accum.start || accum.start > travel.tourStartFrom) accum.start = travel.tourStartFrom
+                if (!accum.end || accum.end < travel.tourEndFrom) accum.end = travel.tourEndFrom
+            }
+
+            if (accum.start && accum.end) accum.lengthInYears = accum.end - accum.start + 1
+            return accum
+
+        }, {}).lengthInYears,
+
+        dateOfFirstTravel: entry.travels.reduce((accum, travel) => {
+
+            if (accum) return accum
+            else if (travel.travelStartYear) return Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay)
+
+        }, null),
+
+    }))))
+    .catch(next)
+
+})
+
+
+/*
 *   Retrieves a single Entry.
 */
 

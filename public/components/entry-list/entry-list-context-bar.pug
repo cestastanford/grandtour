@@ -23,7 +23,7 @@
                     ng-click="clearContext()"
                 ) Browse all entries
     
-    .prev-next-buttons
+    .prev-next-buttons(ng-if="!noNavigation")
         a(ng-href="{{ '#/entries/' + previous + (editing ? '/edit' : '') }}")
             i.fa.fa-angle-left 
         a(ng-href="{{ '#/entries/' + next + (editing ? '/edit' : '') }}")

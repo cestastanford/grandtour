@@ -1,7 +1,15 @@
 .container.main-view
-  .row
-    .col-lg-12
-      .row
-        svg(style="margin: 0 auto;")
-        div
-            button.prepare-download(type="button", ng-click="prepareDownload()") Prepare Download
+
+    .row
+        .col-lg-12
+            revision-status
+
+    .row
+        br
+        .col-lg-12
+            entry-list-context(no-navigation="no-navigation")
+
+    br
+    .row
+        .col-lg-12
+            entry-list(entries="selectedEntries", export="export()")

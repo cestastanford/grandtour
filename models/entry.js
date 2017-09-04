@@ -257,7 +257,7 @@ class Entry {
         return results.map(result => toObject(result))
 
     }
-
+    
 
     /*
     *   Retrieves an array of unique values for a given field in

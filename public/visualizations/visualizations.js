@@ -1,273 +1,49 @@
-/*
-*   Runs the Dots visualization.
-*/
-
-const Dots = entries => {
-
-    /*
-    *   Colors
-    */
-
-    const COLORS = {
-        green: 'rgba(125, 225, 200, 1)',
-        orange: 'rgba(250, 175, 125, 1)',
-        blue: 'rgba(150, 150, 200, 1)',
-        grey: 'rgba(221, 221, 221, .75)',
-    }
-    
-    
-    /*
-    *   Constants
-    */
-
-    const CANVAS_WIDTH = 840
-    const CANVAS_HEIGHT = 715
-    const EDGE_PADDING = 10
-    const MAX_DOT_SIZE_COEFFICIENT = 2
-    const MIN_DOT_SPACING = 2.5
-    const SIZING_COEFFICIENT = 1
-
-    
-    /*
-    *   Assigns dot colors based on gender.
-    */
-
-    const assignColors = () => {
-        entries.forEach(e => {
-            if (e.type === 'Man') e.color = COLORS.green
-            else e.color = COLORS.orange
-            // e.color = COLORS.blue
-        })
-    }
-
-    
-    /*
-    *   Deselects dots.
-    */
-
-    const deselectDots = () => {
-        // entries = entries.filter(e => e.entry.length < 50)
-        // entries.forEach(e => e.color = (e.entry.length > 5000 ? COLORS.grey : e.color))
-    }
-
-    
-    /*
-    *   Assigns dot radius based on entry length.
-    */
-
-    let baseDotRadius
-    const assignRadii = () => {
-        const availableWidth = CANVAS_WIDTH - 2 * EDGE_PADDING
-        const availableHeight = CANVAS_HEIGHT - 2 * EDGE_PADDING
-        baseDotRadius = SIZING_COEFFICIENT * (Math.sqrt(availableWidth * availableHeight / entries.length) - MIN_DOT_SPACING) / (2 * MAX_DOT_SIZE_COEFFICIENT)
-        const radius = d3.interpolate(baseDotRadius, MAX_DOT_SIZE_COEFFICIENT * baseDotRadius)
-        entries.forEach(entry => entry.entry = [ 'biography', 'tours', 'narrative', 'notes' ].reduce((accum, next) => entry[next] ? accum + entry[next] : accum))
-        entries.sort((a, b) => a.entry.length < b.entry.length ? -1 : 1)
-        entries.forEach((e, i) => {
-            e.r = radius(i / entries.length)
-            // e.r = radius(.5)
-        })
-        entries.sort(() => Math.random() * 2 - 1)
-    }
+app.controller('VisualizationsCtrl', function($scope, entryListContext, $http) {
 
 
     /*
-    *   Applies force simulation to dots.
+    *   Retrieves starting set of entry data.
     */
 
-    let simulation
-    const applyForceSimulation = () => {
+    var entryIndexString = ''
+    var context = entryListContext.getContext()
+    if (context) entryIndexString = '/' + encodeURIComponent(JSON.stringify(context.entryIndexes))
+    $http.get('/api/entries/for-visualization' + entryIndexString)
+    .then(function(response) {
 
-        //  Applies an initial position in the center.
-        const boundsX = d3.interpolate(EDGE_PADDING + (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT), CANVAS_WIDTH - EDGE_PADDING - (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT))
-        const boundsY = d3.interpolate(EDGE_PADDING + (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT), CANVAS_HEIGHT - EDGE_PADDING - (baseDotRadius * MAX_DOT_SIZE_COEFFICIENT))
-        entries.forEach(e => {
-            e.x = boundsX(Math.random())
-            e.y = boundsY(Math.random())
-        })
-
-        const repulsionForce = d3.forceCollide()
-        .radius(d => d.r + MIN_DOT_SPACING / 2)
-        .strength(1)
-
-        const centeringXForce = d3.forceX()
-        .x(d => d.type !== 'Man' ? 3 * CANVAS_WIDTH / 20 : 13 * CANVAS_WIDTH / 20)
-        .strength(d => d.type !== 'Man' ? .05 : .05)
-        
-        const centeringYForce = d3.forceY(CANVAS_HEIGHT / 2).strength(.01)
-
-        //  Sets up simulation with forces.
-        simulation = d3.forceSimulation()
-        .force('repulsion', repulsionForce)
-        .force('centeringX', centeringXForce)
-        .force('centeringY', centeringYForce)
-
-    }
-
-    
-    /*
-    *   Renders dots on the SVG.
-    */
-
-    const run = () => {
-        
-        svg.selectAll('circle')
-        .data(entries)
-        .enter()
-        .append('circle')
-        .attr('r', d => d.r)
-        .attr('fill', d => d.color)
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y)
-
-        simulation.nodes(entries)
-        .stop()
-
-        const update = () => new Promise(resolve => {
-            requestAnimationFrame(() => {
-                simulation.tick()
-                svg.selectAll('circle')
-                .data(entries)
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y)
-                resolve()
-            })
-            
-        })
-
-        let promise = Promise.resolve()
-
-        const repulsionForce = simulation.force('repulsion')
-        simulation.force('repulsion', null)
-        for (let i = 0; i < 100; i++) promise = promise.then(update)
-        promise = promise.then(() => {
-            simulation.force('centeringX', null)
-            simulation.force('centeringY', null)
-            simulation.force('repulsion', repulsionForce)
-        })
-        
-        for (let i = 0; i < 500; i++) promise = promise.then(update)
-
-    }
-
-
-    /*
-    *   Execution entry point.
-    */
-
-    const svg = d3.select('svg')
-    .attr('width', CANVAS_WIDTH)
-    .attr('height', CANVAS_HEIGHT)
-    .style('border', '1px solid #ccc')
-    .style('margin', '1em')
-
-    assignColors()
-    deselectDots()
-    assignRadii()
-    applyForceSimulation()
-    run()
-
-}
-
-
-/*
-*   Runs the Timeline visualization.
-*/
-
-const Timeline = entries => {
-
-    /*
-    *   Constants
-    */
-
-    const CANVAS_WIDTH = 840
-    const CANVAS_HEIGHT = 715
-
-
-    /*
-    *   Execution entry point.
-    */
-
-    const svg = d3.select('svg')
-    .attr('width', CANVAS_WIDTH)
-    .attr('height', CANVAS_HEIGHT)
-    .style('border', '1px solid #ccc')
-    .style('margin', '1em')
-
-    let tours = []
-    const entriesWithTours = []
-
-    entries.forEach(entry => {
-                    
-        const travelTours = []
-        entry.travels.forEach(travel => {
-
-            if (!travelTours.filter(tour => tour.tourIndex === travel.tourIndex).length) {
-
-                travelTours.push({
-
-                    entryIndex: entry.index,
-                    tourIndex: travel.tourIndex,
-                    start: travel.tourStartFrom,
-                    end: travel.tourEndFrom,
-
-                })
-
-            }
-        
-        })
-
-        tours = [ ...tours, ...travelTours ]
-        if (travelTours.length) entriesWithTours.push(travelTours)
-           
-    })
-
-    const years = {}
-    tours.forEach(tour => {
-
-        for (var i = tour.start; i <= tour.end; i++) {
-
-            if (!years[i]) years[i] = 1
-            else years[i]++
-
-        }
+        var entries = response.data
+        $scope.allEntries = entries
+        $scope.selectedEntries = entries
 
     })
-
-    console.log(years)
-    console.log(Object.keys(years).length, Math.max(...Object.keys(years).map(k => years[k])))
-    console.log(tours.length, entriesWithTours.length)
-
-}
-
-
-/*
-*   Registers the simple wrapper for the D3-based visualization.
-*/
-
-app.controller('VisualizationsCtrl', function($scope) {
-
-    const downloadEntries = async () => {
-
-        const response = await fetch('/api/entries', { credentials: 'same-origin' })
-        if (!response.ok) { throw new Error(response) }
-        return response.json()
-
-    }
-
-    const selectedVisualization = Dots
-    downloadEntries()
-    .then(selectedVisualization)
     .catch(console.error.bind(console))
-    $scope.prepareDownload = () => {
-        const button = document.querySelector('button.prepare-download')
-        const svg = document.querySelector('svg')
-        const downloadLink = document.createElement('a')
-        downloadLink.setAttribute('href-lang', 'image/svg+xml')
-        downloadLink.setAttribute('href', 'data:image/svg+xml;utf8,' + svg.outerHTML)
-        downloadLink.setAttribute('download', '')
-        downloadLink.innerText = 'Download'
-        button.parentElement.appendChild(downloadLink)
+
+
+    /*
+    *   Export function copied from Explore.
+    */
+
+    $scope.export = function() {
+
+        var $btn = $('#export-button').button('loading');
+    
+        $http.post('/api/entries/export/', { query: $scope.query } )
+        .success(function(res) {
+    
+            var entries = d3.tsv.format(res.result.entries);
+            var activities = d3.tsv.format(res.result.activities);
+            var travels = d3.tsv.format(res.result.travels);
+        
+            var zip = new JSZip();
+            zip.file("Entries.tsv", entries);
+            zip.file("Activities.tsv", activities);
+            zip.file("Travels.tsv", travels);
+            var content = zip.generate({ type: "blob" });
+            saveAs(content, "Grand Tour Explorer - Export.zip");
+            $btn.button('reset');
+    
+        });
     }
+
 
 })

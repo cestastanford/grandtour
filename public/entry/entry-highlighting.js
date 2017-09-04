@@ -98,15 +98,19 @@ app.factory('entryHighlightingService', function() {
             var t = travel
             if (qT.place && qT.place.toLowerCase().indexOf(t.place.toLowerCase()) > -1) {
                 if (qT.date) {
+                    if (qT.date.year) {
+                        qT.date.startYear = qT.date.year
+                        qT.date.endYear = qT.date.year
+                    }
+                    if (qT.date.month) {
+                        qT.date.startMonth = qT.date.month
+                        qT.date.endMonth = qT.date.month
+                    }
                     if (
                         (!qT.date.startYear || !t.travelEndYear || qT.date.startYear < t.travelEndYear || (qT.date.startYear === t.travelEndYear && (
-                            !qT.date.startMonth || !t.travelEndMonth || qT.date.startMonth < t.travelEndMonth || (qT.date.startMonth < t.travelEndMonth && (
-                                !qT.date.startDay || !t.travelEndDay || qT.date.startDay <= t.travelEndDay
-                            ))
+                            !qT.date.startMonth || !t.travelEndMonth || qT.date.startMonth <= t.travelEndMonth
                         ))) && (!qT.date.endYear || !t.travelStartYear || qT.date.endYear > t.travelStartYear || (qT.date.endYear === t.travelStartYear && (
-                            !qT.date.endMonth || !t.travelStartMonth || qT.date.endMonth > t.travelStartMonth || (qT.date.endMonth < t.travelStartMonth && (
-                                !qT.date.endDay || !t.travelStartDay || qT.date.endDay >= t.travelStartDay
-                            ))
+                            !qT.date.endMonth || !t.travelStartMonth || qT.date.endMonth >= t.travelStartMonth
                         )))
                     ) {
                         return true

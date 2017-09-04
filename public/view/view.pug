@@ -1,0 +1,21 @@
+.container.main-view
+
+    .row
+        .col-lg-12
+            revision-status
+
+    br
+    .row
+        .col-lg-12
+            entry-list-context(no-navigation="no-navigation")
+
+    br
+    .row
+        .col-lg-12
+            visualizations(dimensions="[ 'gender' ]")
+            //- visualizations(dimensions="[ 'genderVisualization', 'entryLengthVisualization', 'travelLengthVisualization', 'dateOfFirstTravelVisualization' ]")
+
+    br
+    .row
+        .col-lg-12
+            entry-list(entries="entries", export="export()")

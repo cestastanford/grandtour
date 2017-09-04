@@ -1,4 +1,4 @@
-app.controller('VisualizationsCtrl', function($scope, entryListContext, $http) {
+app.controller('ViewCtrl', function($scope, entryListContext, $http) {
 
 
     /*
@@ -13,10 +13,16 @@ app.controller('VisualizationsCtrl', function($scope, entryListContext, $http) {
 
         var entries = response.data
         $scope.allEntries = entries
-        $scope.selectedEntries = entries
 
     })
     .catch(console.error.bind(console))
+
+
+    /*
+    *   Allows directives to update the set of entries.
+    */
+
+    $scope.updateEntries = function(entries) { $scope.entries = entries }
 
 
     /*

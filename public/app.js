@@ -186,10 +186,10 @@ var app = angular.module('app', [
     }
   })
 
-  .state('visualizations', {
-    url: "/visualizations",
-    templateUrl: "views/visualizations",
-    controller: "VisualizationsCtrl",
+  .state('view', {
+    url: "/view",
+    templateUrl: "views/view",
+    controller: "ViewCtrl",
     resolve: {
       loggedin: isLoggedIn
     }

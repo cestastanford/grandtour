@@ -5,8 +5,9 @@
     *   Constants
     */
 
-    var MAX_DOT_RADIUS_COEFFICIENT = 0.5
+    var MAX_DOT_RADIUS_COEFFICIENT = 1
     var MIN_DOT_RADIUS_COEFFICIENT = 0.5
+    var NO_DATA_DOT_RADIUS_COEFFICIENT = 0.25
     var MAX_DOT_RADIUS_IN_KEY = 10
 
 
@@ -22,7 +23,7 @@
             applyDotEffect: function(selection) {
 
                 selection
-                .attr('fill', function(d) { return d.color })
+                .attr('fill', function(d) { return d.color || d3.color('silver') })
 
             }
         
@@ -37,7 +38,13 @@
                 .range([ MIN_DOT_RADIUS_COEFFICIENT * parameters.maxDotRadius, parameters.maxDotRadius ])
 
                 selection
-                .attr('r', function(d) { return scale(d.size) })
+                .attr('r', function(d) {
+                    
+                    if (d.size === undefined) return parameters.maxDotRadius
+                    else if (d.size === null) return parameters.maxDotRadius * NO_DATA_DOT_RADIUS_COEFFICIENT
+                    else return scale(d.size)
+                
+                })
 
             },
         
@@ -109,7 +116,6 @@
 
                     if (entry.gender === 'Man') dot.color = d3.color('darkturquoise')
                     else if (entry.gender === 'Woman') dot.color = d3.color('lightsalmon')
-                    else dot.color = d3.color('silver')
 
                 }
 
@@ -132,30 +138,17 @@
                 var ticks = d3.ticks(min, max, N_GROUPS - 1)
                 if (ticks[0] !== min) ticks.unshift(min)
                 if (ticks[ticks.length - 1] !== max) ticks.push(max)
-                var intervals = ticks.reduce(function(accum, next, index) {
-
-                    if (index !== 0) {
-                        accum[index - 1].end = next
-                    }
-
-                    if (index !== ticks.length - 1) {
-                        accum[index] = { start: next }
-                    }
-
-                    return accum
-
-                }, [])
-
+                var intervals = d3.pairs(ticks)
                 var groupings = intervals.map(function(interval, index) {
 
                     return {
                         
-                        label: interval.start + ' – ' + interval.end + ' characters',
-                        sampleEntry: { entryLength: (interval.start + interval.end) / 2 },
+                        label: interval[0] + ' – ' + interval[1] + ' characters',
+                        sampleEntry: { entryLength: (interval[0] + interval[1]) / 2 },
                         match: (
                             index === 0
-                            ? function(entry) { return entry.entryLength >= interval.start && entry.entryLength <= interval.end }
-                            : function(entry) { return entry.entryLength > interval.start && entry.entryLength <= interval.end }
+                            ? function(entry) { return entry.entryLength >= interval[0] && entry.entryLength <= interval[1] }
+                            : function(entry) { return entry.entryLength > interval[0] && entry.entryLength <= interval[1] }
                         ),
                     
                     }
@@ -184,7 +177,7 @@
 
                 return function(entry, dot) {
 
-                    dot.size = entry.entryLength ? scale(entry.entryLength) : scale(min)
+                    dot.size = typeof entry.entryLength === 'number' ? scale(entry.entryLength) : null
 
                 }
 
@@ -207,30 +200,17 @@
                 var ticks = d3.ticks(min, max, N_GROUPS - 1)
                 if (ticks[0] !== min) ticks.unshift(min)
                 if (ticks[ticks.length - 1] !== max) ticks.push(max)
-                var intervals = ticks.reduce(function(accum, next, index) {
-
-                    if (index !== 0) {
-                        accum[index - 1].end = next
-                    }
-
-                    if (index !== ticks.length - 1) {
-                        accum[index] = { start: next }
-                    }
-
-                    return accum
-
-                }, [])
-
+                var intervals = d3.pairs(ticks)
                 var groupings = intervals.map(function(interval, index) {
 
                     return {
                         
-                        label: interval.start + ' – ' + interval.end + ' years',
-                        sampleEntry: { travelLength: (interval.start + interval.end) / 2 },
+                        label: interval[0] + ' – ' + interval[1] + ' years',
+                        sampleEntry: { travelLength: (interval[0] + interval[1]) / 2 },
                         match: (
                             index === 0
-                            ? function(entry) { return entry.travelLength >= interval.start && entry.travelLength <= interval.end }
-                            : function(entry) { return entry.travelLength > interval.start && entry.travelLength <= interval.end }
+                            ? function(entry) { return entry.travelLength >= interval[0] && entry.travelLength <= interval[1] }
+                            : function(entry) { return entry.travelLength > interval[0] && entry.travelLength <= interval[1] }
                         ),
                     
                     }
@@ -259,7 +239,7 @@
 
                 return function(entry, dot) {
 
-                    dot.size = entry.travelLength ? scale(entry.travelLength) : scale(min)
+                    dot.size = typeof entry.travelLength === 'number' ? scale(entry.travelLength) : null
 
                 }
 
@@ -282,30 +262,17 @@
                 var ticks = d3.ticks(min, max, N_GROUPS - 1)
                 if (ticks[0] !== min) ticks.unshift(min)
                 if (ticks[ticks.length - 1] !== max) ticks.push(max)
-                var intervals = ticks.reduce(function(accum, next, index) {
-
-                    if (index !== 0) {
-                        accum[index - 1].end = next
-                    }
-
-                    if (index !== ticks.length - 1) {
-                        accum[index] = { start: next }
-                    }
-
-                    return accum
-
-                }, [])
-
+                var intervals = d3.pairs(ticks)
                 var groupings = intervals.map(function(interval, index) {
 
                     return {
                         
-                        label: interval.start + ' – ' + interval.end,
-                        sampleEntry: { dateOfFirstTravel: (interval.start + interval.end) / 2 },
+                        label: interval[0] + ' – ' + interval[1],
+                        sampleEntry: { dateOfFirstTravel: (interval[0] + interval[1]) / 2 },
                         match: (
                             index === 0
-                            ? function(entry) { return entry.dateOfFirstTravel >= interval.start && entry.dateOfFirstTravel <= interval.end }
-                            : function(entry) { return entry.dateOfFirstTravel > interval.start && entry.dateOfFirstTravel <= interval.end }
+                            ? function(entry) { return entry.dateOfFirstTravel >= interval[0] && entry.dateOfFirstTravel <= interval[1] }
+                            : function(entry) { return entry.dateOfFirstTravel > interval[0] && entry.dateOfFirstTravel <= interval[1] }
                         ),
                     
                     }
@@ -412,7 +379,6 @@
 
                 scope.viewModel = viewModel
                 scope.$watch('viewModel', updateVisualization, true)
-                var dots = []
                 
                 /*
                 *   Executes an update of the visualization.
@@ -423,8 +389,8 @@
                     if (scope.allEntries && scope.allEntries.length) {
 
                         //  Retrieves all entries that haven't been deselected
-                        var visibleEntries = viewModel.hideDeselectedEntries ? filterEntries(scope.allEntries, dimensions) : scope.allEntries
-                        console.log(visibleEntries)
+                        var selectedEntries = markDeselectedEntries(scope.allEntries, dimensions)
+                        var visibleEntries = viewModel.hideDeselectedEntries ? selectedEntries : scope.allEntries
 
                         //  Updates attribute setters based on selected entries
                         dimensions.forEach(function(dimension) {
@@ -432,9 +398,10 @@
                         })
 
                         //  Applies updates to dots
-                        var parameters = setParameters(visibleEntries, viewModel.groupedBy)
-                        setDotAttributes(dots, visibleEntries, dimensions, parameters)
-                        updateDots(dots)
+                        var canvas = d3.select('.canvas svg')
+                        var parameters = setParameters(canvas, visibleEntries, viewModel.groupedBy)
+                        var dots = setDotAttributes(visibleEntries, dimensions, parameters)
+                        updateDots(canvas, dots, parameters)
                         if (viewModel.groupedBy) {
                             
                             var grid = calculateDotGrid(dots, viewModel.groupedBy)
@@ -482,34 +449,27 @@
 
                 scope.getKeyDot = function(dimension, grouping) {
 
-                    //  Constants
-                    
+                    var parameters = {
+                        canvasWidth: MAX_DOT_RADIUS_IN_KEY * 2,
+                        canvasHeight: MAX_DOT_RADIUS_IN_KEY * 2,
+                        maxDotRadius: MAX_DOT_RADIUS_IN_KEY,
+                    }
 
                     //  Creates a sample dot object, based off of all entries
-                    var dot = {}
+                    var dot = { initialPosition: [ 0, 0 ] }
                     VISUALIZABLE_DIMENSIONS[dimension.key].getAttributeSetter(scope.allEntries)(grouping.sampleEntry, dot)
                     
                     //  Creates a little SVG
                     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
                     
-                    //  Selects circles in the SVG and joins the sample dot object
-                    var selection = d3.select(svg)
-                        .attr('width', '100%')
-                        .attr('height', '100%')
-                        .attr('viewBox', [ -MAX_DOT_RADIUS_IN_KEY, -MAX_DOT_RADIUS_IN_KEY, 2 * MAX_DOT_RADIUS_IN_KEY, 2 * MAX_DOT_RADIUS_IN_KEY ].join(' '))
-                        .selectAll('circle')
-                        .data([ dot ])
+                    //  Creates an in-memory SVG canvas
+                    var canvas = d3.select(svg)
+                    .attr('width', '100%')
+                    .attr('height', '100%')
+                    .attr('viewBox', [ -MAX_DOT_RADIUS_IN_KEY, -MAX_DOT_RADIUS_IN_KEY, 2 * MAX_DOT_RADIUS_IN_KEY, 2 * MAX_DOT_RADIUS_IN_KEY ].join(' '))
                     
-                    //  Sets initial attributes for the dot
-                    selection = selection.enter()
-                        .append('circle')
-                        .attr('cx', 0)
-                        .attr('cy', 0)
-                        .attr('r', 10)
-                        .attr('fill', d3.color('silver'))
-
-                    //  Applies the dot effect to the dot
-                    DOT_EFFECTS[dimension.dotEffect].applyDotEffect(selection, { maxDotRadius: MAX_DOT_RADIUS_IN_KEY })
+                    //  Creates dot
+                    updateDots(canvas, [ dot ], parameters)
 
                     //  Returns SVG code
                     return $sce.trustAsHtml(svg.outerHTML)
@@ -529,18 +489,18 @@
     *   filter options.
     */
 
-    function filterEntries(entries, dimensions) {
+    function markDeselectedEntries(entries, dimensions) {
 
-        return entries.filter(function(entry) {
+        entries.forEach(function(entry) {
 
-            var excluded = false
+            var deselected = false
             dimensions.filter(function(dimension) { return dimension.enabled }).forEach(function(dimension) {
 
-                if (!excluded) {
+                if (!deselected) {
                     
                     dimension.groupings.filter(function(grouping) { return grouping.deselected }).forEach(function(grouping) {
 
-                        if (!excluded) excluded = grouping.match(entry)
+                        if (!deselected) deselected = grouping.match(entry)
                     
                     })
 
@@ -548,9 +508,11 @@
 
             })
 
-            return !excluded
+            entry.deselected = deselected
 
         })
+
+        return entries.filter(function(entry) { return !entry.deselected })
 
     }
 
@@ -560,22 +522,12 @@
     *   clears elements no longer needed.
     */
 
-    function setParameters(entries, groupedBy) {
+    function setParameters(canvas, entries, groupedBy) {
 
-        var canvasWidth = window.innerWidth
-        var canvasHeight = window.innerHeight
-        var maxDotRadius
-
-        if (groupedBy) {
-
-
-        
-        } else {
-
-            maxDotRadius = (innerWidth * innerHeight) / entries.length * MAX_DOT_RADIUS_COEFFICIENT
-
-        }
-
+        var rect = canvas.node().getBoundingClientRect()
+        var canvasWidth = rect.width
+        var canvasHeight = rect.height
+        var maxDotRadius = Math.sqrt((canvasWidth * canvasHeight) / entries.length) / Math.PI * MAX_DOT_RADIUS_COEFFICIENT
         return {
             canvasWidth: canvasWidth,
             canvasHeight: canvasHeight,
@@ -591,9 +543,28 @@
     *   currently enabled.
     */
 
-    function setDotAttributes(dots, entries, dimensions) {
+    function setDotAttributes(entries, dimensions, parameters) {
 
-        // console.log('setting dot attributes')
+        return entries.map(function(entry) {
+
+            var dot = {}
+            dimensions.filter(function(dimension) { return dimension.enabled })
+            .forEach(function(dimension) {
+
+                dimension.setAttributes(entry, dot)
+
+            })
+
+            dot.initialPosition = [
+                (parameters.canvasWidth - (4 * parameters.maxDotRadius)) * Math.random() + (2 * parameters.maxDotRadius),
+                (parameters.canvasHeight - (4 * parameters.maxDotRadius)) * Math.random() + (2 * parameters.maxDotRadius),
+            ]
+
+            dot.deselected = entry.deselected
+
+            return dot
+
+        })
 
     }
 
@@ -603,9 +574,29 @@
     *   based on their updated attribute values.
     */
 
-    function updateDots(dots) {
+    function updateDots(canvas, dots, parameters) {
 
-        // console.log('updating dots')
+        var selection = canvas.selectAll('circle')
+        .data(dots)
+
+        //  Removes old dots
+        selection.exit()
+        .remove()
+
+        //  Creates new dots
+        var updateSelection = selection.enter()
+        .append('circle')
+        .attr('cx', function(d) { return d.initialPosition[0] })
+        .attr('cy', function(d) { return d.initialPosition[1] })
+        .merge(selection)
+        .attr('opacity', function(d) { return d.deselected ? .25 : 1 })
+        
+        //  Updates dots
+        Object.values(DOT_EFFECTS).forEach(function(effect) {
+
+            effect.applyDotEffect(updateSelection, parameters)
+
+        })
 
     }
 

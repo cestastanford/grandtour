@@ -1002,6 +1002,7 @@ ul.list-group.entry-facet > li .controls {
 
 .visualizations .panel-body .canvas {
   height: 100%;
+  padding: 0;
 }
 
 .visualizations .panel-body .sidebar {

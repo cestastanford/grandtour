@@ -13,10 +13,10 @@
                 ) {{ dimension.label }}
     
     .panel-body
-        .col-lg-9.canvas
+        .canvas
             svg(width="100%", height="100%")
         
-        .col-lg-3.sidebar
+        .sidebar
             .dimension-keys
                 div(ng-repeat="category in viewModel.dimensionCategories")
                     div.dimension-key(

@@ -7,9 +7,10 @@
 
     var MAX_DOT_RADIUS_COEFFICIENT = 1
     var MIN_DOT_RADIUS_COEFFICIENT = 0.5
-    var NO_DATA_DOT_RADIUS_COEFFICIENT = 0.25
+    var NO_DATA_DOT_RADIUS_COEFFICIENT = 0.35
     var MAX_DOT_RADIUS_IN_KEY = 10
     var DOT_SPACING_PX = 1.5
+    var DESELECTED_OPACITY = .5
 
 
     /*
@@ -386,9 +387,10 @@
                 *   Executes an update of the visualization.
                 */
 
-                var dots
+                var dots, simulation
                 function updateVisualization() {
 
+                    if (simulation) simulation.stop()
                     if (scope.allEntries && scope.allEntries.length) {
 
                         //  Retrieves all entries that haven't been deselected
@@ -407,14 +409,14 @@
                         updateDots(canvas, dots, parameters)
                         if (viewModel.groupedBy) {
                             
-                            var grid = calculateDotGrid(dots, viewModel.groupedBy)
+                            var grid = calculateDotGrid(visibleEntries, viewModel.groupedBy)
                             placeLabelsAndLines(grid)
                             moveDotsToGridLocation(grid, dots)
                         
                         } else {
 
                             moveDotsToInitialLocation(canvas, dots)
-                            respaceDots(canvas, dots, parameters)
+                            simulation = respaceDots(canvas, dots, parameters)
 
                         }
 
@@ -596,7 +598,7 @@
         var updateSelection = selection.enter()
         .append('circle')
         .merge(selection)
-        .attr('opacity', function(d) { return d.deselected ? .25 : 1 })
+        .attr('opacity', function(d) { return d.deselected ? DESELECTED_OPACITY : 1 })
         
         //  Updates dots
         Object.values(DOT_EFFECTS).forEach(function(effect) {
@@ -613,10 +615,26 @@
     *   setting dot and label locations.
     */
 
-    function calculateDotGrid(dots, groupedBy) {
+    function calculateDotGrid(entries, groupedBy) {
 
-        // console.log('calculating dot grid')
-        return {}
+        //  Separates entries into groups
+        var groups = d3.nest()
+        .key(function(entry) {
+
+            var key
+            groupedBy.groupings.forEach(function(grouping, index) {
+
+                if (!key) {
+                    var match = grouping.match(entry)
+                    if (match) key = index
+                }
+                
+            })
+
+            return key
+
+        })
+        .object(entries)
 
     }
 
@@ -699,8 +717,8 @@
 
         }
 
-        var simulation = d3.forceSimulation(dots)
-        .alphaMin(.25)
+        return simulation = d3.forceSimulation(dots)
+        .alphaMin(.1)
         .force('collision', collisionForce)
         .force('bounding', boundingForce())
         .on('tick', function() {

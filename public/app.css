@@ -997,12 +997,13 @@ ul.list-group.entry-facet > li .controls {
   padding: 0;
   display: flex;
   align-items: stretch;
-  height: 600px;
+  height: 800px;
 }
 
 .visualizations .panel-body .canvas {
   height: 100%;
   padding: 0;
+  flex-grow: 1;
 }
 
 .visualizations .panel-body .sidebar {
@@ -1011,6 +1012,7 @@ ul.list-group.entry-facet > li .controls {
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
+  width: 300px;
 }
 
 .visualizations .panel-body .sidebar .dimension-keys {
@@ -1077,4 +1079,8 @@ ul.list-group.entry-facet > li .controls {
   letter-spacing: .05em;
   color: #888;
   font-weight: lighter;
+}
+
+.container.main-view.view {
+  width: 100%;
 }

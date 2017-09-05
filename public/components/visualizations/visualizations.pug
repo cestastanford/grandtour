@@ -29,13 +29,18 @@
                                 ng-click="viewModel.groupedBy = (viewModel.groupedBy === dimension ? null : dimension)",
                             ) group
 
-                        .dimension-groupings
-                            .dimension-grouping(ng-repeat="grouping in dimension.getGroupings()") {{ grouping.label }}
-
+                        .dimension-groupings.text-sans-serif
+                            .dimension-grouping(
+                                ng-repeat="grouping in dimension.groupings track by $index",
+                                ng-class="{ 'grouping-disabled': grouping.deselected }",
+                                ng-click="grouping.deselected = !grouping.deselected",
+                            )
+                                .grouping-dot(ng-bind-html="getKeyDot(dimension, grouping)")
+                                .grouping-label {{ grouping.label }}
 
             .hide-deselected
                 label
-                    input(type="checkbox", ng-model="hideDeselectedEntries")
+                    input(type="checkbox", ng-model="viewModel.hideDeselectedEntries")
                     span hide deselected entries
     
     .panel-footer.text-center

@@ -8,11 +8,27 @@
     var DOT_EFFECTS = {
 
         color: {
+            
             label: 'Dot Color',
+            applyDotEffect: function(selection) {
+
+                selection
+                .attr('fill', function(d) { return d.color })
+
+            }
+        
         },
 
         size: {
+            
             label: 'Dot Size',
+            applyDotEffect: function(selection) {
+
+                selection
+                .attr('r', function(d) { return d.size })
+
+            },
+        
         },
 
         groupingOnly: {
@@ -29,14 +45,69 @@
     var VISUALIZABLE_DIMENSIONS = {
 
         gender: {
+            
             label: 'Gender',
             dotEffect: 'color',
+
+
+            /*
+            *   Returns an array of groupings for the dimension,
+            *   each with a label, a sample entry (used to create
+            *   the dimension key) and a function to determine if
+            *   an entry belongs in the group.
+            */
+
+            getGroupings: function() {
+                
+                return [
+                    
+                    {
+                        label: 'No Data',
+                        sampleEntry: {},
+                        deselected: true,
+                        match: function(entry) { return entry.type !== 'Man' && entry.type !== 'Woman' },
+                    },
+                    
+                    {
+                        label: 'Male',
+                        sampleEntry: { type: 'Man' },
+                        match: function(entry) { return entry.type === 'Man' },
+                    },
+                    
+                    {
+                        label: 'Female',
+                        sampleEntry: { type: 'Woman' },
+                        match: function(entry) { return entry.type === 'Woman' },
+                    },
+                
+                ]
+            
+            },
+
+
+            /*
+            *   Formats relevant entry data for the dimension and
+            *   applies it to the backing dot object.
+            */
+
+            getAttributeSetter: function() {
+
+                return function(entry, dot) {
+
+                    if (entry.type === 'Man') dot.color = d3.color('darkturquoise')
+                    else if (entry.type === 'Woman') dot.color = d3.color('lightsalmon')
+                    else dot.color = d3.color('silver')
+
+                }
+
+            }
+        
         },
 
         entryLength: {
+            
             label: 'Entry Length',
             dotEffect: 'size',
-        },
 
         travelLength: {
             label: 'Travel Length',
@@ -55,7 +126,7 @@
     *   Registers the 'visualization' directive.
     */
 
-    app.directive('visualizations', function($injector) {
+    app.directive('visualizations', function($sce) {
         
         return {
         
@@ -79,10 +150,23 @@
                         label: dimension.label,
                         dotEffect: dimension.dotEffect,
                         enabled: false,
-                        getGroupings: dimension.getGroupings,
-                        deselectedGroupings: [ 0 ],
 
                     }
+
+                })
+
+
+                /*
+                *   Updates groupings when source entry list changes.
+                */
+
+                scope.$watch('allEntries', function() {
+
+                    dimensions.forEach(function(dimension) {
+                        if (scope.allEntries && scope.allEntries.length) {
+                            dimension.groupings = VISUALIZABLE_DIMENSIONS[dimension.key].getGroupings(scope.allEntries)
+                        }
+                    })
 
                 })
                 
@@ -120,11 +204,24 @@
                 scope.$watch('viewModel', updateVisualization, true)
                 scope.$watch('allEntries', updateVisualization)
                 var dots = []
+                
+                /*
+                *   Executes an update of the visualization.
+                */
+
                 function updateVisualization() {
 
+                    //  Retrieves all entries that haven't been deselected
                     var selectedEntries = filterEntries(scope.allEntries, dimensions, viewModel.hideDeselectedEntries)
-                    initializeVisualization(viewModel.groupedBy)
-                    var dots = setDotAttributes(dots, selectedEntries, dimensions)
+
+                    //  Updates attribute setters based on selected entries
+                    dimensions.forEach(function(dimension) {
+                        dimension.setAttributes = VISUALIZABLE_DIMENSIONS[dimension.key].getAttributeSetter(selectedEntries)
+                    })
+
+                    //  Applies updates to dots
+                    initializeVisualization(selectedEntries, viewModel.groupedBy)
+                    setDotAttributes(dots, selectedEntries, dimensions)
                     updateDots(dots)
                     if (viewModel.groupedBy) {
                         
@@ -139,6 +236,7 @@
 
                     }
 
+                    //  Saves selected entries in parent controller
                     scope.updateEntries(selectedEntries)
 
                 }
@@ -161,6 +259,45 @@
 
                 }
 
+
+                /*
+                *   Creates a single dot for a grouping in the dimension
+                *   key, returning SVG code.
+                */
+
+                scope.getKeyDot = function(dimension, grouping) {
+
+                    //  Creates a sample dot object
+                    var dot = {}
+                    dimension.setAttributes(grouping.sampleEntry, dot)
+                    
+                    //  Creates a little SVG
+                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+                    
+                    //  Selects circles in the SVG and joins the sample dot object
+                    var selection = d3.select(svg)
+                        .attr('width', '100%')
+                        .attr('height', '100%')
+                        .attr('viewBox', '-10 -10 20 20')
+                        .selectAll('circle')
+                        .data([ dot ])
+                    
+                    //  Sets initial attributes for the dot
+                    selection = selection.enter()
+                        .append('circle')
+                        .attr('cx', 0)
+                        .attr('cy', 0)
+                        .attr('r', 10)
+
+                    //  Applies the dot effect to the dot
+                    DOT_EFFECTS[dimension.dotEffect].applyDotEffect(selection)
+
+                    //  Returns SVG code
+                    return $sce.trustAsHtml(svg.outerHTML)
+
+                }
+
+
             },
         
         }
@@ -175,7 +312,7 @@
 
     function filterEntries(entries, dimensions) {
 
-        console.log('filtering entries')
+        // console.log('filtering entries')
         return entries
 
     }
@@ -188,7 +325,7 @@
 
     function initializeVisualization(groupedBy) {
 
-        console.log('initializing visualization')
+        // console.log('initializing visualization')
 
     }
 
@@ -201,8 +338,7 @@
 
     function setDotAttributes(dots, entries, dimensions) {
 
-        console.log('setting dot attributes')
-        return dots
+        // console.log('setting dot attributes')
 
     }
 
@@ -214,7 +350,7 @@
 
     function updateDots(dots) {
 
-        console.log('updating dots')
+        // console.log('updating dots')
 
     }
 
@@ -226,7 +362,7 @@
 
     function calculateDotGrid(dots, groupedBy) {
 
-        console.log('calculating dot grid')
+        // console.log('calculating dot grid')
         return {}
 
     }
@@ -238,7 +374,7 @@
 
     function placeLabelsAndLines(grid) {
 
-        console.log('placing labels and lines')
+        // console.log('placing labels and lines')
 
     }
 
@@ -249,7 +385,7 @@
 
     function moveDotsToGridLocation(grid, dots) {
 
-        console.log('moving dots to grid location')
+        // console.log('moving dots to grid location')
 
     }
 
@@ -260,7 +396,7 @@
 
     function moveDotsToInitialLocation(dots) {
 
-        console.log('moving dots to initial location')
+        // console.log('moving dots to initial location')
 
     }
 
@@ -272,7 +408,7 @@
 
     function respaceDots(dots) {
 
-        console.log('respacing dots')
+        // console.log('respacing dots')
 
     }
 

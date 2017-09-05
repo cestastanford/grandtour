@@ -59,6 +59,10 @@ body {
   line-height: 1.7;
 }
 
+.text-sans-serif {
+  font-family: 'Open Sans', sans-serif;
+}
+
 h1 .text-serif {
   font-size: 36px;
 }
@@ -1019,15 +1023,39 @@ ul.list-group.entry-facet > li .controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 
 .visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-key-header .group-dimension-toggle {
   outline: none;
-  margin-right: 1em;
 }
 
 .visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-key-header .group-dimension-toggle:not(.active) {
   background-color: #fff;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-grouping {
+  display: flex;
+  align-items: center;
+  padding: .5em;
+  margin: .25em 0;
+  font-size: 1.15em;
+  color: #888;
+  letter-spacing: .025em;
+  cursor: pointer;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-grouping.grouping-disabled {
+  background-color: #d8d8d8;
+  border-radius: .25em;
+  font-style: italic;
+  text-decoration: line-through;
+}
+
+.visualizations .panel-body .sidebar .dimension-keys .dimension-key .dimension-grouping .grouping-dot {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: .5em;
 }
 
 .visualizations .panel-body .sidebar .hide-deselected {

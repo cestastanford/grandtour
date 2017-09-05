@@ -66,19 +66,19 @@
                         label: 'No Data',
                         sampleEntry: {},
                         deselected: true,
-                        match: function(entry) { return entry.type !== 'Man' && entry.type !== 'Woman' },
+                        match: function(entry) { return entry.gender !== 'Man' && entry.gender !== 'Woman' },
                     },
                     
                     {
                         label: 'Male',
-                        sampleEntry: { type: 'Man' },
-                        match: function(entry) { return entry.type === 'Man' },
+                        sampleEntry: { gender: 'Man' },
+                        match: function(entry) { return entry.gender === 'Man' },
                     },
                     
                     {
                         label: 'Female',
-                        sampleEntry: { type: 'Woman' },
-                        match: function(entry) { return entry.type === 'Woman' },
+                        sampleEntry: { gender: 'Woman' },
+                        match: function(entry) { return entry.gender === 'Woman' },
                     },
                 
                 ]
@@ -95,8 +95,8 @@
 
                 return function(entry, dot) {
 
-                    if (entry.type === 'Man') dot.color = d3.color('darkturquoise')
-                    else if (entry.type === 'Woman') dot.color = d3.color('lightsalmon')
+                    if (entry.gender === 'Man') dot.color = d3.color('darkturquoise')
+                    else if (entry.gender === 'Woman') dot.color = d3.color('lightsalmon')
                     else dot.color = d3.color('silver')
 
                 }
@@ -408,10 +408,8 @@
 
                 function updateVisualization() {
 
-                    console.log(JSON.parse(JSON.stringify(viewModel)))
-
                     //  Retrieves all entries that haven't been deselected
-                    var selectedEntries = filterEntries(scope.allEntries, dimensions, viewModel.hideDeselectedEntries)
+                    var selectedEntries = viewModel.hideDeselectedEntries ? filterEntries(scope.allEntries, dimensions) : scope.allEntries
 
                     //  Updates attribute setters based on selected entries
                     if (scope.allEntries && scope.allEntries.length) dimensions.forEach(function(dimension) {
@@ -437,6 +435,7 @@
 
                     //  Saves selected entries in parent controller
                     scope.updateEntries(selectedEntries)
+                    console.log(selectedEntries && selectedEntries.length)
 
                 }
 
@@ -470,9 +469,9 @@
                     var MIN_DOT_RADIUS = 5
                     var MAX_DOT_RADIUS = 10
 
-                    //  Creates a sample dot object
+                    //  Creates a sample dot object, based off of all entries
                     var dot = {}
-                    dimension.setAttributes(grouping.sampleEntry, dot)
+                    VISUALIZABLE_DIMENSIONS[dimension.key].getAttributeSetter(scope.allEntries)(grouping.sampleEntry, dot)
                     
                     //  Creates a little SVG
                     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -516,8 +515,26 @@
 
     function filterEntries(entries, dimensions) {
 
-        // console.log('filtering entries')
-        return entries
+        return entries.filter(function(entry) {
+
+            var excluded = false
+            dimensions.filter(function(dimension) { return dimension.enabled }).forEach(function(dimension) {
+
+                if (!excluded) {
+                    
+                    dimension.groupings.filter(function(grouping) { return grouping.deselected }).forEach(function(grouping) {
+
+                        if (!excluded) excluded = grouping.match(entry)
+                    
+                    })
+
+                }
+
+            })
+
+            return !excluded
+
+        })
 
     }
 

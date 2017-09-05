@@ -2,6 +2,15 @@
 
 
     /*
+    *   Constants
+    */
+
+    var MAX_DOT_RADIUS_COEFFICIENT = 0.5
+    var MIN_DOT_RADIUS_COEFFICIENT = 0.5
+    var MAX_DOT_RADIUS_IN_KEY = 10
+
+
+    /*
     *   Describes the different ways dots' appearances can be manipulated.
     */
 
@@ -22,10 +31,13 @@
         size: {
             
             label: 'Dot Size',
-            applyDotEffect: function(selection, dotRadiusScale) {
+            applyDotEffect: function(selection, parameters) {
+
+                var scale = d3.scaleLinear()
+                .range([ MIN_DOT_RADIUS_COEFFICIENT * parameters.maxDotRadius, parameters.maxDotRadius ])
 
                 selection
-                .attr('r', function(d) { return dotRadiusScale(d.size) })
+                .attr('r', function(d) { return scale(d.size) })
 
             },
         
@@ -155,7 +167,7 @@
                     label: 'No Data',
                     sampleEntry: {},
                     deselected: true,
-                    match: function(entry) { return !(entry.entryLength > min - 1) && !(entry.entryLength < max + 1) },
+                    match: function(entry) { return typeof entry.entryLength !== 'number' },
                
                 })
 
@@ -230,7 +242,7 @@
                     label: 'No Data',
                     sampleEntry: {},
                     deselected: true,
-                    match: function(entry) { return !(entry.travelLength > min - 1) && !(entry.travelLength < max + 1) },
+                    match: function(entry) { return typeof entry.travelLength !== 'number' },
                
                 })
 
@@ -305,7 +317,7 @@
                     label: 'No Data',
                     sampleEntry: {},
                     deselected: true,
-                    match: function(entry) { return !(entry.dateOfFirstTravel > min - 1) && !(entry.dateOfFirstTravel < max + 1) },
+                    match: function(entry) { return typeof entry.dateOfFirstTravel !== 'number' },
                
                 })
 
@@ -408,34 +420,39 @@
 
                 function updateVisualization() {
 
-                    //  Retrieves all entries that haven't been deselected
-                    var selectedEntries = viewModel.hideDeselectedEntries ? filterEntries(scope.allEntries, dimensions) : scope.allEntries
+                    if (scope.allEntries && scope.allEntries.length) {
 
-                    //  Updates attribute setters based on selected entries
-                    if (scope.allEntries && scope.allEntries.length) dimensions.forEach(function(dimension) {
-                        dimension.setAttributes = VISUALIZABLE_DIMENSIONS[dimension.key].getAttributeSetter(selectedEntries)
-                    })
+                        //  Retrieves all entries that haven't been deselected
+                        var visibleEntries = viewModel.hideDeselectedEntries ? filterEntries(scope.allEntries, dimensions) : scope.allEntries
+                        console.log(visibleEntries)
 
-                    //  Applies updates to dots
-                    initializeVisualization(selectedEntries, viewModel.groupedBy)
-                    setDotAttributes(dots, selectedEntries, dimensions)
-                    updateDots(dots)
-                    if (viewModel.groupedBy) {
+                        //  Updates attribute setters based on selected entries
+                        dimensions.forEach(function(dimension) {
+                            dimension.setAttributes = VISUALIZABLE_DIMENSIONS[dimension.key].getAttributeSetter(visibleEntries)
+                        })
+
+                        //  Applies updates to dots
+                        var parameters = setParameters(visibleEntries, viewModel.groupedBy)
+                        setDotAttributes(dots, visibleEntries, dimensions, parameters)
+                        updateDots(dots)
+                        if (viewModel.groupedBy) {
+                            
+                            var grid = calculateDotGrid(dots, viewModel.groupedBy)
+                            placeLabelsAndLines(grid)
+                            moveDotsToGridLocation(grid, dots)
                         
-                        var grid = calculateDotGrid(dots, viewModel.groupedBy)
-                        placeLabelsAndLines(grid)
-                        moveDotsToGridLocation(grid, dots)
-                    
-                    } else {
+                        } else {
 
-                        moveDotsToInitialLocation(dots)
-                        respaceDots(dots)
+                            moveDotsToInitialLocation(dots)
+                            respaceDots(dots)
 
-                    }
+                        }
 
-                    //  Saves selected entries in parent controller
-                    scope.updateEntries(selectedEntries)
-                    console.log(selectedEntries && selectedEntries.length)
+                        //  Saves selected entries in parent controller
+                        scope.updateEntries(visibleEntries)
+                        console.log(visibleEntries && visibleEntries.length)
+
+                    } 
 
                 }
 
@@ -466,8 +483,7 @@
                 scope.getKeyDot = function(dimension, grouping) {
 
                     //  Constants
-                    var MIN_DOT_RADIUS = 5
-                    var MAX_DOT_RADIUS = 10
+                    
 
                     //  Creates a sample dot object, based off of all entries
                     var dot = {}
@@ -480,7 +496,7 @@
                     var selection = d3.select(svg)
                         .attr('width', '100%')
                         .attr('height', '100%')
-                        .attr('viewBox', [ -MAX_DOT_RADIUS, -MAX_DOT_RADIUS, 2 * MAX_DOT_RADIUS, 2 * MAX_DOT_RADIUS].join(' '))
+                        .attr('viewBox', [ -MAX_DOT_RADIUS_IN_KEY, -MAX_DOT_RADIUS_IN_KEY, 2 * MAX_DOT_RADIUS_IN_KEY, 2 * MAX_DOT_RADIUS_IN_KEY ].join(' '))
                         .selectAll('circle')
                         .data([ dot ])
                     
@@ -493,7 +509,7 @@
                         .attr('fill', d3.color('silver'))
 
                     //  Applies the dot effect to the dot
-                    DOT_EFFECTS[dimension.dotEffect].applyDotEffect(selection, d3.scaleLinear().range([ MIN_DOT_RADIUS, MAX_DOT_RADIUS ]))
+                    DOT_EFFECTS[dimension.dotEffect].applyDotEffect(selection, { maxDotRadius: MAX_DOT_RADIUS_IN_KEY })
 
                     //  Returns SVG code
                     return $sce.trustAsHtml(svg.outerHTML)
@@ -544,9 +560,27 @@
     *   clears elements no longer needed.
     */
 
-    function initializeVisualization(groupedBy) {
+    function setParameters(entries, groupedBy) {
 
-        // console.log('initializing visualization')
+        var canvasWidth = window.innerWidth
+        var canvasHeight = window.innerHeight
+        var maxDotRadius
+
+        if (groupedBy) {
+
+
+        
+        } else {
+
+            maxDotRadius = (innerWidth * innerHeight) / entries.length * MAX_DOT_RADIUS_COEFFICIENT
+
+        }
+
+        return {
+            canvasWidth: canvasWidth,
+            canvasHeight: canvasHeight,
+            maxDotRadius: maxDotRadius,
+        }
 
     }
 

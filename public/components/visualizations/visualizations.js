@@ -9,6 +9,7 @@
     var MIN_DOT_RADIUS_COEFFICIENT = 0.5
     var NO_DATA_DOT_RADIUS_COEFFICIENT = 0.25
     var MAX_DOT_RADIUS_IN_KEY = 10
+    var DOT_SPACING_PX = 1.5
 
 
     /*
@@ -40,9 +41,10 @@
                 selection
                 .attr('r', function(d) {
                     
-                    if (d.size === undefined) return parameters.maxDotRadius
-                    else if (d.size === null) return parameters.maxDotRadius * NO_DATA_DOT_RADIUS_COEFFICIENT
-                    else return scale(d.size)
+                    if (d.size === undefined) d.r = parameters.maxDotRadius
+                    else if (d.size === null) d.r = parameters.maxDotRadius * NO_DATA_DOT_RADIUS_COEFFICIENT
+                    else d.r = scale(d.size)
+                    return d.r
                 
                 })
 
@@ -384,6 +386,7 @@
                 *   Executes an update of the visualization.
                 */
 
+                var dots
                 function updateVisualization() {
 
                     if (scope.allEntries && scope.allEntries.length) {
@@ -400,7 +403,7 @@
                         //  Applies updates to dots
                         var canvas = d3.select('.canvas svg')
                         var parameters = setParameters(canvas, visibleEntries, viewModel.groupedBy)
-                        var dots = setDotAttributes(visibleEntries, dimensions, parameters)
+                        dots = setDotAttributes(visibleEntries, dimensions, dots, parameters)
                         updateDots(canvas, dots, parameters)
                         if (viewModel.groupedBy) {
                             
@@ -410,14 +413,13 @@
                         
                         } else {
 
-                            moveDotsToInitialLocation(dots)
-                            respaceDots(dots)
+                            moveDotsToInitialLocation(canvas, dots)
+                            respaceDots(canvas, dots, parameters)
 
                         }
 
                         //  Saves selected entries in parent controller
                         scope.updateEntries(visibleEntries)
-                        console.log(visibleEntries && visibleEntries.length)
 
                     } 
 
@@ -543,11 +545,11 @@
     *   currently enabled.
     */
 
-    function setDotAttributes(entries, dimensions, parameters) {
+    function setDotAttributes(entries, dimensions, oldDots, parameters) {
 
         return entries.map(function(entry) {
 
-            var dot = {}
+            var dot = { index: entry.index }
             dimensions.filter(function(dimension) { return dimension.enabled })
             .forEach(function(dimension) {
 
@@ -555,13 +557,20 @@
 
             })
 
-            dot.initialPosition = [
-                (parameters.canvasWidth - (4 * parameters.maxDotRadius)) * Math.random() + (2 * parameters.maxDotRadius),
-                (parameters.canvasHeight - (4 * parameters.maxDotRadius)) * Math.random() + (2 * parameters.maxDotRadius),
-            ]
+            if (entry.dot) {
+                
+                dot.x = entry.dot.x
+                dot.y = entry.dot.y
+            
+            } else {
+
+                dot.x = (parameters.canvasWidth - (4 * parameters.maxDotRadius)) * Math.random() + (2 * parameters.maxDotRadius)
+                dot.y = (parameters.canvasHeight - (4 * parameters.maxDotRadius)) * Math.random() + (2 * parameters.maxDotRadius)
+
+            }
 
             dot.deselected = entry.deselected
-
+            entry.dot = dot
             return dot
 
         })
@@ -577,7 +586,7 @@
     function updateDots(canvas, dots, parameters) {
 
         var selection = canvas.selectAll('circle')
-        .data(dots)
+        .data(dots, function(d) { return d.index })
 
         //  Removes old dots
         selection.exit()
@@ -586,8 +595,6 @@
         //  Creates new dots
         var updateSelection = selection.enter()
         .append('circle')
-        .attr('cx', function(d) { return d.initialPosition[0] })
-        .attr('cy', function(d) { return d.initialPosition[1] })
         .merge(selection)
         .attr('opacity', function(d) { return d.deselected ? .25 : 1 })
         
@@ -640,9 +647,11 @@
     *   Moves dots to their initial (random) locations.
     */
 
-    function moveDotsToInitialLocation(dots) {
+    function moveDotsToInitialLocation(canvas, dots) {
 
-        // console.log('moving dots to initial location')
+        canvas.selectAll('circle')
+        .attr('cx', function(d) { return d.x })
+        .attr('cy', function(d) { return d.y })
 
     }
 
@@ -652,9 +661,55 @@
     *   based on their random locations.
     */
 
-    function respaceDots(dots) {
+    function respaceDots(canvas, dots, parameters) {
 
-        // console.log('respacing dots')
+        var selection = canvas.selectAll('circle')
+        var collisionForce = d3.forceCollide()
+        .radius(function(d) { return d.r + DOT_SPACING_PX })
+        .strength(1)
+        .iterations(1)
+
+        var boundingForce = function() {
+
+            var initializedNodes
+            var bounds = {
+                minX: 2 * parameters.maxDotRadius,
+                maxX: parameters.canvasWidth - 2 * parameters.maxDotRadius,
+                minY: 2 * parameters.maxDotRadius,
+                maxY: parameters.canvasHeight - 2 * parameters.maxDotRadius,
+            }
+
+            var forceFunction = function(alpha) {
+                
+                for (var i = 0; i < initializedNodes.length; i++) {
+                    var node = initializedNodes[i]
+                    if (node.x < bounds.minX) node.vx += alpha
+                    if (node.x > bounds.maxX) node.vx -= alpha
+                    if (node.y < bounds.minY) node.vy += alpha
+                    if (node.y > bounds.maxY) node.vy -= alpha  
+                }
+            
+            }
+
+            forceFunction.initialize = function(nodes) {
+                initializedNodes = nodes
+            }
+
+            return forceFunction
+
+        }
+
+        var simulation = d3.forceSimulation(dots)
+        .alphaMin(.25)
+        .force('collision', collisionForce)
+        .force('bounding', boundingForce())
+        .on('tick', function() {
+            
+            selection
+            .attr('cx', function(d) { return d.x })
+            .attr('cy', function(d) { return d.y })
+        
+        })
 
     }
 

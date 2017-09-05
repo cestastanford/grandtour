@@ -22,10 +22,10 @@
         size: {
             
             label: 'Dot Size',
-            applyDotEffect: function(selection) {
+            applyDotEffect: function(selection, dotRadiusScale) {
 
                 selection
-                .attr('r', function(d) { return d.size })
+                .attr('r', function(d) { return dotRadiusScale(d.size) })
 
             },
         
@@ -33,6 +33,7 @@
 
         groupingOnly: {
             label: 'Grouping Only',
+            applyDotEffect: function() {}
         },
 
     }
@@ -108,15 +109,214 @@
             
             label: 'Entry Length',
             dotEffect: 'size',
+            getGroupings: function(entries) {
+
+                //  Constant: number of groups
+                const N_GROUPS = 5
+
+                //  Generates array of entry length intervals from entries
+                var min = d3.min(entries, function(entry) { return entry.entryLength })
+                var max = d3.max(entries, function(entry) { return entry.entryLength })
+                var ticks = d3.ticks(min, max, N_GROUPS - 1)
+                if (ticks[0] !== min) ticks.unshift(min)
+                if (ticks[ticks.length - 1] !== max) ticks.push(max)
+                var intervals = ticks.reduce(function(accum, next, index) {
+
+                    if (index !== 0) {
+                        accum[index - 1].end = next
+                    }
+
+                    if (index !== ticks.length - 1) {
+                        accum[index] = { start: next }
+                    }
+
+                    return accum
+
+                }, [])
+
+                var groupings = intervals.map(function(interval, index) {
+
+                    return {
+                        
+                        label: interval.start + ' – ' + interval.end + ' characters',
+                        sampleEntry: { entryLength: (interval.start + interval.end) / 2 },
+                        match: (
+                            index === 0
+                            ? function(entry) { return entry.entryLength >= interval.start && entry.entryLength <= interval.end }
+                            : function(entry) { return entry.entryLength > interval.start && entry.entryLength <= interval.end }
+                        ),
+                    
+                    }
+
+                })
+
+                groupings.unshift({
+                        
+                    label: 'No Data',
+                    sampleEntry: {},
+                    deselected: true,
+                    match: function(entry) { return !(entry.entryLength > min - 1) && !(entry.entryLength < max + 1) },
+               
+                })
+
+                return groupings
+
+            },
+
+            getAttributeSetter: function(entries) {
+
+                var min = d3.min(entries, function(entry) { return entry.entryLength })
+                var max = d3.max(entries, function(entry) { return entry.entryLength })
+                var scale = d3.scaleLinear()
+                .domain([ min, max ])
+
+                return function(entry, dot) {
+
+                    dot.size = entry.entryLength ? scale(entry.entryLength) : scale(min)
+
+                }
+
+            }
+
+        },
 
         travelLength: {
+            
             label: 'Travel Length',
             dotEffect: 'size',
+            getGroupings: function(entries) {
+
+                //  Constant: number of groups
+                const N_GROUPS = 5
+
+                //  Generates array of entry length intervals from entries
+                var min = d3.min(entries, function(entry) { return entry.travelLength })
+                var max = d3.max(entries, function(entry) { return entry.travelLength })
+                var ticks = d3.ticks(min, max, N_GROUPS - 1)
+                if (ticks[0] !== min) ticks.unshift(min)
+                if (ticks[ticks.length - 1] !== max) ticks.push(max)
+                var intervals = ticks.reduce(function(accum, next, index) {
+
+                    if (index !== 0) {
+                        accum[index - 1].end = next
+                    }
+
+                    if (index !== ticks.length - 1) {
+                        accum[index] = { start: next }
+                    }
+
+                    return accum
+
+                }, [])
+
+                var groupings = intervals.map(function(interval, index) {
+
+                    return {
+                        
+                        label: interval.start + ' – ' + interval.end + ' years',
+                        sampleEntry: { travelLength: (interval.start + interval.end) / 2 },
+                        match: (
+                            index === 0
+                            ? function(entry) { return entry.travelLength >= interval.start && entry.travelLength <= interval.end }
+                            : function(entry) { return entry.travelLength > interval.start && entry.travelLength <= interval.end }
+                        ),
+                    
+                    }
+
+                })
+
+                groupings.unshift({
+                        
+                    label: 'No Data',
+                    sampleEntry: {},
+                    deselected: true,
+                    match: function(entry) { return !(entry.travelLength > min - 1) && !(entry.travelLength < max + 1) },
+               
+                })
+
+                return groupings
+
+            },
+
+            getAttributeSetter: function(entries) {
+
+                var min = d3.min(entries, function(entry) { return entry.travelLength })
+                var max = d3.max(entries, function(entry) { return entry.travelLength })
+                var scale = d3.scaleLinear()
+                .domain([ min, max ])
+
+                return function(entry, dot) {
+
+                    dot.size = entry.travelLength ? scale(entry.travelLength) : scale(min)
+
+                }
+
+            }
+
         },
 
         dateOfFirstTravel: {
+            
             label: 'Date of First Travel',
             dotEffect: 'groupingOnly',
+            getGroupings: function(entries) {
+
+                //  Constant: number of groups
+                const N_GROUPS = 5
+
+                //  Generates array of entry length intervals from entries
+                var min = d3.min(entries, function(entry) { return entry.dateOfFirstTravel })
+                var max = d3.max(entries, function(entry) { return entry.dateOfFirstTravel })
+                var ticks = d3.ticks(min, max, N_GROUPS - 1)
+                if (ticks[0] !== min) ticks.unshift(min)
+                if (ticks[ticks.length - 1] !== max) ticks.push(max)
+                var intervals = ticks.reduce(function(accum, next, index) {
+
+                    if (index !== 0) {
+                        accum[index - 1].end = next
+                    }
+
+                    if (index !== ticks.length - 1) {
+                        accum[index] = { start: next }
+                    }
+
+                    return accum
+
+                }, [])
+
+                var groupings = intervals.map(function(interval, index) {
+
+                    return {
+                        
+                        label: interval.start + ' – ' + interval.end,
+                        sampleEntry: { dateOfFirstTravel: (interval.start + interval.end) / 2 },
+                        match: (
+                            index === 0
+                            ? function(entry) { return entry.dateOfFirstTravel >= interval.start && entry.dateOfFirstTravel <= interval.end }
+                            : function(entry) { return entry.dateOfFirstTravel > interval.start && entry.dateOfFirstTravel <= interval.end }
+                        ),
+                    
+                    }
+
+                })
+
+                groupings.unshift({
+                        
+                    label: 'No Data',
+                    sampleEntry: {},
+                    deselected: true,
+                    match: function(entry) { return !(entry.dateOfFirstTravel > min - 1) && !(entry.dateOfFirstTravel < max + 1) },
+               
+                })
+
+                return groupings
+
+            },
+
+            getAttributeSetter: function(entries) {
+                return function() {}
+            }
+
         },
 
     }
@@ -155,21 +355,6 @@
 
                 })
 
-
-                /*
-                *   Updates groupings when source entry list changes.
-                */
-
-                scope.$watch('allEntries', function() {
-
-                    dimensions.forEach(function(dimension) {
-                        if (scope.allEntries && scope.allEntries.length) {
-                            dimension.groupings = VISUALIZABLE_DIMENSIONS[dimension.key].getGroupings(scope.allEntries)
-                        }
-                    })
-
-                })
-                
                 
                 /*
                 *   Creates view model for header categorized dimension toggle buttons.
@@ -191,6 +376,19 @@
                 *   entries or other state values change.
                 */
 
+                scope.$watch('allEntries', function() {
+
+
+                    dimensions.forEach(function(dimension) {
+                        if (scope.allEntries && scope.allEntries.length) {
+                            dimension.groupings = VISUALIZABLE_DIMENSIONS[dimension.key].getGroupings(scope.allEntries)
+                        }
+                    })
+
+                    updateVisualization()
+
+                })
+                
                 var viewModel = {
 
                     dimensionCategories: dimensionCategories,
@@ -202,7 +400,6 @@
 
                 scope.viewModel = viewModel
                 scope.$watch('viewModel', updateVisualization, true)
-                scope.$watch('allEntries', updateVisualization)
                 var dots = []
                 
                 /*
@@ -211,11 +408,13 @@
 
                 function updateVisualization() {
 
+                    console.log(JSON.parse(JSON.stringify(viewModel)))
+
                     //  Retrieves all entries that haven't been deselected
                     var selectedEntries = filterEntries(scope.allEntries, dimensions, viewModel.hideDeselectedEntries)
 
                     //  Updates attribute setters based on selected entries
-                    dimensions.forEach(function(dimension) {
+                    if (scope.allEntries && scope.allEntries.length) dimensions.forEach(function(dimension) {
                         dimension.setAttributes = VISUALIZABLE_DIMENSIONS[dimension.key].getAttributeSetter(selectedEntries)
                     })
 
@@ -267,6 +466,10 @@
 
                 scope.getKeyDot = function(dimension, grouping) {
 
+                    //  Constants
+                    var MIN_DOT_RADIUS = 5
+                    var MAX_DOT_RADIUS = 10
+
                     //  Creates a sample dot object
                     var dot = {}
                     dimension.setAttributes(grouping.sampleEntry, dot)
@@ -278,7 +481,7 @@
                     var selection = d3.select(svg)
                         .attr('width', '100%')
                         .attr('height', '100%')
-                        .attr('viewBox', '-10 -10 20 20')
+                        .attr('viewBox', [ -MAX_DOT_RADIUS, -MAX_DOT_RADIUS, 2 * MAX_DOT_RADIUS, 2 * MAX_DOT_RADIUS].join(' '))
                         .selectAll('circle')
                         .data([ dot ])
                     
@@ -288,9 +491,10 @@
                         .attr('cx', 0)
                         .attr('cy', 0)
                         .attr('r', 10)
+                        .attr('fill', d3.color('silver'))
 
                     //  Applies the dot effect to the dot
-                    DOT_EFFECTS[dimension.dotEffect].applyDotEffect(selection)
+                    DOT_EFFECTS[dimension.dotEffect].applyDotEffect(selection, d3.scaleLinear().range([ MIN_DOT_RADIUS, MAX_DOT_RADIUS ]))
 
                     //  Returns SVG code
                     return $sce.trustAsHtml(svg.outerHTML)

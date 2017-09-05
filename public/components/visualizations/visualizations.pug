@@ -16,8 +16,8 @@
         .col-lg-9.canvas
         .col-lg-3.sidebar
             .dimension-keys
-                div.dimension-key(ng-repeat="category in viewModel.dimensionCategories")
-                    div(
+                div(ng-repeat="category in viewModel.dimensionCategories")
+                    div.dimension-key(
                         ng-repeat="dimension in category.dimensions",
                         ng-if="dimension.enabled"
                     )

@@ -74,7 +74,7 @@ router.get('/api/entries/for-visualization/:entryIndexString?', isViewer, (req, 
         dateOfFirstTravel: entry.travels.reduce((accum, travel) => {
 
             if (accum) return accum
-            else if (travel.travelStartYear) return Date.UTC(travel.travelStartYear, travel.travelStartMonth, travel.travelStartDay)
+            else if (travel.travelStartYear) return travel.travelStartYear
 
         }, null),
 

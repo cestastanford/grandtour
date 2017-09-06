@@ -133,7 +133,7 @@
             getGroupings: function(entries) {
 
                 //  Constant: number of groups
-                const N_GROUPS = 5
+                var N_GROUPS = 8
 
                 //  Generates array of entry length intervals from entries
                 var min = d3.min(entries, function(entry) { return entry.entryLength })
@@ -195,7 +195,7 @@
             getGroupings: function(entries) {
 
                 //  Constant: number of groups
-                const N_GROUPS = 5
+                var N_GROUPS = 8
 
                 //  Generates array of entry length intervals from entries
                 var min = d3.min(entries, function(entry) { return entry.travelLength })
@@ -257,7 +257,7 @@
             getGroupings: function(entries) {
 
                 //  Constant: number of groups
-                const N_GROUPS = 5
+                var N_GROUPS = 8
 
                 //  Generates array of entry length intervals from entries
                 var min = d3.min(entries, function(entry) { return entry.dateOfFirstTravel })
@@ -718,7 +718,7 @@
         }
 
         return simulation = d3.forceSimulation(dots)
-        .alphaMin(.1)
+        .alphaMin(.01)
         .force('collision', collisionForce)
         .force('bounding', boundingForce())
         .on('tick', function() {

@@ -312,7 +312,7 @@ const projectForEntryList = entry => ({
 
     index: entry.index,
     fullName: entry.fullName,
-    biographyExcerpt: entry.biography.slice(0, 200),
+    biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
     dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
 
         if (accum) return accum

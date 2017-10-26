@@ -1,27 +1,35 @@
 .form-group
     label Free search in the entries
-    div.free-search-input(ng-repeat="term in freeSearchModel.terms track by $index")
-        input.input-sm.form-control(
-            type="text", 
-            ng-model="term.value",
-            placeholder="text ({{ counts.fullName }} entries)",
-            ng-class="{ filled: term.value }",
-        )
-        
-        a.small(
+    div
+        div.free-search-input(ng-repeat="term in freeSearchModel.terms track by $index")
+            input.input-field.input-sm.form-control(
+                type="text", 
+                ng-model="term.value",
+                placeholder="text ({{ counts.fullName }} entries)",
+                ng-class="{ filled: term.value }",
+            )
+            
+            a.remove-button.small(
                 ng-show="freeSearchModel.terms.length > 1",
-            ng-click="freeSearchModel.terms.splice($index, 1)"
-        ) x
-    
-    a.small.add-word(ng-click="freeSearchModel.terms.push({ value: '' })") add word
-    .checkbox.pull-right
-        label
-            input.small(type="checkbox", ng-model="freeSearchModel.beginnings")
-            div.small.free-search-beginning-of-word Search beginnings of words only
+                ng-click="freeSearchModel.terms.splice($index, 1)"
+            ) x
+
+            .checkbox.option-checkbox
+                label
+                    input.small(type="checkbox", ng-model="term.beginning")
+                    div.small.free-search-beginning-end match beginning of word
+            
+            .checkbox.option-checkbox
+                label
+                    input.small(type="checkbox", ng-model="term.end")
+                    div.small.free-search-beginning-end match end of word
+
+            hr
+
+    a.small.add-word(ng-click="freeSearchModel.terms.push({ value: '', beginning: true, end: true })") add word
     
     .clearfix
     .checkbox(ng-repeat="section in freeSearchModel.sections")
         label
             input(type="checkbox", ng-model="section.checked")
             div {{ section.name }}
-            

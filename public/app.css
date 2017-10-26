@@ -726,10 +726,6 @@ table.table {
   margin-top: 2px;
 }
 
-.free-search-beginning-of-word {
-  color: gray;
-}
-
 .highlighted {
     background-color: #feb;
 }
@@ -854,24 +850,43 @@ ul.list-group.entry-facet > li .controls {
 }
 
 .free-search-input {
+  margin-top: 1em;
   margin-bottom: .5em;
 }
 
-.free-search-input input {
+.free-search-input:not(:first-child) {
+  margin-top: 1.5em;
+}
+
+.free-search-input .input-field {
   width: 90%;
   display: inline-block;
 }
 
-.free-search-input a {
+.free-search-input .remove-button {
   width: 10%;
   display: inline-block;
   vertical-align: middle;
   text-align: center;
 }
 
+.free-search-input .option-checkbox {
+  color: gray;
+  margin-bottom: 0;
+}
+
+/*.free-search-input hr {
+  margin: 0;
+}*/
+
+.free-search-input:last-child hr {
+  display: none;
+}
+
 .add-word {
-  float: left;
-  margin-top: .6em;
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .travel-marker-heading {

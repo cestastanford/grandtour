@@ -255,7 +255,9 @@ var searchMap = {
     entry: d => ({
         $and: d.terms.map(term => ({
             $or: d.sections.filter(section => section.checked).map(section => ({
-                [section.key]: { $regex: new RegExp((d.beginnings ? '\\b' : '') + escapeRegExp(term.value), 'gi') }
+                [section.key]: { $regex: new RegExp((term.beginning ? '\\b' : '') 
+                    + escapeRegExp(term.value)
+                    + (term.end ? '\\b' : ''), 'gi') }
             }))
         }))
     }),

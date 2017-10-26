@@ -121,7 +121,8 @@
               .panel-heading Marriages
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.marriages | orderBy : 'sequence'")
-                  span {{e.spouse}} 
+                  span(ng-if="!e['Spouse ID'] && !e['Spouse ID'] !== 0") {{e.spouse}} 
+                  a(ng-if="e['Spouse ID'] || e['Spouse ID'] === 0", ng-href="{{ '#/entries/' + e['Spouse ID'] }}") {{e.spouse}} 
                   span(ng-show="e.year") ({{e.year}})
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mistress.length")

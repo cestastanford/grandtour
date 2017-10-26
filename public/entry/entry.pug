@@ -24,11 +24,6 @@
         strong(ng-show="editStatus.mustActivateLatest") Activate the Latest revision to edit this entry.
         .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && editStatus.exists")
           a.btn.btn-default(type="button" ng-href="#/entries/{{entry.index}}/edit") Edit This Entry
-          button.btn.btn-warning(
-            ng-class="{ disabled: editStatus.deleting }",
-            type="button",
-            ng-click="editStatus.deleting ? null : deleteEntry()"
-          ) {{ editStatus.deleting ? 'Deleting...' : 'Delete This Entry' }}
 
         .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && !editStatus.exists")
           button.btn.btn-sm.btn-default(

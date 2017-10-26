@@ -33,6 +33,12 @@
                         ng-class="{ disabled: !unsavedChanges || saveStatus.saving }"
                     ) {{ saveStatus.saving ? 'Saving...' : 'Save Changes' }}
 
+                    button.btn.btn-danger(
+                      ng-class="{ disabled: deleting }",
+                      type="button",
+                      ng-click="deleting ? null : deleteEntry()"
+                    ) {{ deleting ? 'Deleting...' : 'Delete This Entry' }}
+
     .row(ng-show="saveStatus.saved || saveStatus.error")
         br
         .col-lg-12

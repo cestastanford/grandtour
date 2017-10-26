@@ -65,14 +65,15 @@ app.factory('entryHighlightingService', function() {
 
         var value = '' + propertyValue
         var queries = null
-        if (savedQuery && savedQuery[propertyName]) {
-            
-            if (propertyName === 'travel_place') {
-                value = propertyValue.place
-                if (!highlightTravel(propertyValue)) return value
-            }
+        
+        if (propertyName === 'travel_place') {
+            value = propertyValue.place
+            if (!highlightTravel(propertyValue)) return value
+        }
 
-            else if (entryText) {
+        if (savedQuery && savedQuery[propertyName]) {
+
+            if (entryText) {
                 savedQuery[propertyName].forEach(function(term) {
                     value = highlightString(term.value, value, term.beginning, term.end)
                 })

@@ -86,10 +86,10 @@ const getSheets = async (sheetRequests) => {
 
     await authenticate()
     let downloaded = 0
-    await Promise.all(sheetRequests.map(request => new Promise(resolve => {
+    await Promise.all(sheetRequests.map(request => new Promise((resolve, reject) => {
 
         google.sheets('v4').spreadsheets.values.get(request, (error, response) => {
-            if (error) { throw error }
+            if (error) reject(error)
             else {
                 downloaded++
                 sendUpdate(`Downloaded ${downloaded} of ${sheetRequests.length} sheets`, { value: downloaded, max: sheetRequests.length })
@@ -109,16 +109,16 @@ const getSheets = async (sheetRequests) => {
 *   specified sheets.
 */
 
-const authenticate = () => new Promise(resolve => {
+const authenticate = () => new Promise((resolve, reject) => {
 
     const scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly']
     const email = process.env.SHEETS_EMAIL
     const key = process.env.SHEETS_PRIVATE_KEY.split('\\n').join('\n')
 
     const auth = new google.auth.JWT(email, null, key, scopes, null)
-    auth.authorize(function (error, tokens) {
+    auth.authorize((error, tokens) => {
         
-        if (error) { throw error }
+        if (error) reject(error)
         else {
             google.options({ auth })
             resolve()

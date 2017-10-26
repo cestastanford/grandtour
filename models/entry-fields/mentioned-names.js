@@ -9,7 +9,6 @@ module.exports = {
     sheet: {
 
         name: 'Mentioned Names',
-        doNotUpsert: true,
 
     }
 

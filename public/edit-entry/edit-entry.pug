@@ -13,7 +13,13 @@
                                 ng-click="handleEditClick()",
                             ) Go
 
-                
+                    .btn-group.btn-group-sm.margin-left-1(role="group")
+                        button.btn.btn-danger(
+                          ng-class="{ disabled: deleting }",
+                          type="button",
+                          ng-click="deleting ? null : deleteEntry()"
+                        ) {{ deleting ? 'Deleting...' : 'Delete This Entry' }}
+
                 .btn-group.btn-group-sm(role="group")
                     
                     a.btn.btn-default(
@@ -32,12 +38,6 @@
                         ng-click="!unsavedChanges || saveStatus.saving ? null : saveChanges()",
                         ng-class="{ disabled: !unsavedChanges || saveStatus.saving }"
                     ) {{ saveStatus.saving ? 'Saving...' : 'Save Changes' }}
-
-                    button.btn.btn-danger(
-                      ng-class="{ disabled: deleting }",
-                      type="button",
-                      ng-click="deleting ? null : deleteEntry()"
-                    ) {{ deleting ? 'Deleting...' : 'Delete This Entry' }}
 
     .row(ng-show="saveStatus.saved || saveStatus.error")
         br

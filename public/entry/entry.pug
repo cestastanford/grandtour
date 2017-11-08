@@ -147,6 +147,36 @@
                   a(ng-click="search({pursuits:e.pursuit})",
                     ng-bind-html="highlighted('pursuits', e.pursuit)"
                   )
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
+            .panel.panel-default
+              .panel-heading Education
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.education")
+                  a(ng-show="e.degree",
+                    ng-click="search({education_degree:e.fullDegree})",
+                    ng-bind-html="highlighted('education_degree', e.fullDegree)"
+                  )
+                  span(ng-show="e.degree && e.teacher") , 
+                  span(ng-show="e.teacher") under 
+                  a(ng-show="e.teacher",
+                    ng-click="search({education_teacher:e.teacher})",
+                    ng-bind-html="highlighted('education_teacher', e.teacher)"
+                  )
+                  span(ng-show="(e.degree || e.teacher) && e.institution") , 
+                  a(ng-show="e.institution",
+                    ng-click="search({education_institution:e.institution})",
+                    ng-bind-html="highlighted('education_institution', e.institution)"
+                  )
+                  span(ng-show="(e.degree || e.teacher || e.institution) && e.place") , 
+                  a(ng-show="e.place",
+                    ng-click="search({education_place:e.place})",
+                    ng-bind-html="highlighted('education_place', e.place)"
+                  )
+                  span(ng-show="e.from")  ({{e.from}}
+                  span(ng-show="e.to") -{{e.to}}
+                  span(ng-show="e.from || e.to") )
+                  span(ng-show="e.degreeDate")  ({{e.degreeDate}})
                 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.occupations.length") 
             .panel.panel-default
@@ -185,36 +215,6 @@
                   span(ng-show="e.rankStart") {{e.rankStart}}
                   span(ng-show="e.rankEnd") -{{e.rankEnd}}
                   span(ng-show="e.rankStart || e.rankEnd") )
-                                            
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
-            .panel.panel-default
-              .panel-heading Education
-              ul.list-group
-                li.list-group-item(ng-repeat="e in entry.education")
-                  a(ng-show="e.degree",
-                    ng-click="search({education_degree:e.fullDegree})",
-                    ng-bind-html="highlighted('education_degree', e.fullDegree)"
-                  )
-                  span(ng-show="e.degree && e.teacher") , 
-                  span(ng-show="e.teacher") under 
-                  a(ng-show="e.teacher",
-                    ng-click="search({education_teacher:e.teacher})",
-                    ng-bind-html="highlighted('education_teacher', e.teacher)"
-                  )
-                  span(ng-show="(e.degree || e.teacher) && e.institution") , 
-                  a(ng-show="e.institution",
-                    ng-click="search({education_institution:e.institution})",
-                    ng-bind-html="highlighted('education_institution', e.institution)"
-                  )
-                  span(ng-show="(e.degree || e.teacher || e.institution) && e.place") , 
-                  a(ng-show="e.place",
-                    ng-click="search({education_place:e.place})",
-                    ng-bind-html="highlighted('education_place', e.place)"
-                  )
-                  span(ng-show="e.from")  ({{e.from}}
-                  span(ng-show="e.to") -{{e.to}}
-                  span(ng-show="e.from || e.to") )
-                  span(ng-show="e.degreeDate")  ({{e.degreeDate}})
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.societies.length") 
             .panel.panel-default

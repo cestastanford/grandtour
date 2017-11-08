@@ -103,7 +103,6 @@
                         ng-bind-html="highlighted('deathPlace', entry.places[0].deathPlace)"
                       )
 
-
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].flourishedStartDate || entry.dates[0].flourishedEndDate")
             .panel.panel-default
               .panel-heading Flourished
@@ -114,6 +113,14 @@
                   span(ng-show="entry.dates[0].flourishedEndDate")  – {{entry.dates[0].flourishedEndDate}}
                   span(ng-show="entry.dates[0].flourishedEndDateMarker")  ({{ entry.dates[0].flourishedEndDateMarker }})
 
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.pursuits.length") 
+            .panel.panel-default
+              .panel-heading Employments and Identifiers
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.pursuits") 
+                  a(ng-click="search({pursuits:e.pursuit})",
+                    ng-bind-html="highlighted('pursuits', e.pursuit)"
+                  )
                     
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents")
             .panel.panel-default
@@ -138,15 +145,6 @@
                 li.list-group-item(ng-repeat="e in entry.mistress")
                   span {{e.of}} 
                   span(ng-show="e.from") ({{e.from}}-{{e.to}})
-          
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.pursuits.length") 
-            .panel.panel-default
-              .panel-heading Employments and Identifiers
-              ul.list-group
-                li.list-group-item(ng-repeat="e in entry.pursuits") 
-                  a(ng-click="search({pursuits:e.pursuit})",
-                    ng-bind-html="highlighted('pursuits', e.pursuit)"
-                  )
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
             .panel.panel-default

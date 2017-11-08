@@ -78,6 +78,8 @@
                     a(ng-click="search({birthDate:entry.dates[0].birthDate})",
                       ng-bind-html="highlighted('birthDate', entry.dates[0].birthDate)"
                     )
+                    span(ng-show="entry.dates[0].birthDateMarker")  ({{ entry.dates[0].birthDateMarker }})
+                  
                   span(ng-show="entry.dates[0].birthDate && entry.places[0].birthPlace") , 
                   span(ng-show="entry.places[0].birthPlace") 
                     a(ng-click="search({birthPlace:entry.places[0].birthPlace})",
@@ -93,6 +95,8 @@
                       a(ng-click="search({deathDate:entry.dates[0].deathDate})",
                         ng-bind-html="highlighted('deathDate', entry.dates[0].deathDate)"
                       )
+                      span(ng-show="entry.dates[0].deathDateMarker")  ({{ entry.dates[0].deathDateMarker }})
+                  
                   span(ng-show="entry.dates[0].deathDate && entry.places[0].deathPlace") , 
                   span(ng-show="entry.places[0].deathPlace")
                       a(ng-click="search({deathPlace:entry.places[0].deathPlace})",
@@ -106,7 +110,9 @@
               ul.list-group
                 li.list-group-item
                   span(ng-show="entry.dates[0].flourishedStartDate") {{entry.dates[0].flourishedStartDate}}
-                  span(ng-show="entry.dates[0].flourishedEndDate") -{{entry.dates[0].flourishedEndDate}}
+                  span(ng-show="entry.dates[0].flourishedStartDateMarker")  ({{ entry.dates[0].flourishedStartDateMarker }})
+                  span(ng-show="entry.dates[0].flourishedEndDate")  – {{entry.dates[0].flourishedEndDate}}
+                  span(ng-show="entry.dates[0].flourishedEndDateMarker")  ({{ entry.dates[0].flourishedEndDateMarker }})
 
                     
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents")

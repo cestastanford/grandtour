@@ -97,6 +97,60 @@ router.get('/api/entry-fields', isViewer, (req, res, next) => {
 
 
 /*
+*   Extracts birth and death date markers.
+*/
+/*
+
+router.get('/api/transform', (req, res, next) => {
+
+    Entry.findAtRevision(null, req.user.activeRevisionIndex, 'index dates biography')
+    .then(entries => Promise.all(entries.map(entry => {
+
+        exclude = [ 311, 403, 570, 730.2, 748, 903, 955.2, 1062, 1192, 1303, 1655, 1706, 1748, 2074, 2625, 2649, 2656, 2830, 3484, 3554, 3627, 3769, 3778, 3856, 3877.2, 4173, 4315, 4361, 4996, 5252, 5293 ]
+        if (entry.biography && entry.dates[0] && exclude.indexOf(entry.index) === -1) {
+
+            const regex = /^(?:\D+|[^(]+)\(([^\d)]*)\d{4}(?:\/\d)?([^\d)]*)(?:-([^\d)]*)\d{1,4}([^\d)]*))?\)/
+            const match = entry.biography.match(regex)
+            entry.dates[0].birthDateMarker = match[1] || match[2]
+            entry.dates[0].deathDateMarker = match[3] || match[4]
+            const deathMatch = entry.dates[0].birthDateMarker.match(/d. ?(.*)/)
+            if (deathMatch) {
+                entry.dates[0].birthDateMarker = ''
+                entry.dates[0].deathDateMarker = deathMatch[1]
+            }
+
+            const flourshedMatch = entry.dates[0].birthDateMarker.match(/fl. ?(.*)/)
+            if (flourshedMatch) {
+                entry.dates[0].birthDateMarker = ''
+            }
+
+            const birthDateMarkerMatch = entry.dates[0].birthDateMarker && entry.dates[0].birthDateMarker.match(/b. ?(.*)/)
+            if (birthDateMarkerMatch) {
+                entry.dates[0].birthDateMarker = birthDateMarkerMatch[1]
+            }
+
+            const deathDateMarkerMatch = entry.dates[0].deathDateMarker && entry.dates[0].deathDateMarker.match(/d. ?(.*)/)
+            if (deathDateMarkerMatch) {
+                entry.dates[0].deathDateMarker = deathDateMarkerMatch[1]
+            }
+
+            if (entry.dates[0].birthDateMarker === ' ') entry.dates[0].birthDateMarker = ''
+            if (entry.dates[0].deathDateMarker === ' ') entry.dates[0].deathDateMarker = ''
+            
+            return Entry.findByIndexAndUpdateAtLatest(entry.index, { dates: entry.dates })
+
+        } else return Promise.resolve()
+        
+    })))
+    .then(updated => res.json(updated))
+    .catch(next)
+    
+})
+
+*/
+
+
+/*
 *   Exports
 */
 

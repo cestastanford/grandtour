@@ -195,21 +195,21 @@
                     ng-click="search({education_degree:e.fullDegree})",
                     ng-bind-html="highlighted('education_degree', e.fullDegree)"
                   )
-                  span(ng-show="e.degree && e.institution") , 
-                  a(ng-show="e.institution",
-                    ng-click="search({education_institution:e.institution})",
-                    ng-bind-html="highlighted('education_institution', e.institution)"
-                  )
-                  span(ng-show="(e.degree || e.institution) && e.place") , 
-                  a(ng-show="e.place",
-                    ng-click="search({education_place:e.place})",
-                    ng-bind-html="highlighted('education_place', e.place)"
-                  )
-                  span(ng-show="(e.degree || e.institution || e.place) && e.teacher") , 
+                  span(ng-show="e.degree && e.teacher") , 
                   span(ng-show="e.teacher") under 
                   a(ng-show="e.teacher",
                     ng-click="search({education_teacher:e.teacher})",
                     ng-bind-html="highlighted('education_teacher', e.teacher)"
+                  )
+                  span(ng-show="(e.degree || e.teacher) && e.institution") , 
+                  a(ng-show="e.institution",
+                    ng-click="search({education_institution:e.institution})",
+                    ng-bind-html="highlighted('education_institution', e.institution)"
+                  )
+                  span(ng-show="(e.degree || e.teacher || e.institution) && e.place") , 
+                  a(ng-show="e.place",
+                    ng-click="search({education_place:e.place})",
+                    ng-bind-html="highlighted('education_place', e.place)"
                   )
                   span(ng-show="e.from")  ({{e.from}}
                   span(ng-show="e.to") -{{e.to}}

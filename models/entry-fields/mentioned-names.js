@@ -4,6 +4,7 @@ module.exports = {
     type: [{
         name: String,
         entryIndex: Number,
+        ranges: String,
     }],
     label: 'Mentioned Names',
     sheet: {

@@ -99,6 +99,7 @@ router.get('/api/entry-fields', isViewer, (req, res, next) => {
 /*
 *   Extracts birth and death date markers.
 */
+
 /*
 
 router.get('/api/transform', (req, res, next) => {
@@ -140,6 +141,77 @@ router.get('/api/transform', (req, res, next) => {
             return Entry.findByIndexAndUpdateAtLatest(entry.index, { dates: entry.dates })
 
         } else return Promise.resolve()
+        
+    })))
+    .then(updated => res.json(updated))
+    .catch(next)
+    
+})
+
+*/
+
+
+/*
+*   Reorders Posts & Occupations and Military Careers to so no dates
+*   are out of order, but blank dates are left in place..
+*/
+
+/*
+
+router.get('/api/transform', (req, res, next) => {
+
+    Entry.findAtRevision({}, req.user.activeRevisionIndex, 'index occupations military')
+    .then(entries => Promise.all(entries.map(entry => {
+
+        const reorder = (arr, orderValueKey) => {
+
+            const newArr = arr.slice()
+            for (let i = 0; i < newArr.length; i++) {
+                
+                const getPrevious = currentIndex => {
+                    
+                    let index = currentIndex - 1
+                    while (true) {
+                        
+                        if (index < 0) return null
+                        if (+newArr[index][orderValueKey]) return { index, orderValue: +newArr[index][orderValueKey] }
+                        index--
+                    
+                    }
+                
+                }
+
+                const currentOrderValue = +newArr[i][orderValueKey]
+                if (currentOrderValue) {
+
+                    let insertBefore = i
+                    while (true) {
+
+                        const previous = getPrevious(insertBefore)
+                        if (previous && previous.orderValue > currentOrderValue) {
+
+                            insertBefore = previous.index
+
+                        } else break
+
+                    }
+
+                    if (insertBefore < i) {
+                        newArr.splice(insertBefore, 0, newArr.splice(i, 1)[0])
+                    }
+
+                }
+
+            }
+
+            return newArr
+
+        }
+
+        const update = {}
+        if (entry.occupations && entry.occupations.length) update.occupations = reorder(entry.occupations, 'from')
+        if (entry.military && entry.military.length) update.military = reorder(entry.military, 'rankStart')
+        return Entry.findByIndexAndUpdateAtLatest(entry.index, update)
         
     })))
     .then(updated => res.json(updated))

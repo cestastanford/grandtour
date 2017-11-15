@@ -1,0 +1,9 @@
+a.entry-link(
+    ng-show="linkedEntryIndex || linkedEntryIndex === 0",
+    ng-class="{ loaded: linkedEntry }",
+    ng-href="{{ linkedEntry ? getEntryLink(linkedEntryIndex) : '' }}",
+    ng-click="handleEntryClick()",
+)
+    .entry-link-popup(ng-show="linkedEntry")
+        h4 {{ linkedEntry.fullName }}
+        p {{ linkedEntry.biography.slice(0, 100) }}...

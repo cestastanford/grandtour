@@ -127,26 +127,6 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
                 scope.edited(fieldKey, value)
 
             }
-
-
-            /*
-            *   Downloads a Mentioned Name entry details.
-            */
-
-            var downloadedEntries = {}
-            scope.downloadedEntries = downloadedEntries
-            scope.downloadEntry = function(index) {
-
-                if ((index || index === 0) && !downloadedEntries[index]) {
-                    $http.get('/api/entries/' + index)
-                    .then(function(response) {
-                        downloadedEntries[index] = response.data.entry
-                    })
-                    .catch(console.error.bind(console))
-
-                }
-
-            }
             
         },
     

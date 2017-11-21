@@ -14,6 +14,7 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
 
             scope.fieldKey = attributes.fieldKey
             scope.facetTemplate = attributes.facetTemplate
+            if (scope.facetTemplate === 'entryLink') scope.entryIndexKey = attributes.entryIndexKey
             scope.$watch('entry.' + scope.fieldKey, function(value) {
                 
                 if (scope.entryFields) {

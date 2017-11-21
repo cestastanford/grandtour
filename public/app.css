@@ -945,31 +945,34 @@ ul.list-group.entry-facet > li .controls {
 }
 
 a.entry-link {
-  display: inline-block;
-  width: .75em;
-  height: .75em;
-  border-radius: .75em;
-  background-color: rgba(188, 188, 188, 1);
-  vertical-align: baseline;
-  margin-left: .35em;
-  transition: background-color .25s;
+  display: inline;
+  margin-left: .2em;
+  cursor: default;
+}
+
+a.entry-link::before {
+  content: '●';
+  color: rgba(188, 188, 188, 1);
+  transition: color .25s;
+  font-size: 1.5em;
+  line-height: .75;
+  vertical-align: top;
 }
 
 a.entry-link:hover {
-  border-radius: .75em;
-  background-color: rgba(188, 188, 188, 1);
+  background-color: transparent;
 }
 
-a.entry-link.loaded {
-  background-color: rgba(119, 187, 255, 1);
+a.entry-link.loaded::before {
+  color: rgba(119, 187, 255, 1);
   cursor: pointer;
 }
 
-a.entry-link.loaded:hover {
-  background-color: rgba(119, 187, 255, .75);
+a.entry-link.loaded:hover::before {
+  color: rgba(119, 187, 255, .75);
 }
 
-.entry-link.loaded .entry-link-popup {
+a.entry-link.loaded .entry-link-popup {
   display: none;
   position: absolute;
   left: 0;
@@ -982,7 +985,7 @@ a.entry-link.loaded:hover {
   width: 100%;
 }
 
-.entry-link.loaded:hover .entry-link-popup {
+a.entry-link.loaded:hover .entry-link-popup {
   display: block;
   background-color: white;
 }

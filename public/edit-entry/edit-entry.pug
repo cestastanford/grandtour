@@ -69,7 +69,41 @@
         div.col-lg-3.entry-info
             .row
                 entry-field.col-lg-12.col-md-4.col-sm-6(
-                    ng-repeat="fieldKey in [ 'origin', 'alternateNames', 'type', 'dates', 'places', 'pursuits', 'parents', 'marriages', 'mistress', 'education', 'occupations', 'military', 'societies', 'exhibitions' ]",
+                    ng-repeat="fieldKey in [ 'origin', 'alternateNames', 'type', 'dates', 'places', 'pursuits' ]",
+                    field-key="{{ fieldKey }}",
+                    template="facet-wrapper",
+                )
+
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="parents",
+                    template="facet-wrapper",
+                    facet-template="entryLink",
+                    entry-index-key="parentsEntryIndex",
+                )
+
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="marriages",
+                    template="facet-wrapper",
+                    facet-template="entryLink",
+                    entry-index-key="Spouse ID",
+                )
+
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="mistress",
+                    template="facet-wrapper",
+                    facet-template="entryLink",
+                    entry-index-key="ofEntryIndex",
+                )
+
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    field-key="education",
+                    template="facet-wrapper",
+                    facet-template="entryLink",
+                    entry-index-key="teacherEntryIndex",
+                )
+
+                entry-field.col-lg-12.col-md-4.col-sm-6(
+                    ng-repeat="fieldKey in [ 'occupations', 'military', 'societies', 'exhibitions' ]",
                     field-key="{{ fieldKey }}",
                     template="facet-wrapper",
                 )
@@ -77,7 +111,8 @@
                 entry-field.col-lg-12.col-md-4.col-sm-6(
                     field-key="mentionedNames",
                     template="facet-wrapper",
-                    facet-template="mentionedNames",
+                    facet-template="entryLink",
+                    entry-index-key="entryIndex",
                 )
 
         div.col-lg-6

@@ -6,6 +6,7 @@ module.exports = {
     type: {
         order: String,
         parents: String,
+        parentsEntryIndex: Number,
         heir: Boolean,
         pupil: Boolean,
         surviving: Boolean,

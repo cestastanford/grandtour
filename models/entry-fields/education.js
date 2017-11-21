@@ -9,6 +9,7 @@ module.exports = {
         fullDegree: String,
         degreeDate: String,
         teacher: String,
+        teacherEntryIndex: Number,
         institution: String,
         place: String,
     }],

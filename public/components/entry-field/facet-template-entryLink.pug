@@ -1,0 +1,14 @@
+div(ng-if="entryFields[fieldKey].serialized.valueIsObject" ng-repeat="(key, value) in entryFields[fieldKey].serialized.type")
+    strong.small {{ key }}: 
+    span(ng-if="fieldValue[key] !== undefined") {{ fieldValue[key] }}
+    entry-link(ng-if="entryIndexKey && key === entryIndexKey", index="{{ fieldValue[entryIndexKey] }}")
+    a.small.italic.margin-left(
+        ng-if="fieldValue[key] !== undefined",
+        ng-click="clearObjectField(fieldKey, arrayIndex, key)",
+    ) clear
+    
+    em(ng-if="fieldValue[key] === undefined") (empty)
+    
+div(ng-if="!entryFields[fieldKey].serialized.valueIsObject")
+    span(ng-if="fieldValue !== undefined") {{ fieldValue }}
+    em(ng-if="fieldValue === undefined") (empty)

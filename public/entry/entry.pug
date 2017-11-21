@@ -126,7 +126,9 @@
             .panel.panel-default
               .panel-heading Parents
               ul.list-group
-                li.list-group-item {{entry.parents.parents}}
+                li.list-group-item
+                  span {{entry.parents.parents}}
+                  entry-link(index="{{ entry.parents.parentsEntryIndex }}") 
           
           
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.marriages.length")
@@ -134,9 +136,9 @@
               .panel-heading Marriages
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.marriages | orderBy : 'sequence'")
-                  span(ng-if="!e['Spouse ID'] && !e['Spouse ID'] !== 0") {{e.spouse}} 
-                  a(ng-if="e['Spouse ID'] || e['Spouse ID'] === 0", ng-href="{{ '#/entries/' + e['Spouse ID'] }}") {{e.spouse}} 
-                  span(ng-show="e.year") ({{e.year}})
+                  span {{e.spouse}} 
+                  entry-link(index="{{ e['Spouse ID'] }}") 
+                  span(ng-show="e.year")  ({{e.year}})
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mistress.length")
             .panel.panel-default
@@ -144,6 +146,7 @@
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.mistress")
                   span {{e.of}} 
+                  entry-link(index="{{ e.ofEntryIndex }}") 
                   span(ng-show="e.from") ({{e.from}}-{{e.to}})
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.education.length") 
@@ -155,22 +158,27 @@
                     ng-click="search({education_degree:e.fullDegree})",
                     ng-bind-html="highlighted('education_degree', e.fullDegree)"
                   )
+                  
                   span(ng-show="e.degree && e.teacher") , 
                   span(ng-show="e.teacher") under 
                   a(ng-show="e.teacher",
                     ng-click="search({education_teacher:e.teacher})",
                     ng-bind-html="highlighted('education_teacher', e.teacher)"
                   )
+                  entry-link(index="{{ e.teacherEntryIndex }}")
+                  
                   span(ng-show="(e.degree || e.teacher) && e.institution") , 
                   a(ng-show="e.institution",
                     ng-click="search({education_institution:e.institution})",
                     ng-bind-html="highlighted('education_institution', e.institution)"
                   )
+                  
                   span(ng-show="(e.degree || e.teacher || e.institution) && e.place") , 
                   a(ng-show="e.place",
                     ng-click="search({education_place:e.place})",
                     ng-bind-html="highlighted('education_place', e.place)"
                   )
+                  
                   span(ng-show="e.from")  ({{e.from}}
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )

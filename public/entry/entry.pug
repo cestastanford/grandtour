@@ -261,8 +261,12 @@
               .panel-heading Mentioned Names
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.mentionedNames") 
-                  div {{ e.name }}
-                    entry-link(index="{{ e.entryIndex }}")
+                  a(
+                    ng-click="search({ mentionedNames: e.name })",
+                    ng-bind-html="highlighted('mentionedNames', e.name)"
+                  )
+                  
+                  entry-link(index="{{ e.entryIndex }}")
           
           .col-lg-12.col-md-4.col-sm-6
             div.btn-group.add-to-list-btn.pull-left

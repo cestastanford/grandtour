@@ -189,6 +189,19 @@
 
         free-search
 
+        hr
+
+        .form-group
+          label Mentioned Names
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.mentionedNames",
+            placeholder="name ({{ counts.mentionedNames }} entries)",
+            ng-class="{ filled : query.mentionedNames }"
+            typeahead="item for item in getSuggestions('mentionedNames', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
+            typeahead-on-select="search()")
+
         button.btn.btn-default(ng-click="search()", type="submit") Search
           
     .col-lg-9

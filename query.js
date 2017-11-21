@@ -43,6 +43,7 @@ exports.getCounts = async revisionIndex => {
             travel_day: { travels : { $not : { $size : 0 } }, $or : [ { 'travels.travelStartDay' : { $ne : 0 } }, { 'travels.travelEndDay' : { $ne : 0 } } ] },
             exhibitions: { 'exhibitions.title' : { $exists : true } },
             exhibitions_activity: { 'exhibitions.activity' : { $exists : true } },
+            mentionedNames: { 'mentionedNames.name' : { $exists : true } },
 
         }
 
@@ -261,6 +262,8 @@ var searchMap = {
             }))
         }))
     }),
+
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: { $regex: getRegExp(d, exact) }  } } }),
 
 }
 

@@ -6,7 +6,6 @@ const socketIO = require('../socket')
 const google = require('googleapis')
 const Revision = require('../models/revision')
 const Entry = require('../models/entry')
-const entryFields = require('../models/entry-fields')()
 
 
 /*
@@ -26,11 +25,11 @@ const sendUpdate = (message, progress, done, url) => {
 *   a link to the spreadsheet.
 */
 
-module.exports = async revisionIndex => {
+module.exports = async (revisionIndex, entryFields) => {
 
     sendUpdate('Retrieving entries')
     const entries = await Entry.findAtRevision(null, revisionIndex)
-    const sheets = saveEntriesToSheets(entries)
+    const sheets = saveEntriesToSheets(entries, entryFields)
     await saveSheetsToGoogleSpreadsheet(sheets)
 
 }
@@ -40,11 +39,11 @@ module.exports = async revisionIndex => {
 *   Saves entries to an in-memory representation of a spreadsheet.
 */
 
-const saveEntriesToSheets = entries => {
+const saveEntriesToSheets = (entries, entryFields) => {
 
     sendUpdate('Formatting entries for spreadsheet')
     
-    const sheets = createSheets()
+    const sheets = createSheets(entryFields)
     let nFormatted = 0
     entries.forEach(entry => {
 
@@ -135,7 +134,7 @@ const saveEntriesToSheets = entries => {
 *   described in the entry field schemas.
 */
 
-const createSheets = () => {
+const createSheets = entryFields => {
 
     const sheets = {}
     Object.values(entryFields).forEach(field => {

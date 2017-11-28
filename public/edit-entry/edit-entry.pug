@@ -13,7 +13,13 @@
                                 ng-click="handleEditClick()",
                             ) Go
 
-                
+                    .btn-group.btn-group-sm.margin-left-1(role="group")
+                        button.btn.btn-danger(
+                          ng-class="{ disabled: deleting }",
+                          type="button",
+                          ng-click="deleting ? null : deleteEntry()"
+                        ) {{ deleting ? 'Deleting...' : 'Delete This Entry' }}
+
                 .btn-group.btn-group-sm(role="group")
                     
                     a.btn.btn-default(
@@ -63,7 +69,7 @@
         div.col-lg-3.entry-info
             .row
                 entry-field.col-lg-12.col-md-4.col-sm-6(
-                    ng-repeat="fieldKey in [ 'alternateNames', 'dates', 'places', 'parents', 'marriages', 'mistress', 'pursuits', 'occupations', 'military', 'education', 'societies', 'exhibitions' ]",
+                    ng-repeat="fieldKey in [ 'origin', 'alternateNames', 'type', 'dates', 'places', 'pursuits', 'parents', 'marriages', 'mistress', 'education', 'occupations', 'military', 'societies', 'exhibitions' ]",
                     field-key="{{ fieldKey }}",
                     template="facet-wrapper",
                 )

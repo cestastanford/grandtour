@@ -84,10 +84,10 @@ app.filter('isArray', function() {
                 
                 var freeSearchQuery = query[key]
                 var pill = {}
-                pill.dimension = 'free search in ' + freeSearchQuery.sections.filter(function(section) { return section.checked })
+                pill.dimension = 'free search in '
+                pill.dimension += freeSearchQuery.sections.filter(function(section) { return section.checked })
                 .map(function(section) { return section.name }).join(', ')
                 
-                if (freeSearchQuery.beginnings) pill.dimension += ' (word beginnings only)'
                 pill.value = freeSearchQuery.terms.map(function(term) { return term.value }).join(', ')
                 return pill
 

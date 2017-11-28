@@ -146,6 +146,28 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
 
 
     /*
+    * Deletes the current entry.
+    */
+
+    $scope.deleteEntry = function() {
+      
+        if ($window.confirm('Are you sure you want to delete this entry?')) {
+
+            $scope.deleting = true
+            delete $scope.unsavedChanges
+            $http.delete('/api/entries/' + $scope.entry.index)
+            .then(function() {
+                $scope.deleting = false
+                $window.location.reload()
+            })
+            .catch(console.error.bind(console))
+
+        }
+
+    }
+
+
+    /*
     *   Initially downloads assets and sets up inter-scope communication
     *   objects.
     */

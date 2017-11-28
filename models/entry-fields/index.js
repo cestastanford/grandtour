@@ -11,6 +11,7 @@ const fs = require('fs')
 
 const getTypeAsString = type => {
 
+    if (type.type) type = type.type
     if (type === String) return 'string'
     else if (type === Number) return 'number'
     else if (type === Boolean) return 'boolean'

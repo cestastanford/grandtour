@@ -1,8 +1,9 @@
 module.exports = {
 
-    key: 'narrative',
+    key: 'notes_formatted',
     type: String,
-    label: 'Narrative',
+    richText: true,
+    label: 'Notes (Formatted)',
     sheet: {
 
         name: 'Entries',

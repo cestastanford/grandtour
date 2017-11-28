@@ -17,13 +17,6 @@ const { getLatestRevisionIndex, invalidateQueryCounts } = require('../cache')
 
 
 /*
-*   Constants
-*/
-
-const FORMATTED_SUFFIX = '_formatted'
-
-
-/*
 *   Logs entry modifications and invalidates query count cache.
 */
 
@@ -59,12 +52,6 @@ for (let key in entryFields) {
             
             default: null,
         }
-
-    })
-
-    if (entryFields[key].richText) entrySchema.add({
-
-        [key + FORMATTED_SUFFIX]: { type: String, default: null },
 
     })
 
@@ -149,13 +136,13 @@ class Entry {
     *   or the latest Revision if null, returning the query promise.
     */
 
-    static async findByIndexAtRevision(index, revisionIndex) {
+    static async findByIndexAtRevision(index, revisionIndex, includeDeleted) {
 
         const result = await this.findOne({ index })
         .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
         .sort('-_revisionIndex')
 
-        if (result && result._deleted) return null
+        if (result && result._deleted && !includeDeleted) return null
         return result
 
     }
@@ -206,7 +193,7 @@ class Entry {
 
         if (!insert) logEntryModification(OP_TYPES.UPDATE, index, updatedEntryFields)
 
-        const entry = await this.findByIndexAtRevision(index)
+        const entry = await this.findByIndexAtRevision(index, null, true)
         if (entry || insert) {
 
             let latest
@@ -229,6 +216,7 @@ class Entry {
     static aggregateAtRevision(revisionIndex) {
         
         return this.aggregate()
+        .allowDiskUse(true)
         .match({ _revisionIndex: { $lte: revisionIndex || getLatestRevisionIndex() } })
         .sort({ _revisionIndex: -1 })
         .group({ _id: '$index', latest: { $first: '$$ROOT' } })

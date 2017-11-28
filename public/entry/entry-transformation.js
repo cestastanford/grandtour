@@ -304,7 +304,7 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
             var value = entry[fieldKey + FORMATTED_SUFFIX]
             if (value) {
 
-                var highlightedValue = entryHighlightingService.highlight('entry_' + fieldKey, value)
+                var highlightedValue = entryHighlightingService.highlight(fieldKey, value, true)
                 entry[fieldKey + FORMATTED_SUFFIX] = highlightedValue
 
             }

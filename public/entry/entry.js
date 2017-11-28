@@ -251,27 +251,6 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
 
 
   /*
-  * Deletes the current entry.
-  */
-
-  $scope.deleteEntry = function() {
-    
-    if ($window.confirm('Are you sure you want to delete this entry?')) {
-      
-      $scope.editStatus.deleting = true
-      $http.delete('/api/entries/' + $scope.entry.index)
-      .then(function() {
-        $scope.editStatus.deleting = false
-        $window.location.reload()
-      })
-      .catch(console.error.bind(console))
-    
-    }
-
-  }
-
-
-  /*
   * Creates a new entry with the current index.
   */
 

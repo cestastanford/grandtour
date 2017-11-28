@@ -15,12 +15,12 @@ app.directive('freeSearch', function() {
             function resetFreeSearch() {
 
                 if (scope.query.entry) scope.freeSearchModel = scope.query.entry
-                else scope.freeSearchModel = { terms: [ { value: '' } ], sections: [
+                else scope.freeSearchModel = { terms: [ { value: '', beginning: true, end: true } ], sections: [
                     { key: 'biography', name: 'Biography', checked: true },
                     { key: 'narrative', name: 'Narrative', checked: true },
                     { key: 'tours', name: 'Tours', checked: true },
                     { key: 'notes', name: 'Notes', checked: true },
-                ], beginnings: true }
+                ] }
                 
             }
 
@@ -38,7 +38,6 @@ app.directive('freeSearch', function() {
                     scope.query.entry = {
                         terms: terms,
                         sections: scope.freeSearchModel.sections,
-                        beginnings: scope.freeSearchModel.beginnings,
                     }
     
                 } else delete scope.query.entry

@@ -21,10 +21,9 @@ app.factory('entryHighlightingService', function() {
         if (savedQuery.entry) {
             
             savedQuery.entry.sections.map(function(section) {
-                savedQuery['entry_' + section.key] = savedQuery.entry.terms.map(function(term) { return term.value })
+                savedQuery[section.key] = savedQuery.entry.terms
             })
             
-            savedQuery.entry_beginnings = savedQuery.entry.beginnings
             delete savedQuery.entry
         
         }
@@ -40,17 +39,20 @@ app.factory('entryHighlightingService', function() {
     *   Applies highlighting HTML to passed string.
     */
 
-    var highlightString = function(needle, haystack, beginningsOnly) {
+    var highlightString = function(needle, haystack, beginning, end) {
 
         var regExpStr = '(' + escapeRegExp(needle) + ')'
-        if (beginningsOnly) {
-            regExpStr = '(\\b|^)' + regExpStr
+        if (beginning) {
+            regExpStr = '(?:\\b|^)' + regExpStr
+        }
+
+        if (end) {
+            regExpStr = regExpStr + '(?:\\b|$)'
         }
         
         var regExp = new RegExp(regExpStr, 'gi')
-        return haystack.replace(regExp, function(m, m1, m2) {
-            if (beginningsOnly) return m1 + '<span class="highlighted">' + m2 + '</span>'
-            else return '<span class="highlighted">' + m1 + '</span>'
+        return haystack.replace(regExp, function(m, m1) {
+            return '<span class="highlighted">' + m1 + '</span>'
         })
 
     }
@@ -59,28 +61,37 @@ app.factory('entryHighlightingService', function() {
     *   Highlights an entry field for each query term.
     */
 
-    var highlightEntryProperty = function(propertyName, propertyValue) {
+    var highlightEntryProperty = function(propertyName, propertyValue, entryText) {
 
         var value = '' + propertyValue
-
         var queries = null
-        if (savedQuery && savedQuery[propertyName]) {
-            if (Array.isArray(savedQuery[propertyName]) && savedQuery[propertyName].length) {
-                queries = savedQuery[propertyName].map(function(query) { return '' + query })
-            } else queries = [ '' + savedQuery[propertyName] ]
-        }
-
+        
         if (propertyName === 'travel_place') {
             value = propertyValue.place
             if (!highlightTravel(propertyValue)) return value
         }
 
-        if (value && queries) queries.forEach(function(query) {
+        if (savedQuery && savedQuery[propertyName]) {
 
-            var beginningsOnly = propertyName.indexOf('entry_') > -1 && savedQuery.entry_beginnings
-            value = highlightString(query, value, beginningsOnly)
+            if (entryText) {
+                savedQuery[propertyName].forEach(function(term) {
+                    value = highlightString(term.value, value, term.beginning, term.end)
+                })
+            }
 
-        })
+            else {
+
+                if (Array.isArray(savedQuery[propertyName]) && savedQuery[propertyName].length) {
+                    var queries = savedQuery[propertyName].map(function(query) { return '' + query })
+                } else queries = [ '' + savedQuery[propertyName] ]
+
+                if (value && queries) queries.forEach(function(query) {
+                    value = highlightString(query, value)
+                })
+
+            }
+        
+        }
 
         return value
 

@@ -74,10 +74,9 @@ router.get('/api/entries', isViewer, (req, res, next) => {
 
 router.patch('/api/entries/:index', isEditor, (req, res, next) => {
 
-    console.log(req.body)
     Entry.findByIndexAndUpdateAtLatest(req.params.index, req.body)
     .then(entry => {
-        if (entry) { console.log(entry); res.json(entry) }
+        if (entry) res.json(entry)
         else { throw null /* Triggers the 404 Not Found error handler */ }
     })
     .catch(next)

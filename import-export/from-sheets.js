@@ -6,7 +6,6 @@ const socketIO = require('../socket')
 const google = require('googleapis')
 const Revision = require('../models/revision')
 const Entry = require('../models/entry')
-const entryFields = require('../models/entry-fields')()
 const { invalidateQueryCounts } = require('../cache')
 
 
@@ -28,15 +27,15 @@ const sendUpdate = (message, progress, done) => {
 *   Client is updated via socket.io.
 */
 
-module.exports = async fieldRequestsFromRequest => {
+module.exports = async entryFields => {
 
     //  Requests sheet data from Google Spreadsheets
-    const fieldRequests = fieldRequestsFromRequest || Object.values(entryFields)
+    const fieldRequests = Object.values(entryFields)
     const sheetRequests = getSheetRequests(fieldRequests)
     await getSheets(sheetRequests)
 
     //  Applies data from sheets to an in-memory entry collection representation
-    const entryUpdates = getEntryUpdates(fieldRequests)
+    const entryUpdates = getEntryUpdates(fieldRequests, entryFields)
 
     //  Saves entry updates to database in a new Revision
     await Revision.create(`Import from Google Sheets on ${(new Date()).toLocaleString()}`)
@@ -60,7 +59,7 @@ const getSheetRequests = (fieldRequests) => {
     fieldRequests.forEach(fieldRequest => {
 
         const sheetRequest = {
-            spreadsheetId: process.env.IMPORT_SPREADSHEET_ID,
+            spreadsheetId: (fieldRequest.richText ? process.env.IMPORT_SPREADSHEET_ID_FORMATTED : process.env.IMPORT_SPREADSHEET_ID),
             range: fieldRequest.sheet.name + '!A1:ZZ',
             valueRenderOption: 'UNFORMATTED_VALUE',
         }
@@ -160,7 +159,7 @@ const normalizeSheetValues = rows => {
 *   field definitions.
 */
 
-const getEntryUpdates = fieldRequests => {
+const getEntryUpdates = (fieldRequests, entryFields) => {
 
     sendUpdate('Processing downloaded sheets')
     

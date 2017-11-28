@@ -17,13 +17,6 @@ const { getLatestRevisionIndex, invalidateQueryCounts } = require('../cache')
 
 
 /*
-*   Constants
-*/
-
-const FORMATTED_SUFFIX = '_formatted'
-
-
-/*
 *   Logs entry modifications and invalidates query count cache.
 */
 
@@ -59,12 +52,6 @@ for (let key in entryFields) {
             
             default: null,
         }
-
-    })
-
-    if (entryFields[key].richText) entrySchema.add({
-
-        [key + FORMATTED_SUFFIX]: { type: String, default: null },
 
     })
 

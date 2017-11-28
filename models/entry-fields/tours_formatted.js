@@ -1,8 +1,9 @@
 module.exports = {
 
-    key: 'narrative',
+    key: 'tours_formatted',
     type: String,
-    label: 'Narrative',
+    richText: true,
+    label: 'Tours (Formatted)',
     sheet: {
 
         name: 'Entries',

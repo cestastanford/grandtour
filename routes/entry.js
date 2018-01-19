@@ -56,7 +56,7 @@ router.get('/api/entries/for-visualization/:entryIndexString?', isViewer, (req, 
 
         index: entry.index,
         fullName: entry.fullName,
-        biographyExcerpt: entry.biography.slice(0, 200),
+        biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
         gender: entry.type,
         entryLength: ((entry.biograpy || '') + (entry.tours || '') + (entry.narrative || '') + (entry.notes || '')).length,
         travelLength: entry.travels.reduce((accum, travel) => {

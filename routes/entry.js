@@ -49,7 +49,7 @@ router.get('/api/entries/:index', isViewer, (req, res, next) => {
         Promise.resolve(entry),
         Entry.getAdjacentIndices(req.params.index, req.user.activeRevisionIndex),
     ]))
-    .then(([ entry, { previous, next } ]) => res.json({ entry, previous, next }))
+    .then(([ entry, { previous, next, lastUsedDecimal } ]) => res.json({ entry, previous, next, lastUsedDecimal }))
     .catch(next)
 
 })

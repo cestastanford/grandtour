@@ -23,7 +23,13 @@
 
         strong(ng-show="editStatus.mustActivateLatest") Activate the Latest revision to edit this entry.
         .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && editStatus.exists")
-          a.btn.btn-default(type="button" ng-href="#/entries/{{entry.index}}/edit") Edit This Entry
+          a.btn.btn-info(
+            ng-class="{ disabled: editStatus.duplicating }",
+            type="button",
+            ng-click="editStatus.duplicating ? null : duplicateEntry()",
+          ) {{ editStatus.duplicating ? 'Duplicating...' : 'Duplicate Entry' }}
+          
+          a.btn.btn-default(type="button" ng-href="#/entries/{{entry.index}}/edit") Edit Entry
 
         .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && !editStatus.exists")
           button.btn.btn-sm.btn-default(

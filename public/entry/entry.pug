@@ -58,6 +58,17 @@
     h1
       span(ng-bind-html="highlighted('fullName', entry.fullName)")
 
+    .entry-origin(ng-if="entry.origin && entry.origin.entryOrigin !== 'From the Dictionary'")
+      span [From 
+      a(
+        ng-if="entry.origin.sourceIndex || entry.origin.sourceIndex === 0",
+        ng-href="#/entries/{{ entry.origin.sourceIndex }}",
+      ) {{ entry.origin.sourceName }}
+      span(
+        ng-if="!entry.origin.sourceIndex && entry.origin.sourceIndex !== 0"
+      ) {{ entry.origin.sourceName }}
+      span ]
+
     .row
       div.col-lg-3.entry-info
         .row

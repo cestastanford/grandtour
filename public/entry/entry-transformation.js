@@ -26,7 +26,8 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
         transformUnformattedEntryText.bind(null, ENTRY_TEXT_SECTIONS),
         highlightEntryText.bind(null, ENTRY_TEXT_SECTIONS),
         superscript.bind(null, [ BIOGRAPHY, TOURS, NARRATIVE ]),
-        trustFormattedEntryText.bind(null, ENTRY_TEXT_SECTIONS)
+        trustFormattedEntryText.bind(null, ENTRY_TEXT_SECTIONS),
+        downloadEntrySourceName,
 
     ]
 
@@ -296,6 +297,34 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
             entry[fieldKey + FORMATTED_SUFFIX] = $sce.trustAsHtml(entry[fieldKey + FORMATTED_SUFFIX])
 
         })
+
+    }
+
+
+    /*
+    *   Downloads name of entry source index, if present.
+    */
+
+    function downloadEntrySourceName(entry) {
+
+        if (entry.origin && entry.origin.entryOrigin !== 'From the Dictionary') {
+
+            if (!entry.origin.sourceName && (entry.origin.sourceIndex || entry.origin.sourceIndex === 0)) {
+
+                entry.origin.sourceName = ''
+                return $http.get('/api/entries/' + entry.origin.sourceIndex)
+                .then(function(response) {
+                  
+                    if (response.data.entry) {
+                        entry.origin.sourceName = response.data.entry.fullName
+                    }
+                
+                })
+                .catch(console.error.bind(console))
+
+            }
+
+        }
 
     }
 

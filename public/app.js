@@ -38,7 +38,7 @@ var app = angular.module('app', [
     */
 
     $rootScope.getTitle = function() {
-      return 'The Grand Tour Explorer' + 
+      return '[ALPHA] The Grand Tour Explorer' + 
         ($state.current && $state.current.title ? ' – ' + $state.current.title : '')
     }
 

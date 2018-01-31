@@ -14,7 +14,9 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
      
       $scope.previousIndex = response.data.previous
       $scope.nextIndex = response.data.next
+      $scope.nextAvailableDecimalIndex = '' + (response.data.lastUsedDecimal + 0.1).toFixed(1)
       if (response.data.entry) {
+        $scope.originalEntry = JSON.parse(JSON.stringify(response.data.entry))
         entryTransformationService.applyTransformations(response.data.entry).then(function(entry) {
 
           $scope.entry = entry
@@ -263,6 +265,39 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
       $window.location.reload()
     })
     .catch(console.error.bind(console))
+
+  }
+
+
+  /*
+  * Creates a duplicate of the current entry, with an index of the
+  * next unused decimal of the current index.
+  */
+
+  $scope.duplicateEntry = function() {
+
+    if ($window.confirm('Are you sure you want to duplicate this entry?  A new entry will be created with index ' + $scope.nextAvailableDecimalIndex + '.  All entry information will be copied to the new entry, and its Entry Origin will be set to "Extracted from narrative" and will reference the current entry.')) {
+        
+      $scope.editStatus.duplicating = true
+      var newEntry = Object.assign({}, $scope.originalEntry, {
+        
+        index: $scope.nextAvailableDecimalIndex,
+        fullName: $scope.entry.fullName + ' [duplicated]',
+        origin: { 
+          entryOrigin: 'Extracted from narrative',
+          sourceIndex: $scope.entry.index,
+        }
+      
+      })
+      
+      $http.put('/api/entries/' + $scope.nextAvailableDecimalIndex, newEntry)
+      .then(function() {
+        $scope.editStatus.duplicating = false
+        $location.path('/entries/' + $scope.nextAvailableDecimalIndex)
+      })
+      .catch(console.error.bind(console))
+    
+    }
 
   }
 

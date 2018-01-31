@@ -1103,3 +1103,18 @@ ul.list-group.entry-facet > li .controls {
 .container.main-view.view {
   width: 100%;
 }
+
+.entry-origin {
+  margin-top: -1em;
+  margin-bottom: 1.75em;
+  font-family: 'Poly', serif;
+  font-size: 1.375em;
+  font-weight: bold;
+  color: #888;
+  letter-spacing: .5px;
+}
+
+.entry-origin a {
+  text-decoration: underline;
+  color: #666;
+}

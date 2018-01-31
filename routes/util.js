@@ -169,6 +169,61 @@ router.get('/api/unmatched-mentioned-names', (req, res, next) => {
 
 
 /*
+*   Returns a list of indexes without full names.
+*/
+
+router.get('/api/no-full-name', (req, res, next) => {
+
+    Entry.findAtRevision({ fullName: null }, req.user.activeRevisionIndex, 'index')
+    .then(entries => {
+
+        const csv = entries.reduce((accum, entry) => accum + `"${ entry.index }"\n`, '"index"\n')
+        res.header('Content-Type', 'text/plain').send(csv)
+
+    })
+    .catch(next)
+
+})
+
+
+/*
+*   Returns a list of indexes without types.
+*/
+
+router.get('/api/no-type', (req, res, next) => {
+
+    Entry.findAtRevision({ type: null }, req.user.activeRevisionIndex, 'index')
+    .then(entries => {
+
+        const csv = entries.reduce((accum, entry) => accum + `"${ entry.index }"\n`, '"index"\n')
+        res.header('Content-Type', 'text/plain').send(csv)
+
+    })
+    .catch(next)
+
+})
+
+
+/*
+*   Returns a list of indexes without travels.
+*/
+
+router.get('/api/no-travels', (req, res, next) => {
+
+    Entry.findAtRevision({ $or: [ { travels : null }, { travels : [] }, { 'travels.place' : null } ] }, req.user.activeRevisionIndex, 'index')
+    .then(entries => {
+
+        const csv = entries.reduce((accum, entry) => accum + `"${ entry.index }"\n`, '"index"\n')
+        res.header('Content-Type', 'text/plain').send(csv)
+
+    })
+    .catch(next)
+
+})
+
+
+
+/*
 *   Exports
 */
 

@@ -18,7 +18,7 @@ exports.getCounts = async revisionIndex => {
 
         const countQueries = {
 
-            fullName: { fullName : { $ne : null } },
+            fullName: { fullName : { $ne : null, $ne : '' } },
             alternateNames: { 'alternateNames.alternateName' : { $exists : true } },
             birthDate: { 'dates.0.birthDate' : { $exists : true } },
             birthPlace: { 'places.0.birthPlace' : { $exists : true } },

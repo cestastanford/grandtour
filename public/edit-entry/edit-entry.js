@@ -91,7 +91,7 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
         if (!$scope.unsavedChanges) $scope.unsavedChanges = {}
         $scope.unsavedChanges[fieldKey] = newValue
         $scope.entry[fieldKey] = newValue
-        if (newValueFormatted) {
+        if (newValueFormatted !== undefined) {
             $scope.entry[fieldKey + FORMATTED_SUFFIX] = newValueFormatted
             $scope.unsavedChanges[fieldKey + FORMATTED_SUFFIX] = newValueFormatted
         }

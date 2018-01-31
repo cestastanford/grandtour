@@ -27,7 +27,13 @@
         form(onsubmit="return false")
             .input-group.input-group-sm(ng-repeat="field in modalModel")
                 span.input-group-addon {{ field.name }}
-                input.form-control(ng-if="field.type === 'string'", type="text", ng-model="field.value")
+                input.form-control(ng-if="field.type === 'string' && !field.enumValues", type="text", ng-model="field.value")
+                select.form-control(
+                    ng-if="field.type === 'string' && field.enumValues",
+                    ng-model="field.value",
+                    ng-options="enumValue for enumValue in field.enumValues",
+                )
+                
                 input.form-control(ng-if="field.type === 'number'", type="number", ng-model="field.value")
                 input.form-control(ng-if="field.type === 'boolean'", type="checkbox", ng-model="field.value")
 

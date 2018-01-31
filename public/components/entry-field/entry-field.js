@@ -73,7 +73,14 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
 
                     if (!value) value = {}
                     for (var key in entryField.type) {
-                        modalModel.push({ name: key, type: entryField.type[key], value: value[key] })
+                        
+                        if (scope.entryFields[fieldKey].type[key] && scope.entryFields[fieldKey].type[key].enum) {
+
+                            var enumValues = scope.entryFields[fieldKey].type[key].enum
+                            modalModel.push({ name: key, type: entryField.type[key], enumValues: enumValues })
+
+                        } else modalModel.push({ name: key, type: entryField.type[key], value: value[key] })
+                    
                     }
 
                 } else modalModel.push({ name: fieldKey, type: entryField.type, value: value })

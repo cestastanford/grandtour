@@ -61,6 +61,7 @@ app.directive('richTextEditor', function($window, $http, $sce, $timeout) {
                 var oldDataUnformatted = scope.entry[scope.fieldKey]
                 var newDataFormatted = instance.getData()
                 var newDataUnformatted = instance.editable().getText()
+                if (newDataUnformatted === '\n') newDataUnformatted = ''
                 if (scope.fieldKey === 'fullName') {
                     
                     if (oldDataUnformatted !== newDataUnformatted) {

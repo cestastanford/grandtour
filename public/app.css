@@ -993,3 +993,18 @@ a.entry-link.loaded:hover .entry-link-popup {
 li.list-group-item:hover {
   z-index: 1;
 }
+
+.entry-origin {
+  margin-top: -1em;
+  margin-bottom: 1.75em;
+  font-family: 'Poly', serif;
+  font-size: 1.375em;
+  font-weight: bold;
+  color: #888;
+  letter-spacing: .5px;
+}
+
+.entry-origin a {
+  text-decoration: underline;
+  color: #666;
+}

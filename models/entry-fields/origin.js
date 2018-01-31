@@ -1,18 +1,18 @@
-const ORIGIN_TYPES = {
+const ORIGIN_TYPES = [
 
-    extractedFromHeading: 'Extracted from heading',
-    extractedFromNarrative: 'Extracted from narrative',
-    fromDictionary: 'From the Dictionary',
+    'Extracted from heading',
+    'Extracted from narrative',
+    'From the Dictionary',
 
-}
+]
 
 module.exports = {
 
     key: 'origin',
     type: {
-        entryOrigin: { type: String, enum: Object.values(ORIGIN_TYPES), required: true },
-        sourceIndex: Number,
-        sourceExists: Boolean,
+        entryOrigin: { type: String, enum: ORIGIN_TYPES, required: true },
+        sourceName: String, // for when the origin entry no longer exists
+        sourceIndex: Number, // for when the origin entry still exists
     },
 
     label: 'Entry Origin',

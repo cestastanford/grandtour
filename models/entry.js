@@ -173,9 +173,16 @@ class Entry {
         .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
         .sort('index -_revisionIndex')
 
+        let lastUsedDecimal = await this.findOne({ _deleted: false })
+        .lte('_revisionIndex', revisionIndex || getLatestRevisionIndex())
+        .gte('index', index)
+        .lt('index', Math.ceil(+index) === +index ? (+index) + 1 : Math.ceil(+index))
+        .sort('-index -_revisionIndex')
+
         return {
             previous: previous ? previous.index : null,
             next: next ? next.index : null,
+            lastUsedDecimal: lastUsedDecimal ? lastUsedDecimal.index : null,
         }
 
     }

@@ -1,16 +1,16 @@
 strong {{ fieldValue.place }}: 
 span
     span from 
-    strong(ng-show="fieldValue.travelStartYear == '0'") -
-    strong(ng-show="fieldValue.travelStartYear != '0'") {{fieldValue.travelStartYear}}
-    strong(ng-show="fieldValue.travelStartMonth != '0'") /{{fieldValue.travelStartMonth}}
-    strong(ng-show="fieldValue.travelStartDay != '0'") /{{fieldValue.travelStartDay}}
+    strong(ng-show="!fieldValue.travelStartYear") -
+    strong(ng-show="fieldValue.travelStartYear") {{fieldValue.travelStartYear}}
+    strong(ng-show="fieldValue.travelStartMonth") /{{fieldValue.travelStartMonth}}
+    strong(ng-show="fieldValue.travelStartDay") /{{fieldValue.travelStartDay}}
     span  
 
 span
     span to 
-    strong(ng-show="fieldValue.travelEndYear == '0'") -
-    strong(ng-show="fieldValue.travelEndYear != '0'") {{fieldValue.travelEndYear}}
-    strong(ng-show="fieldValue.travelEndMonth != '0'") /{{fieldValue.travelEndMonth}}
-    strong(ng-show="fieldValue.travelEndDay != '0'") /{{fieldValue.travelEndDay}}
+    strong(ng-show="!fieldValue.travelEndYear") -
+    strong(ng-show="fieldValue.travelEndYear") {{fieldValue.travelEndYear}}
+    strong(ng-show="fieldValue.travelEndMonth") /{{fieldValue.travelEndMonth}}
+    strong(ng-show="fieldValue.travelEndDay") /{{fieldValue.travelEndDay}}
     span  

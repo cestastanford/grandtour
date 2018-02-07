@@ -912,7 +912,7 @@ ul.list-group.entry-facet > li .controls {
   margin: 0;
 }
 
-.body-text.narrative p::before {
+.body-text.narrative p:not(:first-child)::before {
   content: '';
   margin-left: 2em;
 }

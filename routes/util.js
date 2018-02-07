@@ -135,29 +135,45 @@ router.get('/api/unmatched-mentioned-names', (req, res, next) => {
 
         const mentionedNamesWithNoIndex = entries.reduce((accum, entry) => {
 
-            //console.log(entry)
-            const namesFromEntry = entry.mentionedNames.filter(({ entryIndex }) => !(entryIndex || entryIndex === 0))
-            .map(({ name }) => ({ name, sourceIndex: entry.index }))
-
+            const namesFromEntry = entry.mentionedNames.map(({ name }, listIndex) => ({ name, sourceEntryIndex: entry.index, listIndex }))
+            .filter(({ entryIndex }) => !(entryIndex || entryIndex === 0))
+            
             return accum.concat(namesFromEntry)
 
         }, [])
 
         mentionedNamesWithNoIndex.sort((a, b) => {
 
-            if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
-            else if (a.name.toUpperCase() > b.name.toUpperCase()) return 1
-            else if (+a.sourceIndex < +b.sourceIndex) return -1
-            else if (+a.sourceIndex > +b.sourceIndex) return 1
+            if (+a.sourceEntryIndex < +b.sourceEntryIndex) return -1
+            else if (+a.sourceEntryIndex > +b.sourceEntryIndex) return 1
+            else if (+a.listIndex < +b.listIndex) return -1
+            else if (+a.listIndex > +b.listIndex) return 1
             else return 0
 
         })
 
-        const csv = mentionedNamesWithNoIndex.reduce((accum, { name, sourceIndex }) => {
+        const unmatchedMentionedNames = {}
+        mentionedNamesWithNoIndex.forEach(({ name, sourceEntryIndex, listIndex }) => {
 
-            return accum + `"${ name }","${ sourceIndex }"\n`
+            if (!unmatchedMentionedNames[name]) unmatchedMentionedNames[name] = []
+            unmatchedMentionedNames[name].push(`${ sourceEntryIndex }-${ listIndex }`)
 
-        }, '"Name","Source Index"\n')
+        })
+
+        const sortedKeys = Object.keys(unmatchedMentionedNames)
+        sortedKeys.sort((a, b) => {
+
+            if (a.toLowerCase() < b.toLowerCase()) return -1
+            else if (a.toUpperCase() > b.toUpperCase()) return 1
+            else return 0
+
+        })
+        
+        const csv = sortedKeys.reduce((accum, name) => {
+
+            return accum + `"${ name }","${ unmatchedMentionedNames[name].join(', ') }"\n`
+
+        }, '"Name","Source Indices"\n')
 
         res.set('Content-Type', 'text/plain')
         res.send(csv)

@@ -5,7 +5,7 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
   - [NodeJS 8.4 or later](https://nodejs.org/en/)
   - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
   - [MongoDB](https://www.mongodb.com/download-center/v2/community)
-- Clone the repository locally: `git clone https://github.com/codyml/gte.git`.
+- Clone the repository locally: `git clone https://github.com/your-username-here/gte.git`.
 - From the repository directory, install npm and Bower dependencies: `npm install`
 - Create an environmental variable file: `echo "MONGODB_URI='localhost:27017'" > .env`
 - Create a data directory: `mkdir data`

@@ -16,6 +16,19 @@ const router = require('./router')
 const User = require('./models/user')
 const Revision = require('./models/revision')
 
+/*
+* Checks for required environmental variables.
+*/
+
+if (
+    !process.env['SECRET_KEY_1'] ||
+    !process.env['SECRET_KEY_2'] ||
+    !process.env['SECRET_KEY_3'] ||
+    !process.env['MONGODB_URI']
+) {
+  throw Error('Required environmental variables not set')
+}
+
 
 /*
 *   Creates and configures Express server.

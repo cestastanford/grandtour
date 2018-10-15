@@ -8,6 +8,10 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
 - Clone the repository locally: `git clone https://github.com/your-username-here/gte.git`.
 - From the repository directory, install npm and Bower dependencies: `npm install`
 - Create an environmental variable file: `echo "MONGODB_URI='localhost:27017'" > .env`
+- Create and add some secret keys to the environmental variable file.  Keys created via this method aren't suitable for production:
+  - `echo "SECRET_KEY_1='$(date | md5sum | head -c 32)'" >> .env`
+  - `echo "SECRET_KEY_2='$(date | md5sum | head -c 32)'" >> .env`
+  - `echo "SECRET_KEY_3='$(date | md5sum | head -c 32)'" >> .env`
 - Create a data directory: `mkdir data`
 - Start the server: `npm run dev-start`.  This will create and host a MongoDB database and start the Node server.
 - Check the console output for the automatically-created default admin user login info.  This account is created when no existing user accounts exist.

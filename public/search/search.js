@@ -86,12 +86,13 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
       var travels = d3.tsv.format(res.result.travels);
 
       var zip = new JSZip();
-      zip.file("Entries.tsv", entries);
-      zip.file("Activities.tsv", activities);
-      zip.file("Travels.tsv", travels);
-      var content = zip.generate({ type: "blob" });
+      zip.file("Travelers.tsv", entries);
+      zip.file("Travelers_Life_Events.tsv", activities);
+      zip.file("Travelers_Itineraries.tsv", travels);
+      zip.file("LICENSE", "Data derived from Grand Tour Explorer, created by Giovanna Ceserani and Giorgio Caviglia, and populated with Giovanna Ceserani et als (2018), \"The Grand Tour Project Database: Travelers, Travelers Life Events and Travelers Itineraries.\" Stanford Digital Repository. Available at http://purl.stanford.edu/TBE, and licensed under a Creative Commons Attribution 3.0 Unported License.");
+      var content = zip.generate({type:"blob"});
       saveAs(content, "Grand Tour Explorer - Export.zip");
-      $btn.button('reset');
+      $btn.button('reset')
 
     });
   }

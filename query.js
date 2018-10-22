@@ -345,7 +345,7 @@ function parseExport(res) {
         // fullName
         entry.fullName = d.fullName;
         // gender
-        entry.gender = d.gender;
+        entry.gender = d.type || "Unknown";
         // birthDate
         entry.birthDate = d.dates[0] ? d.dates[0].birthDate || "" : "";
         // deathDate
@@ -357,12 +357,19 @@ function parseExport(res) {
         // parents
         entry.parents = (d.parents && d.parents.parents) || "";
 
+        let entryBase = {
+            entry : d.index,
+            fullName: entry.fullName,
+            birthDate: entry.birthDate,
+            deathDate: entry.deathDate,
+            gender: entry.gender
+        };
         // activities
 
         // marriages
         if (d.marriages) d.marriages.forEach(a => activities.push({
+            ...entryBase,
             index : ++activityIndex,
-            entry : d.index,
             type : 'marriage',
             details : a.sequence || "",
             value : a.spouse || "",
@@ -374,7 +381,7 @@ function parseExport(res) {
         // education
         if (d.education) d.education.forEach(a => activities.push({
             index : ++activityIndex,
-            entry : d.index,
+            ...entryBase,
             type : 'education',
             details : "",
             value : a.institution || "",
@@ -386,7 +393,7 @@ function parseExport(res) {
         // societies
         if (d.societies) d.societies.forEach(a => activities.push({
             index : ++activityIndex,
-            entry : d.index,
+            ...entryBase,
             type : 'society',
             details : a.role || "",
             value : a.title || "",
@@ -398,7 +405,7 @@ function parseExport(res) {
         // exhibitions
         if (d.exhibitions) d.exhibitions.forEach(a => activities.push({
             index : ++activityIndex,
-            entry : d.index,
+            ...entryBase,
             type : 'exhibition',
             details : "",
             value : a.title || "",
@@ -410,7 +417,7 @@ function parseExport(res) {
         // pursuits
         if (d.pursuits) d.pursuits.forEach(a => activities.push({
             index : ++activityIndex,
-            entry : d.index,
+            ...entryBase,
             type : 'pursuit',
             details : "",
             value : a.pursuit,
@@ -422,7 +429,7 @@ function parseExport(res) {
         // occuaptions
         if (d.occupations) d.occupations.forEach(a => activities.push({
             index : ++activityIndex,
-            entry : d.index,
+            ...entryBase,
             type : 'occupation',
             details : a.group,
             value : a.title,
@@ -434,7 +441,7 @@ function parseExport(res) {
         // occuaptions
         if (d.military) d.occupations.forEach(a => activities.push({
             index : ++activityIndex,
-            entry : d.index,
+            ...entryBase,
             type : 'military careers',
             details : a.officeType,
             value : a.rank,
@@ -445,7 +452,7 @@ function parseExport(res) {
 
         // travels
         if (d.travels) d.travels.forEach(a => travels.push({
-            entry : d.index,
+            ...entryBase,
             travelIndex : a.travelindexTotal,
             place : a.place || "",
             coordinates : a.latitude ? [a.latitude, a.longitude].join(",") : "",
@@ -457,7 +464,6 @@ function parseExport(res) {
         .filter(function(d){ return d.entry == entry.index; })
         .map(function(d){ return d.index; })
         .join(",")
-
         return entry;
     
     })

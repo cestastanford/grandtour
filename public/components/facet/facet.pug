@@ -25,7 +25,7 @@
               .checkbox
                 label(ng-class="field === 'fullName' && u.parentFullName !== u._id ? 'explore-alternate-name' : ''")
                   input(type="checkbox", ng-model="u.selected", ng-change="refresh(u)", ng-disabled="!u.count")
-                  span {{u._id}} 
+                  span {{u._id || "Unknown"}} 
                   span.text-light.pull-right {{u.count}}
                   span.alternate-name-see(ng-show="field === 'fullName' && u.parentFullName !== u._id") (see {{u.parentFullName}})
           

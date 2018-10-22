@@ -124,9 +124,9 @@ app
         var travels = d3.tsv.format(res.result.travels);
 
         var zip = new JSZip();
-        zip.file("Entries.tsv", entries);
-        zip.file("Activities.tsv", activities);
-        zip.file("Travels.tsv", travels);
+        zip.file("Travelers.tsv", entries);
+        zip.file("Travelers_Life_Events.tsv", activities);
+        zip.file("Travelers_Itineraries.tsv", travels);
         var content = zip.generate({type:"blob"});
         saveAs(content, "Grand Tour Explorer - Export.zip");
         $btn.button('reset')

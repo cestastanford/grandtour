@@ -90,9 +90,10 @@ app
   };
 
   function queryUpdated(query){
-
     for (var k in query){
-      if (!/\S/.test(query[k])) delete query[k]
+      if (!/\S/.test(query[k]) && !(query[k].length == 1 && query[k][0] === "")) {
+          delete query[k];
+        }
     }
     
     $scope.untouched = Object.getOwnPropertyNames(query).length == 0;
@@ -139,18 +140,6 @@ app
 
 
   function clean(obj){
-
-    for (var key in obj) {
-      if (!last(obj[key])) delete obj[key];
-    }
-
-    function last(o){
-      for (var k in o) {
-        if (typeof o[k] == 'object') return last(o[k]);
-        else return /\S/.test(o.value) ? o[k] : null;
-      }
-    }
-
     return obj;
   }
 

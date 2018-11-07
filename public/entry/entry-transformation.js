@@ -271,12 +271,17 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
             var value = entry[fieldKey + FORMATTED_SUFFIX]
             if (value) {
 
-                function replacer(match, p1, p2, p3, offset, string) {
-                  var t = p2 == 1? splitNotes[p2-1] : p2 + ". " +  splitNotes[p2-1]
-                  return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + t + "\">[" + p2 + "]</sup>"
+                function replacer(match, p1, footnoteId, p3, offset, string) {
+                  var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
+                  return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
                 }
-
-                var superscriptedValue = value.replace(/(\.|\,|'|\s[^&]\S+;|[a-z]|[0-9]{4})([0-9]{1,2})(?=\s|$|\n|\r|\<)/gi, replacer)
+                function replacerFootnoteOnly(match, p1, footnoteId, p3, offset, string) {
+                  var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
+                  return "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
+                }
+                var superscriptedValue = value
+                    .replace(/(\{)([0-9]{1,2})(\})/gi, replacerFootnoteOnly) // {1} => .1
+                    .replace(/(\.|\,|\;)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1; he was good.
                 entry[fieldKey + FORMATTED_SUFFIX] = superscriptedValue
 
             }

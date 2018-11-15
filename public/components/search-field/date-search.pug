@@ -4,18 +4,17 @@
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="dateModel.date.query.startYear",
-        //- todo change
         placeholder="year ({{ counts.travel_year }} entries)",
         ng-class="{ filled : dateModel.date.query.startYear }",
         ng-show="dateModel.date.queryType === 'exact'")
     
-    input.input-sm.form-control.margin-top(
-        type="text", 
-        ng-model="dateModel.date.query.startMonth",
-        placeholder="month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : dateModel.date.query.startMonth }",
-        ng-show="dateModel.date.queryType === 'exact'",
-        ng-disabled="!dateModel.date.query.startYear && !dateModel.date.query.startMonth")
+    //- input.input-sm.form-control.margin-top(
+    //-     type="text", 
+    //-     ng-model="dateModel.date.query.startMonth",
+    //-     placeholder="month ({{ counts.travel_month }} entries)",
+    //-     ng-class="{ filled : dateModel.date.query.startMonth }",
+    //-     ng-show="dateModel.date.queryType === 'exact'",
+    //-     ng-disabled="!dateModel.date.query.startYear && !dateModel.date.query.startMonth")
     
     input.input-sm.form-control.margin-top(
         type="text", 
@@ -24,13 +23,13 @@
         ng-class="{ filled : dateModel.date.query.startYear }",
         ng-show="dateModel.date.queryType === 'range'")
     
-    input.input-sm.form-control.margin-top(
-        type="text", 
-        ng-model="dateModel.date.query.startMonth",
-        placeholder="start month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : dateModel.date.query.startMonth }",
-        ng-show="dateModel.date.queryType === 'range'",
-        ng-disabled="!dateModel.date.query.startYear && !dateModel.date.query.startMonth")
+    //- input.input-sm.form-control.margin-top(
+    //-     type="text", 
+    //-     ng-model="dateModel.date.query.startMonth",
+    //-     placeholder="start month ({{ counts.travel_month }} entries)",
+    //-     ng-class="{ filled : dateModel.date.query.startMonth }",
+    //-     ng-show="dateModel.date.queryType === 'range'",
+    //-     ng-disabled="!dateModel.date.query.startYear && !dateModel.date.query.startMonth")
     
     input.input-sm.form-control.margin-top(
         type="text", 
@@ -39,13 +38,13 @@
         ng-class="{ filled : dateModel.date.query.endYear }",
         ng-show="dateModel.date.queryType === 'range'")
     
-    input.input-sm.form-control.margin-top(
-        type="text", 
-        ng-model="dateModel.date.query.endMonth",
-        placeholder="end month ({{ counts.travel_month }} entries)",
-        ng-class="{ filled : dateModel.date.query.endMonth }",
-        ng-show="dateModel.date.queryType === 'range'",
-        ng-disabled="!dateModel.date.query.endYear && !dateModel.date.query.endMonth")
+    //- input.input-sm.form-control.margin-top(
+    //-     type="text", 
+    //-     ng-model="dateModel.date.query.endMonth",
+    //-     placeholder="end month ({{ counts.travel_month }} entries)",
+    //-     ng-class="{ filled : dateModel.date.query.endMonth }",
+    //-     ng-show="dateModel.date.queryType === 'range'",
+    //-     ng-disabled="!dateModel.date.query.endYear && !dateModel.date.query.endMonth")
     
     .margin-top
         span.date-query-type.date-query-type-label search by: 

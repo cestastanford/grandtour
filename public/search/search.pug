@@ -7,7 +7,6 @@
 
   .row
     .col-lg-3.border-right
-          //- todo
       form
         
         .form-group.clearfix
@@ -27,11 +26,7 @@
 
         .form-group
           label Born
-          input.input-sm.form-control(
-            type="text", 
-            ng-model="query.birthDate",
-            placeholder="year ({{ counts.birthDate }} entries)",
-            ng-class="{ filled : query.birthDate }")
+          date-search(data-title="", data-field="birthDate")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.birthPlace",
@@ -43,11 +38,7 @@
 
         .form-group
           label Died
-          input.input-sm.form-control(
-            type="text", 
-            ng-model="query.deathDate",
-            placeholder="year ({{ counts.deathDate }} entries)",
-            ng-class="{ filled : query.deathDate }")
+          date-search(data-title="", data-field="deathDate")
           input.input-sm.margin-top.form-control(
             type="text", 
             ng-model="query.deathPlace",

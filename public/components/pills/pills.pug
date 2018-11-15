@@ -1,7 +1,11 @@
 p
     .pill(ng-repeat="pill in pills") 
         .pill-dimension {{ pill.dimension }}
-        .pill-value
+        .pill-value(ng-if="pill.value && pill.value.startYear && pill.value.startYear == pill.value.endYear")
+          strong {{ pill.value.startYear }}
+        .pill-value(ng-if="pill.value && pill.value.startYear && pill.value.startYear != pill.value.endYear")
+          strong {{ pill.value.startYear }} - {{ pill.value.endYear }}
+        .pill-value(ng-if="pill.value && !pill.value.startYear")
           span(ng-show="pill.value | isArray" ng-repeat="value in pill.value track by $index")
             span(ng-show="$index > 0") or 
             strong {{ value }} 

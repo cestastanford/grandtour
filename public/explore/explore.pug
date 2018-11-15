@@ -44,7 +44,7 @@
                     free-search
                   
                   div(ng-switch-when="date")
-                    date-search
+                    date-search(data-title="{{dimension.label}}", data-field="{{dimension.field}}")
                   div(ng-switch-when="travel")
                     travel-search
         

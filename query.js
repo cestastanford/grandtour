@@ -197,8 +197,8 @@ var searchMap = {
     ] }),
     type: d => ({ type: d }),
 
-    birthDate: d => ({ dates: { $elemMatch: { birthDate: +d } } }),
-    deathDate: d => ({ dates: { $elemMatch: { deathDate: +d } } }),
+    birthDate: d => ({ dates: { $elemMatch: {birthDate: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)} }} }), 
+    deathDate: d => ({ dates: { $elemMatch: {deathDate: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)} }} }),
 
     birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: { $regex: getRegExp(d, exact) }  } } }),
     deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: { $regex: getRegExp(d, exact) }  } } }),

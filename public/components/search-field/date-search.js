@@ -4,26 +4,25 @@ app.directive('dateSearch', function() {
     
         restrict: 'E',
         templateUrl: 'components/search-field/date-search',
-        scope: true,
-        link: function (scope) {
-        
+        scope: {
+            title: "@",
+            field: '@'
+        },
+        link: function (scope, elm, attrs) {
+            window.scope = scope;
             /*
             *   Resets travel date model.
             */
 
             function resetTravelSearch(type) {
                 
-                scope.travelModel = { date: { queryType: type, query: {} }, place: '' }
-                if (scope.query.travel) {
-                    if (scope.query.travel.date) {
-                        if (scope.query.travel.date.startYear !== scope.query.travel.date.endYear ||
-                                scope.query.travel.date.startMonth !== scope.query.travel.date.endMonth) {
-                            scope.travelModel.date.queryType = 'range'
+                scope.dateModel = { date: { queryType: type, query: {} } }
+                if (scope.$parent.query[scope.field]) {
+                    if (scope.$parent.query[scope.field]) {
+                        if (scope.$parent.query[scope.field].startYear !== scope.$parent.query[scope.field].endYear) {
+                            scope.dateModel.date.queryType = 'range'
                         }
-                        scope.travelModel.date.query = scope.query.travel.date
-                    }
-                    if (scope.query.travel.place) {
-                        scope.travelModel.place = scope.query.travel.place
+                        scope.dateModel.date.query = scope.$parent.query[scope.field]
                     }
                 
                 }
@@ -38,27 +37,20 @@ app.directive('dateSearch', function() {
 
             function handleTravelSearchUpdate() {
                 
-                if (scope.travelModel.date.queryType === 'exact') {
-                    scope.travelModel.date.query.endYear = scope.travelModel.date.query.startYear
-                    scope.travelModel.date.query.endMonth = scope.travelModel.date.query.startMonth
+                if (scope.dateModel.date.queryType === 'exact') {
+                    scope.dateModel.date.query.endYear = scope.dateModel.date.query.startYear
+                    // scope.dateModel.date.query.endMonth = scope.dateModel.date.query.startMonth
                 }
                 
-                for (key in scope.travelModel.date.query) if (!scope.travelModel.date.query[key]) delete scope.travelModel.date.query[key]
-                if (Object.getOwnPropertyNames(scope.travelModel.date.query).length > 0) {
+                for (key in scope.dateModel.date.query) if (!scope.dateModel.date.query[key]) delete scope.dateModel.date.query[key]
+                if (Object.getOwnPropertyNames(scope.dateModel.date.query).length > 0) {
                     
-                    scope.query.travel = scope.query.travel || { date: { queryType: scope.travelModel.date.queryType } }
-                    scope.query.travel.date = scope.travelModel.date.query
+                    scope.$parent.query[scope.field] = scope.$parent.query[scope.field] || { date: { queryType: scope.dateModel.date.queryType } }
+                    scope.$parent.query[scope.field] = scope.dateModel.date.query
                 
-                } else if (scope.query.travel) delete scope.query.travel.date
+                } else if (scope.$parent.query[scope.field]) delete scope.$parent.query[scope.field]
                 
-                if (scope.travelModel.place) {
-                    
-                    scope.query.travel = scope.query.travel || {}
-                    scope.query.travel.place = scope.travelModel.place
-                
-                } else if (scope.query.travel) delete scope.query.travel.place
-                
-                if (scope.query.travel && !scope.query.travel.place && !scope.query.travel.date) delete scope.query.travel
+                if (scope.$parent.query[scope.field] && !scope.$parent.query[scope.field]) delete scope.$parent.query[scope.field]
             
             }
 
@@ -70,14 +62,14 @@ app.directive('dateSearch', function() {
             function setupTravelSearch() {
 
                 resetTravelSearch('exact')
-                scope.$watch('travelModel', handleTravelSearchUpdate, true)
+                // scope.title = elm[0].dataset['title'];
+                window.scope = scope;
+                window.elm = elm;
+                scope.$watch('dateModel', handleTravelSearchUpdate, true)
                 scope.$watch('query.travel', resetTravelSearch.bind(null, 'exact'), true)
 
             }
-
-            console.log(scope);
-
-            // setupTravelSearch()
+            setupTravelSearch()
         
         },
     

@@ -36,7 +36,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.ts', '.html', '.css']
+    extensions: ['.js', '.ts', '.html', '.css', '.json']
   },
   plugins: [
     // new webpack.ContextReplacementPlugin(

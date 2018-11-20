@@ -108,13 +108,13 @@ function setupVisualization(element, travels, applyFn) {
     if (n_travels) {
 
         //  filter out the points with no location data
-        travelsWithLocation = travels.filter(function(destination) {
+        let travelsWithLocation = travels.filter(function(destination) {
             return destination.latitude ? true : false;
         });
 
         uniqueDestinations = findUniqueDestinations(travelsWithLocation);
         drawDestinationPoints();
-        addListeners(applyFn)
+        addListeners(applyFn);
 
     }
 
@@ -134,14 +134,12 @@ function drawBasemap() {
     var path = d3.geo.path().projection(projection);
 
     //  download the basemap data and draw path
-    d3.json('italy_outline.json', function(error, data) {
+    let data = require('../italy_outline.json');
 
-        canvas.insert('path', 'svg :first-child')
+    canvas.insert('path', 'svg :first-child')
         .datum(data)
         .attr('d', path)
         .classed('basemap', true);
-
-    });
 };
 
 
@@ -385,7 +383,7 @@ function findUniqueDestinations(travels) {
             return element.place === travel.place;
         });
 
-        matching = filtered[0];
+        let matching = filtered[0];
 
         if (!matching) {
 

@@ -34,7 +34,7 @@ export default function($scope, $http, $location, $stateParams, $state, $q, http
 
   if($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
-    for (queryField in $scope.query) {
+    for (let queryField in $scope.query) {
       var dimension = $scope.dimensions.filter(function(d) { return d.field === queryField; })[0];
       dimension.active = true;
     };

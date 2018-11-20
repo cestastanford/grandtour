@@ -1,6 +1,6 @@
-app.directive('richTextEditor', function($window, $http, $sce, $timeout) {
+export default function($window, $http, $sce, $timeout) {
   
-    var FORMATTED_SUFFIX = '_formatted'
+    var FORMATTED_SUFFIX = '_formatted';
 
     return {
         
@@ -101,4 +101,4 @@ app.directive('richTextEditor', function($window, $http, $sce, $timeout) {
     
     }
 
-})
+};

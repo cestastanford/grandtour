@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
-app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, entryHighlightingService, $timeout) {
+ export default function($scope, $http, $location, $stateParams, entryHighlightingService, $timeout) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -104,4 +104,4 @@ app.controller('SearchCtrl', function($scope, $http, $location, $stateParams, en
     else $scope.counts = res.data.counts;
   });
 
-});
+};

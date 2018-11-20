@@ -4,7 +4,7 @@
 *   view.
 */
 
-app.factory('entryListContext', function($location) {
+export default function($location) {
     
     /*
     *   Private variable for saving context.
@@ -79,4 +79,4 @@ app.factory('entryListContext', function($location) {
         getNextInContext: getNextInContext,
     }
 
-})
+};

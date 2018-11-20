@@ -1,9 +1,9 @@
-app.directive('entryListContext', function($state, entryListContext, entryHighlightingService) {
+export default function($state, entryListContext, entryHighlightingService) {
     
     return {
     
         restrict: 'E',
-        templateUrl: 'components/entry-list/entry-list-context-bar',
+        template: require('pug-loader!./entry-list-context-bar.pug'),
         scope: {
             currentEntryIndex: '@',
             previousEntryIndex: '@',
@@ -52,4 +52,4 @@ app.directive('entryListContext', function($state, entryListContext, entryHighli
     
     }
 
-})
+};

@@ -1,7 +1,7 @@
 /**********************************************************************
  * Register controller
  **********************************************************************/
-app.controller('RegisterCtrl', function($scope, $rootScope, $http, $location, $state) {
+export default function($scope, $rootScope, $http, $location, $state) {
   // This object will be filled by the form
   $scope.user = {};
 
@@ -21,4 +21,4 @@ app.controller('RegisterCtrl', function($scope, $rootScope, $http, $location, $s
       $state.go('register');
     });
   };
-});
+};

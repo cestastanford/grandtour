@@ -55,7 +55,7 @@ router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
     //  formatted entry text, then again for formatted entry text
     const entryFieldsExceptRichTextFields = {}
     const richTextFields = {}
-    for (key in entryFields) {
+    for (let key in entryFields) {
         (entryFields[key].richText ? richTextFields : entryFieldsExceptRichTextFields)[key] = entryFields[key]
     }
 

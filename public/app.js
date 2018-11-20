@@ -2,22 +2,72 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
+import LoginCtrl from './login/login.js';
+import AdminCtrl from './admin/admin.js';
+import SearchCtrl from './search/search.js';
+import ExploreCtrl from './explore/explore.js';
+import EditEntryCtrl from './edit-entry/edit-entry.js';
+import EntryCtrl from './entry/entry.js';
+import ListsCtrl from './lists/lists.js';
+import HttpQueryService from './explore/http-query-service.js';
 import "./app.css";
+import { travelerPointsMiniMap, MiniMapService, MiniMapController } from './entry/entry-minimap.js';
+import entryTransformationService from './entry/entry-transformation.js';
+import entryField from './components/entry-field/entry-field.js';
+import richTextEditor from './components/entry-field/rich-text-editor.js';
+import facet from './components/facet/facet.js';
+import pills from './components/pills/pills.js';
+import revisionStatus from './components/revision-status/revision-status.js';
+import dateSearch from './components/search-field/date-search.js';
+import freeSearch from './components/search-field/free-search.js';
+import travelSearch from './components/search-field/travel-search.js';
+import RegisterCtrl from './register/register.js';
+import entryListContextBar from './components/entry-list/entry-list-context-bar.js';
+import entryListContextService from './components/entry-list/entry-list-context-service.js';
+import entryList from './components/entry-list/entry-list.js';
+import listService from './lists/list-service.js';
+import entryHighlighting from './entry/entry-highlighting.js';
+import httpQueryService from './explore/http-query-service.js';
+
+require("expose-loader?jQuery!jquery"); 
+require("expose-loader?$!jquery");
+require('bootstrap');
 
 /**********************************************************************
  * Angular Application
  **********************************************************************/
 const app = angular.module('app', [
   ngAnimate,
-  uiRouter
+  uiRouter,
   // 'ngSanitize',
   // 'ngAnimate',
   // 'ng-sortable',
   // 'ui.router',
   // 'ui.bootstrap',
-]);
-
-app.run(
+])
+.service('httpQuery', httpQueryService)
+.service('entryHighlightingService', entryHighlighting)
+.service('MiniMapService', MiniMapService)
+.service('entryTransformationService', entryTransformationService)
+.service('savedListService',  listService)
+.directive('travelerPointsMiniMap', travelerPointsMiniMap)
+.directive('entryField', entryField)
+.directive('richTextEditor', richTextEditor)
+.directive('facet', facet)
+.filter('isArray', function() {
+  return function (input) {
+    return angular.isArray(input);
+  };
+})
+.directive('pills', pills)
+.directive('revisionStatus', revisionStatus)
+.directive('dateSearch', dateSearch)
+.directive('freeSearch', freeSearch)
+.directive('travelSearch', travelSearch)
+.directive('entryListContext', entryListContextBar)
+.directive('entryList', entryList)
+.service('entryListContext', entryListContextService)
+.run(
   function ($rootScope, $state, $stateParams, $http) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -96,6 +146,7 @@ app.run(
     .catch(console.error.bind(console))
 
   }
+
   $urlRouterProvider.otherwise('/');
   $stateProvider
   .state('home', {
@@ -120,20 +171,20 @@ app.run(
     url: "/login",
     template: require("pug-loader!./login/login.pug"),
     title: 'Login',
-    controller: "LoginCtrl"
+    controller: LoginCtrl
   })
 
   // .state('register', {
   //   url: "/register",
   //   template: require("pug-loader!./register/register.pug"),
   //   title: 'Register',
-  //   controller: "RegisterCtrl"
+  //   controller: RegisterCtrl
   // })
 
   .state('admin', {
     url: "/admin",
     template: require("pug-loader!./admin/admin.pug"),
-    controller: "AdminCtrl",
+    controller: AdminCtrl,
     title: 'Manage',
     resolve: {
       loggedin: isAdmin
@@ -143,7 +194,7 @@ app.run(
   .state('search', {
     url: "/search/:query",
     template: require("pug-loader!./search/search.pug"),
-    controller: "SearchCtrl",
+    controller: SearchCtrl,
     title: 'Search',
     resolve: {
       loggedin: isLoggedIn
@@ -153,7 +204,7 @@ app.run(
   .state('explore', {
     url: "/explore/:query",
     template: require("pug-loader!./explore/explore.pug"),
-    controller: "ExploreCtrl",
+    controller: ExploreCtrl,
     title: 'Explore',
     resolve: {
       loggedin: isLoggedIn
@@ -163,7 +214,7 @@ app.run(
   .state('edit-entry', {
     url: "/entries/:id/edit",
     template: require("pug-loader!./edit-entry/edit-entry.pug"),
-    controller: "EditEntryCtrl",
+    controller: EditEntryCtrl,
     title: 'Edit Entry',
     resolve: {
       loggedin: isLoggedIn
@@ -173,7 +224,7 @@ app.run(
   .state('entry', {
     url: "/entries/:id",
     template: require("pug-loader!./entry/entry.pug"),
-    controller: "EntryCtrl",
+    controller: EntryCtrl,
     title: 'Entry',
     resolve: {
       loggedin: isLoggedIn
@@ -183,7 +234,7 @@ app.run(
   .state('lists', {
     url: "/lists/:id",
     template: require("pug-loader!./lists/lists.pug"),
-    controller: "ListsCtrl",
+    controller: ListsCtrl,
     title: 'Saved Lists',
     resolve: {
       loggedin: isLoggedIn

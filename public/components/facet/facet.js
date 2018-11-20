@@ -1,4 +1,4 @@
-app.directive('facet', function($http) {
+export default function($http) {
   return {
 
     scope : {
@@ -9,7 +9,7 @@ app.directive('facet', function($http) {
       suggestions : '@'
     },
 
-    templateUrl: 'components/facet',
+    template: require('pug-loader!./facet.pug'),
 
     link: function (scope, element) {
 
@@ -82,4 +82,4 @@ app.directive('facet', function($http) {
 
     }
   };
-});
+};

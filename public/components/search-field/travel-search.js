@@ -1,9 +1,9 @@
-app.directive('travelSearch', function() {
+export default function() {
     
     return {
     
         restrict: 'E',
-        templateUrl: 'components/search-field/travel-search',
+        template: require('pug-loader!./travel-search.pug'),
         scope: true,
         link: function (scope) {
         
@@ -43,7 +43,7 @@ app.directive('travelSearch', function() {
                     scope.travelModel.date.query.endMonth = scope.travelModel.date.query.startMonth
                 }
                 
-                for (key in scope.travelModel.date.query) if (!scope.travelModel.date.query[key]) delete scope.travelModel.date.query[key]
+                for (let key in scope.travelModel.date.query) if (!scope.travelModel.date.query[key]) delete scope.travelModel.date.query[key]
                 if (Object.getOwnPropertyNames(scope.travelModel.date.query).length > 0) {
                     
                     scope.query.travel = scope.query.travel || { date: { queryType: scope.travelModel.date.queryType } }
@@ -81,4 +81,4 @@ app.directive('travelSearch', function() {
     
     }
 
-})
+};

@@ -2,7 +2,7 @@
 *   List management service
 */
 
-app.factory('savedListService', function($rootScope, $http) {
+export default function($rootScope, $http) {
 
   //  public service object
   var sharedListModel = {
@@ -95,4 +95,4 @@ app.factory('savedListService', function($rootScope, $http) {
     myListsPromise: myListsPromise,
   };
 
-})
+};

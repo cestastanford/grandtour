@@ -14,9 +14,9 @@
 *   and methods, then include a <traveler-points-mini-map> element in the HTML
 *   to call the directive.
 */
-
+import d3 from "d3";
 //  This is the service that connects to the mini map controller.
-app.factory('MiniMapService', function() {
+export function MiniMapService() {
 
     var miniMapShared = {
 
@@ -33,19 +33,19 @@ app.factory('MiniMapService', function() {
 
     };
 
-});
+};
 
 
 //  This is the mini map controller.
-app.controller('MiniMapController', function($scope, MiniMapService) {
+export function MiniMapController($scope, MiniMapService) {
 
     $scope.miniMapShared = MiniMapService.miniMapShared;
 
-});
+};
 
 
 //  This is the mini map directive for HTML inclusion.
-app.directive('travelerPointsMiniMap', function() {
+export function travelerPointsMiniMap() {
 
     return {
 
@@ -58,7 +58,7 @@ app.directive('travelerPointsMiniMap', function() {
 
     };
 
-});
+};
 
 
 // ------------------ Visualization Setup ------------------ //

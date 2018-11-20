@@ -1,7 +1,7 @@
 /**********************************************************************
  * Login controller
  **********************************************************************/
-app.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $state) {
+export default function($scope, $rootScope, $http, $location, $state) {
   // This object will be filled by the form
   $scope.user = {};
 
@@ -25,4 +25,4 @@ app.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $stat
       $state.go('login')
     });
   };
-});
+};

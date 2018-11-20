@@ -1,9 +1,9 @@
-app.directive('dateSearch', function() {
+export default function() {
     
     return {
     
         restrict: 'E',
-        templateUrl: 'components/search-field/date-search',
+        template: require('pug-loader!./date-search.pug'),
         scope: {
             title: "@",
             field: '@'
@@ -42,7 +42,7 @@ app.directive('dateSearch', function() {
                     // scope.dateModel.date.query.endMonth = scope.dateModel.date.query.startMonth
                 }
                 
-                for (key in scope.dateModel.date.query) if (!scope.dateModel.date.query[key]) delete scope.dateModel.date.query[key]
+                for (let key in scope.dateModel.date.query) if (!scope.dateModel.date.query[key]) delete scope.dateModel.date.query[key]
                 if (Object.getOwnPropertyNames(scope.dateModel.date.query).length > 0) {
                     
                     scope.$parent.query[scope.field] = scope.$parent.query[scope.field] || { date: { queryType: scope.dateModel.date.queryType } }
@@ -75,4 +75,4 @@ app.directive('dateSearch', function() {
     
     }
 
-})
+};

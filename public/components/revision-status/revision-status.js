@@ -1,9 +1,9 @@
-app.directive('revisionStatus', function($http, $window) {
+export default function($http, $window) {
     
     return {
     
         restrict: 'E',
-        templateUrl: 'components/revision-status',
+        template: require('pug-loader!./revision-status.pug'),
         scope: {},
         link: function (scope, element) {
         
@@ -64,4 +64,4 @@ app.directive('revisionStatus', function($http, $window) {
     
     }
 
-})
+};

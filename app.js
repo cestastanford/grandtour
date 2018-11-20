@@ -36,7 +36,7 @@ if (
 
 const app = express()
 app.set('views', __dirname + '/dist/')
-app.set('view engine', 'pug')
+app.set('view engine', 'pug');
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser())
@@ -79,7 +79,6 @@ if (process.env['DEBUG_DELAY']) app.use((req, res, next) => setTimeout(next, 100
 */
 
 app.use(express.static(__dirname + '/dist'))
-app.use('/node_modules', express.static(__dirname + '/node_modules'))
 app.use('/', router)
 
 

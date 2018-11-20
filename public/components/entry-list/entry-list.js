@@ -1,4 +1,4 @@
-app.directive('entryList', function(savedListService, entryListContext, $filter) {
+export default function(savedListService, entryListContext, $filter) {
   
   return {
     restrict: 'E',
@@ -10,7 +10,7 @@ app.directive('entryList', function(savedListService, entryListContext, $filter)
       duplicateList: '&?',
       deleteList: '&?',
     },
-    templateUrl: 'components/entry-list',
+    template: require('pug-loader!./entry-list.pug'),
     link: function(scope, element, attributes) {
 
       //  Saves entry list view to entryListContext service
@@ -133,4 +133,4 @@ app.directive('entryList', function(savedListService, entryListContext, $filter)
 
     },
   };
-});
+};

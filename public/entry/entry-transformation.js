@@ -10,7 +10,7 @@ var NARRATIVE = 'narrative'
 var NOTES = 'notes'
 var ENTRY_TEXT_SECTIONS = [ BIOGRAPHY, TOURS, NARRATIVE, NOTES ]
 
-app.factory('entryTransformationService', function($http, entryHighlightingService, $timeout, $sce) {
+export default function($http, entryHighlightingService, $timeout, $sce) {
 
     /*
     *   Private variable storing transformation functions.
@@ -265,7 +265,7 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
 
     function superscript(fields, entry) {
 
-        splitNotes = entry.notes ? entry.notes.split(/\.\s[0-9]{1,2}\.\s/gi) : []
+        let splitNotes = entry.notes ? entry.notes.split(/\.\s[0-9]{1,2}\.\s/gi) : []
         fields.forEach(function(fieldKey) {
 
             var value = entry[fieldKey + FORMATTED_SUFFIX]
@@ -333,4 +333,4 @@ app.factory('entryTransformationService', function($http, entryHighlightingServi
 
     }
 
-})
+};

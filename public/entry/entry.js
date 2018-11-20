@@ -2,7 +2,7 @@
 * Entry view controller
 */
 
-app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope, entryTransformationService, entryListContext) {
+export default function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope, entryTransformationService, entryListContext) {
 
   if ($stateParams.id) {
     
@@ -301,4 +301,4 @@ app.controller('EntryCtrl', function($scope, $http, $stateParams, $sce, $timeout
 
   }
 
-});
+};

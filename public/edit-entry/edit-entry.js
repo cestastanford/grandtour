@@ -1,4 +1,4 @@
-app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $window, entryListContext, entryHighlightingService) {
+export default function($http, $state, $stateParams, $scope, $window, entryListContext, entryHighlightingService) {
 
     var FORMATTED_SUFFIX = '_formatted'
 
@@ -176,4 +176,4 @@ app.controller('EditEntryCtrl', function($http, $state, $stateParams, $scope, $w
     .then(refreshEntry)
     .catch(console.error.bind(console))
 
-});
+};

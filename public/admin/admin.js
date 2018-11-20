@@ -1,7 +1,7 @@
 /**********************************************************************
  * Admin controller
  **********************************************************************/
-app.controller('AdminCtrl', function($scope, $http, $window) {
+export default function($scope, $http, $window) {
 
   $scope.view = 'revisions';
 
@@ -232,4 +232,4 @@ app.controller('AdminCtrl', function($scope, $http, $window) {
     });
   };
 
-});
+};

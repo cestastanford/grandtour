@@ -2,7 +2,7 @@
 *   Entry highlighting service
 */
 
-app.factory('entryHighlightingService', function() {
+export default function() {
 
     /*
     *   Contains most recent query.
@@ -141,7 +141,7 @@ app.factory('entryHighlightingService', function() {
         saveQuery: saveQuery,
     }
 
-})
+};
 
 //  regex-escaping function from controllers/entries.js
 function escapeRegExp(str) {

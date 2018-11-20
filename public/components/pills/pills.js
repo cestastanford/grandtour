@@ -1,15 +1,9 @@
-app.filter('isArray', function() {
-  return function (input) {
-    return angular.isArray(input);
-  };
-})
-
-.directive('pills', function() {
+export default function() {
     
     return {
     
         restrict: 'E',
-        templateUrl: 'components/pills',
+        template: require('pug-loader!./pills.pug'),
         scope: true,
         link: function(scope, element, attributes) {
 
@@ -117,7 +111,7 @@ app.filter('isArray', function() {
                 scope.$watch('query', function(query) {
                   
                     scope.pills = []
-                    for (key in query) {
+                    for (let key in query) {
                         var pill = getPill[key] ? getPill[key](key, query) : getPill.default(key, query)
                         pill.key = key
                         scope.pills.push(pill)
@@ -135,4 +129,4 @@ app.filter('isArray', function() {
     
     }
 
-})
+};

@@ -1,10 +1,10 @@
-app.directive('entryField', function($window, $http, $sce, $timeout) {
+export default function($window, $http, $sce, $timeout) {
   
     return {
         
         restrict: 'E',
         scope: true,
-        templateUrl: function (elem, attrs) { return 'components/entry-field/' + attrs['template'] },
+        template: function (elem, attrs) { return require('pug-loader!./' + attrs['template'] + '.pug') },
         link: function(scope, element, attributes) {
         
             
@@ -159,4 +159,4 @@ app.directive('entryField', function($window, $http, $sce, $timeout) {
     
     }
 
-})
+};

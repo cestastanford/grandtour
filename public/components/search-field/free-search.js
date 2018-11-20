@@ -1,9 +1,9 @@
-app.directive('freeSearch', function() {
+export default function() {
     
     return {
     
         restrict: 'E',
-        templateUrl: 'components/search-field/free-search',
+        template: require('pug-loader!./free-search.pug'),
         scope: true,
         link: function (scope) {
     
@@ -63,4 +63,4 @@ app.directive('freeSearch', function() {
     
     }
 
-})
+};

@@ -52,6 +52,9 @@
     "node": "8.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-loader": "^8.0.4",
     "concurrently": "^4.1.0",
     "css-loader": "^1.0.1",
     "expose-loader": "^0.7.5",

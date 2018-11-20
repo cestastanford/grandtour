@@ -16,6 +16,25 @@ module.exports = {
     rules: [
       // .ts files for TypeScript
       {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            "cacheDirectory": true,
+            "presets": [
+              ["@babel/preset-env", {
+                "targets": {
+                  "browsers": [
+                    "IE 8"
+                  ]
+                }
+              }]
+            ]
+          }
+        }
+      },
+      {
         test: /\.ts$/,
         loaders: [
           'awesome-typescript-loader?{tsconfig: "tsconfig.json"}'

@@ -9,6 +9,8 @@
       a(ng-click="view='users'") Users    
     li(role="presentation", ng-class="{active:view=='addUser'}")
       a(ng-click="view='addUser'") Add user
+    li(role="presentation", ng-class="{active:view=='datatable'}")
+      a(ng-click="view='datatable'") Edit Data Table
 
   .row
 
@@ -222,3 +224,5 @@
         br
         button#clear-linked-footnotes.btn.btn-danger(type="button" ng-click="clearLinkedFootnotes()", data-loading-text="Clearing...") Clear All
 
+    .col-lg-12(ng-show="view=='datatable'")
+      admin-grid

@@ -2,17 +2,25 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
 import moduleName from './app.module.ajs';
+import { GridComponent } from './grid.component';
 
 @NgModule({
     imports: [
         BrowserModule,
         UpgradeModule
+    ],
+    declarations: [
+        GridComponent
+    ],
+    entryComponents: [
+        GridComponent
     ]
 })
 export class AppModule {
     constructor(private upgrade: UpgradeModule){
     }
     ngDoBootstrap(){
+        // todo: strictdi to true
         this.upgrade.bootstrap(document.documentElement as Element, [moduleName], {strictDi: false});
     }
 }

@@ -1,5 +1,5 @@
 'use strict';
-import angular from 'angular';
+import angular, { IDirectiveFactory } from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import LoginCtrl from './login/login.js';
@@ -28,6 +28,8 @@ import entryList from './components/entry-list/entry-list.js';
 import listService from './lists/list-service.js';
 import entryHighlighting from './entry/entry-highlighting.js';
 import httpQueryService from './explore/http-query-service.js';
+import { downgradeComponent } from '@angular/upgrade/static';
+import { GridComponent } from './grid.component';
 
 require("expose-loader?jQuery!jquery"); 
 require("expose-loader?$!jquery");
@@ -68,6 +70,7 @@ const MODULE_NAME = 'app';
 .directive('entryListContext', entryListContextBar)
 .directive('entryList', entryList)
 .service('entryListContext', entryListContextService)
+.directive('adminGrid', downgradeComponent({component: GridComponent}))
 .run(
   function ($rootScope, $state, $stateParams, $http) {
     $rootScope.$state = $state;
@@ -135,7 +138,6 @@ const MODULE_NAME = 'app';
 
   //  Checks that the user is an administrator; redirects to 'home' if not
   var isAdmin = function($http, $rootScope, $state) {
-
     return getUser($http)
     .success(function(user) {
 
@@ -188,7 +190,7 @@ const MODULE_NAME = 'app';
     controller: AdminCtrl,
     title: 'Manage',
     resolve: {
-      loggedin: isAdmin
+      loggedin: isLoggedIn
     }
   })
 

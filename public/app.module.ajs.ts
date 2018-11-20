@@ -36,7 +36,8 @@ require('bootstrap');
 /**********************************************************************
  * Angular Application
  **********************************************************************/
-const app = angular.module('app', [
+const MODULE_NAME = 'app';
+ const app = angular.module(MODULE_NAME, [
   ngAnimate,
   uiRouter,
   // 'ngSanitize',
@@ -243,4 +244,4 @@ const app = angular.module('app', [
 
 })
 
-export default app;
+export default MODULE_NAME;

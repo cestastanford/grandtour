@@ -5,7 +5,7 @@ var path = require('path');
 
 module.exports = {
 
-  entry: './public/app.js',
+  entry: './public/main',
   output: {
     publicPath: '',
     path: path.resolve(__dirname, './dist'),
@@ -36,9 +36,9 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        loaders: [
-          'awesome-typescript-loader?{tsconfig: "tsconfig.json"}'
-        ]
+        use: {
+          loader: 'ts-loader'
+        }
       },
       // { test: /\.pug$/, loaders: ['pug-loader'] },
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },

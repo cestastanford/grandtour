@@ -35,7 +35,7 @@ if (
 */
 
 const app = express()
-app.set('views', __dirname + '/public/')
+app.set('views', __dirname + '/dist/')
 app.set('view engine', 'pug')
 app.use(morgan('dev'))
 app.use(bodyParser.json())
@@ -78,7 +78,7 @@ if (process.env['DEBUG_DELAY']) app.use((req, res, next) => setTimeout(next, 100
 *   Registers static and dynamic routes.
 */
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/dist'))
 app.use('/node_modules', express.static(__dirname + '/node_modules'))
 app.use('/', router)
 

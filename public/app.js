@@ -1,22 +1,28 @@
 'use strict';
+import angular from 'angular';
+import uiRouter from 'angular-ui-router';
+import ngAnimate from 'angular-animate';
+import "./app.css";
 
 /**********************************************************************
  * Angular Application
  **********************************************************************/
-var app = angular.module('app', [
-    'ngSanitize',
-    'ngAnimate',
-    'ng-sortable',
-    'ui.router',
-    'ui.bootstrap',
-])
+const app = angular.module('app', [
+  ngAnimate,
+  uiRouter
+  // 'ngSanitize',
+  // 'ngAnimate',
+  // 'ng-sortable',
+  // 'ui.router',
+  // 'ui.bootstrap',
+]);
 
-.run(
+app.run(
   function ($rootScope, $state, $stateParams, $http) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-    $http.get('/loggedin').success(function(user){
+    $http.get('/loggedin').then(function(user){
       // Authenticated
       if (user !== '0') {
         $rootScope.currentUser = user;
@@ -80,7 +86,7 @@ var app = angular.module('app', [
   var isAdmin = function($http, $rootScope, $state) {
 
     return getUser($http)
-    .then(function(user) {
+    .success(function(user) {
 
       if (user && user.role === 'admin') $rootScope.currentUser = user
       else $state.go('home')
@@ -90,13 +96,11 @@ var app = angular.module('app', [
     .catch(console.error.bind(console))
 
   }
-
   $urlRouterProvider.otherwise('/');
-
   $stateProvider
   .state('home', {
     url: "/",
-    templateUrl: "views/main",
+    template: require("pug-loader!./main/main.pug"),
     title: 'Home',
     resolve: {
       loggedin: isLoggedIn
@@ -105,7 +109,7 @@ var app = angular.module('app', [
 
   .state('about', {
     url: "/about",
-    templateUrl: "views/about",
+    template: require("pug-loader!./about/about.pug"),
     title: 'About',
     resolve: {
       loggedin: isLoggedIn
@@ -114,21 +118,21 @@ var app = angular.module('app', [
 
   .state('login', {
     url: "/login",
-    templateUrl: "views/login",
+    template: require("pug-loader!./login/login.pug"),
     title: 'Login',
     controller: "LoginCtrl"
   })
 
   // .state('register', {
   //   url: "/register",
-  //   templateUrl: "views/register",
+  //   template: require("pug-loader!./register/register.pug"),
   //   title: 'Register',
   //   controller: "RegisterCtrl"
   // })
 
   .state('admin', {
     url: "/admin",
-    templateUrl: "views/admin",
+    template: require("pug-loader!./admin/admin.pug"),
     controller: "AdminCtrl",
     title: 'Manage',
     resolve: {
@@ -138,7 +142,7 @@ var app = angular.module('app', [
 
   .state('search', {
     url: "/search/:query",
-    templateUrl: "views/search",
+    template: require("pug-loader!./search/search.pug"),
     controller: "SearchCtrl",
     title: 'Search',
     resolve: {
@@ -148,7 +152,7 @@ var app = angular.module('app', [
 
   .state('explore', {
     url: "/explore/:query",
-    templateUrl: "views/explore",
+    template: require("pug-loader!./explore/explore.pug"),
     controller: "ExploreCtrl",
     title: 'Explore',
     resolve: {
@@ -158,7 +162,7 @@ var app = angular.module('app', [
 
   .state('edit-entry', {
     url: "/entries/:id/edit",
-    templateUrl: "views/edit-entry",
+    template: require("pug-loader!./edit-entry/edit-entry.pug"),
     controller: "EditEntryCtrl",
     title: 'Edit Entry',
     resolve: {
@@ -168,7 +172,7 @@ var app = angular.module('app', [
 
   .state('entry', {
     url: "/entries/:id",
-    templateUrl: "views/entry",
+    template: require("pug-loader!./entry/entry.pug"),
     controller: "EntryCtrl",
     title: 'Entry',
     resolve: {
@@ -178,7 +182,7 @@ var app = angular.module('app', [
 
   .state('lists', {
     url: "/lists/:id",
-    templateUrl: "views/lists",
+    template: require("pug-loader!./lists/lists.pug"),
     controller: "ListsCtrl",
     title: 'Saved Lists',
     resolve: {
@@ -187,3 +191,5 @@ var app = angular.module('app', [
   })
 
 })
+
+export default app;

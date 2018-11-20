@@ -58,6 +58,7 @@
     "file-loader": "^2.0.0",
     "html-webpack-pug-plugin": "^0.3.0",
     "nodemon": "^1.11.0",
+    "style-loader": "^0.23.1",
     "webpack-cli": "^3.1.2"
   }
 }

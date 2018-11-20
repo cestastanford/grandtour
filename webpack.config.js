@@ -22,7 +22,7 @@ module.exports = {
         ]
       },
       // { test: /\.pug$/, loaders: ['pug-loader'] },
-      { test: /\.css$/, loaders: ['css-loader'] },
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
       { test: /\.html$/, loader: 'raw-loader' },
       {
         test: /\.(png|jpg|gif)$/,

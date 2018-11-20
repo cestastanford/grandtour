@@ -6,7 +6,7 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
   - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
   - [MongoDB](https://www.mongodb.com/download-center/v2/community)
 - Clone the repository locally: `git clone https://github.com/your-username-here/gte.git`.
-- From the repository directory, install npm and Bower dependencies: `npm install`
+- From the repository directory, install npm dependencies: `npm install`
 - Create an environmental variable file: `echo "MONGODB_URI='localhost:27017'" > .env`
 - Create and add some secret keys to the environmental variable file.  Keys created via this method aren't suitable for production:
   - `echo "SECRET_KEY_1='$(date | md5sum | head -c 32)'" >> .env`

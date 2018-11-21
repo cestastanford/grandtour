@@ -2,7 +2,7 @@
 *   List view controller
 */
 
-export default function($scope, $http, savedListService, $stateParams, $state) {
+export default ['$scope', '$http', 'savedListService', '$stateParams', '$state', function($scope, $http, savedListService, $stateParams, $state) {
 
     //  initialize view model
     var viewModel = {
@@ -114,4 +114,4 @@ export default function($scope, $http, savedListService, $stateParams, $state) {
 
     })
     
-};
+}];

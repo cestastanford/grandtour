@@ -1,7 +1,7 @@
 /**********************************************************************
  * Register controller
  **********************************************************************/
-export default function($scope, $rootScope, $http, $location, $state) {
+export default ['$scope', '$rootScope', '$http', '$location', '$state', function($scope, $rootScope, $http, $location, $state) {
   // This object will be filled by the form
   $scope.user = {};
 
@@ -21,4 +21,4 @@ export default function($scope, $rootScope, $http, $location, $state) {
       $state.go('register');
     });
   };
-};
+}];

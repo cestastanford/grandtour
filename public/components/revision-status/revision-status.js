@@ -1,4 +1,4 @@
-export default function($http, $window) {
+export default ['$http', function($http, $window) {
     
     return {
     
@@ -64,4 +64,4 @@ export default function($http, $window) {
     
     }
 
-};
+}];

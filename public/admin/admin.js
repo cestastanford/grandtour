@@ -2,7 +2,7 @@
  * Admin controller
  **********************************************************************/
 import io from "socket.io-client";
- export default function($scope, $http, $window) {
+ export default ['$scope', '$http', '$window', function($scope, $http, $window) {
 
   $scope.view = 'revisions';
 
@@ -233,4 +233,4 @@ import io from "socket.io-client";
     });
   };
 
-};
+}];

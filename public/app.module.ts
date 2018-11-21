@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
 import moduleName from './app.module.ajs';
 import { GridComponent } from './grid.component';
+import { NgDatasheetModule } from 'ngdatasheet/ngdatasheet';
 
 @NgModule({
     imports: [
+        // NgDatasheetModule,
         BrowserModule,
         UpgradeModule
     ],
@@ -21,6 +23,6 @@ export class AppModule {
     }
     ngDoBootstrap(){
         // todo: strictdi to true
-        this.upgrade.bootstrap(document.documentElement as Element, [moduleName], {strictDi: false});
+        this.upgrade.bootstrap(document.documentElement as Element, [moduleName], {strictDi: true});
     }
 }

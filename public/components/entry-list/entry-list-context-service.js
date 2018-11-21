@@ -4,7 +4,7 @@
 *   view.
 */
 
-export default function($location) {
+export default ['$location', function($location) {
     
     /*
     *   Private variable for saving context.
@@ -79,4 +79,4 @@ export default function($location) {
         getNextInContext: getNextInContext,
     }
 
-};
+}];

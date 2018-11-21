@@ -1,4 +1,4 @@
-export default function ($http, $q) {
+export default ['$http', '$q', function ($http, $q) {
     return function (url) {
         var cancelQuery = null;
         return function runQuery(query) {
@@ -16,4 +16,4 @@ export default function ($http, $q) {
                 });
         };
     };
-};
+}];

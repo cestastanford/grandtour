@@ -10,7 +10,7 @@ var NARRATIVE = 'narrative'
 var NOTES = 'notes'
 var ENTRY_TEXT_SECTIONS = [ BIOGRAPHY, TOURS, NARRATIVE, NOTES ]
 
-export default function($http, entryHighlightingService, $timeout, $sce) {
+export default ['$http', 'entryHighlightingService', '$timeout', '$sce', function($http, entryHighlightingService, $timeout, $sce) {
 
     /*
     *   Private variable storing transformation functions.
@@ -333,4 +333,4 @@ export default function($http, entryHighlightingService, $timeout, $sce) {
 
     }
 
-};
+}];

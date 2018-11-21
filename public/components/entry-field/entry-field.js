@@ -1,4 +1,4 @@
-export default function($window, $http, $sce, $timeout) {
+export default ['$window', '$http', '$sce', '$timeout', function($window, $http, $sce, $timeout) {
   
     return {
         
@@ -159,4 +159,4 @@ export default function($window, $http, $sce, $timeout) {
     
     }
 
-};
+}];

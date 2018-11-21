@@ -37,11 +37,11 @@ export function MiniMapService() {
 
 
 //  This is the mini map controller.
-export function MiniMapController($scope, MiniMapService) {
+export const MiniMapController = ['$scope', 'MiniMapService', function ($scope, MiniMapService) {
 
     $scope.miniMapShared = MiniMapService.miniMapShared;
 
-};
+}];
 
 
 //  This is the mini map directive for HTML inclusion.

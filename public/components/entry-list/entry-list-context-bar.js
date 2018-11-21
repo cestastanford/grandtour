@@ -1,4 +1,4 @@
-export default function($state, entryListContext, entryHighlightingService) {
+export default ['$state', 'entryListContext', 'entryHighlightingService', function($state, entryListContext, entryHighlightingService) {
     
     return {
     
@@ -52,4 +52,4 @@ export default function($state, entryListContext, entryHighlightingService) {
     
     }
 
-};
+}];

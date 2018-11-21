@@ -1,4 +1,4 @@
-export default function(savedListService, entryListContext, $filter) {
+export default ['savedListService', 'entryListContext', '$filter', function(savedListService, entryListContext, $filter) {
   
   return {
     restrict: 'E',
@@ -133,4 +133,4 @@ export default function(savedListService, entryListContext, $filter) {
 
     },
   };
-};
+}];

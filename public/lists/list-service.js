@@ -2,7 +2,7 @@
 *   List management service
 */
 
-export default function($rootScope, $http) {
+export default ['$rootScope', '$http', function($rootScope, $http) {
 
   //  public service object
   var sharedListModel = {
@@ -95,4 +95,4 @@ export default function($rootScope, $http) {
     myListsPromise: myListsPromise,
   };
 
-};
+}];

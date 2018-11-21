@@ -71,7 +71,7 @@ const MODULE_NAME = 'app';
 .directive('entryList', entryList)
 .service('entryListContext', entryListContextService)
 .directive('adminGrid', downgradeComponent({component: GridComponent}))
-.run(
+.run(['$rootScope', '$state', '$stateParams', '$http', 
   function ($rootScope, $state, $stateParams, $http) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -102,10 +102,10 @@ const MODULE_NAME = 'app';
         ($state.current && $state.current.title ? ' – ' + $state.current.title : '')
     }
 
-  }
+  }]
 )
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   //  Retrieves the user object
   var getUser = function($http) {
@@ -190,7 +190,7 @@ const MODULE_NAME = 'app';
     controller: AdminCtrl,
     title: 'Manage',
     resolve: {
-      loggedin: isLoggedIn
+      loggedin: isAdmin
     }
   })
 
@@ -244,6 +244,6 @@ const MODULE_NAME = 'app';
     }
   })
 
-})
+}]);
 
 export default MODULE_NAME;

@@ -1,4 +1,4 @@
-export default function($http, $state, $stateParams, $scope, $window, entryListContext, entryHighlightingService) {
+export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryListContext', 'entryHighlightingService', function($http, $state, $stateParams, $scope, $window, entryListContext, entryHighlightingService) {
 
     var FORMATTED_SUFFIX = '_formatted'
 
@@ -176,4 +176,4 @@ export default function($http, $state, $stateParams, $scope, $window, entryListC
     .then(refreshEntry)
     .catch(console.error.bind(console))
 
-};
+}];

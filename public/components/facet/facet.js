@@ -1,4 +1,4 @@
-export default function($http) {
+export default ['$http', function($http) {
   return {
 
     scope : {
@@ -82,4 +82,4 @@ export default function($http) {
 
     }
   };
-};
+}];

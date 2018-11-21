@@ -1,7 +1,7 @@
 /**********************************************************************
  * Entries controller
  **********************************************************************/
- export default function($scope, $http, $location, $stateParams, entryHighlightingService, $timeout) {
+ export default ['$scope', '$http', '$location', '$stateParams', 'entryHighlightingService', '$timeout', function($scope, $http, $location, $stateParams, entryHighlightingService, $timeout) {
 
   $scope.query = {};
   $scope.untouched = true;
@@ -104,4 +104,4 @@
     else $scope.counts = res.data.counts;
   });
 
-};
+}];

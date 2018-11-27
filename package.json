@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "heroku-postbuild": "webpack --mode=production",
+    "heroku-postbuild": "webpack --mode=development",
     "dev-start": "concurrently --kill-others \"webpack --colors --mode=development --watch\" \"heroku local -f Procfile.dev\""
   },
   "dependencies": {

@@ -40,7 +40,7 @@ module.exports = {
           loader: 'ts-loader'
         }
       },
-      // { test: /\.pug$/, loaders: ['pug-loader'] },
+      // { test: /\.pug$/, loaders: ['file-loader?name=[name]/[name].[ext]'] },
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
       { test: /\.html$/, loader: 'raw-loader' },
       {

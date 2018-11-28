@@ -22,7 +22,6 @@ export class AppModule {
     constructor(private upgrade: UpgradeModule){
     }
     ngDoBootstrap(){
-        // todo: strictdi to true
         this.upgrade.bootstrap(document.documentElement as Element, [moduleName], {strictDi: true});
     }
 }

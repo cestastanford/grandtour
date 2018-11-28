@@ -1,14 +1,8 @@
-import { Component, NgModule } from '@angular/core';
-import { NgDatasheetModule } from 'ngdatasheet/ngdatasheet';
+import { Component } from '@angular/core';
 
-@NgModule({
-    imports: [
-        NgDatasheetModule
-    ]
-})
 @Component({
     selector: 'admin-grid',
-    template: '<h1>test</h1>'// <ng-datasheet></ng-datasheet>
+    template: '<h1>test</h1><ng-datasheet></ng-datasheet>'
     // template: `
     //   <h2>Windstorm details!</h2>
     //   <div><label>id: {{title}} </label>1</div>

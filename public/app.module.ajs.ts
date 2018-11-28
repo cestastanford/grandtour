@@ -122,11 +122,10 @@ const MODULE_NAME = 'app';
   }
   
   //  Checks that the user is logged in; redirects to 'login' if not
-  var isLoggedIn = function($http, $rootScope, $state) {
+  var isLoggedIn = ['$http', '$rootScope', '$state', function($http, $rootScope, $state) {
 
     return getUser($http)
     .then(function(user) {
-
       if (user) $rootScope.currentUser = user
       else $state.go('login')
       return user
@@ -134,13 +133,12 @@ const MODULE_NAME = 'app';
     })
     .catch(console.error.bind(console))
 
-  }
+  }];
 
   //  Checks that the user is an administrator; redirects to 'home' if not
-  var isAdmin = function($http, $rootScope, $state) {
+  var isAdmin = ['$http', '$rootScope', '$state', function($http, $rootScope, $state) {
     return getUser($http)
-    .success(function(user) {
-
+    .then(function(user) {
       if (user && user.role === 'admin') $rootScope.currentUser = user
       else $state.go('home')
       return user
@@ -148,7 +146,7 @@ const MODULE_NAME = 'app';
     })
     .catch(console.error.bind(console))
 
-  }
+  }];
 
   $urlRouterProvider.otherwise('/');
   $stateProvider

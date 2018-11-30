@@ -1,37 +1,41 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
-const SocialCalc = require('socialcalc');
+import '@swimlane/ngx-datatable/release/index.css';
+import '@swimlane/ngx-datatable/release/themes/material.css';
+import '@swimlane/ngx-datatable/release/assets/icons.css';
 
 
 
 @Component({
     selector: 'admin-grid',
     template: `
-        <h1>test</h1><div #sheet>Sheet here.</div>
+        <h1>Edit Entries</h1>
         <ngx-datatable
+            class="material"
             [rows]="rows"
             [columns]="columns"
             [limit]="10"
             [columnMode]="'force'"
-            class="material"
             [headerHeight]="50"
             [footerHeight]="50"
-            [rowHeight]="'auto'"
+
             >
         </ngx-datatable>
         <ng-template #cellTemplate let-row="row" let-value="value" let-i="column.prop" let-rowIndex="rowIndex">
-            <span
-            title="Double click to edit"
-            (dblclick)="editing[rowIndex + '-' + i] = true"
-            *ngIf="!editing[rowIndex + '-' + i]"
-            >
-            {{value}}
-            </span>
-            <span
-                contenteditable
-                [textContent]="value" (blur)="updateValue($event.target.textContent, i, rowIndex)"
-                autofocus
-                *ngIf="editing[rowIndex+ '-' + i]"></span>
+            <div>
+                <span
+                title="Double click to edit"
+                (dblclick)="editing[rowIndex + '-' + i] = true"
+                *ngIf="!editing[rowIndex + '-' + i]"
+                >
+                {{value}}
+                </span>
+                <span
+                    contenteditable
+                    [textContent]="value" (blur)="updateValue($event.target.textContent, i, rowIndex)"
+                    autofocus
+                    *ngIf="editing[rowIndex+ '-' + i]"></span>
+            </div>
         </ng-template>
     `
     // template: `

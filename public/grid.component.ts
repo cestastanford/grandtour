@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
+import {ElementRef,Renderer2} from '@angular/core';
+const SocialCalc = require('socialcalc');
 
 @Component({
     selector: 'admin-grid',
-    template: '<h1>test</h1><ng-datasheet></ng-datasheet>'
+    template: '<h1>test</h1><div #sheet>Sheet here.</div><ng-datasheet headers="none" [(data)]="data"></ng-datasheet>'
     // template: `
     //   <h2>Windstorm details!</h2>
     //   <div><label>id: {{title}} </label>1</div>
     // `
 })
 export class GridComponent {
+    @ViewChild('sheet') sheet;
     public data: any[][] = [
         ['Item', 'Unit price', 'Quantity', 'Price'],
         ['Joy Division shirt', 25, 4, 100],
@@ -19,7 +22,13 @@ export class GridComponent {
         ['Total', , , 945 + .03 * 945]
     ]
     // title: string;
-    // constructor() {
-    //     this.title = 'Awesome, Inc. Internal Ordering System';
-    // }
+    constructor(private rd: Renderer2) {
+        // this.title = 'Awesome, Inc. Internal Ordering System';
+    }
+    
+    ngAfterViewInit() { 
+        var socialCalcControl = new SocialCalc.SpreadsheetControl()
+        socialCalcControl.InitializeSpreadsheetControl(this.sheet.nativeElement /*, height, width, spacebelow*/)
+        
+    }    
 }

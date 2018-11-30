@@ -3,13 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
 import moduleName from './app.module.ajs';
 import { GridComponent } from './grid.component';
-import { NgDatasheetModule } from '@epicfaace/ngdatasheet/ngdatasheet';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
     imports: [
         BrowserModule,
         UpgradeModule,
-        NgDatasheetModule
+        NgxDatatableModule
     ],
     declarations: [
         GridComponent

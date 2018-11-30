@@ -239,12 +239,14 @@ class Entry {
     *   returning an aggregation pipeline promise.
     */
 
-    static async findAtRevision(query, revisionIndex, projection, sort) {
+    static async findAtRevision(query, revisionIndex, projection, sort, limit, skip) {
 
         const cursor = await this.aggregateAtRevision(revisionIndex)
         .match(query || {})
         .sort(sort || { index: 1 })
         .project(projection || { _id: false })
+        .limit(limit || 0)
+        .skip(skip || 0)
         .cursor()
         .exec()
 

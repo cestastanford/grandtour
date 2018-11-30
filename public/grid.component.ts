@@ -10,6 +10,9 @@ import '@swimlane/ngx-datatable/release/assets/icons.css';
     selector: 'admin-grid',
     template: `
         <h1>Edit Entries</h1>
+        <div
+        *ngIf="!rows"
+        >Loading...<br/><br/></div>
         <ngx-datatable
             class="material"
             [rows]="rows"
@@ -23,18 +26,19 @@ import '@swimlane/ngx-datatable/release/assets/icons.css';
         </ngx-datatable>
         <ng-template #editableCellTemplate let-row="row" let-value="value" let-i="column.prop" let-rowIndex="rowIndex">
             <div>
-                <span
+                <div
                 title="Double click to edit"
                 (dblclick)="editing[rowIndex + '-' + i] = true"
                 *ngIf="!editing[rowIndex + '-' + i]"
                 >
                 {{value}}
-                </span>
-                <span
+                </div>
+                <div
                     contenteditable
+                    style="overflow: auto"
                     [textContent]="value" (blur)="updateValue($event.target.textContent, i, rowIndex)"
                     autofocus
-                    *ngIf="editing[rowIndex+ '-' + i]"></span>
+                    *ngIf="editing[rowIndex+ '-' + i]"></div>
             </div>
         </ng-template>
     `
@@ -45,7 +49,7 @@ import '@swimlane/ngx-datatable/release/assets/icons.css';
 })
 export class GridComponent {
     // title: string;
-    rows: any = [];
+    rows: any = null;
     columns: any = [];
     editing = {};
     @ViewChild('editableCellTemplate') editableCellTemplate!: TemplateRef<any>;
@@ -54,7 +58,7 @@ export class GridComponent {
     }
     ngOnInit() {
         // todo: _formatted
-        let columns = ["index", "biography", "tours", "narrative", "notes"];
+        let columns = ["index", "fullName", "biography", "tours", "narrative", "notes"];
         this.columns = columns.map(e => {
             let column = { prop: e, name: e.toUpperCase() };
             if (e == "index") {

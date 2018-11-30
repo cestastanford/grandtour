@@ -56,12 +56,12 @@ router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
 
 /*
-*   Retrieves all Entries.
+*   Retrieves all Entries (limit 20).
 */
 
 router.get('/api/entries', isViewer, (req, res, next) => {
 
-    Entry.findAtRevision(null, req.user.activeRevisionIndex)
+    Entry.findAtRevision(null, req.user.activeRevisionIndex, null, null, 20, 0)
     .then(entries => res.json(entries))
     .catch(next)
 

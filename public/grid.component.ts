@@ -2,6 +2,8 @@ import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
 const SocialCalc = require('socialcalc');
 
+
+
 @Component({
     selector: 'admin-grid',
     template: `
@@ -10,12 +12,12 @@ const SocialCalc = require('socialcalc');
             [rows]="rows"
             [columns]="columns">
         </ngx-datatable>
-        <ng-template #roleTemplate let-row="row" let-value="value" let-i="index" let-rowIndex="rowIndex">
+        <ng-template #cellTemplate let-row="row" let-value="value" let-i="column.prop" let-rowIndex="rowIndex">
             <span
             title="Double click to edit"
             (dblclick)="editing[rowIndex + '-' + i] = true"
             *ngIf="!editing[rowIndex + '-' + i]">
-            {{value}}{{rowIndex}}-{{i}}
+            {{value}}
             </span>
             <input
                 autofocus
@@ -36,7 +38,7 @@ export class GridComponent {
     rows: any;
     columns: any;
     editing = {};
-    @ViewChild('roleTemplate') cellTemplate!: TemplateRef<any>;
+    @ViewChild('cellTemplate') cellTemplate!: TemplateRef<any>;
     constructor() {
         // this.title = 'Awesome, Inc. Internal Ordering System';
     }

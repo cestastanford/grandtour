@@ -14,14 +14,14 @@ import '@swimlane/ngx-datatable/release/assets/icons.css';
             class="material"
             [rows]="rows"
             [columns]="columns"
-            [limit]="10"
+            [limit]="20"
             [columnMode]="'force'"
             [headerHeight]="50"
             [footerHeight]="50"
 
             >
         </ngx-datatable>
-        <ng-template #cellTemplate let-row="row" let-value="value" let-i="column.prop" let-rowIndex="rowIndex">
+        <ng-template #editableCellTemplate let-row="row" let-value="value" let-i="column.prop" let-rowIndex="rowIndex">
             <div>
                 <span
                 title="Double click to edit"
@@ -48,29 +48,38 @@ export class GridComponent {
     rows: any = [];
     columns: any = [];
     editing = {};
-    @ViewChild('cellTemplate') cellTemplate!: TemplateRef<any>;
+    @ViewChild('editableCellTemplate') editableCellTemplate!: TemplateRef<any>;
     constructor() {
         // this.title = 'Awesome, Inc. Internal Ordering System';
     }
     ngOnInit() {
         // todo: _formatted
         let columns = ["index", "biography", "tours", "narrative", "notes"];
-        this.columns = columns.map(e => ({ prop: e, name: e.toUpperCase(), cellTemplate: this.cellTemplate }));
+        this.columns = columns.map(e => {
+            let column = { prop: e, name: e.toUpperCase() };
+            if (e == "index") {
+            }
+            else {
+                column["cellTemplate"] = this.editableCellTemplate;
+            }
+            return column;
+        }
+    );
 
-        fetch("/api/entries").then(e => e.json()).then(e => {
-            this.rows = e;
-        });
+    fetch("/api/entries").then(e => e.json()).then(e => {
+        this.rows = e;
+    });
     }
 
-    ngAfterViewInit() {
-    }
+ngAfterViewInit() {
+}
 
-    updateValue(value, cell, rowIndex) {
-        // console.log(this.rows[rowIndex][cell]);
-        // console.log('inline editing rowIndex', rowIndex)
-        this.editing[rowIndex + '-' + cell] = false;
-        this.rows[rowIndex][cell] = value;
-        this.rows = [...this.rows];
-        console.log('UPDATED!', this.rows[rowIndex][cell]);
-    }
+updateValue(value, cell, rowIndex) {
+    // console.log(this.rows[rowIndex][cell]);
+    // console.log('inline editing rowIndex', rowIndex)
+    this.editing[rowIndex + '-' + cell] = false;
+    this.rows[rowIndex][cell] = value;
+    this.rows = [...this.rows];
+    console.log('UPDATED!', this.rows[rowIndex][cell]);
+}
 }

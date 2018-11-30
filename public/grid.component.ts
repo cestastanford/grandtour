@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'admin-grid',
-    template: '<h1>test</h1><ng-datasheet></ng-datasheet>'
+    template: '<h1>test</h1><ng-datasheet [(data)]="data" headers="side"></ng-datasheet>'
     // template: `
     //   <h2>Windstorm details!</h2>
     //   <div><label>id: {{title}} </label>1</div>

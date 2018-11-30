@@ -10,22 +10,28 @@ const SocialCalc = require('socialcalc');
         <h1>test</h1><div #sheet>Sheet here.</div>
         <ngx-datatable
             [rows]="rows"
-            [columns]="columns">
+            [columns]="columns"
+            [limit]="10"
+            [columnMode]="'force'"
+            class="material"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            >
         </ngx-datatable>
         <ng-template #cellTemplate let-row="row" let-value="value" let-i="column.prop" let-rowIndex="rowIndex">
             <span
             title="Double click to edit"
             (dblclick)="editing[rowIndex + '-' + i] = true"
-            *ngIf="!editing[rowIndex + '-' + i]">
+            *ngIf="!editing[rowIndex + '-' + i]"
+            >
             {{value}}
             </span>
-            <input
+            <span
+                contenteditable
+                [textContent]="value" (blur)="updateValue($event.target.textContent, i, rowIndex)"
                 autofocus
-                (blur)="updateValue($event, i, rowIndex)"
-                *ngIf="editing[rowIndex+ '-' + i]"
-                type="text"
-                [value]="value"
-            />
+                *ngIf="editing[rowIndex+ '-' + i]"></span>
         </ng-template>
     `
     // template: `
@@ -35,33 +41,31 @@ const SocialCalc = require('socialcalc');
 })
 export class GridComponent {
     // title: string;
-    rows: any;
-    columns: any;
+    rows: any = [];
+    columns: any = [];
     editing = {};
     @ViewChild('cellTemplate') cellTemplate!: TemplateRef<any>;
     constructor() {
         // this.title = 'Awesome, Inc. Internal Ordering System';
     }
     ngOnInit() {
-        this.rows = [
-            { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-            { name: 'Dany', gender: 'Male', company: 'KFC' },
-            { name: 'Molly', gender: 'Female', company: 'Burger King' },
-        ];
-        this.columns = [
-            { prop: 'name', cellTemplate: this.cellTemplate },
-            { name: 'Gender', cellTemplate: this.cellTemplate },
-            { name: 'Company', cellTemplate: this.cellTemplate }
-        ];
+        // todo: _formatted
+        let columns = ["index", "biography", "tours", "narrative", "notes"];
+        this.columns = columns.map(e => ({ prop: e, name: e.toUpperCase(), cellTemplate: this.cellTemplate }));
+
+        fetch("/api/entries").then(e => e.json()).then(e => {
+            this.rows = e;
+        });
     }
 
     ngAfterViewInit() {
     }
 
-    updateValue(event, cell, rowIndex) {
-        console.log('inline editing rowIndex', rowIndex)
+    updateValue(value, cell, rowIndex) {
+        // console.log(this.rows[rowIndex][cell]);
+        // console.log('inline editing rowIndex', rowIndex)
         this.editing[rowIndex + '-' + cell] = false;
-        this.rows[rowIndex][cell] = event.target.value;
+        this.rows[rowIndex][cell] = value;
         this.rows = [...this.rows];
         console.log('UPDATED!', this.rows[rowIndex][cell]);
     }

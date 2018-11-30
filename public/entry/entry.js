@@ -2,7 +2,7 @@
 * Entry view controller
 */
 
-export default ['$scope', '$http', '$state', '$stateParams', '$sce', '$timeout', '$location', 'savedListService', 'MiniMapService', '$compile', '$interval', 'entryHighlightingService', '$window', '$state', '$rootScope', 'entryTransformationService', 'entryListContext', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope, entryTransformationService, entryListContext) {
+export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$location', 'savedListService', 'MiniMapService', '$compile', '$interval', 'entryHighlightingService', '$window', '$state', '$rootScope', 'entryTransformationService', 'entryListContext', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope, entryTransformationService, entryListContext) {
 
   if ($stateParams.id) {
     

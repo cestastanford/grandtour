@@ -58,7 +58,8 @@ export class GridComponent {
     }
     ngOnInit() {
         // todo: _formatted
-        let columns = ["index", "fullName", "biography", "tours", "narrative", "notes"];
+        // let columns = ["index", "fullName", "biography", "tours", "narrative", "notes"];
+        let columns = ["tourIndex", "place", "tourStartFrom", "tourStartTo", "tourEndFrom", "tourEndTo", "longitude", "latitude"];
         this.columns = columns.map(e => {
             let column = { prop: e, name: e.toUpperCase() };
             if (e == "index") {
@@ -71,7 +72,10 @@ export class GridComponent {
     );
 
     fetch("/api/entries").then(e => e.json()).then(e => {
-        this.rows = e;
+        console.log(e);
+        let arrays = e.map(j => j.travels);
+        this.rows = [].concat.apply([], arrays);
+        console.log(this.rows);
     });
     }
 

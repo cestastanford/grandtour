@@ -240,15 +240,25 @@ class Entry {
     */
 
     static async findAtRevision(query, revisionIndex, projection, sort, limit, skip) {
-
-        const cursor = await this.aggregateAtRevision(revisionIndex)
-        .match(query || {})
-        .sort(sort || { index: 1 })
-        .project(projection || { _id: false })
-        .limit(limit || 0)
-        .skip(skip || 0)
-        .cursor()
-        .exec()
+        let cursor = null;
+        if (limit && skip) {
+        cursor = await this.aggregateAtRevision(revisionIndex)
+            .match(query || {})
+            .sort(sort || { index: 1 })
+            .project(projection || { _id: false })
+            .limit(limit || 0)
+            .skip(skip || 0)
+            .cursor()
+            .exec()
+        }
+        else {
+            cursor = await this.aggregateAtRevision(revisionIndex)
+            .match(query || {})
+            .sort(sort || { index: 1 })
+            .project(projection || { _id: false })
+            .cursor()
+            .exec();
+        }
 
         const results = await cursor.toArray()
         return results.map(result => toObject(result))

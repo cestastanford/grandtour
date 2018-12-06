@@ -4,7 +4,7 @@ export default ['$window', '$http', '$sce', '$timeout', function($window, $http,
         
         restrict: 'E',
         scope: true,
-        template: function (elem, attrs) { return require('pug-loader!./' + attrs['template'] + '.pug') },
+        template: function (elem, attrs) { return require('apply-loader!pug-loader!./' + attrs['template'] + '.pug') },
         link: function(scope, element, attributes) {
         
             

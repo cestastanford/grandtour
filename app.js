@@ -35,7 +35,7 @@ if (
 */
 
 const app = express()
-app.set('views', __dirname + '/dist/')
+app.set('views', [__dirname + '/dist/', __dirname + '/public/'])
 app.set('view engine', 'pug');
 app.use(morgan('dev'))
 app.use(bodyParser.json())

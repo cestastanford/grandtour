@@ -3,8 +3,7 @@ import { ElementRef, Renderer2 } from '@angular/core';
 import '@swimlane/ngx-datatable/release/index.css';
 import '@swimlane/ngx-datatable/release/themes/material.css';
 import '@swimlane/ngx-datatable/release/assets/icons.css';
-
-
+import {find} from "lodash";
 
 @Component({
     selector: 'admin-grid',
@@ -42,19 +41,14 @@ import '@swimlane/ngx-datatable/release/assets/icons.css';
             </div>
         </ng-template>
     `
-    // template: `
-    //   <h2>Windstorm details!</h2>
-    //   <div><label>id: {{title}} </label>1</div>
-    // `
 })
 export class GridComponent {
-    // title: string;
-    rows: any = null;
+    rows: any[] = [];
+    entries: any[] = [];
     columns: any = [];
     editing = {};
     @ViewChild('editableCellTemplate') editableCellTemplate!: TemplateRef<any>;
     constructor() {
-        // this.title = 'Awesome, Inc. Internal Ordering System';
     }
     ngOnInit() {
         // todo: _formatted
@@ -69,25 +63,27 @@ export class GridComponent {
             }
             return column;
         }
-    );
+        );
 
-    fetch("/api/entries").then(e => e.json()).then(e => {
-        console.log(e);
-        let arrays = e.map(j => j.travels);
-        this.rows = [].concat.apply([], arrays);
-        console.log(this.rows);
-    });
+        fetch("/api/entries").then(e => e.json()).then(e => {
+            this.entries = e;
+            let arrays = this.entries.map(entry => 
+                entry.travels.map(e => ({...e, "entryIndex": entry.index}))
+            );
+            this.rows = [].concat.apply([], arrays);
+            // console.log(this.rows);
+        });
     }
 
-ngAfterViewInit() {
-}
+    ngAfterViewInit() {
+    }
 
-updateValue(value, cell, rowIndex) {
-    // console.log(this.rows[rowIndex][cell]);
-    // console.log('inline editing rowIndex', rowIndex)
-    this.editing[rowIndex + '-' + cell] = false;
-    this.rows[rowIndex][cell] = value;
-    this.rows = [...this.rows];
-    console.log('UPDATED!', this.rows[rowIndex][cell]);
-}
+    updateValue(value, cell, rowIndex) {
+        const entry = find(this.entries, {index: this.rows[rowIndex].entryIndex});
+        // console.log('inline editing rowIndex', rowIndex)
+        this.editing[rowIndex + '-' + cell] = false;
+        this.rows[rowIndex][cell] = value;
+        this.rows = [...this.rows];
+        console.log('UPDATED!', entry, this.rows[rowIndex][cell]);
+    }
 }

@@ -1,3 +1,6 @@
+require('ckeditor'); // Creates global variable CKEDITOR to use
+require('ckeditor/lang/en.js');
+
 export default ['$window', '$http', '$sce', '$timeout', function($window, $http, $sce, $timeout) {
   
     var FORMATTED_SUFFIX = '_formatted';

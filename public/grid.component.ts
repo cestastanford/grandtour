@@ -10,6 +10,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
     selector: 'admin-grid',
     template: `
         <h1>Edit Entries</h1>
+        <p>Double-click to edit an entry.</p>
         <div
         *ngIf="!rows"
         >Loading...<br/><br/></div>
@@ -38,7 +39,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
                 (dblclick)="editing[rowIndex + '-' + i] = true"
                 *ngIf="!editing[rowIndex + '-' + i]"
                 >
-                {{value}}
+                {{value || "None"}}
                 </div>
                 <div
                     contenteditable

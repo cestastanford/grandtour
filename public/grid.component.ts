@@ -3,7 +3,8 @@ import { ElementRef, Renderer2 } from '@angular/core';
 import '@swimlane/ngx-datatable/release/index.css';
 import '@swimlane/ngx-datatable/release/themes/material.css';
 import '@swimlane/ngx-datatable/release/assets/icons.css';
-import {find} from "lodash";
+import {find, values} from "lodash";
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 @Component({
     selector: 'admin-grid',
@@ -12,7 +13,14 @@ import {find} from "lodash";
         <div
         *ngIf="!rows"
         >Loading...<br/><br/></div>
+        <input
+            type='text'
+            style='padding:8px;margin:15px auto;width:30%;'
+            placeholder='Type to filter...'
+            (keyup)='updateFilter($event)'
+        />
         <ngx-datatable
+            #table
             class="material"
             [rows]="rows"
             [columns]="columns"
@@ -44,16 +52,18 @@ import {find} from "lodash";
 })
 export class GridComponent {
     rows: any[] = [];
+    temp: any[] = [];
     entries: any[] = [];
     columns: any = [];
     editing = {};
     @ViewChild('editableCellTemplate') editableCellTemplate!: TemplateRef<any>;
+    @ViewChild(DatatableComponent) table!: DatatableComponent;
     constructor() {
     }
     ngOnInit() {
         // todo: _formatted
         // let columns = ["index", "fullName", "biography", "tours", "narrative", "notes"];
-        let columns = ["tourIndex", "place", "tourStartFrom", "tourStartTo", "tourEndFrom", "tourEndTo", "longitude", "latitude"];
+        let columns = ["entryIndex", "tourIndex", "place", "tourStartFrom", "tourStartTo", "tourEndFrom", "tourEndTo", "longitude", "latitude"];
         this.columns = columns.map(e => {
             let column = { prop: e, name: e.toUpperCase() };
             if (e == "index") {
@@ -71,6 +81,7 @@ export class GridComponent {
                 entry.travels.map(e => ({...e, "entryIndex": entry.index}))
             );
             this.rows = [].concat.apply([], arrays);
+            this.temp = [...this.rows];
             // console.log(this.rows);
         });
     }
@@ -86,4 +97,18 @@ export class GridComponent {
         this.rows = [...this.rows];
         console.log('UPDATED!', entry, this.rows[rowIndex][cell]);
     }
+    updateFilter(event) {
+        const val = event.target.value.toLowerCase();
+    
+        // filter our data
+        const temp = this.temp.filter(function(d) {
+          return d.place.toLowerCase().indexOf(val) !== -1 || !val;
+          //return values(d).join(" ").toLowerCase().indexOf(val) !== -1 || !val;
+        });
+    
+        // update the rows
+        this.rows = temp;
+        // Whenever the filter changes, always go back to the first page
+        this.table.offset = 0;
+      }
 }

@@ -23,7 +23,7 @@
           tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection) | limitTo:limit", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
             td
               .checkbox
-                label(ng-class="field === 'fullName' && u.parentFullName !== u._id ? 'explore-alternate-name' : ''")
+                label(ng-class="{'explore-alternate-name': field === 'fullName' && u.parentFullName !== u._id, 'facet-crossed-out': u.negative}")
                   input(type="checkbox", ng-model="u.selected", ng-change="refresh(u)", ng-disabled="!u.count")
                   span {{u._id || "Unknown"}} 
                   span.text-light.pull-right {{u.count}}

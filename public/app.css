@@ -157,6 +157,11 @@ a:focus,
   display: block;
 }
 
+.facet-crossed-out {
+  color: red;
+  text-decoration: line-through;
+}
+
 .query {
   font-size: 12px;
   color: #888;

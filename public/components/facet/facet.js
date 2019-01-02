@@ -22,7 +22,14 @@ export default ['$http', function($http) {
         if (search && search._id.length) scope.open = true;
       }, true)
 
-      scope.refresh = function(u){
+      scope.refresh = function(u) {
+        if (!u.selected && !u.negative) {
+          u.negative = true;
+          u.selected = true;
+        }
+        else if (!u.selected && u.negative) {
+          u.negative = false;
+        }
         if (!u.count) return;
         update();
       }
@@ -30,6 +37,7 @@ export default ['$http', function($http) {
       var last = false;
 
       function update(){
+        debugger;
         var uniques = scope.uniques.filter(function(d){ return d.selected; }).map(function(d){ return d._id; })
         last = true;
         scope.query[scope.field] = uniques;

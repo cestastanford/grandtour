@@ -70,7 +70,6 @@
     "@types/node": "^10.12.9",
     "apply-loader": "^2.0.0",
     "babel-loader": "^8.0.4",
-    "babel-preset-env": "^1.7.0",
     "concurrently": "^4.1.0",
     "css-loader": "^1.0.1",
     "expose-loader": "^0.7.5",

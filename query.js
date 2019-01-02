@@ -265,7 +265,7 @@ var searchMap = {
 }
 
 
-function parseQuery(query) {
+export function parseQuery(query) {
     
     var o = []
     for (var k in query) {
@@ -463,7 +463,8 @@ function parseExport(res) {
         entry.activities = activities
         .filter(function(d){ return d.entry == entry.index; })
         .map(function(d){ return d.index; })
-        .join(",")
+        .join(",");
+        
         return entry;
     
     })

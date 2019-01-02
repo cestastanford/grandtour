@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "heroku-postbuild": "webpack --mode=production",
-    "dev-start": "concurrently --kill-others \"webpack --colors --mode=development --watch\" \"heroku local -f Procfile.dev\""
+    "heroku-postbuild": "npm test && webpack --mode=production",
+    "dev-start": "concurrently --kill-others \"webpack --colors --mode=development --watch\" \"heroku local -f Procfile.dev\"",
+    "test": "jest"
   },
   "dependencies": {
     "@angular/common": "^7.0.4",
@@ -69,11 +70,13 @@
     "@types/node": "^10.12.9",
     "apply-loader": "^2.0.0",
     "babel-loader": "^8.0.4",
+    "babel-preset-env": "^1.7.0",
     "concurrently": "^4.1.0",
     "css-loader": "^1.0.1",
     "expose-loader": "^0.7.5",
     "file-loader": "^2.0.0",
     "html-webpack-pug-plugin": "^0.3.0",
+    "jest": "^23.6.0",
     "nodemon": "^1.11.0",
     "pug-loader": "^2.4.0",
     "style-loader": "^0.23.1",

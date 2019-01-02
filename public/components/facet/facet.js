@@ -1,3 +1,5 @@
+import {find, pick} from "lodash";
+
 export default ['$http', function($http) {
   return {
 
@@ -37,7 +39,7 @@ export default ['$http', function($http) {
       var last = false;
 
       function update(){
-        var uniques = scope.uniques.filter(function(d){ return d.selected; });
+        var uniques = scope.uniques.filter(function(d){ return d.selected; }).map(e => pick(e, ["negative", "_id"]));
         last = true;
         scope.query[scope.field] = uniques;
         scope.selected = scope.uniques.filter(function(d){ return d.selected; }).length;
@@ -69,7 +71,16 @@ export default ['$http', function($http) {
           var map = d3.map(uniques, function(d){ return d._id; });
           scope.uniques.forEach(function(d){
             d.count = map.has(d._id) ? map.get(d._id).count : 0;
-            d.selected = query.hasOwnProperty(scope.field) && query[scope.field].indexOf(d._id) != -1 ? true : false;
+            d.selected = false;
+            if (query.hasOwnProperty(scope.field)) {
+              let item = find(query[scope.field], {"_id": d._id});
+              if (item) {
+                d.selected = true;
+                if (item.negative) {
+                  d.negative = true;
+                }
+              }
+            }
           })
         })
       }

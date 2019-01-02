@@ -3,8 +3,7 @@ import { parseQuery } from "../query";
 describe('test parseQuery', () => {
     test('normal query', () => {
         const query = {
-            "occupations_group": ["a", "b", "c"],
-            "pursuits": ["d"]
+            "occupations_group": ["Diplomacy", "Clergy"], "pursuits": ["diplomat"]
         };
         const result = {
             "$and": [
@@ -14,7 +13,7 @@ describe('test parseQuery', () => {
                             "occupations": {
                                 "$elemMatch": {
                                     "group": {
-                                        "$regex": /^a$/gi
+                                        "$regex": /^Diplomacy$/gi
                                     }
                                 }
                             }
@@ -23,16 +22,7 @@ describe('test parseQuery', () => {
                             "occupations": {
                                 "$elemMatch": {
                                     "group": {
-                                        "$regex": /^b$/gi
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^c$/gi
+                                        "$regex": /^Clergy$/gi
                                     }
                                 }
                             }
@@ -45,7 +35,7 @@ describe('test parseQuery', () => {
                             "pursuits": {
                                 "$elemMatch": {
                                     "pursuit": {
-                                        "$regex": /^d$/gi
+                                        "$regex": /^diplomat$/gi
                                     }
                                 }
                             }
@@ -54,6 +44,53 @@ describe('test parseQuery', () => {
                 }
             ]
         };
-        expect(parseQuery(query)).toBe(result);
+        expect(parseQuery(query)).toEqual(result);
+    });
+    test('negative query', () => {
+        const query = {
+            "occupations_group": [{"_id": "Diplomacy", "negative": true}, "Clergy"], "pursuits": ["diplomat"]
+        };
+        const result = {
+            "$and": [
+                {
+                    "$or": [
+                        {
+                            "$not": {
+                                "occupations": {
+                                    "$elemMatch": {
+                                        "group": {
+                                            "$regex": /^Diplomacy$/gi
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "occupations": {
+                                "$elemMatch": {
+                                    "group": {
+                                        "$regex": /^Clergy$/gi
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "$or": [
+                        {
+                            "pursuits": {
+                                "$elemMatch": {
+                                    "pursuit": {
+                                        "$regex": /^diplomat$/gi
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        };
+        expect(parseQuery(query)).toEqual(result);
     });
 });

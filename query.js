@@ -265,28 +265,44 @@ var searchMap = {
 }
 
 
+/*
+ * Parse query to become a mongo query.
+ * Input: query - a dictionary with keys equal to the field names,
+ * and values equal to an array of strings that represent the types.
+ * For example: {"occupations_group": ["Diplomacy", "Clergy"], "pursuits": ["diplomat"]}
+ * 
+ * For negative queries, each array element can also have an object with fields _id and negative.
+ * For example: {"pursuits": [{"_id": "diplomat", "negative": true}, "statesman"]}
+ */
 export function parseQuery(query) {
-    
+
     var o = []
     for (var k in query) {
-        
+
         if (Array.isArray(query[k])) {
-            
-            var s = { $or : [] }
-            for (var i in query[k]) {
-                s.$or.push( searchMap[k](query[k][i], true) )
+
+            var s = { $or: [] }
+            for (let queryItem of query[k]) {
+                if (typeof queryItem === 'string') {
+                    s.$or.push(searchMap[k](queryItem, true))
+                }
+                else if (queryItem._id && queryItem.negative) {
+                    s.$or.push({ $not: searchMap[k](queryItem._id, true) });
+                }
+                else if (queryItem._id) {
+                    s.$or.push(searchMap[k](queryItem._id, true))
+                }
             }
-        
+
         } else var s = searchMap[k](query[k])
 
         o.push(s)
 
     }
-    
+
     return o.length ? { $and: o } : {};
 
 }
-
 
 exports.search = (req, res, next) => {
 

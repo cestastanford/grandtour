@@ -8,7 +8,7 @@ p
         .pill-value(ng-if="pill.value && !pill.value.startYear")
           span(ng-show="pill.value | isArray" ng-repeat="value in pill.value track by $index")
             span(ng-show="$index > 0") or 
-            strong {{ value }} 
+            strong(ng-class="{'pill-negative': value.negative === true}") {{ value._id || value }} 
           strong(ng-hide="pill.value | isArray") {{ pill.value }}
         .pill-value.border-left(ng-if="allowRemove")
           a.text-danger(ng-click="removeFromQuery(pill.key)", data-toggle="tooltip", title="Remove")

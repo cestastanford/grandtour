@@ -26,10 +26,10 @@ export default function() {
             *   Returns a default pill.
             */
 
-            getPill.default = function(key, query) {
+            getPill.default = function(key, query, negative) {
                 var pill = {}
                 pill.dimension = key.split('_').join(' ')
-                pill.value = query[key]
+                pill.value = query[key];
                 return pill
             }
 
@@ -112,7 +112,7 @@ export default function() {
                   
                     scope.pills = []
                     for (let key in query) {
-                        var pill = getPill[key] ? getPill[key](key, query) : getPill.default(key, query)
+                        var pill = getPill[key] ? getPill[key](key, query) : getPill.default(key, query);
                         pill.key = key
                         scope.pills.push(pill)
                     }

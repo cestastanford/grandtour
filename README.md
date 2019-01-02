@@ -26,3 +26,8 @@ To restore a MongoDB database backup into your local database, unzip the backup 
 - In another shell, import the dump: `mongorestore -d test path/to/directory/with/bson`
 - Shut down the MongoDB database (ctrl-C).
 - Start up the development environment, which should automatically create another `default-admin` user: `npm run dev-start`.
+
+
+Debugging
+---------
+To debug, run `npm run debug` and then open chrome://inspect in your browser.

@@ -190,7 +190,6 @@ exports.uniques = function (req, res, next) {
 
 
 var searchMap = {
-
     fullName: (d, exact) => ({ $or: [
         { fullName: { $regex: getRegExp(d, exact) } },
         { alternateNames: { $elemMatch: { alternateName: { $regex: getRegExp(d, exact) } } } },
@@ -274,35 +273,36 @@ var searchMap = {
  * For negative queries, each array element can also have an object with fields _id and negative.
  * For example: {"pursuits": [{"_id": "diplomat", "negative": true}, "statesman"]}
  */
-export function parseQuery(query) {
+function parseQuery(query) {
 
     var o = []
-    for (var k in query) {
-
-        if (Array.isArray(query[k])) {
-
-            var s = { $or: [] }
-            for (let queryItem of query[k]) {
-                if (typeof queryItem === 'string') {
-                    s.$or.push(searchMap[k](queryItem, true))
-                }
-                else if (queryItem._id && queryItem.negative) {
-                    s.$or.push({ $not: searchMap[k](queryItem._id, true) });
-                }
-                else if (queryItem._id) {
-                    s.$or.push(searchMap[k](queryItem._id, true))
-                }
+    for (let k in query) {
+        if (!Array.isArray(query[k])) {
+            query[k] = [query[k]];
+        }
+        var s = { $or: [] }
+        for (let queryItem of query[k]) {
+            if (typeof queryItem === 'string') {
+                s.$or.push(searchMap[k](queryItem, true))
             }
-
-        } else var s = searchMap[k](query[k])
-
+            else if (queryItem._id && queryItem.negative === true) {
+                let item = searchMap[k](queryItem._id, true);
+                for (let key in item) {
+                    item[key] = {$not: item[key]};
+                }
+                s.$or.push(item);
+            }
+            else if (queryItem._id) {
+                s.$or.push(searchMap[k](queryItem._id, true))
+            }
+        }
         o.push(s)
-
     }
 
     return o.length ? { $and: o } : {};
 
 }
+exports.parseQuery = parseQuery;
 
 exports.search = (req, res, next) => {
 

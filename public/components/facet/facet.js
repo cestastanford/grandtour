@@ -37,8 +37,7 @@ export default ['$http', function($http) {
       var last = false;
 
       function update(){
-        debugger;
-        var uniques = scope.uniques.filter(function(d){ return d.selected; }).map(function(d){ return d._id; })
+        var uniques = scope.uniques.filter(function(d){ return d.selected; });
         last = true;
         scope.query[scope.field] = uniques;
         scope.selected = scope.uniques.filter(function(d){ return d.selected; }).length;

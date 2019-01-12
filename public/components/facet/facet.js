@@ -44,10 +44,15 @@ export default ['$http', function($http) {
       scope.update = function() {
         var uniques = scope.uniques.filter(function(d){ return d.selected; }).map(e => pick(e, ["negative", "_id"]));
         last = true;
-        scope.query[scope.field] = {
-          operator: scope.operator,
-          uniques: uniques
-        };
+        if (uniques.length) {
+          scope.query[scope.field] = {
+            operator: scope.operator,
+            uniques: uniques
+          };
+        }
+        else {
+          delete scope.query[scope.field];
+        }
         scope.selected = scope.uniques.filter(function(d){ return d.selected; }).length;
         //scope.search = "";
       }

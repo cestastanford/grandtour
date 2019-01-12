@@ -129,6 +129,9 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     $scope.query = {};
     $scope.entries = [];
   }
+  $scope.duplicate = function() {
+    window.open(window.location.href, '_blank');
+  }
 
   $scope.removeFromQuery = function(k){
     delete $scope.query[k];

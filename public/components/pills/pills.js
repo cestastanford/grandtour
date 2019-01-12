@@ -33,6 +33,15 @@ export default function() {
                 return pill
             }
 
+            /*
+             * Pursuits pill - renamed to "Employments and Identifiers"
+             */
+            getPill.pursuits = function(key, query, negative) {
+                let pill = getPill.default(key, query, negative);
+                pill.dimension = "Employments and Identifiers";
+                return pill;
+            }
+
 
             /*
             *   Returns a Travel pill.
@@ -116,6 +125,7 @@ export default function() {
                         pill.key = key
                         scope.pills.push(pill)
                     }
+                    console.log(query, scope.pills);
                   
                 }, true)
 

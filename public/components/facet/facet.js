@@ -1,5 +1,7 @@
 import {find, pick} from "lodash";
 
+const DEFAULT_OPERATOR = "or";
+
 export default ['$http', function($http) {
   return {
 
@@ -19,6 +21,7 @@ export default ['$http', function($http) {
       scope.uniques = [];
       scope.loading = false;
       scope.limit = 25;
+      scope.operator = DEFAULT_OPERATOR;
 
       scope.$watch('search', function(search){
         if (search && search._id.length) scope.open = true;
@@ -33,15 +36,18 @@ export default ['$http', function($http) {
           u.negative = false;
         }
         if (!u.count) return;
-        update();
+        scope.update();
       }
 
       var last = false;
 
-      function update(){
+      scope.update = function() {
         var uniques = scope.uniques.filter(function(d){ return d.selected; }).map(e => pick(e, ["negative", "_id"]));
         last = true;
-        scope.query[scope.field] = uniques;
+        scope.query[scope.field] = {
+          operator: scope.operator,
+          uniques: uniques
+        };
         scope.selected = scope.uniques.filter(function(d){ return d.selected; }).length;
         //scope.search = "";
       }
@@ -72,14 +78,16 @@ export default ['$http', function($http) {
           scope.uniques.forEach(function(d){
             d.count = map.has(d._id) ? map.get(d._id).count : 0;
             d.selected = false;
-            if (query.hasOwnProperty(scope.field)) {
-              let item = find(query[scope.field], {"_id": d._id});
+            // Restoration code of current state from query string. Todo: make this work for fields without "uniques" attribute.
+            if (query.hasOwnProperty(scope.field) && query[scope.field].uniques) {
+              let item = find(query[scope.field].uniques, {"_id": d._id});
               if (item) {
                 d.selected = true;
                 if (item.negative) {
                   d.negative = true;
                 }
               }
+              scope.operator = query[scope.field].operator || DEFAULT_OPERATOR;
             }
           })
         })

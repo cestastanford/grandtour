@@ -16,6 +16,10 @@
       div.select-facet-sorting.btn-group.btn-group-xs(ng-model="sortingSelection", ng-init="sortingSelection = '-count'")
         button.btn.btn-default#sort-by-count(type="button", ng-click="sortingSelection = '-count'") #
         button.btn.btn-default(type="button", ng-click="sortingSelection = '_id'") A
+      div.btn-group.btn-group-xs.pull-right(style="margin-right: 5px")
+        button.btn.btn-default#sort-by-count(type="button", ng-class="{'btn-primary': operator === 'or'}", ng-click="operator = 'or'; update()") any
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'and'}", ng-click="operator = 'and'; update()") all
+
     
     .mini-table(ng-show="uniques.length")
       table.table

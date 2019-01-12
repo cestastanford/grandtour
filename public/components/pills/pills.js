@@ -125,7 +125,6 @@ export default function() {
                         pill.key = key
                         scope.pills.push(pill)
                     }
-                    console.log(query, scope.pills);
                   
                 }, true)
 

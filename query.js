@@ -267,39 +267,58 @@ var searchMap = {
 /*
  * Parse query to become a mongo query.
  * Input: query - a dictionary with keys equal to the field names,
- * and values equal to an array of strings that represent the types.
- * For example: {"occupations_group": ["Diplomacy", "Clergy"], "pursuits": ["diplomat"]}
+ * and values with attributes:
+ * "operator" ("and" or "or")
+ * "uniques" - an array of objects with "_id" equal to the value, such as {"_id": "Diplomacy"}.
+ * * The "negative" attribute in each element of the array allows this query search to be negative.
  * 
- * For negative queries, each array element can also have an object with fields _id and negative.
- * For example: {"pursuits": [{"_id": "diplomat", "negative": true}, "statesman"]}
+ * Sample query: {"field1": {"operator": "and", "uniques": [{ "_id": "Diplomacy" }, { "_id": "Democracy" }]} }
+ * Sample negative query: {"field1": {"operator": "or", "pursuits": [{"_id": "diplomat", "negative": true}]} }
+ * 
+ * other formats also allowed (default operator is "or"):
+ * ["field1": [{"_id: "Diplomacy"}] }
+ * ["field1": ["Diplomacy"]}
+ * ["field1": "Dipl"} // This will do a fuzzy search. Used in the search endpoint.
+ * things for startDate and endDate - todo document this.
  */
 function parseQuery(query) {
 
-    var o = []
+    var output = []
     for (let k in query) {
-        if (!Array.isArray(query[k])) {
-            query[k] = [query[k]];
-        }
-        var s = { $or: [] }
-        for (let queryItem of query[k]) {
-            if (typeof queryItem === 'string') {
-                s.$or.push(searchMap[k](queryItem, true))
-            }
-            else if (queryItem._id && queryItem.negative === true) {
-                let item = searchMap[k](queryItem._id, true);
-                for (let key in item) {
-                    item[key] = {$not: item[key]};
+        let uniques = query[k].uniques || query[k];
+        let list = [];
+        if (Array.isArray(uniques)) {
+            for (let queryItem of uniques) {
+                if (typeof queryItem === 'string') {
+                    list.push(searchMap[k](queryItem, true))
                 }
-                s.$or.push(item);
-            }
-            else if (queryItem._id) {
-                s.$or.push(searchMap[k](queryItem._id, true))
+                else if (queryItem._id) {
+                    let item = searchMap[k](queryItem._id, true);
+                    if (queryItem.negative === true) {
+                        for (let key in item) {
+                            item[key] = {$not: item[key]};
+                        }
+                    }
+                    list.push(item);
+                }
             }
         }
-        o.push(s)
+        else {
+            // Search functionality - fuzzy search. "uniques" would actually just be a single object.
+            list.push(searchMap[k](uniques, false));
+        }
+        if (list.length === 0) {
+            continue;
+        }
+        if (query[k].operator === 'and') {
+            output.push({$and: list});
+        }
+        else {
+            output.push({$or: list});
+        }
     }
 
-    return o.length ? { $and: o } : {};
+    return output.length ? { $and: output } : {};
 
 }
 exports.parseQuery = parseQuery;

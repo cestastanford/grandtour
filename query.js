@@ -135,8 +135,8 @@ exports.suggest = function (req, res, next) {
 
 exports.uniques = function (req, res, next) {
 
-    const field = req.body.field
-    const query = parseQuery(req.body.query)
+    const field = req.body.field;
+    const query = parseQuery(req.body.query);
     const pipeline = Entry.aggregateAtRevision(req.user.activeRevisionIndex)
     .append({ $match: query })
     .append({ $unwind: '$' + field.split('.')[0] })
@@ -168,23 +168,27 @@ exports.uniques = function (req, res, next) {
     }
 
     const group = {}
-    if (field === 'fullName') group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' }
-        else group['_id'] = { d: '$' + field, u: '$index' }
-            group['count'] = { $sum: 1 }
-        pipeline.append({ $group: group })
-        .append({ $group: { _id: '$_id.d', count: { $sum: 1 } } })
+    if (field === 'fullName') {
+        group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' }
+    }
+    else {
+        group['_id'] = { d: '$' + field, u: '$index' }
+    }
+    group['count'] = { $sum: 1 }
+    pipeline.append({ $group: group })
+    .append({ $group: { _id: '$_id.d', count: { $sum: 1 } } })
 
-        if (field === 'fullName') pipeline.append({
-            $project: {
-                _id: '$_id.fullName',
-                parentFullName: '$_id.parentFullName',
-                count: true,
-            }
-        })
+    if (field === 'fullName') pipeline.append({
+        $project: {
+            _id: '$_id.fullName',
+            parentFullName: '$_id.parentFullName',
+            count: true,
+        }
+    })
 
-        pipeline.append({ $sort: { count: -1 } })
-        .then(results => res.json({ values: results.filter(d => d._id !== null) }))
-        .catch(next)
+    pipeline.append({ $sort: { count: -1 } })
+    .then(results => res.json({ values: results.filter(d => d._id !== null) }))
+    .catch(next)
 
     }
 
@@ -198,9 +202,17 @@ var searchMap = {
 
     birthDate: d => ({ dates: { $elemMatch: {birthDate: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)} }} }), 
     deathDate: d => ({ dates: { $elemMatch: {deathDate: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)} }} }),
+    travelDate: d => ({ travels: { $elemMatch: {
+        $or: [
+            {travelEndYear: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)}},
+            {travelStartYear: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)}}
+        ]
+    }
+    } }),
 
     birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: { $regex: getRegExp(d, exact) }  } } }),
     deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: { $regex: getRegExp(d, exact) }  } } }),
+    travelPlace: (d, exact) => ({ travels: { $elemMatch: { place: { $regex: getRegExp(d, exact) }  } } }),
 
     societies: (d, exact) => ({ societies: { $elemMatch: { title: { $regex: getRegExp(d, exact) }  } } }),
     societies_role: (d, exact) => ({ societies: { $elemMatch: { role: { $regex: getRegExp(d, exact) }  } } }),
@@ -220,36 +232,6 @@ var searchMap = {
     exhibitions_activity: (d, exact) => ({ exhibitions: { $elemMatch: { activity: { $regex: getRegExp(d, exact) }  } } }),
 
     military: (d, exact) => ({ military: { $elemMatch: { rank: { $regex: getRegExp(d, exact) }  } } }),
-
-    travel: d => ({
-        travels: {
-            $elemMatch: { $and: [
-                d.place ? { place: { $regex: getRegExp(d.place) } } : {},
-                d.date ? { $and: [
-                    d.date.startYear ? { $or: [
-                        { travelEndYear: { $gt: +d.date.startYear } },
-                        { $and: [
-                            { travelEndYear: +d.date.startYear },
-                            d.date.startMonth ? { $or: [
-                                { travelEndMonth: { $gte: +d.date.startMonth } },
-                                { travelEndMonth: 0 },
-                            ] } : {},
-                        ] }
-                    ] } : {},
-                    d.date.endYear ? { $or: [
-                        { travelStartYear: { $lt: +d.date.endYear, $ne: 0 } },
-                        { $and: [
-                            { travelStartYear: +d.date.endYear },
-                            d.date.endMonth ? { $or: [
-                                { travelStartMonth: { $lte: +d.date.endMonth } },
-                                { travelStartMonth: 0 },
-                            ] } : {},
-                        ] }
-                    ] } : {},
-                ] } : {},
-            ] }
-        }
-    }),
 
     entry: d => ({
         $and: d.terms.map(term => ({

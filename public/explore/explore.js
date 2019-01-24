@@ -28,7 +28,8 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     { type : 'facet', active : false, label : 'Military careers', field : 'military', suggestions : 'military.rank' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', field : 'exhibitions', suggestions : 'exhibitions.title' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
-    { type : 'travel', active : false, label : 'Travel', subgroup : 'Place & Date', field : 'travel' },
+    { type : 'date', active : false, label : 'Travel date', field : 'travelDate'},
+    { type : 'facet', active : false, label : 'Travel place', field : 'travelPlace', suggestions : 'travels.place' },
     { type : 'freesearch', active : false, label : 'Free search', field : 'entry' },
   ]
 

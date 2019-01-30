@@ -21,6 +21,18 @@
             input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
             span.input-group-btn
               button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") create & {{ isSavedListView ? 'copy' : 'add' }}
+    
+    div.btn-group.add-to-list-btn(ng-show="isSavedListView")
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+        span import
+        span.caret
+      ul.dropdown-menu
+        li
+          form.input-group.input-group-sm
+            input.form-control(type="text", placeholder="comma-separated ids", ng-model="viewModel.importIds")
+            span.input-group-btn
+              button.btn.btn-default(type="submit", ng-disabled="!viewModel.importIds", ng-click="handleImportIdsClick()") import
+
 
     button.btn.btn-warning.btn-xs.list-option(type="button", ng-show="isSavedListView", ng-click="removeSelectedEntriesFromList()") remove
 
@@ -63,6 +75,7 @@
             input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
             span.input-group-btn
               button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="handleDuplicateListClick()") duplicate
+
 
     button.btn.btn-danger.btn-xs.pull-right(type="button", ng-show="isSavedListView", ng-click="deleteList()") delete this list
 

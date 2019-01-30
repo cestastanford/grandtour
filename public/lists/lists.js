@@ -59,6 +59,8 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
         .catch(console.error.bind(console))
     };
 
+    $scope.downloadEntries = downloadEntries;
+
     $scope.removeSelectedEntriesFromList = function() {
         for (var i = 0; i < viewModel.selectedListEntries.length; i++) {
             var entry = viewModel.selectedListEntries[i];

@@ -75,6 +75,16 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
         viewModel.newListName = '';
       }
 
+      scope.handleImportIdsClick = function() {
+        const ids = viewModel.importIds.split(/\s*,\s*/);
+        const currentList = scope.$parent.viewModel.selectedList;
+        const promises = ids.map(id => savedListService.addToList(currentList, {index: parseInt(id) }));
+        Promise.all(promises).then(e => {
+          viewModel.importIds = "";
+          scope.$parent.downloadEntries(currentList);
+        })
+      }
+
       //  support for sorting entries
 
       var sortOptions = [

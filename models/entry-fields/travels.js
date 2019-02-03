@@ -19,6 +19,7 @@ module.exports = {
         travelindexTotal: String,
         latitude: String,
         longitude: String,
+        italy: Boolean,
         lte: String,
         gte: String,
         parent: String,

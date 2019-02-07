@@ -4,18 +4,22 @@ import { UpgradeModule } from '@angular/upgrade/static';
 import moduleName from './app.module.ajs';
 import { GridComponent } from './grid.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
+import { VisualizationComponent } from './visualization.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
     imports: [
         BrowserModule,
         UpgradeModule,
-        NgxDatatableModule
+        NgxDatatableModule,
+        HttpClientModule
     ],
     declarations: [
-        GridComponent
+        GridComponent,
+        VisualizationComponent
     ],
     entryComponents: [
-        GridComponent
+        GridComponent,
+        VisualizationComponent
     ]
 })
 export class AppModule {

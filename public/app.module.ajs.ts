@@ -30,6 +30,7 @@ import entryHighlighting from './entry/entry-highlighting.js';
 import httpQueryService from './explore/http-query-service.js';
 import { downgradeComponent } from '@angular/upgrade/static';
 import { GridComponent } from './grid.component';
+import { VisualizationComponent } from './visualization.component';
 
 require("expose-loader?jQuery!jquery"); 
 require("expose-loader?$!jquery");
@@ -71,6 +72,7 @@ const MODULE_NAME = 'app';
 .directive('entryList', entryList)
 .service('entryListContext', entryListContextService)
 .directive('adminGrid', downgradeComponent({component: GridComponent}))
+.directive('visualization', downgradeComponent({component: VisualizationComponent}))
 .run(['$rootScope', '$state', '$stateParams', '$http', 
   function ($rootScope, $state, $stateParams, $http) {
     $rootScope.$state = $state;
@@ -237,6 +239,16 @@ const MODULE_NAME = 'app';
     template: require("pug-loader!./lists/lists.pug"),
     controller: ListsCtrl,
     title: 'Saved Lists',
+    resolve: {
+      loggedin: isLoggedIn
+    }
+  })
+
+  .state('visualizations', {
+    url: "/visualizations",
+    template: "<visualization></visualization>",
+    // controller: ListsCtrl,
+    title: 'Visualizations',
     resolve: {
       loggedin: isLoggedIn
     }

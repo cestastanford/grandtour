@@ -83,7 +83,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
 
     }
 
-    $location.path('search/' + JSON.stringify({ travel: travelQuery }));
+    $location.path('search/' + JSON.stringify({ travelPlace: travelQuery.place, travelDate: travelQuery.date }));
 
   }
 

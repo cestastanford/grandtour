@@ -173,8 +173,21 @@
             typeahead-on-select="search()")
         
         hr
-        
-        date-search
+
+        .form-group
+          label Travel Place
+          input.input-sm.form-control.margin-top(
+            type="text", 
+            ng-model="query.travelPlace",
+            placeholder="place ({{ counts.travelPlace }} entries)",
+            ng-class="{ filled : query.travelPlace }"
+            typeahead="item for item in getSuggestions('places.travelPlace', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
+            typeahead-on-select="search()")
+
+        .form-group
+          label Travel Date
+          date-search(data-field="travelDate")
 
         hr
 

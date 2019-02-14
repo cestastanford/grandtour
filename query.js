@@ -199,13 +199,35 @@ var searchMap = {
         { alternateNames: { $elemMatch: { alternateName: { $regex: getRegExp(d, exact) } } } },
     ] }),
     type: d => ({ type: d }),
-
+    // todo add month filtering.
     birthDate: d => ({ dates: { $elemMatch: {birthDate: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)} }} }), 
     deathDate: d => ({ dates: { $elemMatch: {deathDate: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)} }} }),
     travelDate: d => ({ travels: { $elemMatch: {
-        $or: [
-            {travelEndYear: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)}},
-            {travelStartYear: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)}}
+        $and: [
+            {
+                $or: [
+                    {travelEndYear: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)}},
+                    {travelStartYear: { $gte :  parseInt(d.startYear), $lte : parseInt(d.endYear)}}
+                ],
+            },
+            {
+                $and: [
+                    {
+                        $or: [
+                            {travelStartYear: {$ne: parseInt(d.startYear)}},
+                            {travelStartMonth: {$exists: false}},
+                            {travelStartMonth: {$gte: parseInt(d.startMonth || 1)}}
+                        ]
+                    },
+                    {
+                        $or: [
+                            {travelEndYear: {$ne: parseInt(d.endYear)}},
+                            {travelEndMonth: {$exists: false}},
+                            {travelEndMonth: {$lte: parseInt(d.endMonth || 12)}}
+                        ]
+                    }
+                ]
+            }
         ]
     }
     } }),

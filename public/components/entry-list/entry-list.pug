@@ -84,7 +84,7 @@
   .panel-body(ng-show="entries && entries.length")
     table.table.table-hover
       tbody.entry-row
-        tr(ng-repeat="entry in entries | orderBy : sortModel.current.sortFn : sortModel.reversed | limitTo : entriesPerPage || null : entriesPerPage * pageNumber", ng-class="{ warning: entry.selected, 'sorted-dimension-empty': !sortModel.current.sortFn(entry) }")
+        tr(ng-repeat="entry in entries | orderBy : sortModel.current.sortFn : sortModel.reversed", ng-if="$index >= entriesPerPage * pageNumber && $index < entriesPerPage * (pageNumber + 1)", ng-class="{ warning: entry.selected, 'sorted-dimension-empty': !sortModel.current.sortFn(entry) }")
           td.entry-checkbox
             input(type="checkbox", ng-model="entry.selected")
           td.entry-list-item

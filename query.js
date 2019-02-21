@@ -409,7 +409,7 @@ function parseExport(res) {
         // activities
 
         // marriages
-        if (d.marriages) d.marriages.forEach(a => activities.push({
+        if (d.marriages && d.marriages.length) d.marriages.forEach(a => activities.push({
             ...entryBase,
             index : ++activityIndex,
             type : 'marriage',
@@ -420,8 +420,10 @@ function parseExport(res) {
             endDate : "",
         }))
 
+        //
+
         // education
-        if (d.education) d.education.forEach(a => activities.push({
+        if (d.education && d.education.length) d.education.forEach(a => activities.push({
             index : ++activityIndex,
             ...entryBase,
             type : 'education',
@@ -433,7 +435,7 @@ function parseExport(res) {
         }))
 
         // societies
-        if (d.societies) d.societies.forEach(a => activities.push({
+        if (d.societies && d.societies.length) d.societies.forEach(a => activities.push({
             index : ++activityIndex,
             ...entryBase,
             type : 'society',
@@ -445,7 +447,7 @@ function parseExport(res) {
         }))
 
         // exhibitions
-        if (d.exhibitions) d.exhibitions.forEach(a => activities.push({
+        if (d.exhibitions && d.exhibitions.length) d.exhibitions.forEach(a => activities.push({
             index : ++activityIndex,
             ...entryBase,
             type : 'exhibition',
@@ -457,7 +459,7 @@ function parseExport(res) {
         }))
 
         // pursuits
-        if (d.pursuits) d.pursuits.forEach(a => activities.push({
+        if (d.pursuits && d.pursuits.length) d.pursuits.forEach(a => activities.push({
             index : ++activityIndex,
             ...entryBase,
             type : 'pursuit',
@@ -469,7 +471,7 @@ function parseExport(res) {
         }))
 
         // occuaptions
-        if (d.occupations) d.occupations.forEach(a => activities.push({
+        if (d.occupations && d.occupations.length) d.occupations.forEach(a => activities.push({
             index : ++activityIndex,
             ...entryBase,
             type : 'occupation',
@@ -481,7 +483,7 @@ function parseExport(res) {
         }))
 
         // occuaptions
-        if (d.military) d.occupations.forEach(a => activities.push({
+        if (d.military && d.military.length) d.occupations.forEach(a => activities.push({
             index : ++activityIndex,
             ...entryBase,
             type : 'military careers',
@@ -493,7 +495,7 @@ function parseExport(res) {
         }))
 
         // travels
-        if (d.travels) d.travels.forEach(a => travels.push({
+        if (d.travels && d.travels.length) d.travels.forEach(a => travels.push({
             ...entryBase,
             travelIndex : a.travelindexTotal,
             place : a.place || "",

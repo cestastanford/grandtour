@@ -2,7 +2,7 @@
 *   Service for applying the various transformations to the received
 *   Entry object from the server.
 */
-
+import he from "he";
 var FORMATTED_SUFFIX = '_formatted'
 var BIOGRAPHY = 'biography'
 var TOURS = 'tours'
@@ -279,9 +279,11 @@ export default ['$http', 'entryHighlightingService', '$timeout', '$sce', functio
                   var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
                   return "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
                 }
-                var superscriptedValue = value
+                var superscriptedValue = he.decode(value) // unescape html entities so that it does NOT match: "&#39;2 " (see Issue #33)
+                    .replace(/(£\d*)\.(\d*)/gi, "$1|||$2") // £14.10 => £14|||10
                     .replace(/(\{)([0-9]{1,2})(\})/gi, replacerFootnoteOnly) // {1} => .1
-                    .replace(/(\.|\,|\;)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1; he was good.
+                    .replace(/(\.|\,|\;)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1;3 he was good.
+                    .replace(/(£\d*)\|\|\|(\d*)/gi, "$1.$2") // £14|||10 => £14.10 
                 entry[fieldKey + FORMATTED_SUFFIX] = superscriptedValue
 
             }

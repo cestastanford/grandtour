@@ -246,8 +246,8 @@ class Entry {
             .match(query || {})
             .sort(sort || { index: 1 })
             .project(projection || { _id: false })
-            .limit(limit || 0)
-            .skip(skip || 0)
+            .skip(skip)
+            .limit(limit)
             .cursor()
             .exec()
         }

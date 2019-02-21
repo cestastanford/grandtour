@@ -341,6 +341,9 @@ exports.search = (req, res, next) => {
             biography: true,
             travels: true,
         },
+        null,
+        req.body.limit || null,
+        req.body.skip || null
     )
     .then(entries => entries.map(projectForEntryList))
     .then(entries => res.json({ request: JSON.parse(originalQuery), entries }))

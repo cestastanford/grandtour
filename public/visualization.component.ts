@@ -72,7 +72,9 @@ import { HttpClient } from '@angular/common/http';
         <div class="loader-wheel"></div>
         <div class="loader-text"></div>
     </div>
+    <button class='btn' (click)="groupBy('all')">Show all</button>
     <button class='btn' (click)="groupBy('gender')">Group by gender</button>
+    <button class='btn' (click)="groupBy('travel')">Group by travel</button>
     <svg width="100%" height="12000" class="mySvg" (click)="clicked($event)">
 
     </svg>
@@ -87,9 +89,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class VisualizationComponent {
     loading = false;
-    
+
     constructor(private http: HttpClient) {
-        this.groupByType([{title: "", random: true, query: {}}]);
+        this.groupBy("all");
     }
     clear() {
         d3.selectAll("svg > *").remove();
@@ -138,9 +140,17 @@ export class VisualizationComponent {
     private async groupByType(queryOptions) {
         this.clear();
         this.loading = true;
-        let entriesList = await Promise.all(queryOptions.map(queryOption =>
-            this.http.post('/api/entries/search', { query: queryOption.query }).toPromise()
-        ));
+        let entriesList;
+        try {
+            entriesList = await Promise.all(queryOptions.map(queryOption =>
+                this.http.post('/api/entries/search', { query: queryOption.query }).toPromise()
+            ));
+        }
+        catch(e) {
+            console.error(e);
+            this.loading = false;
+            alert("There was an error loading the visualization requested.");
+        }
         let x = 0;
         let y = 10;
         for (let i in entriesList) {
@@ -165,6 +175,9 @@ export class VisualizationComponent {
 
     groupBy(type) {
         const mapping = {
+            "all": [
+                { title: "", random: true, query: {} }
+            ],
             "gender": [
                 {
                     query: { type: "Man" },
@@ -173,6 +186,28 @@ export class VisualizationComponent {
                 {
                     query: { type: "Woman" },
                     title: "Woman"
+                }
+            ],
+            "travel": [
+                {
+                    query: { travelDate: { startYear: "0", endYear: "1699" } },
+                    title: "Before 1700"
+                },
+                {
+                    query: { travelDate: { startYear: "1700", endYear: "1720" } },
+                    title: "1700-1720"
+                },
+                {
+                    query: { travelDate: { startYear: "1721", endYear: "1740" } },
+                    title: "1721-1740"
+                },
+                {
+                    query: { travelDate: { startYear: "1741", endYear: "1760" } },
+                    title: "1744-1760"
+                },
+                {
+                    query: { travelDate: { startYear: "1761", endYear: "9999" } },
+                    title: "1761+"
                 }
             ]
         }

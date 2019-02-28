@@ -35,9 +35,18 @@ export class VisualizationComponent {
     constructor(private http: HttpClient) {
         this.http.post('/api/entries/search', { query: {} }).toPromise().then((e: any) => {
             let entries = e.entries;
-            let {x, y} = this.drawDots(entries);
+            let { x, y } = this.drawDots(entries);
             console.log(x, y);
-            this.groupByType();
+            this.groupByType([
+                {
+                    query: { type: "Man" },
+                    title: "Man"
+                },
+                {
+                    query: { type: "Woman" },
+                    title: "Woman"
+                }
+            ]);
         })
     }
     clear() {
@@ -81,18 +90,24 @@ export class VisualizationComponent {
                         .style("opacity", 0);
                 });
         }
-        return {x, y};
+        return { x, y };
     }
 
-    async groupByType() {
+    async groupByType(queries) {
         this.clear();
-        let entries_list= await Promise.all([
-            this.http.post('/api/entries/search', { query: {type: "Man"} }).toPromise(),
-            this.http.post('/api/entries/search', { query: {type: "Woman"} }).toPromise()
-        ]);
-        let x, y = 0;
-        for (let response of entries_list) {
-            let result = this.drawDots((response as {entries: any[], request: any}).entries, {x, y, random: false});
+        let entriesList = await Promise.all(queries.map(query =>
+            this.http.post('/api/entries/search', { query: query.query }).toPromise()
+        ));
+        let x = 0;
+        let y = 10;
+        for (let i in entriesList) {
+            const response = entriesList[i];
+            d3.select('svg').append("text")
+                .attr("x", 0)
+                .attr("y", y)
+                .text(function (d) { return queries[i].title; });
+            y += 20;
+            let result = this.drawDots((response as { entries: any[], request: any }).entries, { x, y, random: false });
             x = 0;
             y = result.y + 50;
         }

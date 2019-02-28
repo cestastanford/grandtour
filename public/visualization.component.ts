@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
     <style>
 
     </style>
+    <button class='btn' (click)="groupBy('gender')">Group by gender</button>
     <svg width="100%" height="12000" class="mySvg" (click)="clicked($event)">
 
   </svg>
@@ -35,25 +36,14 @@ export class VisualizationComponent {
     constructor(private http: HttpClient) {
         this.http.post('/api/entries/search', { query: {} }).toPromise().then((e: any) => {
             let entries = e.entries;
-            let { x, y } = this.drawDots(entries);
-            console.log(x, y);
-            this.groupByType([
-                {
-                    query: { type: "Man" },
-                    title: "Man"
-                },
-                {
-                    query: { type: "Woman" },
-                    title: "Woman"
-                }
-            ]);
+            let { x, y } = this.drawDots(entries, {random: true});
         })
     }
     clear() {
         d3.selectAll("svg > *").remove();
     }
 
-    drawDots(entries, { x = 0, y = 10, random = false } = {}) {
+    private drawDots(entries, { x = 0, y = 10, random = false } = {}) {
         let div = d3.select("body").append("div")
             .attr("class", "tool_tip")
             .style("opacity", 0);
@@ -93,7 +83,7 @@ export class VisualizationComponent {
         return { x, y };
     }
 
-    async groupByType(queries) {
+    private async groupByType(queries) {
         this.clear();
         let entriesList = await Promise.all(queries.map(query =>
             this.http.post('/api/entries/search', { query: query.query }).toPromise()
@@ -118,17 +108,19 @@ export class VisualizationComponent {
         // d3.select('svg').append('circle').attr('cx', 0).attr('cy', 0).attr('r', 20).attr('fill', 'red');
     }
 
-    colorMe() {
-        d3.select('button').style('color', 'red');
+    groupBy(type) {
+        const mapping = {
+            "gender": [
+                {
+                    query: { type: "Man" },
+                    title: "Man"
+                },
+                {
+                    query: { type: "Woman" },
+                    title: "Woman"
+                }
+            ]
+        }
+        this.groupByType(mapping[type]);
     }
-
-    // clicked(event: any) {
-    //     d3.select(event.target).append('circle')
-    //         .attr('cx', event.x)
-    //         .attr('cy', event.y)
-    //         .attr('r', () => {
-    //             return this.radius;
-    //         })
-    //         .attr('fill', 'red');
-    // }
 }

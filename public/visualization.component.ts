@@ -13,11 +13,69 @@ import { HttpClient } from '@angular/common/http';
     template: `
     <style>
 
+    /* Loading from https://codepen.io/anon/pen/Oqywqy */
+
+    .loader {
+        width: 60px;
+      }
+      
+      .loader-wheel {
+        animation: spin 1s infinite linear;
+        border: 2px solid rgba(30, 30, 30, 0.5);
+        border-left: 4px solid #fff;
+        border-radius: 50%;
+        height: 50px;
+        margin-bottom: 10px;
+        width: 50px;
+        position: absolute;
+        top: 50vh;
+        left: 50vw;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      
+      .loader-text {
+        color: #fff;
+        font-family: arial, sans-serif;
+      }
+      
+      .loader-text:after {
+        content: 'Loading';
+        animation: load 2s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      
+      @keyframes load {
+        0% {
+          content: 'Loading';
+        }
+        33% {
+          content: 'Loading.';
+        }
+        67% {
+          content: 'Loading..';
+        }
+        100% {
+          content: 'Loading...';
+        }
+      }
+
     </style>
+    <div class='loader' [hidden]="loading === false">
+        <div class="loader-wheel"></div>
+        <div class="loader-text"></div>
+    </div>
     <button class='btn' (click)="groupBy('gender')">Group by gender</button>
     <svg width="100%" height="12000" class="mySvg" (click)="clicked($event)">
 
-  </svg>
+    </svg>
     `,
     styles: [`
     .mySvg{
@@ -28,16 +86,10 @@ import { HttpClient } from '@angular/common/http';
     `]
 })
 export class VisualizationComponent {
-    title = 'app';
-
-
-    radius = 10;
-
+    loading = false;
+    
     constructor(private http: HttpClient) {
-        this.http.post('/api/entries/search', { query: {} }).toPromise().then((e: any) => {
-            let entries = e.entries;
-            let { x, y } = this.drawDots(entries, {random: true});
-        })
+        this.groupByType([{title: "", random: true, query: {}}]);
     }
     clear() {
         d3.selectAll("svg > *").remove();
@@ -83,24 +135,27 @@ export class VisualizationComponent {
         return { x, y };
     }
 
-    private async groupByType(queries) {
+    private async groupByType(queryOptions) {
         this.clear();
-        let entriesList = await Promise.all(queries.map(query =>
-            this.http.post('/api/entries/search', { query: query.query }).toPromise()
+        this.loading = true;
+        let entriesList = await Promise.all(queryOptions.map(queryOption =>
+            this.http.post('/api/entries/search', { query: queryOption.query }).toPromise()
         ));
         let x = 0;
         let y = 10;
         for (let i in entriesList) {
             const response = entriesList[i];
+            const queryOption = queryOptions[i];
             d3.select('svg').append("text")
                 .attr("x", 0)
                 .attr("y", y)
-                .text(function (d) { return queries[i].title; });
+                .text(function (d) { return queryOption.title; });
             y += 20;
-            let result = this.drawDots((response as { entries: any[], request: any }).entries, { x, y, random: false });
+            let result = this.drawDots((response as { entries: any[], request: any }).entries, { x, y, random: queryOption.random || false });
             x = 0;
             y = result.y + 50;
         }
+        this.loading = false;
     }
 
     ngAfterContentInit() {

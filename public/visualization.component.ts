@@ -116,7 +116,11 @@ export class VisualizationComponent {
                 y += 10;
             }
             // todo: hover boundary of 2px
-            d3.select('svg').append('circle').attr('cx', x).attr('cy', y).attr('r', 3).attr('fill', 'grey')
+            const circle = d3.select('svg').append('circle')
+                .attr('cx', x)
+                .attr('cy', y)
+                .attr('r', 1)
+                .attr('fill', 'grey')
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
 
@@ -134,6 +138,7 @@ export class VisualizationComponent {
                         .style("opacity", 0);
                 });
         }
+        d3.select('svg').selectAll('circle').transition().attr('r', 3).duration(1000);
         return { x, y };
     }
 
@@ -146,7 +151,7 @@ export class VisualizationComponent {
                 this.http.post('/api/entries/search', { query: queryOption.query }).toPromise()
             ));
         }
-        catch(e) {
+        catch (e) {
             console.error(e);
             this.loading = false;
             alert("There was an error loading the visualization requested.");

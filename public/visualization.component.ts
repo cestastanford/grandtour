@@ -119,7 +119,7 @@ export class VisualizationComponent {
             const circle = d3.select('svg').append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', 1)
+                .attr('r', 0)
                 .attr('fill', 'grey')
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
@@ -143,7 +143,6 @@ export class VisualizationComponent {
     }
 
     private async groupByType(queryOptions) {
-        this.clear();
         this.loading = true;
         let entriesList;
         try {
@@ -155,7 +154,9 @@ export class VisualizationComponent {
             console.error(e);
             this.loading = false;
             alert("There was an error loading the visualization requested.");
+            return;
         }
+        this.clear();
         let x = 0;
         let y = 10;
         for (let i in entriesList) {

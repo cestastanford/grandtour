@@ -12,6 +12,11 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
   - `echo "SECRET_KEY_1='$(date | md5sum | head -c 32)'" >> .env`
   - `echo "SECRET_KEY_2='$(date | md5sum | head -c 32)'" >> .env`
   - `echo "SECRET_KEY_3='$(date | md5sum | head -c 32)'" >> .env`
+- Add the following to .env:
+```
+SHEETS_EMAIL=...
+SHEETS_PRIVATE_KEY=...
+```
 - Create a data directory: `mkdir data`
 - Start the server: `npm run dev-start`.  This will create and host a MongoDB database and start the Node server.
 - Check the console output for the automatically-created default admin user login info.  This account is created when no existing user accounts exist.

@@ -197,9 +197,9 @@
           )
             span {{exportStatus.message}}
 
-        hr(ng-show="exportStatus.url")
-        .well.well-sm(ng-show="exportStatus.url")
-          a(href="{{exportStatus.url}}" target="_blank") Access exported spreadsheet at {{exportStatus.url}}
+        hr(ng-show="exportUrls.length")
+        .well.well-sm(ng-repeat="url in exportUrls")
+          a(href="{{url}}" target="_blank") Access exported spreadsheet at {{url}}
 
       .row
         hr

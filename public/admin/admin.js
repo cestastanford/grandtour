@@ -6,6 +6,8 @@ import io from "socket.io-client";
 
   $scope.view = 'revisions';
 
+  $scope.exportUrls = [];
+
 
   /*
   * Sets up Revisions tab.
@@ -142,8 +144,9 @@ import io from "socket.io-client";
   socket.on('sheets-export-status', function(response) {
     $scope.exportStatus = response
     if ($scope.exportStatus.done) {
-      $('#export').button('reset')
-      delete $scope.exportStatus
+      $('#export').button('reset');
+      $scope.exportUrls.push($scope.exportStatus.url);
+      $scope.exportStatus = null;
     }
     $scope.$apply()
   });
@@ -151,6 +154,7 @@ import io from "socket.io-client";
   $scope.export = function(revisionIndex) {
     if ($scope.exportStatus) return;
     $scope.exportStatus = {}
+    $scope.exportUrls = [];
     $('#export').button('loading')
     $http.post('/api/export/to-sheets', { revisionIndex: revisionIndex })
     .catch(console.error.bind(console))

@@ -50,8 +50,10 @@ describe("test footnotes", () => {
     ).toMatchInlineSnapshot(`"\\"1 person did this!\\""`);
   });
   test("parse number following end of word", () => {
-    expect(parseFootnotes("hello1", ["test"])).toMatchInlineSnapshot(
-      `"hello1"`
+    expect(
+      parseFootnotes("hello1 he was good", ["test"])
+    ).toMatchInlineSnapshot(
+      `"hello<sup class=\\"text-primary\\" data-toggle=\\"popover\\" data-content=\\"test\\">[1]</sup> he was good"`
     );
   });
   test("don't parse euros", () => {

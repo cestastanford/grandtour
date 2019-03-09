@@ -356,6 +356,7 @@ const projectForEntryList = entry => ({
 
     index: entry.index,
     fullName: entry.fullName,
+    biographyLength: entry.biography.length,
     biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
     dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
 

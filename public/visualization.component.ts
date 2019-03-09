@@ -120,7 +120,7 @@ export class VisualizationComponent {
             const circle = d3.select('svg').append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', sizeByLength ? entry.biographyLength * .02: 0)
+                .attr('r', sizeByLength ? Math.max(2, entry.biographyLength * .02): 0)
                 .attr('fill', 'grey')
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test

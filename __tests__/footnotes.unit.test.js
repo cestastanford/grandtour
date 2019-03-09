@@ -64,9 +64,18 @@ describe("test footnotes", () => {
     );
   });
   test("don't parse euros", () => {
-    expect(parseFootnotes("£14.1", ["test"])).toMatchInlineSnapshot(`"£14.1"`);
+    expect(parseFootnotes("£14.1 he", ["test"])).toMatchInlineSnapshot(
+      `"£14.1 he"`
+    );
+  });
+  test("fails at parsing escaped euros (expected behavior)", () => {
+    expect(parseFootnotes("&#39;14.1 he", ["test"])).toMatchInlineSnapshot(
+      `"'14.<sup class=\\"text-primary\\" data-toggle=\\"popover\\" data-content=\\"test\\">[1]</sup> he"`
+    );
   });
   test("don't parse numbers", () => {
-    expect(parseFootnotes("1753", ["test"])).toMatchInlineSnapshot(`"1753"`);
+    expect(parseFootnotes("1753 he", ["test"])).toMatchInlineSnapshot(
+      `"1753 he"`
+    );
   });
 });

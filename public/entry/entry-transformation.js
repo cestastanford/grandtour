@@ -22,8 +22,8 @@ export function parseFootnotes(value, splitNotes) {
     return he.decode(value) // unescape html entities so that it does NOT match: "&#39;2 " (see Issue #33)
     .replace(/(£\d*)\.(\d*)/gi, "$1|||$2") // £14.10 => £14|||10
     .replace(/(\{)([0-9]{1,2})(\})/gi, replacerFootnoteOnly) // {1} => .1
-    .replace(/([\.|\,|\;][\'|\"]?)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1;3 he was good.
-    .replace(/([a-zA-Z])([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Hello3 he was good.
+    .replace(/([a-zA-Z\d][\.|\,|\;][\'|\"]?)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1;3 he was good.
+    .replace(/([a-zA-Z\d])([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Hello3 he was good.
     .replace(/(£\d*)\|\|\|(\d*)/gi, "$1.$2") // £14|||10 => £14.10 
 }
 

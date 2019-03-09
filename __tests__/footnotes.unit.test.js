@@ -8,6 +8,13 @@ describe("test footnotes", () => {
       `"Fact 1;<sup class=\\"text-primary\\" data-toggle=\\"popover\\" data-content=\\"test\\">[1]</sup> he was good."`
     );
   });
+  test("after letter and semicolon", () => {
+    expect(
+      parseFootnotes("Fact true;1 he was good.", ["test"])
+    ).toMatchInlineSnapshot(
+      `"Fact true;<sup class=\\"text-primary\\" data-toggle=\\"popover\\" data-content=\\"test\\">[1]</sup> he was good."`
+    );
+  });
   test("after period", () => {
     expect(
       parseFootnotes("Fact 1.1 he was good.", ["test"])

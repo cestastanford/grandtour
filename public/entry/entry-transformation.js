@@ -10,6 +10,22 @@ var NARRATIVE = 'narrative'
 var NOTES = 'notes'
 var ENTRY_TEXT_SECTIONS = [ BIOGRAPHY, TOURS, NARRATIVE, NOTES ]
 
+export function parseFootnotes(value, splitNotes) {
+    function replacer(match, p1, footnoteId, p3, offset, string) {
+        var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
+        return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
+      }
+      function replacerFootnoteOnly(match, p1, footnoteId, p3, offset, string) {
+        var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
+        return "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
+      }
+    return he.decode(value) // unescape html entities so that it does NOT match: "&#39;2 " (see Issue #33)
+    .replace(/(£\d*)\.(\d*)/gi, "$1|||$2") // £14.10 => £14|||10
+    .replace(/(\{)([0-9]{1,2})(\})/gi, replacerFootnoteOnly) // {1} => .1
+    .replace(/(\.|\,|\;)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1;3 he was good.
+    .replace(/(£\d*)\|\|\|(\d*)/gi, "$1.$2") // £14|||10 => £14.10 
+}
+
 export default ['$http', 'entryHighlightingService', '$timeout', '$sce', function($http, entryHighlightingService, $timeout, $sce) {
 
     /*
@@ -270,22 +286,7 @@ export default ['$http', 'entryHighlightingService', '$timeout', '$sce', functio
 
             var value = entry[fieldKey + FORMATTED_SUFFIX]
             if (value) {
-
-                function replacer(match, p1, footnoteId, p3, offset, string) {
-                  var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
-                  return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
-                }
-                function replacerFootnoteOnly(match, p1, footnoteId, p3, offset, string) {
-                  var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
-                  return "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
-                }
-                var superscriptedValue = he.decode(value) // unescape html entities so that it does NOT match: "&#39;2 " (see Issue #33)
-                    .replace(/(£\d*)\.(\d*)/gi, "$1|||$2") // £14.10 => £14|||10
-                    .replace(/(\{)([0-9]{1,2})(\})/gi, replacerFootnoteOnly) // {1} => .1
-                    .replace(/(\.|\,|\;)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1;3 he was good.
-                    .replace(/(£\d*)\|\|\|(\d*)/gi, "$1.$2") // £14|||10 => £14.10 
-                entry[fieldKey + FORMATTED_SUFFIX] = superscriptedValue
-
+                entry[fieldKey + FORMATTED_SUFFIX] = parseFootnotes(value, splitNotes);
             }
 
         })

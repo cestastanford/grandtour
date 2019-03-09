@@ -66,4 +66,7 @@ describe("test footnotes", () => {
   test("don't parse euros", () => {
     expect(parseFootnotes("£14.1", ["test"])).toMatchInlineSnapshot(`"£14.1"`);
   });
+  test("don't parse numbers", () => {
+    expect(parseFootnotes("1753", ["test"])).toMatchInlineSnapshot(`"1753"`);
+  });
 });

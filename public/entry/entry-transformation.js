@@ -11,20 +11,22 @@ var NOTES = 'notes'
 var ENTRY_TEXT_SECTIONS = [ BIOGRAPHY, TOURS, NARRATIVE, NOTES ]
 
 export function parseFootnotes(value, splitNotes) {
-    function replacer(match, p1, footnoteId, p3, offset, string) {
-        var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
-        return p1 + "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
-      }
-      function replacerFootnoteOnly(match, p1, footnoteId, p3, offset, string) {
-        var title = footnoteId == 1? splitNotes[footnoteId-1] : footnoteId + ". " +  splitNotes[footnoteId-1]
-        return "<sup class=\"text-primary\" data-toggle=\"popover\" data-content=\"" + title + "\">[" + footnoteId + "]</sup>"
-      }
+    let popoverContent = "";
+    function replacerFootnoteOnly(match, p1, footnoteId, p3, offset, string) {
+        var title = footnoteId == 1 ? splitNotes[footnoteId - 1] : footnoteId + ". " + splitNotes[footnoteId - 1];
+        popoverContent += `
+            <div style='display: none' id="gte-footnote-${footnoteId}">${title}</div>
+        `;
+        return `<sup class=\"text-primary gte-popover\" data-footnote=\"gte-footnote-${footnoteId}\">[` + footnoteId + "]</sup>";
+    }
+    let replacer = (a, b, c, d, e, f) => b + replacerFootnoteOnly(a, b, c, d, e, f);
     return he.decode(value) // unescape html entities so that it does NOT match: "&#39;2 " (see Issue #33)
-    .replace(/(£\d*)\.(\d*)/gi, "$1|||$2") // £14.10 => £14|||10
-    .replace(/(\{)([0-9]{1,2})(\})/gi, replacerFootnoteOnly) // {1} => .1
-    .replace(/([a-zA-Z\d\)\'\"][\.|\,|\;][\'|\"]?)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1;3 he was good.
-    .replace(/([a-zA-Z])([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Hello3 he was good.
-    .replace(/(£\d*)\|\|\|(\d*)/gi, "$1.$2") // £14|||10 => £14.10 
+        .replace(/(£\d*)\.(\d*)/gi, "$1|||$2") // £14.10 => £14|||10
+        .replace(/(\{)([0-9]{1,2})(\})/gi, replacerFootnoteOnly) // {1} => .1
+        .replace(/([a-zA-Z\d\)\'\"][\.|\,|\;][\'|\"]?)([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Fact 1;3 he was good.
+        .replace(/([a-zA-Z])([0-9]{1,2})(?=[\s|$|\n|\r|\<])/gi, replacer) // Hello3 he was good.
+        .replace(/(£\d*)\|\|\|(\d*)/gi, "$1.$2") // £14|||10 => £14.10 
+        + popoverContent; 
 }
 
 export default ['$http', 'entryHighlightingService', '$timeout', '$sce', function($http, entryHighlightingService, $timeout, $sce) {

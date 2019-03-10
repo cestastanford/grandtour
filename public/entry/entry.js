@@ -104,9 +104,14 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
   }
 
   $scope.$watch( function(){ return $('.check-html').html(); }, function(html){
-    $(function () {
-      $('[data-toggle="popover"]').popover({trigger:'hover', placement:'top', container:'body'});
-    })
+    $(".gte-popover").popover({
+      html : true, 
+      trigger: 'hover',
+      placement: 'top',
+      content: function() {
+        return $("#" + $(this).attr('data-footnote')).html();
+      }
+    });
   })
 
 

@@ -17,6 +17,7 @@ async function main() {
     for (let item of results) {
         let travels = item.travels;
         // console.log(item._id, item.index);
+        let toUpdate = false;
         for (let travel of travels) {
             let actualTravelData = find(allTravelData, {"place": travel.place});
             if (!travel.place) {
@@ -24,19 +25,21 @@ async function main() {
                 continue;
             }
             if (!actualTravelData) {
-                console.log("=====No travel data found for " + travel.place);
+                // console.log("=====No travel data found for " + travel.place);
                 continue;
             }
-            console.log("\t", travel.place, travel.latitude, actualTravelData["FINAL LAT"], travel.longitude, actualTravelData["FINAL LON"], actualTravelData["Italy"]);
-
+            console.log("old", "\t", travel.place, travel.latitude, actualTravelData["FINAL LAT"], travel.longitude, actualTravelData["FINAL LON"], actualTravelData["Italy"]);
+            toUpdate = true;
             travel.latitude = actualTravelData["FINAL LAT"];
             travel.longitude = actualTravelData["FINAL LON"];
             travel.italy = actualTravelData["Italy"] === "Y";
         }
-        console.log("updating", item._id);
-        await entries.updateOne({_id: item._id}, {$set: {travels: travels}});
-        console.log("DONE");
+        if (toUpdate) {
+            console.log("updating", item._id);
+            await entries.updateOne({_id: item._id}, {$set: {travels: travels}});
+        }
         // break;
     }
+    console.log("DONE");
 }
 main();

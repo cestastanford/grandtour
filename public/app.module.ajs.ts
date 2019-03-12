@@ -208,7 +208,7 @@ const MODULE_NAME = 'app';
     url: "/explore/:query",
     template: require("pug-loader!./explore/explore.pug"),
     controller: ExploreCtrl,
-    title: 'Explore',
+    title: 'Survey',
     resolve: {
       loggedin: isLoggedIn
     }

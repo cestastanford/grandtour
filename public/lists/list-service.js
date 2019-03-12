@@ -43,27 +43,21 @@ export default ['$rootScope', '$http', function($rootScope, $http) {
 
   //  add to a list
   var addToList = function(list, entry, callback) {
-    if (list.entryIDs.indexOf(entry.index) > -1) {
-      callback && callback({ alreadyInList: true });
-      return async () => await ({addedToList: true});
-    }
-    else {
-      return $http.post('/api/lists/addtolist', {
-        listID: list._id,
-        entryIndex: entry.index
-      })
-      .then(function(res) {
-        if (res.data.error) {
-          console.error(error);
-          throw error;
-        }
-        else {
-          list.entryIDs.push(entry.index);
-          callback && callback({ addedToList: true });
-          return {addedToList: true};
-        }
-      }, function(res) { console.error(res); });
-    }
+    return $http.post('/api/lists/addtolist', {
+      listID: list._id,
+      entryIndex: entry.index
+    })
+    .then(function(res) {
+      if (res.data.error) {
+        console.error(error);
+        throw error;
+      }
+      else {
+        list.entryIDs = res.data.entryIDs;
+        callback && callback({ addedToList: true });
+        return {addedToList: true};
+      }
+    }, function(res) { console.error(res); });
   };
 
   //  remove from a list

@@ -20,7 +20,7 @@ const listSchema = mongoose.Schema({
     owner: String,
     entryIDs: [Number],
 
-})
+}, { usePushEach: true })
 
 
 /*
@@ -69,19 +69,25 @@ class List {
         });
     };
 
-    static addToList(req, res) {
+    static async addToList(req, res) {
 
         var id = req.body.listID;
         var entryIndex = req.body.entryIndex;
 
-        this.findOneAndUpdate(
-            { _id: id },
-            { $push : { entryIDs : entryIndex } },
-            function(error) {
-                if (error) res.json({ error: error});
-                else res.json({ success: true });
+        let model = await this.findOne({_id: id});
+        try {
+            if (model.entryIDs.length && model.entryIDs.includes(entryIndex)) {
+
             }
-        );
+            else {
+                model.entryIDs.push(entryIndex);
+            }
+            await model.save();
+            res.json({ success: true, entryIDs: model.entryIDs });
+        }
+        catch (error) {
+            res.json({ error: error, a: 'a'});
+        }
     };
 
     static removeFromList(req, res) {

@@ -248,7 +248,7 @@ const MODULE_NAME = 'app';
     url: "/visualizations",
     template: "<visualization></visualization>",
     // controller: ListsCtrl,
-    title: 'Visualizations',
+    title: 'View',
     resolve: {
       loggedin: isLoggedIn
     }

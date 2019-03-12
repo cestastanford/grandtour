@@ -76,6 +76,7 @@
     "concurrently": "^4.1.0",
     "css-loader": "^1.0.1",
     "csvtojson": "^2.0.8",
+    "dotenv": "^6.2.0",
     "expose-loader": "^0.7.5",
     "file-loader": "^2.0.0",
     "html-webpack-pug-plugin": "^0.3.0",

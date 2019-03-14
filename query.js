@@ -357,6 +357,12 @@ const projectForEntryList = entry => ({
     index: entry.index,
     fullName: entry.fullName,
     biographyLength: entry.biography.length,
+    travelTime: entry.travels ? entry.travels.reduce((accum, travel) => {
+        if (travel.travelEndYear && travel.travelStartYear) {
+            return accum + (new Date(travel.travelEndYear) - new Date(travel.travelStartYear));
+        }
+        return accum;
+    }, 0) : 0,
     biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
     dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
 

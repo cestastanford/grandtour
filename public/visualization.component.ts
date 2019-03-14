@@ -75,7 +75,8 @@ import { HttpClient } from '@angular/common/http';
     <button class='btn' (click)="groupBy('all')">Show all</button>
     <button class='btn' (click)="groupBy('gender')">Group by gender</button>
     <button class='btn' (click)="groupBy('travel')">Group by travel</button>
-    <button class='btn' (click)="sizeBy()">Size by length</button>
+    <button class='btn' (click)="sizeBy({sizeByLength: true})">Size by length</button>
+    <button class='btn' (click)="sizeBy({sizeByTravelTime: true})">Size by travel time</button>
     <svg width="100%" height="12000" class="mySvg" (click)="clicked($event)">
 
     </svg>
@@ -98,7 +99,7 @@ export class VisualizationComponent {
         d3.selectAll("svg > *").remove();
     }
 
-    private drawDots(entries, { x = 0, y = 10, random = false, sizeByLength = false } = {}) {
+    private drawDots(entries, { x = 0, y = 10, random = false, sizeByLength = false, sizeByTravelTime = false } = {}) {
         let div = d3.select("body").append("div")
             .attr("class", "tool_tip")
             .style("opacity", 0);
@@ -120,7 +121,7 @@ export class VisualizationComponent {
             const circle = d3.select('svg').append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', sizeByLength ? Math.max(2, entry.biographyLength * .02): 0)
+                .attr('r', sizeByLength ? Math.max(2, entry.biographyLength * .02): sizeByTravelTime ? Math.max(2, entry.travelTime * .02): 0)
                 .attr('fill', 'grey')
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
@@ -139,7 +140,7 @@ export class VisualizationComponent {
                         .style("opacity", 0);
                 });
         }
-        if (!sizeByLength) {
+        if (!sizeByLength && !sizeByTravelTime) {
             d3.select('svg').selectAll('circle').transition().attr('r', 3).duration(1000);   
         }
         return { x, y };
@@ -223,7 +224,7 @@ export class VisualizationComponent {
         this.groupByType(mapping[type]);
     }
 
-    private async sizeBy() {
+    private async sizeBy(opts={}) {
         this.loading = true;
         let response;
         try {
@@ -238,7 +239,7 @@ export class VisualizationComponent {
         this.clear();
         let x = 0;
         let y = 10;
-        let result = this.drawDots((response as { entries: any[], request: any }).entries, { x, y, random: false, sizeByLength: true });
+        let result = this.drawDots((response as { entries: any[], request: any }).entries, {x, y, random: false, ...opts });
         this.loading = false;
     }
 }

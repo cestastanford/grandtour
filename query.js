@@ -357,7 +357,7 @@ const projectForEntryList = entry => ({
     index: entry.index,
     fullName: entry.fullName,
     biographyLength: entry.biography.length,
-    travelTime: entry.travels ? entry.travels.reduce((accum, travel) => {
+    travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {
         if (travel.travelEndYear && travel.travelStartYear) {
             return accum + (new Date(travel.travelEndYear) - new Date(travel.travelStartYear));
         }

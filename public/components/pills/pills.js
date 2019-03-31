@@ -104,8 +104,11 @@ export default function() {
                 pill.dimension += freeSearchQuery.sections.filter(function(section) { return section.checked })
                 .map(function(section) { return section.name }).join(', ')
                 
-                pill.value = freeSearchQuery.terms.map(function(term) { return term.value }).join(', ')
-                return pill
+                pill.value = {
+                    uniques: freeSearchQuery.terms.map(term => ({_id: term.value, negative: term.negative}) ),
+                    operator: freeSearchQuery.operator
+                };
+                return pill;
 
             }
 

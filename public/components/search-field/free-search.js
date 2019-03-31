@@ -1,12 +1,14 @@
-export default function() {
-    
+const DEFAULT_OPERATOR = "or";
+
+export default function () {
+
     return {
-    
+
         restrict: 'E',
         template: require('pug-loader!./free-search.pug'),
         scope: true,
         link: function (scope) {
-    
+
 
             /*
             *   Links model to main search query.
@@ -15,13 +17,17 @@ export default function() {
             function resetFreeSearch() {
 
                 if (scope.query.entry) scope.freeSearchModel = scope.query.entry
-                else scope.freeSearchModel = { terms: [ { value: '', beginning: true, end: true } ], sections: [
-                    { key: 'biography', name: 'Biography', checked: true },
-                    { key: 'narrative', name: 'Narrative', checked: true },
-                    { key: 'tours', name: 'Tours', checked: true },
-                    { key: 'notes', name: 'Notes', checked: true },
-                ] }
-                
+                else scope.freeSearchModel = {
+                    terms: [{ value: '', beginning: true, end: true }],
+                    sections: [
+                        { key: 'biography', name: 'Biography', checked: true },
+                        { key: 'narrative', name: 'Narrative', checked: true },
+                        { key: 'tours', name: 'Tours', checked: true },
+                        { key: 'notes', name: 'Notes', checked: true },
+                    ],
+                    operator: DEFAULT_OPERATOR
+                }
+
             }
 
 
@@ -30,16 +36,17 @@ export default function() {
             *   response to $watch or manual update.
             */
 
-            function handleFreeSearchUpdate() { 
-                
-                var terms = scope.freeSearchModel.terms.filter(function(term) { return term.value })
+            function handleFreeSearchUpdate() {
+
+                var terms = scope.freeSearchModel.terms.filter(function (term) { return term.value })
                 if (terms.length) {
-    
+
                     scope.query.entry = {
                         terms: terms,
                         sections: scope.freeSearchModel.sections,
+                        operator: scope.freeSearchModel.operator
                     }
-    
+
                 } else delete scope.query.entry
 
             }
@@ -58,9 +65,9 @@ export default function() {
             }
 
             setupFreeSearch()
-        
+
         },
-    
+
     }
 
 };

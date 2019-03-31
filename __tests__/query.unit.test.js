@@ -307,54 +307,50 @@ describe('test parseQuery with freeSearch', () => {
                 {
                     "$or": [
                         {
-                            "$and": [
+                            "$or": [
                                 {
-                                    "$or": [
-                                        {
-                                            "biography": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        },
-                                        {
-                                            "narrative": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        },
-                                        {
-                                            "tours": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        },
-                                        {
-                                            "notes": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        }
-                                    ]
+                                    "biography": {
+                                        "$regex": /\btwo\b/gi
+                                    }
                                 },
                                 {
-                                    "$or": [
-                                        {
-                                            "biography": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "narrative": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "tours": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "notes": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        }
-                                    ]
+                                    "narrative": {
+                                        "$regex": /\btwo\b/gi
+                                    }
+                                },
+                                {
+                                    "tours": {
+                                        "$regex": /\btwo\b/gi
+                                    }
+                                },
+                                {
+                                    "notes": {
+                                        "$regex": /\btwo\b/gi
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "$or": [
+                                {
+                                    "biography": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "narrative": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "tours": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "notes": {
+                                        "$regex": /\bthree\b/gi
+                                    }
                                 }
                             ]
                         }
@@ -412,54 +408,50 @@ describe('test parseQuery with freeSearch', () => {
                 {
                     "$and": [
                         {
-                            "$and": [
+                            "$or": [
                                 {
-                                    "$or": [
-                                        {
-                                            "biography": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        },
-                                        {
-                                            "narrative": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        },
-                                        {
-                                            "tours": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        },
-                                        {
-                                            "notes": {
-                                                "$regex": /\btwo\b/gi
-                                            }
-                                        }
-                                    ]
+                                    "biography": {
+                                        "$regex": /\btwo\b/gi
+                                    }
                                 },
                                 {
-                                    "$or": [
-                                        {
-                                            "biography": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "narrative": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "tours": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "notes": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        }
-                                    ]
+                                    "narrative": {
+                                        "$regex": /\btwo\b/gi
+                                    }
+                                },
+                                {
+                                    "tours": {
+                                        "$regex": /\btwo\b/gi
+                                    }
+                                },
+                                {
+                                    "notes": {
+                                        "$regex": /\btwo\b/gi
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "$or": [
+                                {
+                                    "biography": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "narrative": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "tours": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "notes": {
+                                        "$regex": /\bthree\b/gi
+                                    }
                                 }
                             ]
                         }
@@ -517,52 +509,48 @@ describe('test parseQuery with freeSearch', () => {
                         {
                             "$and": [
                                 {
-                                    "$and": [
-                                        {
-                                            "biography": {
-                                                "$regex": /^((?!\btwo\b).)*/gi
-                                            }
-                                        },
-                                        {
-                                            "narrative": {
-                                                "$regex": /^((?!\btwo\b).)*/gi
-                                            }
-                                        },
-                                        {
-                                            "tours": {
-                                                "$regex": /^((?!\btwo\b).)*/gi
-                                            }
-                                        },
-                                        {
-                                            "notes": {
-                                                "$regex": /^((?!\btwo\b).)*/gi
-                                            }
-                                        }
-                                    ]
+                                    "biography": {
+                                        "$regex": /^((?!\btwo\b).)*/gi
+                                    }
                                 },
                                 {
-                                    "$or": [
-                                        {
-                                            "biography": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "narrative": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "tours": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        },
-                                        {
-                                            "notes": {
-                                                "$regex": /\bthree\b/gi
-                                            }
-                                        }
-                                    ]
+                                    "narrative": {
+                                        "$regex": /^((?!\btwo\b).)*/gi
+                                    }
+                                },
+                                {
+                                    "tours": {
+                                        "$regex": /^((?!\btwo\b).)*/gi
+                                    }
+                                },
+                                {
+                                    "notes": {
+                                        "$regex": /^((?!\btwo\b).)*/gi
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "$or": [
+                                {
+                                    "biography": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "narrative": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "tours": {
+                                        "$regex": /\bthree\b/gi
+                                    }
+                                },
+                                {
+                                    "notes": {
+                                        "$regex": /\bthree\b/gi
+                                    }
                                 }
                             ]
                         }

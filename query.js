@@ -264,24 +264,21 @@ var searchMap = {
 
     military: (d, exact) => ({ military: { $elemMatch: { rank: { $regex: getRegExp(d, exact) } } } }),
 
-    entry: d => ({
-        $and: d.terms.map(term => ({
-            [term.negative === true ? "$and": "$or"]: d.sections.filter(section => section.checked).map(section => {
-                let regexpValue = (term.beginning ? '\\b' : '')
-                    + escapeRegExp(term.value)
-                    + (term.end ? '\\b' : '');
-                if (term.negative === true) { // Does not contain. See https://stackoverflow.com/a/33971012
-                    regexpValue = `^((?!${regexpValue}).)*`;
+    entry: d => d.terms.map(term => ({
+        [term.negative === true ? "$and" : "$or"]: d.sections.filter(section => section.checked).map(section => {
+            let regexpValue = (term.beginning ? '\\b' : '')
+                + escapeRegExp(term.value)
+                + (term.end ? '\\b' : '');
+            if (term.negative === true) { // Does not contain. See https://stackoverflow.com/a/33971012
+                regexpValue = `^((?!${regexpValue}).)*`;
+            }
+            return {
+                [section.key]: {
+                    $regex: new RegExp(regexpValue, 'gi')
                 }
-                return {
-                    [section.key]: {
-                        $regex: new RegExp(regexpValue, 'gi')
-                    }
-                };
-            })
-        }))
-    }),
-
+            };
+        })
+    }))
 }
 
 
@@ -326,7 +323,13 @@ function parseQuery(query) {
         }
         else {
             // Search functionality - fuzzy search. "uniques" would actually just be a single object.
-            list.push(searchMap[k](uniques, false));
+            if (k === "entry") {
+                // In the case of free search, searchMap[k] returns a list itself.
+                list = searchMap[k](uniques, false);
+            }
+            else {
+                list.push(searchMap[k](uniques, false));
+            }
         }
         if (list.length === 0) {
             continue;

@@ -258,3 +258,318 @@ describe('test parseQuery', () => {
         expect(parseQuery(query)).toEqual(result);
     });
 });
+
+describe('test parseQuery with freeSearch', () => {
+    test('regular freeSearch query', () => {
+        const query = {
+            "entry": {
+                "terms": [
+                    {
+                        "value": "two",
+                        "beginning": true,
+                        "end": true,
+                        "negative": false
+                    },
+                    {
+                        "value": "three",
+                        "beginning": true,
+                        "end": true,
+                        "negative": false
+                    }
+                ],
+                "sections": [
+                    {
+                        "key": "biography",
+                        "name": "Biography",
+                        "checked": true
+                    },
+                    {
+                        "key": "narrative",
+                        "name": "Narrative",
+                        "checked": true
+                    },
+                    {
+                        "key": "tours",
+                        "name": "Tours",
+                        "checked": true
+                    },
+                    {
+                        "key": "notes",
+                        "name": "Notes",
+                        "checked": true
+                    }
+                ],
+                "operator": "or"
+            }
+        };
+        const result = {
+            "$and": [
+                {
+                    "$or": [
+                        {
+                            "$and": [
+                                {
+                                    "$or": [
+                                        {
+                                            "biography": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        },
+                                        {
+                                            "narrative": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        },
+                                        {
+                                            "tours": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        },
+                                        {
+                                            "notes": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "$or": [
+                                        {
+                                            "biography": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "narrative": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "tours": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "notes": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+        expect(parseQuery(query)).toEqual(result);
+    });
+
+    test('freeSearch query with "and" operator', () => {
+        const query = {
+            "entry": {
+                "terms": [
+                    {
+                        "value": "two",
+                        "beginning": true,
+                        "end": true,
+                        "negative": false
+                    },
+                    {
+                        "value": "three",
+                        "beginning": true,
+                        "end": true,
+                        "negative": false
+                    }
+                ],
+                "sections": [
+                    {
+                        "key": "biography",
+                        "name": "Biography",
+                        "checked": true
+                    },
+                    {
+                        "key": "narrative",
+                        "name": "Narrative",
+                        "checked": true
+                    },
+                    {
+                        "key": "tours",
+                        "name": "Tours",
+                        "checked": true
+                    },
+                    {
+                        "key": "notes",
+                        "name": "Notes",
+                        "checked": true
+                    }
+                ],
+                "operator": "and"
+            }
+        };
+        const result = {
+            "$and": [
+                {
+                    "$and": [
+                        {
+                            "$and": [
+                                {
+                                    "$or": [
+                                        {
+                                            "biography": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        },
+                                        {
+                                            "narrative": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        },
+                                        {
+                                            "tours": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        },
+                                        {
+                                            "notes": {
+                                                "$regex": /\btwo\b/gi
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "$or": [
+                                        {
+                                            "biography": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "narrative": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "tours": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "notes": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+        expect(parseQuery(query)).toEqual(result);
+    });
+
+    test('freeSearch query with negatives', () => {
+        const query = {
+            "entry": {
+                "terms": [
+                    {
+                        "value": "two",
+                        "beginning": true,
+                        "end": true,
+                        "negative": true
+                    },
+                    {
+                        "value": "three",
+                        "beginning": true,
+                        "end": true
+                    }
+                ],
+                "sections": [
+                    {
+                        "key": "biography",
+                        "name": "Biography",
+                        "checked": true
+                    },
+                    {
+                        "key": "narrative",
+                        "name": "Narrative",
+                        "checked": true
+                    },
+                    {
+                        "key": "tours",
+                        "name": "Tours",
+                        "checked": true
+                    },
+                    {
+                        "key": "notes",
+                        "name": "Notes",
+                        "checked": true
+                    }
+                ]
+            }
+        };
+        const result = {
+            "$and": [
+                {
+                    "$or": [
+                        {
+                            "$and": [
+                                {
+                                    "$and": [
+                                        {
+                                            "biography": {
+                                                "$regex": /^((?!\btwo\b).)*/gi
+                                            }
+                                        },
+                                        {
+                                            "narrative": {
+                                                "$regex": /^((?!\btwo\b).)*/gi
+                                            }
+                                        },
+                                        {
+                                            "tours": {
+                                                "$regex": /^((?!\btwo\b).)*/gi
+                                            }
+                                        },
+                                        {
+                                            "notes": {
+                                                "$regex": /^((?!\btwo\b).)*/gi
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "$or": [
+                                        {
+                                            "biography": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "narrative": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "tours": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        },
+                                        {
+                                            "notes": {
+                                                "$regex": /\bthree\b/gi
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+        expect(parseQuery(query)).toEqual(result);
+    });
+});

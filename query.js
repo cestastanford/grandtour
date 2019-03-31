@@ -266,13 +266,19 @@ var searchMap = {
 
     entry: d => ({
         $and: d.terms.map(term => ({
-            $or: d.sections.filter(section => section.checked).map(section => ({
-                [section.key]: {
-                    $regex: new RegExp((term.beginning ? '\\b' : '')
-                        + escapeRegExp(term.value)
-                        + (term.end ? '\\b' : ''), 'gi')
+            [term.negative === true ? "$and": "$or"]: d.sections.filter(section => section.checked).map(section => {
+                let regexpValue = (term.beginning ? '\\b' : '')
+                    + escapeRegExp(term.value)
+                    + (term.end ? '\\b' : '');
+                if (term.negative === true) { // Does not contain. See https://stackoverflow.com/a/33971012
+                    regexpValue = `^((?!${regexpValue}).)*`;
                 }
-            }))
+                return {
+                    [section.key]: {
+                        $regex: new RegExp(regexpValue, 'gi')
+                    }
+                };
+            })
         }))
     }),
 

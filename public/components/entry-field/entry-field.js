@@ -34,6 +34,32 @@ export default ['$window', '$http', '$sce', '$timeout', function($window, $http,
                 scope.edited(scope.fieldKey, scope.fieldValueArray)
             }
 
+            /*
+            *   Moves an array item up.
+            */
+
+            scope.moveUpInArray = function(item) {
+                var index = scope.fieldValueArray.indexOf(item)
+                if (index - 1 >= 0) {
+                    scope.fieldValueArray[index] = scope.fieldValueArray[index - 1];
+                    scope.fieldValueArray[index - 1] = item;
+                    scope.edited(scope.fieldKey, scope.fieldValueArray)
+                }
+            }
+
+            /*
+            *   Moves an array item down.
+            */
+
+            scope.moveDownInArray = function(item) {
+                var index = scope.fieldValueArray.indexOf(item)
+                if (index + 1 < scope.fieldValueArray.length) {
+                    scope.fieldValueArray[index] = scope.fieldValueArray[index + 1];
+                    scope.fieldValueArray[index + 1] = item;
+                    scope.edited(scope.fieldKey, scope.fieldValueArray)
+                }
+            }
+
 
             /*
             *   Adds a new array item.

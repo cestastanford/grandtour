@@ -5,9 +5,13 @@
             ng-include.data(
                 src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
             )
-            .controls
-                a.small.pull-right(ng-click="deleteFromArray(fieldValue)") delete 
-                a.small.pull-right.margin-right(ng-click="editInModal(fieldValue, $index)") edit
+            .controls.pull-right
+                a.small.margin-right(ng-click="editInModal(fieldValue, $index)") edit
+                a.small(ng-click="deleteFromArray(fieldValue)") delete 
+                a.small.margin-right(ng-click="moveUpInArray(fieldValue, $index)")
+                    i.fa.fa-angle-up
+                a.small.margin-right(ng-click="moveDownInArray(fieldValue, $index)")
+                    i.fa.fa-angle-down
     
     a.small.italic(ng-click="addToArray()") Add New
     

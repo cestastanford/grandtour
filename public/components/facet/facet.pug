@@ -14,10 +14,10 @@
     div.margin-bottom(ng-show="uniques.length")
       a.small(ng-click="open=!open") {{ open ? 'Show selected only' : 'Show all' }}  
       div.select-facet-sorting.btn-group.btn-group-xs(ng-model="sortingSelection", ng-init="sortingSelection = '-count'")
-        button.btn.btn-default#sort-by-count(type="button", ng-click="sortingSelection = '-count'") #
+        button.btn.btn-default(type="button", ng-click="sortingSelection = '-count'") #
         button.btn.btn-default(type="button", ng-click="sortingSelection = '_id'") A
       div.btn-group.btn-group-xs.pull-right(style="margin-right: 5px")
-        button.btn.btn-default#sort-by-count(type="button", ng-class="{'btn-primary': operator === 'or'}", ng-click="operator = 'or'; update()") any
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'or'}", ng-click="operator = 'or'; update()") any
         button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'and'}", ng-click="operator = 'and'; update()") all
 
     

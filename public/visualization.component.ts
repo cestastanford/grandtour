@@ -138,6 +138,10 @@ export class VisualizationComponent {
                     div.transition()
                         .duration(500)
                         .style("opacity", 0);
+                })
+                .on("click", function() {
+                    div.style("opacity", 0);
+                    window.location.hash = `/entries/${entry.index}`;
                 });
         }
         if (!sizeByLength && !sizeByTravelTime) {
@@ -241,5 +245,9 @@ export class VisualizationComponent {
         let y = 10;
         let result = this.drawDots((response as { entries: any[], request: any }).entries, {x, y, random: false, ...opts });
         this.loading = false;
+    }
+
+    clicked(event) {
+        console.log(event);
     }
 }

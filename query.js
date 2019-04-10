@@ -270,7 +270,7 @@ var searchMap = {
                 + escapeRegExp(term.value)
                 + (term.end ? '\\b' : '');
             if (term.negative === true) { // Does not contain. See https://stackoverflow.com/a/33971012
-                regexpValue = `^((?!${regexpValue}).)*`;
+                regexpValue = `^((?!${regexpValue}).)*$`;
             }
             return {
                 [section.key]: {

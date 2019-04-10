@@ -510,22 +510,22 @@ describe('test parseQuery with freeSearch', () => {
                             "$and": [
                                 {
                                     "biography": {
-                                        "$regex": /^((?!\btwo\b).)*/gi
+                                        "$regex": /^((?!\btwo\b).)*$/gi
                                     }
                                 },
                                 {
                                     "narrative": {
-                                        "$regex": /^((?!\btwo\b).)*/gi
+                                        "$regex": /^((?!\btwo\b).)*$/gi
                                     }
                                 },
                                 {
                                     "tours": {
-                                        "$regex": /^((?!\btwo\b).)*/gi
+                                        "$regex": /^((?!\btwo\b).)*$/gi
                                     }
                                 },
                                 {
                                     "notes": {
-                                        "$regex": /^((?!\btwo\b).)*/gi
+                                        "$regex": /^((?!\btwo\b).)*$/gi
                                     }
                                 }
                             ]

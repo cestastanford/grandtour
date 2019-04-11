@@ -39,7 +39,9 @@ export default function() {
                 
                 if (scope.dateModel.date.queryType === 'exact') {
                     scope.dateModel.date.query.endYear = scope.dateModel.date.query.startYear
-                    // scope.dateModel.date.query.endMonth = scope.dateModel.date.query.startMonth
+                    if (typeof scope.dateModel.date.query.startMonth !== 'undefined') {
+                        scope.dateModel.date.query.endMonth = scope.dateModel.date.query.startMonth
+                    }
                 }
                 
                 for (let key in scope.dateModel.date.query) if (!scope.dateModel.date.query[key]) delete scope.dateModel.date.query[key]
@@ -63,6 +65,7 @@ export default function() {
 
                 resetTravelSearch('exact')
                 // scope.title = elm[0].dataset['title'];
+                scope.hasMonths = scope.field === "travelDate";
                 window.scope = scope;
                 window.elm = elm;
                 scope.$watch('dateModel', handleTravelSearchUpdate, true)

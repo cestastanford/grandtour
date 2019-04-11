@@ -114,6 +114,11 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
     });
   })
 
+  $scope.getMentionedNameSearchUrl = function (name) {
+    let query = { "entry": { "terms": [{ "value": name, "beginning": true, "end": true }], "sections": [{ "key": "biography", "name": "Biography", "checked": true }, { "key": "narrative", "name": "Narrative", "checked": true }, { "key": "tours", "name": "Tours", "checked": true }, { "key": "notes", "name": "Notes", "checked": true }], "operator": "or" } };
+    return `#/search/${encodeURIComponent(JSON.stringify(query))}`;
+  }
+
 
   /*
   * Sets up list integration.

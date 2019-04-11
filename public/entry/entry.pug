@@ -270,8 +270,8 @@
               .panel-heading Mentioned Names
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.mentionedNames") 
-                    div(style="font-style: italic;", ng-show="!e.entry") {{ e.name }}
-                    div(style="cursor: pointer;", ng-show="e.entry") {{ e.name }}
+                    div(ng-style="e.entry ? {'cursor': 'pointer'}: {'font-style': 'italic'}") {{ e.name }}
+                      a.btn.btn-default(type="button" class="btn-xs" ng-href="{{getMentionedNameSearchUrl(e.name)}}") View Mentions
                     a.mentioned-names-popup(
                       ng-show="e.entry",
                       ng-href="{{ getEntryLink(e.entry.index) }}",

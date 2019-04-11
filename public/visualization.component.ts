@@ -194,12 +194,12 @@ export class VisualizationComponent {
             ],
             "gender": [
                 {
-                    query: { type: "Man" },
-                    title: "Man"
+                    query: { type: "Male" },
+                    title: "Male"
                 },
                 {
-                    query: { type: "Woman" },
-                    title: "Woman"
+                    query: { type: "Female" },
+                    title: "Female"
                 }
             ],
             "travel": [

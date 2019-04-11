@@ -5,7 +5,7 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
   - [NodeJS 8.4 or later](https://nodejs.org/en/)
   - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
   - [MongoDB](https://www.mongodb.com/download-center/v2/community)
-- Clone the repository locally: `git clone https://github.com/your-username-here/gte.git`.
+- Clone the repository locally: `git clone https://github.com/cestastanford/grandtour`.
 - From the repository directory, install npm dependencies: `npm install`
 - Create an environmental variable file: `echo "MONGODB_URI='localhost:27017'" > .env`
 - Create and add some secret keys to the environmental variable file.  Keys created via this method aren't suitable for production:

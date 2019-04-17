@@ -208,38 +208,44 @@ var searchMap = {
     // todo add month filtering.
     birthDate: d => ({ dates: { $elemMatch: { birthDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),
     deathDate: d => ({ dates: { $elemMatch: { deathDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),
-    travelDate: d => ({
-        travels: {
-            $elemMatch: {
-                $and: [
-                    {
-                        $or: [
-                            { travelEndYear: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } },
-                            { travelStartYear: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } }
-                        ],
-                    },
-                    {
-                        $and: [
-                            {
-                                $or: [
-                                    { travelStartYear: { $ne: parseInt(d.startYear) } },
-                                    { travelStartMonth: { $exists: false } },
-                                    { travelStartMonth: { $gte: parseInt(d.startMonth || 1) } }
-                                ]
-                            },
-                            {
-                                $or: [
-                                    { travelEndYear: { $ne: parseInt(d.endYear) } },
-                                    { travelEndMonth: { $exists: false } },
-                                    { travelEndMonth: { $lte: parseInt(d.endMonth || 12) } }
-                                ]
-                            }
-                        ]
-                    }
-                ]
+    travelDate: d => {
+        let startYear = parseInt(d.startYear || 0);
+        let endYear = parseInt(d.endYear || 99999);
+        let startMonth = parseInt(d.startMonth || 1);
+        let endMonth = parseInt(d.endMonth || 12);
+        return {
+            travels: {
+                $elemMatch: {
+                    $and: [
+                        {
+                            $or: [
+                                { travelEndYear: { $gte: startYear, $lte: endYear } },
+                                { travelStartYear: { $gte: startYear, $lte: endYear } }
+                            ],
+                        },
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { travelStartYear: { $ne: startYear } },
+                                        { travelStartMonth: { $exists: false } },
+                                        { travelStartMonth: { $gte: startMonth } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { travelEndYear: { $ne: endYear } },
+                                        { travelEndMonth: { $exists: false } },
+                                        { travelEndMonth: { $lte: endMonth } }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
             }
         }
-    }),
+    },
 
     birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: { $regex: getRegExp(d, exact) } } } }),
     deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: { $regex: getRegExp(d, exact) } } } }),

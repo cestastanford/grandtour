@@ -1,16 +1,12 @@
 p
     .pill(ng-repeat="pill in pills") 
         .pill-dimension {{ pill.dimension }}
-        .pill-value(ng-if="pill.value && pill.value.startYear && pill.value.startYear == pill.value.endYear")
-          strong {{ pill.value.startYear }}
-        .pill-value(ng-if="pill.value && pill.value.startYear && pill.value.startYear != pill.value.endYear")
-          strong {{ pill.value.startYear }} - {{ pill.value.endYear }}
         .pill-value(ng-if="pill.value.uniques")
           span(ng-show="pill.value.uniques | isArray" ng-repeat="value in pill.value.uniques track by $index")
             span(ng-show="$index > 0 && pill.value.operator === 'or' ")  or 
             span(ng-show="$index > 0 && pill.value.operator === 'and' ")  and 
             strong(ng-class="{'pill-negative': value.negative === true}") {{ value._id || value }}
-        .pill-value(ng-if="!pill.value.uniques && !pill.value.startYear")
+        .pill-value(ng-if="!pill.value.uniques")
           strong {{ pill.value }}
         .pill-value.border-left(ng-if="allowRemove")
           a.text-danger(ng-click="removeFromQuery(pill.key)", data-toggle="tooltip", title="Remove")

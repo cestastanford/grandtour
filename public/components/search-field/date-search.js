@@ -19,7 +19,9 @@ export default function() {
                 scope.dateModel = { date: { queryType: type, query: {} } }
                 if (scope.$parent.query[scope.field]) {
                     if (scope.$parent.query[scope.field]) {
-                        if (scope.$parent.query[scope.field].startYear !== scope.$parent.query[scope.field].endYear) {
+                        if (scope.$parent.query[scope.field].startYear !== scope.$parent.query[scope.field].endYear ||
+                            scope.$parent.query[scope.field].startMonth !== scope.$parent.query[scope.field].endMonth
+                            ) {
                             scope.dateModel.date.queryType = 'range'
                         }
                         scope.dateModel.date.query = scope.$parent.query[scope.field]

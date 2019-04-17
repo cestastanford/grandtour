@@ -20,7 +20,6 @@ import pills from './components/pills/pills.js';
 import revisionStatus from './components/revision-status/revision-status.js';
 import dateSearch from './components/search-field/date-search.js';
 import freeSearch from './components/search-field/free-search.js';
-import travelSearch from './components/search-field/travel-search.js';
 import RegisterCtrl from './register/register.js';
 import entryListContextBar from './components/entry-list/entry-list-context-bar.js';
 import entryListContextService from './components/entry-list/entry-list-context-service.js';
@@ -67,7 +66,6 @@ const MODULE_NAME = 'app';
 .directive('revisionStatus', revisionStatus)
 .directive('dateSearch', dateSearch)
 .directive('freeSearch', freeSearch)
-.directive('travelSearch', travelSearch)
 .directive('entryListContext', entryListContextBar)
 .directive('entryList', entryList)
 .service('entryListContext', entryListContextService)

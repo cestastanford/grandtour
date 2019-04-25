@@ -534,7 +534,13 @@ function parseExport(res) {
             place: a.place || "",
             coordinates: a.latitude ? [a.latitude, a.longitude].join(",") : "",
             startDate: a.travelStartYear ? a.travelStartYear + "-" + (a.travelStartMonth || "01") + "-" + (a.travelStartDay || "01") : "", //a.travelStartMonth ? a.travelStartDay ? a.travelStartYear + "/" + (a.travelStartMonth || "01") + "/" + (a.travelStartDay || "01") : a.travelStartYear + "/" + a.travelStartMonth : a.travelStartYear : "",
-            endDate: a.travelEndYear ? a.travelEndYear + "-" + (a.travelEndMonth || "01") + "-" + (a.travelEndDay || "01") : "" //a.travelEndMonth ? a.travelEndDay ? a.travelEndYear + "/" + a.travelEndMonth + "/" + a.travelEndDay : a.travelEndYear + "/" + a.travelEndMonth : a.travelEndYear : "",
+            endDate: a.travelEndYear ? a.travelEndYear + "-" + (a.travelEndMonth || "01") + "-" + (a.travelEndDay || "01") : "", //a.travelEndMonth ? a.travelEndDay ? a.travelEndYear + "/" + a.travelEndMonth + "/" + a.travelEndDay : a.travelEndYear + "/" + a.travelEndMonth : a.travelEndYear : "",
+            startYear: a.travelStartYear || "",
+            startMonth: a.travelStartMonth || "",
+            startDay: a.travelStartDay || "",
+            endYear: a.travelEndYear || "",
+            endMonth: a.travelEndMonth || "",
+            endDay: a.travelEndDay || "",
         }))
 
         entry.activities = activities

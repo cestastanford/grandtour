@@ -175,6 +175,19 @@
         hr
 
         .form-group
+          label Mentioned Names
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.mentionedNames",
+            placeholder="mentioned names ({{ counts.mentionedNames }} entries)",
+            ng-class="{ filled : query.mentionedNames }"
+            typeahead="item for item in getSuggestions('mentionedNames.name', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
+            typeahead-on-select="search()")
+
+        hr
+
+        .form-group
           label Travel Place
           input.input-sm.form-control.margin-top(
             type="text", 

@@ -56,16 +56,23 @@ export default function() {
 
                 if (travelQuery) {
     
-                    if (travelQuery.startYear) pill.value += 'from '
-    
                     if (travelQuery.startYear) pill.value += travelQuery.startYear
                     if (travelQuery.startMonth) pill.value += (travelQuery.startYear ? '/': '') + travelQuery.startMonth
                     
-                    if (travelQuery.endYear || travelQuery.endMonth) pill.value += ' until '
-                    
-                    if (travelQuery.endYear) pill.value += travelQuery.endYear
-                    if (travelQuery.endMonth) pill.value += (travelQuery.endYear ? '/': '') + travelQuery.endMonth
-
+                    if (travelQuery.endYear && travelQuery.endYear !== travelQuery.startYear) {
+                        if (travelQuery.endMonth && travelQuery.endMonth !== travelQuery.startMonth) {
+                            pill.value = 'from ' + pill.value;
+                            pill.value += ' until ' + (travelQuery.endYear ? '/': '') + travelQuery.endMonth
+                        }
+                        else {
+                            pill.value = 'from ' + pill.value;
+                            pill.value += ' until ' + travelQuery.endYear;
+                        }
+                    }
+                    else if (travelQuery.endMonth && travelQuery.endMonth !== travelQuery.startMonth) {
+                        pill.value += ' until ' + travelQuery.endMonth;
+                        pill.value = 'from ' + pill.value;
+                    }
                 }
 
                 return pill;

@@ -284,7 +284,9 @@ var searchMap = {
                 }
             };
         })
-    }))
+    })),
+
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: { $regex: getRegExp(d, exact) } } } })
 }
 
 

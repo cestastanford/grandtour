@@ -227,14 +227,12 @@ var searchMap = {
                             $and: [
                                 {
                                     $or: [
-                                        { travelStartYear: { $ne: startYear } },
                                         { travelStartMonth: { $exists: false } },
                                         { travelStartMonth: { $gte: startMonth } }
                                     ]
                                 },
                                 {
                                     $or: [
-                                        { travelEndYear: { $ne: endYear } },
                                         { travelEndMonth: { $exists: false } },
                                         { travelEndMonth: { $lte: endMonth } }
                                     ]

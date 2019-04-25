@@ -270,15 +270,15 @@
               .panel-heading Mentioned Names
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.mentionedNames") 
-                    div(ng-style="e.entry ? {'cursor': 'pointer'}: {'font-style': 'italic'}") {{ e.name }}
+                    div(ng-style="e.entryIndex !== undefined ? {'cursor': 'pointer'}: {'font-style': 'italic'}") {{ e.name }}
                       a.mentioned-names-logo(
-                        ng-show="e.entry",
+                        ng-show="e.entryIndex !== undefined",
                         ng-href="{{getMentionedNameSearchUrl(e.name)}}"
                       )
                         img(src="mentioned_names.png" width="20" height="20")
                     a.mentioned-names-popup(
-                      ng-show="e.entry",
-                      ng-href="{{ getEntryLink(e.entry.index) }}",
+                      ng-show="e.entryIndex !== undefined",
+                      ng-href="{{getEntryLink(e.entryIndex)}}",
                       ng-click="handleEntryClick()",
                     )
                       h4 {{ e.entry.fullName }}

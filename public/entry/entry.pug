@@ -275,7 +275,7 @@
                         ng-show="e.entryIndex !== undefined",
                         ng-href="{{getMentionedNameSearchUrl(e.name)}}"
                       )
-                        img(src="mentioned_names.png" width="20" height="20")
+                        img(src=require('../mentioned_names.png') width="20" height="20")
                     a.mentioned-names-popup(
                       ng-show="e.entryIndex !== undefined",
                       ng-href="{{getEntryLink(e.entryIndex)}}",

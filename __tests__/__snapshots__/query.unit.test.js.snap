@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test parseQuery with dates date range 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
+              "$and": Array [
+                Object {
+                  "$or": Array [
+                    Object {
+                      "travelEndYear": Object {
+                        "$gte": 0,
+                        "$lte": 99999,
+                      },
+                    },
+                    Object {
+                      "travelStartYear": Object {
+                        "$gte": 0,
+                        "$lte": 99999,
+                      },
+                    },
+                  ],
+                },
+                Object {
+                  "$and": Array [
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelStartMonth": Object {
+                            "$gte": 1,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelEndMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$lte": 1,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;

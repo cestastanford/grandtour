@@ -561,3 +561,15 @@ describe('test parseQuery with freeSearch', () => {
         expect(parseQuery(query)).toEqual(result);
     });
 });
+
+describe("test parseQuery with dates", () => {
+    test("date range", () => {
+        const query = {
+            travelDate: {
+                startMonth: "1",
+                endMonth: "1"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+});

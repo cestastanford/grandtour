@@ -44,52 +44,44 @@ export default function() {
 
 
             /*
-            *   Returns a Travel pill.
+             * Generic date pill.
             */
 
-            getPill.travel = function(key, query) {
+            let datePill = dimension => (key, query) => {
 
                 var travelQuery = query[key]
                 var pill = {}
-                pill.dimension = 'travel '
-                pill.value = ''
+                pill.value = '';
+                pill.dimension = dimension;
 
-                if (travelQuery.place) {
-
-                    if (travelQuery.date) {
-                        pill.dimension += 'place and '
-                        pill.value += (travelQuery.place + ', ')
-                    } else {
-                        pill.dimension += 'place'
-                        pill.value += travelQuery.place
+                if (travelQuery) {
+    
+                    if (travelQuery.startYear) pill.value += travelQuery.startYear
+                    if (travelQuery.startMonth) pill.value += (travelQuery.startYear ? '/': '') + travelQuery.startMonth
+                    
+                    if (travelQuery.endYear && travelQuery.endYear !== travelQuery.startYear) {
+                        if (travelQuery.endMonth && travelQuery.endMonth !== travelQuery.startMonth) {
+                            pill.value = 'from ' + pill.value;
+                            pill.value += ' until ' + (travelQuery.endYear ? '/': '') + travelQuery.endMonth
+                        }
+                        else {
+                            pill.value = 'from ' + pill.value;
+                            pill.value += ' until ' + travelQuery.endYear;
+                        }
                     }
-
+                    else if (travelQuery.endMonth && travelQuery.endMonth !== travelQuery.startMonth) {
+                        pill.value += ' until ' + travelQuery.endMonth;
+                        pill.value = 'from ' + pill.value;
+                    }
                 }
 
-                if (travelQuery.date) {
+                return pill;
 
-                    pill.dimension += 'date'
-    
-                    if (travelQuery.date.queryType === 'range') {
-                        pill.dimension += ' range'
-                        if (travelQuery.date.startYear) pill.value += 'from '
-                    }
-    
-                    if (travelQuery.date.startYear) pill.value += travelQuery.date.startYear
-                    if (travelQuery.date.startMonth) pill.value += '/' + travelQuery.date.startMonth
-                    if (travelQuery.date.startDay)  pill.value += '/' + travelQuery.date.startDay
-    
-                    if (travelQuery.date.queryType === 'range') {
-                        if (travelQuery.date.endYear) pill.value += ' until ' + travelQuery.date.endYear
-                        if (travelQuery.date.endMonth) pill.value += '/' + travelQuery.date.endMonth
-                        if (travelQuery.date.endDay) pill.value += '/' + travelQuery.date.endDay
-                    }
-
-                }
-
-                return pill
-
-            } 
+            }
+            
+            getPill.birthDate = datePill("birth date");
+            getPill.deathDate = datePill("death date");
+            getPill.travelDate = datePill("travel date");
 
 
             /*

@@ -92,7 +92,7 @@
               ul.list-group
                 li.list-group-item
                   span(ng-show="entry.dates[0].birthDate")
-                    a(ng-click="search({birthDate:entry.dates[0].birthDate})",
+                    a(ng-click="search({birthDate:{startYear: entry.dates[0].birthDate, endYear: entry.dates[0].birthDate} })",
                       ng-bind-html="highlighted('birthDate', entry.dates[0].birthDate)"
                     )
                     span(ng-show="entry.dates[0].birthDateMarker")  ({{ entry.dates[0].birthDateMarker }})
@@ -109,7 +109,7 @@
               ul.list-group
                 li.list-group-item
                   span(ng-show="entry.dates[0].deathDate")
-                      a(ng-click="search({deathDate:entry.dates[0].deathDate})",
+                      a(ng-click="search({deathDate:{startYear: entry.dates[0].deathDate, endYear: entry.dates[0].deathDate})",
                         ng-bind-html="highlighted('deathDate', entry.dates[0].deathDate)"
                       )
                       span(ng-show="entry.dates[0].deathDateMarker")  ({{ entry.dates[0].deathDateMarker }})

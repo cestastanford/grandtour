@@ -604,12 +604,18 @@ hr {
   background-color: #DEF;
 }
 
-.list-option {
-  margin-right: 10px;
+.entry-list-heading {
+  display: flex;
+  justify-items: space-between;
+  flex-wrap: wrap;
 }
-
-.add-to-list-btn {
-  margin-right: 10px;
+.entry-list-heading > div.btn-group {
+  flex: 1;
+  margin: 0px 2px;
+  text-align: center;
+}
+.entry-list-heading > div.btn-group > .btn {
+  float: none;
 }
 
 .add-to-list-btn .input-group {
@@ -721,10 +727,6 @@ table.table {
   position: relative;
   left: 30px;
   top: 1px;
-}
-
-#export-button, #duplicate-button {
-  margin-left: 10px;
 }
 
 .explore-count {

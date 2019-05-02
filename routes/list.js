@@ -37,7 +37,7 @@ router.get('/api/lists/:id/entries', isViewer, (req, res, next) => {
         if (list) return Promise.all(list.entryIDs.map(index => Entry.findByIndexAtRevision(index, req.user.activeRevisionIndex)))
         else { throw null /* Triggers the 404 Not Found error handler */ }
     })
-    .then(entries => res.json(entries.map(projectForEntryList)))
+    .then(entries => res.json(entries.filter(e => e).map(projectForEntryList)))
     .catch(next)
 
 })

@@ -1,8 +1,9 @@
 .panel.panel-default
-  .panel-heading(ng-show="entries")
-
-    button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
-    button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
+  .panel-heading(class="entry-list-heading",ng-show="entries")
+    div.btn-group
+      button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
+    div.btn-group
+      button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
 
     div.btn-group.add-to-list-btn.list-option
       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
@@ -34,7 +35,8 @@
               button.btn.btn-default(type="submit", ng-disabled="!viewModel.importIds", ng-click="handleImportIdsClick()") import
 
 
-    button.btn.btn-warning.btn-xs.list-option(type="button", ng-show="isSavedListView", ng-click="removeSelectedEntriesFromList()") remove
+    div.btn-group
+      button.btn.btn-warning.btn-xs.list-option(type="button", ng-show="isSavedListView", ng-click="removeSelectedEntriesFromList()") remove
 
     div.btn-group.list-option
       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
@@ -61,9 +63,10 @@
         li
           a(ng-click="setEntriesPerPage(0)", ng-class="{ 'bg-info' : entriesPerPage === 0 }") all entries
 
-    button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="loading...", ng-click="export()", ng-disabled="!entries.length")
-      i.fa.fa-download.margin-right
-      | export results
+    div.btn-group
+      button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="loading...", ng-click="export()", ng-disabled="!entries.length")
+        i.fa.fa-download.margin-right
+        | export results
 
     div#duplicate-button.btn-group.add-to-list-btn.pull-right(ng-show="isSavedListView")
       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
@@ -76,8 +79,8 @@
             span.input-group-btn
               button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="handleDuplicateListClick()") duplicate
 
-
-    button.btn.btn-danger.btn-xs.pull-right(type="button", ng-show="isSavedListView", ng-click="deleteList()") delete this list
+    div.btn-group
+      button.btn.btn-danger.btn-xs.pull-right(type="button", ng-show="isSavedListView", ng-click="deleteList()") delete this list
 
   .panel-body.text-center(ng-show="!entries") Loading entries...
   .panel-body.text-center(ng-show="entries && !entries.length") No entries.

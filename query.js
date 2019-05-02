@@ -139,7 +139,11 @@ exports.uniques = function (req, res, next) {
     const query = parseQuery(req.body.query);
     const pipeline = Entry.aggregateAtRevision(req.user.activeRevisionIndex)
         .append({ $match: query })
-        .append({ $unwind: '$' + field.split('.')[0] })
+        .append({ $unwind: '$' + field.split('.')[0] });
+    
+    if (field === 'mentionedNames.name') {
+        pipeline.append({$match: {'mentionedNames.entryIndex': {$exists: true}}});
+    }
 
     if (field === 'fullName') {
 
@@ -284,7 +288,7 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: { $regex: getRegExp(d, exact) } } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: { $regex: getRegExp(d, exact) }, entryIndex: {$exists: true} } } })
 }
 
 

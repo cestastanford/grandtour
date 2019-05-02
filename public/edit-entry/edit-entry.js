@@ -1,3 +1,4 @@
+import {uniqBy, pick} from "lodash";
 export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryListContext', 'entryHighlightingService', function($http, $state, $stateParams, $scope, $window, entryListContext, entryHighlightingService) {
 
     var FORMATTED_SUFFIX = '_formatted'
@@ -32,6 +33,7 @@ export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryLi
             if (!response.data.entry) $state.go('entry', { id: $stateParams.id })
             else {
                 $scope.entry = response.data.entry
+                $scope.tours = uniqBy($scope.entry.travels.map(e => pick(e, ["tourIndex", "tourStartFrom", "tourEndFrom"])), e => e.tourIndex);
                 $scope.previousIndex = response.data.previous
                 $scope.nextIndex = response.data.next
             }
@@ -39,6 +41,24 @@ export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryLi
         })
         .catch(console.error.bind(console))
 
+    }
+
+    $scope.tourStartFromChange = function(index) {
+        let tour = $scope.tours[index];
+        for (let travel of $scope.entry.travels) {
+            if (travel.tourIndex === tour.tourIndex) {
+                travel.tourStartFrom = tour.tourStartFrom;
+            }
+        }
+    }
+
+    $scope.tourEndFromChange = function(index) {
+        let tour = $scope.tours[index];
+        for (let travel of $scope.entry.travels) {
+            if (travel.tourIndex === tour.tourIndex) {
+                travel.tourEndFrom = tour.tourEndFrom;
+            }
+        }
     }
 
 

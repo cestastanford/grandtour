@@ -89,6 +89,17 @@
 
         div.col-lg-3.entry-info
             .row
+                div.panel.col-lg-12.col-md-4.col-sm-6
+                    div.panel-heading Tours
+                    ul.list-group.entry-facet
+                        li.list-group-item(ng-repeat="tour in tours")
+                            strong Tour {{tour.tourIndex}}
+                            span from
+                            input(type="number", ng-model="tour.tourStartFrom", style="width: 50px", ng-change="tourStartFromChange($index)")
+                            span to
+                            input(type="number", ng-model="tour.tourEndFrom", style="width: 50px", ng-change="tourEndFromChange($index)")
+
+            .row
                 entry-field.col-lg-12.col-md-4.col-sm-6(
                     field-key="travels",
                     template="facet-wrapper",

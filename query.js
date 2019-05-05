@@ -552,11 +552,11 @@ function parseExport(res) {
             .map(function (d) { return d.index; })
             .join(",");
 
-        entry.matchedMentions = d.mentionedNames.filter(e => typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
+        entry.matchedMentions = (d.mentionedNames || []).filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
 
-        entry.unmatchedMentions = d.mentionedNames.filter(e => typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
+        entry.unmatchedMentions = (d.mentionedNames || []).filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
 
-        entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => typeof e.entryIndex === 'number').map(e => e.entryIndex);
+        entry.matchedMentionsEntryIndexes = (d.mentionedNames || []).filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.entryIndex);
 
         return entry;
 

@@ -605,12 +605,10 @@ hr {
 }
 
 .entry-list-heading {
-  display: flex;
   justify-items: space-between;
   flex-wrap: wrap;
 }
 .entry-list-heading > div.btn-group {
-  flex: 1;
   margin: 0px 2px;
   text-align: center;
 }

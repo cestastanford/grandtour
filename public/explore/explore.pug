@@ -13,14 +13,15 @@
         .col-lg-2
           label Dimensions
           ul.list-unstyled
-            li.border-top(ng-repeat="dimension in dimensions",style="position:relative")
+            li.border-top(ng-repeat="dimension in dimensions",style="")
               span.small.text-light.pull-right.explore-count(title="{{ counts[dimension.field] }} entries have a value for this dimension.") {{ counts[dimension.field] }}
-              img(width=15,height=15,src=require('./icon.png'),style="z-index:999;float: right;display:block;position:absolute;right:0;bottom:0;",data-toggle="tooltip",data-placement="right",title="Filter by this field.")
-              .checkbox(style="clear:both")
+              
+              .checkbox(style="",data-toggle="tooltip",data-placement="right",title="Filter by this field.")
                 label
                   input(type="checkbox", ng-model="dimension.active")
                   div(ng-class="{ 'text-strong' : query.hasOwnProperty(dimension.field) }") {{dimension.label}}
                   span.small(ng-show="dimension.subgroup") {{dimension.subgroup}}
+                  
         
         .col-lg-10
           .clearfix.margin-bottom

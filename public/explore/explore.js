@@ -9,6 +9,10 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   $scope.query = {};
   $scope.untouched = true;
 
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+  });
+
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Fullname', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
     { type : 'date', active : false, label : 'Birth date', field : 'birthDate', sorting : 'dates[0].birthDate' },

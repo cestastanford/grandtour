@@ -558,7 +558,15 @@ function parseExport(res) {
             entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
     
             entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.entryIndex);
-    
+            if (entry.matchedMentions.length === 0) {
+                delete entry.matchedMentions;
+            }
+            if (entry.unmatchedMentions.length === 0) {
+                delete entry.unmatchedMentions;
+            }
+            if (entry.matchedMentionsEntryIndexes.length === 0) {
+                delete entry.matchedMentionsEntryIndexes;
+            }
         }
         
         return entry;

@@ -552,22 +552,22 @@ function parseExport(res) {
             .map(function (d) { return d.index; })
             .join(",");
         
-        if (d.mentionedNames) {
-            entry.matchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
+        // if (d.mentionedNames && d.mentionedNames.length) {
+        //     entry.matchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
 
-            entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
+        //     entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
     
-            entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => "" + e.entryIndex);
-            if (entry.matchedMentions.length === 0) {
-                delete entry.matchedMentions;
-            }
-            if (entry.unmatchedMentions.length === 0) {
-                delete entry.unmatchedMentions;
-            }
-            if (entry.matchedMentionsEntryIndexes.length === 0) {
-                delete entry.matchedMentionsEntryIndexes;
-            }
-        }
+        //     entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => "" + e.entryIndex);
+        //     if (entry.matchedMentions.length === 0) {
+        //         delete entry.matchedMentions;
+        //     }
+        //     if (entry.unmatchedMentions.length === 0) {
+        //         delete entry.unmatchedMentions;
+        //     }
+        //     if (entry.matchedMentionsEntryIndexes.length === 0) {
+        //         delete entry.matchedMentionsEntryIndexes;
+        //     }
+        // }
         
         return entry;
 

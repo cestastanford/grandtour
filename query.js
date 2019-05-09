@@ -551,13 +551,16 @@ function parseExport(res) {
             .filter(function (d) { return d.entry == entry.index; })
             .map(function (d) { return d.index; })
             .join(",");
+        
+        if (d.mentionedNames) {
+            entry.matchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
 
-        entry.matchedMentions = (d.mentionedNames || []).filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
-
-        entry.unmatchedMentions = (d.mentionedNames || []).filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
-
-        entry.matchedMentionsEntryIndexes = (d.mentionedNames || []).filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.entryIndex);
-
+            entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
+    
+            entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.entryIndex);
+    
+        }
+        
         return entry;
 
     })

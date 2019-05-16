@@ -534,7 +534,6 @@ function parseExport(res) {
         // travels
         if (d.travels && d.travels.length) d.travels.forEach(a => travels.push({
             ...entryBase,
-            travelIndex: a.travelindexTotal,
             place: a.place || "",
             coordinates: a.latitude ? [a.latitude, a.longitude].join(",") : "",
             startDate: a.travelStartYear ? a.travelStartYear + "-" + (a.travelStartMonth || "01") + "-" + (a.travelStartDay || "01") : "", //a.travelStartMonth ? a.travelStartDay ? a.travelStartYear + "/" + (a.travelStartMonth || "01") + "/" + (a.travelStartDay || "01") : a.travelStartYear + "/" + a.travelStartMonth : a.travelStartYear : "",
@@ -545,6 +544,7 @@ function parseExport(res) {
             endYear: a.travelEndYear || "",
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
+            travelIndex: a.travelindexTotal,
         }))
 
         entry.activities = activities

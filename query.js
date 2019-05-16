@@ -454,20 +454,19 @@ function parseExport(res) {
         // marriages
         if (d.marriages && d.marriages.length) d.marriages.forEach(a => activities.push({
             ...entryBase,
-            index: ++activityIndex,
             type: 'marriage',
             details: a.sequence || "",
             value: a.spouse || "",
             place: "",
             startDate: a.year || "",
             endDate: "",
+            index: ++activityIndex,
         }))
 
         //
 
         // education
         if (d.education && d.education.length) d.education.forEach(a => activities.push({
-            index: ++activityIndex,
             ...entryBase,
             type: 'education',
             details: "",
@@ -475,11 +474,11 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
+            index: ++activityIndex,
         }))
 
         // societies
         if (d.societies && d.societies.length) d.societies.forEach(a => activities.push({
-            index: ++activityIndex,
             ...entryBase,
             type: 'society',
             details: a.role || "",
@@ -487,11 +486,11 @@ function parseExport(res) {
             place: "",
             startDate: a.from || "",
             endDate: a.to || "",
+            index: ++activityIndex,
         }))
 
         // exhibitions
         if (d.exhibitions && d.exhibitions.length) d.exhibitions.forEach(a => activities.push({
-            index: ++activityIndex,
             ...entryBase,
             type: 'exhibition',
             details: "",
@@ -499,11 +498,11 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
+            index: ++activityIndex,
         }))
 
         // pursuits
         if (d.pursuits && d.pursuits.length) d.pursuits.forEach(a => activities.push({
-            index: ++activityIndex,
             ...entryBase,
             type: 'pursuit',
             details: "",
@@ -511,11 +510,11 @@ function parseExport(res) {
             place: "",
             startDate: "",
             endDate: "",
+            index: ++activityIndex,
         }))
 
         // occuaptions
         if (d.occupations && d.occupations.length) d.occupations.forEach(a => activities.push({
-            index: ++activityIndex,
             ...entryBase,
             type: 'occupation',
             details: a.group,
@@ -523,11 +522,11 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
+            index: ++activityIndex,
         }))
 
         // occuaptions
         if (d.military && d.military.length) d.occupations.forEach(a => activities.push({
-            index: ++activityIndex,
             ...entryBase,
             type: 'military careers',
             details: a.officeType,
@@ -535,6 +534,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
+            index: ++activityIndex,
         }))
 
         // travels

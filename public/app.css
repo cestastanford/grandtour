@@ -1011,3 +1011,7 @@ div.tool_tip {
   border-radius: 8px;			
   pointer-events: none;			
 }
+
+.tooltip-inner {
+  min-width: 150px;
+}

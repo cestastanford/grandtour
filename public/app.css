@@ -162,6 +162,19 @@ a:focus,
   text-decoration: line-through;
 }
 
+.facet-disabled {
+  cursor: default !important;
+}
+.facet-disabled span {
+  font-style: italic;
+}
+.facet-disabled span.pull-right {
+  font-style: normal;
+}
+.facet-disabled input[type=checkbox] {
+  display: none;
+}
+
 .query {
   font-size: 12px;
   color: #888;

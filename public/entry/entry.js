@@ -243,9 +243,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
   */
 
   $scope.getEntryLink = function(index) {
-
-    return index ? $state.href('entry', { id: index }) : ''
-
+    return typeof(index) !== "undefined" ? $state.href('entry', { id: index }) : ''
   }
 
 

@@ -140,10 +140,6 @@ exports.uniques = function (req, res, next) {
     const pipeline = Entry.aggregateAtRevision(req.user.activeRevisionIndex)
         .append({ $match: query })
         .append({ $unwind: '$' + field.split('.')[0] });
-    
-    if (field === 'mentionedNames.name') {
-        pipeline.append({$match: {'mentionedNames.entryIndex': {$exists: true}}});
-    }
 
     if (field === 'fullName') {
 
@@ -177,14 +173,24 @@ exports.uniques = function (req, res, next) {
 
     const group = {}
     if (field === 'fullName') {
-        group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' }
+        group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index'}
+    }
+    else if (field === 'mentionedNames.name') {
+        group['_id'] = { d: "$mentionedNames.name", u: '$index', entryIndex: "$mentionedNames.entryIndex" };
     }
     else {
         group['_id'] = { d: '$' + field, u: '$index' }
     }
-    group['count'] = { $sum: 1 }
-    pipeline.append({ $group: group })
-        .append({ $group: { _id: '$_id.d', count: { $sum: 1 } } })
+    group['count'] = { $sum: 1 };
+    pipeline.append({ $group: group });
+
+    if (field === "mentionedNames.name") {
+        pipeline.append({ $group: { _id: '$_id.d', entryIndex: {$first: "$_id.entryIndex"}, count: { $sum: 1 } } });
+        pipeline.append({ $project: { _id: "$_id", count: "$count", disabled: { "$lte": ["$entryIndex", null] } }}); // disabled will be false when $entryIndex is defined, and true when $entryIndex is undefined.
+    }
+    else {
+        pipeline.append({ $group: { _id: '$_id.d', count: { $sum: 1 } } });
+    }
 
     if (field === 'fullName') pipeline.append({
         $project: {

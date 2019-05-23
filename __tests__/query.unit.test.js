@@ -563,7 +563,7 @@ describe('test parseQuery with freeSearch', () => {
 });
 
 describe("test parseQuery with dates", () => {
-    test("date range", () => {
+    test("month range", () => {
         const query = {
             travelDate: {
                 startMonth: "1",
@@ -571,5 +571,102 @@ describe("test parseQuery with dates", () => {
             }
         };
         expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("single month", () => {
+        const query = {
+            travelDate: {
+                startMonth: "1"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("single year", () => {
+        const query = {
+            travelDate: {
+                startYear: "1700"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("single year and single month", () => {
+        const query = {
+            travelDate: {
+                startYear: "1700",
+                startMonth: "5"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("year range", () => {
+        const query = {
+            travelDate: {
+                startYear: "1700",
+                endYear: "1780"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("month range + year range", () => {
+        const query = {
+            travelDate: {
+                startYear: "1700",
+                endYear: "1780",
+                startMonth: "1",
+                endMonth: "10"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("month range + single year", () => {
+        const query = {
+            travelDate: {
+                startYear: "1700",
+                startMonth: "1",
+                endMonth: "10"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    describe("repeated years/months should be treated the same as a single year/month", () => {
+        describe("startYear", () => {
+
+            expect(parseQuery({
+                travelDate: {
+                    startYear: "1700",
+                }
+            })).toEqual(parseQuery({
+                travelDate: {
+                    startYear: "1700",
+                    endYear: "1700"
+                }
+            }));
+        });
+        describe("startMonth", () => {
+            expect(parseQuery({
+                travelDate: {
+                    startMonth: "5"
+                }
+            })).toEqual(parseQuery({
+                travelDate: {
+                    startMonth: "5",
+                    endMonth: "5"
+                }
+            }));
+        });
+        describe("startYear + startMonth", () => {
+            expect(parseQuery({
+                travelDate: {
+                    startYear: "1700",
+                    startMonth: "5",
+                }
+            })).toEqual(parseQuery({
+                travelDate: {
+                    startYear: "1700",
+                    endYear: "1700",
+                    startMonth: "5",
+                    endMonth: "5"
+                }
+            }));
+        });
     });
 });

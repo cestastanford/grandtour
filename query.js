@@ -226,22 +226,18 @@ var searchMap = {
         let queries = {
             singleYear: {
                 $and: [
-                    { travelEndYear: { $lte: startYear } },
-                    { travelStartYear: { $gte: startYear } }
+                    { travelEndYear: { $gte: startYear } },
+                    { travelStartYear: { $lte: startYear } }
                 ],
             },
             singleMonth: {
-                $and: [
+                $or: [
+                    { travelStartMonth: { $exists: false } },
+                    { travelEndMonth: { $exists: false } },
                     {
-                        $or: [
-                            { travelStartMonth: { $exists: false } },
-                            { travelStartMonth: { $eq: startMonth } }
-                        ]
-                    },
-                    {
-                        $or: [
-                            { travelEndMonth: { $exists: false } },
-                            { travelEndMonth: { $eq: startMonth } }
+                        $and: [
+                            { travelEndMonth: { $gte: startMonth } },
+                            { travelStartMonth: { $lte: startMonth } }
                         ]
                     }
                 ]

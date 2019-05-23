@@ -1,26 +1,261 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test parseQuery with dates date range 1`] = `
+exports[`test parseQuery with dates month range + single year 1`] = `
 Object {
   "$and": Array [
     Object {
-      "$or": Array [
-        Object {
-          "travels": Object {
-            "$elemMatch": Object {
+      "travels": Object {
+        "$elemMatch": Object {
+          "$or": Array [
+            Object {
               "$and": Array [
                 Object {
-                  "$or": Array [
+                  "$and": Array [
                     Object {
                       "travelEndYear": Object {
-                        "$gte": 0,
-                        "$lte": 99999,
+                        "$lte": 1700,
                       },
                     },
                     Object {
                       "travelStartYear": Object {
-                        "$gte": 0,
-                        "$lte": 99999,
+                        "$gte": 1700,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with dates month range + year range 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "travels": Object {
+        "$elemMatch": Object {
+          "$or": Array [
+            Object {
+              "$and": Array [
+                Object {
+                  "$or": Array [
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$lte": 1780,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$gte": 1780,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "$or": Array [
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 10,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 10,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with dates month range 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "travels": Object {
+        "$elemMatch": Object {
+          "$or": Array [
+            Object {
+              "$and": Array [
+                Object {
+                  "$or": Array [
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 1,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 1,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with dates single month 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "travels": Object {
+        "$elemMatch": Object {
+          "$or": Array [
+            Object {
+              "$and": Array [
+                Object {
+                  "$and": Array [
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelStartMonth": Object {
+                            "$eq": 1,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelEndMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$eq": NaN,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with dates single year 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "travels": Object {
+        "$elemMatch": Object {
+          "$or": Array [
+            Object {
+              "$and": Array [
+                Object {
+                  "$and": Array [
+                    Object {
+                      "travelEndYear": Object {
+                        "$lte": 1700,
+                      },
+                    },
+                    Object {
+                      "travelStartYear": Object {
+                        "$gte": 1700,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with dates single year and single month 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "travels": Object {
+        "$elemMatch": Object {
+          "$or": Array [
+            Object {
+              "$and": Array [
+                Object {
+                  "$and": Array [
+                    Object {
+                      "travelEndYear": Object {
+                        "$lte": 1700,
+                      },
+                    },
+                    Object {
+                      "travelStartYear": Object {
+                        "$gte": 1700,
                       },
                     },
                   ],
@@ -36,7 +271,7 @@ Object {
                         },
                         Object {
                           "travelStartMonth": Object {
-                            "$gte": 1,
+                            "$eq": 5,
                           },
                         },
                       ],
@@ -50,7 +285,7 @@ Object {
                         },
                         Object {
                           "travelEndMonth": Object {
-                            "$lte": 1,
+                            "$eq": NaN,
                           },
                         },
                       ],
@@ -59,9 +294,46 @@ Object {
                 },
               ],
             },
-          },
+          ],
         },
-      ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with dates year range 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "travels": Object {
+        "$elemMatch": Object {
+          "$or": Array [
+            Object {
+              "$and": Array [
+                Object {
+                  "$or": Array [
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$lte": 1780,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$gte": 1780,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
     },
   ],
 }

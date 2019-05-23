@@ -23,6 +23,38 @@ Object {
                     },
                   ],
                 },
+                Object {
+                  "$or": Array [
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 10,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 10,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
               ],
             },
           ],
@@ -112,7 +144,7 @@ Object {
             Object {
               "$and": Array [
                 Object {
-                  "$or": Array [
+                  "$and": Array [
                     Object {
                       "$or": Array [
                         Object {
@@ -121,22 +153,22 @@ Object {
                           },
                         },
                         Object {
-                          "travelEndMonth": Object {
-                            "$exists": false,
+                          "travelStartMonth": Object {
+                            "$eq": 1,
                           },
                         },
                       ],
                     },
                     Object {
-                      "$and": Array [
+                      "$or": Array [
                         Object {
-                          "travelStartMonth": Object {
-                            "$lte": 1,
+                          "travelEndMonth": Object {
+                            "$exists": false,
                           },
                         },
                         Object {
                           "travelEndMonth": Object {
-                            "$gte": 1,
+                            "$eq": 1,
                           },
                         },
                       ],
@@ -187,7 +219,7 @@ Object {
                         },
                         Object {
                           "travelEndMonth": Object {
-                            "$eq": NaN,
+                            "$eq": 1,
                           },
                         },
                       ],
@@ -285,7 +317,7 @@ Object {
                         },
                         Object {
                           "travelEndMonth": Object {
-                            "$eq": NaN,
+                            "$eq": 5,
                           },
                         },
                       ],

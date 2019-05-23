@@ -241,7 +241,7 @@ var searchMap = {
                     {
                         $or: [
                             { travelEndMonth: { $exists: false } },
-                            { travelEndMonth: { $eq: endMonth } }
+                            { travelEndMonth: { $eq: startMonth } }
                         ]
                     }
                 ]
@@ -292,11 +292,11 @@ var searchMap = {
         };
         let andQueries = [];
         if (!startYear && startMonth) {
-            if (!endMonth) {
+            if (!endMonth || (startMonth === endMonth)) {
                 // Single month.
                 andQueries.push(queries.singleMonth);
             }
-            if (endMonth) {
+            else if (endMonth) {
                 // Range of months.
                 andQueries.push(queries.rangeOfMonths);
             }
@@ -314,6 +314,7 @@ var searchMap = {
             else if (startMonth !== endMonth) {
                 // Single year, range of months.
                 andQueries.push(queries.singleYear);
+                andQueries.push(queries.rangeOfMonths);
             }
         }
         else if (startYear !== endYear) {

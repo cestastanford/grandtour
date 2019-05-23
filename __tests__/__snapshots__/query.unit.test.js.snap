@@ -26,15 +26,39 @@ Object {
                 Object {
                   "$or": Array [
                     Object {
-                      "$or": Array [
+                      "travelStartMonth": Object {
+                        "$exists": false,
+                      },
+                    },
+                    Object {
+                      "travelEndMonth": Object {
+                        "$exists": false,
+                      },
+                    },
+                    Object {
+                      "$and": Array [
                         Object {
                           "travelStartMonth": Object {
-                            "$exists": false,
+                            "$gte": 1,
                           },
                         },
                         Object {
                           "travelEndMonth": Object {
-                            "$exists": false,
+                            "$lte": 10,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 1,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 1,
                           },
                         },
                       ],
@@ -123,15 +147,39 @@ Object {
                 Object {
                   "$or": Array [
                     Object {
-                      "$or": Array [
+                      "travelStartMonth": Object {
+                        "$exists": false,
+                      },
+                    },
+                    Object {
+                      "travelEndMonth": Object {
+                        "$exists": false,
+                      },
+                    },
+                    Object {
+                      "$and": Array [
                         Object {
                           "travelStartMonth": Object {
-                            "$exists": false,
+                            "$gte": 1,
                           },
                         },
                         Object {
                           "travelEndMonth": Object {
-                            "$exists": false,
+                            "$lte": 10,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 1,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 1,
                           },
                         },
                       ],

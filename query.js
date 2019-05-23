@@ -266,22 +266,22 @@ var searchMap = {
             },
             rangeOfMonths: {
                 $or: [
-                    {
-                        $or: [
-                            // TODO: what if only one is undefined?
-                            { travelStartMonth: { $exists: false } },
-                            { travelEndMonth: { $exists: false } },
-                        ]
-                    },
+                    // TODO: what if only one is undefined?
+                    { travelStartMonth: { $exists: false } },
+                    { travelEndMonth: { $exists: false } },
                     {
                         $and: [
                             { travelStartMonth: { $gte: startMonth } },
                             { travelEndMonth: { $lte: endMonth } }
-                        ],
+                        ]
+                    },
+                    {
                         $and: [
                             { travelStartMonth: { $lte: startMonth } },
                             { travelEndMonth: { $gte: startMonth } }
-                        ],
+                        ]
+                    },
+                    {
                         $and: [
                             { travelStartMonth: { $lte: endMonth } },
                             { travelEndMonth: { $gte: endMonth } }

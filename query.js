@@ -248,15 +248,19 @@ var searchMap = {
                         $and: [
                             { travelStartYear: { $gte: startYear } },
                             { travelEndYear: { $lte: endYear } }
-                        ],
+                        ]
+                    },
+                    {
                         $and: [
                             { travelStartYear: { $lte: startYear } },
                             { travelEndYear: { $gte: startYear } }
-                        ],
+                        ]
+                    },
+                    {
                         $and: [
                             { travelStartYear: { $lte: endYear } },
                             { travelEndYear: { $gte: endYear } }
-                        ],
+                        ]
                     }
                 ],
             },
@@ -297,12 +301,12 @@ var searchMap = {
                 andQueries.push(queries.rangeOfMonths);
             }
         }
-        else if ((startYear && !endYear) || (startYear === endYear)) {
+        else if (startYear && (!endYear || (startYear === endYear))) {
             if (!startMonth && !endMonth) {
                 // Single year.
                 andQueries.push(queries.singleYear);
             }
-            else if ((startMonth && !endMonth) || (startMonth === endMonth)) {
+            else if (startMonth && (!endMonth || (startMonth === endMonth))) {
                 // Single year, single month.
                 andQueries.push(queries.singleYear);
                 andQueries.push(queries.singleMonth);
@@ -318,7 +322,7 @@ var searchMap = {
                 // Range of years.
                 andQueries.push(queries.rangeOfYears);
             }
-            else if ((startMonth && !endMonth) || (startMonth === endMonth)) {
+            else if (startMonth && (!endMonth || (startMonth === endMonth))) {
                 // Range of years, single month.
                 andQueries.push(queries.rangeOfYears);
                 andQueries.push(queries.singleMonth);

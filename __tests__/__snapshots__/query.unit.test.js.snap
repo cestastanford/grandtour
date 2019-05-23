@@ -80,6 +80,34 @@ Object {
                       "$and": Array [
                         Object {
                           "travelStartYear": Object {
+                            "$gte": 1700,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$lte": 1780,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$lte": 1700,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$gte": 1700,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
                             "$lte": 1780,
                           },
                         },
@@ -333,6 +361,34 @@ Object {
               "$and": Array [
                 Object {
                   "$or": Array [
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$gte": 1700,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$lte": 1780,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$lte": 1700,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$gte": 1700,
+                          },
+                        },
+                      ],
+                    },
                     Object {
                       "$and": Array [
                         Object {

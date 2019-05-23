@@ -234,6 +234,8 @@ var searchMap = {
                 $or: [
                     { travelStartMonth: { $exists: false } },
                     { travelEndMonth: { $exists: false } },
+                    { travelStartMonth: { $eq: 0 } },
+                    { travelEndMonth: { $eq: 0 } },
                     {
                         $and: [
                             { travelEndMonth: { $gte: startMonth } },
@@ -269,6 +271,8 @@ var searchMap = {
                     // TODO: what if only one is undefined?
                     { travelStartMonth: { $exists: false } },
                     { travelEndMonth: { $exists: false } },
+                    { travelStartMonth: { $eq: 0 } },
+                    { travelEndMonth: { $eq: 0 } },
                     {
                         $and: [
                             { travelStartMonth: { $gte: startMonth } },

@@ -4,7 +4,7 @@
 
 const Entry = require('./models/entry')
 const { getLatestRevisionIndex, getQueryCounts, setQueryCounts } = require('./cache')
-
+const { cloneDeep } = require("lodash");
 
 /*
 *   Calculates the counts of entries with values for each field
@@ -82,9 +82,14 @@ function escapeRegExp(str) {
 }
 
 function getRegExp(str, exact) {
+    if (exact) {
+        // No regular expression needed.
+        return str;
+    }
     var escapedString = escapeRegExp(str)
-    if (exact) escapedString = '^' + escapedString + '$'
-    return new RegExp(escapedString, 'gi')
+    return {
+        $regex: new RegExp(escapedString, 'gi')
+    }
 }
 
 
@@ -210,8 +215,8 @@ exports.uniques = function (req, res, next) {
 var searchMap = {
     fullName: (d, exact) => ({
         $or: [
-            { fullName: { $regex: getRegExp(d, exact) } },
-            { alternateNames: { $elemMatch: { alternateName: { $regex: getRegExp(d, exact) } } } },
+            { fullName: getRegExp(d, exact) },
+            { alternateNames: { $elemMatch: { alternateName: getRegExp(d, exact) } } },
         ]
     }),
     type: d => ({ type: d }),
@@ -338,32 +343,36 @@ var searchMap = {
             }
         }
         return {
-            $and: andQueries
-        }
+            travels: {
+                $elemMatch: {
+                    $and: andQueries
+                }
+            }
+        };
     },
 
-    birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: { $regex: getRegExp(d, exact) } } } }),
-    deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: { $regex: getRegExp(d, exact) } } } }),
-    travelPlace: (d, exact) => ({ place: { $regex: getRegExp(d, exact) } }),
+    birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: getRegExp(d, exact) } } }),
+    deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: getRegExp(d, exact) } } }),
+    travelPlace: (d, exact) => ({ travels: { $elemMatch: { place: getRegExp(d, exact) } } }),
 
-    societies: (d, exact) => ({ societies: { $elemMatch: { title: { $regex: getRegExp(d, exact) } } } }),
-    societies_role: (d, exact) => ({ societies: { $elemMatch: { role: { $regex: getRegExp(d, exact) } } } }),
+    societies: (d, exact) => ({ societies: { $elemMatch: { title: getRegExp(d, exact) } } }),
+    societies_role: (d, exact) => ({ societies: { $elemMatch: { role: getRegExp(d, exact) } } }),
 
-    education_institution: (d, exact) => ({ education: { $elemMatch: { institution: { $regex: getRegExp(d, exact) } } } }),
-    education_place: (d, exact) => ({ education: { $elemMatch: { place: { $regex: getRegExp(d, exact) } } } }),
-    education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: { $regex: getRegExp(d, exact) } } } }),
-    education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: { $regex: getRegExp(d, exact) } } } }),
+    education_institution: (d, exact) => ({ education: { $elemMatch: { institution: getRegExp(d, exact) } } }),
+    education_place: (d, exact) => ({ education: { $elemMatch: { place: getRegExp(d, exact) } } }),
+    education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: getRegExp(d, exact) } } }),
+    education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: getRegExp(d, exact) } } }),
 
-    pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: { $regex: getRegExp(d, exact) } } } }),
+    pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: getRegExp(d, exact) } } }),
 
-    occupations: (d, exact) => ({ occupations: { $elemMatch: { title: { $regex: getRegExp(d, exact) } } } }),
-    occupations_group: (d, exact) => ({ occupations: { $elemMatch: { group: { $regex: getRegExp(d, exact) } } } }),
-    occupations_place: (d, exact) => ({ occupations: { $elemMatch: { place: { $regex: getRegExp(d, exact) } } } }),
+    occupations: (d, exact) => ({ occupations: { $elemMatch: { title: getRegExp(d, exact) } } }),
+    occupations_group: (d, exact) => ({ occupations: { $elemMatch: { group: getRegExp(d, exact) } } }),
+    occupations_place: (d, exact) => ({ occupations: { $elemMatch: { place: getRegExp(d, exact) } } }),
 
-    exhibitions: (d, exact) => ({ exhibitions: { $elemMatch: { title: { $regex: getRegExp(d, exact) } } } }),
-    exhibitions_activity: (d, exact) => ({ exhibitions: { $elemMatch: { activity: { $regex: getRegExp(d, exact) } } } }),
+    exhibitions: (d, exact) => ({ exhibitions: { $elemMatch: { title: getRegExp(d, exact) } } }),
+    exhibitions_activity: (d, exact) => ({ exhibitions: { $elemMatch: { activity: getRegExp(d, exact) } } }),
 
-    military: (d, exact) => ({ military: { $elemMatch: { rank: { $regex: getRegExp(d, exact) } } } }),
+    military: (d, exact) => ({ military: { $elemMatch: { rank: getRegExp(d, exact) } } }),
 
     entry: d => d.terms.map(term => ({
         [term.negative === true ? "$and" : "$or"]: d.sections.filter(section => section.checked).map(section => {
@@ -381,7 +390,7 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: { $regex: getRegExp(d, exact) }, entryIndex: { $exists: true } } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact), entryIndex: { $exists: true } } } })
 }
 
 
@@ -415,7 +424,7 @@ function parseQuery(query) {
                 }
                 else if (queryItem._id) {
                     let item = searchMap[k](queryItem._id, true);
-                    if (queryItem.negative === true) {
+                    if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
                             item[key] = { $not: item[key] };
                         }
@@ -446,14 +455,28 @@ function parseQuery(query) {
     }
 
     // Travel date and travel place - should combine to be "and" if both are specified.
-    if (output.travelDate || output.travelPlace) {
-        output.travelQuery = {
-            travels: {
-                $elemMatch: !output.travelDate ? output.travelPlace : !output.travelPlace ? output.travelDate : {
-                    $and: [output.travelDate, output.travelPlace]
-                }
+    if (output.travelDate && output.travelPlace) {
+        output.travelQuery = cloneDeep(output.travelPlace);
+        let operator = output.travelQuery["$or"] ? "$or" : "$and";
+        for (let i in output.travelQuery[operator]) {
+            if (output.travelQuery[operator][i].travels.$not) {
+                output.travelQuery[operator][i].travels.$not.$elemMatch = {
+                    $and: [
+                        output.travelQuery[operator][i].travels.$not.$elemMatch,
+                        output.travelDate["$or"][0].travels.$elemMatch
+                    ]
+                };
             }
-        }
+            else {
+                output.travelQuery[operator][i].travels.$elemMatch = {
+                    $and: [
+                        output.travelQuery[operator][i].travels.$elemMatch,
+                        output.travelDate["$or"][0].travels.$elemMatch
+                    ]
+                };
+            }
+        };
+        console.log(JSON.stringify(output.travelQuery));
         delete output.travelDate;
         delete output.travelPlace;
     }

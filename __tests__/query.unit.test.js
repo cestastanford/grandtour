@@ -303,4 +303,26 @@ describe("test parseQuery with dates", () => {
             }));
         });
     });
+    test("date + place", () => {
+        const query = {
+            travelDate: {
+                startYear: "1700",
+                startMonth: "1",
+                endMonth: "10"
+            },
+            travelPlace: {"operator":"and","uniques":[{"negative":false,"_id":"Genoa"}]}
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("date + negative place", () => {
+        const query = {
+            travelDate: {
+                startYear: "1700",
+                startMonth: "1",
+                endMonth: "10"
+            },
+            travelPlace: {"operator":"and","uniques":[{"negative":true,"_id":"Genoa"}]}
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
 });

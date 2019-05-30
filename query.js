@@ -4,7 +4,7 @@
 
 const Entry = require('./models/entry')
 const { getLatestRevisionIndex, getQueryCounts, setQueryCounts } = require('./cache')
-
+const { cloneDeep } = require("lodash");
 
 /*
 *   Calculates the counts of entries with values for each field
@@ -343,13 +343,17 @@ var searchMap = {
             }
         }
         return {
-            $and: andQueries
-        }
+            travels: {
+                $elemMatch: {
+                    $and: andQueries
+                }
+            }
+        };
     },
 
     birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: getRegExp(d, exact) } } }),
     deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: getRegExp(d, exact) } } }),
-    travelPlace: (d, exact) => ({ place: getRegExp(d, exact) }),
+    travelPlace: (d, exact) => ({ travels: { $elemMatch: { place: getRegExp(d, exact) } } }),
 
     societies: (d, exact) => ({ societies: { $elemMatch: { title: getRegExp(d, exact) } } }),
     societies_role: (d, exact) => ({ societies: { $elemMatch: { role: getRegExp(d, exact) } } }),
@@ -420,9 +424,9 @@ function parseQuery(query) {
                 }
                 else if (queryItem._id) {
                     let item = searchMap[k](queryItem._id, true);
-                    if (queryItem.negative === true) {
+                    if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
-                            item[key] = { $ne: item[key] };
+                            item[key] = { $not: item[key] };
                         }
                     }
                     list.push(item);
@@ -451,14 +455,28 @@ function parseQuery(query) {
     }
 
     // Travel date and travel place - should combine to be "and" if both are specified.
-    if (output.travelDate || output.travelPlace) {
-        output.travelQuery = {
-            travels: {
-                $elemMatch: !output.travelDate ? output.travelPlace : !output.travelPlace ? output.travelDate : {
-                    $and: [output.travelDate, output.travelPlace]
-                }
+    if (output.travelDate && output.travelPlace) {
+        output.travelQuery = cloneDeep(output.travelPlace);
+        let operator = output.travelQuery["$or"] ? "$or" : "$and";
+        for (let i in output.travelQuery[operator]) {
+            if (output.travelQuery[operator][i].travels.$not) {
+                output.travelQuery[operator][i].travels.$not.$elemMatch = {
+                    $and: [
+                        output.travelQuery[operator][i].travels.$not.$elemMatch,
+                        output.travelDate["$or"][0].travels.$elemMatch
+                    ]
+                };
             }
-        }
+            else {
+                output.travelQuery[operator][i].travels.$elemMatch = {
+                    $and: [
+                        output.travelQuery[operator][i].travels.$elemMatch,
+                        output.travelDate["$or"][0].travels.$elemMatch
+                    ]
+                };
+            }
+        };
+        console.log(JSON.stringify(output.travelQuery));
         delete output.travelDate;
         delete output.travelPlace;
     }

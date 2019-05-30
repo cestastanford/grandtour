@@ -43,7 +43,7 @@ Object {
       "$or": Array [
         Object {
           "occupations": Object {
-            "$ne": Object {
+            "$not": Object {
               "$elemMatch": Object {
                 "group": "Diplomacy",
               },
@@ -81,7 +81,7 @@ Object {
       "$or": Array [
         Object {
           "occupations": Object {
-            "$ne": Object {
+            "$not": Object {
               "$elemMatch": Object {
                 "group": "Diplomacy",
               },
@@ -193,14 +193,228 @@ Object {
 }
 `;
 
+exports[`test parseQuery with dates date + negative place 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "travels": Object {
+            "$not": Object {
+              "$elemMatch": Object {
+                "$and": Array [
+                  Object {
+                    "place": "Genoa",
+                  },
+                  Object {
+                    "$and": Array [
+                      Object {
+                        "$and": Array [
+                          Object {
+                            "travelEndYear": Object {
+                              "$gte": 1700,
+                            },
+                          },
+                          Object {
+                            "travelStartYear": Object {
+                              "$lte": 1700,
+                            },
+                          },
+                        ],
+                      },
+                      Object {
+                        "$or": Array [
+                          Object {
+                            "travelStartMonth": Object {
+                              "$exists": false,
+                            },
+                          },
+                          Object {
+                            "travelEndMonth": Object {
+                              "$exists": false,
+                            },
+                          },
+                          Object {
+                            "travelStartMonth": Object {
+                              "$eq": 0,
+                            },
+                          },
+                          Object {
+                            "travelEndMonth": Object {
+                              "$eq": 0,
+                            },
+                          },
+                          Object {
+                            "$and": Array [
+                              Object {
+                                "travelStartMonth": Object {
+                                  "$gte": 1,
+                                },
+                              },
+                              Object {
+                                "travelEndMonth": Object {
+                                  "$lte": 10,
+                                },
+                              },
+                            ],
+                          },
+                          Object {
+                            "$and": Array [
+                              Object {
+                                "travelStartMonth": Object {
+                                  "$lte": 1,
+                                },
+                              },
+                              Object {
+                                "travelEndMonth": Object {
+                                  "$gte": 1,
+                                },
+                              },
+                            ],
+                          },
+                          Object {
+                            "$and": Array [
+                              Object {
+                                "travelStartMonth": Object {
+                                  "$lte": 10,
+                                },
+                              },
+                              Object {
+                                "travelEndMonth": Object {
+                                  "$gte": 10,
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with dates date + place 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
+              "$and": Array [
+                Object {
+                  "place": "Genoa",
+                },
+                Object {
+                  "$and": Array [
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelEndYear": Object {
+                            "$gte": 1700,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$lte": 1700,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$or": Array [
+                        Object {
+                          "travelStartMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$exists": false,
+                          },
+                        },
+                        Object {
+                          "travelStartMonth": Object {
+                            "$eq": 0,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$eq": 0,
+                          },
+                        },
+                        Object {
+                          "$and": Array [
+                            Object {
+                              "travelStartMonth": Object {
+                                "$gte": 1,
+                              },
+                            },
+                            Object {
+                              "travelEndMonth": Object {
+                                "$lte": 10,
+                              },
+                            },
+                          ],
+                        },
+                        Object {
+                          "$and": Array [
+                            Object {
+                              "travelStartMonth": Object {
+                                "$lte": 1,
+                              },
+                            },
+                            Object {
+                              "travelEndMonth": Object {
+                                "$gte": 1,
+                              },
+                            },
+                          ],
+                        },
+                        Object {
+                          "$and": Array [
+                            Object {
+                              "travelStartMonth": Object {
+                                "$lte": 10,
+                              },
+                            },
+                            Object {
+                              "travelEndMonth": Object {
+                                "$gte": 10,
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`test parseQuery with dates month range + single year 1`] = `
 Object {
   "$and": Array [
     Object {
-      "travels": Object {
-        "$elemMatch": Object {
-          "$or": Array [
-            Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
               "$and": Array [
                 Object {
                   "$and": Array [
@@ -284,9 +498,9 @@ Object {
                 },
               ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
   ],
 }
@@ -296,10 +510,10 @@ exports[`test parseQuery with dates month range + year range 1`] = `
 Object {
   "$and": Array [
     Object {
-      "travels": Object {
-        "$elemMatch": Object {
-          "$or": Array [
-            Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
               "$and": Array [
                 Object {
                   "$or": Array [
@@ -415,9 +629,9 @@ Object {
                 },
               ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
   ],
 }
@@ -427,10 +641,10 @@ exports[`test parseQuery with dates month range 1`] = `
 Object {
   "$and": Array [
     Object {
-      "travels": Object {
-        "$elemMatch": Object {
-          "$or": Array [
-            Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
               "$and": Array [
                 Object {
                   "$or": Array [
@@ -472,9 +686,9 @@ Object {
                 },
               ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
   ],
 }
@@ -484,10 +698,10 @@ exports[`test parseQuery with dates single month 1`] = `
 Object {
   "$and": Array [
     Object {
-      "travels": Object {
-        "$elemMatch": Object {
-          "$or": Array [
-            Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
               "$and": Array [
                 Object {
                   "$or": Array [
@@ -529,9 +743,9 @@ Object {
                 },
               ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
   ],
 }
@@ -541,10 +755,10 @@ exports[`test parseQuery with dates single year 1`] = `
 Object {
   "$and": Array [
     Object {
-      "travels": Object {
-        "$elemMatch": Object {
-          "$or": Array [
-            Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
               "$and": Array [
                 Object {
                   "$and": Array [
@@ -562,9 +776,9 @@ Object {
                 },
               ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
   ],
 }
@@ -574,10 +788,10 @@ exports[`test parseQuery with dates single year and single month 1`] = `
 Object {
   "$and": Array [
     Object {
-      "travels": Object {
-        "$elemMatch": Object {
-          "$or": Array [
-            Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
               "$and": Array [
                 Object {
                   "$and": Array [
@@ -633,9 +847,9 @@ Object {
                 },
               ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
   ],
 }
@@ -645,10 +859,10 @@ exports[`test parseQuery with dates year range 1`] = `
 Object {
   "$and": Array [
     Object {
-      "travels": Object {
-        "$elemMatch": Object {
-          "$or": Array [
-            Object {
+      "$or": Array [
+        Object {
+          "travels": Object {
+            "$elemMatch": Object {
               "$and": Array [
                 Object {
                   "$or": Array [
@@ -698,9 +912,9 @@ Object {
                 },
               ],
             },
-          ],
+          },
         },
-      },
+      ],
     },
   ],
 }

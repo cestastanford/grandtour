@@ -12,139 +12,25 @@ describe('test parseQuery', () => {
         const query = {
             "occupations_group": ["Diplomacy", "Clergy"], "pursuits": ["diplomat"]
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Diplomacy$/gi
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Clergy$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "$or": [
-                        {
-                            "pursuits": {
-                                "$elemMatch": {
-                                    "pursuit": {
-                                        "$regex": /^diplomat$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
     test('query with object', () => {
         const query = {
             "occupations_group": [{ "_id": "Diplomacy" }]
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Diplomacy$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
     test('single query with string - should give fuzzy search', () => {
         const query = {
             "occupations_group": "Diplomacy"
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /Diplomacy/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
     test('negative query', () => {
         const query = {
             "occupations_group": [{ "_id": "Diplomacy", "negative": true }, "Clergy"], "pursuits": ["diplomat"]
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "occupations": {
-                                "$not": {
-                                    "$elemMatch": {
-                                        "group": {
-                                            "$regex": /^Diplomacy$/gi
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Clergy$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "$or": [
-                        {
-                            "pursuits": {
-                                "$elemMatch": {
-                                    "pursuit": {
-                                        "$regex": /^diplomat$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
     test('empty query with OR', () => {
         const query = {
@@ -158,104 +44,20 @@ describe('test parseQuery', () => {
         const query = {
             "occupations_group": { "operator": "or", "uniques": [{ "_id": "Diplomacy" }] }
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Diplomacy$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
     test('query AND with object', () => {
         const query = {
             "occupations_group": { "operator": "and", "uniques": [{ "_id": "Diplomacy" }, { "_id": "Democracy" }] }
         };
-        const result = {
-            "$and": [
-                {
-                    "$and": [
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Diplomacy$/gi
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Democracy$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
     test('negative OR query', () => {
         const query = {
             "occupations_group": { "operator": "or", "uniques": [{ "_id": "Diplomacy", "negative": true }, { "_id": "Clergy" }] },
             "pursuits": { "operator": "or", "uniques": [{ "_id": "diplomat" }] }
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "occupations": {
-                                "$not": {
-                                    "$elemMatch": {
-                                        "group": {
-                                            "$regex": /^Diplomacy$/gi
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "occupations": {
-                                "$elemMatch": {
-                                    "group": {
-                                        "$regex": /^Clergy$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "$or": [
-                        {
-                            "pursuits": {
-                                "$elemMatch": {
-                                    "pursuit": {
-                                        "$regex": /^diplomat$/gi
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
 });
 
@@ -302,63 +104,7 @@ describe('test parseQuery with freeSearch', () => {
                 "operator": "or"
             }
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "$or": [
-                                {
-                                    "biography": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                },
-                                {
-                                    "narrative": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                },
-                                {
-                                    "tours": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                },
-                                {
-                                    "notes": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "$or": [
-                                {
-                                    "biography": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "narrative": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "tours": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "notes": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
 
     test('freeSearch query with "and" operator', () => {
@@ -403,63 +149,7 @@ describe('test parseQuery with freeSearch', () => {
                 "operator": "and"
             }
         };
-        const result = {
-            "$and": [
-                {
-                    "$and": [
-                        {
-                            "$or": [
-                                {
-                                    "biography": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                },
-                                {
-                                    "narrative": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                },
-                                {
-                                    "tours": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                },
-                                {
-                                    "notes": {
-                                        "$regex": /\btwo\b/gi
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "$or": [
-                                {
-                                    "biography": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "narrative": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "tours": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "notes": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
 
     test('freeSearch query with negatives', () => {
@@ -502,63 +192,7 @@ describe('test parseQuery with freeSearch', () => {
                 ]
             }
         };
-        const result = {
-            "$and": [
-                {
-                    "$or": [
-                        {
-                            "$and": [
-                                {
-                                    "biography": {
-                                        "$regex": /^((?!\btwo\b).)*$/gi
-                                    }
-                                },
-                                {
-                                    "narrative": {
-                                        "$regex": /^((?!\btwo\b).)*$/gi
-                                    }
-                                },
-                                {
-                                    "tours": {
-                                        "$regex": /^((?!\btwo\b).)*$/gi
-                                    }
-                                },
-                                {
-                                    "notes": {
-                                        "$regex": /^((?!\btwo\b).)*$/gi
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "$or": [
-                                {
-                                    "biography": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "narrative": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "tours": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                },
-                                {
-                                    "notes": {
-                                        "$regex": /\bthree\b/gi
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        };
-        expect(parseQuery(query)).toEqual(result);
+        expect(parseQuery(query)).toMatchSnapshot();
     });
 });
 

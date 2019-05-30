@@ -1,5 +1,198 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`test parseQuery compound query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Diplomacy",
+            },
+          },
+        },
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Clergy",
+            },
+          },
+        },
+      ],
+    },
+    Object {
+      "$or": Array [
+        Object {
+          "pursuits": Object {
+            "$elemMatch": Object {
+              "pursuit": "diplomat",
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery negative OR query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "occupations": Object {
+            "$ne": Object {
+              "$elemMatch": Object {
+                "group": "Diplomacy",
+              },
+            },
+          },
+        },
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Clergy",
+            },
+          },
+        },
+      ],
+    },
+    Object {
+      "$or": Array [
+        Object {
+          "pursuits": Object {
+            "$elemMatch": Object {
+              "pursuit": "diplomat",
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery negative query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "occupations": Object {
+            "$ne": Object {
+              "$elemMatch": Object {
+                "group": "Diplomacy",
+              },
+            },
+          },
+        },
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Clergy",
+            },
+          },
+        },
+      ],
+    },
+    Object {
+      "$or": Array [
+        Object {
+          "pursuits": Object {
+            "$elemMatch": Object {
+              "pursuit": "diplomat",
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery query AND with object 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Diplomacy",
+            },
+          },
+        },
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Democracy",
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery query OR with object 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Diplomacy",
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery query with object 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": "Diplomacy",
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery single query with string - should give fuzzy search 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "occupations": Object {
+            "$elemMatch": Object {
+              "group": Object {
+                "$regex": /Diplomacy/gi,
+              },
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`test parseQuery with dates month range + single year 1`] = `
 Object {
   "$and": Array [
@@ -508,6 +701,183 @@ Object {
           ],
         },
       },
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with freeSearch freeSearch query with "and" operator 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "$or": Array [
+            Object {
+              "biography": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+            Object {
+              "narrative": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+            Object {
+              "tours": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+            Object {
+              "notes": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+          ],
+        },
+        Object {
+          "$or": Array [
+            Object {
+              "biography": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "narrative": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "tours": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "notes": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with freeSearch freeSearch query with negatives 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "$and": Array [
+            Object {
+              "biography": Object {
+                "$regex": /\\^\\(\\(\\?!\\\\btwo\\\\b\\)\\.\\)\\*\\$/gi,
+              },
+            },
+            Object {
+              "narrative": Object {
+                "$regex": /\\^\\(\\(\\?!\\\\btwo\\\\b\\)\\.\\)\\*\\$/gi,
+              },
+            },
+            Object {
+              "tours": Object {
+                "$regex": /\\^\\(\\(\\?!\\\\btwo\\\\b\\)\\.\\)\\*\\$/gi,
+              },
+            },
+            Object {
+              "notes": Object {
+                "$regex": /\\^\\(\\(\\?!\\\\btwo\\\\b\\)\\.\\)\\*\\$/gi,
+              },
+            },
+          ],
+        },
+        Object {
+          "$or": Array [
+            Object {
+              "biography": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "narrative": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "tours": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "notes": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery with freeSearch regular freeSearch query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$or": Array [
+        Object {
+          "$or": Array [
+            Object {
+              "biography": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+            Object {
+              "narrative": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+            Object {
+              "tours": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+            Object {
+              "notes": Object {
+                "$regex": /\\\\btwo\\\\b/gi,
+              },
+            },
+          ],
+        },
+        Object {
+          "$or": Array [
+            Object {
+              "biography": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "narrative": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "tours": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+            Object {
+              "notes": Object {
+                "$regex": /\\\\bthree\\\\b/gi,
+              },
+            },
+          ],
+        },
+      ],
     },
   ],
 }

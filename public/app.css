@@ -817,6 +817,9 @@ table.table {
   border-radius: 2px;
   padding: .5em 1em;
   width: 100%;
+  min-width: 200px;
+  transition: all 0.5s ease;
+  cursor: auto;
 }
 
 li.list-group-item:active {

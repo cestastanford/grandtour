@@ -1,3 +1,7 @@
+# This file takes in a JSON file with fields of "parsed_notes", and 
+# it then uses a rule based system to consolidate the references into
+# common abbreviations
+
 import re
 import csv
 import json

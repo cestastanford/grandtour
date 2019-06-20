@@ -4,7 +4,7 @@
 
 const Entry = require('./models/entry')
 const { getLatestRevisionIndex, getQueryCounts, setQueryCounts } = require('./cache')
-
+const { cloneDeep } = require("lodash");
 
 /*
 *   Calculates the counts of entries with values for each field
@@ -82,9 +82,14 @@ function escapeRegExp(str) {
 }
 
 function getRegExp(str, exact) {
+    if (exact) {
+        // No regular expression needed.
+        return str;
+    }
     var escapedString = escapeRegExp(str)
-    if (exact) escapedString = '^' + escapedString + '$'
-    return new RegExp(escapedString, 'gi')
+    return {
+        $regex: new RegExp(escapedString, 'gi')
+    }
 }
 
 
@@ -173,7 +178,7 @@ exports.uniques = function (req, res, next) {
 
     const group = {}
     if (field === 'fullName') {
-        group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index'}
+        group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' }
     }
     else if (field === 'mentionedNames.name') {
         group['_id'] = { d: "$mentionedNames.name", u: '$index', entryIndex: "$mentionedNames.entryIndex" };
@@ -185,8 +190,8 @@ exports.uniques = function (req, res, next) {
     pipeline.append({ $group: group });
 
     if (field === "mentionedNames.name") {
-        pipeline.append({ $group: { _id: '$_id.d', entryIndex: {$first: "$_id.entryIndex"}, count: { $sum: 1 } } });
-        pipeline.append({ $project: { _id: "$_id", count: "$count", disabled: { "$lte": ["$entryIndex", null] } }}); // disabled will be false when $entryIndex is defined, and true when $entryIndex is undefined.
+        pipeline.append({ $group: { _id: '$_id.d', entryIndex: { $first: "$_id.entryIndex" }, count: { $sum: 1 } } });
+        pipeline.append({ $project: { _id: "$_id", count: "$count", disabled: { "$lte": ["$entryIndex", null] } } }); // disabled will be false when $entryIndex is defined, and true when $entryIndex is undefined.
     }
     else {
         pipeline.append({ $group: { _id: '$_id.d', count: { $sum: 1 } } });
@@ -210,8 +215,8 @@ exports.uniques = function (req, res, next) {
 var searchMap = {
     fullName: (d, exact) => ({
         $or: [
-            { fullName: { $regex: getRegExp(d, exact) } },
-            { alternateNames: { $elemMatch: { alternateName: { $regex: getRegExp(d, exact) } } } },
+            { fullName: getRegExp(d, exact) },
+            { alternateNames: { $elemMatch: { alternateName: getRegExp(d, exact) } } },
         ]
     }),
     type: d => ({ type: d }),
@@ -219,64 +224,155 @@ var searchMap = {
     birthDate: d => ({ dates: { $elemMatch: { birthDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),
     deathDate: d => ({ dates: { $elemMatch: { deathDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),
     travelDate: d => {
-        let startYear = parseInt(d.startYear || 0);
-        let endYear = parseInt(d.endYear || 99999);
-        let startMonth = parseInt(d.startMonth || 1);
-        let endMonth = parseInt(d.endMonth || 12);
+        let startYear = parseInt(d.startYear);
+        let endYear = parseInt(d.endYear);
+        let startMonth = parseInt(d.startMonth);
+        let endMonth = parseInt(d.endMonth);
+        let queries = {
+            singleYear: {
+                $and: [
+                    { travelEndYear: { $gte: startYear } },
+                    { travelStartYear: { $lte: startYear } }
+                ],
+            },
+            singleMonth: {
+                $or: [
+                    { travelStartMonth: { $exists: false } },
+                    { travelEndMonth: { $exists: false } },
+                    { travelStartMonth: { $eq: 0 } },
+                    { travelEndMonth: { $eq: 0 } },
+                    {
+                        $and: [
+                            { travelEndMonth: { $gte: startMonth } },
+                            { travelStartMonth: { $lte: startMonth } }
+                        ]
+                    }
+                ]
+            },
+            rangeOfYears: {
+                $or: [
+                    {
+                        $and: [
+                            { travelStartYear: { $gte: startYear } },
+                            { travelEndYear: { $lte: endYear } }
+                        ]
+                    },
+                    {
+                        $and: [
+                            { travelStartYear: { $lte: startYear } },
+                            { travelEndYear: { $gte: startYear } }
+                        ]
+                    },
+                    {
+                        $and: [
+                            { travelStartYear: { $lte: endYear } },
+                            { travelEndYear: { $gte: endYear } }
+                        ]
+                    }
+                ],
+            },
+            rangeOfMonths: {
+                $or: [
+                    // TODO: what if only one is undefined?
+                    { travelStartMonth: { $exists: false } },
+                    { travelEndMonth: { $exists: false } },
+                    { travelStartMonth: { $eq: 0 } },
+                    { travelEndMonth: { $eq: 0 } },
+                    {
+                        $and: [
+                            { travelStartMonth: { $gte: startMonth } },
+                            { travelEndMonth: { $lte: endMonth } }
+                        ]
+                    },
+                    {
+                        $and: [
+                            { travelStartMonth: { $lte: startMonth } },
+                            { travelEndMonth: { $gte: startMonth } }
+                        ]
+                    },
+                    {
+                        $and: [
+                            { travelStartMonth: { $lte: endMonth } },
+                            { travelEndMonth: { $gte: endMonth } }
+                        ],
+                    }
+                ],
+            }
+        };
+        let andQueries = [];
+        if (!startYear && startMonth) {
+            if (!endMonth || (startMonth === endMonth)) {
+                // Single month.
+                andQueries.push(queries.singleMonth);
+            }
+            else if (endMonth) {
+                // Range of months.
+                andQueries.push(queries.rangeOfMonths);
+            }
+        }
+        else if (startYear && (!endYear || (startYear === endYear))) {
+            if (!startMonth && !endMonth) {
+                // Single year.
+                andQueries.push(queries.singleYear);
+            }
+            else if (startMonth && (!endMonth || (startMonth === endMonth))) {
+                // Single year, single month.
+                andQueries.push(queries.singleYear);
+                andQueries.push(queries.singleMonth);
+            }
+            else if (startMonth !== endMonth) {
+                // Single year, range of months.
+                andQueries.push(queries.singleYear);
+                andQueries.push(queries.rangeOfMonths);
+            }
+        }
+        else if (startYear !== endYear) {
+            if (!startMonth && !endMonth) {
+                // Range of years.
+                andQueries.push(queries.rangeOfYears);
+            }
+            else if (startMonth && (!endMonth || (startMonth === endMonth))) {
+                // Range of years, single month.
+                andQueries.push(queries.rangeOfYears);
+                andQueries.push(queries.singleMonth);
+            }
+            else if (startMonth !== endMonth) {
+                // Range of years, range of months.
+                andQueries.push(queries.rangeOfYears);
+                andQueries.push(queries.rangeOfMonths);
+            }
+        }
         return {
             travels: {
                 $elemMatch: {
-                    $and: [
-                        {
-                            $or: [
-                                { travelEndYear: { $gte: startYear, $lte: endYear } },
-                                { travelStartYear: { $gte: startYear, $lte: endYear } }
-                            ],
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: [
-                                        { travelStartMonth: { $exists: false } },
-                                        { travelStartMonth: { $gte: startMonth } }
-                                    ]
-                                },
-                                {
-                                    $or: [
-                                        { travelEndMonth: { $exists: false } },
-                                        { travelEndMonth: { $lte: endMonth } }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
+                    $and: andQueries
                 }
             }
-        }
+        };
     },
 
-    birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: { $regex: getRegExp(d, exact) } } } }),
-    deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: { $regex: getRegExp(d, exact) } } } }),
-    travelPlace: (d, exact) => ({ travels: { $elemMatch: { place: { $regex: getRegExp(d, exact) } } } }),
+    birthPlace: (d, exact) => ({ places: { $elemMatch: { birthPlace: getRegExp(d, exact) } } }),
+    deathPlace: (d, exact) => ({ places: { $elemMatch: { deathPlace: getRegExp(d, exact) } } }),
+    travelPlace: (d, exact) => ({ travels: { $elemMatch: { place: getRegExp(d, exact) } } }),
 
-    societies: (d, exact) => ({ societies: { $elemMatch: { title: { $regex: getRegExp(d, exact) } } } }),
-    societies_role: (d, exact) => ({ societies: { $elemMatch: { role: { $regex: getRegExp(d, exact) } } } }),
+    societies: (d, exact) => ({ societies: { $elemMatch: { title: getRegExp(d, exact) } } }),
+    societies_role: (d, exact) => ({ societies: { $elemMatch: { role: getRegExp(d, exact) } } }),
 
-    education_institution: (d, exact) => ({ education: { $elemMatch: { institution: { $regex: getRegExp(d, exact) } } } }),
-    education_place: (d, exact) => ({ education: { $elemMatch: { place: { $regex: getRegExp(d, exact) } } } }),
-    education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: { $regex: getRegExp(d, exact) } } } }),
-    education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: { $regex: getRegExp(d, exact) } } } }),
+    education_institution: (d, exact) => ({ education: { $elemMatch: { institution: getRegExp(d, exact) } } }),
+    education_place: (d, exact) => ({ education: { $elemMatch: { place: getRegExp(d, exact) } } }),
+    education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: getRegExp(d, exact) } } }),
+    education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: getRegExp(d, exact) } } }),
 
-    pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: { $regex: getRegExp(d, exact) } } } }),
+    pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: getRegExp(d, exact) } } }),
 
-    occupations: (d, exact) => ({ occupations: { $elemMatch: { title: { $regex: getRegExp(d, exact) } } } }),
-    occupations_group: (d, exact) => ({ occupations: { $elemMatch: { group: { $regex: getRegExp(d, exact) } } } }),
-    occupations_place: (d, exact) => ({ occupations: { $elemMatch: { place: { $regex: getRegExp(d, exact) } } } }),
+    occupations: (d, exact) => ({ occupations: { $elemMatch: { title: getRegExp(d, exact) } } }),
+    occupations_group: (d, exact) => ({ occupations: { $elemMatch: { group: getRegExp(d, exact) } } }),
+    occupations_place: (d, exact) => ({ occupations: { $elemMatch: { place: getRegExp(d, exact) } } }),
 
-    exhibitions: (d, exact) => ({ exhibitions: { $elemMatch: { title: { $regex: getRegExp(d, exact) } } } }),
-    exhibitions_activity: (d, exact) => ({ exhibitions: { $elemMatch: { activity: { $regex: getRegExp(d, exact) } } } }),
+    exhibitions: (d, exact) => ({ exhibitions: { $elemMatch: { title: getRegExp(d, exact) } } }),
+    exhibitions_activity: (d, exact) => ({ exhibitions: { $elemMatch: { activity: getRegExp(d, exact) } } }),
 
-    military: (d, exact) => ({ military: { $elemMatch: { rank: { $regex: getRegExp(d, exact) } } } }),
+    military: (d, exact) => ({ military: { $elemMatch: { rank: getRegExp(d, exact) } } }),
 
     entry: d => d.terms.map(term => ({
         [term.negative === true ? "$and" : "$or"]: d.sections.filter(section => section.checked).map(section => {
@@ -294,7 +390,7 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: { $regex: getRegExp(d, exact) }, entryIndex: {$exists: true} } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact), entryIndex: { $exists: true } } } })
 }
 
 
@@ -317,7 +413,7 @@ var searchMap = {
  */
 function parseQuery(query) {
 
-    var output = []
+    var output = {};
     for (let k in query) {
         let uniques = query[k].uniques || query[k];
         let list = [];
@@ -328,7 +424,7 @@ function parseQuery(query) {
                 }
                 else if (queryItem._id) {
                     let item = searchMap[k](queryItem._id, true);
-                    if (queryItem.negative === true) {
+                    if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
                             item[key] = { $not: item[key] };
                         }
@@ -351,14 +447,41 @@ function parseQuery(query) {
             continue;
         }
         if (query[k].operator === 'and') {
-            output.push({ $and: list });
+            output[k] = { $and: list };
         }
         else {
-            output.push({ $or: list });
+            output[k] = { $or: list };
         }
     }
 
-    return output.length ? { $and: output } : {};
+    // Travel date and travel place - should combine to be "and" if both are specified.
+    if (output.travelDate && output.travelPlace) {
+        output.travelQuery = cloneDeep(output.travelPlace);
+        let operator = output.travelQuery["$or"] ? "$or" : "$and";
+        for (let i in output.travelQuery[operator]) {
+            if (output.travelQuery[operator][i].travels.$not) {
+                output.travelQuery[operator][i].travels.$not.$elemMatch = {
+                    $and: [
+                        output.travelQuery[operator][i].travels.$not.$elemMatch,
+                        output.travelDate["$or"][0].travels.$elemMatch
+                    ]
+                };
+            }
+            else {
+                output.travelQuery[operator][i].travels.$elemMatch = {
+                    $and: [
+                        output.travelQuery[operator][i].travels.$elemMatch,
+                        output.travelDate["$or"][0].travels.$elemMatch
+                    ]
+                };
+            }
+        };
+        console.log(JSON.stringify(output.travelQuery));
+        delete output.travelDate;
+        delete output.travelPlace;
+    }
+
+    return Object.values(output).length ? { $and: Object.values(output) } : {};
 
 }
 exports.parseQuery = parseQuery;
@@ -550,19 +673,19 @@ function parseExport(res) {
             endYear: a.travelEndYear || "",
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
-            travelIndex: a.travelindexTotal,
+            travelIndex: a.travelindexTotal
         }))
 
         entry.activities = activities
             .filter(function (d) { return d.entry == entry.index; })
             .map(function (d) { return d.index; })
             .join(",");
-        
+
         // if (d.mentionedNames && d.mentionedNames.length) {
         //     entry.matchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
 
         //     entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
-    
+
         //     entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => "" + e.entryIndex);
         //     if (entry.matchedMentions.length === 0) {
         //         delete entry.matchedMentions;
@@ -574,7 +697,7 @@ function parseExport(res) {
         //         delete entry.matchedMentionsEntryIndexes;
         //     }
         // }
-        
+
         return entry;
 
     })

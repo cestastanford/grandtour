@@ -436,7 +436,7 @@ function parseQuery(query) {
         else {
             // Search functionality - fuzzy search. "uniques" would actually just be a single object.
             if (k === "entry") {
-                // In the case of free search, searchMap[k] returns a list itself.
+                // In the case of word search in the entries, searchMap[k] returns a list itself.
                 list = searchMap[k](uniques, false);
             }
             else {

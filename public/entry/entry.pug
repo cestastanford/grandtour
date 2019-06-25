@@ -132,7 +132,7 @@
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.pursuits.length") 
             .panel.panel-default
-              .panel-heading Employments and Identifiers
+              .panel-heading DBITI Employments & Identifiers
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.pursuits") 
                   a(ng-click="search({pursuits:e.pursuit})",
@@ -267,7 +267,7 @@
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length && (currentUser.role === 'admin' || currentUser.role === 'editor')") 
             .panel.panel-default
-              .panel-heading Mentioned Names
+              .panel-heading Mentioned names
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.mentionedNames") 
                     div(ng-style="e.entryIndex !== undefined ? {'cursor': 'pointer'}: {'font-style': 'italic'}") {{ e.name }}

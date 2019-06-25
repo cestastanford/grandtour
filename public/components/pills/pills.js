@@ -34,11 +34,11 @@ export default function() {
             }
 
             /*
-             * Pursuits pill - renamed to "Employments and Identifiers"
+             * Pursuits pill - renamed to "DBITI Employments & Identifiers"
              */
             getPill.pursuits = function(key, query, negative) {
                 let pill = getPill.default(key, query, negative);
-                pill.dimension = "Employments and Identifiers";
+                pill.dimension = "DBITI Employments & Identifiers";
                 return pill;
             }
 
@@ -85,14 +85,14 @@ export default function() {
 
 
             /*
-            *   Returns a Free Search pill.
+            *   Returns a word search in the entries pill.
             */
 
             getPill.entry = function(key, query) {
                 
                 var freeSearchQuery = query[key]
                 var pill = {}
-                pill.dimension = 'free search in '
+                pill.dimension = 'word search in the entries in '
                 pill.dimension += freeSearchQuery.sections.filter(function(section) { return section.checked })
                 .map(function(section) { return section.name }).join(', ')
                 

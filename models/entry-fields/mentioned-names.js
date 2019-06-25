@@ -6,10 +6,10 @@ module.exports = {
         entryIndex: Number,
         ranges: String,
     }],
-    label: 'Mentioned Names',
+    label: 'Mentioned names',
     sheet: {
 
-        name: 'Mentioned Names',
+        name: 'Mentioned names',
 
     }
 

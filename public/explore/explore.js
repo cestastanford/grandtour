@@ -14,13 +14,13 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   });
 
   $scope.dimensions = [
-    { type : 'facet', active : false, label : 'Fullname', description: 'Full name of traveler.', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
+    { type : 'facet', active : false, label : 'Traveler names', description: 'Full name of traveler.', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
     { type : 'date', active : false, label : 'Birth date', description: '', field : 'birthDate', sorting : 'dates[0].birthDate' },
     { type : 'facet', active : false, label : 'Birth place', description: '', field : 'birthPlace', suggestions : 'places.birthPlace', sorting : 'places[0].birthPlace' },
     { type : 'date', active : false, label : 'Death date', description: '', field : 'deathDate', sorting : 'dates[0].deathDate' },
     { type : 'facet', active : false, label : 'Death place', description: '', field : 'deathPlace', suggestions : 'places.deathPlace', sorting : 'places[0].deathPlace' },
     { type : 'facet', active : false, label : 'Gender', description: '', field : 'type', suggestions : 'type' },
-    { type : 'facet', active : true, label : 'Employments and Identifiers', description: '', field : 'pursuits', suggestions : 'pursuits.pursuit' },
+    { type : 'facet', active : true, label : 'DBITI Employments & Identifiers', description: '', field : 'pursuits', suggestions : 'pursuits.pursuit' },
     { type : 'facet', active : false, label : 'Occupations & Posts', description: '', field : 'occupations', suggestions : 'occupations.title' },
     { type : 'facet', active : true, label : 'Occupations & Posts', subgroup: 'Group', description: '', field : 'occupations_group', suggestions : 'occupations.group' },
     { type : 'facet', active : true, label : 'Societies & Academies', description: '', field : 'societies', suggestions : 'societies.title' },
@@ -32,10 +32,10 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     { type : 'facet', active : false, label : 'Military careers', description: '', field : 'military', suggestions : 'military.rank' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', description: '', field : 'exhibitions', suggestions : 'exhibitions.title' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', description: '', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
-    { type : 'facet', active : false, label : 'Mentioned Names', description: '', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
-    { type : 'facet', active : false, label : 'Travel Place', description: '', field : 'travelPlace', suggestions : 'travels.place' },
-    { type : 'date', active : false, label : 'Travel Date', description: '', field : 'travelDate'},
-    { type : 'freesearch', active : false, label : 'Free search', description: '', field : 'entry' },
+    { type : 'facet', active : false, label : 'Mentioned names', description: '', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
+    { type : 'facet', active : false, label : 'Travel place', description: '', field : 'travelPlace', suggestions : 'travels.place' },
+    { type : 'date', active : false, label : 'Travel date', description: '', field : 'travelDate'},
+    { type : 'freesearch', active : false, label : 'Word search in the entries', description: '', field : 'entry' },
   ]
 
   $scope.activeDimensions = [];

@@ -65,7 +65,7 @@
       span(ng-bind-html="highlighted('fullName', entry.fullName)")
 
     .entry-origin(ng-if="entry.origin && entry.origin.entryOrigin !== 'From the Dictionary'")
-      span [From 
+      span [From the entry of 
       a(
         ng-if="entry.origin.sourceIndex || entry.origin.sourceIndex === 0",
         ng-href="#/entries/{{ entry.origin.sourceIndex }}",

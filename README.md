@@ -19,7 +19,7 @@ SHEETS_PRIVATE_KEY=...
 ```
 - Create a data directory: `mkdir data`
 - Start the server: `npm run dev-start`.  This will create and host a MongoDB database and start the Node server.
-- Check the console output for the automatically-created default admin user login info.  This account is created when no existing user accounts exist.
+- Check the console output for the automatically-created default admin user login info. Hi  This account is created when no existing user accounts exist.
 - Check the console output for the local address of the site (often http://localhost:5100).  Visit that address and log in!
 
 Restoring a MongoDB database backup

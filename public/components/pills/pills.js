@@ -38,7 +38,7 @@ export default function() {
              */
             getPill.pursuits = function(key, query, negative) {
                 let pill = getPill.default(key, query, negative);
-                pill.dimension = "DBITI Employments & Identifiers";
+                pill.dimension = "DBITI employments & identifiers";
                 return pill;
             }
 
@@ -85,14 +85,14 @@ export default function() {
 
 
             /*
-            *   Returns a word search in the entries pill.
+            *   Returns a free search (renanamed as word search in the entries) pill.
             */
 
             getPill.entry = function(key, query) {
                 
                 var freeSearchQuery = query[key]
                 var pill = {}
-                pill.dimension = 'word search in the entries in '
+                pill.dimension = 'word search in ';
                 pill.dimension += freeSearchQuery.sections.filter(function(section) { return section.checked })
                 .map(function(section) { return section.name }).join(', ')
                 

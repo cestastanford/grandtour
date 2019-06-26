@@ -53,7 +53,7 @@
           input.input-sm.form-control(
             type="text", 
             ng-model="query.pursuits",
-            placeholder="pursuit ({{ counts.pursuits }} entries)",
+            placeholder="employment or identifier ({{ counts.pursuits }} entries)",
             ng-class="{ filled : query.pursuits }"
             typeahead="item for item in getSuggestions('pursuits.pursuit', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"

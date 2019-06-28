@@ -436,7 +436,7 @@ function parseQuery(query) {
         else {
             // Search functionality - fuzzy search. "uniques" would actually just be a single object.
             if (k === "entry") {
-                // In the case of word search in the entries, searchMap[k] returns a list itself.
+                // In the case of free search (renamed word search in the entries), searchMap[k] returns a list itself.
                 list = searchMap[k](uniques, false);
             }
             else {
@@ -549,7 +549,7 @@ function parseExport(res) {
         var entry = {};
 
         // index
-        entry.entryId = d.index;
+        entry.index = d.index;
         // fullName
         entry.travelerNames = d.fullName;
         // gender
@@ -564,139 +564,105 @@ function parseExport(res) {
         entry.deathPlace = d.dates[0] ? d.dates[0].deathPlace || "" : "";
         // parents
         entry.parents = (d.parents && d.parents.parents) || "";
-        /*
+
         let entryBase = {
             entry: d.index,
-            fullName: entry.fullName,
+            travelerNames: entry.travelerNames,
             birthDate: entry.birthDate,
             deathDate: entry.deathDate,
             gender: entry.gender
         };
-        */
-
         // activities
 
         // marriages
         if (d.marriages && d.marriages.length) d.marriages.forEach(a => activities.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             lifeEvents: 'marriage',
             eventsDetail1: a.sequence || "",
             eventsDetail2: a.spouse || "",
             place: "",
             startDate: a.year || "",
             endDate: "",
-            eventsIndex: ++activityIndex,
+            index: ++activityIndex,
         }))
 
         //
 
         // education
         if (d.education && d.education.length) d.education.forEach(a => activities.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             lifeEvents: 'education',
             eventsDetail1: "",
             eventsDetail2: a.institution || "",
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            eventsIndex: ++activityIndex,
+            index: ++activityIndex,
         }))
 
         // societies
         if (d.societies && d.societies.length) d.societies.forEach(a => activities.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             lifeEvents: 'society',
             eventsDetail1: a.role || "",
             eventsDetail2: a.title || "",
             place: "",
             startDate: a.from || "",
             endDate: a.to || "",
-            eventsIndex: ++activityIndex,
+            index: ++activityIndex,
         }))
 
         // exhibitions
         if (d.exhibitions && d.exhibitions.length) d.exhibitions.forEach(a => activities.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             lifeEvents: 'exhibition',
             eventsDetail1: "",
             eventsDetail2: a.title || "",
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            eventsIndex: ++activityIndex,
+            index: ++activityIndex,
         }))
 
         // pursuits
         if (d.pursuits && d.pursuits.length) d.pursuits.forEach(a => activities.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             lifeEvents: 'DBITI employment or identifier',
             eventsDetail1: "",
             eventsDetail2: a.pursuit,
             place: "",
             startDate: "",
             endDate: "",
-            eventsIndex: ++activityIndex,
+            index: ++activityIndex,
         }))
 
         // occupations
         if (d.occupations && d.occupations.length) d.occupations.forEach(a => activities.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             lifeEvents: 'occupation',
             eventsDetail1: a.group,
             eventsDetail2: a.title,
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            eventsIndex: ++activityIndex,
+            index: ++activityIndex,
         }))
 
         // occupations
         if (d.military && d.military.length) d.occupations.forEach(a => activities.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             lifeEvents: 'military careers',
             eventsDetail1: a.officeType,
             eventsDetail2: a.rank,
             place: a.place || "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
-            eventsIndex: ++activityIndex,
+            index: ++activityIndex,
         }))
 
         // travels
         if (d.travels && d.travels.length) d.travels.forEach(a => travels.push({
-            entryId: d.index,             
-            travelerNames: entry.travelerNames,             
-            birthDate: entry.birthDate,             
-            deathDate: entry.deathDate,             
-            gender: entry.gender,
+            ...entryBase,
             travelPlace: a.place || "",
             coordinates: a.latitude ? [a.latitude, a.longitude].join(",") : "",
             startDate: a.travelStartYear ? a.travelStartYear + "-" + (a.travelStartMonth || "01") + "-" + (a.travelStartDay || "01") : "", //a.travelStartMonth ? a.travelStartDay ? a.travelStartYear + "/" + (a.travelStartMonth || "01") + "/" + (a.travelStartDay || "01") : a.travelStartYear + "/" + a.travelStartMonth : a.travelStartYear : "",
@@ -707,12 +673,11 @@ function parseExport(res) {
             endYear: a.travelEndYear || "",
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
-            travelIndex: a.travelindexTotal,
+            travelIndex: a.travelindexTotal
         }))
 
-        
         entry.eventsIndex = activities
-            .filter(function (d) { return d.entry == entry.entryId; })
+            .filter(function (d) { return d.entry == entry.index; })
             .map(function (d) { return d.index; })
             .join(",");
 

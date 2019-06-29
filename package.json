@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "heroku-postbuild": "npm test && webpack --mode=production",
-    "dev-start": "concurrently --kill-others \"webpack --colors --mode=development --watch\" \"heroku local -f Procfile.dev\"",
-    "debug": "concurrently --kill-others \"webpack --colors --mode=development --watch\" \"heroku local -f Procfile.debug\"",
+    "dev-start": "heroku local -f Procfile.dev",
     "test": "jest"
   },
   "dependencies": {

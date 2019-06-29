@@ -12,12 +12,12 @@ from pymongo import UpdateOne
 from pymongo.errors import BulkWriteError
 
 uri = os.getenv("MONGODB_URI")
-
+# uri = "mongodb://localhost:27017/test" # Use this to test on local database.
 client = MongoClient(uri)
 database_name = pymongo.uri_parser.parse_uri(uri)['database']
 db = client[database_name]
 
-with open("consolidated_entries.json") as f:
+with open(os.path.join(os.path.dirname(__file__), 'consolidated_entries.json')) as f:
     updates = json.load(f)
 
 bulk_updates = []

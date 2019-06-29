@@ -188,6 +188,19 @@
         hr
 
         .form-group
+          label Footnotes
+          input.input-sm.form-control(
+            type="text", 
+            ng-model="query.consolidated_notes",
+            placeholder="mentioned names ({{ counts.consolidated_notes }} entries)",
+            ng-class="{ filled : query.consolidated_notes }"
+            typeahead="item for item in getSuggestions('consolidated_notes', $viewValue)"
+            typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
+            typeahead-on-select="search()")
+
+        hr
+
+        .form-group
           label Travel Place
           input.input-sm.form-control.margin-top(
             type="text", 

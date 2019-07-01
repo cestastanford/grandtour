@@ -1,6 +1,6 @@
 import {find, pick} from "lodash";
 
-const DEFAULT_OPERATOR = "or";
+const DEFAULT_OPERATOR = "and";
 
 export default ['$http', function($http) {
   return {

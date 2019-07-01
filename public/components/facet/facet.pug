@@ -17,8 +17,8 @@
         button.btn.btn-default(type="button", ng-click="sortingSelection = '-count'") #
         button.btn.btn-default(type="button", ng-click="sortingSelection = '_id'") A
       div.btn-group.btn-group-xs.pull-right(style="margin-right: 5px")
-        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'and'}", ng-click="operator = 'and'; update()") all
-        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'or'}", ng-click="operator = 'or'; update()") any
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'and'}", ng-click="operator = 'and'; update()") and
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'or'}", ng-click="operator = 'or'; update()") or
 
     
     .mini-table(ng-show="uniques.length")

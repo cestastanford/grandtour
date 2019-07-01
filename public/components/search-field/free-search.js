@@ -1,4 +1,4 @@
-const DEFAULT_OPERATOR = "or";
+const DEFAULT_OPERATOR = "and";
 
 export default function () {
 

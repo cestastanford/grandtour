@@ -559,9 +559,9 @@ function parseExport(res) {
         // deathDate
         entry.deathDate = d.dates[0] ? d.dates[0].deathDate || "" : "";
         // birthPlace
-        entry.birthPlace = d.dates[0] ? d.dates[0].birthPlace || "" : "";
+        entry.birthPlace = d.places[0] ? d.places[0].birthPlace || "" : "";
         // deathPlace
-        entry.deathPlace = d.dates[0] ? d.dates[0].deathPlace || "" : "";
+        entry.deathPlace = d.places[0] ? d.places[0].deathPlace || "" : "";
         // parents
         entry.parents = (d.parents && d.parents.parents) || "";
 

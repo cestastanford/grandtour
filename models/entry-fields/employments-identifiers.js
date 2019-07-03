@@ -4,10 +4,10 @@ module.exports = {
     type: [{
         pursuit: String,
     }],
-    label: 'Employments & Identifiers',
+    label: 'DBITI Employments & Identifiers',
     sheet: {
 
-        name: 'Employments and Identifiers',
+        name: 'DBITI Employments & Identifiers',
 
     }
 

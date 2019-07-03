@@ -32,7 +32,7 @@ export default function () {
 
 
             /*
-            *   Updates the free search model and main query in
+            *   Updates the word search in the entries model and main query in
             *   response to $watch or manual update.
             */
 
@@ -53,7 +53,7 @@ export default function () {
 
 
             /*
-            *   Sets up free search model.
+            *   Sets up word search in the entries model.
             */
 
             function setupFreeSearch() {

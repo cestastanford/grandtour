@@ -63,23 +63,31 @@ export default ['$http', function($http) {
 
       function reload(){
         var query = scope.query;
-        if (last && query[scope.field]) {
-          last = false;
-          return;
-        }
         if (!scope.suggestions || !scope.field) return;
-        //var model = scope.query[scope.field];
-        //if (model == undefined || !model.length) delete query[scope.field];
-        //else query[scope.field] = model;
-
-        var c = angular.copy(query);
-        delete c[scope.field];
         scope.loading = true;
-        $http.post('/api/entries/uniques/', {  field : scope.suggestions, query : c })
+        $http.post('/api/entries/uniques/', {  field : scope.suggestions, query : query })
         .then(function (res){
           scope.loading = false;
           var uniques = res.data.values;
+          if (query.hasOwnProperty(scope.field) && query[scope.field].uniques) {
+            let negativeUniques = query[scope.field].uniques.filter(e => e.negative === true);
+            for (let e of negativeUniques) {
+              if (find(scope.uniques, {_id: e._id})) {
+                let unique = find(scope.uniques, {_id: e._id});
+                unique.negative = true;
+              }
+              else {
+                scope.uniques.push({id: e._id, negative: true});
+              }
+            }
+          }
+          // uniques = [...uniques, ...];
           var map = d3.map(uniques, function(d){ return d._id; });
+          // console.log(scope.field, );
+          // if (!map.has(scope.field)) {
+          //   scope.uniques.unshift({_id: scope.field, count: 0});
+          //   map = d3.map(uniques, function(d){ return d._id; });
+          // }
           scope.uniques.forEach(function(d){
             d.count = map.has(d._id) ? map.get(d._id).count : 0;
             d.selected = false;
@@ -90,6 +98,7 @@ export default ['$http', function($http) {
                 d.selected = true;
                 if (item.negative) {
                   d.negative = true;
+                  d.count = 99999;
                 }
               }
               scope.operator = query[scope.field].operator || DEFAULT_OPERATOR;

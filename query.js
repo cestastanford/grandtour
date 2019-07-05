@@ -363,6 +363,8 @@ var searchMap = {
     education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: getRegExp(d, exact) } } }),
     education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: getRegExp(d, exact) } } }),
 
+    consolidated_notes: (d, exact) => ({ consolidated_notes: getRegExp(d, exact) }),
+    
     pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: getRegExp(d, exact) } } }),
 
     occupations: (d, exact) => ({ occupations: { $elemMatch: { title: getRegExp(d, exact) } } }),

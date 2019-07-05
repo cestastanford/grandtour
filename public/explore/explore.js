@@ -32,10 +32,12 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     { type : 'facet', active : false, label : 'Military careers', description: '', field : 'military', suggestions : 'military.rank' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', description: '', field : 'exhibitions', suggestions : 'exhibitions.title' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', description: '', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
-    { type : 'facet', active : false, label : 'Mentioned names', description: '', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
-    { type : 'facet', active : false, label : 'Travel place', description: '', field : 'travelPlace', suggestions : 'travels.place' },
-    { type : 'date', active : false, label : 'Travel date', description: '', field : 'travelDate'},
-    { type : 'freesearch', active : false, label : 'Word search in the entries', description: '', field : 'entry' },
+
+    { type : 'facet', active : false, label : 'Mentioned Names', description: '', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
+    { type : 'facet', active : false, label : 'Footnotes', description: '', field : 'consolidated_notes', suggestions : 'consolidated_notes' },
+    { type : 'facet', active : false, label : 'Travel Place', description: '', field : 'travelPlace', suggestions : 'travels.place' },
+    { type : 'date', active : false, label : 'Travel Date', description: '', field : 'travelDate'},
+    { type : 'freesearch', active : false, label : 'Free search', description: '', field : 'entry' },
   ]
 
   $scope.activeDimensions = [];

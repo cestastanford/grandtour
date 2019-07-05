@@ -1,2 +1,0 @@
-db: mongod --dbpath data
-web: node --inspect-brk app.js

@@ -675,6 +675,7 @@ function parseExport(res) {
             endYear: a.travelEndYear || "",
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
+            markers: a.markers || "",
             travelIndex: a.travelindexTotal
         }))
 

@@ -4,48 +4,54 @@
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="dateModel.date.query.startYear",
-        placeholder="year ({{ counts.travel_year }} entries)",
+        placeholder="year",
         ng-class="{ filled : dateModel.date.query.startYear }",
         ng-show="dateModel.date.queryType === 'exact'")
+<!-- Edited placeholder, perhaps should be "year ({{ counts.travel_year }} entries)" -->
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-if="hasMonths",
         ng-model="dateModel.date.query.startMonth",
-        placeholder="month ({{ counts.travel_month }} entries)",
+        placeholder="month",
         ng-class="{ filled : dateModel.date.query.startMonth }",
         ng-show="dateModel.date.queryType === 'exact'")
-    
+<!-- Edited placeholder, perhaps should be "month ({{ counts.travel_month }} entries)" -->    
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="dateModel.date.query.startYear",
-        placeholder="start year ({{ counts.travel_year }} entries)",
+        placeholder="start year",
         ng-class="{ filled : dateModel.date.query.startYear }",
         ng-show="dateModel.date.queryType === 'range'")
+<!-- Edited placeholder, perhaps should be "start year ({{ counts.travel_year }} entries)" -->    
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-if="hasMonths",
         ng-model="dateModel.date.query.startMonth",
-        placeholder="start month ({{ counts.travel_month }} entries)",
+        placeholder="start month",
         ng-class="{ filled : dateModel.date.query.startMonth }",
         ng-show="dateModel.date.queryType === 'range'")
+<!-- Edited placeholder, perhaps should be "start month ({{ counts.travel_month }} entries)" -->    
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="dateModel.date.query.endYear",
-        placeholder="end year ({{ counts.travel_year }} entries)",
+        placeholder="end year",
         ng-class="{ filled : dateModel.date.query.endYear }",
         ng-show="dateModel.date.queryType === 'range'")
+<!-- Edited placeholder, perhaps should be "end year ({{ counts.travel_year }} entries)" -->    
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-if="hasMonths",
         ng-model="dateModel.date.query.endMonth",
-        placeholder="end month ({{ counts.travel_month }} entries)",
+        placeholder="end month",
         ng-class="{ filled : dateModel.date.query.endMonth }",
         ng-show="dateModel.date.queryType === 'range'")
+<!-- Edited placeholder, perhaps should be "end month ({{ counts.travel_month }} entries)" -->    
+
     
     .margin-top
         span.date-query-type.date-query-type-label search by: 

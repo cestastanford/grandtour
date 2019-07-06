@@ -42,7 +42,7 @@
           input.input-sm.margin-top.form-control(
             type="text", 
             ng-model="query.deathPlace",
-            placeholder="place ({{ counts.birthPlace }} entries)",
+            placeholder="place ({{ counts.deathPlace }} entries)",
             ng-class="{ filled : query.deathPlace }"
             typeahead="item for item in getSuggestions('places.deathPlace', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"

@@ -29,7 +29,7 @@ export default function() {
         }
 
         if (savedQuery.travel) {
-            savedQuery.travel_place = savedQuery.travel.place
+            savedQuery.travelPlace = savedQuery.travel.place
         }
 
     }
@@ -66,7 +66,7 @@ export default function() {
         var value = '' + propertyValue
         var queries = null
         
-        if (propertyName === 'travel_place') {
+        if (propertyName === 'travelPlace') {
             value = propertyValue.place
             if (!highlightTravel(propertyValue)) return value
         }

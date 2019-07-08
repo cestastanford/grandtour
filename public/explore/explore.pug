@@ -15,15 +15,6 @@
           ul.list-unstyled
             li.border-top(ng-repeat="dimension in dimensions",style="position:relative")
               span.small.text-light.pull-right.explore-count(title="{{ counts[dimension.field] }} entries have a value for this filter.") {{ counts[dimension.field] }}
-              div(ng-click="tooltip = dimension.field", style="position:absolute;right:-10px;top:5px;margin-left:4px;cursor:pointer;")
-                  span(style="font-weight:bold", ng-click="tooltip = dimension.field") •
-                  div.mentioned-names-popup(
-                        ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
-                        ng-style="{'margin-left': '0px', 'margin-top': '-20px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
-                  )
-                      //i(class="fa fa-times",style="top:10px;right:10px;position:absolute",ng-click="(tooltip == dimension.field) && (tooltip = null)")
-                      h4 {{ dimension.label }}
-                      p {{ dimension.description }}
 
               .checkbox(style="")
                 label
@@ -54,9 +45,18 @@
                       input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:1000}")
                   div(ng-switch-when="freesearch")
                     free-search
-                  
                   div(ng-switch-when="date")
-                    date-search(data-title="{{dimension.label}}", data-field="{{dimension.field}}")
+                    date-search(data-title=" {{dimension.label}} ", data-field=" {{dimension.field}} ")
+
+                div(ng-mouseover="tooltip = dimension.field", style="float: right; position: relative; bottom: 324px; right: 7px; cursor: pointer;")
+                    span(ng-mouseover="tooltip = dimension.field", style="color: #227AB9; font-weight: bold") ?
+                    div.mentioned-names-popup(
+                          ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
+                          ng-style="{'margin-left': '0px', 'margin-top': '-20px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
+                    )
+                        //i(class="fa fa-times",style="top:10px;right:10px;position:absolute",ng-click="(tooltip == dimension.field) && (tooltip = null)")
+                        h4 {{ dimension.label }}
+                        p {{ dimension.description }}
         
     .col-lg-12 
     

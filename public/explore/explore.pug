@@ -49,11 +49,12 @@
                     date-search(data-title=" {{dimension.label}} ", data-field=" {{dimension.field}} ")
 
                 div(ng-mouseover="tooltip = dimension.field", style="float: right; position: relative; bottom: 324px; right: 7px; cursor: pointer;")
-                    span(ng-mouseover="tooltip = dimension.field", ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)", style="color: #227AB9; font-weight: bold") ?
+                    span(ng-mouseover="tooltip = dimension.field", style="color: #227AB9; font-weight: bold") ?
                     div.mentioned-names-popup(
                           ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
-                          ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
+                          ng-style="{'margin-left': '0px', 'margin-top': '-20px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
                     )
+                        //i(class="fa fa-times",style="top:10px;right:10px;position:absolute",ng-click="(tooltip == dimension.field) && (tooltip = null)")
                         h4 {{ dimension.label }}
                         p {{ dimension.description }}
         

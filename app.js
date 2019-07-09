@@ -21,12 +21,18 @@ const Revision = require('./models/revision')
 */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f9e3757... Delete app.js
     process.env['SECRET_KEY_1']='abc';
     process.env['SECRET_KEY_2']='abc';
     process.env['SECRET_KEY_3']='abc';
     process.env['MONGODB_URI']='localhost:27017';
 
+<<<<<<< HEAD
+>>>>>>> parent of f9e3757... Delete app.js
+=======
 >>>>>>> parent of f9e3757... Delete app.js
 if (
     !process.env['SECRET_KEY_1'] ||
@@ -35,7 +41,11 @@ if (
     !process.env['MONGODB_URI']
 ) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   throw Error('Required environmental variables not set')
+=======
+//  throw Error('Required environmental variables not set')
+>>>>>>> parent of f9e3757... Delete app.js
 =======
 //  throw Error('Required environmental variables not set')
 >>>>>>> parent of f9e3757... Delete app.js

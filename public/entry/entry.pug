@@ -139,7 +139,7 @@
                     ng-bind-html="highlighted('pursuits', e.pursuit)"
                   )
                     
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents")
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents && entry.parents.parents")
             .panel.panel-default
               .panel-heading Parents
               ul.list-group

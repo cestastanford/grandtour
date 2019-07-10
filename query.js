@@ -191,7 +191,7 @@ exports.uniques = function (req, res, next) {
 
     if (field === "mentionedNames.name") {
         pipeline.append({ $group: { _id: '$_id.d', entryIndex: { $first: "$_id.entryIndex" }, count: { $sum: 1 } } });
-        pipeline.append({ $project: { _id: "$_id", count: "$count", disabled: { "$lte": ["$entryIndex", null] } } }); // disabled will be false when $entryIndex is defined, and true when $entryIndex is undefined.
+        pipeline.append({ $project: { _id: "$_id", count: "$count", unmatched: { "$lte": ["$entryIndex", null] } } });
     }
     else {
         pipeline.append({ $group: { _id: '$_id.d', count: { $sum: 1 } } });
@@ -392,7 +392,7 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact), entryIndex: { $exists: true } } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } })
 }
 
 

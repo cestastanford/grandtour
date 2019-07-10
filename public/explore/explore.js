@@ -33,7 +33,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', description: 'Institution associated with exhibitions and awards.', field : 'exhibitions', suggestions : 'exhibitions.title' },
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', description: 'Type of award.', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
 
-    { type : 'facet', active : false, label : 'Mentioned names', description: 'Names that appear in the body of an entry.', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
+    { type : 'facet', active : false, label : 'Mentioned names', description: 'Names that appear in the body of an entry. "*" indicates that there is no corresponding entry for that name.', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
     { type : 'facet', active : false, label : 'Footnotes', description: 'Citations as recorded by Ingamells.', field : 'consolidated_notes', suggestions : 'consolidated_notes' },
     { type : 'facet', active : false, label : 'Travel place', description: 'Location visited by a traveler.', field : 'travelPlace', suggestions : 'travels.place' },
     { type : 'date', active : false, label : 'Travel date', description: 'Dates that travelers toured, by month and year.', field : 'travelDate'},

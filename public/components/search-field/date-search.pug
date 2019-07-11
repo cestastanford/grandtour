@@ -4,7 +4,7 @@
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="dateModel.date.query.startYear",
-        placeholder="year ({{ counts.travel_year }} entries)",
+        placeholder="year",
         ng-class="{ filled : dateModel.date.query.startYear }",
         ng-show="dateModel.date.queryType === 'exact'")
     
@@ -12,15 +12,14 @@
         type="text", 
         ng-if="hasMonths",
         ng-model="dateModel.date.query.startMonth",
-        placeholder="month ({{ counts.travel_month }} entries)",
+        placeholder="month",
         ng-class="{ filled : dateModel.date.query.startMonth }",
         ng-show="dateModel.date.queryType === 'exact'")
-    
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="dateModel.date.query.startYear",
-        placeholder="start year ({{ counts.travel_year }} entries)",
+        placeholder="start year",
         ng-class="{ filled : dateModel.date.query.startYear }",
         ng-show="dateModel.date.queryType === 'range'")
     
@@ -28,14 +27,14 @@
         type="text", 
         ng-if="hasMonths",
         ng-model="dateModel.date.query.startMonth",
-        placeholder="start month ({{ counts.travel_month }} entries)",
+        placeholder="start month",
         ng-class="{ filled : dateModel.date.query.startMonth }",
         ng-show="dateModel.date.queryType === 'range'")
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="dateModel.date.query.endYear",
-        placeholder="end year ({{ counts.travel_year }} entries)",
+        placeholder="end year",
         ng-class="{ filled : dateModel.date.query.endYear }",
         ng-show="dateModel.date.queryType === 'range'")
     
@@ -43,7 +42,7 @@
         type="text", 
         ng-if="hasMonths",
         ng-model="dateModel.date.query.endMonth",
-        placeholder="end month ({{ counts.travel_month }} entries)",
+        placeholder="end month",
         ng-class="{ filled : dateModel.date.query.endMonth }",
         ng-show="dateModel.date.queryType === 'range'")
     

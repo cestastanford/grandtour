@@ -20,10 +20,10 @@ exports.getCounts = async revisionIndex => {
 
             fullName: { fullName: { $ne: null, $ne: '' } },
             alternateNames: { 'alternateNames.alternateName': { $exists: true } },
-            birthDate: { 'dates.0.birthDate': { $exists: true } },
-            birthPlace: { 'places.0.birthPlace': { $exists: true } },
-            deathDate: { 'dates.0.deathDate': { $exists: true } },
-            deathPlace: { 'places.0.deathPlace': { $exists: true } },
+            birthDate: { 'dates.birthDate': { $exists: true } },
+            birthPlace: { 'places.birthPlace': { $exists: true } },
+            deathDate: { 'dates.deathDate': { $exists: true } },
+            deathPlace: { 'places.deathPlace': { $exists: true } },
             type: { type: { $ne: null } },
             societies: { 'societies.title': { $exists: true } },
             societies_role: { 'societies.role': { $exists: true } },
@@ -36,14 +36,15 @@ exports.getCounts = async revisionIndex => {
             occupations_group: { 'occupations.group': { $exists: true } },
             occupations_place: { 'occupations.place': { $exists: true } },
             military: { 'military.rank': { $exists: true } },
-            travel_place: { travels: { $not: { $size: 0 } }, 'travels.place': { $exists: true } },
-            travel_date: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
+            travelPlace: { travels: { $not: { $size: 0 } }, 'travels.place': { $exists: true } },
+            travelDate: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
             travel_year: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
             travel_month: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartMonth': { $ne: 0 } }, { 'travels.travelEndMonth': { $ne: 0 } }] },
             travel_day: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartDay': { $ne: 0 } }, { 'travels.travelEndDay': { $ne: 0 } }] },
             exhibitions: { 'exhibitions.title': { $exists: true } },
             exhibitions_activity: { 'exhibitions.activity': { $exists: true } },
-
+            mentionedNames: { 'mentionedNames.name': { $exists: true } },
+            consolidated_notes: { 'consolidated_notes': { $exists: true } },
         }
 
         const facets = {}

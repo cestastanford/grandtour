@@ -265,7 +265,7 @@
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )
 
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length && (currentUser.role === 'admin' || currentUser.role === 'editor')") 
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length")
             .panel.panel-default
               .panel-heading Mentioned names
               ul.list-group

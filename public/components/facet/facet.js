@@ -44,9 +44,15 @@ export default ['$http', function($http) {
       scope.update = function() {
         var uniques;
         if (scope.operator === "or") {
-          uniques = scope.uniques.filter(function(d){ if (d.negative) d.negative = false, d.selected = false; return d.selected; }).map(e => pick(e, ["negative", "_id"]));
+          uniques = scope.uniques.filter(function (d) {
+            if (d.negative) {
+              d.negative = false; d.selected = false;
+            }
+            return d.selected;
+          }).map(e => pick(e, ["negative", "_id"]));
         } else {
-          uniques = scope.uniques.filter(function(d){ return d.selected; }).map(e => pick(e, ["negative", "_id"]));
+          uniques = scope.uniques.filter(function (d) { return d.selected; })
+          .map(e => pick(e, ["negative", "_id"]));
         }
         
         last = true;
@@ -61,7 +67,6 @@ export default ['$http', function($http) {
         }
 
         scope.selected = uniques.length;
-        selected = uniques;
       }
 
       scope.$watch('query', function(query){

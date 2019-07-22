@@ -225,7 +225,7 @@ class Entry {
         return this.aggregate()
         .allowDiskUse(true)
         .match({ _revisionIndex: { $lte: revisionIndex || getLatestRevisionIndex() } })
-        .sort({ _revisionIndex: -1 })
+        .sort({ _revisionIndex: 1 })
         .group({ _id: '$index', latest: { $first: '$$ROOT' } })
         .append({ $replaceRoot: { newRoot: '$latest' } })
         .match({ _deleted: false })

@@ -41,7 +41,7 @@ const entrySchema = mongoose.Schema({
 
 })
 
-entrySchema.index({"_revisionIndex": -1})
+entrySchema.index({"_revisionIndex": -1});
 
 for (let key in entryFields) {
 

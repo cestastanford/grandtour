@@ -283,6 +283,15 @@
                     )
                       h4 {{ e.entry.fullName }}
                       p {{ e.entry.biography.slice(0, 100) }}...
+
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.consolidated_notes.length")
+            .panel.panel-default
+              .panel-heading Sources
+              ul.list-group
+                li.list-group-item(ng-repeat="e in entry.consolidated_notes") 
+                  a(ng-click="search({consolidated_notes:e})",
+                    ng-bind-html="highlighted('consolidated_notes', e)"
+                  ) 
           
           .col-lg-12.col-md-4.col-sm-6
             div.btn-group.add-to-list-btn.pull-left

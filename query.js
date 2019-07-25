@@ -664,6 +664,8 @@ function parseExport(res) {
         }))
 
         // travels
+        var travelIndexCount = 0;
+
         if (d.travels && d.travels.length) d.travels.forEach(a => travels.push({
             ...entryBase,
             travelPlace: a.place || "",
@@ -677,7 +679,7 @@ function parseExport(res) {
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
             markers: a.markers || "",
-            travelIndex: a.travelindexTotal
+            travelIndex: ++travelIndexCount,
         }))
 
         entry.eventsIndex = activities

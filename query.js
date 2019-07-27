@@ -543,6 +543,9 @@ exports.projectForEntryList = projectForEntryList
 
 function parseExport(res) {
 
+    var mentions = [];
+    var mentionIndex = 0;
+
     var activities = [];
     var activityIndex = 0;
     var travels = [];
@@ -685,22 +688,41 @@ function parseExport(res) {
             .map(function (d) { return d.index; })
             .join(",");
 
-        // if (d.mentionedNames && d.mentionedNames.length) {
-        //     entry.matchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
+        // mentionedNames stored into mentions array
+        if (d.mentionedNames && d.mentionedNames.length) d.mentionedNames.forEach(m => mentions.push({
+            matchedMentions: m.name && typeof m.entryIndex === 'number' ? m.name : "",
+            unmatchedMentions: m.name && typeof m.entryIndex !== 'number' ? m.name : "",
+            matchedMentionsEntryIndexes: m.name && typeof m.entryIndex === 'number' ? "" + m.entryIndex : "",
+            index: d.index,
+        }))
 
-        //     entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
+        // mentions array parsed to get mentioned names for each entry
+        if (d.mentionedNames && d.mentionedNames.length) {
+            entry.matchedMentions = mentions
+                .filter(function (m) { return m.index == entry.index && m.matchedMentions !== ""; })
+                .map(function (m) { return m.matchedMentions; })
+                .join(";");
 
-        //     entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => "" + e.entryIndex);
-        //     if (entry.matchedMentions.length === 0) {
-        //         delete entry.matchedMentions;
-        //     }
-        //     if (entry.unmatchedMentions.length === 0) {
-        //         delete entry.unmatchedMentions;
-        //     }
-        //     if (entry.matchedMentionsEntryIndexes.length === 0) {
-        //         delete entry.matchedMentionsEntryIndexes;
-        //     }
-        // }
+            entry.unmatchedMentions = mentions
+                .filter(function (m) { return m.index == entry.index && m.unmatchedMentions !== ""; })
+                .map(function (m) { return m.unmatchedMentions; })
+                .join(";");
+
+            entry.matchedMentionsEntryIndexes = mentions
+                .filter(function (m) { return m.index == entry.index && m.matchedMentionsEntryIndexes !== ""; })
+                .map(function (m) { return m.matchedMentionsEntryIndexes; })
+                .join(",");
+
+            if (entry.matchedMentions.length === 0) {
+                delete entry.matchedMentions;
+            }
+            if (entry.unmatchedMentions.length === 0) {
+                delete entry.unmatchedMentions;
+            }
+            if (entry.matchedMentionsEntryIndexes.length === 0) {
+                delete entry.matchedMentionsEntryIndexes;
+            }
+        }
 
         return entry;
 

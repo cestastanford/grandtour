@@ -5,7 +5,7 @@
             input.input-field.input-sm.form-control(
                 type="text", 
                 ng-model="term.value",
-                placeholder="text ({{ counts.fullName }} entries)",
+                placeholder="text",
                 ng-class="{ filled: term.value }",
             )
             
@@ -36,8 +36,8 @@
     .clearfix
     
     div.btn-group.btn-group-xs.pull-right(style="margin-right: 5px; z-index: 999;")
-        button.btn.btn-default(type="button", ng-class="{'btn-primary': freeSearchModel.operator === 'or'}", ng-click="freeSearchModel.operator = 'or'") any
-        button.btn.btn-default(type="button", ng-class="{'btn-primary': freeSearchModel.operator === 'and'}", ng-click="freeSearchModel.operator = 'and'") all
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': freeSearchModel.operator === 'and'}", ng-click="freeSearchModel.operator = 'and'") and
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': freeSearchModel.operator === 'or'}", ng-click="freeSearchModel.operator = 'or'") or
 
     .checkbox(ng-repeat="section in freeSearchModel.sections")
         label

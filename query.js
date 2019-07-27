@@ -20,10 +20,10 @@ exports.getCounts = async revisionIndex => {
 
             fullName: { fullName: { $ne: null, $ne: '' } },
             alternateNames: { 'alternateNames.alternateName': { $exists: true } },
-            birthDate: { 'dates.0.birthDate': { $exists: true } },
-            birthPlace: { 'places.0.birthPlace': { $exists: true } },
-            deathDate: { 'dates.0.deathDate': { $exists: true } },
-            deathPlace: { 'places.0.deathPlace': { $exists: true } },
+            birthDate: { 'dates.birthDate': { $exists: true } },
+            birthPlace: { 'places.birthPlace': { $exists: true } },
+            deathDate: { 'dates.deathDate': { $exists: true } },
+            deathPlace: { 'places.deathPlace': { $exists: true } },
             type: { type: { $ne: null } },
             societies: { 'societies.title': { $exists: true } },
             societies_role: { 'societies.role': { $exists: true } },
@@ -36,14 +36,15 @@ exports.getCounts = async revisionIndex => {
             occupations_group: { 'occupations.group': { $exists: true } },
             occupations_place: { 'occupations.place': { $exists: true } },
             military: { 'military.rank': { $exists: true } },
-            travel_place: { travels: { $not: { $size: 0 } }, 'travels.place': { $exists: true } },
-            travel_date: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
+            travelPlace: { travels: { $not: { $size: 0 } }, 'travels.place': { $exists: true } },
+            travelDate: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
             travel_year: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
             travel_month: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartMonth': { $ne: 0 } }, { 'travels.travelEndMonth': { $ne: 0 } }] },
             travel_day: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartDay': { $ne: 0 } }, { 'travels.travelEndDay': { $ne: 0 } }] },
             exhibitions: { 'exhibitions.title': { $exists: true } },
             exhibitions_activity: { 'exhibitions.activity': { $exists: true } },
-
+            mentionedNames: { 'mentionedNames.name': { $exists: true } },
+            consolidated_notes: { 'consolidated_notes': { $exists: true } },
         }
 
         const facets = {}
@@ -191,7 +192,7 @@ exports.uniques = function (req, res, next) {
 
     if (field === "mentionedNames.name") {
         pipeline.append({ $group: { _id: '$_id.d', entryIndex: { $first: "$_id.entryIndex" }, count: { $sum: 1 } } });
-        pipeline.append({ $project: { _id: "$_id", count: "$count", disabled: { "$lte": ["$entryIndex", null] } } }); // disabled will be false when $entryIndex is defined, and true when $entryIndex is undefined.
+        pipeline.append({ $project: { _id: "$_id", count: "$count", unmatched: { "$lte": ["$entryIndex", null] } } });
     }
     else {
         pipeline.append({ $group: { _id: '$_id.d', count: { $sum: 1 } } });
@@ -363,6 +364,8 @@ var searchMap = {
     education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: getRegExp(d, exact) } } }),
     education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: getRegExp(d, exact) } } }),
 
+    consolidated_notes: (d, exact) => ({ consolidated_notes: getRegExp(d, exact) }),
+    
     pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: getRegExp(d, exact) } } }),
 
     occupations: (d, exact) => ({ occupations: { $elemMatch: { title: getRegExp(d, exact) } } }),
@@ -390,7 +393,7 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact), entryIndex: { $exists: true } } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } })
 }
 
 
@@ -540,6 +543,9 @@ exports.projectForEntryList = projectForEntryList
 
 function parseExport(res) {
 
+    var mentions = [];
+    var mentionIndex = 0;
+
     var activities = [];
     var activityIndex = 0;
     var travels = [];
@@ -673,6 +679,7 @@ function parseExport(res) {
             endYear: a.travelEndYear || "",
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
+            markers: a.markers || "",
             travelIndex: a.travelindexTotal
         }))
 
@@ -681,22 +688,41 @@ function parseExport(res) {
             .map(function (d) { return d.index; })
             .join(",");
 
-        // if (d.mentionedNames && d.mentionedNames.length) {
-        //     entry.matchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
+        // mentionedNames stored into mentions array
+        if (d.mentionedNames && d.mentionedNames.length) d.mentionedNames.forEach(m => mentions.push({
+            matchedMentions: m.name && typeof m.entryIndex === 'number' ? m.name : "",
+            unmatchedMentions: m.name && typeof m.entryIndex !== 'number' ? m.name : "",
+            matchedMentionsEntryIndexes: m.name && typeof m.entryIndex === 'number' ? "" + m.entryIndex : "",
+            index: d.index,
+        }))
 
-        //     entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
+        // mentions array parsed to get mentioned names for each entry
+        if (d.mentionedNames && d.mentionedNames.length) {
+            entry.matchedMentions = mentions
+                .filter(function (m) { return m.index == entry.index && m.matchedMentions !== ""; })
+                .map(function (m) { return m.matchedMentions; })
+                .join(";");
 
-        //     entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => "" + e.entryIndex);
-        //     if (entry.matchedMentions.length === 0) {
-        //         delete entry.matchedMentions;
-        //     }
-        //     if (entry.unmatchedMentions.length === 0) {
-        //         delete entry.unmatchedMentions;
-        //     }
-        //     if (entry.matchedMentionsEntryIndexes.length === 0) {
-        //         delete entry.matchedMentionsEntryIndexes;
-        //     }
-        // }
+            entry.unmatchedMentions = mentions
+                .filter(function (m) { return m.index == entry.index && m.unmatchedMentions !== ""; })
+                .map(function (m) { return m.unmatchedMentions; })
+                .join(";");
+
+            entry.matchedMentionsEntryIndexes = mentions
+                .filter(function (m) { return m.index == entry.index && m.matchedMentionsEntryIndexes !== ""; })
+                .map(function (m) { return m.matchedMentionsEntryIndexes; })
+                .join(",");
+
+            if (entry.matchedMentions.length === 0) {
+                delete entry.matchedMentions;
+            }
+            if (entry.unmatchedMentions.length === 0) {
+                delete entry.unmatchedMentions;
+            }
+            if (entry.matchedMentionsEntryIndexes.length === 0) {
+                delete entry.matchedMentionsEntryIndexes;
+            }
+        }
 
         return entry;
 

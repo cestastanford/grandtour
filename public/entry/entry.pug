@@ -139,7 +139,7 @@
                     ng-bind-html="highlighted('pursuits', e.pursuit)"
                   )
                     
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents")
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents && entry.parents.parents")
             .panel.panel-default
               .panel-heading Parents
               ul.list-group
@@ -265,7 +265,7 @@
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )
 
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length && (currentUser.role === 'admin' || currentUser.role === 'editor')") 
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mentionedNames.length")
             .panel.panel-default
               .panel-heading Mentioned names
               ul.list-group
@@ -335,7 +335,7 @@
                   tbody
                     tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;", ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
                       td(ng-class="{'bordered':travel.parent}")
-                        span(ng-bind-html="highlighted('travel_place', travel)")
+                        span(ng-bind-html="highlighted('travelPlace', travel)")
                       td.text-right.tnum-lnum
                         span(ng-class="{'highlighted': highlightTravel(travel)}")
                           span(ng-show="!travel.travelStartYear") -

@@ -4,3 +4,4 @@ data/
 .env
 npm-debug.log
 dist/
+dump

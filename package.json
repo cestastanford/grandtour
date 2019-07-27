@@ -45,7 +45,7 @@
     "jquery": "^3.3.1",
     "jsondiffpatch": "^0.1.33",
     "jszip": "^2.6.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "memory-cache": "^0.2.0",
     "mongoose": "^4.13.17",
     "morgan": "^1.9.1",

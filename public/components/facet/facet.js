@@ -2,6 +2,17 @@ import {find, pick} from "lodash";
 
 const DEFAULT_OPERATOR = "and";
 
+function getUniquesRequestBody({field, suggestions, query, value}) {
+  if (query[field] && query[field].operator === "or") {
+    // When we have an OR query, for the field corresponding to the current
+    // suggestions field, remove that field from the query. Otherwise,
+    // it ends up essentially becoming an AND query.
+    let {[field]: fieldPartOfQuery, ...restOfQuery} = query;
+    query = restOfQuery;
+  }
+  return {suggestions, query, value};
+}
+
 export default ['$http', function($http) {
   return {
 
@@ -77,7 +88,7 @@ export default ['$http', function($http) {
         var query = scope.query;
         if (!scope.suggestions || !scope.field) return;
         scope.loading = true;
-        $http.post('/api/entries/uniques/', {  field : scope.suggestions, query : query })
+        $http.post('/api/entries/uniques/', getUniquesRequestBody({ field: scope.field, suggestions: scope.suggestions, query : query }))
         .then(function (res){
           scope.loading = false;
           var uniques = res.data.values;
@@ -121,7 +132,7 @@ export default ['$http', function($http) {
 
       // all of the uniques - first time
       function load(){
-        $http.post('/api/entries/uniques/', {  field : scope.suggestions, query : {}, value : "" })
+        $http.post('/api/entries/uniques/', getUniquesRequestBody({ field: scope.field, suggestions: scope.suggestions, query : {}, value : "" }))
         .then(function (res){
           scope.uniques = res.data.values;
           reload();

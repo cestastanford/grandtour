@@ -664,9 +664,7 @@ function parseExport(res) {
         }))
 
         // travels
-        var travelIndexCount = 0;
-
-        if (d.travels && d.travels.length) d.travels.forEach(a => travels.push({
+        if (d.travels && d.travels.length) d.travels.forEach((a, i) => travels.push({
             ...entryBase,
             travelPlace: a.place || "",
             coordinates: a.latitude ? [a.latitude, a.longitude].join(",") : "",
@@ -679,7 +677,7 @@ function parseExport(res) {
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
             markers: a.markers || "",
-            travelIndex: ++travelIndexCount,
+            travelIndex: i,
         }))
 
         entry.eventsIndex = activities

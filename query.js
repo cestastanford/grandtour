@@ -592,8 +592,6 @@ function parseExport(res) {
             index: ++activityIndex,
         }))
 
-        //
-
         // education
         if (d.education && d.education.length) d.education.forEach(a => activities.push({
             ...entryBase,
@@ -682,6 +680,8 @@ function parseExport(res) {
             markers: a.markers || "",
             travelIndex: a.travelindexTotal
         }))
+
+        entry.sources = d.consolidated_notes.length ? d.consolidated_notes.map(function (d) { return d; }).join(",") : "";
 
         entry.eventsIndex = activities
             .filter(function (d) { return d.entry == entry.index; })

@@ -141,13 +141,13 @@ exports.suggest = function (req, res, next) {
 
 exports.uniques = function (req, res, next) {
 
-    const field = req.body.field;
+    const suggestions = req.body.suggestions;
     const query = parseQuery(req.body.query);
     const pipeline = Entry.aggregateAtRevision(req.user.activeRevisionIndex)
         .append({ $match: query })
-        .append({ $unwind: '$' + field.split('.')[0] });
+        .append({ $unwind: '$' + suggestions.split('.')[0] });
 
-    if (field === 'fullName') {
+    if (suggestions === 'fullName') {
 
         pipeline.append({
             $project: {
@@ -178,19 +178,19 @@ exports.uniques = function (req, res, next) {
     }
 
     const group = {}
-    if (field === 'fullName') {
+    if (suggestions === 'fullName') {
         group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' }
     }
-    else if (field === 'mentionedNames.name') {
+    else if (suggestions === 'mentionedNames.name') {
         group['_id'] = { d: "$mentionedNames.name", u: '$index', entryIndex: "$mentionedNames.entryIndex" };
     }
     else {
-        group['_id'] = { d: '$' + field, u: '$index' }
+        group['_id'] = { d: '$' + suggestions, u: '$index' }
     }
     group['count'] = { $sum: 1 };
     pipeline.append({ $group: group });
 
-    if (field === "mentionedNames.name") {
+    if (suggestions === "mentionedNames.name") {
         pipeline.append({ $group: { _id: '$_id.d', entryIndex: { $first: "$_id.entryIndex" }, count: { $sum: 1 } } });
         pipeline.append({ $project: { _id: "$_id", count: "$count", unmatched: { "$lte": ["$entryIndex", null] } } });
     }
@@ -198,7 +198,7 @@ exports.uniques = function (req, res, next) {
         pipeline.append({ $group: { _id: '$_id.d', count: { $sum: 1 } } });
     }
 
-    if (field === 'fullName') pipeline.append({
+    if (suggestions === 'fullName') pipeline.append({
         $project: {
             _id: '$_id.fullName',
             parentFullName: '$_id.parentFullName',

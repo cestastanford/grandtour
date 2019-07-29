@@ -3,7 +3,7 @@ module.exports = {
     key: 'travels',
     type: [{
         tourIndex: Number,
-        travelIndex: Number, // this field is trivial, \query.js uses different implementation
+        travelIndex: Number, // this field is unused, query.js uses different implementation
         tourStartFrom: Number,
         tourStartTo: Number,
         tourEndFrom: Number,
@@ -16,7 +16,7 @@ module.exports = {
         travelEndYear: Number,
         place: String,
         markers: String,
-        travelindexTotal: String, // this field is trivial, \query.js uses different implementation
+        travelindexTotal: String, // this field is unused, query.js uses different implementation
         latitude: String,
         longitude: String,
         italy: Boolean,

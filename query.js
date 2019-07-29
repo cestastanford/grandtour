@@ -665,7 +665,7 @@ function parseExport(res) {
         }))
 
         // travels
-        if (d.travels && d.travels.length) d.travels.forEach(a => travels.push({
+        if (d.travels && d.travels.length) d.travels.forEach((a, i) => travels.push({
             ...entryBase,
             travelPlace: a.place || "",
             coordinates: a.latitude ? [a.latitude, a.longitude].join(",") : "",
@@ -678,7 +678,7 @@ function parseExport(res) {
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
             markers: a.markers || "",
-            travelIndex: a.travelindexTotal
+            travelIndex: i,
         }))
 
         entry.sources = d.consolidated_notes.length ? d.consolidated_notes.map(function (d) { return d; }).join(",") : "";

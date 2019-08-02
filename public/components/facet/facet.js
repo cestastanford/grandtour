@@ -54,15 +54,20 @@ export default ['$http', function($http) {
        *  - a NEGATIVE box is "selected" and "negative"
        */
       scope.refresh = function(u) {
-        if (!u.selected && !u.negative && scope.operator !== "or") { // case where checked becomes negative ("and" mode only)
-          u.negative = true;
-          u.selected = true;
+        if (scope.loading) { // cannot refresh this unique until previous unique has finished
+          u.selected = false;
+          setTimeout(scope.refresh(u), 100);
+        } else {
+          if (!u.selected && !u.negative && scope.operator !== "or") { // case where checked becomes negative ("and" mode only)
+            u.negative = true;
+            u.selected = true;
+          }
+          else if (!u.selected && u.negative) { // case where negative becomes unselected
+            u.negative = false;
+          }
+          if (!u.count && !u.selected) return; // does not call update() if count is 0, or is not selected
+          scope.update();
         }
-        else if (!u.selected && u.negative) { // case where negative becomes unselected
-          u.negative = false;
-        }
-        if (!u.count && !u.selected) return; // does not call update() if count is 0, or is selected
-        scope.update(); 
       }
 
       var last = false;

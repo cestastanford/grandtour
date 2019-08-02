@@ -1,3 +1,8 @@
+/*
+ *  facet.js provides the functionality for the facet feature. Tools to explore filters are implemented here, including checkboxes, search
+ *  operators, and sorting of a filter's options. Works with facet.pug.
+ */
+
 import {find, pick} from "lodash";
 
 const DEFAULT_OPERATOR = "and";
@@ -38,36 +43,50 @@ export default ['$http', function($http) {
         if (search && search._id.length) scope.open = true;
       }, true)
 
+      /*
+       *  This function is called when the user clicks a checkbox.
+       *
+       *  In "or" mode,
+       *  - a CHECKED box is "selected" and "!negative"
+       *  - an UNCHECKED box is "!selected" and "!negative"
+       * 
+       *  In "and" mode,
+       *  - a NEGATIVE box is "selected" and "negative"
+       */
       scope.refresh = function(u) {
-        if (!u.selected && !u.negative && scope.operator !== "or") {
+        if (!u.selected && !u.negative && scope.operator !== "or") { // case where checked becomes negative ("and" mode only)
           u.negative = true;
           u.selected = true;
         }
-        else if (!u.selected && u.negative) {
+        else if (!u.selected && u.negative) { // case where negative becomes unselected
           u.negative = false;
         }
-        if (!u.count) return;
-        scope.update();
+        if (!u.count && !u.selected) return; // does not call update() if count is 0, or is selected
+        scope.update(); 
       }
 
       var last = false;
 
+      /*
+       *  This function is called when a checkbox with a valid count is changed in scope.refresh(), or when the operator switches. The array of 
+       *  chosen uniques is updated.
+       */
       scope.update = function() {
         var uniques;
-        if (scope.operator === "or") {
+        if (scope.operator === "or") { // when switching from "and" mode to "or" mode, all negative selections are unselected
           uniques = scope.uniques.filter(function (d) {
             if (d.negative) {
-              d.negative = false; d.selected = false;
+              d.negative = false; d.selected = false; 
             }
             return d.selected;
           }).map(e => pick(e, ["negative", "_id"]));
-        } else {
+        } else { 
           uniques = scope.uniques.filter(function (d) { return d.selected; })
           .map(e => pick(e, ["negative", "_id"]));
         }
         
         last = true;
-        if (uniques.length) {
+        if (uniques.length) { // uniques have been chosen, so a query is performed
           scope.query[scope.field] = {
             operator: scope.operator,
             uniques: uniques
@@ -80,10 +99,17 @@ export default ['$http', function($http) {
         scope.selected = uniques.length;
       }
 
+
+      /*
+       * Watches for query to be interacted with and calls reload().
+       */
       scope.$watch('query', function(query){
         reload();
       }, true)
 
+      /*
+       *  The facet is reloaded in response to a query.
+       */
       function reload(){
         var query = scope.query;
         if (!scope.suggestions || !scope.field) return;
@@ -121,7 +147,7 @@ export default ['$http', function($http) {
                 d.selected = true;
                 if (item.negative) {
                   d.negative = true;
-                  d.count = 99999;
+                  d.count = 99999; // count is not displayed for negative selections
                 }
               }
               scope.operator = query[scope.field].operator || DEFAULT_OPERATOR;

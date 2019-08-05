@@ -46,19 +46,18 @@ export default ['$http', function($http) {
       /*
        *  This function is called when the user clicks a checkbox.
        *
-       *  In "or" mode,
+       *  In both "and" & "or" mode,
        *  - a CHECKED box is "selected" and "!negative"
        *  - an UNCHECKED box is "!selected" and "!negative"
        * 
-       *  In "and" mode,
+       *  In only "and" mode,
        *  - a NEGATIVE box is "selected" and "negative"
        */
       scope.refresh = function(u) {
         if (scope.loading) { // cannot refresh this unique until previous unique has finished
           u.selected = false;
-          setTimeout(scope.refresh(u), 100);
         } else {
-          if (!u.selected && !u.negative && scope.operator !== "or") { // case where checked becomes negative ("and" mode only)
+          if (!u.selected && !u.negative && scope.operator === "and") { // case where checked becomes negative ("and" mode only)
             u.negative = true;
             u.selected = true;
           }

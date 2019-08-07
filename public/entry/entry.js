@@ -4,6 +4,16 @@
 
 export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$location', 'savedListService', 'MiniMapService', '$compile', '$interval', 'entryHighlightingService', '$window', '$state', '$rootScope', 'entryTransformationService', 'entryListContext', function($scope, $http, $stateParams, $sce, $timeout, $location, savedListService, MiniMapService, $compile, $interval, entryHighlightingService, $window, $state, $rootScope, entryTransformationService, entryListContext) {
 
+  var viewModel = {
+    newListName: ''
+  }
+
+  //  expose view model to scope
+  $scope.viewModel = viewModel
+
+  //  expose shared list model to scope
+  $scope.sharedListModel = savedListService.sharedListModel
+
   if ($stateParams.id) {
     
     $scope.id = parseInt($stateParams.id)
@@ -22,7 +32,6 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
           $scope.entry = entry
           $timeout(function(){ $('[data-toggle="tooltip"]').tooltip(); })
           setupMinimap();
-          setupLists();
           setupEditing();
           $scope.currentUser = $rootScope.currentUser;
           $scope.loading = false;
@@ -117,25 +126,6 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
   $scope.getMentionedNameSearchUrl = function (name) {
     let query = { "mentionedNames": name };
     return `#/search/${encodeURIComponent(JSON.stringify(query))}`;
-  }
-
-
-  /*
-  * Sets up list integration.
-  */
-
-  function setupLists() {
-
-    var viewModel = {
-        newListName: ''
-    }
-
-    //  expose view model to scope
-    $scope.viewModel = viewModel
-
-    //  expose shared list model to scope
-    $scope.sharedListModel = savedListService.sharedListModel
-
   }
 
 

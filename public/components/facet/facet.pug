@@ -24,11 +24,11 @@
     .mini-table(ng-show="uniques.length")
       table.table
         tbody
-          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection) | limitTo:limit", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
+          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection) | limitTo:limit", ng-class="{ closed: !u.count && !u.selected }", ng-show="open || u.selected")
             td
               .checkbox
                 label(ng-class="{'explore-alternate-name': field === 'fullName' && u.parentFullName !== u._id, 'facet-crossed-out': u.negative, 'facet-disabled': u.disabled}")
-                  input(type="checkbox", ng-model="u.selected", ng-change="!u.disabled && refresh(u)", ng-disabled="!u.count || u.disabled")
+                  input(type="checkbox", ng-model="u.selected", ng-change="!u.disabled && refresh(u)", ng-disabled="!u.selected && (!u.count || u.disabled)")
                   span {{(u.unmatched ? u._id + "*" : u._id) || "Unknown"}}
                   span.text-light.pull-right {{(!u.negative && u.count !== 99999) ? u.count: ""}}
                   span.alternate-name-see(ng-show="field === 'fullName' && u.parentFullName !== u._id") (see {{u.parentFullName}})

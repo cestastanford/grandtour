@@ -1,3 +1,9 @@
+/*
+ * Based on designs by Ashwin Ramaswami and Cody Leff. This file handles the "View" feature of the website. The Dots feature displays entries
+ * as dots, allowing one to color, size, and group them according to certain properties. The Map feature will display a map of Italy with
+ * locations of tours.
+ */
+
 import d3 from "d3";
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
@@ -8,189 +14,257 @@ import { find, values } from "lodash";
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
 
+const BUFFER = 5;
+
+/*
+ * Handles the View "page", and its HTML and some styles.
+ */
 @Component({
     selector: 'visualization',
     template: `
-    <style>
 
-    /* Loading from https://codepen.io/anon/pen/Oqywqy */
+    <div class='container' style='height: 100%'>
+        <div class='viz-btn-group' style='margin:10px 0px'>
+            <button>Dots</button>
+            <button>Map</button>
+        </div>
 
-    .loader {
-        width: 60px;
-      }
-      
-      .loader-wheel {
-        animation: spin 1s infinite linear;
-        border: 2px solid rgba(30, 30, 30, 0.5);
-        border-left: 4px solid #fff;
-        border-radius: 50%;
-        height: 50px;
-        margin-bottom: 10px;
-        width: 50px;
-        position: absolute;
-        top: 50vh;
-        left: 50vw;
-        transform: translateX(-50%) translateY(-50%);
-      }
-      
-      .loader-text {
-        color: #fff;
-        font-family: arial, sans-serif;
-      }
-      
-      .loader-text:after {
-        content: 'Loading';
-        animation: load 2s linear infinite;
-      }
-      
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      
-      @keyframes load {
-        0% {
-          content: 'Loading';
-        }
-        33% {
-          content: 'Loading.';
-        }
-        67% {
-          content: 'Loading..';
-        }
-        100% {
-          content: 'Loading...';
-        }
-      }
-
-    </style>
-    <div class='loader' [hidden]="loading === false">
-        <div class="loader-wheel"></div>
-        <div class="loader-text"></div>
+        <div class='viz-box'>
+            <div class='dimension'>
+                <p>COLOR</p>
+                <select id="color" (change)="update()">
+                    <option value="none">None</option>
+                    <option value="gender">Gender</option>
+                    <option value="new">Creation</option>
+                </select>
+            </div>
+            <div class='dimension'>
+                <p>SIZE</p>
+                <select id="size" (change)="update()">
+                    <option value="none">None</option>
+                    <option value="length">Entry length</option>
+                    <option value="travelTime">Travel length</option>
+                </select>
+            </div>
+            <div class='dimension'>
+                <p>GROUP</p>
+                <select id="group" (change)="update()">
+                    <option value="none">None</option>
+                    <option value="travel">Date of first travel</option>
+                    <option value="gender">Gender</option>
+                    <option value="new">Creation</option>
+                    <option value="tours">Number of tours</option>
+                </select>
+            </div>
+            
+            <svg width="100%" height="1250px" class="mySvg" (click)="clicked($event)"></svg>
+        </div>
     </div>
-    <button class='btn' (click)="groupBy('all')">Show all</button>
-    <button class='btn' (click)="groupBy('gender')">Group by gender</button>
-    <button class='btn' (click)="groupBy('travel')">Group by travel</button>
-    <button class='btn' (click)="sizeBy({sizeByLength: true})">Size by length</button>
-    <button class='btn' (click)="sizeBy({sizeByTravelTime: true})">Size by travel time</button>
-    <svg width="100%" height="12000" class="mySvg" (click)="clicked($event)">
-
-    </svg>
     `,
     styles: [`
-    .mySvg{
-        background-color: #eee;
+    .mySvg {
+        display: inline-block;
+        background-color: white;
+        border-top: 1px solid #dddddd;
+        border-bottom-right-radius: 2px;
+        border-bottom-left-radius: 2px;
     }
-
-
     `]
 })
+
+/*
+ * This class handles the functionality of the visualization.
+ */
 export class VisualizationComponent {
-    loading = false;
 
     constructor(private http: HttpClient) {
-        this.groupBy("all");
+        this.draw("none", "none", "none"); // on startup, all dots are displayed without any filters
     }
+
+    /*
+     * Called when a select element is changed. All values are collected and the svg is updated.
+     */
+    update() {
+        var colorSelect = document.getElementById("color") as HTMLSelectElement;
+        var colorBy = colorSelect.options[colorSelect.selectedIndex].value;
+
+        var sizeSelect = document.getElementById("size") as HTMLSelectElement;
+        var sizeBy = sizeSelect.options[sizeSelect.selectedIndex].value;
+
+        var groupSelect = document.getElementById("group") as HTMLSelectElement;
+        var groupBy = groupSelect.options[groupSelect.selectedIndex].value;
+
+        this.draw(colorBy, sizeBy, groupBy);
+    }
+
     clear() {
         d3.selectAll("svg > *").remove();
     }
 
-    private drawDots(entries, { x = 0, y = 10, random = false, sizeByLength = false, sizeByTravelTime = false } = {}) {
+
+    /*
+     * For all groups, their label and dots are displayed.
+     */
+    async draw(colorBy, sizeBy, groupBy) {
+        var allGroups = await this.getGroups(groupBy); // specifies group titles and their queries
+        var entryGroups = await this.groupByType(allGroups); // groups entries according to appropriate queries
+
+        this.clear();
+        let x = 1;
+        let y = 12;
+        for (let i in entryGroups) {
+            const group = allGroups[i];
+            const entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
+
+            d3.select('svg').append("text")
+                .attr("x", x)
+                .attr("y", y)
+                .text(function (d) { return group.title; });
+            y += 15;
+
+            let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, y);
+            y = dotGroup + 50;
+        }
+    }
+
+    /*
+     * When given the entries of a group and how the dots should be sized and colored, dots are drawn accordingly. A y variable is stored to
+     * properly locate the next group.
+     */
+    drawDots(entries, colorBy, sizeBy, y) {
+        let x = BUFFER;
+
         let div = d3.select("body").append("div")
             .attr("class", "tool_tip")
-            .style("opacity", 0);
-        let i = 0;
+            .style("opacity", 0)
         let width = d3.select("svg")[0][0].clientWidth;
+
         for (let i in entries) {
             let entry = entries[i];
-            if (random) {
-                x += Math.random() * 10 + 10;
-            }
-            else {
-                x += 10;
-            }
-            if (x > width) {
-                x = 0;
+            if (x > width - BUFFER) {
+                x = BUFFER;
                 y += 10;
             }
+
+            var myColor;
+            if (colorBy === "gender") {
+                switch (entry.gender) {
+                    case "Male":
+                        myColor = "cornflowerblue";
+                        break;
+                    case "Female":
+                        myColor = "indianred";
+                        break;
+                    default:
+                        myColor = "darkslategray";
+                }
+            }
+
+            var mySize;
+            if (sizeBy === "length") {
+                mySize = Math.max(2, entry.biographyLength * .02);
+            } else if (sizeBy === "travelTime") {
+                mySize = Math.max(2, entry.travelTime * .02);
+            } else {
+                mySize = 3;
+            }
             // todo: hover boundary of 2px
-            const circle = d3.select('svg').append('circle')
+            d3.select('svg').append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', sizeByLength ? Math.max(2, entry.biographyLength * .02): sizeByTravelTime ? Math.max(2, entry.travelTime * .02): 0)
-                .attr('fill', 'grey')
+                .attr('r', mySize)
+                .attr('fill', myColor)
+                .style("opacity", 0.75)
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
 
                 .on("mouseover", function (d) {
                     div.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    div.html(entry.fullName)
+                        .style("opacity", .9)
+                    div.text(entry.fullName)
                         .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                })
+                        .style("top", (d3.event.pageY - 28) + "px")
+                        .style("opacity", .9)
+                    }
+                )
                 .on("mouseout", function (d) {
                     div.transition()
-                        .duration(500)
                         .style("opacity", 0);
-                })
+                    }
+                )
                 .on("click", function() {
                     div.style("opacity", 0);
                     window.location.hash = `/entries/${entry.index}`;
-                });
+                    }
+                );
+            x += 10;
         }
-        if (!sizeByLength && !sizeByTravelTime) {
-            d3.select('svg').selectAll('circle').transition().attr('r', 3).duration(1000);   
-        }
-        return { x, y };
+        return y; // Position for end of the dot group is returned to position next dot group.
     }
 
-    private async groupByType(queryOptions) {
-        this.loading = true;
-        let entriesList;
+    /*
+     * Using queries from getGroups, all entries are mapped to the appropriate group and returned.
+     */
+    private async groupByType(allGroups) {
+        let entryGroups;
         try {
-            entriesList = await Promise.all(queryOptions.map(queryOption =>
-                this.http.post('/api/entries/search', { query: queryOption.query }).toPromise()
+            entryGroups = await Promise.all(allGroups.map(group =>
+                this.http.post('/api/entries/search', { query: group.query }).toPromise()
             ));
         }
         catch (e) {
             console.error(e);
-            this.loading = false;
             alert("There was an error loading the visualization requested.");
             return;
         }
-        this.clear();
-        let x = 0;
-        let y = 10;
-        for (let i in entriesList) {
-            const response = entriesList[i];
-            const queryOption = queryOptions[i];
-            d3.select('svg').append("text")
-                .attr("x", 0)
-                .attr("y", y)
-                .text(function (d) { return queryOption.title; });
-            y += 20;
-            let result = this.drawDots((response as { entries: any[], request: any }).entries, { x, y, random: queryOption.random || false });
-            x = 0;
-            y = result.y + 50;
-        }
-        this.loading = false;
+        return entryGroups;
     }
 
-    ngAfterContentInit() {
-        d3.select('p').style('color', 'red');
-        // d3.select('svg').append('circle').attr('cx', 0).attr('cy', 0).attr('r', 20).attr('fill', 'red');
-    }
-
-    groupBy(type) {
+    /*
+     * The groupBy value is used to return a mapping of groups and their titles.
+     */
+    private async getGroups(groupBy) {
         const mapping = {
-            "all": [
-                { title: "", random: true, query: {} }
+            "none": [
+                {   
+                    random: true, 
+                    query: {},
+                    title: ""
+                }
+            ],
+            "travel": [
+                {
+                    query: { travelDate: { startYear: "0", endYear: "1699" } },
+                    title: "Before 1700"
+                },
+                {
+                    query: { travelDate: { startYear: "1700", endYear: "1709" } },
+                    title: "1700-1709"
+                },
+                {
+                    query: { travelDate: { startYear: "1710", endYear: "1719" } },
+                    title: "1710-1719"
+                },
+                {
+                    query: { travelDate: { startYear: "1720", endYear: "1729" } },
+                    title: "1720-1729"
+                },
+                {
+                    query: { travelDate: { startYear: "1730", endYear: "1739" } },
+                    title: "1730-1739"
+                },
+                {
+                    query: { travelDate: { startYear: "1740", endYear: "1749" } },
+                    title: "1740-1749"
+                },
+                {
+                    query: { travelDate: { startYear: "1750", endYear: "1759" } },
+                    title: "1750-1759"
+                },
+                {
+                    query: { travelDate: { startYear: "1760", endYear: "9999" } },
+                    title: "1760 and after"
+                }
             ],
             "gender": [
                 {
@@ -200,51 +274,27 @@ export class VisualizationComponent {
                 {
                     query: { type: "Female" },
                     title: "Female"
+                },
+                {
+                    query: { type: "" },
+                    title: "Unknown"
                 }
             ],
-            "travel": [
+            "new": [
                 {
-                    query: { travelDate: { startYear: "0", endYear: "1699" } },
-                    title: "Before 1700"
+                    query: { type: "Male" },
+                    title: "Male"
                 },
                 {
-                    query: { travelDate: { startYear: "1700", endYear: "1720" } },
-                    title: "1700-1720"
-                },
-                {
-                    query: { travelDate: { startYear: "1721", endYear: "1740" } },
-                    title: "1721-1740"
-                },
-                {
-                    query: { travelDate: { startYear: "1741", endYear: "1760" } },
-                    title: "1744-1760"
-                },
-                {
-                    query: { travelDate: { startYear: "1761", endYear: "9999" } },
-                    title: "1761+"
+                    query: { type: "Female" },
+                    title: "Female"
                 }
+            ],
+            "tours": [
+
             ]
         }
-        this.groupByType(mapping[type]);
-    }
-
-    private async sizeBy(opts={}) {
-        this.loading = true;
-        let response;
-        try {
-            response = await this.http.post('/api/entries/search', { query: {} }).toPromise()
-        }
-        catch (e) {
-            console.error(e);
-            this.loading = false;
-            alert("There was an error loading the visualization requested.");
-            return;
-        }
-        this.clear();
-        let x = 0;
-        let y = 10;
-        let result = this.drawDots((response as { entries: any[], request: any }).entries, {x, y, random: false, ...opts });
-        this.loading = false;
+        return mapping[groupBy];
     }
 
     clicked(event) {

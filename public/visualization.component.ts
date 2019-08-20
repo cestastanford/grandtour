@@ -52,7 +52,6 @@ const BUFFER = 5;
                     <option value="none">None</option>
                     <option value="travel">Date of first travel</option>
                     <option value="gender">Gender</option>
-                    <option value="new">Creation</option>
                     <option value="tours">Number of tours</option>
                 </select>
             </div>
@@ -158,11 +157,22 @@ export class VisualizationComponent {
                     default:
                         myColor = "darkslategray";
                 }
-            }
+            } else if (colorBy === "new") {
+                switch (Number.isInteger(entry.index)) {
+                    case true:
+                        myColor = "indigo";
+                        break;
+                    case false:
+                        myColor = "coral";
+                        break;
+                    default:
+                        myColor = "darkslategray";
+                }
+            } 
 
             var mySize;
             if (sizeBy === "length") {
-                mySize = Math.max(2, entry.biographyLength * .02);
+                mySize = Math.max(2, entry.entryLength * .001);
             } else if (sizeBy === "travelTime") {
                 mySize = Math.max(2, entry.travelTime * .02);
             } else {
@@ -278,16 +288,6 @@ export class VisualizationComponent {
                 {
                     query: { type: "" },
                     title: "Unknown"
-                }
-            ],
-            "new": [
-                {
-                    query: { type: "Male" },
-                    title: "Male"
-                },
-                {
-                    query: { type: "Female" },
-                    title: "Female"
                 }
             ],
             "tours": [

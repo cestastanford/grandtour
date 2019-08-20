@@ -497,11 +497,15 @@ exports.search = (req, res, next) => {
     Entry.findAtRevision(
         query,
         req.user.activeRevisionIndex,
+        // values to retrieve for projectForEntryList
         {
             index: true,
             fullName: true,
             type: true,
             biography: true,
+            tours: true,
+            narrative: true,
+            notes: true,
             travels: true,
         },
         null,
@@ -518,8 +522,9 @@ exports.search = (req, res, next) => {
 const projectForEntryList = entry => ({
 
     index: entry.index,
-    gender: entry.type,
     fullName: entry.fullName,
+    gender: entry.type,
+    entryLength: entry.biography.length + (entry.tours ? entry.tours.length : 0) + (entry.narrative ? entry.narrative.length : 0) + (entry.notes ? entry.notes.length : 0),
     biographyLength: entry.biography.length,
     travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {
         if (travel.travelEndYear && travel.travelStartYear) {

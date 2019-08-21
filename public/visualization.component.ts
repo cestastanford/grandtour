@@ -35,7 +35,7 @@ const BUFFER = 5;
                 <select id="color" (change)="update()">
                     <option value="none">None</option>
                     <option value="gender">Gender</option>
-                    <option value="new">Creation</option>
+                    <option value="new">New entries</option>
                 </select>
             </div>
             <div class='dimension'>
@@ -50,18 +50,18 @@ const BUFFER = 5;
                 <p>GROUP</p>
                 <select id="group" (change)="update()">
                     <option value="none">None</option>
-                    <option value="travel">Date of first travel</option>
+                    <option value="travel">Date of travel</option>
                     <option value="gender">Gender</option>
                     <option value="tours">Number of tours</option>
                 </select>
             </div>
             
-            <svg width="100%" height="1250px" class="mySvg" (click)="clicked($event)"></svg>
+            <svg width="100%" height="1250px" id="mySvg" (click)="clicked($event)"></svg>
         </div>
     </div>
     `,
     styles: [`
-    .mySvg {
+    #mySvg {
         display: inline-block;
         background-color: white;
         border-top: 1px solid #dddddd;
@@ -78,6 +78,9 @@ export class VisualizationComponent {
 
     constructor(private http: HttpClient) {
         this.draw("none", "none", "none"); // on startup, all dots are displayed without any filters
+        window.addEventListener("resize", (e: Event) => {
+            this.update();
+        });
     }
 
     /*
@@ -124,6 +127,11 @@ export class VisualizationComponent {
             let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, y);
             y = dotGroup + 50;
         }
+        var svg = document.getElementById("mySvg");
+        if (svg != null) {
+            svg.setAttribute("height", String(y - 15));
+            svg.setAttribute("width", "100%");
+        }
     }
 
     /*
@@ -155,26 +163,38 @@ export class VisualizationComponent {
                         myColor = "indianred";
                         break;
                     default:
-                        myColor = "darkslategray";
+                        myColor = "dimgray";
                 }
             } else if (colorBy === "new") {
                 switch (Number.isInteger(entry.index)) {
                     case true:
-                        myColor = "indigo";
+                        myColor = "black";
                         break;
                     case false:
-                        myColor = "coral";
+                        myColor = "cornflowerblue";
                         break;
                     default:
-                        myColor = "darkslategray";
+                        myColor = "dimgray";
                 }
             } 
 
             var mySize;
             if (sizeBy === "length") {
-                mySize = Math.max(2, entry.entryLength * .001);
+                mySize = Math.ceil(entry.entryLength * .002);
+                // var length = entry.entryLength;
+                // if (length < 50) {
+                //     mySize = 1;
+                // } else if (length < 200) {
+                //     mySize = 3;
+                // } else if (length < 400) {
+                //     mySize = 5;
+                // } else if (length < 800) {
+                //     mySize = 7;
+                // } else {
+                //     mySize = 9;
+                // }
             } else if (sizeBy === "travelTime") {
-                mySize = Math.max(2, entry.travelTime * .02);
+                mySize = Math.max(1, Math.ceil(entry.travelTime * .04)); // entries that have no travelTime will have a size of 1
             } else {
                 mySize = 3;
             }
@@ -272,8 +292,24 @@ export class VisualizationComponent {
                     title: "1750-1759"
                 },
                 {
-                    query: { travelDate: { startYear: "1760", endYear: "9999" } },
-                    title: "1760 and after"
+                    query: { travelDate: { startYear: "1760", endYear: "1769" } },
+                    title: "1760-1769"
+                },
+                {
+                    query: { travelDate: { startYear: "1770", endYear: "1779" } },
+                    title: "1770-1779"
+                },
+                {
+                    query: { travelDate: { startYear: "1780", endYear: "1789" } },
+                    title: "1780-1789"
+                },
+                {
+                    query: { travelDate: { startYear: "1790", endYear: "1799" } },
+                    title: "1790-1799"
+                },
+                {
+                    query: { travelDate: { startYear: "1800", endYear: "9999" } },
+                    title: "1800 and after"
                 }
             ],
             "gender": [
@@ -290,8 +326,15 @@ export class VisualizationComponent {
                     title: "Unknown"
                 }
             ],
-            "tours": [
+            "new": [
+                {
 
+                }
+            ],
+            "tours": [
+                {
+                    query: {}
+                }
             ]
         }
         return mapping[groupBy];

@@ -502,6 +502,7 @@ exports.search = (req, res, next) => {
             index: true,
             fullName: true,
             type: true,
+            numTours: true,
             biography: true,
             tours: true,
             narrative: true,
@@ -524,6 +525,7 @@ const projectForEntryList = entry => ({
     index: entry.index,
     fullName: entry.fullName,
     gender: entry.type,
+    numTours: entry.numTours,
     entryLength: entry.biography.length + (entry.tours ? entry.tours.length : 0) + (entry.narrative ? entry.narrative.length : 0) + (entry.notes ? entry.notes.length : 0),
     biographyLength: entry.biography.length,
     travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {

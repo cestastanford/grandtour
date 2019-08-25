@@ -2,7 +2,7 @@
 *   List management service
 */
 
-export default ['$rootScope', '$http', function($rootScope, $http) {
+export default ['$rootScope', '$http', '$window', function($rootScope, $http, $window) {
 
   //  public service object
   var sharedListModel = {
@@ -27,18 +27,20 @@ export default ['$rootScope', '$http', function($rootScope, $http) {
 
   //  delete a list
   var deleteList = function(list, callback) {
-    $http.post('/api/lists/deletelist', {
-      username: $rootScope.currentUser.username,
-      id: list._id
-    })
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else {
-        var index = sharedListModel.myLists.indexOf(list);
-        sharedListModel.myLists.splice(index, 1);
-        callback();
-      }
-    }, function(res) { console.error(res); });
+    if ($window.confirm('Are you sure you want to permanently delete this list?')) {
+      $http.post('/api/lists/deletelist', {
+        username: $rootScope.currentUser.username,
+        id: list._id
+      })
+      .then(function(res) {
+        if (res.data.error) console.error(res.data.error);
+        else {
+          var index = sharedListModel.myLists.indexOf(list);
+          sharedListModel.myLists.splice(index, 1);
+          callback();
+        }
+      }, function(res) { console.error(res); });
+    }
   };
 
   //  add to a list

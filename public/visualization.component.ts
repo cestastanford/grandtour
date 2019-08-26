@@ -146,6 +146,8 @@ export class VisualizationComponent {
             .style("opacity", 0)
         let width = d3.select("svg")[0][0].clientWidth;
 
+        let zEntries = [] as any; // entries sorted by z-index
+
         for (let i in entries) {
             let entry = entries[i];
             if (x > width - BUFFER) {
@@ -176,7 +178,9 @@ export class VisualizationComponent {
                     default:
                         myColor = "dimgray";
                 }
-            } 
+            } else {
+                myColor = "black";
+            }
 
             var mySize;
             if (sizeBy === "length") {
@@ -198,12 +202,34 @@ export class VisualizationComponent {
             } else {
                 mySize = 3;
             }
+
+            var zEntry = {
+                cx: x,
+                cy: y,
+                r: mySize,
+                fill: myColor,
+                fullName: entry.fullName,
+                index: entry.index,
+            }
+
+            zEntries.push(zEntry as any);
+
+            x += 10;
+        }
+
+        // entries are ordered from largest to smallest, such that smaller dots are drawn on top of larger dots.
+        zEntries.sort(function(a, b) {
+            return b.r - a.r;
+        });
+
+        for (let i in zEntries) {
+            let zEntry = zEntries[i];
             // todo: hover boundary of 2px
             d3.select('svg').append('circle')
-                .attr('cx', x)
-                .attr('cy', y)
-                .attr('r', mySize)
-                .attr('fill', myColor)
+                .attr('cx', zEntry.cx)
+                .attr('cy', zEntry.cy)
+                .attr('r', zEntry.r)
+                .attr('fill', zEntry.fill)
                 .style("opacity", 0.75)
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
@@ -211,7 +237,7 @@ export class VisualizationComponent {
                 .on("mouseover", function (d) {
                     div.transition()
                         .style("opacity", .9)
-                    div.text(entry.fullName)
+                    div.text(zEntry.fullName)
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY - 28) + "px")
                         .style("opacity", .9)
@@ -224,12 +250,12 @@ export class VisualizationComponent {
                 )
                 .on("click", function() {
                     div.style("opacity", 0);
-                    var hash = `/#/entries/${entry.index}`;
+                    var hash = `/#/entries/${zEntry.index}`;
                     window.open(hash);
                     }
                 );
-            x += 10;
         }
+
         return y; // The placement of the lowest dot is returned. This is used to position the next group.
     }
 

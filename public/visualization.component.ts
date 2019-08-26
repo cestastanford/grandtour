@@ -230,7 +230,7 @@ export class VisualizationComponent {
                 );
             x += 10;
         }
-        return y; // Position for end of the dot group is returned to position next dot group.
+        return y; // The placement of the lowest dot is returned. This is used to position the next group.
     }
 
     /*

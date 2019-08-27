@@ -362,58 +362,58 @@ export class VisualizationComponent {
                     query: { numTours: 1},
                     title: "1"
                 },
-                // {
-                //     query: { numTours: 2},
-                //     title: "2"
-                // },
-                // {
-                //     query: { numTours: 3},
-                //     title: "3"
-                // },
-                // {
-                //     query: { numTours: 4},
-                //     title: "4"
-                // },
-                // {
-                //     query: { numTours: 5},
-                //     title: "5"
-                // },
-                // {
-                //     query: { numTours: 6},
-                //     title: "6"
-                // },
-                // {
-                //     query: { numTours: 7},
-                //     title: "7"
-                // },
-                // {
-                //     query: { numTours: 8},
-                //     title: "8"
-                // },
-                // {
-                //     query: { numTours: 9},
-                //     title: "9"
-                // },
-                // {
-                //     query: { numTours: 10},
-                //     title: "10"
-                // },
-                // {
-                //     query: { numTours: 11},
-                //     title: "11"
-                // },
-                // {
-                //     query: { numTours: 13},
-                //     title: "13"
-                // },
-                // {
-                //     query: { numTours: 16},
-                //     title: "16"
-                // },
-                // {
-                //     query: { numTours: 20},
-                //     title: "20"
-                // },
+                {
+                    query: { numTours: 2},
+                    title: "2"
+                },
+                {
+                    query: { numTours: 3},
+                    title: "3"
+                },
+                {
+                    query: { numTours: 4},
+                    title: "4"
+                },
+                {
+                    query: { numTours: 5},
+                    title: "5"
+                },
+                {
+                    query: { numTours: 6},
+                    title: "6"
+                },
+                {
+                    query: { numTours: 7},
+                    title: "7"
+                },
+                {
+                    query: { numTours: 8},
+                    title: "8"
+                },
+                {
+                    query: { numTours: 9},
+                    title: "9"
+                },
+                {
+                    query: { numTours: 10},
+                    title: "10"
+                },
+                {
+                    query: { numTours: 11},
+                    title: "11"
+                },
+                {
+                    query: { numTours: 13},
+                    title: "13"
+                },
+                {
+                    query: { numTours: 16},
+                    title: "16"
+                },
+                {
+                    query: { numTours: 20},
+                    title: "20"
+                },
             ]
         }
         return mapping[groupBy];

@@ -393,7 +393,9 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } }),
+    numTours: d => ({ numTours: d }),
+
 }
 
 

@@ -1,3 +1,9 @@
+/*
+ * Based on designs by Ashwin Ramaswami and Cody Leff. This file handles the "View" feature of the website. The Dots feature displays entries
+ * as dots, allowing one to color, size, and group them according to certain properties. The Map feature will display a map of Italy with
+ * locations of tours.
+ */
+
 import d3 from "d3";
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
@@ -8,189 +14,330 @@ import { find, values } from "lodash";
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
 
+const BUFFER = 5;
+
+/*
+ * Handles the View "page", and its HTML and some styles.
+ */
 @Component({
     selector: 'visualization',
     template: `
-    <style>
 
-    /* Loading from https://codepen.io/anon/pen/Oqywqy */
+    <div class='container' style='height: 100%'>
+        <div class='viz-btn-group' style='margin:10px 0px'>
+            <button>Dots</button>
+            <button>Map</button>
+        </div>
 
-    .loader {
-        width: 60px;
-      }
-      
-      .loader-wheel {
-        animation: spin 1s infinite linear;
-        border: 2px solid rgba(30, 30, 30, 0.5);
-        border-left: 4px solid #fff;
-        border-radius: 50%;
-        height: 50px;
-        margin-bottom: 10px;
-        width: 50px;
-        position: absolute;
-        top: 50vh;
-        left: 50vw;
-        transform: translateX(-50%) translateY(-50%);
-      }
-      
-      .loader-text {
-        color: #fff;
-        font-family: arial, sans-serif;
-      }
-      
-      .loader-text:after {
-        content: 'Loading';
-        animation: load 2s linear infinite;
-      }
-      
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      
-      @keyframes load {
-        0% {
-          content: 'Loading';
-        }
-        33% {
-          content: 'Loading.';
-        }
-        67% {
-          content: 'Loading..';
-        }
-        100% {
-          content: 'Loading...';
-        }
-      }
-
-    </style>
-    <div class='loader' [hidden]="loading === false">
-        <div class="loader-wheel"></div>
-        <div class="loader-text"></div>
+        <div class='viz-box'>
+            <div class='dimension'>
+                <p>COLOR</p>
+                <select id="color" (change)="update()">
+                    <option value="none">None</option>
+                    <option value="gender">Gender</option>
+                    <option value="new">New entries</option>
+                </select>
+            </div>
+            <div class='dimension'>
+                <p>SIZE</p>
+                <select id="size" (change)="update()">
+                    <option value="none">None</option>
+                    <option value="length">Entry length</option>
+                    <option value="travelTime">Travel length</option>
+                </select>
+            </div>
+            <div class='dimension'>
+                <p>GROUP</p>
+                <select id="group" (change)="update()">
+                    <option value="none">None</option>
+                    <option value="travel">Date of travel</option>
+                    <option value="gender">Gender</option>
+                    <option value="tours">Number of tours</option>
+                </select>
+            </div>
+            
+            <svg width="100%" height="1250px" id="mySvg" (click)="clicked($event)"></svg>
+        </div>
     </div>
-    <button class='btn' (click)="groupBy('all')">Show all</button>
-    <button class='btn' (click)="groupBy('gender')">Group by gender</button>
-    <button class='btn' (click)="groupBy('travel')">Group by travel</button>
-    <button class='btn' (click)="sizeBy({sizeByLength: true})">Size by length</button>
-    <button class='btn' (click)="sizeBy({sizeByTravelTime: true})">Size by travel time</button>
-    <svg width="100%" height="12000" class="mySvg" (click)="clicked($event)">
-
-    </svg>
     `,
     styles: [`
-    .mySvg{
-        background-color: #eee;
+    #mySvg {
+        display: inline-block;
+        background-color: white;
+        border-top: 1px solid #dddddd;
+        border-bottom-right-radius: 2px;
+        border-bottom-left-radius: 2px;
     }
-
-
     `]
 })
+
+/*
+ * This class handles the functionality of the visualization.
+ */
 export class VisualizationComponent {
-    loading = false;
 
     constructor(private http: HttpClient) {
-        this.groupBy("all");
+        this.draw("none", "none", "none"); // on startup, all dots are displayed without any filters
+        window.addEventListener("resize", (e: Event) => {
+            this.update();
+        });
     }
+
+    /*
+     * Called when a select element is changed. All values are collected and the svg is updated.
+     */
+    update() {
+        var colorSelect = document.getElementById("color") as HTMLSelectElement;
+        var colorBy = colorSelect.options[colorSelect.selectedIndex].value;
+
+        var sizeSelect = document.getElementById("size") as HTMLSelectElement;
+        var sizeBy = sizeSelect.options[sizeSelect.selectedIndex].value;
+
+        var groupSelect = document.getElementById("group") as HTMLSelectElement;
+        var groupBy = groupSelect.options[groupSelect.selectedIndex].value;
+
+        this.draw(colorBy, sizeBy, groupBy);
+    }
+
     clear() {
         d3.selectAll("svg > *").remove();
     }
 
-    private drawDots(entries, { x = 0, y = 10, random = false, sizeByLength = false, sizeByTravelTime = false } = {}) {
+
+    /*
+     * For all groups, their label and dots are displayed.
+     */
+    async draw(colorBy, sizeBy, groupBy) {
+        var allGroups = await this.getGroups(groupBy); // specifies group titles and their queries
+        var entryGroups = await this.groupByType(allGroups); // groups entries according to appropriate queries
+
+        this.clear();
+        let x = 1;
+        let y = 12;
+        for (let i in entryGroups) {
+            const group = allGroups[i];
+            const entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
+
+            d3.select('svg').append("text")
+                .attr("x", x)
+                .attr("y", y)
+                .text(function (d) { return group.title; });
+            y += 15;
+
+            let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, y);
+            y = dotGroup + 50;
+        }
+        var svg = document.getElementById("mySvg");
+        if (svg != null) {
+            svg.setAttribute("height", String(y - 15));
+            svg.setAttribute("width", "100%");
+        }
+    }
+
+    /*
+     * When given the entries of a group and how the dots should be sized and colored, dots are drawn accordingly. A y variable is stored to
+     * properly locate the next group.
+     */
+    drawDots(entries, colorBy, sizeBy, y) {
+        let x = BUFFER;
+
         let div = d3.select("body").append("div")
             .attr("class", "tool_tip")
-            .style("opacity", 0);
-        let i = 0;
+            .style("opacity", 0)
         let width = d3.select("svg")[0][0].clientWidth;
+
+        let zEntries = [] as any; // entries sorted by z-index
+
         for (let i in entries) {
             let entry = entries[i];
-            if (random) {
-                x += Math.random() * 10 + 10;
-            }
-            else {
-                x += 10;
-            }
-            if (x > width) {
-                x = 0;
+            if (x > width - BUFFER) {
+                x = BUFFER;
                 y += 10;
             }
+
+            var myColor;
+            if (colorBy === "gender") {
+                switch (entry.gender) {
+                    case "Male":
+                        myColor = "cornflowerblue";
+                        break;
+                    case "Female":
+                        myColor = "indianred";
+                        break;
+                    default:
+                        myColor = "dimgray";
+                }
+            } else if (colorBy === "new") {
+                switch (Number.isInteger(entry.index)) {
+                    case true:
+                        myColor = "black";
+                        break;
+                    case false:
+                        myColor = "cornflowerblue";
+                        break;
+                    default:
+                        myColor = "dimgray";
+                }
+            } else {
+                myColor = "black";
+            }
+
+            var mySize;
+            if (sizeBy === "length") {
+                mySize = Math.max(1, Math.ceil(entry.entryLength * .002));
+                // var length = entry.entryLength;
+                // if (length < 50) {
+                //     mySize = 1;
+                // } else if (length < 200) {
+                //     mySize = 3;
+                // } else if (length < 400) {
+                //     mySize = 5;
+                // } else if (length < 800) {
+                //     mySize = 7;
+                // } else {
+                //     mySize = 9;
+                // }
+            } else if (sizeBy === "travelTime") {
+                mySize = Math.max(1, Math.ceil(entry.travelTime * .04)); // entries that have no travelTime will have a size of 1
+            } else {
+                mySize = 3;
+            }
+
+            var zEntry = {
+                cx: x,
+                cy: y,
+                r: mySize,
+                fill: myColor,
+                fullName: entry.fullName,
+                index: entry.index,
+            }
+
+            zEntries.push(zEntry as any);
+
+            x += 10;
+        }
+
+        // entries are ordered from largest to smallest, such that smaller dots are drawn on top of larger dots.
+        zEntries.sort(function(a, b) {
+            return b.r - a.r;
+        });
+
+        for (let i in zEntries) {
+            let zEntry = zEntries[i];
             // todo: hover boundary of 2px
-            const circle = d3.select('svg').append('circle')
-                .attr('cx', x)
-                .attr('cy', y)
-                .attr('r', sizeByLength ? Math.max(2, entry.biographyLength * .02): sizeByTravelTime ? Math.max(2, entry.travelTime * .02): 0)
-                .attr('fill', 'grey')
+            d3.select('svg').append('circle')
+                .attr('cx', zEntry.cx)
+                .attr('cy', zEntry.cy)
+                .attr('r', zEntry.r)
+                .attr('fill', zEntry.fill)
+                .style("opacity", 0.75)
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
 
                 .on("mouseover", function (d) {
                     div.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    div.html(entry.fullName)
+                        .style("opacity", .9)
+                    div.text(zEntry.fullName)
                         .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                })
+                        .style("top", (d3.event.pageY - 28) + "px")
+                        .style("opacity", .9)
+                    }
+                )
                 .on("mouseout", function (d) {
                     div.transition()
-                        .duration(500)
                         .style("opacity", 0);
-                })
+                    }
+                )
                 .on("click", function() {
                     div.style("opacity", 0);
-                    window.location.hash = `/entries/${entry.index}`;
-                });
+                    var hash = `/#/entries/${zEntry.index}`;
+                    window.open(hash);
+                    }
+                );
         }
-        if (!sizeByLength && !sizeByTravelTime) {
-            d3.select('svg').selectAll('circle').transition().attr('r', 3).duration(1000);   
-        }
-        return { x, y };
+
+        return y; // The placement of the lowest dot is returned. This is used to position the next group.
     }
 
-    private async groupByType(queryOptions) {
-        this.loading = true;
-        let entriesList;
+    /*
+     * Using queries from getGroups, all entries are mapped to the appropriate group and returned.
+     */
+    private async groupByType(allGroups) {
+        let entryGroups;
         try {
-            entriesList = await Promise.all(queryOptions.map(queryOption =>
-                this.http.post('/api/entries/search', { query: queryOption.query }).toPromise()
+            entryGroups = await Promise.all(allGroups.map(group =>
+                this.http.post('/api/entries/search', { query: group.query }).toPromise()
             ));
         }
         catch (e) {
             console.error(e);
-            this.loading = false;
             alert("There was an error loading the visualization requested.");
             return;
         }
-        this.clear();
-        let x = 0;
-        let y = 10;
-        for (let i in entriesList) {
-            const response = entriesList[i];
-            const queryOption = queryOptions[i];
-            d3.select('svg').append("text")
-                .attr("x", 0)
-                .attr("y", y)
-                .text(function (d) { return queryOption.title; });
-            y += 20;
-            let result = this.drawDots((response as { entries: any[], request: any }).entries, { x, y, random: queryOption.random || false });
-            x = 0;
-            y = result.y + 50;
-        }
-        this.loading = false;
+        return entryGroups;
     }
 
-    ngAfterContentInit() {
-        d3.select('p').style('color', 'red');
-        // d3.select('svg').append('circle').attr('cx', 0).attr('cy', 0).attr('r', 20).attr('fill', 'red');
-    }
-
-    groupBy(type) {
+    /*
+     * The groupBy value is used to return a mapping of groups and their titles.
+     */
+    private async getGroups(groupBy) {
         const mapping = {
-            "all": [
-                { title: "", random: true, query: {} }
+            "none": [
+                {   
+                    random: true, 
+                    query: {},
+                    title: ""
+                }
+            ],
+            "travel": [
+                {
+                    query: { travelDate: { startYear: "0", endYear: "1699" } },
+                    title: "Before 1700"
+                },
+                {
+                    query: { travelDate: { startYear: "1700", endYear: "1709" } },
+                    title: "1700-1709"
+                },
+                {
+                    query: { travelDate: { startYear: "1710", endYear: "1719" } },
+                    title: "1710-1719"
+                },
+                {
+                    query: { travelDate: { startYear: "1720", endYear: "1729" } },
+                    title: "1720-1729"
+                },
+                {
+                    query: { travelDate: { startYear: "1730", endYear: "1739" } },
+                    title: "1730-1739"
+                },
+                {
+                    query: { travelDate: { startYear: "1740", endYear: "1749" } },
+                    title: "1740-1749"
+                },
+                {
+                    query: { travelDate: { startYear: "1750", endYear: "1759" } },
+                    title: "1750-1759"
+                },
+                {
+                    query: { travelDate: { startYear: "1760", endYear: "1769" } },
+                    title: "1760-1769"
+                },
+                {
+                    query: { travelDate: { startYear: "1770", endYear: "1779" } },
+                    title: "1770-1779"
+                },
+                {
+                    query: { travelDate: { startYear: "1780", endYear: "1789" } },
+                    title: "1780-1789"
+                },
+                {
+                    query: { travelDate: { startYear: "1790", endYear: "1799" } },
+                    title: "1790-1799"
+                },
+                {
+                    query: { travelDate: { startYear: "1800", endYear: "9999" } },
+                    title: "1800 and after"
+                }
             ],
             "gender": [
                 {
@@ -200,51 +347,72 @@ export class VisualizationComponent {
                 {
                     query: { type: "Female" },
                     title: "Female"
+                },
+                {
+                    query: { type: "" },
+                    title: "Unknown"
                 }
             ],
-            "travel": [
+            "tours": [
                 {
-                    query: { travelDate: { startYear: "0", endYear: "1699" } },
-                    title: "Before 1700"
+                    query: { numTours: "1"},
+                    title: "1"
                 },
                 {
-                    query: { travelDate: { startYear: "1700", endYear: "1720" } },
-                    title: "1700-1720"
+                    query: { numTours: "2"},
+                    title: "2"
                 },
                 {
-                    query: { travelDate: { startYear: "1721", endYear: "1740" } },
-                    title: "1721-1740"
+                    query: { numTours: "3"},
+                    title: "3"
                 },
                 {
-                    query: { travelDate: { startYear: "1741", endYear: "1760" } },
-                    title: "1744-1760"
+                    query: { numTours: "4"},
+                    title: "4"
                 },
                 {
-                    query: { travelDate: { startYear: "1761", endYear: "9999" } },
-                    title: "1761+"
-                }
+                    query: { numTours: "5"},
+                    title: "5"
+                },
+                {
+                    query: { numTours: "6"},
+                    title: "6"
+                },
+                {
+                    query: { numTours: "7"},
+                    title: "7"
+                },
+                {
+                    query: { numTours: "8"},
+                    title: "8"
+                },
+                {
+                    query: { numTours: "9"},
+                    title: "9"
+                },
+                {
+                    query: { numTours: "10"},
+                    title: "10"
+                },
+                {
+                    query: { numTours: "11"},
+                    title: "11"
+                },
+                {
+                    query: { numTours: "13"},
+                    title: "13"
+                },
+                {
+                    query: { numTours: "16"},
+                    title: "16"
+                },
+                {
+                    query: { numTours: "20"},
+                    title: "20"
+                },
             ]
         }
-        this.groupByType(mapping[type]);
-    }
-
-    private async sizeBy(opts={}) {
-        this.loading = true;
-        let response;
-        try {
-            response = await this.http.post('/api/entries/search', { query: {} }).toPromise()
-        }
-        catch (e) {
-            console.error(e);
-            this.loading = false;
-            alert("There was an error loading the visualization requested.");
-            return;
-        }
-        this.clear();
-        let x = 0;
-        let y = 10;
-        let result = this.drawDots((response as { entries: any[], request: any }).entries, {x, y, random: false, ...opts });
-        this.loading = false;
+        return mapping[groupBy];
     }
 
     clicked(event) {

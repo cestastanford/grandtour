@@ -1019,15 +1019,90 @@ div.tool_tip {
   height: 38px;
   margin-left: 20px;
   margin-bottom: 30px;
-  /* border: 1px solid black;					 */
   padding: 2px;				
   font: 12px sans-serif;		
-  background: lightsteelblue;	
+  background: lightgray;	
   border: 0px;		
   border-radius: 8px;			
-  pointer-events: none;			
+  pointer-events: none;
+  text-overflow: ellipsis;		
 }
 
 .tooltip-inner {
   min-width: 150px;
+}
+
+.viz-btn-group {
+  border: 2px solid #dddddd;
+  border-radius: 4px;
+  margin: 5px;
+  display: inline-block;
+}
+
+.viz-btn-group button {
+  border: 0px;
+  background-color: #eeeeee;
+  padding: 9px 20px;
+  font-size: 15px;
+  display: inline-block;
+}
+
+.viz-btn-group button:first-child {
+  background-color: #dddddd; /*Colors only temporary for demo*/
+  color: black;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.viz-btn-group button:last-child {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.viz-btn-group button:hover {
+  background-color: #dddddd;
+  color: black
+}
+
+.viz-btn-group button:active {
+  background-color: #dddddd;
+  color: black
+}
+
+.viz-box {
+  width: 100%;
+  height: 100%;
+  background-color: #eeeeee;
+  border: 2px solid #dddddd;
+  border-radius: 4px;
+  display: block;
+}
+
+.viz-box .dimension {
+  display: inline-block;
+  padding: 8px 12px 12px;
+}
+
+.viz-box .dimension p {
+  color: #333;
+  font-family: 'Poly', serif;
+}
+
+.viz-box select {
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.viz-box select:hover {
+  background-color: #fbfbfb;
+}
+
+.viz-box .side {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-top: 2px solid #dddddd;
+  border-bottom: 2px solid #dddddd;
 }

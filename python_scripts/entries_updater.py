@@ -17,6 +17,18 @@ client = MongoClient(uri)
 database_name = pymongo.uri_parser.parse_uri(uri)['database']
 db = client[database_name]
 
+entries = db.entries.find({})
+for entry in entries:
+    print(entry)
+    travels = entry["travels"]
+    numTours = 0
+    for travel in travels:
+        if "tourIndex" in travel:
+            tourIndex = travel["tourIndex"]
+            if tourIndex > numTours:
+                numTours = tourIndex
+    db.entries.update_one({"_id": entry["_id"]}, {"$set": {"numTours": numTours}})
+
 with open(os.path.join(os.path.dirname(__file__), 'consolidated_entries.json')) as f:
     updates = json.load(f)
 

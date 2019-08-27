@@ -527,6 +527,8 @@ const projectForEntryList = entry => ({
     gender: entry.type,
     numTours: entry.numTours,
     entryLength: entry.biography.length + (entry.tours ? entry.tours.length : 0) + (entry.narrative ? entry.narrative.length : 0) + (entry.notes ? entry.notes.length : 0),
+    // use this for word count:
+    // entryLength: entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
     biographyLength: entry.biography.length,
     travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {
         if (travel.travelEndYear && travel.travelStartYear) {

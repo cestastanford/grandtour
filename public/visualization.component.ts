@@ -15,6 +15,11 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
 
 const BUFFER = 5;
+const MAIN_COLOR = "black"
+const MALE_COLOR = "cornflowerblue";
+const FEMALE_COLOR = "indianred";
+const NEW_COLOR = "cornflowerblue";
+const OTHER_COLOR = "dimgray";
 
 /*
  * Handles the View "page", and its HTML and some styles.
@@ -128,7 +133,7 @@ export class VisualizationComponent {
             y = dotGroup + 50;
         }
         var svg = document.getElementById("mySvg");
-        if (svg != null) {
+        if (svg) {
             svg.setAttribute("height", String(y - 15));
             svg.setAttribute("width", "100%");
         }
@@ -159,43 +164,44 @@ export class VisualizationComponent {
             if (colorBy === "gender") {
                 switch (entry.gender) {
                     case "Male":
-                        myColor = "cornflowerblue";
+                        myColor = MALE_COLOR;
                         break;
                     case "Female":
-                        myColor = "indianred";
+                        myColor = FEMALE_COLOR;
                         break;
                     default:
-                        myColor = "dimgray";
+                        myColor = OTHER_COLOR;
                 }
             } else if (colorBy === "new") {
                 switch (Number.isInteger(entry.index)) {
                     case true:
-                        myColor = "black";
+                        myColor = MAIN_COLOR;
                         break;
                     case false:
-                        myColor = "cornflowerblue";
+                        myColor = NEW_COLOR;
                         break;
                     default:
-                        myColor = "dimgray";
+                        myColor = OTHER_COLOR;
                 }
             } else {
-                myColor = "black";
+                myColor = MAIN_COLOR;
             }
 
             var mySize;
             if (sizeBy === "length") {
                 mySize = Math.max(1, Math.ceil(entry.entryLength * .002));
+                // this code kept here in case of Giovanna's 'threshold' preference (note: need to convert length from char count to word count, see entryLength in query.js)
                 // var length = entry.entryLength;
                 // if (length < 50) {
                 //     mySize = 1;
                 // } else if (length < 200) {
-                //     mySize = 3;
+                //     mySize = 2;
                 // } else if (length < 400) {
-                //     mySize = 5;
+                //     mySize = 4;
                 // } else if (length < 800) {
-                //     mySize = 7;
+                //     mySize = 8;
                 // } else {
-                //     mySize = 9;
+                //     mySize = 16;
                 // }
             } else if (sizeBy === "travelTime") {
                 mySize = Math.max(1, Math.ceil(entry.travelTime * .04)); // entries that have no travelTime will have a size of 1
@@ -263,9 +269,8 @@ export class VisualizationComponent {
      * Using queries from getGroups, all entries are mapped to the appropriate group and returned.
      */
     private async groupByType(allGroups) {
-        let entryGroups;
         try {
-            entryGroups = await Promise.all(allGroups.map(group =>
+            return await Promise.all(allGroups.map(group =>
                 this.http.post('/api/entries/search', { query: group.query }).toPromise()
             ));
         }
@@ -274,7 +279,6 @@ export class VisualizationComponent {
             alert("There was an error loading the visualization requested.");
             return;
         }
-        return entryGroups;
     }
 
     /*
@@ -355,61 +359,61 @@ export class VisualizationComponent {
             ],
             "tours": [
                 {
-                    query: { numTours: "1"},
+                    query: { numTours: 1},
                     title: "1"
                 },
-                {
-                    query: { numTours: "2"},
-                    title: "2"
-                },
-                {
-                    query: { numTours: "3"},
-                    title: "3"
-                },
-                {
-                    query: { numTours: "4"},
-                    title: "4"
-                },
-                {
-                    query: { numTours: "5"},
-                    title: "5"
-                },
-                {
-                    query: { numTours: "6"},
-                    title: "6"
-                },
-                {
-                    query: { numTours: "7"},
-                    title: "7"
-                },
-                {
-                    query: { numTours: "8"},
-                    title: "8"
-                },
-                {
-                    query: { numTours: "9"},
-                    title: "9"
-                },
-                {
-                    query: { numTours: "10"},
-                    title: "10"
-                },
-                {
-                    query: { numTours: "11"},
-                    title: "11"
-                },
-                {
-                    query: { numTours: "13"},
-                    title: "13"
-                },
-                {
-                    query: { numTours: "16"},
-                    title: "16"
-                },
-                {
-                    query: { numTours: "20"},
-                    title: "20"
-                },
+                // {
+                //     query: { numTours: 2},
+                //     title: "2"
+                // },
+                // {
+                //     query: { numTours: 3},
+                //     title: "3"
+                // },
+                // {
+                //     query: { numTours: 4},
+                //     title: "4"
+                // },
+                // {
+                //     query: { numTours: 5},
+                //     title: "5"
+                // },
+                // {
+                //     query: { numTours: 6},
+                //     title: "6"
+                // },
+                // {
+                //     query: { numTours: 7},
+                //     title: "7"
+                // },
+                // {
+                //     query: { numTours: 8},
+                //     title: "8"
+                // },
+                // {
+                //     query: { numTours: 9},
+                //     title: "9"
+                // },
+                // {
+                //     query: { numTours: 10},
+                //     title: "10"
+                // },
+                // {
+                //     query: { numTours: 11},
+                //     title: "11"
+                // },
+                // {
+                //     query: { numTours: 13},
+                //     title: "13"
+                // },
+                // {
+                //     query: { numTours: 16},
+                //     title: "16"
+                // },
+                // {
+                //     query: { numTours: 20},
+                //     title: "20"
+                // },
             ]
         }
         return mapping[groupBy];

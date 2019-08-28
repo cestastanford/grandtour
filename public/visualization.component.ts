@@ -23,7 +23,7 @@ const BUFFER = 5;
     selector: 'visualization',
     template: `
 
-    <div class='container' style='height: 100%'>
+    <div class='container' style='height:100% width:100%'>
         <div class='viz-btn-group' style='margin:10px 0px'>
             <button id="dotsSwitch" (click)="switch('dots')">Dots</button>
             <button id="mapSwitch" (click)="switch('map')">Map</button>
@@ -59,8 +59,8 @@ const BUFFER = 5;
             <svg width="100%" height="1250px" class="mySvg" id="dotsSvg" (click)="clicked($event)"></svg>
         </div>
 
-        <div class='viz-box' id='map-box' height="1250px" style="display:none">
-            <iframe src="mapbox.html"></iframe>
+        <div class='viz-box' id='map-box' width="100%" height="100%" style="display:none">
+            <iframe src="mapbox.html" width="100%" height="600px"></iframe>
         </div>
     </div>
     `,

@@ -101,6 +101,8 @@ export class VisualizationComponent {
                     dotSwitch.style.backgroundColor = "#dddddd";
                     mapSwitch.style.backgroundColor = "#eeeeee";
 
+                    this.update();
+                    
                     dotsBox.style.display = "block";
                     mapBox.style.display = "none";
                     break;

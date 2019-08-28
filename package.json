@@ -46,6 +46,7 @@
     "jsondiffpatch": "^0.1.33",
     "jszip": "^2.6.1",
     "lodash": "^4.17.13",
+    "mapbox-gl": "^1.2.1",
     "memory-cache": "^0.2.0",
     "mongoose": "^4.13.17",
     "morgan": "^1.9.1",

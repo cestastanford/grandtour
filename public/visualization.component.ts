@@ -59,8 +59,8 @@ const BUFFER = 5;
             <svg width="100%" height="1250px" class="mySvg" id="dotsSvg" (click)="clicked($event)"></svg>
         </div>
 
-        <div class='viz-box' id='map-box' style="display:none">
-            <svg width="100%" height="100%" class="mySvg" id="mapSvg" (click)="clicked($event)"></svg>
+        <div class='viz-box' id='map-box' height="1250px" style="display:none">
+            <iframe src="mapbox.html"></iframe>
         </div>
     </div>
     `,
@@ -85,6 +85,7 @@ export class VisualizationComponent {
         window.addEventListener("resize", (e: Event) => {
             this.update();
         });
+        
     }
 
     switch(on) {

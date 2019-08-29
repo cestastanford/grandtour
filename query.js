@@ -532,9 +532,13 @@ const projectForEntryList = entry => ({
     // use this for word count:
     // entryLength: entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
     biographyLength: entry.biography.length,
-    travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {
-        if (travel.travelEndYear && travel.travelStartYear) {
-            return accum + (new Date(travel.travelEndYear) - new Date(travel.travelStartYear));
+    travelTime: entry.travels ? entry.travels.reduce((accum, travel) => {
+        if (travel.italy) {
+            if (travel.travelStartYear && travel.travelStartMonth && travel.travelEndYear && travel.travelEndMonth) {
+                return accum + (new Date(travel.travelEndYear, travel.travelEndMonth) - new Date(travel.travelStartYear, travel.travelStartMonth));
+            } else if (travel.travelEndYear && travel.travelStartYear) {
+                return accum + (new Date(travel.travelEndYear, 0) - new Date(travel.travelStartYear, 0));
+            }
         }
         return accum;
     }, 0) : 0,

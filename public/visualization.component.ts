@@ -204,7 +204,7 @@ export class VisualizationComponent {
                 //     mySize = 16;
                 // }
             } else if (sizeBy === "travelTime") {
-                mySize = Math.max(1, Math.ceil(entry.travelTime * .04)); // entries that have no travelTime will have a size of 1
+                mySize = Math.max(1, Math.ceil(entry.travelTime * 0.00000000002)); // entries that have no travelTime will have a size of 1
             } else {
                 mySize = 3;
             }

@@ -40,7 +40,7 @@ const OTHER_COLOR = "dimgray";
                 <select id="color" (change)="update()">
                     <option value="none">None</option>
                     <option value="gender">Gender</option>
-                    <option value="new">New entries</option>
+                    <option value="new">Origin</option>
                 </select>
             </div>
             <div class='dimension'>
@@ -118,7 +118,11 @@ export class VisualizationComponent {
 
         this.clear();
         let x = 1;
-        let y = 12;
+        let y = groupBy == "none" || colorBy == "none" ? 15 : 30;
+
+        if (colorBy !== "none") {
+            this.drawLegend(colorBy);
+        }
         for (let i in entryGroups) {
             const group = allGroups[i];
             const entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
@@ -136,6 +140,74 @@ export class VisualizationComponent {
         if (svg) {
             svg.setAttribute("height", String(y - 15));
             svg.setAttribute("width", "100%");
+        }
+    }
+
+    /*
+     * When dots are colored, legend is printed at top.
+     */
+    drawLegend(colorBy) {
+        switch (colorBy) {
+            case "gender":
+                d3.select('svg').append("text")
+                    .attr("x", 1)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Male");
+                d3.select('svg').append('circle')
+                    .attr('cx', 40)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', MALE_COLOR)
+                    .style("opacity", 0.75)
+                d3.select('svg').append("text")
+                    .attr("x", 60)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Female");
+                d3.select('svg').append('circle')
+                    .attr('cx', 115)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', FEMALE_COLOR)
+                    .style("opacity", 0.75)
+                d3.select('svg').append("text")
+                    .attr("x", 135)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Unknown");
+                d3.select('svg').append('circle')
+                    .attr('cx', 205)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', OTHER_COLOR)
+                    .style("opacity", 0.75)
+                break;
+            case "new":
+                d3.select('svg').append("text")
+                    .attr("x", 1)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Dictionary");
+                d3.select('svg').append('circle')
+                    .attr('cx', 76)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', MAIN_COLOR)
+                    .style("opacity", 0.75)
+                d3.select('svg').append("text")
+                    .attr("x", 96)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Explorer");
+                d3.select('svg').append('circle')
+                    .attr('cx', 159)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', NEW_COLOR)
+                    .style("opacity", 0.75)
+                break;
+            default:
         }
     }
 
@@ -189,7 +261,7 @@ export class VisualizationComponent {
 
             var mySize;
             if (sizeBy === "length") {
-                mySize = Math.max(1, Math.ceil(entry.entryLength * .002));
+                mySize = Math.max(1, Math.ceil(entry.entryLength * .02)); // about half of dots (count < 50) will be the minimum size
                 // this code kept here in case of Giovanna's 'threshold' preference (note: need to convert length from char count to word count, see entryLength in query.js)
                 // var length = entry.entryLength;
                 // if (length < 50) {
@@ -204,7 +276,7 @@ export class VisualizationComponent {
                 //     mySize = 16;
                 // }
             } else if (sizeBy === "travelTime") {
-                mySize = Math.max(1, Math.ceil(entry.travelTime * 0.00000000002)); // entries that have no travelTime will have a size of 1
+                mySize = Math.max(1, Math.ceil(entry.travelTime * 0.000000000054)); // dots with length < 7 months will be minimum size
             } else {
                 mySize = 3;
             }
@@ -236,7 +308,7 @@ export class VisualizationComponent {
                 .attr('cy', zEntry.cy)
                 .attr('r', zEntry.r)
                 .attr('fill', zEntry.fill)
-                .style("opacity", 0.75)
+                .style("opacity", sizeBy === "none" ? 0.75 : 0.65)
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
 

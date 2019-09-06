@@ -539,7 +539,7 @@ function getTravelTime(travels, numTours) {
             var firstTravel = thisTour[0];
             var lastTravel = thisTour[thisTour.length - 1];
 
-            if (firstTravel.tourStartFrom && firstTravel.travelStartMonth && lastTravel.tourEndTo && lastTravel.travelEndMonth) {
+            if (firstTravel.tourStartFrom && (firstTravel.travelStartMonth || firstTravel.travelStartMonth == 0) && lastTravel.tourEndTo && (lastTravel.travelEndMonth || lastTravel.travelEndMonth == 0)) {
                 var firstDate = new Date(firstTravel.tourStartFrom, firstTravel.travelStartMonth);
                 var lastDate = new Date(lastTravel.tourEndTo, lastTravel.travelEndMonth);
     

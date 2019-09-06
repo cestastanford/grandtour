@@ -532,13 +532,12 @@ function getTravelTime(travels, numTours) {
     var i;
     for (i = 1; i <= numTours; i++) {
         var thisTour = travels.filter(function (d) {
-            return d.tourIndex == i;
+            return d.tourIndex === i;
         });
 
         if (thisTour && thisTour[0]) {
-            var numTravels = thisTour.length;
             var firstTravel = thisTour[0];
-            var lastTravel = thisTour[numTravels - 1];
+            var lastTravel = thisTour[thisTour.length - 1];
 
             if (firstTravel.tourStartFrom && firstTravel.travelStartMonth && lastTravel.tourEndTo && lastTravel.travelEndMonth) {
                 var firstDate = new Date(firstTravel.tourStartFrom, firstTravel.travelStartMonth);

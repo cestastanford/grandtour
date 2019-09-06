@@ -15,11 +15,11 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
 
 const BUFFER = 5;
-const MAIN_COLOR = "black"
-const MALE_COLOR = "cornflowerblue";
-const FEMALE_COLOR = "indianred";
-const NEW_COLOR = "cornflowerblue";
-const OTHER_COLOR = "dimgray";
+const COLOR_MAIN = "black"
+const COLOR_MALE = "cornflowerblue";
+const COLOR_FEMALE = "indianred";
+const COLOR_NEW = "cornflowerblue";
+const COLOR_OTHER = "dimgray";
 
 /*
  * Handles the View "page", and its HTML and some styles.
@@ -158,7 +158,7 @@ export class VisualizationComponent {
                     .attr('cx', 40)
                     .attr('cy', 11)
                     .attr('r', 3)
-                    .attr('fill', MALE_COLOR)
+                    .attr('fill', COLOR_MALE)
                     .style("opacity", 0.75)
                 d3.select('svg').append("text")
                     .attr("x", 60)
@@ -169,7 +169,7 @@ export class VisualizationComponent {
                     .attr('cx', 115)
                     .attr('cy', 11)
                     .attr('r', 3)
-                    .attr('fill', FEMALE_COLOR)
+                    .attr('fill', COLOR_FEMALE)
                     .style("opacity", 0.75)
                 d3.select('svg').append("text")
                     .attr("x", 135)
@@ -180,7 +180,7 @@ export class VisualizationComponent {
                     .attr('cx', 205)
                     .attr('cy', 11)
                     .attr('r', 3)
-                    .attr('fill', OTHER_COLOR)
+                    .attr('fill', COLOR_OTHER)
                     .style("opacity", 0.75)
                 break;
             case "new":
@@ -193,7 +193,7 @@ export class VisualizationComponent {
                     .attr('cx', 76)
                     .attr('cy', 11)
                     .attr('r', 3)
-                    .attr('fill', MAIN_COLOR)
+                    .attr('fill', COLOR_MAIN)
                     .style("opacity", 0.75)
                 d3.select('svg').append("text")
                     .attr("x", 96)
@@ -204,7 +204,7 @@ export class VisualizationComponent {
                     .attr('cx', 159)
                     .attr('cy', 11)
                     .attr('r', 3)
-                    .attr('fill', NEW_COLOR)
+                    .attr('fill', COLOR_NEW)
                     .style("opacity", 0.75)
                 break;
             default:
@@ -236,45 +236,32 @@ export class VisualizationComponent {
             if (colorBy === "gender") {
                 switch (entry.gender) {
                     case "Male":
-                        myColor = MALE_COLOR;
+                        myColor = COLOR_MALE;
                         break;
                     case "Female":
-                        myColor = FEMALE_COLOR;
+                        myColor = COLOR_FEMALE;
                         break;
                     default:
-                        myColor = OTHER_COLOR;
+                        myColor = COLOR_OTHER;
                 }
             } else if (colorBy === "new") {
                 switch (Number.isInteger(entry.index)) {
                     case true:
-                        myColor = MAIN_COLOR;
+                        myColor = COLOR_MAIN;
                         break;
                     case false:
-                        myColor = NEW_COLOR;
+                        myColor = COLOR_NEW;
                         break;
                     default:
-                        myColor = OTHER_COLOR;
+                        myColor = COLOR_OTHER;
                 }
             } else {
-                myColor = MAIN_COLOR;
+                myColor = COLOR_MAIN;
             }
 
             var mySize;
             if (sizeBy === "length") {
                 mySize = Math.max(1, Math.ceil(entry.entryLength * .02)); // about half of dots (count < 50) will be the minimum size
-                // this code kept here in case of Giovanna's 'threshold' preference (note: need to convert length from char count to word count, see entryLength in query.js)
-                // var length = entry.entryLength;
-                // if (length < 50) {
-                //     mySize = 1;
-                // } else if (length < 200) {
-                //     mySize = 2;
-                // } else if (length < 400) {
-                //     mySize = 4;
-                // } else if (length < 800) {
-                //     mySize = 8;
-                // } else {
-                //     mySize = 16;
-                // }
             } else if (sizeBy === "travelTime") {
                 mySize = Math.max(1, Math.ceil(entry.travelTime * 0.000000000054)); // dots with length < 7 months will be minimum size
             } else {
@@ -348,7 +335,6 @@ export class VisualizationComponent {
         }
         catch (e) {
             console.error(e);
-            alert("There was an error loading the visualization requested.");
             return;
         }
     }

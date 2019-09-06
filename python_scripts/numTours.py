@@ -1,13 +1,11 @@
 """
-Run this at the end. Adds numTours variable to db.
+Run this at the end. Adds numTours variable to db. Used for the numTours variable in the dots
+visualization.
 """
 import json
 import os
 import pymongo
 from pymongo import MongoClient
-from bson.objectid import ObjectId
-from pymongo import UpdateOne
-from pymongo.errors import BulkWriteError
 
 uri = os.getenv("MONGODB_URI")
 # uri = "mongodb://localhost:27017/test" # Use this to test on local database.

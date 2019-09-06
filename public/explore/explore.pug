@@ -31,6 +31,14 @@
           form
             .row
               .col-lg-3(ng-repeat='dimension in activeDimensions')
+                div(ng-mouseover="tooltip = dimension.field", style="float: right; position: relative; right: 7px; cursor: pointer;")
+                    span(ng-mouseover="tooltip = dimension.field", ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)", style="color: #227AB9; font-weight: bold") ?
+                    div.mentioned-names-popup(
+                          ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
+                          ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
+                    )
+                        h4 {{ dimension.label }}
+                        p {{ dimension.description }}
                 div(ng-switch="dimension.type")
                   div(ng-switch-when="facet", facet="", label="{{dimension.label}}", subgroup="{{dimension.subgroup}}", data-model="dimension.antani", field="{{dimension.field}}", suggestions='{{dimension.suggestions}}', data-query='query')
                   div(ng-switch-when="number")
@@ -47,15 +55,6 @@
                     free-search
                   div(ng-switch-when="date")
                     date-search(data-title=" {{dimension.label}} ", data-field=" {{dimension.field}} ")
-
-                div(ng-mouseover="tooltip = dimension.field", style="float: right; position: relative; bottom: 324px; right: 7px; cursor: pointer;")
-                    span(ng-mouseover="tooltip = dimension.field", ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)", style="color: #227AB9; font-weight: bold") ?
-                    div.mentioned-names-popup(
-                          ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
-                          ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
-                    )
-                        h4 {{ dimension.label }}
-                        p {{ dimension.description }}
         
     .col-lg-12 
     

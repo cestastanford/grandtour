@@ -393,7 +393,9 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } }),
+    numTours: d => ({ numTours: d }),
+
 }
 
 
@@ -508,6 +510,7 @@ exports.search = (req, res, next) => {
             narrative: true,
             notes: true,
             travels: true,
+            numTours: true,
         },
         null,
         req.body.limit || null,
@@ -519,6 +522,34 @@ exports.search = (req, res, next) => {
 
 }
 
+/*
+ *  Given an entry's travels array and total number of tours, this function
+ *  returns the sum of all tour times.
+ */
+function getTravelTime(travels, numTours) {
+    
+    var accum = 0;
+    var i;
+    for (i = 1; i <= numTours; i++) {
+        var thisTour = travels.filter(function (d) {
+            return d.tourIndex === i;
+        });
+
+        if (thisTour && thisTour[0]) {
+            var firstTravel = thisTour[0];
+            var lastTravel = thisTour[thisTour.length - 1];
+
+            if (firstTravel.tourStartFrom && (firstTravel.travelStartMonth || firstTravel.travelStartMonth == 0) && lastTravel.tourEndTo && (lastTravel.travelEndMonth || lastTravel.travelEndMonth == 0)) {
+                var firstDate = new Date(firstTravel.tourStartFrom, firstTravel.travelStartMonth);
+                var lastDate = new Date(lastTravel.tourEndTo, lastTravel.travelEndMonth);
+    
+                accum += lastDate - firstDate;
+            }
+        }
+    }
+    return accum;
+}
+
 
 const projectForEntryList = entry => ({
 
@@ -526,14 +557,9 @@ const projectForEntryList = entry => ({
     fullName: entry.fullName,
     gender: entry.type,
     numTours: entry.numTours,
-    entryLength: entry.biography.length + (entry.tours ? entry.tours.length : 0) + (entry.narrative ? entry.narrative.length : 0) + (entry.notes ? entry.notes.length : 0),
+    entryLength: entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
     biographyLength: entry.biography.length,
-    travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {
-        if (travel.travelEndYear && travel.travelStartYear) {
-            return accum + (new Date(travel.travelEndYear) - new Date(travel.travelStartYear));
-        }
-        return accum;
-    }, 0) : 0,
+    travelTime: entry.travels ? getTravelTime(entry.travels, entry.numTours) : 0,
     biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
     dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
 

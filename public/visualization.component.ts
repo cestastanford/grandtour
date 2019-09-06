@@ -15,6 +15,11 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
 
 const BUFFER = 5;
+const COLOR_MAIN = "black"
+const COLOR_MALE = "cornflowerblue";
+const COLOR_FEMALE = "indianred";
+const COLOR_NEW = "cornflowerblue";
+const COLOR_OTHER = "dimgray";
 
 /*
  * Handles the View "page", and its HTML and some styles.
@@ -35,7 +40,7 @@ const BUFFER = 5;
                 <select id="color" (change)="update()">
                     <option value="none">None</option>
                     <option value="gender">Gender</option>
-                    <option value="new">New entries</option>
+                    <option value="new">Origin</option>
                 </select>
             </div>
             <div class='dimension'>
@@ -113,7 +118,11 @@ export class VisualizationComponent {
 
         this.clear();
         let x = 1;
-        let y = 12;
+        let y = groupBy == "none" || colorBy == "none" ? 15 : 30;
+
+        if (colorBy !== "none") {
+            this.drawLegend(colorBy);
+        }
         for (let i in entryGroups) {
             const group = allGroups[i];
             const entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
@@ -128,9 +137,77 @@ export class VisualizationComponent {
             y = dotGroup + 50;
         }
         var svg = document.getElementById("mySvg");
-        if (svg != null) {
+        if (svg) {
             svg.setAttribute("height", String(y - 15));
             svg.setAttribute("width", "100%");
+        }
+    }
+
+    /*
+     * When dots are colored, legend is printed at top.
+     */
+    drawLegend(colorBy) {
+        switch (colorBy) {
+            case "gender":
+                d3.select('svg').append("text")
+                    .attr("x", 1)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Male");
+                d3.select('svg').append('circle')
+                    .attr('cx', 40)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', COLOR_MALE)
+                    .style("opacity", 0.75)
+                d3.select('svg').append("text")
+                    .attr("x", 60)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Female");
+                d3.select('svg').append('circle')
+                    .attr('cx', 115)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', COLOR_FEMALE)
+                    .style("opacity", 0.75)
+                d3.select('svg').append("text")
+                    .attr("x", 135)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Unknown");
+                d3.select('svg').append('circle')
+                    .attr('cx', 205)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', COLOR_OTHER)
+                    .style("opacity", 0.75)
+                break;
+            case "new":
+                d3.select('svg').append("text")
+                    .attr("x", 1)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Dictionary");
+                d3.select('svg').append('circle')
+                    .attr('cx', 76)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', COLOR_MAIN)
+                    .style("opacity", 0.75)
+                d3.select('svg').append("text")
+                    .attr("x", 96)
+                    .attr("y", 15)
+                    .attr("font-weight", 700)
+                    .text("Explorer");
+                d3.select('svg').append('circle')
+                    .attr('cx', 159)
+                    .attr('cy', 11)
+                    .attr('r', 3)
+                    .attr('fill', COLOR_NEW)
+                    .style("opacity", 0.75)
+                break;
+            default:
         }
     }
 
@@ -159,46 +236,34 @@ export class VisualizationComponent {
             if (colorBy === "gender") {
                 switch (entry.gender) {
                     case "Male":
-                        myColor = "cornflowerblue";
+                        myColor = COLOR_MALE;
                         break;
                     case "Female":
-                        myColor = "indianred";
+                        myColor = COLOR_FEMALE;
                         break;
                     default:
-                        myColor = "dimgray";
+                        myColor = COLOR_OTHER;
                 }
             } else if (colorBy === "new") {
                 switch (Number.isInteger(entry.index)) {
                     case true:
-                        myColor = "black";
+                        myColor = COLOR_MAIN;
                         break;
                     case false:
-                        myColor = "cornflowerblue";
+                        myColor = COLOR_NEW;
                         break;
                     default:
-                        myColor = "dimgray";
+                        myColor = COLOR_OTHER;
                 }
             } else {
-                myColor = "black";
+                myColor = COLOR_MAIN;
             }
 
             var mySize;
             if (sizeBy === "length") {
-                mySize = Math.max(1, Math.ceil(entry.entryLength * .002));
-                // var length = entry.entryLength;
-                // if (length < 50) {
-                //     mySize = 1;
-                // } else if (length < 200) {
-                //     mySize = 3;
-                // } else if (length < 400) {
-                //     mySize = 5;
-                // } else if (length < 800) {
-                //     mySize = 7;
-                // } else {
-                //     mySize = 9;
-                // }
+                mySize = Math.max(1, Math.ceil(entry.entryLength * .02)); // about half of dots (count < 50) will be the minimum size
             } else if (sizeBy === "travelTime") {
-                mySize = Math.max(1, Math.ceil(entry.travelTime * .04)); // entries that have no travelTime will have a size of 1
+                mySize = Math.max(1, Math.ceil(entry.travelTime * 0.000000000054)); // dots with length < 7 months will be minimum size
             } else {
                 mySize = 3;
             }
@@ -230,7 +295,7 @@ export class VisualizationComponent {
                 .attr('cy', zEntry.cy)
                 .attr('r', zEntry.r)
                 .attr('fill', zEntry.fill)
-                .style("opacity", 0.75)
+                .style("opacity", sizeBy === "none" ? 0.75 : 0.65)
                 // we define "mouseover" handler, here we change tooltip
                 // visibility to "visible" and add appropriate test
 
@@ -263,18 +328,15 @@ export class VisualizationComponent {
      * Using queries from getGroups, all entries are mapped to the appropriate group and returned.
      */
     private async groupByType(allGroups) {
-        let entryGroups;
         try {
-            entryGroups = await Promise.all(allGroups.map(group =>
+            return await Promise.all(allGroups.map(group =>
                 this.http.post('/api/entries/search', { query: group.query }).toPromise()
             ));
         }
         catch (e) {
             console.error(e);
-            alert("There was an error loading the visualization requested.");
             return;
         }
-        return entryGroups;
     }
 
     /*
@@ -355,59 +417,59 @@ export class VisualizationComponent {
             ],
             "tours": [
                 {
-                    query: { numTours: "1"},
+                    query: { numTours: 1},
                     title: "1"
                 },
                 {
-                    query: { numTours: "2"},
+                    query: { numTours: 2},
                     title: "2"
                 },
                 {
-                    query: { numTours: "3"},
+                    query: { numTours: 3},
                     title: "3"
                 },
                 {
-                    query: { numTours: "4"},
+                    query: { numTours: 4},
                     title: "4"
                 },
                 {
-                    query: { numTours: "5"},
+                    query: { numTours: 5},
                     title: "5"
                 },
                 {
-                    query: { numTours: "6"},
+                    query: { numTours: 6},
                     title: "6"
                 },
                 {
-                    query: { numTours: "7"},
+                    query: { numTours: 7},
                     title: "7"
                 },
                 {
-                    query: { numTours: "8"},
+                    query: { numTours: 8},
                     title: "8"
                 },
                 {
-                    query: { numTours: "9"},
+                    query: { numTours: 9},
                     title: "9"
                 },
                 {
-                    query: { numTours: "10"},
+                    query: { numTours: 10},
                     title: "10"
                 },
                 {
-                    query: { numTours: "11"},
+                    query: { numTours: 11},
                     title: "11"
                 },
                 {
-                    query: { numTours: "13"},
+                    query: { numTours: 13},
                     title: "13"
                 },
                 {
-                    query: { numTours: "16"},
+                    query: { numTours: 16},
                     title: "16"
                 },
                 {
-                    query: { numTours: "20"},
+                    query: { numTours: 20},
                     title: "20"
                 },
             ]

@@ -429,7 +429,14 @@ function parseQuery(query) {
                     let item = searchMap[k](queryItem._id, true);
                     if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
-                            item[key] = { $not: item[key] };
+                            let value = item[key];
+                            if (Array.isArray(value)) { // in the case that an array of queries is given, the entire array is negated with the $nor operator
+                                delete item[key];
+                                key = "$nor";
+                            } else {
+                                value = { $not: value };
+                            }
+                            item[key] = value;
                         }
                     }
                     list.push(item);

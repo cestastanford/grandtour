@@ -3,6 +3,7 @@ import angular, { IDirectiveFactory } from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import LoginCtrl from './login/login.js';
+import SignupCtrl from './signup/signup.js';
 import AdminCtrl from './admin/admin.js';
 import SearchCtrl from './search/search.js';
 import ExploreCtrl from './explore/explore.js';
@@ -173,6 +174,13 @@ const MODULE_NAME = 'app';
     template: require("pug-loader!./login/login.pug"),
     title: 'Login',
     controller: LoginCtrl
+  })
+
+  .state('signup', {
+    url: "/signup",
+    template: require("pug-loader!./signup/signup.pug"),
+    title: 'Signup',
+    controller: SignupCtrl
   })
 
   // .state('register', {

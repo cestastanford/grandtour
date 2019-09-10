@@ -1,0 +1,29 @@
+.container.main-view
+
+  .row
+    .col-lg-4.col-md-6.col-sm-8.col-lg-offset-4.col-md-offset-3.col-sm-offset-2      
+      .panel.panel-default
+        .panel-heading Sign up
+        .panel-body
+          .alert.alert-warning(ng-show="message") {{message}}
+          form(ng-submit="signup()")
+            .form-group
+              label User name
+              input.form-control.input-lg(type="text", name="username", ng-model="user.username", placeholder="User name", required)
+            .form-group
+              label Full name
+              input.form-control.input-lg(type="text", name="fullName", ng-model="user.fullName", placeholder="Full name", required)
+            .form-group
+              label Email address
+              input.form-control.input-lg(type="email", name="email", ng-model="user.email", placeholder="Email address", required)
+            .form-group
+              label Password
+              input.form-control.input-lg(type="password", name="password", ng-model="user.password", placeholder="Password", required)
+            .form-group
+              label Confirm Password
+              input.form-control.input-lg(type="password", name="password2", ng-model="user.password2", placeholder="Confirm Password", required)
+            .form-group
+              button.btn.btn-info.btn-block.btn-lg(type="submit", ng-disabled="!user.username || !user.password || !user.password2 || !user.email || !user.fullName") Sign up
+          .form-group
+            a(ui-sref="login")
+              button.btn.btn-block.btn-lg() Log in

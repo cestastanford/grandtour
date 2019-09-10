@@ -74,6 +74,31 @@ Object {
 }
 `;
 
+exports[`test parseQuery negative array (fullName and alternateNames) query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "$nor": Array [
+            Object {
+              "fullName": "John Taylor",
+            },
+            Object {
+              "alternateNames": Object {
+                "$elemMatch": Object {
+                  "alternateName": "John Taylor",
+                },
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`test parseQuery negative query 1`] = `
 Object {
   "$and": Array [

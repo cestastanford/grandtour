@@ -687,13 +687,13 @@ function parseExport(res) {
             index: ++activityIndex,
         }))
 
-        // occupations
-        if (d.military && d.military.length) d.occupations.forEach(a => activities.push({
+        // military
+        if (d.military && d.military.length) d.military.forEach(a => activities.push({
             ...entryBase,
-            lifeEvents: 'military careers',
+            lifeEvents: 'military career',
             eventsDetail1: a.officeType,
             eventsDetail2: a.rank,
-            place: a.place || "",
+            place: "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
             index: ++activityIndex,

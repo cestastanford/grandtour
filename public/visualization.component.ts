@@ -1,5 +1,5 @@
 /*
- * Based on designs by Ashwin Ramaswami and Cody Leff. This file handles the "View" feature of the website. The Dots feature displays entries
+ * Based on designs by Ashwin Ramaswami and Cody Leff. This file handles the "View" feature of the website. The Travelers feature displays entries
  * as dots, allowing one to color, size, and group them according to certain properties. The Map feature will display a map of Italy with
  * locations of tours.
  */
@@ -15,11 +15,19 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
 
 const BUFFER = 5;
+const LEGEND_DOT_HEIGHT = 12;
+const LEGEND_TEXT_HEIGHT = LEGEND_DOT_HEIGHT + 5;
+
 const COLOR_MAIN = "black"
-const COLOR_MALE = "cornflowerblue";
-const COLOR_FEMALE = "indianred";
-const COLOR_NEW = "cornflowerblue";
-const COLOR_OTHER = "dimgray";
+const COLOR_MALE = "#6D808E";
+const COLOR_FEMALE = "#FAB876";
+const COLOR_OLD = "#6D808E";
+const COLOR_NEW = "#AC7BCD";
+const COLOR_OTHER = "black";
+const COLOR_QUESTION = "#257DBD";
+
+const SIZE_DEFAULT = 3;
+
 
 /*
  * Handles the View "page", and its HTML and some styles.
@@ -30,7 +38,7 @@ const COLOR_OTHER = "dimgray";
 
     <div class='container' style='height: 100%'>
         <div class='viz-btn-group' style='margin:10px 0px'>
-            <button>Dots</button>
+            <button>Travelers</button>
             <button>Map</button>
         </div>
 
@@ -60,7 +68,7 @@ const COLOR_OTHER = "dimgray";
                     <option value="tours">Number of tours</option>
                 </select>
             </div>
-            
+            <p style='font-family: serif; font-size: 11pt; display: inline-block; padding: 0px 8px'>Each dot represents a traveler and all 6005 travelers are represented...</p>
             <svg width="100%" height="1250px" id="mySvg" (click)="clicked($event)"></svg>
         </div>
     </div>
@@ -147,65 +155,112 @@ export class VisualizationComponent {
      * When dots are colored, legend is printed at top.
      */
     drawLegend(colorBy) {
+        let div = d3.select("body").append("div")
+            .attr("class", "tool_tip")
+            .style("border-radius", 0)
+            .style("background-color", "white")
+            .style("box-shadow", "0 2px 10px #ccc")
+            .style("opacity", 0)
+            .style("padding", "5px")
+            .style("font-family", "serif")
+            .style("text-size", "10pt")
+            .style("width", "25%");
         switch (colorBy) {
             case "gender":
-                d3.select('svg').append("text")
-                    .attr("x", 1)
-                    .attr("y", 15)
-                    .attr("font-weight", 700)
-                    .text("Male");
                 d3.select('svg').append('circle')
-                    .attr('cx', 40)
-                    .attr('cy', 11)
-                    .attr('r', 3)
+                    .attr('cx', 5)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
                     .attr('fill', COLOR_MALE)
                     .style("opacity", 0.75)
                 d3.select('svg').append("text")
-                    .attr("x", 60)
-                    .attr("y", 15)
-                    .attr("font-weight", 700)
-                    .text("Female");
+                    .attr("x", 12)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Male");
                 d3.select('svg').append('circle')
-                    .attr('cx', 115)
-                    .attr('cy', 11)
-                    .attr('r', 3)
+                    .attr('cx', 65)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
                     .attr('fill', COLOR_FEMALE)
                     .style("opacity", 0.75)
                 d3.select('svg').append("text")
-                    .attr("x", 135)
-                    .attr("y", 15)
-                    .attr("font-weight", 700)
-                    .text("Unknown");
+                    .attr("x", 72)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Female");
                 d3.select('svg').append('circle')
-                    .attr('cx', 205)
-                    .attr('cy', 11)
-                    .attr('r', 3)
+                    .attr('cx', 145)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
                     .attr('fill', COLOR_OTHER)
                     .style("opacity", 0.75)
+                d3.select('svg').append("text")
+                    .attr("x", 152)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Unknown");
+                d3.select('svg').append("text")
+                    .attr("x", 222)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .attr("font-weight", 700)
+                    .attr("fill", COLOR_QUESTION)
+                    .text("?")
+                    .on("mouseover", function (d) {
+                        div.style("height", "40px")
+                        div.transition()
+                            .style("opacity", 1);
+                        div.text("Gender is a category we attributed and is not always available...")
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px")
+                            .style("opacity", 1)
+                        }
+                    )
+                    .on("mouseout", function (d) {
+                        div.transition()
+                            .style("opacity", 0);
+                        }
+                    );
                 break;
             case "new":
-                d3.select('svg').append("text")
-                    .attr("x", 1)
-                    .attr("y", 15)
-                    .attr("font-weight", 700)
-                    .text("Dictionary");
                 d3.select('svg').append('circle')
-                    .attr('cx', 76)
-                    .attr('cy', 11)
-                    .attr('r', 3)
-                    .attr('fill', COLOR_MAIN)
+                    .attr('cx', 5)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_OLD)
                     .style("opacity", 0.75)
                 d3.select('svg').append("text")
-                    .attr("x", 96)
-                    .attr("y", 15)
-                    .attr("font-weight", 700)
-                    .text("Explorer");
+                    .attr("x", 12)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("DBITI Entry");
                 d3.select('svg').append('circle')
-                    .attr('cx', 159)
-                    .attr('cy', 11)
-                    .attr('r', 3)
+                    .attr('cx', 105)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
                     .attr('fill', COLOR_NEW)
-                    .style("opacity", 0.75)
+                    .style("opacity", 0.75);
+                d3.select('svg').append("text")
+                    .attr("x", 112)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Explorer Entry");
+                d3.select('svg').append("text")
+                    .attr("x", 222)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .attr("font-weight", 700)
+                    .attr("fill", COLOR_QUESTION)
+                    .text("?")
+                    .on("mouseover", function (d) {
+                        div.style("height", "65px")
+                        div.transition()
+                            .style("opacity", 1)
+                        div.text("Origin distinguishes between entries extracted from Ingamells' Dictionary (DBITI) and additional entries created in the Explorer database")
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px")
+                            .style("opacity", 1)
+                        }
+                    )
+                    .on("mouseout", function (d) {
+                        div.transition()
+                            .style("opacity", 0);
+                        }
+                    );
                 break;
             default:
         }
@@ -247,7 +302,7 @@ export class VisualizationComponent {
             } else if (colorBy === "new") {
                 switch (Number.isInteger(entry.index)) {
                     case true:
-                        myColor = COLOR_MAIN;
+                        myColor = COLOR_OLD;
                         break;
                     case false:
                         myColor = COLOR_NEW;
@@ -265,7 +320,7 @@ export class VisualizationComponent {
             } else if (sizeBy === "travelTime") {
                 mySize = Math.max(1, Math.ceil(entry.travelTime * 0.000000000054)); // dots with length < 7 months will be minimum size
             } else {
-                mySize = 3;
+                mySize = SIZE_DEFAULT;
             }
 
             var zEntry = {

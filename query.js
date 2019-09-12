@@ -614,7 +614,7 @@ function parseExport(res) {
         entry.parents = (d.parents && d.parents.parents) || "";
 
         let entryBase = {
-            entry: d.index,
+            entryID: d.index,
             travelerNames: entry.travelerNames,
             birthDate: entry.birthDate,
             deathDate: entry.deathDate,
@@ -631,7 +631,7 @@ function parseExport(res) {
             place: "",
             startDate: a.year || "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // education
@@ -643,7 +643,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // societies
@@ -655,7 +655,7 @@ function parseExport(res) {
             place: "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // exhibitions
@@ -667,7 +667,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // pursuits
@@ -679,7 +679,7 @@ function parseExport(res) {
             place: "",
             startDate: "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // occupations
@@ -691,7 +691,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // military
@@ -703,7 +703,7 @@ function parseExport(res) {
             place: "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // travels

@@ -14,7 +14,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   });
 
   $scope.dimensions = [
-    { type : 'facet', active : false, label : 'Traveler names', description: 'Names of travelers, generally listed by names by which they first traveled.', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
+    { type : 'facet', active : false, label : 'Traveler name', description: 'Names of travelers, generally listed by names by which they first traveled.', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
     { type : 'date', active : false, label : 'Birth date', description: 'Date of birth searchable by either exact year or within a range of years.', field : 'birthDate', sorting : 'dates[0].birthDate' },
     { type : 'facet', active : false, label : 'Birth place', description: 'Birth place by city or country.', field : 'birthPlace', suggestions : 'places.birthPlace', sorting : 'places[0].birthPlace' },
     { type : 'date', active : false, label : 'Death date', description: 'Date of birth searchable by either exact year or within a range of years.', field : 'deathDate', sorting : 'dates[0].deathDate' },
@@ -37,7 +37,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     { type : 'facet', active : false, label : 'Sources', description: 'Citations as recorded by Ingamells.', field : 'consolidated_notes', suggestions : 'consolidated_notes' },
     { type : 'facet', active : false, label : 'Travel place', description: 'Location visited by a traveler.', field : 'travelPlace', suggestions : 'travels.place' },
     { type : 'date', active : false, label : 'Travel date', description: 'Dates that travelers toured, by month and year.', field : 'travelDate'},
-    { type : 'freesearch', active : false, label : 'Word search in the entries', description: 'Keywords in entries, with options to find all cases that match the beginning or end of the word, in case of spelling changes; or find all cases that do not mention the word. Word search can further be specified for the particular portion of an entry.', field : 'entry' },
+    { type : 'freesearch', active : false, label : 'Free word search', description: 'Keywords in entries, with options to find all cases that match the beginning or end of the word, in case of spelling changes; or find all cases that do not mention the word. Word search can further be specified for the particular portion of an entry.', field : 'entry' },
   ]
 
   $scope.activeDimensions = [];

@@ -20,7 +20,9 @@
                 label
                   input(type="checkbox", ng-model="dimension.active")
                   div(ng-class="{ 'text-strong' : query.hasOwnProperty(dimension.field) }")
-                      span {{dimension.label}}
+                      span(ng-if="dimension.label !== 'DBITI Employments & Identifiers'") {{ dimension.label }}
+                      span(ng-if="dimension.label === 'DBITI Employments & Identifiers'", style="font-style: italic") DBITI 
+                      span(ng-if="dimension.label === 'DBITI Employments & Identifiers'", style="font-style: normal") Employments & Identifiers
                   span.small(ng-show="dimension.subgroup") {{dimension.subgroup}}
                   
         .col-lg-10
@@ -35,9 +37,12 @@
                     span(ng-mouseover="tooltip = dimension.field", ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)", style="color: #227AB9; font-weight: bold") ?
                     div.mentioned-names-popup(
                           ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
-                          ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
+                          ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1, clear: both}"
                     )
-                        h4 {{ dimension.label }}
+                        h4(ng-if="dimension.label !== 'DBITI Employments & Identifiers'") {{ dimension.label }}
+                        div(ng-if="dimension.label === 'DBITI Employments & Identifiers'" style="margin-bottom: 10px")
+                          h4(style="font-style: italic; display: inline") DBITI 
+                          h4(style="font-style: normal; display: inline") Employments & Identifiers
                         p {{ dimension.description }}
                 div(ng-switch="dimension.type")
                   div(ng-switch-when="facet", facet="", label="{{dimension.label}}", subgroup="{{dimension.subgroup}}", data-model="dimension.antani", field="{{dimension.field}}", suggestions='{{dimension.suggestions}}', data-query='query')

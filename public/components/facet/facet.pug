@@ -1,8 +1,8 @@
 .form-group    
-  h6(ng-if="label !== 'DBITI Employments & Identifiers'", style="font-weight: bold") {{ label }} 
+  label(ng-if="label !== 'DBITI Employments & Identifiers'", style="font-weight: bold") {{ label }} 
     span.text-muted(ng-show="subgroup") {{subgroup}}
-  h6(ng-if="label === 'DBITI Employments & Identifiers'", style="font-weight: bold; font-style: italic; display: inline") DBITI 
-  h6(ng-if="label === 'DBITI Employments & Identifiers'", style="font-weight: bold; font-style: normal; display: inline") Employments & Identifiers
+  label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-weight: bold; font-style: italic; display: inline") DBITI 
+  label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-weight: bold; font-style: normal; display: inline") Employments & Identifiers
 
   .facet-wrapper
     

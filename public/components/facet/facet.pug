@@ -1,5 +1,5 @@
 .form-group    
-  label(ng-if="label !== 'DBITI Employments & Identifiers'") {{ label }} 
+  label {{ label === 'DBITI Employments & Identifiers' ? "​" : label }} 
     span.text-muted(ng-show="subgroup") {{subgroup}}
   label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-style: italic; display: inline") DBITI 
   label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-style: normal; display: inline") Employments & Identifiers

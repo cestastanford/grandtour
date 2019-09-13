@@ -25,8 +25,8 @@ const BUFFER = 5;
 
     <div class='container' style='height:100% width:100%'>
         <div class='viz-btn-group' style='margin:10px 0px'>
-            <button id="dotsSwitch" (click)="switch('dots')">Dots</button>
-            <button id="mapSwitch" (click)="switch('map')">Map</button>
+            <button id="dotsSwitch" (click)="switch('dots')">Chart of Travelers</button>
+            <button id="mapSwitch" (click)="switch('map')">Map of Travel Places</button>
         </div>
 
         <div class='viz-box' id='dots-box'>

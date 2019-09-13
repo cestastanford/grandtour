@@ -18,10 +18,53 @@
         bottom: 0;
         width: 100%;
       }
+
+      .map-overlay {
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        position: absolute;
+        width: 200px;
+        top: 0;
+        right: 0;
+        padding: 10px;
+      }
+        
+      .map-overlay .map-overlay-inner {
+        background-color: white;
+        border: 2px solid #dddddd;
+        border-radius: 4px;
+        box-shadow:0 1px 2px rgba(0, 0, 0, 0.10);
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .map-overlay .map-overlay-inner p {
+        background-color: #eeeeee; 
+        color: #333; 
+        font-family: 'Poly', serif;
+        border: 2px solid #dddddd;
+        border-radius: 2px;
+        text-align: center;
+      }
+
+      button {
+        background-color: inherit;
+        border: none;
+        color: #333;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
     <div id='map'></div>
+    <div class='map-overlay top'>
+      <div class='map-overlay-inner' style='max-height: 400px'>
+          <p>SELECTED</p>
+          <div id='selected' style='max-height: 100px; overflow: auto'></div>
+          <p>UNSELECTED</p>
+          <div id='unselected' style='height: 200px; min-height: 100px; overflow: auto'></div>
+      </div>
+    </div>
+      
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
     var map = new mapboxgl.Map({
@@ -32,24 +75,101 @@
       minZoom: 4.8,
       maxBounds: [[-2.5674, 32.8719], [26.5674, 50.8719]]
     });
-    // code from the next step will go here
-    map.on('click', function(e) {
-        var features = map.queryRenderedFeatures(e.point, {
-        layers: ['missing-coordinates-gte-final'] // replace this with the name of the layer
-        }
-    );
 
-    if (!features.length) {
-        return;
-    }
+    var popup = new mapboxgl.Popup({ 
+      offset: [0, -15],
+      closeButton: false,
+      closeOnClick: false
+    });
 
-    var feature = features[0];
+    map.on('mouseover', 'missing-coordinates-gte-final', function(e) {
+      map.getCanvas().style.cursor = 'pointer';
 
-    var popup = new mapboxgl.Popup({ offset: [0, -15] })
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML('<h4>' + feature.properties.place + '</h4>')
+      popup.setLngLat(e.lngLat)
+        .setHTML('<h4>' + e.features[0].properties.place + '</h4>')
         .addTo(map);
     });
+
+    map.on('click', 'missing-coordinates-gte-final', function(e) {
+      popup.setLngLat(e.lngLat)
+        .setHTML('<h4>' + e.features[0].properties.place + '</h4>')
+        .addTo(map);
+    });
+
+    map.on('mouseout', 'missing-coordinates-gte-final', function(e) {
+      map.getCanvas().style.cursor = '';
+      popup.remove();
+    });
+
+    var unselected = document.getElementById('unselected');
+    var selected = document.getElementById('selected');
+    var timeNum = 1; // ensures places overlay is only created once, when Map tab is clicked (also ensures first few places are not cut off)
+
+    function sortPoints(points) {
+      points.sort(function(a,b) {
+          let aPlace = a.properties.place;
+          let bPlace = b.properties.place;
+          return aPlace.localeCompare(bPlace);
+        });
+      return points;
+    }
+
+    var selectedList = [];
+    var unselectedList = [];
+
+    map.on('idle', function() {
+      if (timeNum !== 2) {
+        timeNum++;
+      } else if (timeNum === 2) {
+        var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
+        points = sortPoints(points);
+
+        points.forEach(function(f) {
+          var placeName = f.properties.place;
+          var placeToggle = document.createElement('button');
+          placeToggle.innerHTML = placeName;
+          placeToggle.style.display = 'block';
+
+          placeToggle.addEventListener('click', function() {
+            switch (placeToggle.parentElement) {
+              case unselected:
+                let unselectedIndex = unselectedList.indexOf(placeName);
+                unselectedList.splice(unselectedIndex, 1);
+
+                var selectedPopup = new mapboxgl.Popup({ 
+                  offset: [0, -15],
+                  closeButton: false,
+                  closeOnClick: false
+                });
+                selectedPopup.setLngLat(f.geometry.coordinates)
+                  .setHTML('<h4>' + f.properties.place + '</h4>')
+                  .addTo(map);
+
+                selectedList.push(placeName);
+                selected.appendChild(placeToggle);
+                break;
+              case selected:
+                let selectedIndex = selectedList.indexOf(placeName);
+                selectedList.splice(selectedIndex, 1);
+
+                map.selectedPopup.remove();
+
+                unselectedList.push(placeName);
+                unselected.appendChild(placeToggle);
+                break;
+              default:
+                break;
+            }
+          })
+
+          unselectedList.push(placeToggle);
+          unselected.appendChild(placeToggle);
+        });
+        timeNum++;
+      }
+    });
+      
+    
     </script>
   </body>
 </html>

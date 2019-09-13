@@ -127,7 +127,6 @@ const MODULE_NAME = 'app';
 
     return getUser($http)
     .then(function(user) {
-      console.log("USER", user);
       if (user) {
         $rootScope.currentUser = user
       }

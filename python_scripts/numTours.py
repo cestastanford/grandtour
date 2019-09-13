@@ -1,5 +1,5 @@
 """
-Run this at the end. Adds numTours variable to db. Used for the numTours variable in the dots
+Run this at the end. Adds numTours variable to db. Used for the numTours variable in the travelers
 visualization.
 """
 import json

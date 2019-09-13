@@ -431,7 +431,14 @@ function parseQuery(query) {
                     let item = searchMap[k](queryItem._id, true);
                     if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
-                            item[key] = { $not: item[key] };
+                            let value = item[key];
+                            if (Array.isArray(value)) { // in the case that an array of queries is given, the entire array is negated with the $nor operator
+                                delete item[key];
+                                key = "$nor";
+                            } else {
+                                value = { $not: value };
+                            }
+                            item[key] = value;
                         }
                     }
                     list.push(item);
@@ -607,7 +614,7 @@ function parseExport(res) {
         entry.parents = (d.parents && d.parents.parents) || "";
 
         let entryBase = {
-            entry: d.index,
+            entryID: d.index,
             travelerNames: entry.travelerNames,
             birthDate: entry.birthDate,
             deathDate: entry.deathDate,
@@ -624,7 +631,7 @@ function parseExport(res) {
             place: "",
             startDate: a.year || "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // education
@@ -636,7 +643,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // societies
@@ -648,7 +655,7 @@ function parseExport(res) {
             place: "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // exhibitions
@@ -660,7 +667,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // pursuits
@@ -672,7 +679,7 @@ function parseExport(res) {
             place: "",
             startDate: "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // occupations
@@ -684,19 +691,19 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
-        // occupations
-        if (d.military && d.military.length) d.occupations.forEach(a => activities.push({
+        // military
+        if (d.military && d.military.length) d.military.forEach(a => activities.push({
             ...entryBase,
-            lifeEvents: 'military careers',
+            lifeEvents: 'military career',
             eventsDetail1: a.officeType,
             eventsDetail2: a.rank,
-            place: a.place || "",
+            place: "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // travels

@@ -59,6 +59,12 @@ describe('test parseQuery', () => {
         };
         expect(parseQuery(query)).toMatchSnapshot();
     });
+    test('negative array (fullName and alternateNames) query', () => {
+        const query = {
+            "fullName": { "operator": "and", "uniques": [{ "_id": "John Taylor", "negative": true }] },
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
 });
 
 describe('test parseQuery with freeSearch', () => {

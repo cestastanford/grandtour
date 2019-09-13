@@ -28,7 +28,7 @@ html(lang="en")
             li
               a(ui-sref="explore") Explore 
                 sup (beta)
-            li
+            li(ng-if="currentUser")
               a(ui-sref="lists") Saved Lists 
                 sup (beta)
             li

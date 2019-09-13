@@ -15,6 +15,7 @@ const socketIO = require('./socket')
 const router = require('./router')
 const User = require('./models/user')
 const Revision = require('./models/revision')
+const { getLatestRevisionIndex } = require('./cache')
 
 /*
 * Checks for required environmental variables.
@@ -94,6 +95,14 @@ app.use((req, res, next) => {
     err.status = 404
     next(err)
 })
+
+/*
+ * Set revisionIndex to latest revision index for non-authenticated users.
+ */
+
+app.use((req, res, next) => {
+    res.locals.activeRevisionIndex = req.user && req.user.activeRevisionIndex ? res.locals.activeRevisionIndex: getLatestRevisionIndex()
+});
 
 
 /*

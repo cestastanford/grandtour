@@ -61,9 +61,9 @@ router.post('/api/export/to-sheets', isAdministrator, (req, res, next) => {
 
     Promise.resolve()
     .then(() => console.log('Exporting all fields except rich text fields'))
-    .then(() => exportToSheets(req.user.activeRevisionIndex, entryFieldsExceptRichTextFields))
+    .then(() => exportToSheets(res.locals.activeRevisionIndex, entryFieldsExceptRichTextFields))
     .then(() => console.log('Exporting rich text fields'))
-    .then(() => exportToSheets(req.user.activeRevisionIndex, richTextFields))
+    .then(() => exportToSheets(res.locals.activeRevisionIndex, richTextFields))
     .catch(next)
 
 })

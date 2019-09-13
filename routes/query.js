@@ -14,7 +14,7 @@ const queries = require('../query.js')
 
 router.get('/api/getcount', isViewer, (req, res, next) => {
 
-    queries.getCounts(req.user.activeRevisionIndex)
+    queries.getCounts(res.locals.activeRevisionIndex)
     .then(counts => res.json(counts))
     .catch(next)
 

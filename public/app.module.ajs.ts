@@ -122,13 +122,20 @@ const MODULE_NAME = 'app';
   
   }
   
-  //  Checks that the user is logged in; redirects to 'login' if not
+  //  Checks that the user is logged in.
   var isLoggedIn = ['$http', '$rootScope', '$state', function($http, $rootScope, $state) {
 
     return getUser($http)
     .then(function(user) {
-      if (user) $rootScope.currentUser = user
-      else $state.go('login')
+      console.log("USER", user);
+      if (user) {
+        $rootScope.currentUser = user
+      }
+      else {
+        // Don't redirect to 'login' if the user is not logged in.
+        $rootScope.currentUser = null;
+        return null;
+      }
       return user
 
     })

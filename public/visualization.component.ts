@@ -165,128 +165,6 @@ export class VisualizationComponent {
     }
 
     /*
-     * When dots are colored, legend is printed at top.
-     */
-    drawLegend(colorBy) {
-        let div = d3.select("body").append("div")
-            .attr("class", "tool_tip")
-            .style("opacity", 0)
-            .style("padding", "12px")
-            .style("max-width", "200px")
-            .style("text-align", "left");
-        switch (colorBy) {
-            case "gender":
-                d3.select('svg').append('circle')
-                    .attr('cx', 5)
-                    .attr('cy', LEGEND_DOT_HEIGHT)
-                    .attr('r', SIZE_DEFAULT)
-                    .attr('fill', COLOR_MALE)
-                    .style("opacity", 0.75)
-                d3.select('svg').append("text")
-                    .attr("x", 12)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .text("Male");
-                d3.select('svg').append('circle')
-                    .attr('cx', 65)
-                    .attr('cy', LEGEND_DOT_HEIGHT)
-                    .attr('r', SIZE_DEFAULT)
-                    .attr('fill', COLOR_FEMALE)
-                    .style("opacity", 0.75)
-                d3.select('svg').append("text")
-                    .attr("x", 72)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .text("Female");
-                d3.select('svg').append('circle')
-                    .attr('cx', 145)
-                    .attr('cy', LEGEND_DOT_HEIGHT)
-                    .attr('r', SIZE_DEFAULT)
-                    .attr('fill', COLOR_OTHER)
-                    .style("opacity", 0.75)
-                d3.select('svg').append("text")
-                    .attr("x", 152)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .text("Unknown");
-                d3.select('svg').append("text")
-                    .attr("x", 222)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .attr("font-weight", 700)
-                    .attr("fill", COLOR_QUESTION)
-                    .style("cursor", "pointer")
-                    .text("?")
-                    .on("mouseover", function (d) {
-                        div.style("height", "80px")
-                        div.transition()
-                            .style("opacity", 1);
-                        div.text("Gender is a category we attributed and is not always available.")
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px")
-                        }
-                    )
-                    .on("mouseout", function (d) {
-                        div.transition()
-                            .style("opacity", 0);
-                        }
-                    );
-                break;
-            case "new":
-                d3.select('svg').append('circle')
-                    .attr('cx', 5)
-                    .attr('cy', LEGEND_DOT_HEIGHT)
-                    .attr('r', SIZE_DEFAULT)
-                    .attr('fill', COLOR_OLD)
-                    .style("opacity", 0.75)
-                d3.select('svg').append("text")
-                    .attr("x", 12)
-                    .attr("y", LEGEND_TEXT_HEIGHT)            
-                    .style("font-style", "oblique")
-                    .text("DBITI")
-                d3.select('svg').append("text")
-                    .attr("x", 46)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .text("Entry")
-                    .style("font-style", "normal")
-                d3.select('svg').append('circle')
-                    .attr('cx', 105)
-                    .attr('cy', LEGEND_DOT_HEIGHT)
-                    .attr('r', SIZE_DEFAULT)
-                    .attr('fill', COLOR_NEW)
-                    .style("opacity", 0.75);
-                d3.select('svg').append("text")
-                    .attr("x", 112)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .text("Explorer Entry");
-                d3.select('svg').append("text")
-                    .attr("x", 222)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .attr("font-weight", 700)
-                    .attr("fill", COLOR_QUESTION)
-                    .style("cursor", "pointer")
-                    .text("?")
-                    .on("mouseover", function (d) {
-                        div.transition()
-                            .style("opacity", 1)
-                        div.text("Origin distinguishes between entries extracted from Ingamells' Dictionary (")
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px")
-                            .append("text")
-                                .style("font-style", "oblique")
-                                .text("DBITI")
-                            .append("text")
-                                .text(") and additional entries created in the Explorer database.")
-                                .style("font-style", "normal")
-                        }
-                    )
-                    .on("mouseout", function (d) {
-                        div.transition()
-                            .style("opacity", 0)
-                        }
-                    );
-                break;
-            default:
-        }
-    }
-
-    /*
      * When given the entries of a group and how the dots should be sized and colored, dots are drawn accordingly. A y variable is stored to
      * properly locate the next group.
      */
@@ -307,27 +185,15 @@ export class VisualizationComponent {
                 let bVal;
 
                 switch (a.gender) {
-                    case "Male":
-                        aVal = -1;
-                        break;
-                    case "Female":
-                        aVal = 0;
-                        break;
-                    default:
-                        aVal = 1;
-                        break;
+                    case "Male": aVal = -1; break;
+                    case "Female": aVal = 0; break;
+                    default: aVal = 1; // "Unknown"
                 }
 
                 switch (b.gender) {
-                    case "Male":
-                        bVal = -1;
-                        break;
-                    case "Female":
-                        bVal = 0;
-                        break;
-                    default:
-                        bVal = 1;
-                        break;
+                    case "Male": bVal = -1; break;
+                    case "Female": bVal = 0; break;
+                    default: bVal = 1;
                 }
 
                 return aVal - bVal;
@@ -398,7 +264,6 @@ export class VisualizationComponent {
 
         for (let i in zEntries) {
             let zEntry = zEntries[i];
-            // todo: hover boundary of 2px
             d3.select('svg').append('circle')
                 .attr('cx', zEntry.cx)
                 .attr('cy', zEntry.cy)
@@ -408,6 +273,10 @@ export class VisualizationComponent {
                 .style("cursor", "pointer")
 
                 .on("mouseover", function (d) {
+                    d3.select(this)
+                        .attr("stroke", zEntry.fill)
+                        .attr("stroke-opacity", 1)
+                        .attr("stroke-width", 2)
                     div.transition()
                         .style("opacity", 1)
                     div.text(zEntry.fullName)
@@ -416,6 +285,8 @@ export class VisualizationComponent {
                     }
                 )
                 .on("mouseout", function (d) {
+                    d3.select(this)
+                        .attr("stroke-width", 0)
                     div.transition()
                         .style("opacity", 0);
                     }
@@ -582,6 +453,123 @@ export class VisualizationComponent {
             ]
         }
         return mapping[groupBy];
+    }
+
+    /*
+     * When dots are colored, legend is printed at top.
+     */
+    drawLegend(colorBy) {
+        let div = d3.select("body").append("div")
+            .attr("class", "tool_tip")
+            .style("opacity", 0)
+            .style("padding", "12px")
+            .style("max-width", "200px")
+            .style("text-align", "left");
+        switch (colorBy) {
+            case "gender":
+                d3.select('svg').append('circle')
+                    .attr('cx', 5)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_MALE)
+                d3.select('svg').append("text")
+                    .attr("x", 12)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Male");
+                d3.select('svg').append('circle')
+                    .attr('cx', 65)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_FEMALE)
+                d3.select('svg').append("text")
+                    .attr("x", 72)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Female");
+                d3.select('svg').append('circle')
+                    .attr('cx', 145)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_OTHER)
+                d3.select('svg').append("text")
+                    .attr("x", 152)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Unknown");
+                d3.select('svg').append("text")
+                    .attr("x", 222)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .attr("font-weight", 700)
+                    .attr("fill", COLOR_QUESTION)
+                    .style("cursor", "pointer")
+                    .text("?")
+                    .on("mouseover", function (d) {
+                        div.style("height", "80px")
+                        div.transition()
+                            .style("opacity", 1);
+                        div.text("Gender is a category we attributed and is not always available.")
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px")
+                        }
+                    )
+                    .on("mouseout", function (d) {
+                        div.transition()
+                            .style("opacity", 0);
+                        }
+                    );
+                break;
+            case "new":
+                d3.select('svg').append('circle')
+                    .attr('cx', 5)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_OLD)
+                d3.select('svg').append("text")
+                    .attr("x", 12)
+                    .attr("y", LEGEND_TEXT_HEIGHT)            
+                    .style("font-style", "oblique")
+                    .text("DBITI")
+                d3.select('svg').append("text")
+                    .attr("x", 46)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Entry")
+                    .style("font-style", "normal")
+                d3.select('svg').append('circle')
+                    .attr('cx', 105)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_NEW)
+                d3.select('svg').append("text")
+                    .attr("x", 112)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Explorer Entry");
+                d3.select('svg').append("text")
+                    .attr("x", 222)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .attr("font-weight", 700)
+                    .attr("fill", COLOR_QUESTION)
+                    .style("cursor", "pointer")
+                    .text("?")
+                    .on("mouseover", function (d) {
+                        div.transition()
+                            .style("opacity", 1)
+                        div.text("Origin distinguishes between entries extracted from Ingamells' Dictionary (")
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px")
+                            .append("text")
+                                .style("font-style", "oblique")
+                                .text("DBITI")
+                            .append("text")
+                                .text(") and additional entries created in the Explorer database.")
+                                .style("font-style", "normal")
+                        }
+                    )
+                    .on("mouseout", function (d) {
+                        div.transition()
+                            .style("opacity", 0)
+                        }
+                    );
+                break;
+            default:
+        }
     }
 
     clicked(event) {

@@ -151,7 +151,7 @@ export class VisualizationComponent {
                 .text(function (d) { return group.title; });
             y += 15;
 
-            let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, y);
+            let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, groupBy, y);
             y = dotGroup + 50;
         }
         if (colorBy !== "none") {
@@ -290,7 +290,7 @@ export class VisualizationComponent {
      * When given the entries of a group and how the dots should be sized and colored, dots are drawn accordingly. A y variable is stored to
      * properly locate the next group.
      */
-    drawDots(entries, colorBy, sizeBy, y) {
+    drawDots(entries, colorBy, sizeBy, groupBy, y) {
         let x = BUFFER;
 
         let div = d3.select("body").append("div")
@@ -299,6 +299,41 @@ export class VisualizationComponent {
         let width = d3.select("svg")[0][0].clientWidth;
 
         let zEntries = [] as any; // entries sorted by z-index
+
+        // for visibility purposes, coloring by gender and grouping will also group by gender within each group
+        if (colorBy == "gender" && groupBy !== "none") {
+            console.log(entries);
+            entries.sort(function(a,b) {
+                let aVal;
+                let bVal;
+
+                switch (a.gender) {
+                    case "Male":
+                        aVal = -1;
+                        break;
+                    case "Female":
+                        aVal = 0;
+                        break;
+                    default:
+                        aVal = 1;
+                        break;
+                }
+
+                switch (b.gender) {
+                    case "Male":
+                        bVal = -1;
+                        break;
+                    case "Female":
+                        bVal = 0;
+                        break;
+                    default:
+                        bVal = 1;
+                        break;
+                }
+
+                return aVal - bVal;
+            })
+        }
 
         for (let i in entries) {
             let entry = entries[i];

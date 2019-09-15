@@ -172,7 +172,7 @@ export class VisualizationComponent {
             .attr("class", "tool_tip")
             .style("opacity", 0)
             .style("padding", "12px")
-            .style("width", "200px")
+            .style("max-width", "200px")
             .style("text-align", "left");
         switch (colorBy) {
             case "gender":
@@ -263,7 +263,6 @@ export class VisualizationComponent {
                     .style("cursor", "pointer")
                     .text("?")
                     .on("mouseover", function (d) {
-                        div.style("height", "130px")
                         div.transition()
                             .style("opacity", 1)
                         div.text("Origin distinguishes between entries extracted from Ingamells' Dictionary (")

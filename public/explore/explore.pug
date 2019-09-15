@@ -40,7 +40,7 @@
                           ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1, clear: both}"
                     )
                         h4(ng-if="dimension.label !== 'DBITI Employments & Identifiers'") {{ dimension.label }}
-                        div(ng-if="dimension.label === 'DBITI Employments & Identifiers'" style="margin-bottom: 10px")
+                        div(ng-if="dimension.label === 'DBITI Employments & Identifiers'" style="margin: 10px 0px")
                           h4(style="font-style: italic; display: inline") DBITI 
                           h4(style="font-style: normal; display: inline") Employments & Identifiers
                         p {{ dimension.description }}

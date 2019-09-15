@@ -302,7 +302,6 @@ export class VisualizationComponent {
 
         // for visibility purposes, coloring by gender and grouping will also group by gender within each group
         if (colorBy == "gender" && groupBy !== "none") {
-            console.log(entries);
             entries.sort(function(a,b) {
                 let aVal;
                 let bVal;
@@ -405,7 +404,7 @@ export class VisualizationComponent {
                 .attr('cy', zEntry.cy)
                 .attr('r', zEntry.r)
                 .attr('fill', zEntry.fill)
-                .style("opacity", sizeBy === "none" ? 0.75 : 0.65)
+                .style("opacity", sizeBy === "none" ? 1 : colorBy === "none" ? 0.42 : 0.75) // when sizing, dots become more transparent, especially if not coloring
                 .style("cursor", "pointer")
 
                 .on("mouseover", function (d) {

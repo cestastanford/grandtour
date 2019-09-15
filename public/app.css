@@ -1015,15 +1015,15 @@ ul.list-group.entry-facet > li .controls {
 div.tool_tip {	
   position: absolute;			
   text-align: center;			
-  width: 100px;					
-  height: 38px;
+  display: inline-block;
   margin-left: 20px;
   margin-bottom: 30px;
-  padding: 2px;				
-  font: 12px sans-serif;		
-  background: lightgray;	
+  padding: 5px;				
+  font: 13px 'Open Sans', sans-serif;		
+  background: white;	
   border: 0px;		
-  border-radius: 8px;			
+  border-radius: 0px;
+  box-shadow: 0 2px 10px #ccc;			
   pointer-events: none;
   text-overflow: ellipsis;		
 }

@@ -141,9 +141,16 @@ export class VisualizationComponent {
         let x = 1;
         let y = groupBy == "none" || colorBy == "none" ? 15 : 30;
 
+        // Certain entries are "fake", consolidations of multiple individuals. In certain cases, we want them to be in a separate group.
+        var separateFakes = false;
+        if (sizeBy === "travelTime" || (groupBy === "travel" || groupBy === "tours")) {
+            separateFakes = true;
+            var fakeEntries = [];
+        }        
+
         for (let i in entryGroups) {
             const group = allGroups[i];
-            const entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
+            let entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
 
             d3.select('svg').append("text")
                 .attr("x", x)
@@ -151,12 +158,68 @@ export class VisualizationComponent {
                 .text(function (d) { return group.title; });
             y += 15;
 
+            if (separateFakes) {
+                let fakeEntriesInGroup = entriesInGroup.filter(function (d) {
+                    return !(d.fullName.includes(" ")) && Number.isInteger(d.index);
+                });
+                
+                entriesInGroup = entriesInGroup.filter(function (d) {
+                    return fakeEntriesInGroup.indexOf(d) === -1;
+                });
+
+                fakeEntries = fakeEntries.concat(fakeEntriesInGroup);
+            }
+
             let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, groupBy, y);
             y = dotGroup + 50;
         }
+
+        // after other dot groups are drawn, the separated fake entries are drawn (when applicable)
+        if (separateFakes && fakeEntries) {
+            d3.select('svg').append("text")
+                .attr("x", x)
+                .attr("y", y)
+                .text("Unknown");
+            let textY = y;
+            y += 15;
+
+            let dotGroup = this.drawDots(fakeEntries, colorBy, "none", groupBy, y);
+            y = dotGroup + 50;
+
+            // question mark functionality
+            let div = d3.select("body").append("div")
+                .attr("class", "tool_tip")
+                .style("opacity", 0)
+                .style("padding", "12px")
+                .style("max-width", "200px")
+                .style("text-align", "left");
+
+            d3.select('svg').append("text")
+                .attr("x", 72)
+                .attr("y", textY)
+                .attr("font-weight", 700)
+                .attr("fill", COLOR_QUESTION)
+                .style("cursor", "pointer")
+                .text("?")
+                .on("mouseover", function (d) {
+                    div.transition()
+                        .style("opacity", 1);
+                    div.text("Certain entries represent multiple travelers only known by their shared last names. Thus, some information is unknown.")
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px")
+                    }
+                )
+                .on("mouseout", function (d) {
+                    div.transition()
+                        .style("opacity", 0);
+                    }
+                );
+        }
+
         if (colorBy !== "none") {
             this.drawLegend(colorBy);
         }
+
         var svg = document.getElementById("mySvg");
         if (svg) {
             svg.setAttribute("height", String(y - 15));
@@ -269,7 +332,7 @@ export class VisualizationComponent {
                 .attr('cy', zEntry.cy)
                 .attr('r', zEntry.r)
                 .attr('fill', zEntry.fill)
-                .style("opacity", sizeBy === "none" ? 1 : colorBy === "none" ? 0.42 : 0.75) // when sizing, dots become more transparent, especially if not coloring
+                .style("opacity", sizeBy === "none" ? 1 : 0.5) // when sizing, dots become more transparent
                 .style("cursor", "pointer")
 
                 .on("mouseover", function (d) {
@@ -426,30 +489,6 @@ export class VisualizationComponent {
                     query: { numTours: 8},
                     title: "8"
                 },
-                {
-                    query: { numTours: 9},
-                    title: "9"
-                },
-                {
-                    query: { numTours: 10},
-                    title: "10"
-                },
-                {
-                    query: { numTours: 11},
-                    title: "11"
-                },
-                {
-                    query: { numTours: 13},
-                    title: "13"
-                },
-                {
-                    query: { numTours: 16},
-                    title: "16"
-                },
-                {
-                    query: { numTours: 20},
-                    title: "20"
-                },
             ]
         }
         return mapping[groupBy];
@@ -502,7 +541,6 @@ export class VisualizationComponent {
                     .style("cursor", "pointer")
                     .text("?")
                     .on("mouseover", function (d) {
-                        div.style("height", "80px")
                         div.transition()
                             .style("opacity", 1);
                         div.text("Gender is a category we attributed and is not always available.")

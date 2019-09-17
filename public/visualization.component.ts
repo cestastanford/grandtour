@@ -183,6 +183,8 @@ export class VisualizationComponent {
             let textY = y;
             y += 15;
 
+            if (sizeBy === "travelTime") sizeBy = "none";
+
             let dotGroup = this.drawDots(fakeEntries, colorBy, sizeBy, groupBy, y);
             y = dotGroup + 50;
 

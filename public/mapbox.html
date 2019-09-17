@@ -66,6 +66,7 @@
     </div>
       
     <script>
+    // sets up map
     mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
     var map = new mapboxgl.Map({
       container: 'map',
@@ -76,12 +77,14 @@
       maxBounds: [[-2.5674, 32.8719], [26.5674, 50.8719]]
     });
 
+    // sets up hover popup
     var popup = new mapboxgl.Popup({ 
       offset: [0, -15],
       closeButton: false,
       closeOnClick: false
     });
 
+    // hovering over point reveals popup
     map.on('mouseover', 'missing-coordinates-gte-final', function(e) {
       map.getCanvas().style.cursor = 'pointer';
 
@@ -90,12 +93,14 @@
         .addTo(map);
     });
 
+    // clicking on point
     map.on('click', 'missing-coordinates-gte-final', function(e) {
       popup.setLngLat(e.lngLat)
         .setHTML('<h4>' + e.features[0].properties.place + '</h4>')
         .addTo(map);
     });
 
+    // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function(e) {
       map.getCanvas().style.cursor = '';
       popup.remove();
@@ -103,8 +108,8 @@
 
     var unselected = document.getElementById('unselected');
     var selected = document.getElementById('selected');
-    var timeNum = 1; // ensures places overlay is only created once, when Map tab is clicked (also ensures first few places are not cut off)
 
+    // alphabetical sort
     function sortPoints(points) {
       points.sort(function(a,b) {
           let aPlace = a.properties.place;
@@ -117,56 +122,52 @@
     var selectedList = [];
     var unselectedList = [];
 
-    map.on('idle', function() {
-      if (timeNum !== 2) {
-        timeNum++;
-      } else if (timeNum === 2) {
-        var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
-        points = sortPoints(points);
 
-        points.forEach(function(f) {
-          var placeName = f.properties.place;
-          var placeToggle = document.createElement('button');
-          placeToggle.innerHTML = placeName;
-          placeToggle.style.display = 'block';
+    map.once('moveend', function() {
+      var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
+      points = sortPoints(points);
 
-          placeToggle.addEventListener('click', function() {
-            switch (placeToggle.parentElement) {
-              case unselected:
-                let unselectedIndex = unselectedList.indexOf(placeName);
-                unselectedList.splice(unselectedIndex, 1);
+      points.forEach(function(f) {
+        var placeName = f.properties.place;
+        var placeToggle = document.createElement('button');
+        placeToggle.innerHTML = placeName;
+        placeToggle.style.display = 'block';
 
-                var selectedPopup = new mapboxgl.Popup({ 
-                  offset: [0, -15],
-                  closeButton: false,
-                  closeOnClick: false
-                });
-                selectedPopup.setLngLat(f.geometry.coordinates)
-                  .setHTML('<h4>' + f.properties.place + '</h4>')
-                  .addTo(map);
+        placeToggle.addEventListener('click', function() {
+          switch (placeToggle.parentElement) {
+            case unselected:
+              let unselectedIndex = unselectedList.indexOf(placeName);
+              unselectedList.splice(unselectedIndex, 1);
 
-                selectedList.push(placeName);
-                selected.appendChild(placeToggle);
-                break;
-              case selected:
-                let selectedIndex = selectedList.indexOf(placeName);
-                selectedList.splice(selectedIndex, 1);
+              var selectedPopup = new mapboxgl.Popup({ 
+                offset: [0, -15],
+                closeButton: false,
+                closeOnClick: false
+              });
+              selectedPopup.setLngLat(f.geometry.coordinates)
+                .setHTML('<h4>' + f.properties.place + '</h4>')
+                .addTo(map);
 
-                map.selectedPopup.remove();
+              selectedList.push(placeName);
+              selected.appendChild(placeToggle);
+              break;
+            case selected:
+              let selectedIndex = selectedList.indexOf(placeName);
+              selectedList.splice(selectedIndex, 1);
 
-                unselectedList.push(placeName);
-                unselected.appendChild(placeToggle);
-                break;
-              default:
-                break;
-            }
-          })
+              map.selectedPopup.remove();
 
-          unselectedList.push(placeToggle);
-          unselected.appendChild(placeToggle);
-        });
-        timeNum++;
-      }
+              unselectedList.push(placeName);
+              unselected.appendChild(placeToggle);
+              break;
+            default:
+              break;
+          }
+        })
+
+        unselectedList.push(placeToggle);
+        unselected.appendChild(placeToggle);
+      });
     });
       
     

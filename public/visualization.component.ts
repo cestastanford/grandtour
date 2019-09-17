@@ -160,7 +160,7 @@ export class VisualizationComponent {
 
             if (separateFakes) {
                 let fakeEntriesInGroup = entriesInGroup.filter(function (d) {
-                    return !(d.fullName.includes(" ")) && Number.isInteger(d.index);
+                    return !(d.fullName.includes(" ")) && d.numTours !== 1 && Number.isInteger(d.index);
                 });
                 
                 entriesInGroup = entriesInGroup.filter(function (d) {
@@ -182,6 +182,30 @@ export class VisualizationComponent {
                 .text("Unknown");
             let textY = y;
             y += 15;
+
+            fakeEntries.sort(function (a,b) {
+                return (a.fullName).localeCompare(b.fullName);
+            });
+
+            // When grouping by "Date of Travel", we want each "Unknown" entry to appear only once
+            if (groupBy === "travel") {
+                var doubles = [];
+
+                for (let i = 0; i < fakeEntries.length - 1; i++) {
+                    if (fakeEntries[i].fullName !== fakeEntries[i + 1].fullName) {
+                        doubles = doubles.concat(fakeEntries[i]);
+                        doubles = doubles.concat(fakeEntries[i + 1]);
+                    }
+                }
+
+                var uniques = [];
+
+                uniques = uniques.concat(doubles[0])
+                for (let i = 1; i < doubles.length; i += 2) {
+                    uniques = uniques.concat(doubles[i]);
+                }
+                fakeEntries = uniques;
+            }
 
             if (sizeBy === "travelTime") sizeBy = "none";
 

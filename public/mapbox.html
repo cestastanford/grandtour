@@ -78,7 +78,7 @@
     });
 
     // sets up hover popup
-    var popup = new mapboxgl.Popup({ 
+    var hoverPopup = new mapboxgl.Popup({ 
       offset: [0, -15],
       closeButton: false,
       closeOnClick: false
@@ -88,14 +88,14 @@
     map.on('mouseover', 'missing-coordinates-gte-final', function(e) {
       map.getCanvas().style.cursor = 'pointer';
 
-      popup.setLngLat(e.lngLat)
+      hoverPopup.setLngLat(e.lngLat)
         .setHTML('<h4>' + e.features[0].properties.place + '</h4>')
         .addTo(map);
     });
 
-    // clicking on point
+    // clicking on point will select/deselect point
     map.on('click', 'missing-coordinates-gte-final', function(e) {
-      popup.setLngLat(e.lngLat)
+      hoverPopup.setLngLat(e.lngLat)
         .setHTML('<h4>' + e.features[0].properties.place + '</h4>')
         .addTo(map);
     });
@@ -103,71 +103,68 @@
     // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function(e) {
       map.getCanvas().style.cursor = '';
-      popup.remove();
+      hoverPopup.remove();
     });
 
     var unselected = document.getElementById('unselected');
     var selected = document.getElementById('selected');
 
-    // alphabetical sort
-    function sortPoints(points) {
-      points.sort(function(a,b) {
-          let aPlace = a.properties.place;
-          let bPlace = b.properties.place;
-          return aPlace.localeCompare(bPlace);
-        });
-      return points;
+    /*
+     * Called when buttons are initialized or when a button is clicked. Re-alphabetizes the children of an HTML element when given the parent 
+     * (i.e., either selected or unselected).
+     */
+    function sortButtons(parent) {
+      var children = parent.children;
+      [].slice.call(children).sort(function(a, b) {
+        return a.textContent.localeCompare(b.textContent);
+      }).forEach(function(val, index) {
+      parent.appendChild(val);
+      });
     }
 
-    var selectedList = [];
-    var unselectedList = [];
-
-
+    /*
+     * Triggers once map is ready to be interacted with. Buttons for each location allow one to select and deselect places, displaying or 
+     * hiding their popups.
+     */
+    var selectedPopups = [];
     map.once('moveend', function() {
       var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
-      points = sortPoints(points);
 
       points.forEach(function(f) {
         var placeName = f.properties.place;
-        var placeToggle = document.createElement('button');
-        placeToggle.innerHTML = placeName;
-        placeToggle.style.display = 'block';
+        var placeButton = document.createElement('button');
+        placeButton.innerHTML = placeName;
+        placeButton.style.display = 'block';
 
-        placeToggle.addEventListener('click', function() {
-          switch (placeToggle.parentElement) {
+        placeButton.addEventListener('click', function() {
+          switch (placeButton.parentElement) {
+            // when selecting an unselected element, a popup is drawn on the map and the button is marked as selected
             case unselected:
-              let unselectedIndex = unselectedList.indexOf(placeName);
-              unselectedList.splice(unselectedIndex, 1);
-
-              var selectedPopup = new mapboxgl.Popup({ 
-                offset: [0, -15],
-                closeButton: false,
-                closeOnClick: false
-              });
-              selectedPopup.setLngLat(f.geometry.coordinates)
-                .setHTML('<h4>' + f.properties.place + '</h4>')
-                .addTo(map);
-
-              selectedList.push(placeName);
-              selected.appendChild(placeToggle);
+              let selectedPopup = new mapboxgl.Popup({ offset: [0, -15], closeButton: false, closeOnClick: false })
+                .setLngLat(f.geometry.coordinates).setHTML('<h4>' + f.properties.place + '</h4>').addTo(map);
+              selectedPopups.push(selectedPopup);
+              selected.appendChild(placeButton);
+              sortButtons(selected);
               break;
+            // when deselecting a selected element, its popup is removed and the button is marked as unselected
             case selected:
-              let selectedIndex = selectedList.indexOf(placeName);
-              selectedList.splice(selectedIndex, 1);
-
-              map.selectedPopup.remove();
-
-              unselectedList.push(placeName);
-              unselected.appendChild(placeToggle);
+              for (d of selectedPopups) {
+                if (d._content.innerText === placeName) {
+                  selectedPopups.splice(selectedPopups.indexOf(d), 1);
+                  d.remove();
+                  break;
+                }
+              };
+              unselected.appendChild(placeButton);
+              sortButtons(unselected);
               break;
             default:
-              break;
           }
         })
-
-        unselectedList.push(placeToggle);
-        unselected.appendChild(placeToggle);
+        // all buttons are initially unselected
+        unselected.appendChild(placeButton);
       });
+      sortButtons(unselected);
     });
       
     

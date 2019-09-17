@@ -207,9 +207,9 @@ export class VisualizationComponent {
                 fakeEntries = uniques;
             }
 
-            groupBy = "none";
+            if (sizeBy === "travelTime") sizeBy = "none";
 
-            let dotGroup = this.drawDots(fakeEntries, colorBy, "none", groupBy, y);
+            let dotGroup = this.drawDots(fakeEntries, colorBy, sizeBy, groupBy, y);
             y = dotGroup + 50;
 
             // question mark functionality

@@ -160,7 +160,7 @@ export class VisualizationComponent {
 
             if (separateFakes) {
                 let fakeEntriesInGroup = entriesInGroup.filter(function (d) {
-                    return !(d.fullName.includes(" ")) && Number.isInteger(d.index);
+                    return !(d.fullName.includes(" ")) && d.numTours !== 1 && Number.isInteger(d.index);
                 });
                 
                 entriesInGroup = entriesInGroup.filter(function (d) {

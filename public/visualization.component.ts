@@ -183,7 +183,7 @@ export class VisualizationComponent {
             let textY = y;
             y += 15;
 
-            let dotGroup = this.drawDots(fakeEntries, colorBy, "none", groupBy, y);
+            let dotGroup = this.drawDots(fakeEntries, colorBy, sizeBy, groupBy, y);
             y = dotGroup + 50;
 
             // question mark functionality

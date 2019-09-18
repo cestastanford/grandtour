@@ -167,17 +167,36 @@
     // hovering over point reveals popup
     map.on('mouseover', 'missing-coordinates-gte-final', function(e) {
       map.getCanvas().style.cursor = 'pointer';
-
-      hoverPopup.setLngLat(e.lngLat)
-        .setHTML('<h4>' + e.features[0].properties.place + '</h4>')
-        .addTo(map);
+      let feature = e.features[0];
+      if (!alreadySelected(selectedPopups, feature)) { // will not reveal hoverPopup for already selected points (which have popups)
+        hoverPopup.setLngLat(e.lngLat)
+          .setHTML('<h4>' + feature.properties.place + '</h4>')
+          .addTo(map);
+      }
     });
 
     // clicking on point will select/deselect point
     map.on('click', 'missing-coordinates-gte-final', function(e) {
-      hoverPopup.setLngLat(e.lngLat)
-        .setHTML('<h4>' + e.features[0].properties.place + '</h4>')
-        .addTo(map);
+      let button;
+      let feature = e.features[0];
+      for (child of selected.children) {
+        if (feature.properties.place === child.innerText) {
+          button = child;
+          break;
+        }
+      }
+      if (button) { // case selected -> deselected
+        deselectPopup(button);
+      } else { // case deselected -> selected
+        for (child of unselected.children) {
+          if (feature.properties.place === child.innerText) {
+            button = child;
+            break;
+          }
+        }
+        hoverPopup.remove();
+        selectPopup(feature, button);
+      }
     });
 
     // hovering off point hides hover popup
@@ -203,6 +222,46 @@
     }
 
     /*
+     * Called when hovering over a point. When passed an array of popups (e.g., selectedPopups) and a feature, the feature is checked to see if a 
+     * popup already exists for that feature and returns the value.
+     */
+    function alreadySelected(popupGroup, feature) {      
+      for (popup of popupGroup) {
+        if (feature.properties.place === popup._content.innerText) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /*
+     * Called by clicking either an unselected place's dot or button. When passed a feature and a placebutton, a popup is created at that feature 
+     * and added to selectedPopups, and the button is relocated.
+     */
+    function selectPopup(feature, placeButton) {
+      let selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
+        .setLngLat(feature.geometry.coordinates).setHTML('<h4>' + feature.properties.place + '</h4>').addTo(map);
+      selectedPopups.push(selectedPopup);
+      selected.appendChild(placeButton);
+      sortButtons(selected);
+    }
+
+    /*
+     * Called by clicking either a selected place's dot or button. When passed its button, the button is relocated and the popup is removed.
+     */
+    function deselectPopup(placeButton) {
+      for (d of selectedPopups) {
+        if (d._content.innerText === placeButton.innerText) {
+          selectedPopups.splice(selectedPopups.indexOf(d), 1);
+          d.remove();
+          break;
+        }
+      };
+      unselected.appendChild(placeButton);
+      sortButtons(unselected);
+    }
+
+    /*
      * Triggers once map is ready to be interacted with. Buttons for each location allow one to select and deselect places, displaying or 
      * hiding their popups.
      */
@@ -210,32 +269,19 @@
     map.once('moveend', function() {
       var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
       points.forEach(function(f) {
-        var placeName = f.properties.place;
         var placeButton = document.createElement('button');
-        placeButton.innerHTML = placeName;
+        placeButton.innerHTML = f.properties.place;
         placeButton.style.display = 'block';
 
         placeButton.addEventListener('click', function() {
           switch (placeButton.parentElement) {
             // when selecting an unselected element, a popup is drawn on the map and the button is marked as selected
             case unselected:
-              let selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
-                .setLngLat(f.geometry.coordinates).setHTML('<h4>' + f.properties.place + '</h4>').addTo(map);
-              selectedPopups.push(selectedPopup);
-              selected.appendChild(placeButton);
-              sortButtons(selected);
+              selectPopup(f, placeButton);
               break;
             // when deselecting a selected element, its popup is removed and the button is marked as unselected
             case selected:
-              for (d of selectedPopups) {
-                if (d._content.innerText === placeName) {
-                  selectedPopups.splice(selectedPopups.indexOf(d), 1);
-                  d.remove();
-                  break;
-                }
-              };
-              unselected.appendChild(placeButton);
-              sortButtons(unselected);
+              deselectPopup(placeButton);
               break;
             default:
           }

@@ -19,16 +19,17 @@
         width: 100%;
       }
 
-      .map-overlay {
+      .places-box {
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         position: absolute;
+        max-height: 400px;
         width: 200px;
         top: 0;
         right: 0;
         padding: 10px;
       }
         
-      .map-overlay .map-overlay-inner {
+      .places-box .places-box-inner {
         background-color: white;
         border: 2px solid #dddddd;
         border-radius: 4px;
@@ -37,7 +38,7 @@
         margin-bottom: 10px;
       }
 
-      .map-overlay .map-overlay-inner p {
+      .places-box .places-box-inner p {
         background-color: #eeeeee; 
         color: #333; 
         font-family: 'Poly', serif;
@@ -52,18 +53,48 @@
         color: #333;
         cursor: pointer;
       }
+
+      .states-box {
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        position: absolute;
+        height: 400px;
+        width: 300px;
+        bottom: 0;
+        left: 0;
+        padding: 10px;
+      }
+
+      .states-box .states-box-inner {
+        height: 350px;
+        background-color: white;
+        border: 2px solid #dddddd;
+        border-radius: 4px;
+        box-shadow:0 1px 2px rgba(0, 0, 0, 0.10);
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      #states {
+        height: inherit;
+        overflow: auto;
+      }
     </style>
   </head>
   <body>
     <div id='map'></div>
-    <div class='map-overlay top'>
-      <div class='map-overlay-inner' style='max-height: 400px'>
+    <div class='places-box top'>
+      <div class='places-box-inner'>
           <p>SELECTED</p>
           <div id='selected' style='max-height: 100px; overflow: auto'></div>
           <p>UNSELECTED</p>
           <div id='unselected' style='height: 200px; min-height: 100px; overflow: auto'></div>
       </div>
     </div>
+    <div class='states-box top'>
+        <div class='states-box-inner'>
+          <div id='states'></div>
+        </div>
+      </div>
       
     <script>
     // sets up map
@@ -129,7 +160,6 @@
     var selectedPopups = [];
     map.once('moveend', function() {
       var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
-
       points.forEach(function(f) {
         var placeName = f.properties.place;
         var placeButton = document.createElement('button');
@@ -166,8 +196,56 @@
       });
       sortButtons(unselected);
     });
-      
     
+    /*
+     * Sets up states interaction.
+     */
+    var states = document.getElementById('states');
+    var stateElements = [
+      { name: 'Duchy of Modena, Massa and Carrara', color: '#f8de91'},
+      { name: 'Grand Duchy of Tuscany', color: '#89d792'},
+      { name: 'Papal States', color: '#a879af'},
+      { name: 'Tyrol', color: '#fdde86'},
+      { name: 'House of Savoy/Kingdom of Sardinia', color: '#71808e'},
+      { name: 'Duchy of Parma and Piacenza', color: '#83aa89'},
+      { name: 'Republic of Venice', color: '#89b6d7'},
+      { name: 'Republic of San Marino', color: '#81b9da'},
+      { name: 'Kingdom of Naples', color: '#f0b97f'},
+      { name: 'Republic of Lucca', color: '#ce977e'},
+      { name: 'Duchy of Sora', color: '#77ac85'},
+      { name: 'Bishopric of Trento', color: '#ce977e'},
+      { name: 'Republic of Genoa', color: '#ab7879'},
+      { name: 'Duchy of Milan and Mantua', color: '#d7bd75'},
+    ]
+    stateElements.forEach(function(element) {
+      var button = document.createElement('div');
+        var color = document.createElement('div');
+        var name = document.createElement('p');
+
+        color.style.backgroundColor = element.color;
+          color.style.width = "20px";
+          color.style.height = "20px";
+          color.style.display = "inline-block";
+          color.style.position = "relative";
+          color.style.top = "5px";
+          color.style.left = "5px";
+
+        name.innerHTML = element.name;
+          name.style.display = "inline-block";
+          name.style.position = "relative";
+          name.style.left = "10px"
+          name.style.font = "'Poly', serif";
+
+        button.style.backgroundColor = "white";
+        button.style.cursor = "pointer";
+
+        button.appendChild(color);
+        button.appendChild(name);
+        button.addEventListener('click', function() {
+          this.style.backgroundColor === 'white' ? this.style.backgroundColor = 'rgba(164, 127, 200, 0.5)' : this.style.backgroundColor = "white";
+        });
+      states.appendChild(button);
+    });
     </script>
   </body>
 </html>

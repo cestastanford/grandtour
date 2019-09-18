@@ -38,6 +38,7 @@
     "elastic-list": "https://github.com/sirisacademic/d3-elastic-list.git",
     "express": "^4.16.4",
     "file-saver": "2.0.0",
+    "force-ssl-heroku": "^1.0.2",
     "google-auth-library": "^0.10.0",
     "googleapis": "^16.1.0",
     "he": "^1.2.0",

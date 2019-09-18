@@ -1,3 +1,7 @@
+<!--
+  This document provides the functionality for the Map Visualization, which appears within visualization.component.ts. Places of the Grand Tour
+  are drawn as features (i.e., points) according to information based from Mapbox and can be selected individually or by state using buttons.
+-->
 <!DOCTYPE html>
 <html>
   <head>
@@ -127,6 +131,25 @@
         height: inherit;
         overflow: auto;
       }
+
+      .stateColor {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        position: relative;
+        top: 5px;
+        left: 5px;
+      }
+
+      .stateName {
+        display: inline-block;
+        position: relative;
+        left: 10px;
+      }
+
+      .stateButton {
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -168,7 +191,7 @@
     map.on('mouseover', 'missing-coordinates-gte-final', function(e) {
       map.getCanvas().style.cursor = 'pointer';
       let feature = e.features[0];
-      if (!alreadySelected(selectedPopups, feature)) { // will not reveal hoverPopup for already selected points (which have popups)
+      if (!isSelected(feature)) { // will not reveal hoverPopup for already selected points (which have popups)
         hoverPopup.setLngLat(e.lngLat)
           .setHTML('<h4>' + feature.properties.place + '</h4>')
           .addTo(map);
@@ -177,23 +200,12 @@
 
     // clicking on point will select/deselect point
     map.on('click', 'missing-coordinates-gte-final', function(e) {
-      let button;
       let feature = e.features[0];
-      for (child of selected.children) {
-        if (feature.properties.place === child.innerText) {
-          button = child;
-          break;
-        }
-      }
-      if (button) { // case selected -> deselected
+      let button = getPlaceButton(feature)
+
+      if (isSelected(feature)) {
         deselectPopup(button);
       } else { // case deselected -> selected
-        for (child of unselected.children) {
-          if (feature.properties.place === child.innerText) {
-            button = child;
-            break;
-          }
-        }
         hoverPopup.remove();
         selectPopup(feature, button);
       }
@@ -205,11 +217,47 @@
       hoverPopup.remove();
     });
 
+    // these divs are the parents of place buttons, which switch depending on if they are selected or not.
     var unselected = document.getElementById('unselected');
     var selected = document.getElementById('selected');
+    var selectedPopups = [];
+    var states = document.getElementById('states');
 
     /*
-     * Called when buttons are initialized or when a button is clicked. Re-alphabetizes the children of an HTML element when given the parent 
+     * When passed the button of a place, that place's corresponding feature is returned.
+     */
+    function getFeature(placeButton) {
+      var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
+      for (point of points) {
+        if (point.properties.place === placeButton.innerText) {
+          return point;
+        }
+      }
+      return;
+    }
+
+    /*
+     * When passed a place's feature, the button corresponding to that feature is returned.
+     */
+    function getPlaceButton(feature) {
+      if (isSelected(feature)) {
+        for (child of selected.children) {
+          if (feature.properties.place === child.innerText) {
+            return child;
+          }
+        }
+      } else {
+        for (child of unselected.children) {
+          if (feature.properties.place === child.innerText) {
+            return child;
+          }
+        }
+      }
+      return;
+    }
+
+    /*
+     * Called when buttons are initialized or when a popup is created. Re-alphabetizes the children of an HTML element when given the parent 
      * (i.e., either selected or unselected).
      */
     function sortButtons(parent) {
@@ -222,11 +270,10 @@
     }
 
     /*
-     * Called when hovering over a point. When passed an array of popups (e.g., selectedPopups) and a feature, the feature is checked to see if a 
-     * popup already exists for that feature and returns the value.
+     * Called by various functions to see if a popup exists for that point.
      */
-    function alreadySelected(popupGroup, feature) {      
-      for (popup of popupGroup) {
+    function isSelected(feature) {      
+      for (popup of selectedPopups) {
         if (feature.properties.place === popup._content.innerText) {
           return true;
         }
@@ -235,8 +282,8 @@
     }
 
     /*
-     * Called by clicking either an unselected place's dot or button. When passed a feature and a placebutton, a popup is created at that feature 
-     * and added to selectedPopups, and the button is relocated.
+     * Called to select an unselected place. When passed a feature and a place's button, a popup is created at that feature 
+     * and added to selectedPopups, and the button is relocated. Expects the feature to not be selected.
      */
     function selectPopup(feature, placeButton) {
       let selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
@@ -244,10 +291,11 @@
       selectedPopups.push(selectedPopup);
       selected.appendChild(placeButton);
       sortButtons(selected);
+      updateStateButton(feature);
     }
 
     /*
-     * Called by clicking either a selected place's dot or button. When passed its button, the button is relocated and the popup is removed.
+     * Called to deselect a selected place. When passed its button, the button is relocated and the popup is removed.
      */
     function deselectPopup(placeButton) {
       for (d of selectedPopups) {
@@ -259,13 +307,77 @@
       };
       unselected.appendChild(placeButton);
       sortButtons(unselected);
+      updateStateButton(getFeature(placeButton));
     }
 
     /*
-     * Triggers once map is ready to be interacted with. Buttons for each location allow one to select and deselect places, displaying or 
-     * hiding their popups.
+     * When given a state's name, all of its points are returned.
      */
-    var selectedPopups = [];
+    function getStatePoints(stateName) {
+      var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
+      return points.filter(function(f) {
+        return f.properties[ '18thcentury state' ] === stateName;
+      });
+    }
+
+    /*
+     * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are selected.
+     */
+    function selectState(stateName) {
+      var state = getStatePoints(stateName);
+      for (point of state) {
+        if (!isSelected(point)) {
+          selectPopup(point, getPlaceButton(point));
+        }
+      }
+    }
+
+    /*
+     * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are deselected.
+     */
+    function deselectState(stateName) {
+      var state = getStatePoints(stateName);
+      for (point of state) {
+        if (isSelected(point)) {
+          deselectPopup(getPlaceButton(point));
+        }
+      }
+    }
+
+    /*
+     * When passed a feature that has recently been selected or deselected, the state button is updated to indicate if its state has all of its 
+     * features.
+     */
+    function updateStateButton(feature) {
+      var stateName = feature.properties[ '18thcentury state' ];
+      let stateButton;
+      for (div of states.children) {
+        if (div.lastChild.innerText === stateName) {
+          stateButton = div;
+          break;
+        }
+      }
+
+      var state = getStatePoints(stateName);
+      var allPointsSelected = true;
+      for (point of state) {
+        if (!isSelected(point)) {
+          allPointsSelected = false;
+          break;
+        }
+      }
+
+      if (allPointsSelected) {
+        stateButton.style.backgroundColor = 'rgba(164, 127, 200, 0.5)';
+      } else {
+        stateButton.style.backgroundColor = 'white';
+      }
+    }
+
+    /*
+     * Triggers once map is ready to be interacted with. Sets up buttons for each location, allowing one to select and deselect places, 
+     * displaying or hiding their popups.
+     */
     map.once('moveend', function() {
       var points = map.queryRenderedFeatures( { layers: ['missing-coordinates-gte-final'] });
       points.forEach(function(f) {
@@ -275,11 +387,9 @@
 
         placeButton.addEventListener('click', function() {
           switch (placeButton.parentElement) {
-            // when selecting an unselected element, a popup is drawn on the map and the button is marked as selected
             case unselected:
               selectPopup(f, placeButton);
               break;
-            // when deselecting a selected element, its popup is removed and the button is marked as unselected
             case selected:
               deselectPopup(placeButton);
               break;
@@ -293,51 +403,48 @@
     });
     
     /*
-     * Sets up states interaction.
+     * Sets up states interaction. Places comprise states, such that every place has a state it belongs to. Clicking a state button will toggle
+     * all of its corresponding places.
      */
-    var states = document.getElementById('states');
     var stateElements = [
-      { name: 'Duchy of Modena, Massa and Carrara', color: '#f8de91'},
-      { name: 'Grand Duchy of Tuscany', color: '#89d792'},
       { name: 'Papal States', color: '#a879af'},
-      { name: 'Tyrol', color: '#fdde86'},
-      { name: 'House of Savoy/Kingdom of Sardinia', color: '#71808e'},
-      { name: 'Duchy of Parma and Piacenza', color: '#83aa89'},
+      { name: 'Grand Duchy of Tuscany', color: '#89d792'},
+      { name: 'Duchy of Modena, Massa and Carrara', color: '#f8de91'},
       { name: 'Republic of Venice', color: '#89b6d7'},
-      { name: 'Republic of San Marino', color: '#81b9da'},
-      { name: 'Kingdom of Naples', color: '#f0b97f'},
-      { name: 'Republic of Lucca', color: '#ce977e'},
-      { name: 'Duchy of Sora', color: '#77ac85'},
-      { name: 'Bishopric of Trento', color: '#ce977e'},
-      { name: 'Republic of Genoa', color: '#ab7879'},
       { name: 'Duchy of Milan and Mantua', color: '#d7bd75'},
+      { name: 'Bishopric of Trento', color: '#ce977e'},
+      { name: 'Kingdom of Naples', color: '#f0b97f'},
+      { name: 'House of Savoy/Kingdom of Sardinia', color: '#71808e'},
+      { name: 'Republic of Lucca', color: '#ce977e'},
+      { name: 'Duchy of Parma and Piacenza', color: '#83aa89'},
+      { name: 'Republic of Genoa', color: '#ab7879'},
+      { name: 'Duchy of Sora', color: '#77ac85'},
+      { name: 'Republic of San Marino', color: '#81b9da'},
+      { name: 'Tyrol', color: '#fdde86'},
     ]
     stateElements.forEach(function(element) {
       var button = document.createElement('div');
         var color = document.createElement('div');
         var name = document.createElement('p');
 
+        color.setAttribute("class", "stateColor");
         color.style.backgroundColor = element.color;
-          color.style.width = "20px";
-          color.style.height = "20px";
-          color.style.display = "inline-block";
-          color.style.position = "relative";
-          color.style.top = "5px";
-          color.style.left = "5px";
 
+        name.setAttribute("class", "stateName");
         name.innerHTML = element.name;
-          name.style.display = "inline-block";
-          name.style.position = "relative";
-          name.style.left = "10px"
-          name.style.font = "'Poly', serif";
 
-        button.style.backgroundColor = "white";
-        button.style.cursor = "pointer";
+        button.setAttribute("class", "stateButton")
+        button.style.backgroundColor = "white"; // set here and not in <style>, because it is used to toggle whether the state is selected
 
         button.appendChild(color);
         button.appendChild(name);
+
         button.addEventListener('click', function() {
-          this.style.backgroundColor === 'white' ? this.style.backgroundColor = 'rgba(164, 127, 200, 0.5)' : this.style.backgroundColor = "white";
+          if (this.style.backgroundColor === "white") { // state selected -> unselected
+            selectState(this.lastChild.innerHTML);
+          } else { // state unselected -> selected
+            deselectState(this.lastChild.innerHTML);
+          }
         });
       states.appendChild(button);
     });

@@ -19,6 +19,39 @@
         width: 100%;
       }
 
+      /* Popup styling automatically rendered by Mapbox */
+      
+      .mapboxgl-popup-content {
+        height: 10px;
+        background-color: rgba(0, 0, 0, 0);
+        box-shadow: none;
+        color: rgba(164, 127, 200, 0.8);
+
+        font-family: 'Open Sans', sans-serif;
+        color: rgba(164, 127, 200, 0.8);
+        text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+      }
+
+        /* Arrow tip of popup */
+        .mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+        .mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+        .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+            border-bottom-color: rgba(0, 0, 0, 0);
+            }
+        .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+        .mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+        .mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+            border-top-color: rgba(0, 0, 0, 0);
+            }
+        .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+            border-right-color: rgba(0, 0, 0, 0);
+            }
+        .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+            border-left-color: rgba(0, 0, 0, 0);
+            }
+
+      /* Places selector */
+
       .places-box {
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         position: absolute;
@@ -38,6 +71,10 @@
         margin-bottom: 10px;
       }
 
+      .places-box .places-box-inner div {
+        overflow: auto
+      }
+
       .places-box .places-box-inner p {
         background-color: #eeeeee; 
         color: #333; 
@@ -47,6 +84,16 @@
         text-align: center;
       }
 
+      #selected {
+        max-height: 100px;
+      }
+
+      #unselected {
+        height: 200px; 
+        min-height: 100px
+      }
+
+      /* All selector buttons */
       button {
         background-color: inherit;
         border: none;
@@ -54,10 +101,12 @@
         cursor: pointer;
       }
 
+      /* States selector */
+
       .states-box {
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         position: absolute;
-        height: 400px;
+        height: 250px;
         width: 300px;
         bottom: 0;
         left: 0;
@@ -65,7 +114,7 @@
       }
 
       .states-box .states-box-inner {
-        height: 350px;
+        height: 200px;
         background-color: white;
         border: 2px solid #dddddd;
         border-radius: 4px;
@@ -85,9 +134,9 @@
     <div class='places-box top'>
       <div class='places-box-inner'>
           <p>SELECTED</p>
-          <div id='selected' style='max-height: 100px; overflow: auto'></div>
+          <div id='selected'></div>
           <p>UNSELECTED</p>
-          <div id='unselected' style='height: 200px; min-height: 100px; overflow: auto'></div>
+          <div id='unselected'></div>
       </div>
     </div>
     <div class='states-box top'>
@@ -110,7 +159,7 @@
 
     // sets up hover popup
     var hoverPopup = new mapboxgl.Popup({ 
-      offset: [0, -15],
+      offset: [0, -10],
       closeButton: false,
       closeOnClick: false
     });
@@ -170,7 +219,7 @@
           switch (placeButton.parentElement) {
             // when selecting an unselected element, a popup is drawn on the map and the button is marked as selected
             case unselected:
-              let selectedPopup = new mapboxgl.Popup({ offset: [0, -15], closeButton: false, closeOnClick: false })
+              let selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
                 .setLngLat(f.geometry.coordinates).setHTML('<h4>' + f.properties.place + '</h4>').addTo(map);
               selectedPopups.push(selectedPopup);
               selected.appendChild(placeButton);

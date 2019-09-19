@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const session = require('cookie-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
+const forceSsl = require('force-ssl-heroku')
 const socketIO = require('./socket')
 const router = require('./router')
 const User = require('./models/user')
@@ -38,6 +39,7 @@ if (
 const app = express()
 app.set('views', [__dirname + '/dist/', __dirname + '/public/'])
 app.set('view engine', 'pug');
+app.use(forceSsl)
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser())
@@ -46,7 +48,6 @@ app.use(session({ keys: [
     process.env['SECRET_KEY_2'],
     process.env['SECRET_KEY_3']
 ]}))
-
 
 /*
 *   Sets up Passport authentication.
@@ -81,7 +82,7 @@ if (process.env['DEBUG_DELAY']) app.use((req, res, next) => setTimeout(next, 100
 
 app.use(express.static(__dirname + '/dist'))
 app.use('/', router)
-
+app.use(express.static('public'))
 
 /*
 *   Handles errors, generating 404 errors for non-error requests

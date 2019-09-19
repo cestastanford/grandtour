@@ -1,7 +1,6 @@
 /*
- * Based on designs by Ashwin Ramaswami and Cody Leff. This file handles the "View" feature of the website. The Dots feature displays entries
- * as dots, allowing one to color, size, and group them according to certain properties. The Map feature will display a map of Italy with
- * locations of tours.
+ * This file handles the "View" feature of the website. The Travelers feature displays entries as dots, allowing one to color, size, and group 
+ * them according to certain properties. The Map feature is handled by mapbox.html.
  */
 
 import d3 from "d3";
@@ -15,6 +14,19 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
 
 const BUFFER = 5;
+const LEGEND_DOT_HEIGHT = 12;
+const LEGEND_TEXT_HEIGHT = LEGEND_DOT_HEIGHT + 5;
+
+const COLOR_MAIN = "black"
+const COLOR_MALE = "#6D808E";
+const COLOR_FEMALE = "#FAB876";
+const COLOR_OLD = "#6D808E";
+const COLOR_NEW = "#AC7BCD";
+const COLOR_OTHER = "#333";
+const COLOR_QUESTION = "#257DBD";
+
+const SIZE_DEFAULT = 3;
+
 
 /*
  * Handles the View "page", and its HTML and some styles.
@@ -35,14 +47,14 @@ const BUFFER = 5;
                 <select id="color" (change)="update()">
                     <option value="none">None</option>
                     <option value="gender">Gender</option>
-                    <option value="new">New entries</option>
+                    <option value="new">Origin</option>
                 </select>
             </div>
             <div class='dimension'>
                 <p>SIZE</p>
                 <select id="size" (change)="update()">
                     <option value="none">None</option>
-                    <option value="length">Entry length</option>
+                    <option value="length">Word count</option>
                     <option value="travelTime">Travel length</option>
                 </select>
             </div>
@@ -71,6 +83,19 @@ const BUFFER = 5;
         border-top: 1px solid #dddddd;
         border-bottom-right-radius: 2px;
         border-bottom-left-radius: 2px;
+    }
+
+    .hover-item:link {
+        color: black;
+        text-decoration: none;
+    }
+
+    .hover-item:hover {
+        color: #d6bc73;
+    }
+
+    .hover-item:active {
+        color: #d0b67d;
     }
     `]
 })
@@ -137,6 +162,7 @@ export class VisualizationComponent {
     }
 
     clear() {
+        d3.selectAll("body > div").remove(); // removes remaining tooltips
         d3.selectAll("svg > *").remove();
     }
 
@@ -150,10 +176,18 @@ export class VisualizationComponent {
 
         this.clear();
         let x = 1;
-        let y = 12;
+        let y = groupBy == "none" || colorBy == "none" ? 15 : 30;
+
+        // Certain entries are "fake", consolidations of multiple individuals. In certain cases, we want them to be in a separate group.
+        var separateFakes = false;
+        if (sizeBy === "travelTime" || (groupBy === "travel" || groupBy === "tours")) {
+            separateFakes = true;
+            var fakeEntries = [];
+        }        
+
         for (let i in entryGroups) {
             const group = allGroups[i];
-            const entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
+            let entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
 
             d3.select('svg').append("text")
                 .attr("x", x)
@@ -161,9 +195,94 @@ export class VisualizationComponent {
                 .text(function (d) { return group.title; });
             y += 15;
 
-            let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, y);
+            if (separateFakes) {
+                let fakeEntriesInGroup = entriesInGroup.filter(function (d) {
+                    return !(d.fullName.includes(" ")) && d.numTours !== 1 && Number.isInteger(d.index);
+                });
+                
+                entriesInGroup = entriesInGroup.filter(function (d) {
+                    return fakeEntriesInGroup.indexOf(d) === -1;
+                });
+
+                fakeEntries = fakeEntries.concat(fakeEntriesInGroup);
+            }
+
+            let dotGroup = this.drawDots(entriesInGroup, colorBy, sizeBy, groupBy, y);
             y = dotGroup + 50;
         }
+
+        // after other dot groups are drawn, the separated fake entries are drawn (when applicable)
+        if (separateFakes && fakeEntries) {
+            d3.select('svg').append("text")
+                .attr("x", x)
+                .attr("y", y)
+                .text("Unknown");
+            let textY = y;
+            y += 15;
+
+            fakeEntries.sort(function (a,b) {
+                return (a.fullName).localeCompare(b.fullName);
+            });
+
+            // When grouping by "Date of Travel", we want each "Unknown" entry to appear only once
+            if (groupBy === "travel") {
+                var doubles = [];
+
+                for (let i = 0; i < fakeEntries.length - 1; i++) {
+                    if (fakeEntries[i].fullName !== fakeEntries[i + 1].fullName) {
+                        doubles = doubles.concat(fakeEntries[i]);
+                        doubles = doubles.concat(fakeEntries[i + 1]);
+                    }
+                }
+
+                var uniques = [];
+
+                uniques = uniques.concat(doubles[0])
+                for (let i = 1; i < doubles.length; i += 2) {
+                    uniques = uniques.concat(doubles[i]);
+                }
+                fakeEntries = uniques;
+            }
+
+            if (sizeBy === "travelTime") sizeBy = "none";
+
+            let dotGroup = this.drawDots(fakeEntries, colorBy, sizeBy, groupBy, y);
+            y = dotGroup + 50;
+
+            // question mark functionality
+            let div = d3.select("body").append("div")
+                .attr("class", "tool_tip")
+                .style("opacity", 0)
+                .style("padding", "12px")
+                .style("max-width", "200px")
+                .style("text-align", "left");
+
+            d3.select('svg').append("text")
+                .attr("x", 72)
+                .attr("y", textY)
+                .attr("font-weight", 700)
+                .attr("fill", COLOR_QUESTION)
+                .style("cursor", "pointer")
+                .text("?")
+                .on("mouseover", function (d) {
+                    div.transition()
+                        .style("opacity", 1);
+                    div.text("Certain entries represent multiple travelers only known by their shared last names. Thus, some information is unknown.")
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px")
+                    }
+                )
+                .on("mouseout", function (d) {
+                    div.transition()
+                        .style("opacity", 0);
+                    }
+                );
+        }
+
+        if (colorBy !== "none") {
+            this.drawLegend(colorBy);
+        }
+
         var svg = document.getElementById("dotsSvg");
         if (svg != null) {
             svg.setAttribute("height", String(y - 15));
@@ -175,13 +294,37 @@ export class VisualizationComponent {
      * When given the entries of a group and how the dots should be sized and colored, dots are drawn accordingly. A y variable is stored to
      * properly locate the next group.
      */
-    drawDots(entries, colorBy, sizeBy, y) {
+    drawDots(entries, colorBy, sizeBy, groupBy, y) {
         let x = BUFFER;
 
         let div = d3.select("body").append("div")
             .attr("class", "tool_tip")
             .style("opacity", 0)
         let width = d3.select("svg")[0][0].clientWidth;
+
+        let zEntries = [] as any; // entries sorted by z-index
+
+        // for visibility purposes, coloring by gender and grouping will also group by gender within each group
+        if (colorBy == "gender" && groupBy !== "none") {
+            entries.sort(function(a,b) {
+                let aVal;
+                let bVal;
+
+                switch (a.gender) {
+                    case "Male": aVal = -1; break;
+                    case "Female": aVal = 0; break;
+                    default: aVal = 1; // "Unknown"
+                }
+
+                switch (b.gender) {
+                    case "Male": bVal = -1; break;
+                    case "Female": bVal = 0; break;
+                    default: bVal = 1;
+                }
+
+                return aVal - bVal;
+            })
+        }
 
         for (let i in entries) {
             let entry = entries[i];
@@ -194,98 +337,110 @@ export class VisualizationComponent {
             if (colorBy === "gender") {
                 switch (entry.gender) {
                     case "Male":
-                        myColor = "cornflowerblue";
+                        myColor = COLOR_MALE;
                         break;
                     case "Female":
-                        myColor = "indianred";
+                        myColor = COLOR_FEMALE;
                         break;
                     default:
-                        myColor = "dimgray";
+                        myColor = COLOR_OTHER;
                 }
             } else if (colorBy === "new") {
                 switch (Number.isInteger(entry.index)) {
                     case true:
-                        myColor = "black";
+                        myColor = COLOR_OLD;
                         break;
                     case false:
-                        myColor = "cornflowerblue";
+                        myColor = COLOR_NEW;
                         break;
                     default:
-                        myColor = "dimgray";
+                        myColor = COLOR_OTHER;
                 }
-            } 
+            } else {
+                myColor = COLOR_MAIN;
+            }
 
             var mySize;
             if (sizeBy === "length") {
-                mySize = Math.max(1, Math.ceil(entry.entryLength * .002));
-                // var length = entry.entryLength;
-                // if (length < 50) {
-                //     mySize = 1;
-                // } else if (length < 200) {
-                //     mySize = 3;
-                // } else if (length < 400) {
-                //     mySize = 5;
-                // } else if (length < 800) {
-                //     mySize = 7;
-                // } else {
-                //     mySize = 9;
-                // }
+                mySize = Math.max(1, Math.ceil(entry.entryLength * .02)); // about half of dots (count < 50) will be the minimum size
             } else if (sizeBy === "travelTime") {
-                mySize = Math.max(1, Math.ceil(entry.travelTime * .04)); // entries that have no travelTime will have a size of 1
+                mySize = Math.max(1, Math.ceil(entry.travelTime * 0.00000000003171)); // dots with length < 1 year will be minimum size
             } else {
-                mySize = 3;
+                mySize = SIZE_DEFAULT;
             }
-            // todo: hover boundary of 2px
+
+            var zEntry = {
+                cx: x,
+                cy: y,
+                r: mySize,
+                fill: myColor,
+                fullName: entry.fullName,
+                index: entry.index,
+            }
+
+            zEntries.push(zEntry as any);
+
+            x += 10;
+        }
+
+        // entries are ordered from largest to smallest, such that smaller dots are drawn on top of larger dots.
+        zEntries.sort(function(a, b) {
+            return b.r - a.r;
+        });
+
+        for (let i in zEntries) {
+            let zEntry = zEntries[i];
             d3.select('svg').append('circle')
-                .attr('cx', x)
-                .attr('cy', y)
-                .attr('r', mySize)
-                .attr('fill', myColor)
-                .style("opacity", 0.75)
-                // we define "mouseover" handler, here we change tooltip
-                // visibility to "visible" and add appropriate test
+                .attr('cx', zEntry.cx)
+                .attr('cy', zEntry.cy)
+                .attr('r', zEntry.r)
+                .attr('fill', zEntry.fill)
+                .style("opacity", sizeBy === "none" ? 1 : 0.5) // when sizing, dots become more transparent
+                .style("cursor", "pointer")
 
                 .on("mouseover", function (d) {
+                    d3.select(this)
+                        .attr("stroke", zEntry.fill)
+                        .attr("stroke-opacity", 1)
+                        .attr("stroke-width", 2)
                     div.transition()
-                        .style("opacity", .9)
-                    div.text(entry.fullName)
+                        .style("opacity", 1)
+                    div.text(zEntry.fullName)
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY - 28) + "px")
-                        .style("opacity", .9)
                     }
                 )
                 .on("mouseout", function (d) {
+                    d3.select(this)
+                        .attr("stroke-width", 0)
                     div.transition()
                         .style("opacity", 0);
                     }
                 )
                 .on("click", function() {
                     div.style("opacity", 0);
-                    var hash = `/#/entries/${entry.index}`;
+                    var hash = `/#/entries/${zEntry.index}`;
                     window.open(hash);
                     }
                 );
-            x += 10;
         }
-        return y; // Position for end of the dot group is returned to position next dot group.
+
+        return y; // The placement of the lowest dot is returned. This is used to position the next group.
     }
 
     /*
      * Using queries from getGroups, all entries are mapped to the appropriate group and returned.
      */
     private async groupByType(allGroups) {
-        let entryGroups;
         try {
-            entryGroups = await Promise.all(allGroups.map(group =>
+            return await Promise.all(allGroups.map(group =>
                 this.http.post('/api/entries/search', { query: group.query }).toPromise()
             ));
         }
         catch (e) {
             console.error(e);
-            alert("There was an error loading the visualization requested.");
             return;
         }
-        return entryGroups;
     }
 
     /*
@@ -366,64 +521,156 @@ export class VisualizationComponent {
             ],
             "tours": [
                 {
-                    query: { numTours: "1"},
+                    query: { numTours: 1},
                     title: "1"
                 },
                 {
-                    query: { numTours: "2"},
+                    query: { numTours: 2},
                     title: "2"
                 },
                 {
-                    query: { numTours: "3"},
+                    query: { numTours: 3},
                     title: "3"
                 },
                 {
-                    query: { numTours: "4"},
+                    query: { numTours: 4},
                     title: "4"
                 },
                 {
-                    query: { numTours: "5"},
+                    query: { numTours: 5},
                     title: "5"
                 },
                 {
-                    query: { numTours: "6"},
+                    query: { numTours: 6},
                     title: "6"
                 },
                 {
-                    query: { numTours: "7"},
+                    query: { numTours: 7},
                     title: "7"
                 },
                 {
-                    query: { numTours: "8"},
+                    query: { numTours: 8},
                     title: "8"
-                },
-                {
-                    query: { numTours: "9"},
-                    title: "9"
-                },
-                {
-                    query: { numTours: "10"},
-                    title: "10"
-                },
-                {
-                    query: { numTours: "11"},
-                    title: "11"
-                },
-                {
-                    query: { numTours: "13"},
-                    title: "13"
-                },
-                {
-                    query: { numTours: "16"},
-                    title: "16"
-                },
-                {
-                    query: { numTours: "20"},
-                    title: "20"
                 },
             ]
         }
         return mapping[groupBy];
+    }
+
+    /*
+     * When dots are colored, legend is printed at top.
+     */
+    drawLegend(colorBy) {
+        let div = d3.select("body").append("div")
+            .attr("class", "tool_tip")
+            .style("opacity", 0)
+            .style("padding", "12px")
+            .style("max-width", "200px")
+            .style("text-align", "left");
+        switch (colorBy) {
+            case "gender":
+                d3.select('svg').append('circle')
+                    .attr('cx', 5)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_MALE)
+                d3.select('svg').append("text")
+                    .attr("x", 12)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Male");
+                d3.select('svg').append('circle')
+                    .attr('cx', 65)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_FEMALE)
+                d3.select('svg').append("text")
+                    .attr("x", 72)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Female");
+                d3.select('svg').append('circle')
+                    .attr('cx', 145)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_OTHER)
+                d3.select('svg').append("text")
+                    .attr("x", 152)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Unknown");
+                d3.select('svg').append("text")
+                    .attr("x", 222)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .attr("font-weight", 700)
+                    .attr("fill", COLOR_QUESTION)
+                    .style("cursor", "pointer")
+                    .text("?")
+                    .on("mouseover", function (d) {
+                        div.transition()
+                            .style("opacity", 1);
+                        div.text("Gender is a category we attributed and is not always available.")
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px")
+                        }
+                    )
+                    .on("mouseout", function (d) {
+                        div.transition()
+                            .style("opacity", 0);
+                        }
+                    );
+                break;
+            case "new":
+                d3.select('svg').append('circle')
+                    .attr('cx', 5)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_OLD)
+                d3.select('svg').append("text")
+                    .attr("x", 12)
+                    .attr("y", LEGEND_TEXT_HEIGHT)            
+                    .style("font-style", "oblique")
+                    .text("DBITI")
+                d3.select('svg').append("text")
+                    .attr("x", 46)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Entry")
+                    .style("font-style", "normal")
+                d3.select('svg').append('circle')
+                    .attr('cx', 105)
+                    .attr('cy', LEGEND_DOT_HEIGHT)
+                    .attr('r', SIZE_DEFAULT)
+                    .attr('fill', COLOR_NEW)
+                d3.select('svg').append("text")
+                    .attr("x", 112)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .text("Explorer Entry");
+                d3.select('svg').append("text")
+                    .attr("x", 222)
+                    .attr("y", LEGEND_TEXT_HEIGHT)
+                    .attr("font-weight", 700)
+                    .attr("fill", COLOR_QUESTION)
+                    .style("cursor", "pointer")
+                    .text("?")
+                    .on("mouseover", function (d) {
+                        div.transition()
+                            .style("opacity", 1)
+                        div.text("Origin distinguishes between entries extracted from Ingamells' Dictionary (")
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px")
+                            .append("text")
+                                .style("font-style", "oblique")
+                                .text("DBITI")
+                            .append("text")
+                                .text(") and additional entries created in the Explorer database.")
+                                .style("font-style", "normal")
+                        }
+                    )
+                    .on("mouseout", function (d) {
+                        div.transition()
+                            .style("opacity", 0)
+                        }
+                    );
+                break;
+            default:
+        }
     }
 
     clicked(event) {

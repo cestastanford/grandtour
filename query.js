@@ -393,7 +393,9 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } }),
+    numTours: d => ({ numTours: d }),
+
 }
 
 
@@ -429,7 +431,14 @@ function parseQuery(query) {
                     let item = searchMap[k](queryItem._id, true);
                     if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
-                            item[key] = { $not: item[key] };
+                            let value = item[key];
+                            if (Array.isArray(value)) { // in the case that an array of queries is given, the entire array is negated with the $nor operator
+                                delete item[key];
+                                key = "$nor";
+                            } else {
+                                value = { $not: value };
+                            }
+                            item[key] = value;
                         }
                     }
                     list.push(item);
@@ -508,6 +517,7 @@ exports.search = (req, res, next) => {
             narrative: true,
             notes: true,
             travels: true,
+            numTours: true,
         },
         null,
         req.body.limit || null,
@@ -519,6 +529,34 @@ exports.search = (req, res, next) => {
 
 }
 
+/*
+ *  Given an entry's travels array and total number of tours, this function
+ *  returns the sum of all tour times.
+ */
+function getTravelTime(travels, numTours) {
+    
+    var accum = 0;
+    var i;
+    for (i = 1; i <= numTours; i++) {
+        var thisTour = travels.filter(function (d) {
+            return d.tourIndex === i;
+        });
+
+        if (thisTour && thisTour[0]) {
+            var firstTravel = thisTour[0];
+            var lastTravel = thisTour[thisTour.length - 1];
+
+            if (firstTravel.tourStartFrom && (firstTravel.travelStartMonth || firstTravel.travelStartMonth == 0) && lastTravel.tourEndTo && (lastTravel.travelEndMonth || lastTravel.travelEndMonth == 0)) {
+                var firstDate = new Date(firstTravel.tourStartFrom, firstTravel.travelStartMonth);
+                var lastDate = new Date(lastTravel.tourEndTo, lastTravel.travelEndMonth);
+    
+                accum += lastDate - firstDate;
+            }
+        }
+    }
+    return accum;
+}
+
 
 const projectForEntryList = entry => ({
 
@@ -526,14 +564,9 @@ const projectForEntryList = entry => ({
     fullName: entry.fullName,
     gender: entry.type,
     numTours: entry.numTours,
-    entryLength: entry.biography.length + (entry.tours ? entry.tours.length : 0) + (entry.narrative ? entry.narrative.length : 0) + (entry.notes ? entry.notes.length : 0),
+    entryLength: entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
     biographyLength: entry.biography.length,
-    travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {
-        if (travel.travelEndYear && travel.travelStartYear) {
-            return accum + (new Date(travel.travelEndYear) - new Date(travel.travelStartYear));
-        }
-        return accum;
-    }, 0) : 0,
+    travelTime: entry.travels ? getTravelTime(entry.travels, entry.numTours) : 0,
     biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
     dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
 
@@ -581,7 +614,7 @@ function parseExport(res) {
         entry.parents = (d.parents && d.parents.parents) || "";
 
         let entryBase = {
-            entry: d.index,
+            entryID: d.index,
             travelerNames: entry.travelerNames,
             birthDate: entry.birthDate,
             deathDate: entry.deathDate,
@@ -598,7 +631,7 @@ function parseExport(res) {
             place: "",
             startDate: a.year || "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // education
@@ -610,7 +643,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // societies
@@ -622,7 +655,7 @@ function parseExport(res) {
             place: "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // exhibitions
@@ -634,7 +667,7 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // pursuits
@@ -646,7 +679,7 @@ function parseExport(res) {
             place: "",
             startDate: "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // occupations
@@ -658,19 +691,19 @@ function parseExport(res) {
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
-        // occupations
-        if (d.military && d.military.length) d.occupations.forEach(a => activities.push({
+        // military
+        if (d.military && d.military.length) d.military.forEach(a => activities.push({
             ...entryBase,
-            lifeEvents: 'military careers',
+            lifeEvents: 'military career',
             eventsDetail1: a.officeType,
             eventsDetail2: a.rank,
-            place: a.place || "",
+            place: "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // travels

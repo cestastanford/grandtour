@@ -34,13 +34,13 @@ const SIZE_DEFAULT = 3;
     selector: 'visualization',
     template: `
 
-    <div class='container' style='height: 100%'>
+    <div class='container' style='height:100% width:100%'>
         <div class='viz-btn-group' style='margin:10px 0px'>
-            <button>Dot Chart of Travelers</button>
-            <button>Map of Travel Places</button>
+            <button id="dotsSwitch" (click)="switch('dots')">Dot Chart of Travelers</button>
+            <button id="mapSwitch" (click)="switch('map')">Map of Travel Places</button>
         </div>
 
-        <div class='viz-box'>
+        <div class='viz-box' id='dots-box'>
             <div class='dimension'>
                 <p>COLOR</p>
                 <select id="color" (change)="update()">
@@ -91,12 +91,17 @@ const SIZE_DEFAULT = 3;
                     <p>Each dot represents a traveler and all 6005 travelers are represented. If you hover, the name of the traveler will appear, and if you click you'll get to that traveler's entry. You can color, size, and group the dots according to various categories on the left. Click to read more...</p>
                 </div>
             </div>
-            <svg width="100%" height="1250px" id="mySvg" (click)="clicked($event)"></svg>
+            
+            <svg width="100%" height="1250px" class="mySvg" id="dotsSvg" (click)="clicked($event)"></svg>
+        </div>
+
+        <div class='viz-box' id='map-box' width="100%" height="100%" style="display:none">
+            <iframe src="mapbox.html" width="100%" height="600px"></iframe>
         </div>
     </div>
     `,
     styles: [`
-    #mySvg {
+    .mySvg {
         display: inline-block;
         background-color: white;
         border-top: 1px solid #dddddd;
@@ -170,6 +175,39 @@ export class VisualizationComponent {
         window.addEventListener("resize", (e: Event) => {
             this.update();
         });
+        
+    }
+
+    switch(on) {
+        var dotSwitch = document.getElementById("dotsSwitch");
+        var mapSwitch = document.getElementById("mapSwitch");
+
+        var dotsBox = document.getElementById("dots-box");
+        var mapBox = document.getElementById("map-box");
+
+        if (dotSwitch && mapSwitch && dotsBox && mapBox) {
+            switch (on) {
+                case "dots":
+                    dotSwitch.style.backgroundColor = "#dddddd";
+                    mapSwitch.style.backgroundColor = "#eeeeee";
+
+                    this.update();
+                    
+                    dotsBox.style.display = "block";
+                    mapBox.style.display = "none";
+                    break;
+                case "map":
+                    dotSwitch.style.backgroundColor = "#eeeeee";
+                    mapSwitch.style.backgroundColor = "#dddddd";
+
+                    dotsBox.style.display = "none";
+                    mapBox.style.display = "block";
+                    break;
+                default:
+                    return;
+            }
+        }
+        
     }
 
     /*
@@ -377,8 +415,8 @@ export class VisualizationComponent {
             this.drawLegend(colorBy, specifyGender);
         }
 
-        var svg = document.getElementById("mySvg");
-        if (svg) {
+        var svg = document.getElementById("dotsSvg");
+        if (svg != null) {
             svg.setAttribute("height", String(y - 15));
             svg.setAttribute("width", "100%");
         }

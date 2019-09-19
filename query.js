@@ -44,7 +44,7 @@ exports.getCounts = async revisionIndex => {
             exhibitions: { 'exhibitions.title': { $exists: true } },
             exhibitions_activity: { 'exhibitions.activity': { $exists: true } },
             mentionedNames: { 'mentionedNames.name': { $exists: true } },
-            consolidated_notes: { 'consolidated_notes': { $exists: true } },
+            sources: { 'sources': { $exists: true } },
         }
 
         const facets = {}
@@ -364,7 +364,7 @@ var searchMap = {
     education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: getRegExp(d, exact) } } }),
     education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: getRegExp(d, exact) } } }),
 
-    consolidated_notes: (d, exact) => ({ consolidated_notes: getRegExp(d, exact) }),
+    sources: (d, exact) => ({ sources: {$elemMatch: { abbrev: getRegExp(d, exact) } } }),
     
     pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: getRegExp(d, exact) } } }),
 
@@ -723,7 +723,7 @@ function parseExport(res) {
             travelIndex: i,
         }))
 
-        entry.sources = d.consolidated_notes.length ? d.consolidated_notes.map(function (d) { return d; }).join(",") : "";
+        entry.sources = d.sources.length ? d.sources.map(function (d) { return d.abbrev; }).join(",") : "";
 
         entry.eventsIndex = activities
             .filter(function (d) { return d.entry == entry.index; })

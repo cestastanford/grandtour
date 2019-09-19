@@ -192,10 +192,10 @@
           label Sources
           input.input-sm.form-control(
             type="text", 
-            ng-model="query.consolidated_notes",
+            ng-model="query.sources",
             placeholder="footnote",
-            ng-class="{ filled : query.consolidated_notes }"
-            typeahead="item for item in getSuggestions('consolidated_notes', $viewValue)"
+            ng-class="{ filled : query.sources }"
+            typeahead="item for item in getSuggestions('sources.abbrev', $viewValue)"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
             typeahead-on-select="search()")
 

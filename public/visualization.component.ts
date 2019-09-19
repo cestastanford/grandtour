@@ -21,12 +21,11 @@ const COLOR_MAIN = "black"
 const COLOR_MALE = "#6D808E";
 const COLOR_FEMALE = "#FAB876";
 const COLOR_OLD = "#6D808E";
-const COLOR_NEW = "#AC7BCD";
+const COLOR_NEW = "#A47FC8";
 const COLOR_OTHER = "#333";
 const COLOR_QUESTION = "#257DBD";
 
 const SIZE_DEFAULT = 3;
-
 
 /*
  * Handles the View "page", and its HTML and some styles.
@@ -37,7 +36,7 @@ const SIZE_DEFAULT = 3;
 
     <div class='container' style='height:100% width:100%'>
         <div class='viz-btn-group' style='margin:10px 0px'>
-            <button id="dotsSwitch" (click)="switch('dots')">Chart of Travelers</button>
+            <button id="dotsSwitch" (click)="switch('dots')">Dot Chart of Travelers</button>
             <button id="mapSwitch" (click)="switch('map')">Map of Travel Places</button>
         </div>
 
@@ -45,27 +44,52 @@ const SIZE_DEFAULT = 3;
             <div class='dimension'>
                 <p>COLOR</p>
                 <select id="color" (change)="update()">
-                    <option value="none">None</option>
-                    <option value="gender">Gender</option>
-                    <option value="new">Origin</option>
+                    <option value="none ">None</option> <!-- Whitespace characters used to position ? popups -->
+                    <option value="gender">Gender </option> 
+                    <option value="new">Origin </option>
                 </select>
+                <div class="popup-wrapper">
+                    <p class="hover-item" (mouseover)="showPopup('colorPopup')" (mouseout)="hidePopup('colorPopup')">?</p>
+                    <div class="tool_tip popup" id="colorPopup">
+                        <p></p>
+                    </div>
+                </div>
             </div>
             <div class='dimension'>
                 <p>SIZE</p>
                 <select id="size" (change)="update()">
-                    <option value="none">None</option>
-                    <option value="length">Word count</option>
-                    <option value="travelTime">Travel length</option>
+                    <option value="none">None </option>
+                    <option value="length">Word count </option>
+                    <option value="travelTime">Travel length </option>
                 </select>
+                <div class="popup-wrapper">
+                    <p class="hover-item" (mouseover)="showPopup('sizePopup')" (mouseout)="hidePopup('sizePopup')">?</p>
+                    <div class="tool_tip popup" id="sizePopup">
+                        <p></p>
+                    </div>
+                </div>
             </div>
             <div class='dimension'>
                 <p>GROUP</p>
                 <select id="group" (change)="update()">
-                    <option value="none">None</option>
-                    <option value="travel">Date of travel</option>
-                    <option value="gender">Gender</option>
-                    <option value="tours">Number of tours</option>
+                    <option value="none">None </option>
+                    <option value="travel">Date of travel </option>
+                    <option value="gender">Gender </option>
+                    <option value="tours">Number of tours </option>
                 </select>
+                <div class="popup-wrapper">
+                    <p class="hover-item" (mouseover)="showPopup('groupPopup')" (mouseout)="hidePopup('groupPopup')">?</p>
+                    <div class="tool_tip popup" id="groupPopup">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                <p>Each dot represents a traveler and all 6005 travelers are represented</p>
+                <p class="hover-item" (mouseover)="showPopup('descriptionPopup')" (mouseout)="hidePopup('descriptionPopup')">(...)</p>
+                <div class="tool_tip popup" id="descriptionPopup">
+                    <p>Each dot represents a traveler and all 6005 travelers are represented. If you hover, the name of the traveler will appear, and if you click you'll get to that traveler's entry. You can color, size, and group the dots according to various categories on the left. Click to read more...</p>
+                </div>
             </div>
             
             <svg width="100%" height="1250px" class="mySvg" id="dotsSvg" (click)="clicked($event)"></svg>
@@ -85,16 +109,57 @@ const SIZE_DEFAULT = 3;
         border-bottom-left-radius: 2px;
     }
 
-    .hover-item:link {
-        color: black;
+    .description {
+        display: inline-block;
+        padding: 0px 8px; 
+    }
+
+    .description p {
+        display: inline-block;
+        font-family: serif; 
+        font-size: 11pt; 
+    }
+
+    .hover-item {
+        cursor: pointer;
+        color: #d6bc73;
         text-decoration: none;
+        font-weight: bold;
+        display: inline-block; 
+    }
+
+    .hover-item:link {
+        color: #d0b67d;
     }
 
     .hover-item:hover {
-        color: #d6bc73;
+        color: #d0b67d;
     }
 
     .hover-item:active {
+        color: #d0b67d;
+    }
+
+    .popup {
+        opacity: 0;
+        padding: 12px;
+        width: 200px;
+        text-align: left;
+        z-index: 99;
+    }
+
+    .popup p {
+        font: 13px 'Open Sans', sans-serif;	
+    }
+
+    .popup-wrapper {
+        display: inline-block;
+        position: relative;
+        z-index: 98;
+        right: 28px;
+    }
+
+    .popup-wrapper p {
         color: #d0b67d;
     }
     `]
@@ -146,6 +211,63 @@ export class VisualizationComponent {
     }
 
     /*
+     * When passed a popup element's id as a string, that popup is revealed.
+     */
+    showPopup(id) {
+        var popup = document.getElementById(id);
+        popup.style.transition = "all 0.3s"
+        popup.style.opacity = "1";
+
+        var select;
+        var value;
+        if (id !== "descriptionPopup") {
+            switch (id) {
+                case "colorPopup":
+                    select = document.getElementById("color") as HTMLSelectElement;
+                    value = select.options[select.selectedIndex].value;
+                    break;
+                case "sizePopup":
+                    select = document.getElementById("size") as HTMLSelectElement;
+                    value = select.options[select.selectedIndex].value;
+                    break;
+                case "groupPopup":
+                    select = document.getElementById("group") as HTMLSelectElement;
+                    value = select.options[select.selectedIndex].value;
+                    break;
+                default:
+            }
+            let p = popup.firstChild as HTMLParagraphElement;
+            p.style.color = "black";
+            p.innerText = this.getPopupText(value);
+        }
+    }
+
+    /*
+     * When given the string value of a selected dimension, the ? popup's description is returned.
+     */
+    getPopupText(value) {
+        const texts = {
+            "none": "Select an option to change the appearance of the dots.",
+            "gender": "Gender is a category we attributed and is not always available.",
+            "new": "Origin distinguishes between entries extracted from Ingamells' Dictionary and additional entries created in the Explorer database.",
+            "length": "Word count sizes dots such that entries with a length of <50 words have the minimum dot size.",
+            "travelTime": "Travel length sizes dots such that travels with a length of <6 months have the minimum dot size. Certain entries represent multiple individuals known only by their shared last names, so those entries' travel lengths are ambiguous.",
+            "travel": "For each decade, those who traveled then are represented. Certain entries represent multiple individuals known only by their shared last names, so those entries' dates of travel are ambiguous.",
+            "tours": "Some travelers took multiple tours to Italy. The number of tours is here. Certain entries represent multiple individuals known only by their shared last names, so those entries' number of tours are ambiguous."
+        }
+        return texts[value];
+    }
+
+    /*
+     * When passed a popup element's id as a string, that popup is hidden.
+     */
+    hidePopup(id) {
+        var popup = document.getElementById(id);
+        popup.style.transition = "all 0.3s"
+        popup.style.opacity = "0";
+    }
+
+    /*
      * Called when a select element is changed. All values are collected and the svg is updated.
      */
     update() {
@@ -171,12 +293,20 @@ export class VisualizationComponent {
      * For all groups, their label and dots are displayed.
      */
     async draw(colorBy, sizeBy, groupBy) {
-        var allGroups = await this.getGroups(groupBy); // specifies group titles and their queries
+        var allGroups = await this.getGroups(groupBy, sizeBy); // specifies group titles and their queries
         var entryGroups = await this.groupByType(allGroups); // groups entries according to appropriate queries
 
         this.clear();
         let x = 1;
-        let y = groupBy == "none" || colorBy == "none" ? 15 : 30;
+        let y = 15;
+        // label buffers
+        if (groupBy !== "none" && colorBy !== "none") {
+            y += 25;
+        } else if (groupBy !== "none") {
+            y += 8;
+        } else if (colorBy !== "none") { // legend spacing
+            y += 8;
+        }
 
         // Certain entries are "fake", consolidations of multiple individuals. In certain cases, we want them to be in a separate group.
         var separateFakes = false;
@@ -211,13 +341,43 @@ export class VisualizationComponent {
             y = dotGroup + 50;
         }
 
+        let specifyGender = false; // made true if an Unknown group is drawn 
         // after other dot groups are drawn, the separated fake entries are drawn (when applicable)
         if (separateFakes && fakeEntries) {
+            specifyGender = true;
             d3.select('svg').append("text")
                 .attr("x", x)
                 .attr("y", y)
                 .text("Unknown");
-            let textY = y;
+            // label will specify what information is unknown based on dot attributes
+            if (sizeBy === "travelTime") {
+                d3.select('svg').append("text")
+                    .attr("x", x += 62)
+                    .attr("y", y)
+                    .text("travel length");
+                if (groupBy === "travel") {
+                    d3.select('svg').append("text")
+                        .attr("x", x += 79)
+                        .attr("y", y)
+                        .text("and date of travel");
+                } else if (groupBy === "tours") {
+                    d3.select('svg').append("text")
+                        .attr("x", x += 79)
+                        .attr("y", y)
+                        .text("and number of tours");
+                }
+            } else if (groupBy === "travel") {
+                d3.select('svg').append("text")
+                    .attr("x", x += 62)
+                    .attr("y", y)
+                    .text("travel length");
+            } else if (groupBy === "tours") {
+                d3.select('svg').append("text")
+                    .attr("x", x += 62)
+                    .attr("y", y)
+                    .text("number of tours");
+            }
+
             y += 15;
 
             fakeEntries.sort(function (a,b) {
@@ -246,41 +406,13 @@ export class VisualizationComponent {
 
             if (sizeBy === "travelTime") sizeBy = "none";
 
+            y += 15;
             let dotGroup = this.drawDots(fakeEntries, colorBy, sizeBy, groupBy, y);
             y = dotGroup + 50;
-
-            // question mark functionality
-            let div = d3.select("body").append("div")
-                .attr("class", "tool_tip")
-                .style("opacity", 0)
-                .style("padding", "12px")
-                .style("max-width", "200px")
-                .style("text-align", "left");
-
-            d3.select('svg').append("text")
-                .attr("x", 72)
-                .attr("y", textY)
-                .attr("font-weight", 700)
-                .attr("fill", COLOR_QUESTION)
-                .style("cursor", "pointer")
-                .text("?")
-                .on("mouseover", function (d) {
-                    div.transition()
-                        .style("opacity", 1);
-                    div.text("Certain entries represent multiple travelers only known by their shared last names. Thus, some information is unknown.")
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px")
-                    }
-                )
-                .on("mouseout", function (d) {
-                    div.transition()
-                        .style("opacity", 0);
-                    }
-                );
         }
 
         if (colorBy !== "none") {
-            this.drawLegend(colorBy);
+            this.drawLegend(colorBy, specifyGender);
         }
 
         var svg = document.getElementById("dotsSvg");
@@ -360,11 +492,11 @@ export class VisualizationComponent {
                 myColor = COLOR_MAIN;
             }
 
-            var mySize;
+            var mySize; // sized by AREA, not RADIUS
             if (sizeBy === "length") {
-                mySize = Math.max(1, Math.ceil(entry.entryLength * .02)); // about half of dots (count < 50) will be the minimum size
+                mySize = Math.max(2, Math.ceil(Math.sqrt(entry.entryLength) * 0.2828)); // about half of dots (count < 50) will be the minimum size
             } else if (sizeBy === "travelTime") {
-                mySize = Math.max(1, Math.ceil(entry.travelTime * 0.00000000003171)); // dots with length < 1 year will be minimum size
+                mySize = Math.max(2, Math.ceil(Math.sqrt(entry.travelTime) * 0.00001592628)); // dots with length < 1 year will be minimum size
             } else {
                 mySize = SIZE_DEFAULT;
             }
@@ -395,7 +527,7 @@ export class VisualizationComponent {
                 .attr('cy', zEntry.cy)
                 .attr('r', zEntry.r)
                 .attr('fill', zEntry.fill)
-                .style("opacity", sizeBy === "none" ? 1 : 0.5) // when sizing, dots become more transparent
+                .style("opacity", sizeBy === "none" ? 1 : 0.8) // when sizing, dots become more transparent
                 .style("cursor", "pointer")
 
                 .on("mouseover", function (d) {
@@ -444,9 +576,9 @@ export class VisualizationComponent {
     }
 
     /*
-     * The groupBy value is used to return a mapping of groups and their titles.
+     * The groupBy value is used to return a mapping of groups and their titles. sizeBy is passed to properly name the Unknown gender group.
      */
-    private async getGroups(groupBy) {
+    private async getGroups(groupBy, sizeBy) {
         const mapping = {
             "none": [
                 {   
@@ -516,7 +648,7 @@ export class VisualizationComponent {
                 },
                 {
                     query: { type: "" },
-                    title: "Unknown"
+                    title: sizeBy === "travelTime" ? "Unknown gender" : "Unknown"
                 }
             ],
             "tours": [
@@ -558,15 +690,9 @@ export class VisualizationComponent {
     }
 
     /*
-     * When dots are colored, legend is printed at top.
+     * When dots are colored, legend is printed at top. If an unknown group is present, then gender's "Unknown" label is changed to "Gender unknown"
      */
-    drawLegend(colorBy) {
-        let div = d3.select("body").append("div")
-            .attr("class", "tool_tip")
-            .style("opacity", 0)
-            .style("padding", "12px")
-            .style("max-width", "200px")
-            .style("text-align", "left");
+    drawLegend(colorBy, specifyGender) {
         switch (colorBy) {
             case "gender":
                 d3.select('svg').append('circle')
@@ -595,27 +721,7 @@ export class VisualizationComponent {
                 d3.select('svg').append("text")
                     .attr("x", 152)
                     .attr("y", LEGEND_TEXT_HEIGHT)
-                    .text("Unknown");
-                d3.select('svg').append("text")
-                    .attr("x", 222)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .attr("font-weight", 700)
-                    .attr("fill", COLOR_QUESTION)
-                    .style("cursor", "pointer")
-                    .text("?")
-                    .on("mouseover", function (d) {
-                        div.transition()
-                            .style("opacity", 1);
-                        div.text("Gender is a category we attributed and is not always available.")
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px")
-                        }
-                    )
-                    .on("mouseout", function (d) {
-                        div.transition()
-                            .style("opacity", 0);
-                        }
-                    );
+                    .text(specifyGender ? "Gender unknown" : "Unknown");
                 break;
             case "new":
                 d3.select('svg').append('circle')
@@ -642,32 +748,6 @@ export class VisualizationComponent {
                     .attr("x", 112)
                     .attr("y", LEGEND_TEXT_HEIGHT)
                     .text("Explorer Entry");
-                d3.select('svg').append("text")
-                    .attr("x", 222)
-                    .attr("y", LEGEND_TEXT_HEIGHT)
-                    .attr("font-weight", 700)
-                    .attr("fill", COLOR_QUESTION)
-                    .style("cursor", "pointer")
-                    .text("?")
-                    .on("mouseover", function (d) {
-                        div.transition()
-                            .style("opacity", 1)
-                        div.text("Origin distinguishes between entries extracted from Ingamells' Dictionary (")
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px")
-                            .append("text")
-                                .style("font-style", "oblique")
-                                .text("DBITI")
-                            .append("text")
-                                .text(") and additional entries created in the Explorer database.")
-                                .style("font-style", "normal")
-                        }
-                    )
-                    .on("mouseout", function (d) {
-                        div.transition()
-                            .style("opacity", 0)
-                        }
-                    );
                 break;
             default:
         }

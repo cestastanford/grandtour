@@ -11,6 +11,7 @@ from pymongo import UpdateMany
 from pymongo.errors import BulkWriteError
 import csv
 import re
+from tqdm import tqdm
 
 uri = os.getenv("MONGODB_URI")
 # uri = "mongodb://localhost:27017/test" # Use this to test on local database.
@@ -45,7 +46,7 @@ with open(os.path.join(os.path.dirname(__file__), 'titles_for_sources_features.c
             "sources": ""
         }}
     ))
-    for row in reader:
+    for row in tqdm(reader):
         notes_entries = db.entries.find(construct_free_search_query(row["abbrev"], "notes"), {"index": 1, "_id": 1})
         entryIndexes = set()
         entryIndexes |= set(e["index"] for e in notes_entries)

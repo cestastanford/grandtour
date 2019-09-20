@@ -34,7 +34,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', description: 'Type of award.', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
 
     { type : 'facet', active : false, label : 'Mentioned names', description: 'Names that appear in the body of an entry. "*" indicates that there is no corresponding entry for that name.', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
-    { type : 'facet', active : false, label : 'Sources', description: 'Citations as recorded by Ingamells.', field : 'consolidated_notes', suggestions : 'consolidated_notes' },
+    { type : 'facet', active : false, label : 'Sources', description: 'Citations as recorded by Ingamells.', field : 'sources', suggestions : 'sources.abbrev' },
     { type : 'facet', active : false, label : 'Travel place', description: 'Location visited by a traveler.', field : 'travelPlace', suggestions : 'travels.place' },
     { type : 'date', active : false, label : 'Travel date', description: 'Dates that travelers toured, by month and year.', field : 'travelDate'},
     { type : 'freesearch', active : false, label : 'Free word search', description: 'Keywords in entries, with options to find all cases that match the beginning or end of the word, in case of spelling changes; or find all cases that do not mention the word. Word search can further be specified for the particular portion of an entry.', field : 'entry' },

@@ -3,7 +3,7 @@
 */
 
 const router = require('express').Router()
-const { isViewer } = require('./auth')
+const { isViewer, isUser } = require('./auth')
 const List = require('../models/list')
 const Entry = require('../models/entry')
 const { projectForEntryList } = require('../query')
@@ -19,11 +19,11 @@ const { projectForEntryList } = require('../query')
 *   - Remove entries from a list
 */
 
-router.post('/api/lists/mylists', isViewer, (req, res) => List.myLists(req, res))
-router.post('/api/lists/newlist', isViewer, (req, res) => List.newList(req, res))
-router.post('/api/lists/deletelist', isViewer, (req, res) => List.deleteList(req, res))
-router.post('/api/lists/addtolist', isViewer, (req, res) => List.addToList(req, res))
-router.post('/api/lists/removefromlist', isViewer, (req, res) => List.removeFromList(req, res))
+router.post('/api/lists/mylists', isUser, (req, res) => List.myLists(req, res))
+router.post('/api/lists/newlist', isUser, (req, res) => List.newList(req, res))
+router.post('/api/lists/deletelist', isUser, (req, res) => List.deleteList(req, res))
+router.post('/api/lists/addtolist', isUser, (req, res) => List.addToList(req, res))
+router.post('/api/lists/removefromlist', isUser, (req, res) => List.removeFromList(req, res))
 
 
 /*
@@ -34,7 +34,7 @@ router.get('/api/lists/:id/entries', isViewer, (req, res, next) => {
 
     List.findById(req.params.id)
     .then(list => {
-        if (list) return Promise.all(list.entryIDs.map(index => Entry.findByIndexAtRevision(index, req.user.activeRevisionIndex)))
+        if (list) return Promise.all(list.entryIDs.map(index => Entry.findByIndexAtRevision(index, res.locals.activeRevisionIndex)))
         else { throw null /* Triggers the 404 Not Found error handler */ }
     })
     .then(entries => res.json(entries.filter(e => e).map(projectForEntryList)))

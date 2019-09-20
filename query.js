@@ -104,7 +104,7 @@ exports.suggest = function (req, res, next) {
 
         var query = { $or: [{ fullName: condition[field] }, { alternateNames: { $elemMatch: { alternateName: condition[field] } } }] };
         var projection = { fullName: true, alternateNames: true };
-        Entry.findAtRevision(query, req.user.activeRevisionIndex, projection, field)
+        Entry.findAtRevision(query, res.locals.activeRevisionIndex, projection, field)
             .then(response => {
 
                 var matches = [];
@@ -130,7 +130,7 @@ exports.suggest = function (req, res, next) {
 
     } else {
 
-        Entry.distinctAtRevision(field, condition, req.user.activeRevisionIndex)
+        Entry.distinctAtRevision(field, condition, res.locals.activeRevisionIndex)
             .then(results => res.json({ results }))
             .catch(next)
 
@@ -143,7 +143,7 @@ exports.uniques = function (req, res, next) {
 
     const suggestions = req.body.suggestions;
     const query = parseQuery(req.body.query);
-    const pipeline = Entry.aggregateAtRevision(req.user.activeRevisionIndex)
+    const pipeline = Entry.aggregateAtRevision(res.locals.activeRevisionIndex)
         .append({ $match: query })
         .append({ $unwind: '$' + suggestions.split('.')[0] });
 
@@ -505,7 +505,7 @@ exports.search = (req, res, next) => {
 
     Entry.findAtRevision(
         query,
-        req.user.activeRevisionIndex,
+        res.locals.activeRevisionIndex,
         // values to retrieve for projectForEntryList
         {
             index: true,
@@ -793,7 +793,7 @@ exports.export = (req, res, next) => {
 
     }
 
-    Entry.aggregateAtRevision(req.user.activeRevisionIndex)
+    Entry.aggregateAtRevision(res.locals.activeRevisionIndex)
         .match(query)
         .then(result => res.json({ result: parseExport(result) }))
         .catch(next)

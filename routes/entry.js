@@ -44,10 +44,10 @@ router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 
 router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
-    Entry.findByIndexAtRevision(req.params.index, req.user.activeRevisionIndex)
+    Entry.findByIndexAtRevision(req.params.index, res.locals.activeRevisionIndex)
     .then(entry => Promise.all([
         Promise.resolve(entry),
-        Entry.getAdjacentIndices(req.params.index, req.user.activeRevisionIndex),
+        Entry.getAdjacentIndices(req.params.index, res.locals.activeRevisionIndex),
     ]))
     .then(([ entry, { previous, next, lastUsedDecimal } ]) => res.json({ entry, previous, next, lastUsedDecimal }))
     .catch(next)
@@ -61,7 +61,7 @@ router.get('/api/entries/:index', isViewer, (req, res, next) => {
 
 router.get('/api/entries', isViewer, (req, res, next) => {
 
-    Entry.findAtRevision(null, req.user.activeRevisionIndex, null, null, 20, 0)
+    Entry.findAtRevision(null, res.locals.activeRevisionIndex, null, null, 20, 0)
     .then(entries => res.json(entries))
     .catch(next)
 
@@ -103,7 +103,7 @@ router.get('/api/entry-fields', isViewer, (req, res, next) => {
 
 router.get('/api/transform', (req, res, next) => {
 
-    Entry.findAtRevision(null, req.user.activeRevisionIndex, 'index dates biography')
+    Entry.findAtRevision(null, res.locals.activeRevisionIndex, 'index dates biography')
     .then(entries => Promise.all(entries.map(entry => {
 
         exclude = [ 311, 403, 570, 730.2, 748, 903, 955.2, 1062, 1192, 1303, 1655, 1706, 1748, 2074, 2625, 2649, 2656, 2830, 3484, 3554, 3627, 3769, 3778, 3856, 3877.2, 4173, 4315, 4361, 4996, 5252, 5293 ]
@@ -159,7 +159,7 @@ router.get('/api/transform', (req, res, next) => {
 
 router.get('/api/transform', (req, res, next) => {
 
-    Entry.findAtRevision({}, req.user.activeRevisionIndex, 'index occupations military')
+    Entry.findAtRevision({}, res.locals.activeRevisionIndex, 'index occupations military')
     .then(entries => Promise.all(entries.map(entry => {
 
         const reorder = (arr, orderValueKey) => {

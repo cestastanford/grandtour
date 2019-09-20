@@ -79,14 +79,25 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
   };
 
   //  do initial list download
-  var myListsPromise = $http.post('/api/lists/mylists', {
-    username: $rootScope.currentUser.username
-  })
-  .then(function(res) {
-    if (res.data.error) console.error(res.data.error);
-    else sharedListModel.myLists = res.data.entries;
-    sharedListModel.listsLoading = false;
-  }, function(res) { console.error(res); });
+  let myListsPromise;
+  if ($rootScope.currentUser) {
+    $http.post('/api/lists/mylists', {
+      username: $rootScope.currentUser.username
+    })
+    .then(function(res) {
+      if (res.data.error) console.error(res.data.error);
+      else sharedListModel.myLists = res.data.entries;
+      sharedListModel.listsLoading = false;
+    }, function(res) { console.error(res); });
+  } else {
+    // If user is not logged in, do not do an initial list download
+    // and populate sharedListModel with some empty data.
+    myListsPromise = new Promise((resolve, reject) => {
+      sharedListModel.myLists = [];
+      sharedListModel.listsLoading = false;
+      resolve(null);
+    });
+  }
 
   //  return service's public fields
   return {

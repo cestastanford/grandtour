@@ -3,7 +3,7 @@
 */
 
 const router = require('express').Router()
-const { isViewer } = require('./auth')
+const { isViewer, isUser } = require('./auth')
 const queries = require('../query.js')
 
 
@@ -14,7 +14,7 @@ const queries = require('../query.js')
 
 router.get('/api/getcount', isViewer, (req, res, next) => {
 
-    queries.getCounts(req.user.activeRevisionIndex)
+    queries.getCounts(res.locals.activeRevisionIndex)
     .then(counts => res.json(counts))
     .catch(next)
 
@@ -27,7 +27,7 @@ router.get('/api/getcount', isViewer, (req, res, next) => {
 
 router.post('/api/entries/search2?', isViewer, queries.search);
 router.post('/api/entries/suggest', isViewer, queries.suggest);
-router.post('/api/entries/export', isViewer, queries.export);
+router.post('/api/entries/export', isUser, queries.export);
 router.post('/api/entries/uniques', isViewer, queries.uniques);
 
 

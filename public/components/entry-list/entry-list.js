@@ -13,6 +13,9 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
     template: require('pug-loader!./entry-list.pug'),
     link: function(scope, element, attributes) {
 
+      // TODO: remove this hack and find a better way to pass around currentUser.
+      scope.currentUser = scope.$root.currentUser;
+
       //  Saves entry list view to entryListContext service
       var saveEntryListContext = function() {
         var sortedEntries = $filter('orderBy')(scope.entries, scope.sortModel.current.sortFn, scope.sortModel.reversed)

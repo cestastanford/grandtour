@@ -59,6 +59,7 @@ export default ['$http', function($http) {
       subgroup : '@',
       query : '=',
       rawuniques: '=',
+      searching: '=',
       field : '@',
       suggestion : '@'
     },
@@ -68,7 +69,6 @@ export default ['$http', function($http) {
     link: function (scope, element) {
       scope.open = true;
       scope.newUniques = [];
-      scope.loading = false;
       scope.limit = 25;
       scope.operator = DEFAULT_OPERATOR;
 
@@ -89,7 +89,7 @@ export default ['$http', function($http) {
        *  - a NEGATIVE box is "selected" and "negative"
        */
       scope.refresh = function(u) {
-        if (scope.loading) { // cannot refresh this unique until previous unique has finished
+        if (scope.searching) { // cannot refresh this unique until previous unique has finished
           u.selected = false;
         } else {
           if (!u.selected && !u.negative && scope.operator === "and") { // case where checked becomes negative ("and" mode only)

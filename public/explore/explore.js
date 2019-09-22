@@ -14,28 +14,28 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   });
 
   $scope.dimensions = [
-    { type : 'facet', active : false, label : 'Traveler name', description: 'Names of travelers, generally listed by names by which they first traveled.', field : 'fullName', suggestions : 'fullName', sorting : 'fullName' },
+    { type : 'facet', active : false, label : 'Traveler name', description: 'Names of travelers, generally listed by names by which they first traveled.', field : 'fullName', suggestion: 'fullName', sorting : 'fullName' },
     { type : 'date', active : false, label : 'Birth date', description: 'Date of birth searchable by either exact year or within a range of years.', field : 'birthDate', sorting : 'dates[0].birthDate' },
-    { type : 'facet', active : false, label : 'Birth place', description: 'Birth place by city or country.', field : 'birthPlace', suggestions : 'places.birthPlace', sorting : 'places[0].birthPlace' },
+    { type : 'facet', active : false, label : 'Birth place', description: 'Birth place by city or country.', field : 'birthPlace', suggestion: 'places.birthPlace', sorting : 'places[0].birthPlace' },
     { type : 'date', active : false, label : 'Death date', description: 'Date of birth searchable by either exact year or within a range of years.', field : 'deathDate', sorting : 'dates[0].deathDate' },
-    { type : 'facet', active : false, label : 'Death place', description: 'Death place by city or country.', field : 'deathPlace', suggestions : 'places.deathPlace', sorting : 'places[0].deathPlace' },
-    { type : 'facet', active : false, label : 'Gender', description: 'Gender of travelers as recorded by Ingamells.', field : 'type', suggestions : 'type' },
-    { type : 'facet', active : true, label : 'DBITI Employments & Identifiers', description: 'Employment or identifier, as assigned by Ingamells at the start of an entry to serve as a brief "definition".', field : 'pursuits', suggestions : 'pursuits.pursuit' },
-    { type : 'facet', active : false, label : 'Occupations & Posts', description: 'Occupations and posts parsed from the body of an entry.', field : 'occupations', suggestions : 'occupations.title' },
-    { type : 'facet', active : true, label : 'Occupations & Posts', subgroup: 'Group', description: 'Broader categories of occupations and posts.', field : 'occupations_group', suggestions : 'occupations.group' },
-    { type : 'facet', active : true, label : 'Societies & Academies', description: 'Societies and academies affiliated with travelers.', field : 'societies', suggestions : 'societies.title' },
-    { type : 'facet', active : false, label : 'Societies & Academies', subgroup: 'Role', description: 'Positions that travelers held in relation to their societies and academies.', field : 'societies_role', suggestions : 'societies.role' },
-    { type : 'facet', active : true, label : 'Education', subgroup: 'Institution', description: 'Institution of education.', field : 'education_institution', suggestions : 'education.institution' },
-    { type : 'facet', active : false, label : 'Education', subgroup: 'Place', description: 'Location of education.', field : 'education_place', suggestions : 'education.place' },
-    { type : 'facet', active : false, label : 'Education', subgroup: 'Teacher', description: 'Teacher of travelers.', field : 'education_teacher', suggestions : 'education.teacher' },
-    { type : 'facet', active : false, label : 'Education', subgroup: 'Degree', description: 'Degree of travelers.', field : 'education_degree', suggestions : 'education.fullDegree' },
-    { type : 'facet', active : false, label : 'Military careers', description: 'Ranks within armed forces.', field : 'military', suggestions : 'military.rank' },
-    { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', description: 'Institution associated with exhibitions and awards.', field : 'exhibitions', suggestions : 'exhibitions.title' },
-    { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', description: 'Type of award.', field : 'exhibitions_activity', suggestions : 'exhibitions.activity' },
+    { type : 'facet', active : false, label : 'Death place', description: 'Death place by city or country.', field : 'deathPlace', suggestion: 'places.deathPlace', sorting : 'places[0].deathPlace' },
+    { type : 'facet', active : false, label : 'Gender', description: 'Gender of travelers as recorded by Ingamells.', field : 'type', suggestion: 'type' },
+    { type : 'facet', active : true, label : 'DBITI Employments & Identifiers', description: 'Employment or identifier, as assigned by Ingamells at the start of an entry to serve as a brief "definition".', field : 'pursuits', suggestion: 'pursuits.pursuit' },
+    { type : 'facet', active : false, label : 'Occupations & Posts', description: 'Occupations and posts parsed from the body of an entry.', field : 'occupations', suggestion: 'occupations.title' },
+    { type : 'facet', active : true, label : 'Occupations & Posts', subgroup: 'Group', description: 'Broader categories of occupations and posts.', field : 'occupations_group', suggestion: 'occupations.group' },
+    { type : 'facet', active : true, label : 'Societies & Academies', description: 'Societies and academies affiliated with travelers.', field : 'societies', suggestion: 'societies.title' },
+    { type : 'facet', active : false, label : 'Societies & Academies', subgroup: 'Role', description: 'Positions that travelers held in relation to their societies and academies.', field : 'societies_role', suggestion: 'societies.role' },
+    { type : 'facet', active : true, label : 'Education', subgroup: 'Institution', description: 'Institution of education.', field : 'education_institution', suggestion: 'education.institution' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Place', description: 'Location of education.', field : 'education_place', suggestion: 'education.place' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Teacher', description: 'Teacher of travelers.', field : 'education_teacher', suggestion: 'education.teacher' },
+    { type : 'facet', active : false, label : 'Education', subgroup: 'Degree', description: 'Degree of travelers.', field : 'education_degree', suggestion: 'education.fullDegree' },
+    { type : 'facet', active : false, label : 'Military careers', description: 'Ranks within armed forces.', field : 'military', suggestion: 'military.rank' },
+    { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Institution', description: 'Institution associated with exhibitions and awards.', field : 'exhibitions', suggestion: 'exhibitions.title' },
+    { type : 'facet', active : false, label : 'Exhibitions & Awards', subgroup: 'Award type', description: 'Type of award.', field : 'exhibitions_activity', suggestion: 'exhibitions.activity' },
 
-    { type : 'facet', active : false, label : 'Mentioned names', description: 'Names that appear in the body of an entry. "*" indicates that there is no corresponding entry for that name.', field : 'mentionedNames', suggestions : 'mentionedNames.name' },
-    { type : 'facet', active : false, label : 'Sources', description: 'Citations as recorded by Ingamells.', field : 'sources', suggestions : 'sources.abbrev' },
-    { type : 'facet', active : false, label : 'Travel place', description: 'Location visited by a traveler.', field : 'travelPlace', suggestions : 'travels.place' },
+    { type : 'facet', active : false, label : 'Mentioned names', description: 'Names that appear in the body of an entry. "*" indicates that there is no corresponding entry for that name.', field : 'mentionedNames', suggestion: 'mentionedNames.name' },
+    { type : 'facet', active : false, label : 'Sources', description: 'Citations as recorded by Ingamells.', field : 'sources', suggestion: 'sources.abbrev' },
+    { type : 'facet', active : false, label : 'Travel place', description: 'Location visited by a traveler.', field : 'travelPlace', suggestion: 'travels.place' },
     { type : 'date', active : false, label : 'Travel date', description: 'Dates that travelers toured, by month and year.', field : 'travelDate'},
     { type : 'freesearch', active : false, label : 'Free word search', description: 'Keywords in entries, with options to find all cases that match the beginning or end of the word, in case of spelling changes; or find all cases that do not mention the word. Word search can further be specified for the particular portion of an entry.', field : 'entry' },
   ]
@@ -65,17 +65,28 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
 
   var someQuery = httpQuery('/api/entries/search');
 
-  var runQuery = function (query) {
-    var httpPromise = someQuery(query);
+  var runQuery = async function (query) {
+    const queryPromise = someQuery(query);
+    const activeDimensionsWithSuggestions = $scope.activeDimensions.filter(e => e.suggestion);
+    const uniquesPromise = $http.post('/api/entries/uniques/', {
+      query: $scope.query,
+      suggestions: activeDimensionsWithSuggestions.map(e => e.suggestion),
+      fields: activeDimensionsWithSuggestions.map(e => e.field)
+    }).then(e => e.data);
     $scope.searching = true;
-    httpPromise.then(function (data) {
-      entryHighlightingService.saveQuery(data.request);
-      $scope.searching = false;
-      $scope.entries = data.entries;
-      if (data.entries.length) $scope.noResults = false;
-      else $scope.noResults = true;
-      $('[data-toggle="tooltip"]').tooltip()
-    });
+    
+    const results = await Promise.all([queryPromise, uniquesPromise]);
+    const queryData = results[0];
+    $scope.uniques = results[1];
+
+    entryHighlightingService.saveQuery(queryData.request);
+    $scope.entries = queryData.entries;
+    if (queryData.entries.length) {
+      $scope.noResults = false;
+    }
+    else $scope.noResults = true;
+    $scope.searching = false;
+    $('[data-toggle="tooltip"]').tooltip();
   };
 
   function queryUpdated(query){

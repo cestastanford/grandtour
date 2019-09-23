@@ -52,10 +52,16 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
 
   $scope.$watch('dimensions',function(dimensions){
     $scope.activeDimensions = $scope.dimensions.filter(function(d){ return d.active; })
+    let queryUpdated = false;
     for (var i = 0; i < dimensions.length; i++) {
-      if (!dimensions[i].active) {
+      if (!dimensions[i].active && $scope.query.hasOwnProperty(dimensions[i].field)) {
         $scope.removeFromQuery(dimensions[i].field);
+        queryUpdated = true;
       }
+    }
+    if (!queryUpdated) {
+      // Update only uniques when query is unchanged.
+      runQuery(null);
     }
   }, true)
 
@@ -66,17 +72,6 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   var someQuery = httpQuery('/api/entries/search');
 
   var runQuery = async function (query) {
-    const queryPromise = someQuery(query).then(queryData => {
-      entryHighlightingService.saveQuery(queryData.request);
-      $scope.entries = queryData.entries;
-      if (queryData.entries.length) {
-        $scope.noResults = false;
-      }
-      else {
-        $scope.noResults = true;
-      }
-      $('[data-toggle="tooltip"]').tooltip();
-    });
     const activeDimensionsWithSuggestions = $scope.activeDimensions.filter(e => e.suggestion);
     const uniquesPromise = $http.post('/api/entries/uniques/', {
       query: $scope.query,
@@ -85,9 +80,30 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     }).then(e => {
       $scope.uniques = e.data;
     });
-    $scope.searching = true;
-    await Promise.all([queryPromise, uniquesPromise]);
-    $scope.searching = false;
+
+    if (query === null) {
+      // Run only uniques, not query.
+      $scope.searching = true;
+      await uniquesPromise;
+      $scope.searching = false;
+    }
+    else {
+      const queryPromise = someQuery(query).then(queryData => {
+        entryHighlightingService.saveQuery(queryData.request);
+        $scope.entries = queryData.entries;
+        if (queryData.entries.length) {
+          $scope.noResults = false;
+        }
+        else {
+          $scope.noResults = true;
+        }
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+      
+      $scope.searching = true;
+      await Promise.all([queryPromise, uniquesPromise]);
+      $scope.searching = false;
+    }
   };
 
   function queryUpdated(query){

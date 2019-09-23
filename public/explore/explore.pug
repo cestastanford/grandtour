@@ -45,16 +45,7 @@
                           h4(style="font-style: normal; display: inline") Employments & Identifiers
                         p {{ dimension.description }}
                 div(ng-switch="dimension.type")
-                  div(ng-switch-when="facet",
-                      facet="",
-                      label="{{dimension.label}}",
-                      subgroup="{{dimension.subgroup}}",
-                      data-model="dimension.antani",
-                      field="{{dimension.field}}",
-                      suggestion='{{dimension.suggestion}}',
-                      data-query='query'
-                      data-rawuniques='uniques[dimension.suggestion]'
-                      data-searching='searching')
+                  div(ng-switch-when="facet", facet="", label="{{dimension.label}}", subgroup="{{dimension.subgroup}}", data-model="dimension.antani", field="{{dimension.field}}", suggestions='{{dimension.suggestions}}', data-query='query')
                   div(ng-switch-when="number")
                     .form-group    
                       label {{dimension.label}} 

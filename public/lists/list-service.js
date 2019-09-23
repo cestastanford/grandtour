@@ -81,7 +81,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
   //  do initial list download
   let myListsPromise;
   if ($rootScope.currentUser) {
-    $http.post('/api/lists/mylists', {
+    myListsPromise = $http.post('/api/lists/mylists', {
       username: $rootScope.currentUser.username
     })
     .then(function(res) {

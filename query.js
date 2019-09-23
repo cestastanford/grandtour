@@ -139,15 +139,25 @@ exports.suggest = function (req, res, next) {
 }
 
 
-exports.uniques = function (req, res, next) {
-
-    const suggestions = req.body.suggestions;
-    const query = parseQuery(req.body.query);
-    const pipeline = Entry.aggregateAtRevision(res.locals.activeRevisionIndex)
+/*
+ * Get uniques for a given query and suggestion field.
+ * example: query = {}, field = "occupations", suggestion = "occupations.group"
+ */
+async function getUniquesForSingleSuggestion({ activeRevisionIndex, query, field, suggestion }) {
+    if (query[field] && query[field].operator === "or") {
+        // When we have an OR query, for the field corresponding to the current
+        // suggestions field, remove that field from the query. Otherwise,
+        // it ends up essentially becoming an AND query.
+        let {[field]: fieldPartOfQuery, ...restOfQuery} = query;
+        query = restOfQuery;
+    }
+    
+    query = parseQuery(query);
+    const pipeline = Entry.aggregateAtRevision(activeRevisionIndex)
         .append({ $match: query })
-        .append({ $unwind: '$' + suggestions.split('.')[0] });
+        .append({ $unwind: '$' + suggestion.split('.')[0] });
 
-    if (suggestions === 'fullName') {
+    if (suggestion === 'fullName') {
 
         pipeline.append({
             $project: {
@@ -178,19 +188,19 @@ exports.uniques = function (req, res, next) {
     }
 
     const group = {}
-    if (suggestions === 'fullName') {
+    if (suggestion === 'fullName') {
         group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' }
     }
-    else if (suggestions === 'mentionedNames.name') {
+    else if (suggestion === 'mentionedNames.name') {
         group['_id'] = { d: "$mentionedNames.name", u: '$index', entryIndex: "$mentionedNames.entryIndex" };
     }
     else {
-        group['_id'] = { d: '$' + suggestions, u: '$index' }
+        group['_id'] = { d: '$' + suggestion, u: '$index' }
     }
     group['count'] = { $sum: 1 };
     pipeline.append({ $group: group });
 
-    if (suggestions === "mentionedNames.name") {
+    if (suggestion === "mentionedNames.name") {
         pipeline.append({ $group: { _id: '$_id.d', entryIndex: { $first: "$_id.entryIndex" }, count: { $sum: 1 } } });
         pipeline.append({ $project: { _id: "$_id", count: "$count", unmatched: { "$lte": ["$entryIndex", null] } } });
     }
@@ -198,7 +208,7 @@ exports.uniques = function (req, res, next) {
         pipeline.append({ $group: { _id: '$_id.d', count: { $sum: 1 } } });
     }
 
-    if (suggestions === 'fullName') pipeline.append({
+    if (suggestion === 'fullName') pipeline.append({
         $project: {
             _id: '$_id.fullName',
             parentFullName: '$_id.parentFullName',
@@ -206,9 +216,48 @@ exports.uniques = function (req, res, next) {
         }
     })
 
-    pipeline.append({ $sort: { count: -1 } })
-        .then(results => res.json({ values: results.filter(d => d._id !== null) }))
-        .catch(next)
+    const results = await pipeline.append({ $sort: { count: -1 } })
+    return results.filter(d => d._id !== null);
+}
+
+/* Get uniques for a range of fields specified in "suggestions",
+ * filtered by "query".
+ * Sample req.body:
+    {
+        "query": {},
+        "suggestions": ["occupations.group", "pursuits.pursuit"],
+        "fields": ["occupations", "pursuits"]
+    }
+    // TODO: We don't really need to accept a "fields" attribute, if we refactor the field list
+    // from public/explore/explore.pug into constants that can be read by the server too.
+ */
+exports.uniques = async function (req, res, next) {
+    const query = req.body.query;
+    const activeRevisionIndex = res.locals.activeRevisionIndex;
+    const fields = req.body.fields;
+    const suggestions = req.body.suggestions;
+
+    const uniquesRequests = suggestions.map((suggestion, i) =>
+        getUniquesForSingleSuggestion({
+            activeRevisionIndex,
+            query,
+            field: fields[i],
+            suggestion,
+        })
+    );
+    let results;
+    try {
+        results = await Promise.all(uniquesRequests);
+    }
+    catch (e) {
+        next(e);
+    }
+    let response = {};
+    for (const i in suggestions) {
+        const suggestion = suggestions[i];
+        response[suggestion] = results[i];
+    }
+    res.json(response);
 
 }
 

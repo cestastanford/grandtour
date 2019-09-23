@@ -13,6 +13,10 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
         selectedListEntries: null
     };
 
+    $scope.reload = function () {
+        location.reload();
+    }
+
     //  expose view model to scope
     $scope.viewModel = viewModel;
 

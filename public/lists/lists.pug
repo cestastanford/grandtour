@@ -7,9 +7,17 @@
 
     .row
         .col-lg-12
-            h3 Your lists
+            h3(style="display: inline-block") Your lists
+            div(ng-mouseover="showPopup=true", style="display: inline-block; position: relative; left: 5px; bottom: 2px; cursor: pointer;")
+                    span(ng-click="reload()" ng-mouseover="showPopup=true", ng-mouseleave="showPopup=false", style="color: #80B8DA; font-weight: bold") &#8635;
+                    div.mentioned-names-popup(
+                        ng-show="showPopup === true"
+                        ng-mouseleave="showPopup=false"
+                        ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1, clear: both}"
+                    )
+                        p If you are experiencing unexpected issues with lists, please click to refresh.
             hr
-    
+            
     .row
         .col-lg-3.border-right
             .list-group

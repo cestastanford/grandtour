@@ -14,7 +14,7 @@
       .fa.fa-times-circle.clear-input-icon(ng-click="search._id = ''", ng-show="search._id.length")
 
     div.margin-bottom(ng-show="uniques.length")
-      a.small(ng-click="open=!open") {{ open ? 'Show selected only' : 'Show all' }}  
+      a.small(ng-click="open=!open" style="color: #80b8da") {{ open ? 'Show selected only' : 'Show all' }}  
       div.select-facet-sorting.btn-group.btn-group-xs(ng-model="sortingSelection", ng-init="sortingSelection = '-count'")
         button.btn.btn-default(type="button", ng-click="sortingSelection = '-count'") #
         button.btn.btn-default(type="button", ng-click="sortingSelection = '_id'") A

@@ -54,7 +54,8 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
     function downloadEntries(list) {
         $http.get('/api/lists/' + list._id + '/entries')
         .then(function(response) {
-            viewModel.selectedListEntries = response.data
+            viewModel.selectedListEntries = response.data;
+            viewModel.selectedList.entryIDs = response.data.map(e => e.index);
         })
         .catch(console.error.bind(console))
     };

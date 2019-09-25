@@ -44,7 +44,7 @@ const SIZE_DEFAULT = 3;
             <div class='dimension'>
                 <p>COLOR</p>
                 <select id="color" (change)="update()">
-                    <option value="none ">None</option> <!-- Whitespace characters used to position ? popups -->
+                    <option value="none">None</option> <!-- Whitespace characters used to position ? popups -->
                     <option value="gender">Gender </option> 
                     <option value="new">Origin </option>
                 </select>
@@ -496,10 +496,11 @@ export class VisualizationComponent {
             if (sizeBy === "length") {
                 mySize = Math.max(2, Math.ceil(Math.sqrt(entry.entryLength) * 0.2828)); // about half of dots (count < 50) will be the minimum size
             } else if (sizeBy === "travelTime") {
-                mySize = Math.max(2, Math.ceil(Math.sqrt(entry.travelTime) * 0.00001592628)); // dots with length < 1 year will be minimum size
+                mySize = Math.max(2, Math.ceil(Math.sqrt(Math.abs(entry.travelTime)) * 0.00001592628)); // dots with length < 1 year will be minimum size; abs check is for unexpected negative numTours 
             } else {
                 mySize = SIZE_DEFAULT;
             }
+            if (Number.isNaN(mySize)) console.log(entry.travelTime);
 
             var zEntry = {
                 cx: x,
@@ -527,7 +528,14 @@ export class VisualizationComponent {
                 .attr('cy', zEntry.cy)
                 .attr('r', zEntry.r)
                 .attr('fill', zEntry.fill)
-                .style("opacity", sizeBy === "none" ? 1 : 0.8) // when sizing, dots become more transparent
+                .style("opacity", function (d) {
+                    if (sizeBy === "none") {
+                        return 1;
+                    } else if (colorBy === "none" && groupBy !== "none") { // grouped black dots are hard to see when sizing
+                        return 0.55;
+                    }
+                    return 0.8;
+                })
                 .style("cursor", "pointer")
 
                 .on("mouseover", function (d) {

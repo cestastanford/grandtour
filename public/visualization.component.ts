@@ -36,22 +36,39 @@ const SIZE_DEFAULT = 3;
 
     <div class='container' style='height:100% width:100%'>
         <div class='viz-btn-group' style='margin:10px 0px'>
-            <button id="dotsSwitch" (click)="switch('dots')">Dot Chart of Travelers</button>
-            <button id="mapSwitch" (click)="switch('map')">Map of Travel Places</button>
+            <div id='dotsSwitchWrapper' class='switchWrapper' (click)="switch('dots')">
+                <button id="dotsSwitch" class="switch">Dot Chart of Travelers</button>
+                <div id='dotsDescription' class="description">
+                    <p class="hover-item" (mouseover)="showPopup('dotsPopup')" (mouseout)="hidePopup('dotsPopup')">?</p>
+                    <div class="tool_tip popup" id="dotsPopup">
+                        <p>In this interactive chart every dot represents a traveler all 6005 travelers are represented. If you hover on a dot, the name of that traveler will appear, and if you click on it you will get to that traveler’s entry. You can color, size and group the dots according to the various categories shown as options here below. <span class="hover-item">Learn more...</span></p>
+                    </div>
+                </div>
+            </div>
+            <div id='mapSwitchWrapper' class='switchWrapper' (click)="switch('map')">
+                <button id="mapSwitch" class="switch">Map of Travel Places</button>
+                <div id='mapDescription' class="description">
+                    <p class="hover-item" (mouseover)="showPopup('mapPopup')" (mouseout)="hidePopup('mapPopup')">?</p>
+                    <div class="tool_tip popup" id="mapPopup">
+                        <p>This interactive map shows all the locations of places of travel within the Italian peninsula and islands, and their historical political affiliations. Note that you can zoom in for clearer vision. <span class="hover-item">Learn more...</span></p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class='viz-box' id='dots-box'>
             <div class='dimension'>
                 <p>COLOR</p>
                 <select id="color" (change)="update()">
-                    <option value="none">None</option> <!-- Whitespace characters used to position ? popups -->
-                    <option value="gender">Gender </option> 
-                    <option value="new">Origin </option>
+                    <option value="none">None</option>
+                    <option value="gender">Gender</option> 
+                    <option value="new">Origin</option>
                 </select>
-                <div class="popup-wrapper">
+                <div id="colorPopupWrapper" class="popup-wrapper">
                     <p class="hover-item" (mouseover)="showPopup('colorPopup')" (mouseout)="hidePopup('colorPopup')">?</p>
                     <div class="tool_tip popup" id="colorPopup">
                         <p></p>
+                        <span class="hover-item"> Learn more...</span>
                     </div>
                 </div>
             </div>
@@ -59,13 +76,14 @@ const SIZE_DEFAULT = 3;
                 <p>SIZE</p>
                 <select id="size" (change)="update()">
                     <option value="none">None </option>
-                    <option value="length">Word count </option>
-                    <option value="travelTime">Travel length </option>
+                    <option value="length">Word count</option>
+                    <option value="travelTime">Travel length</option>
                 </select>
-                <div class="popup-wrapper">
+                <div id="sizePopupWrapper" class="popup-wrapper">
                     <p class="hover-item" (mouseover)="showPopup('sizePopup')" (mouseout)="hidePopup('sizePopup')">?</p>
                     <div class="tool_tip popup" id="sizePopup">
                         <p></p>
+                        <span class="hover-item"> Learn more...</span>
                     </div>
                 </div>
             </div>
@@ -73,22 +91,16 @@ const SIZE_DEFAULT = 3;
                 <p>GROUP</p>
                 <select id="group" (change)="update()">
                     <option value="none">None </option>
-                    <option value="travel">Date of travel </option>
-                    <option value="gender">Gender </option>
-                    <option value="tours">Number of tours </option>
+                    <option value="travel">Date of travel</option>
+                    <option value="gender">Gender</option>
+                    <option value="tours">Number of tours</option>
                 </select>
-                <div class="popup-wrapper">
+                <div id="groupPopupWrapper" class="popup-wrapper">
                     <p class="hover-item" (mouseover)="showPopup('groupPopup')" (mouseout)="hidePopup('groupPopup')">?</p>
                     <div class="tool_tip popup" id="groupPopup">
                         <p></p>
+                        <span class="hover-item"> Learn more...</span>
                     </div>
-                </div>
-            </div>
-            <div class="description">
-                <p>Each dot represents a traveler and all 6005 travelers are represented</p>
-                <p class="hover-item" (mouseover)="showPopup('descriptionPopup')" (mouseout)="hidePopup('descriptionPopup')">(...)</p>
-                <div class="tool_tip popup" id="descriptionPopup">
-                    <p>Each dot represents a traveler and all 6005 travelers are represented. If you hover, the name of the traveler will appear, and if you click you'll get to that traveler's entry. You can color, size, and group the dots according to various categories on the left. Click to read more...</p>
                 </div>
             </div>
             
@@ -111,7 +123,8 @@ const SIZE_DEFAULT = 3;
 
     .description {
         display: inline-block;
-        padding: 0px 8px; 
+        position: relative;
+        left: 8px;
     }
 
     .description p {
@@ -120,12 +133,53 @@ const SIZE_DEFAULT = 3;
         font-size: 11pt; 
     }
 
+    .switchWrapper {
+        display: inline-block;
+        cursor: pointer;
+    }
+      
+    #dotsSwitchWrapper {
+        background-color: #dddddd;
+        color: black;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+    }
+      
+    #mapSwitchWrapper {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        background-color: #eeeeee;
+        color: black;
+    }
+
+    .switch {
+        background-color: inherit;
+    }
+
+    #mapDescription {
+        visibility: hidden;
+    }
+
+    #color {
+        width: 100px;
+    }
+
+    #size {
+        width: 130px;
+    }
+
+    #group {
+        width: 150px;
+    }
+
     .hover-item {
         cursor: pointer;
         color: #d6bc73;
         text-decoration: none;
         font-weight: bold;
         display: inline-block; 
+        position: relative;
+        z-index: 1;
     }
 
     .hover-item:link {
@@ -142,20 +196,29 @@ const SIZE_DEFAULT = 3;
 
     .popup {
         opacity: 0;
-        padding: 12px;
-        width: 200px;
+        padding: 9px 14px;
+        position: absolute;
+        min-width: 225px;
         text-align: left;
         z-index: 99;
     }
 
+    #dotsPopup {
+        min-width: 400px;
+    }
+
+    #mapPopup {
+        min-width: 325px;
+    }
+
     .popup p {
         font: 13px 'Open Sans', sans-serif;	
+        display: inline-block;
     }
 
     .popup-wrapper {
-        display: inline-block;
+        display: none; /* "None" by default */
         position: relative;
-        z-index: 98;
         right: 28px;
     }
 
@@ -179,27 +242,36 @@ export class VisualizationComponent {
     }
 
     switch(on) {
-        var dotSwitch = document.getElementById("dotsSwitch");
-        var mapSwitch = document.getElementById("mapSwitch");
-
+        var dotsSwitchWrapper = document.getElementById("dotsSwitchWrapper");
+        var mapSwitchWrapper = document.getElementById("mapSwitchWrapper");
+        
+        var dotsDescription = document.getElementById("dotsDescription");
+        var mapDescription = document.getElementById("mapDescription");
+        
         var dotsBox = document.getElementById("dots-box");
         var mapBox = document.getElementById("map-box");
 
-        if (dotSwitch && mapSwitch && dotsBox && mapBox) {
+        if (dotsSwitchWrapper && mapSwitchWrapper && dotsBox && mapBox) {
             switch (on) {
                 case "dots":
-                    dotSwitch.style.backgroundColor = "#dddddd";
-                    mapSwitch.style.backgroundColor = "#eeeeee";
-
+                    dotsSwitchWrapper.style.backgroundColor = "#dddddd";
+                    mapSwitchWrapper.style.backgroundColor = "#eeeeee";
+                    
+                    dotsDescription.style.visibility = "visible";
+                    mapDescription.style.visibility = "hidden";
+                    
                     this.update();
                     
                     dotsBox.style.display = "block";
                     mapBox.style.display = "none";
                     break;
                 case "map":
-                    dotSwitch.style.backgroundColor = "#eeeeee";
-                    mapSwitch.style.backgroundColor = "#dddddd";
-
+                    dotsSwitchWrapper.style.backgroundColor = "#eeeeee";
+                    mapSwitchWrapper.style.backgroundColor = "#dddddd";
+                    
+                    dotsDescription.style.visibility = "hidden";
+                    mapDescription.style.visibility = "visible";
+                    
                     dotsBox.style.display = "none";
                     mapBox.style.display = "block";
                     break;
@@ -220,7 +292,7 @@ export class VisualizationComponent {
 
         var select;
         var value;
-        if (id !== "descriptionPopup") {
+        if (id !== "dotsPopup" && id !== "mapPopup") {
             switch (id) {
                 case "colorPopup":
                     select = document.getElementById("color") as HTMLSelectElement;
@@ -237,8 +309,13 @@ export class VisualizationComponent {
                 default:
             }
             let p = popup.firstChild as HTMLParagraphElement;
+            p.style.display = "inline";
             p.style.color = "black";
-            p.innerText = this.getPopupText(value);
+            if (value !== "new") {
+                p.innerText = this.getPopupText(value);
+            } else {
+                p.innerHTML = "Origin distinguishes between entries extracted from Ingamells’ <span style='font-style: oblique'>Dictionary</span> and additional entries created within the Explorer database. "
+            }
         }
     }
 
@@ -247,13 +324,13 @@ export class VisualizationComponent {
      */
     getPopupText(value) {
         const texts = {
-            "none": "Select an option to change the appearance of the dots.",
-            "gender": "Gender is a category we attributed and is not always available.",
-            "new": "Origin distinguishes between entries extracted from Ingamells' Dictionary and additional entries created in the Explorer database.",
-            "length": "Word count sizes dots such that entries with a length of <50 words have the minimum dot size.",
-            "travelTime": "Travel length sizes dots such that travels with a length of <6 months have the minimum dot size. Certain entries represent multiple individuals known only by their shared last names, so those entries' travel lengths are ambiguous.",
-            "travel": "For each decade, those who traveled then are represented. Certain entries represent multiple individuals known only by their shared last names, so those entries' dates of travel are ambiguous.",
-            "tours": "Some travelers took multiple tours to Italy. The number of tours is here. Certain entries represent multiple individuals known only by their shared last names, so those entries' number of tours are ambiguous."
+            "none": "",
+            "gender": "Whether we know the travelers as male or female. ",
+            "new": "Origin distinguishes between entries extracted from Ingamells’ Dictionary and additional entries created within the Explorer database. ", // not expected to be called
+            "length": "Entries containing fifty or less words are all represented as the smallest dot shown, while the rest is sized to scale by word count. ",
+            "travelTime": "Tours of six months or less are all represented as the smallest dot shown, while the rest are sized to scale by months spent abroad. ",
+            "travel": "For each decade are shown the travelers who set on their tours of Italy during that timeframe. ",
+            "tours": "Distribution of travelers according to how many tours of Italy they undertook. "
         }
         return texts[value];
     }
@@ -273,12 +350,30 @@ export class VisualizationComponent {
     update() {
         var colorSelect = document.getElementById("color") as HTMLSelectElement;
         var colorBy = colorSelect.options[colorSelect.selectedIndex].value;
+        var colorIcon = document.getElementById("colorPopupWrapper");
+        if (colorBy === "none") {
+            colorIcon.style.display = "none";
+        } else {
+            colorIcon.style.display = "inline-block";
+        }
 
         var sizeSelect = document.getElementById("size") as HTMLSelectElement;
         var sizeBy = sizeSelect.options[sizeSelect.selectedIndex].value;
+        var sizeIcon = document.getElementById("sizePopupWrapper");
+        if (sizeBy === "none") {
+            sizeIcon.style.display = "none";
+        } else {
+            sizeIcon.style.display = "inline-block";
+        }
 
         var groupSelect = document.getElementById("group") as HTMLSelectElement;
         var groupBy = groupSelect.options[groupSelect.selectedIndex].value;
+        var groupIcon = document.getElementById("groupPopupWrapper");
+        if (groupBy === "none") {
+            groupIcon.style.display = "none";
+        } else {
+            groupIcon.style.display = "inline-block";
+        }
 
         this.draw(colorBy, sizeBy, groupBy);
     }

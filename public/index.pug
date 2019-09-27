@@ -36,6 +36,8 @@ html(lang="en")
             
             li(ng-show="currentUser.role=='admin'")
               a(ui-sref="admin") Manage
+            li
+              a(href="https://forms.gle/iywimg8HHe4hH1xS8") Report an issue
             li(ng-if="currentUser")
                 a(ui-sref="lists") Saved Lists 
             li
@@ -45,6 +47,8 @@ html(lang="en")
               | Logout
 
           ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
+            li
+              a(href="https://forms.gle/iywimg8HHe4hH1xS8") Report an issue
             li
               a(ui-sref="login") Login            
     ui-view

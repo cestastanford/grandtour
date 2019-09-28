@@ -14,6 +14,8 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
   //  expose shared list model to scope
   $scope.sharedListModel = savedListService.sharedListModel
 
+  savedListService.fetchLists();
+
   if ($stateParams.id) {
     
     $scope.id = parseInt($stateParams.id)

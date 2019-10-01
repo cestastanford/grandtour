@@ -9,6 +9,7 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
       removeSelectedEntriesFromList: '&?',
       duplicateList: '&?',
       deleteList: '&?',
+      isSharedList: '='
     },
     template: require('pug-loader!./entry-list.pug'),
     link: function(scope, element, attributes) {

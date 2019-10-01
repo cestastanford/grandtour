@@ -39,17 +39,8 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
     };
 
     $scope.selectList = function(listId) {
-        if (viewModel.selectedList && (viewModel.selectedList._id === listId)) {
-          
-          viewModel.selectedList = null;
-          $state.go('lists', { id: null }, { notify: false })
-        
-        } else {
-            
-            $state.go('lists', { id: listId }, { notify: false })
-            downloadEntries(listId);
-        
-        }
+        $state.go('lists', { id: listId }, { notify: false })
+        downloadEntries(listId);
     };
 
     function downloadEntries(listId) {

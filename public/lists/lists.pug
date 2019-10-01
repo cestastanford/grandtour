@@ -15,7 +15,11 @@
             .list-group.list-group-mine
                 .list-group-item.list-group-item-info(ng-show="sharedListModel.listsLoading") Loading lists...
                 .list-group-item.list-group-item-warning(ng-show="sharedListModel.myLists && !sharedListModel.myLists.length") No lists
-                a.list-group-item(ng-repeat="list in sharedListModel.myLists", ng-click="selectList(list)", ng-class="{ 'myActive': list === viewModel.selectedList }")
+                a.list-group-item(ng-repeat="list in [viewModel.sharedList]", ng-click="selectList(list._id)", ng-class="{ 'myActive': list._id === viewModel.selectedList._id }", ng-if="viewModel.sharedList")
+                    h4.list-group-item-heading {{ list.name }}
+                    p.list-group-item-text {{ list.entryIDs.length }} {{ list.entryIDs.length === 1 ? 'entry' : 'entries' }}
+                    p.list-group-item-text Owner: {{list.owner}}
+                a.list-group-item(ng-repeat="list in sharedListModel.myLists", ng-click="selectList(list._id)", ng-class="{ 'myActive': list._id == viewModel.selectedList._id }")
                     h4.list-group-item-heading {{ list.name }}
                     p.list-group-item-text {{ list.entryIDs.length }} {{ list.entryIDs.length === 1 ? 'entry' : 'entries' }}
                 .list-group-item
@@ -34,6 +38,7 @@
                 entries="viewModel.selectedListEntries",
                 export="export()",
                 is-saved-list-view="true",
+                is-shared-list="viewModel.selectedList == viewModel.sharedList",
                 remove-selected-entries-from-list="removeSelectedEntriesFromList()",
                 duplicate-list="duplicateList(name)",
                 delete-list="deleteList()",

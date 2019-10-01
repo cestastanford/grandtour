@@ -83,9 +83,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
     sharedListModel.myLists = [];
     sharedListModel.listsLoading = true;
     if ($rootScope.currentUser) {
-      return $http.post('/api/lists/mylists', {
-        username: $rootScope.currentUser.username
-      })
+      return $http.get('/api/lists/mylists')
       .then(function(res) {
         if (res.data.error) console.error(res.data.error);
         else sharedListModel.myLists = res.data.entries;

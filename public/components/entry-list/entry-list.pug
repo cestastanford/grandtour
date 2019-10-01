@@ -23,7 +23,7 @@
             span.input-group-btn
               button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") create & {{ isSavedListView ? 'copy' : 'add' }}
     
-    div.btn-group.add-to-list-btn(ng-show="isSavedListView")
+    div.btn-group.add-to-list-btn(ng-show="isSavedListView && !isSharedList")
       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
         span add by id
         span.caret
@@ -36,7 +36,7 @@
 
 
     div.btn-group
-      button.btn.btn-warning.btn-xs.list-option(type="button", ng-show="isSavedListView", ng-click="removeSelectedEntriesFromList()") remove
+      button.btn.btn-warning.btn-xs.list-option(type="button", ng-show="isSavedListView && !isSharedList", ng-click="removeSelectedEntriesFromList()") remove
 
     div.btn-group.list-option
       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
@@ -80,7 +80,7 @@
               button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="handleDuplicateListClick()") duplicate
 
     div.btn-group
-      button.btn.btn-danger.btn-xs.pull-right(type="button", ng-show="isSavedListView", ng-click="deleteList()") delete this list
+      button.btn.btn-danger.btn-xs.pull-right(type="button", ng-show="isSavedListView && !isSharedList", ng-click="deleteList()") delete this list
 
   .panel-body.text-center(ng-show="!entries") Loading entries...
   .panel-body.text-center(ng-show="entries && !entries.length") No entries.

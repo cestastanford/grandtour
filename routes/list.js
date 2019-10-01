@@ -19,7 +19,7 @@ const { projectForEntryList } = require('../query')
 *   - Remove entries from a list
 */
 
-router.post('/api/lists/mylists', isUser, (req, res) => List.myLists(req, res))
+router.get('/api/lists/mylists', isUser, (req, res) => List.myLists(req, res))
 router.post('/api/lists/newlist', isUser, (req, res) => List.newList(req, res))
 router.post('/api/lists/deletelist', isUser, (req, res) => List.deleteList(req, res))
 router.post('/api/lists/addtolist', isUser, (req, res) => List.addToList(req, res))

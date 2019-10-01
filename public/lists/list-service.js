@@ -81,9 +81,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
   //  do initial list download
   let myListsPromise;
   if ($rootScope.currentUser) {
-    myListsPromise = $http.post('/api/lists/mylists', {
-      username: $rootScope.currentUser.username
-    })
+    myListsPromise = $http.get('/api/lists/mylists')
     .then(function(res) {
       if (res.data.error) console.error(res.data.error);
       else sharedListModel.myLists = res.data.entries;

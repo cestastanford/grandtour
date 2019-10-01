@@ -79,22 +79,25 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
   };
 
   //  do initial list download
-  let myListsPromise;
-  if ($rootScope.currentUser) {
-    myListsPromise = $http.get('/api/lists/mylists')
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else sharedListModel.myLists = res.data.entries;
-      sharedListModel.listsLoading = false;
-    }, function(res) { console.error(res); });
-  } else {
-    // If user is not logged in, do not do an initial list download
-    // and populate sharedListModel with some empty data.
-    myListsPromise = new Promise((resolve, reject) => {
-      sharedListModel.myLists = [];
-      sharedListModel.listsLoading = false;
-      resolve(null);
-    });
+  let fetchLists = async () => {
+    sharedListModel.myLists = [];
+    sharedListModel.listsLoading = true;
+    if ($rootScope.currentUser) {
+      return $http.get('/api/lists/mylists')
+      .then(function(res) {
+        if (res.data.error) console.error(res.data.error);
+        else sharedListModel.myLists = res.data.entries;
+        sharedListModel.listsLoading = false;
+      }, function(res) { console.error(res); });
+    } else {
+      // If user is not logged in, do not do an initial list download
+      // and populate sharedListModel with some empty data.
+      return new Promise((resolve, reject) => {
+        sharedListModel.myLists = [];
+        sharedListModel.listsLoading = false;
+        resolve(null);
+      });
+    }
   }
 
   //  return service's public fields
@@ -104,7 +107,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
     deleteList: deleteList,
     addToList: addToList,
     removeFromList: removeFromList,
-    myListsPromise: myListsPromise,
+    fetchLists: fetchLists,
   };
 
 }];

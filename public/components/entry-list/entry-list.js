@@ -14,6 +14,8 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
     template: require('pug-loader!./entry-list.pug'),
     link: function(scope, element, attributes) {
 
+      savedListService.fetchLists();
+
       // TODO: remove this hack and find a better way to pass around currentUser.
       scope.currentUser = scope.$root.currentUser;
 

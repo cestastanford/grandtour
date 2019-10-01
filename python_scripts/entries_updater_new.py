@@ -27,8 +27,23 @@ def construct_free_search_query(keyword, field):
     """Construct free search query; based on code in
     https://github.com/cestastanford/grandtour/blob/e2d5a1d2acccf5e0553f72b54c188ccc022e98e3/query.js#L380
     """
-    expr = re.compile("\\b" + re.escape(keyword) + "\\b", re.I)
-    return {field: expr}
+    keyword = keyword.strip()
+    matching_regex = re.compile(r"\b" + re.escape(keyword) + r"\b", re.I)
+    if not re.match(matching_regex, keyword):
+        # Don't do a word boundary search if the word itself does
+        # not show up when doing this search on it.
+        # For example, the query can be "Bologna [newspaper]" which
+        # returns no results if queried with word boundaries \b.
+        # Thus, we must perform a regular search without the word
+        # boundaries \b.
+        # (A word boundary search is equivalent to checking "Match
+        # beginning of word" and "Match end of word" in the free
+        # word search).
+        matching_regex = re.compile(re.escape(keyword), re.I)
+        if dry_run:
+            print("Not using word boundaries to match keyword: " + keyword)
+    assert re.match(matching_regex, keyword) is not None, "regex failed to match keyword: " + keyword
+    return {field: matching_regex}
 
 def parse_entry_id_list(input):
     """Parses a comma-separated string of entry IDs into a set."""

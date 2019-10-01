@@ -30,15 +30,24 @@ router.post('/api/lists/removefromlist', isUser, (req, res) => List.removeFromLi
 *   Returns the entries from a list.
 */
 
-router.get('/api/lists/:id/entries', isViewer, (req, res, next) => {
-
-    List.findById(req.params.id)
-    .then(list => {
-        if (list) return Promise.all(list.entryIDs.map(index => Entry.findByIndexAtRevision(index, res.locals.activeRevisionIndex)))
-        else { throw null /* Triggers the 404 Not Found error handler */ }
-    })
-    .then(entries => res.json(entries.filter(e => e).map(projectForEntryList)))
-    .catch(next)
+router.get('/api/lists/:id/entries', isViewer, async (req, res, next) => {
+    try {
+        const list = await List.findById(req.params.id);
+        if (list) {
+            const entries = await Promise.all(list.entryIDs.map(index => Entry.findByIndexAtRevision(index, res.locals.activeRevisionIndex)))
+            res.json({
+                ...list.toObject(),
+                entries: entries.filter(e => e).map(projectForEntryList),
+            });
+        }
+        else {
+            // Triggers the 404 Not Found error handler
+            throw null;
+        }
+    }
+    catch(e) {
+        next(e);
+    }
 
 })
 

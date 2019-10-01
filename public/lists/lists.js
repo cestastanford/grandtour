@@ -1,5 +1,7 @@
 import saveAs from "file-saver";
 import JSZip from "jszip";
+import { find } from "lodash";
+
 /*
 *   List view controller
 */
@@ -10,7 +12,8 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
     var viewModel = {
         newListName: '',
         selectedList: null,
-        selectedListEntries: null
+        selectedListEntries: null,
+        sharedList: null,
     };
 
     //  expose view model to scope
@@ -23,7 +26,7 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
     $scope.newList = function() {
         savedListService.newList(viewModel.newListName, function(list) {
             viewModel.newListName = '';
-            $scope.selectList(list);
+            $scope.selectList(list._id);
             console.log('list created: ' + list.name);
         });
     };
@@ -35,27 +38,31 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
         });
     };
 
-    $scope.selectList = function(list) {
-        if (viewModel.selectedList === list) {
+    $scope.selectList = function(listId) {
+        if (viewModel.selectedList && (viewModel.selectedList._id === listId)) {
           
           viewModel.selectedList = null;
           $state.go('lists', { id: null }, { notify: false })
         
         } else {
             
-            $state.go('lists', { id: list._id }, { notify: false })
-            viewModel.selectedList = list;
-            viewModel.selectedListEntries = null;
-            downloadEntries(list);
+            $state.go('lists', { id: listId }, { notify: false })
+            downloadEntries(listId);
         
         }
     };
 
-    function downloadEntries(list) {
-        $http.get('/api/lists/' + list._id + '/entries')
+    function downloadEntries(listId) {
+        $http.get('/api/lists/' + listId + '/entries')
         .then(function(response) {
-            viewModel.selectedListEntries = response.data;
-            viewModel.selectedList.entryIDs = response.data.map(e => e.index);
+            const {entries, ...list} = response.data;
+            viewModel.selectedListEntries = entries;
+            viewModel.selectedList = list;
+            // Show list on frontend if it doesn't exist in myLists
+            // (for example, if accessing someone else's list)
+            if (!find(savedListService.sharedListModel.myLists, {_id: list._id})) {
+                viewModel.sharedList = list;
+            }
         })
         .catch(console.error.bind(console))
     };
@@ -109,14 +116,9 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
         })
     }
 
-    //  Selects the list indicated by the URL, if it exists
-    
+    // Fetch my lists, then select the list indicated by the URL.
     if ($stateParams.id) savedListService.myListsPromise.then(function() {
-
-        var list = savedListService.sharedListModel.myLists.filter(function(list) { return list._id === $stateParams.id })[0]
-        if (list) $scope.selectList(list)
-        else $state.go('lists', { id: null }, { notify: false })
-
-    })
+        $scope.selectList($stateParams.id);
+    });
     
 }];

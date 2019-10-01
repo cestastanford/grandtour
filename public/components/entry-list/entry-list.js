@@ -84,7 +84,7 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
         const promises = ids.map(id => savedListService.addToList(currentList, {index: parseInt(id) }));
         Promise.all(promises).then(e => {
           viewModel.importIds = "";
-          scope.$parent.downloadEntries(currentList);
+          scope.$parent.downloadEntries(currentList._id);
         })
       }
 

@@ -29,8 +29,6 @@ html(lang="en")
               a(ui-sref="explore") Explore 
             li
               a(ui-sref="visualizations") Visualize
-            li
-              a(href="Grand Tour Explorer Data.zip" download) Download
                               
           ul.nav.navbar-nav.navbar-right(ng-show="currentUser")
             
@@ -39,7 +37,9 @@ html(lang="en")
             li
               a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
             li(ng-if="currentUser")
-                a(ui-sref="lists") Saved Lists 
+                a(ui-sref="lists") Saved Lists
+            li
+              a(href="Grand Tour Explorer Data.zip" download) Download
             li
               a {{currentUser.fullName || currentUser.username}}
             a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")

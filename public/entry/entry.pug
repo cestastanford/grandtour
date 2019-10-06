@@ -271,7 +271,7 @@
               .panel-heading Mentioned names
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.mentionedNames") 
-                    div(ng-style="e.entryIndex !== undefined ? {'cursor': 'pointer'}: {'font-style': 'italic'}") {{ e.name }}
+                    div(ng-style="e.entryIndex !== undefined ? {}: {'font-style': 'italic'}") {{ e.name }}
                       a.mentioned-names-logo(
                         ng-show="e.entryIndex !== undefined",
                         ng-href="{{getMentionedNameSearchUrl(e.name)}}"
@@ -281,6 +281,7 @@
                       ng-show="e.entryIndex !== undefined",
                       ng-href="{{getEntryLink(e.entryIndex)}}",
                       ng-click="handleEntryClick()",
+                        ng-style="{'color': 'black', 'cursor': 'pointer'}",
                     )
                       h4 {{ e.entry.fullName }}
                       p {{ e.entry.biography.slice(0, 100) }}...

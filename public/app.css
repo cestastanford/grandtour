@@ -257,6 +257,12 @@ input[type=checkbox], input[type=radio] {
   border-color: #643F88;
 }
 
+.btn-lavender:hover {
+  background-color: #946FB8;
+  border-color: #542F78;
+  color: #EFEFEF;
+}
+
 .btn-success {
   background-color: #6DDA8B !important;
   border-color: #4DBA6B !important;

@@ -39,7 +39,7 @@ html(lang="en")
             li(ng-if="currentUser")
                 a(ui-sref="lists") Saved Lists
             li
-              a(href="Grand Tour Explorer Data.zip" download) Download
+              a(href="Grand Tour Explorer Data.zip" download) Downloads
             li
               a {{currentUser.fullName || currentUser.username}}
             a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")

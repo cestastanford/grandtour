@@ -19,6 +19,8 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
     //  expose shared list model to scope
     $scope.sharedListModel = savedListService.sharedListModel
 
+    savedListService.fetchLists();
+
     //  functions for list modification
     $scope.newList = function() {
         savedListService.newList(viewModel.newListName, function(list) {
@@ -111,7 +113,7 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
 
     //  Selects the list indicated by the URL, if it exists
     
-    if ($stateParams.id) savedListService.myListsPromise.then(function() {
+    if ($stateParams.id) savedListService.fetchLists().then(function() {
 
         var list = savedListService.sharedListModel.myLists.filter(function(list) { return list._id === $stateParams.id })[0]
         if (list) $scope.selectList(list)

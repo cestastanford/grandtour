@@ -172,28 +172,6 @@ const SIZE_DEFAULT = 3;
         width: 150px;
     }
 
-    .hover-item {
-        cursor: pointer;
-        color: #d6bc73;
-        text-decoration: none;
-        font-weight: bold;
-        display: inline-block; 
-        position: relative;
-        z-index: 1;
-    }
-
-    .hover-item:link {
-        color: #d0b67d;
-    }
-
-    .hover-item:hover {
-        color: #d0b67d;
-    }
-
-    .hover-item:active {
-        color: #d0b67d;
-    }
-
     .popup {
         opacity: 0;
         padding: 9px 14px;

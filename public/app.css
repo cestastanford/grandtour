@@ -40,6 +40,17 @@ body {
   line-height: 1.3;
 }
 
+.about-heading {
+  font-size: 28px; 
+  text-align: center;
+  color: #d6bc73;
+}
+
+.about-text {
+  color: black;
+  text-align: justify;
+}
+
 .main-view {
   margin-top: 20px;
 }

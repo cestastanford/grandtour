@@ -21,8 +21,6 @@ html(lang="en")
           a.navbar-brand(href="#/") The Grand Tour Explorer
         .navbar-collapse
           ul.nav.navbar-nav
-            //- li
-            //-   a(ui-sref="about") About
             li
               a(ui-sref="search") Search
             li
@@ -52,4 +50,10 @@ html(lang="en")
             li
               a(ui-sref="login") Login            
     ui-view
- 
+    div.page-footer.navbar-default
+      .container
+        div(style="display: inline")
+          .footer-copyright(style="float: left") © 2018 Stanford University. All rights reserved. 
+            a(ui-sref="about") Terms of use.
+          .footer(style="float: right") ISBN XXXX DOI XXXX OCLC XXX Published by Center for Spatial and Textual Analysis (CESTA) Stanford University
+        

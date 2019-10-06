@@ -95,11 +95,13 @@ export default ['$http', function($http) {
           if (!u.selected && !u.negative && scope.operator === "and") { // case where checked becomes negative ("and" mode only)
             u.negative = true;
             u.selected = true;
+            if (!u.count && !u.selected) {
+              return; // does not call update() if count is 0, or is not selected
+            }
           }
           else if (!u.selected && u.negative) { // case where negative becomes unselected
             u.negative = false;
           }
-          if (!u.count && !u.selected) return; // does not call update() if count is 0, or is not selected
           scope.update();
         }
       }

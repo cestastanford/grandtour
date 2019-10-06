@@ -293,7 +293,9 @@
                 li.list-group-item(ng-repeat="e in entry.sources") 
                   a(ng-click="search({sources: e.abbrev})",
                     ng-bind-html="highlighted('sources', e.abbrev)"
-                  ) 
+                  )
+                  a.mentioned-names-popup
+                      p {{ e.full }}
           
           .col-lg-12.col-md-4.col-sm-6
             div.btn-group.add-to-list-btn.pull-left

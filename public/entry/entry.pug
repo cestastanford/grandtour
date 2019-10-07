@@ -294,7 +294,7 @@
                   a(ng-click="search({sources: e.abbrev})",
                     ng-bind-html="highlighted('sources', e.abbrev)"
                   )
-                  a.mentioned-names-popup
+                  a.mentioned-names-popup(ng-style="{'color': 'black'}")
                       p {{ e.full }}
           
           .col-lg-12.col-md-4.col-sm-6

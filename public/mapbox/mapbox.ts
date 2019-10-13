@@ -41,7 +41,9 @@ interface IPoint {
 
 interface IState {
   name: string,
-  color: string
+  color: string,
+  buttonElement?: HTMLDivElement,
+  selected?: string
 }
 
 function init() {
@@ -159,10 +161,10 @@ function init() {
   }
 
   /*
-   * When given a state's name, all of its points are returned.
+   * When given a state, all of its points are returned.
    */
-  function getStatePoints(stateName) {
-    return points.filter(point => point.feature.properties['18thcentury state'] === stateName);
+  function getStatePoints(state) {
+    return points.filter(point => point.feature.properties['18thcentury state'] === state.name);
   }
 
   function getState(point: IPoint): IState {
@@ -180,57 +182,29 @@ function init() {
   /*
    * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are selected.
    */
-  function selectState(stateName) {
-    var state = getStatePoints(stateName);
-    for (let point of state) {
+  function selectState(state) {
+    for (let point of getStatePoints(state)) {
       setFeatureState(point, {showBlack: false});
       if (!point.showLabel) {
         showLabel(point);
       }
     }
+    state.selected = true;
+    state.buttonElement.style.backgroundColor = 'rgba(164, 127, 200, 0.5)';
   }
 
   /*
    * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are deselected.
    */
-  function deselectState(stateName) {
-    var state = getStatePoints(stateName);
-    for (let point of state) {
+  function deselectState(state) {
+    for (let point of getStatePoints(state)) {
       setFeatureState(point, {showBlack: true});
       if (point.showLabel) {
         hideLabel(point);
       }
     }
-  }
-
-  /*
-   * When passed a feature that has recently been selected or deselected, the state button is updated to indicate if its state has all of its 
-   * features.
-   */
-  function updateStateButton(point: IPoint) {
-    var stateName = point.feature.properties['18thcentury state'];
-    let stateButton;
-    for (let div of (Array.from(states.children) as HTMLElement[])) {
-      if ((div.lastChild as HTMLElement).innerText === stateName) {
-        stateButton = div;
-        break;
-      }
-    }
-
-    var state = getStatePoints(stateName);
-    var allPointsSelected = true;
-    for (let point of state) {
-      if (!point.showLabel) {
-        allPointsSelected = false;
-        break;
-      }
-    }
-
-    if (allPointsSelected) {
-      stateButton.style.backgroundColor = 'rgba(164, 127, 200, 0.5)';
-    } else {
-      stateButton.style.backgroundColor = 'white';
-    }
+    state.selected = false;
+    state.buttonElement.style.backgroundColor = '#ffffff';
   }
 
   function getPoint(featureID) {
@@ -314,16 +288,16 @@ function init() {
     sortButtons(unselected);
   });
 
-  stateElements.forEach(function (element) {
+  stateElements.forEach(stateElement => {
     var button = document.createElement('div');
     var color = document.createElement('div');
     var name = document.createElement('p');
 
     color.setAttribute("class", "stateColor");
-    color.style.backgroundColor = element.color;
+    color.style.backgroundColor = stateElement.color;
 
     name.setAttribute("class", "stateName");
-    name.innerHTML = element.name;
+    name.innerHTML = stateElement.name;
 
     button.setAttribute("class", "stateButton")
     button.style.backgroundColor = "white"; // set here and not in <style>, because it is used to toggle whether the state is selected
@@ -332,13 +306,14 @@ function init() {
     button.appendChild(name);
 
     button.addEventListener('click', function () {
-      if (this.style.backgroundColor === "white") { // state selected -> unselected
-        selectState(element.name);
-      } else { // state unselected -> selected
-        deselectState(element.name);
+      if (stateElement.selected) {
+        deselectState(stateElement);
+      } else {
+        selectState(stateElement);
       }
     });
     states.appendChild(button);
+    stateElement.buttonElement = button;
   });
 }
 export default init;

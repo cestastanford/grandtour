@@ -252,13 +252,17 @@ function init() {
     map.on('click', 'missing-coordinates-gte-final', function (e) {
       if (!e.features || !e.features.length) return;
       let point = getPoint(e.features[0].id);
+      onPointClick(point);
+    });
+
+    function onPointClick(point: IPoint) {
       point.wasHovered = false;
       if (point.showLabel) {
         hideLabel(point);
       } else { // case deselected -> selected
         showLabel(point);
       }
-    });
+    }
 
     // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
@@ -278,9 +282,7 @@ function init() {
       placeButton.innerHTML = point.feature.properties.place;
       placeButton.style.display = 'block';
 
-      placeButton.addEventListener('click', function () {
-        point.showLabel ? hideLabel(point) : showLabel(point);
-      })
+      placeButton.addEventListener('click', () => onPointClick(point));
       // all buttons are initially unselected
       unselected.appendChild(placeButton);
     });

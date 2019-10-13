@@ -195,8 +195,9 @@ function init() {
     </label>
   </div></td></tr>`;
   function updatePlaceButtons() {
-    let selectedPoints = points.filter(e => e.showLabel).sort();
-    let unselectedPoints = points.filter(e => !e.showLabel).sort();
+    const sortFn = (a: IPoint, b: IPoint) => (a.feature.properties.place > b.feature.properties.place) ? 1 : -1;
+    let selectedPoints = points.filter(e => e.showLabel).sort(sortFn);
+    let unselectedPoints = points.filter(e => !e.showLabel).sort(sortFn);
     selected.innerHTML = `<div class="mini-table"><table class="table"><tbody>
       ${selectedPoints.map(createCheckbox).join("\n")}
       ${unselectedPoints.map(createCheckbox).join("\n")}

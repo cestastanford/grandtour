@@ -6,7 +6,6 @@ import { find } from "lodash";
 */
 
 interface IPoint {
-  showPoint: boolean,
   showBlack: boolean,
   showLabel: boolean,
   wasHovered: boolean,
@@ -50,13 +49,6 @@ function init() {
     zoom: 4.8,
     minZoom: 4.8,
     maxBounds: [[-2.5674, 32.8719], [26.5674, 50.8719]]
-  });
-
-  // sets up hover popup
-  var hoverPopup = new mapboxgl.Popup({
-    offset: [0, -10],
-    closeButton: false,
-    closeOnClick: false
   });
 
   // these divs are the parents of place buttons, which switch depending on if they are selected or not.
@@ -133,13 +125,17 @@ function init() {
   }
 
   /*
-   * Called to select an unselected place. When passed a feature and a place's button, a popup is created at that feature 
-   * and added to selectedPopups, and the button is relocated. Expects the feature to not be selected.
+   * Called to select an unselected place. When passed a feature and a place's
+   * button, a popup is created at that feature.
    */
   function showLabel(point: IPoint) {
-    point.selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
+    if (point.showLabel) return;
+    point.selectedPopup = new mapboxgl.Popup({
+      offset: [0, -10],
+      closeButton: false,
+      closeOnClick: false
+    })
       .setLngLat(point.feature.geometry.coordinates).setHTML(`<h4>${point.feature.properties.place}</h4>`).addTo(map);
-    point.showPoint = true;
     point.showLabel = true;
   }
 
@@ -271,14 +267,17 @@ function init() {
     });
 
     function onPointClick(point: IPoint) {
-      point.wasHovered = false;
-      if (point.showLabel) {
+      if (point.showLabel && point.wasHovered) { // when clicking on a point after hovering over it.
+        showLabel(point);
+        setFeatureState(point, {showBlack: false});
+      } else if (point.showLabel) { // case selected -> deselected
         hideLabel(point);
         setFeatureState(point, {showBlack: true});
       } else { // case deselected -> selected
         showLabel(point);
         setFeatureState(point, {showBlack: false});
       }
+      point.wasHovered = false;
     }
 
     // hovering off point hides hover popup

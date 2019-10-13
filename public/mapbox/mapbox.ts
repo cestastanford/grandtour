@@ -86,7 +86,7 @@ function init() {
    * Called to select an unselected place. When passed a feature and a place's
    * button, a popup is created at that feature.
    */
-  function showLabel(point: IPoint) {
+  function showLabel(point: IPoint, shouldUpdatePlaceButtons=true) {
     if (point.showLabel) return;
     const color = getState(point).color;
     point.selectedPopup = new mapboxgl.Popup({
@@ -97,7 +97,7 @@ function init() {
       .setLngLat(point.feature.geometry.coordinates)
       .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
-    if (!point.wasHovered) {
+    if (!point.wasHovered && shouldUpdatePlaceButtons) {
       updatePlaceButtons();
     }
   }
@@ -141,12 +141,13 @@ function init() {
     for (let point of getStatePoints(state)) {
       setFeatureState(point, { showBlack: false });
       // The below code shows all labels when a state is selected.
-      // if (!point.showLabel) {
-      //   showLabel(point);
-      // }
+      if (!point.showLabel) {
+        showLabel(point, false);
+      }
     }
     state.selected = true;
     state.buttonElement.style.backgroundColor = 'rgba(164, 127, 200, 0.5)';
+    updatePlaceButtons(); // Because we passed in false to showLabel
   }
 
   /*

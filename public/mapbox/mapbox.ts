@@ -10,6 +10,7 @@ interface IPoint {
   showLabel: boolean,
   wasHovered: boolean,
   selectedPopup?: any,
+  placeButton?: HTMLButtonElement,
   feature: {
     id: Number,
     layer: any,
@@ -87,38 +88,6 @@ function init() {
   ];
 
   /*
-   * When passed the button of a place, that place's corresponding feature is returned.
-   */
-  function getFeature(placeButton) {
-    var points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] });
-    for (let point of points) {
-      if (point.properties.place === placeButton.innerText) {
-        return point;
-      }
-    }
-    return;
-  }
-
-  /*
-   * When passed a place's feature, the button corresponding to that feature is returned.
-   */
-  function getPlaceButton(feature) {
-    if (feature.showLabel) {
-      for (let child of (Array.from(selected.children) as HTMLElement[])) {
-        if (feature.properties.place === child.innerText) {
-          return child;
-        }
-      }
-    } else {
-      for (let child of (Array.from(unselected.children) as HTMLElement[])) {
-        if (feature.properties.place === child.innerText) {
-          return child;
-        }
-      }
-    }
-  }
-
-  /*
    * Called when buttons are initialized or when a popup is created. Re-alphabetizes the children of an HTML element when given the parent 
    * (i.e., either selected or unselected).
    */
@@ -146,6 +115,9 @@ function init() {
       .setLngLat(point.feature.geometry.coordinates)
       .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
+    if (!point.wasHovered) {
+      selected.appendChild(point.placeButton);
+    }
   }
 
   /*
@@ -158,6 +130,7 @@ function init() {
     }
     point.wasHovered = false;
     point.showLabel = false;
+    unselected.appendChild(point.placeButton);
   }
 
   /*
@@ -285,6 +258,7 @@ function init() {
       placeButton.addEventListener('click', () => onPointClick(point));
       // all buttons are initially unselected
       unselected.appendChild(placeButton);
+      point.placeButton = placeButton;
     });
     sortButtons(unselected);
   });

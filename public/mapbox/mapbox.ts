@@ -39,6 +39,11 @@ interface IPoint {
   }
 }
 
+interface IState {
+  name: string,
+  color: string
+}
+
 function init() {
   // sets up map
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
@@ -62,7 +67,7 @@ function init() {
    * Sets up states interaction. Places comprise states, such that every place has a state it belongs to. Clicking a state button will toggle
    * all of its corresponding places.
    */
-  let stateElements = [
+  let stateElements: IState[] = [
     { name: 'Papal States', color: '#a879af' },
     { name: 'Grand Duchy of Tuscany', color: '#89d792' },
     { name: 'Duchy of Modena, Massa and Carrara', color: '#f8de91' },
@@ -130,12 +135,14 @@ function init() {
    */
   function showLabel(point: IPoint) {
     if (point.showLabel) return;
+    const color = getState(point).color;
     point.selectedPopup = new mapboxgl.Popup({
       offset: [0, -10],
       closeButton: false,
       closeOnClick: false
     })
-      .setLngLat(point.feature.geometry.coordinates).setHTML(`<h4>${point.feature.properties.place}</h4>`).addTo(map);
+      .setLngLat(point.feature.geometry.coordinates)
+      .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
   }
 
@@ -158,7 +165,7 @@ function init() {
     return points.filter(point => point.feature.properties['18thcentury state'] === stateName);
   }
 
-  function getState(point: IPoint) {
+  function getState(point: IPoint): IState {
     return find(stateElements, e => e.name === point.feature.properties['18thcentury state']);
   }
 

@@ -67,6 +67,27 @@ function init() {
   let points: IPoint[] = [];
 
   /*
+   * Sets up states interaction. Places comprise states, such that every place has a state it belongs to. Clicking a state button will toggle
+   * all of its corresponding places.
+   */
+  let stateElements = [
+    { name: 'Papal States', color: '#a879af' },
+    { name: 'Grand Duchy of Tuscany', color: '#89d792' },
+    { name: 'Duchy of Modena, Massa and Carrara', color: '#f8de91' },
+    { name: 'Republic of Venice', color: '#89b6d7' },
+    { name: 'Duchy of Milan and Mantua', color: '#d7bd75' },
+    { name: 'Bishopric of Trento', color: '#ce977e' },
+    { name: 'Kingdom of Naples', color: '#f0b97f' },
+    { name: 'House of Savoy/Kingdom of Sardinia', color: '#71808e' },
+    { name: 'Republic of Lucca', color: '#ce977e' },
+    { name: 'Duchy of Parma and Piacenza', color: '#83aa89' },
+    { name: 'Republic of Genoa', color: '#ab7879' },
+    { name: 'Duchy of Sora', color: '#77ac85' },
+    { name: 'Republic of San Marino', color: '#81b9da' },
+    { name: 'Tyrol', color: '#fdde86' },
+  ];
+
+  /*
    * When passed the button of a place, that place's corresponding feature is returned.
    */
   function getFeature(placeButton) {
@@ -138,10 +159,11 @@ function init() {
    * When given a state's name, all of its points are returned.
    */
   function getStatePoints(stateName) {
-    var points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] });
-    return points.filter(function (f) {
-      return f.properties['18thcentury state'] === stateName;
-    });
+    return points.filter(point => point.feature.properties['18thcentury state'] === stateName);
+  }
+
+  function getState(point: IPoint) {
+    return find(stateElements, e => e.name === point.feature.properties['18thcentury state']);
   }
 
   /*
@@ -265,26 +287,6 @@ function init() {
     sortButtons(unselected);
   });
 
-  /*
-   * Sets up states interaction. Places comprise states, such that every place has a state it belongs to. Clicking a state button will toggle
-   * all of its corresponding places.
-   */
-  var stateElements = [
-    { name: 'Papal States', color: '#a879af' },
-    { name: 'Grand Duchy of Tuscany', color: '#89d792' },
-    { name: 'Duchy of Modena, Massa and Carrara', color: '#f8de91' },
-    { name: 'Republic of Venice', color: '#89b6d7' },
-    { name: 'Duchy of Milan and Mantua', color: '#d7bd75' },
-    { name: 'Bishopric of Trento', color: '#ce977e' },
-    { name: 'Kingdom of Naples', color: '#f0b97f' },
-    { name: 'House of Savoy/Kingdom of Sardinia', color: '#71808e' },
-    { name: 'Republic of Lucca', color: '#ce977e' },
-    { name: 'Duchy of Parma and Piacenza', color: '#83aa89' },
-    { name: 'Republic of Genoa', color: '#ab7879' },
-    { name: 'Duchy of Sora', color: '#77ac85' },
-    { name: 'Republic of San Marino', color: '#81b9da' },
-    { name: 'Tyrol', color: '#fdde86' },
-  ]
   stateElements.forEach(function (element) {
     var button = document.createElement('div');
     var color = document.createElement('div');
@@ -304,9 +306,9 @@ function init() {
 
     button.addEventListener('click', function () {
       if (this.style.backgroundColor === "white") { // state selected -> unselected
-        selectState((this.lastChild as HTMLElement).innerHTML);
+        selectState(element.name);
       } else { // state unselected -> selected
-        deselectState((this.lastChild as HTMLElement).innerHTML);
+        deselectState(element.name);
       }
     });
     states.appendChild(button);

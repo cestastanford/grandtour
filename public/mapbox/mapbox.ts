@@ -1,5 +1,5 @@
 import mapboxgl from "mapbox-gl";
-import {find} from "lodash";
+import { find } from "lodash";
 /*
   This script provides the functionality for the Map Visualization, which appears within visualization.component.ts. Places of the Grand Tour
   are drawn as features (i.e., points) according to information based from Mapbox and can be selected individually or by state using buttons.
@@ -9,7 +9,7 @@ interface IPoint {
   showPoint: boolean,
   showBlack: boolean,
   showLabel: boolean,
-  isClicked: boolean,
+  wasHovered: boolean,
   selectedPopup?: any,
   feature: {
     id: Number,
@@ -120,18 +120,18 @@ function init() {
       .setLngLat(point.feature.geometry.coordinates).setHTML(`<h4>${point.feature.properties.place}</h4>`).addTo(map);
     point.showPoint = true;
     point.showLabel = true;
-    updateStateButton(point);
   }
 
   /*
    * Called to deselect a selected place. When passed its button, the button is relocated and the popup is removed.
    */
   function hideLabel(point: IPoint) {
-    point.selectedPopup.remove();
-    point.selectedPopup = null;
-    point.isClicked = false;
-    point.showPoint = false;
-    updateStateButton(point);
+    if (point.selectedPopup) {
+      point.selectedPopup.remove();
+      point.selectedPopup = null;
+    }
+    point.wasHovered = false;
+    point.showLabel = false;
   }
 
   /*
@@ -208,19 +208,29 @@ function init() {
    */
   map.once('load', function () {
     map.on('mouseover', 'missing-coordinates-gte-final', function (e) {
-      map.getCanvas().style.cursor = 'pointer';
       if (!e.features || !e.features.length) return;
+      map.getCanvas().style.cursor = 'pointer';
       let point = getPoint(e.features[0].id);
       if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
+        point.wasHovered = true;
         showLabel(point);
       }
+
+      // Hide hover labels from other points.
+      points.filter(point => (point.feature.id !== e.features[0].id) &&
+        point.wasHovered &&
+        point.showLabel
+      ).forEach(point => {
+        console.log("hiding point", point.feature.properties["complete current name"]);
+        hideLabel(point);
+      });
     });
 
     // clicking on point will select/deselect point
     map.on('click', 'missing-coordinates-gte-final', function (e) {
       if (!e.features || !e.features.length) return;
       let point = getPoint(e.features[0].id);
-      point.isClicked = true;
+      point.wasHovered = false;
       if (point.showLabel) {
         hideLabel(point);
       } else { // case deselected -> selected
@@ -230,10 +240,11 @@ function init() {
 
     // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
-      if (!e.features || !e.features.length) return;
-      let point = getPoint(e.features[0].id);
-      if (!point.isClicked) {
-        hideLabel(point);
+      map.getCanvas().style.cursor = '';
+      for (let point of points) {
+        if (point.showLabel && point.wasHovered) {
+          hideLabel(point);
+        }
       }
     });
 

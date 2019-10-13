@@ -7736,6 +7736,8 @@
                 "circle-radius": 5,
                 "circle-color": [
                     "case",
+                    ["boolean", ["feature-state", "showBlack"], true],
+                    "#000000",
                     [
                         "match",
                         [

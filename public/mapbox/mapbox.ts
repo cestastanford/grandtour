@@ -27,7 +27,7 @@ interface IPoint {
       "WIKIDATA ID": string,
       "complete current name": string,
       "notes": string,
-      "place": string
+      "place": string,
     },
     source: string,
     sourceLayer: string,
@@ -166,12 +166,21 @@ function init() {
     return find(stateElements, e => e.name === point.feature.properties['18thcentury state']);
   }
 
+  function setFeatureState(point: IPoint, state) {
+    map.setFeatureState({
+      source: "composite",
+      sourceLayer: "missing_coordinates_GTE_-_final_",
+      id: point.feature.id
+    }, state);
+  }
+
   /*
    * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are selected.
    */
   function selectState(stateName) {
     var state = getStatePoints(stateName);
     for (let point of state) {
+      setFeatureState(point, {showBlack: false});
       if (!point.showLabel) {
         showLabel(point);
       }
@@ -184,6 +193,7 @@ function init() {
   function deselectState(stateName) {
     var state = getStatePoints(stateName);
     for (let point of state) {
+      setFeatureState(point, {showBlack: true});
       if (point.showLabel) {
         hideLabel(point);
       }
@@ -221,7 +231,11 @@ function init() {
   }
 
   function getPoint(featureID) {
-    return find(points, e => e.feature.id === featureID);
+    const point = find(points, e => e.feature.id === featureID);
+    if (!point) {
+      console.error("point with id " + featureID + " not found");
+    }
+    return point;
   }
 
   /*
@@ -233,6 +247,7 @@ function init() {
       if (!e.features || !e.features.length) return;
       map.getCanvas().style.cursor = 'pointer';
       let point = getPoint(e.features[0].id);
+      if (!point) return;
       if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
         point.wasHovered = true;
         showLabel(point);
@@ -251,6 +266,7 @@ function init() {
     map.on('click', 'missing-coordinates-gte-final', function (e) {
       if (!e.features || !e.features.length) return;
       let point = getPoint(e.features[0].id);
+      if (!point) return;
       onPointClick(point);
     });
 
@@ -258,8 +274,10 @@ function init() {
       point.wasHovered = false;
       if (point.showLabel) {
         hideLabel(point);
+        setFeatureState(point, {showBlack: true});
       } else { // case deselected -> selected
         showLabel(point);
+        setFeatureState(point, {showBlack: false});
       }
     }
 
@@ -277,6 +295,8 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
+      setFeatureState(point, {showBlack: true});
+
       let placeButton = document.createElement('button');
       placeButton.innerHTML = point.feature.properties.place;
       placeButton.style.display = 'block';

@@ -185,9 +185,10 @@ function init() {
   function selectState(state) {
     for (let point of getStatePoints(state)) {
       setFeatureState(point, {showBlack: false});
-      if (!point.showLabel) {
-        showLabel(point);
-      }
+      // The below code shows all labels when a state is selected.
+      // if (!point.showLabel) {
+      //   showLabel(point);
+      // }
     }
     state.selected = true;
     state.buttonElement.style.backgroundColor = 'rgba(164, 127, 200, 0.5)';

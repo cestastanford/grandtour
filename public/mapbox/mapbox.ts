@@ -8,6 +8,7 @@ import { find } from "lodash";
 interface IPoint {
   showBlack: boolean,
   showLabel: boolean,
+  selected: boolean,
   wasHovered: boolean,
   selectedPopup?: any,
   placeButton?: HTMLButtonElement,
@@ -86,7 +87,7 @@ function init() {
    * Called to select an unselected place. When passed a feature and a place's
    * button, a popup is created at that feature.
    */
-  function showLabel(point: IPoint, shouldUpdatePlaceButtons=true) {
+  function showLabel(point: IPoint) {
     if (point.showLabel) return;
     const color = getState(point).color;
     point.selectedPopup = new mapboxgl.Popup({
@@ -97,7 +98,8 @@ function init() {
       .setLngLat(point.feature.geometry.coordinates)
       .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
-    if (!point.wasHovered && shouldUpdatePlaceButtons) {
+    point.selected = true;
+    if (!point.wasHovered) {
       updatePlaceButtons();
     }
   }
@@ -112,6 +114,7 @@ function init() {
     }
     point.wasHovered = false;
     point.showLabel = false;
+    point.selected = false;
     updatePlaceButtons();
   }
 
@@ -141,13 +144,14 @@ function init() {
     for (let point of getStatePoints(state)) {
       setFeatureState(point, { showBlack: false });
       // The below code shows all labels when a state is selected.
-      if (!point.showLabel) {
-        showLabel(point, false);
-      }
+      // if (!point.showLabel) {
+      //   showLabel(point, false);
+      // }
+      point.selected = true;
     }
     state.selected = true;
     state.buttonElement.style.backgroundColor = 'rgba(164, 127, 200, 0.5)';
-    updatePlaceButtons(); // Because we passed in false to showLabel
+    updatePlaceButtons();
   }
 
   /*
@@ -156,6 +160,7 @@ function init() {
   function deselectState(state) {
     for (let point of getStatePoints(state)) {
       setFeatureState(point, { showBlack: true });
+      point.selected = false;
       if (point.showLabel) {
         hideLabel(point);
       }
@@ -190,14 +195,14 @@ function init() {
   let createCheckbox = (point: IPoint) => `
   <tr><td><div class="checkbox">
     <label>
-      <input class="gte-viz-selected-checkbox ${point.showLabel ? "gte-viz-selected-checkbox-checked": "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.showLabel && "checked"} />
+      <input class="gte-viz-selected-checkbox ${point.selected ? "gte-viz-selected-checkbox-checked": "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.selected && "checked"} />
       <span>${point.feature.properties.place}</span>
     </label>
   </div></td></tr>`;
   function updatePlaceButtons() {
     const sortFn = (a: IPoint, b: IPoint) => (a.feature.properties.place > b.feature.properties.place) ? 1 : -1;
-    let selectedPoints = points.filter(e => e.showLabel).sort(sortFn);
-    let unselectedPoints = points.filter(e => !e.showLabel).sort(sortFn);
+    let selectedPoints = points.filter(e => e.selected).sort(sortFn);
+    let unselectedPoints = points.filter(e => !e.selected).sort(sortFn);
     selected.innerHTML = `<div class="mini-table"><table class="table"><tbody>
       ${selectedPoints.map(createCheckbox).join("\n")}
       ${unselectedPoints.map(createCheckbox).join("\n")}

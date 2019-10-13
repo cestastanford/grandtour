@@ -45,7 +45,7 @@ function init() {
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/ryanctan/ck0hlxv3h4l5u1co1n3kcs8te', // replace this with your style URL
+    style: require('./styles.json'),
     center: [12.5674, 41.8719],
     zoom: 4.8,
     minZoom: 4.8,
@@ -243,7 +243,6 @@ function init() {
         point.wasHovered &&
         point.showLabel
       ).forEach(point => {
-        console.log("hiding point", point.feature.properties["complete current name"]);
         hideLabel(point);
       });
     });

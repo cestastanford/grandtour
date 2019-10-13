@@ -59,11 +59,6 @@ function init() {
     maxBounds: [[-2.5674, 32.8719], [26.5674, 50.8719]]
   });
 
-  // these divs are the parents of place buttons, which switch depending on if they are selected or not.
-  let unselected = document.getElementById('unselected');
-  let selected = document.getElementById('selected');
-  let selectedPopups = [];
-  let states = document.getElementById('states');
   let points: IPoint[] = [];
 
   /*
@@ -88,19 +83,6 @@ function init() {
   ];
 
   /*
-   * Called when buttons are initialized or when a popup is created. Re-alphabetizes the children of an HTML element when given the parent 
-   * (i.e., either selected or unselected).
-   */
-  function sortButtons(parent) {
-    var children = parent.children;
-    [].slice.call(children).sort(function (a, b) {
-      return a.textContent.localeCompare(b.textContent);
-    }).forEach(function (val, index) {
-      parent.appendChild(val);
-    });
-  }
-
-  /*
    * Called to select an unselected place. When passed a feature and a place's
    * button, a popup is created at that feature.
    */
@@ -116,7 +98,7 @@ function init() {
       .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
     if (!point.wasHovered) {
-      selected.appendChild(point.placeButton);
+      updatePlaceButtons();
     }
   }
 
@@ -130,7 +112,7 @@ function init() {
     }
     point.wasHovered = false;
     point.showLabel = false;
-    unselected.appendChild(point.placeButton);
+    updatePlaceButtons();
   }
 
   /*
@@ -157,7 +139,7 @@ function init() {
    */
   function selectState(state) {
     for (let point of getStatePoints(state)) {
-      setFeatureState(point, {showBlack: false});
+      setFeatureState(point, { showBlack: false });
       // The below code shows all labels when a state is selected.
       // if (!point.showLabel) {
       //   showLabel(point);
@@ -172,7 +154,7 @@ function init() {
    */
   function deselectState(state) {
     for (let point of getStatePoints(state)) {
-      setFeatureState(point, {showBlack: true});
+      setFeatureState(point, { showBlack: true });
       if (point.showLabel) {
         hideLabel(point);
       }
@@ -187,6 +169,45 @@ function init() {
       console.error("point with id " + featureID + " not found");
     }
     return point;
+  }
+
+  function onPointClick(point: IPoint) {
+    if (point.showLabel && point.wasHovered) { // when clicking on a point after hovering over it.
+      showLabel(point);
+      setFeatureState(point, { showBlack: false });
+    } else if (point.showLabel) { // case selected -> deselected
+      hideLabel(point);
+      setFeatureState(point, { showBlack: true });
+    } else { // case deselected -> selected
+      showLabel(point);
+      setFeatureState(point, { showBlack: false });
+    }
+    point.wasHovered = false;
+  }
+
+  let selected = document.getElementById("selected");
+  let createCheckbox = (point: IPoint) => `
+  <tr><td><div class="checkbox">
+    <label>
+      <input class="gte-viz-selected-checkbox ${point.showLabel ? "gte-viz-selected-checkbox-checked": "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.showLabel && "checked"} />
+      <span>${point.feature.properties.place}</span>
+    </label>
+  </div></td></tr>`;
+  function updatePlaceButtons() {
+    let selectedPoints = points.filter(e => e.showLabel).sort();
+    let unselectedPoints = points.filter(e => !e.showLabel).sort();
+    selected.innerHTML = `<div class="mini-table"><table class="table"><tbody>
+      ${selectedPoints.map(createCheckbox).join("\n")}
+      ${unselectedPoints.map(createCheckbox).join("\n")}
+    </tbody></table></div>`;
+
+    // Add appropriate event listeners.
+    document.querySelectorAll("#selected .gte-viz-selected-checkbox-checked").forEach((checkbox, i) => {
+      checkbox.addEventListener('change', () => onPointClick(selectedPoints[i]));
+    });
+    document.querySelectorAll("#selected .gte-viz-selected-checkbox-unchecked").forEach((checkbox, i) => {
+      checkbox.addEventListener('change', () => onPointClick(unselectedPoints[i]));
+    })
   }
 
   /*
@@ -221,20 +242,6 @@ function init() {
       onPointClick(point);
     });
 
-    function onPointClick(point: IPoint) {
-      if (point.showLabel && point.wasHovered) { // when clicking on a point after hovering over it.
-        showLabel(point);
-        setFeatureState(point, {showBlack: false});
-      } else if (point.showLabel) { // case selected -> deselected
-        hideLabel(point);
-        setFeatureState(point, {showBlack: true});
-      } else { // case deselected -> selected
-        showLabel(point);
-        setFeatureState(point, {showBlack: false});
-      }
-      point.wasHovered = false;
-    }
-
     // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
       map.getCanvas().style.cursor = '';
@@ -249,46 +256,38 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
-      setFeatureState(point, {showBlack: true});
-
-      let placeButton = document.createElement('button');
-      placeButton.innerHTML = point.feature.properties.place;
-      placeButton.style.display = 'block';
-
-      placeButton.addEventListener('click', () => onPointClick(point));
-      // all buttons are initially unselected
-      unselected.appendChild(placeButton);
-      point.placeButton = placeButton;
+      setFeatureState(point, { showBlack: true });
     });
-    sortButtons(unselected);
-  });
 
-  stateElements.forEach(stateElement => {
-    var button = document.createElement('div');
-    var color = document.createElement('div');
-    var name = document.createElement('p');
+    let states = document.getElementById('states');
+    stateElements.forEach(stateElement => {
+      let button = document.createElement('div');
+      let color = document.createElement('div');
+      let name = document.createElement('p');
 
-    color.setAttribute("class", "stateColor");
-    color.style.backgroundColor = stateElement.color;
+      color.setAttribute("class", "stateColor");
+      color.style.backgroundColor = stateElement.color;
 
-    name.setAttribute("class", "stateName");
-    name.innerHTML = stateElement.name;
+      name.setAttribute("class", "stateName");
+      name.innerHTML = stateElement.name;
 
-    button.setAttribute("class", "stateButton")
-    button.style.backgroundColor = "white"; // set here and not in <style>, because it is used to toggle whether the state is selected
+      button.setAttribute("class", "stateButton")
+      button.style.backgroundColor = "white"; // set here and not in <style>, because it is used to toggle whether the state is selected
 
-    button.appendChild(color);
-    button.appendChild(name);
+      button.appendChild(color);
+      button.appendChild(name);
 
-    button.addEventListener('click', function () {
-      if (stateElement.selected) {
-        deselectState(stateElement);
-      } else {
-        selectState(stateElement);
-      }
+      button.addEventListener('click', function () {
+        if (stateElement.selected) {
+          deselectState(stateElement);
+        } else {
+          selectState(stateElement);
+        }
+      });
+      states.appendChild(button);
+      stateElement.buttonElement = button;
     });
-    states.appendChild(button);
-    stateElement.buttonElement = button;
+    updatePlaceButtons();
   });
 }
 export default init;

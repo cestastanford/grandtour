@@ -76,7 +76,11 @@
   }
 
   #selected {
-    max-height: 100px;
+    max-height: 250px;
+  }
+
+  #selected .mini-table {
+    max-height: initial;
   }
 
   #unselected {

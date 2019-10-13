@@ -109,10 +109,7 @@ const SIZE_DEFAULT = 3;
                 <div id='map'></div>
                 <div class='places-box top'>
                 <div class='places-box-inner'>
-                    <p>SELECTED</p>
                     <div id='selected'></div>
-                    <p>UNSELECTED</p>
-                    <div id='unselected'></div>
                 </div>
                 </div>
                 <div class='states-box top'>

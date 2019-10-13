@@ -4,14 +4,11 @@
  */
 
 import d3 from "d3";
-import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { ElementRef, Renderer2 } from '@angular/core';
-import '@swimlane/ngx-datatable/release/index.css';
-import '@swimlane/ngx-datatable/release/themes/material.css';
-import '@swimlane/ngx-datatable/release/assets/icons.css';
-import { find, values } from "lodash";
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import "mapbox-gl/dist/mapbox-gl.css";
+import "./mapbox/mapbox.css";
+import initMapbox from "./mapbox/mapbox";
 
 const BUFFER = 5;
 const LEGEND_DOT_HEIGHT = 12;
@@ -108,7 +105,22 @@ const SIZE_DEFAULT = 3;
         </div>
 
         <div class='viz-box' id='map-box' width="100%" height="100%" style="display:none">
-            <iframe src="mapbox.html" width="100%" height="600px"></iframe>
+            <div id="map-container">  
+                <div id='map'></div>
+                <div class='places-box top'>
+                <div class='places-box-inner'>
+                    <p>SELECTED</p>
+                    <div id='selected'></div>
+                    <p>UNSELECTED</p>
+                    <div id='unselected'></div>
+                </div>
+                </div>
+                <div class='states-box top'>
+                <div class='states-box-inner'>
+                    <div id='states'></div>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
     `,
@@ -252,6 +264,8 @@ export class VisualizationComponent {
                     
                     dotsBox.style.display = "none";
                     mapBox.style.display = "block";
+
+                    initMapbox();
                     break;
                 default:
                     return;

@@ -1,8 +1,45 @@
 import mapboxgl from "mapbox-gl";
+import {find} from "lodash";
 /*
-  This scripta provides the functionality for the Map Visualization, which appears within visualization.component.ts. Places of the Grand Tour
+  This script provides the functionality for the Map Visualization, which appears within visualization.component.ts. Places of the Grand Tour
   are drawn as features (i.e., points) according to information based from Mapbox and can be selected individually or by state using buttons.
 */
+
+interface IPoint {
+  showPoint: boolean,
+  showBlack: boolean,
+  showLabel: boolean,
+  isClicked: boolean,
+  selectedPopup?: any,
+  feature: {
+    id: Number,
+    layer: any,
+    properties: {
+      "18thcentury state": string,
+      "COORDINATE NOTES": string,
+      "COORDINATE SOURCE": string,
+      "COUNTRY": string,
+      "COUNTRY CODE": string,
+      "GEONAME ID": string,
+      "Italy": string,
+      "PLACE": string,
+      "REGION": string,
+      "WIKIDATA ID": string,
+      "complete current name": string,
+      "notes": string,
+      "place": string
+    },
+    source: string,
+    sourceLayer: string,
+    state: {}
+    type: string,
+    geometry: {
+      type: string,
+      coordinates: [number, number]
+    }
+  }
+}
+
 function init() {
   // sets up map
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
@@ -27,6 +64,7 @@ function init() {
   let selected = document.getElementById('selected');
   let selectedPopups = [];
   let states = document.getElementById('states');
+  let points: IPoint[] = [];
 
   /*
    * When passed the button of a place, that place's corresponding feature is returned.
@@ -45,7 +83,7 @@ function init() {
    * When passed a place's feature, the button corresponding to that feature is returned.
    */
   function getPlaceButton(feature) {
-    if (isSelected(feature)) {
+    if (feature.showLabel) {
       for (let child of (Array.from(selected.children) as HTMLElement[])) {
         if (feature.properties.place === child.innerText) {
           return child;
@@ -74,44 +112,26 @@ function init() {
   }
 
   /*
-   * Called by various functions to see if a popup exists for that point.
-   */
-  function isSelected(feature) {
-    for (let popup of selectedPopups) {
-      if (feature.properties.place === popup._content.innerText) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /*
    * Called to select an unselected place. When passed a feature and a place's button, a popup is created at that feature 
    * and added to selectedPopups, and the button is relocated. Expects the feature to not be selected.
    */
-  function selectPopup(feature, placeButton) {
-    let selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
-      .setLngLat(feature.geometry.coordinates).setHTML('<h4>' + feature.properties.place + '</h4>').addTo(map);
-    selectedPopups.push(selectedPopup);
-    selected.appendChild(placeButton);
-    sortButtons(selected);
-    updateStateButton(feature);
+  function showLabel(point: IPoint) {
+    point.selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
+      .setLngLat(point.feature.geometry.coordinates).setHTML(`<h4>${point.feature.properties.place}</h4>`).addTo(map);
+    point.showPoint = true;
+    point.showLabel = true;
+    updateStateButton(point);
   }
 
   /*
    * Called to deselect a selected place. When passed its button, the button is relocated and the popup is removed.
    */
-  function deselectPopup(placeButton) {
-    for (let d of selectedPopups) {
-      if (d._content.innerText === placeButton.innerText) {
-        selectedPopups.splice(selectedPopups.indexOf(d), 1);
-        d.remove();
-        break;
-      }
-    };
-    unselected.appendChild(placeButton);
-    sortButtons(unselected);
-    updateStateButton(getFeature(placeButton));
+  function hideLabel(point: IPoint) {
+    point.selectedPopup.remove();
+    point.selectedPopup = null;
+    point.isClicked = false;
+    point.showPoint = false;
+    updateStateButton(point);
   }
 
   /*
@@ -130,8 +150,8 @@ function init() {
   function selectState(stateName) {
     var state = getStatePoints(stateName);
     for (let point of state) {
-      if (!isSelected(point)) {
-        selectPopup(point, getPlaceButton(point));
+      if (!point.showLabel) {
+        showLabel(point);
       }
     }
   }
@@ -142,8 +162,8 @@ function init() {
   function deselectState(stateName) {
     var state = getStatePoints(stateName);
     for (let point of state) {
-      if (isSelected(point)) {
-        deselectPopup(getPlaceButton(point));
+      if (point.showLabel) {
+        hideLabel(point);
       }
     }
   }
@@ -152,8 +172,8 @@ function init() {
    * When passed a feature that has recently been selected or deselected, the state button is updated to indicate if its state has all of its 
    * features.
    */
-  function updateStateButton(feature) {
-    var stateName = feature.properties['18thcentury state'];
+  function updateStateButton(point: IPoint) {
+    var stateName = point.feature.properties['18thcentury state'];
     let stateButton;
     for (let div of (Array.from(states.children) as HTMLElement[])) {
       if ((div.lastChild as HTMLElement).innerText === stateName) {
@@ -165,7 +185,7 @@ function init() {
     var state = getStatePoints(stateName);
     var allPointsSelected = true;
     for (let point of state) {
-      if (!isSelected(point)) {
+      if (!point.showLabel) {
         allPointsSelected = false;
         break;
       }
@@ -178,6 +198,10 @@ function init() {
     }
   }
 
+  function getPoint(featureID) {
+    return find(points, e => e.feature.id === featureID);
+  }
+
   /*
    * Triggers once map is ready to be interacted with. Sets up buttons for each location, allowing one to select and deselect places, 
    * displaying or hiding their popups.
@@ -185,49 +209,44 @@ function init() {
   map.once('load', function () {
     map.on('mouseover', 'missing-coordinates-gte-final', function (e) {
       map.getCanvas().style.cursor = 'pointer';
-      let feature = e.features[0];
-      if (!isSelected(feature)) { // will not reveal hoverPopup for already selected points (which have popups)
-        hoverPopup.setLngLat(e.lngLat)
-          .setHTML('<h4>' + feature.properties.place + '</h4>')
-          .addTo(map);
+      if (!e.features || !e.features.length) return;
+      let point = getPoint(e.features[0].id);
+      if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
+        showLabel(point);
       }
     });
 
     // clicking on point will select/deselect point
     map.on('click', 'missing-coordinates-gte-final', function (e) {
-      let feature = e.features[0];
-      let button = getPlaceButton(feature)
-
-      if (isSelected(feature)) {
-        deselectPopup(button);
+      if (!e.features || !e.features.length) return;
+      let point = getPoint(e.features[0].id);
+      point.isClicked = true;
+      if (point.showLabel) {
+        hideLabel(point);
       } else { // case deselected -> selected
-        hoverPopup.remove();
-        selectPopup(feature, button);
+        showLabel(point);
       }
     });
 
     // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
-      map.getCanvas().style.cursor = '';
-      hoverPopup.remove();
+      if (!e.features || !e.features.length) return;
+      let point = getPoint(e.features[0].id);
+      if (!point.isClicked) {
+        hideLabel(point);
+      }
     });
 
-    let points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] });
-    points.forEach(function (f) {
+    points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] }).map(e => ({
+      feature: e
+    }));
+    points.forEach((point) => {
       let placeButton = document.createElement('button');
-      placeButton.innerHTML = f.properties.place;
+      placeButton.innerHTML = point.feature.properties.place;
       placeButton.style.display = 'block';
 
       placeButton.addEventListener('click', function () {
-        switch (placeButton.parentElement) {
-          case unselected:
-            selectPopup(f, placeButton);
-            break;
-          case selected:
-            deselectPopup(placeButton);
-            break;
-          default:
-        }
+        point.showLabel ? hideLabel(point) : showLabel(point);
       })
       // all buttons are initially unselected
       unselected.appendChild(placeButton);

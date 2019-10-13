@@ -5,6 +5,33 @@ import { find } from "lodash";
   are drawn as features (i.e., points) according to information based from Mapbox and can be selected individually or by state using buttons.
 */
 
+interface IFeature {
+  id: Number,
+  layer: any,
+  properties: {
+    "18thcentury state": string,
+    "COORDINATE NOTES": string,
+    "COORDINATE SOURCE": string,
+    "COUNTRY": string,
+    "COUNTRY CODE": string,
+    "GEONAME ID": string,
+    "Italy": string,
+    "PLACE": string,
+    "REGION": string,
+    "WIKIDATA ID": string,
+    "complete current name": string,
+    "notes": string,
+    "place": string,
+  },
+  source: string,
+  sourceLayer: string,
+  state: {}
+  type: string,
+  geometry: {
+    type: string,
+    coordinates: [number, number]
+  }
+}
 interface IPoint {
   showBlack: boolean,
   showLabel: boolean,
@@ -12,33 +39,7 @@ interface IPoint {
   wasHovered: boolean,
   selectedPopup?: any,
   placeButton?: HTMLButtonElement,
-  feature: {
-    id: Number,
-    layer: any,
-    properties: {
-      "18thcentury state": string,
-      "COORDINATE NOTES": string,
-      "COORDINATE SOURCE": string,
-      "COUNTRY": string,
-      "COUNTRY CODE": string,
-      "GEONAME ID": string,
-      "Italy": string,
-      "PLACE": string,
-      "REGION": string,
-      "WIKIDATA ID": string,
-      "complete current name": string,
-      "notes": string,
-      "place": string,
-    },
-    source: string,
-    sourceLayer: string,
-    state: {}
-    type: string,
-    geometry: {
-      type: string,
-      coordinates: [number, number]
-    }
-  }
+  feature: IFeature
 }
 
 interface IState {
@@ -169,10 +170,10 @@ function init() {
     state.buttonElement.style.backgroundColor = '#ffffff';
   }
 
-  function getPoint(featureID) {
-    const point = find(points, e => e.feature.id === featureID);
+  function getPoint(feature: IFeature) {
+    const point = find(points, e => e.feature.properties.place === feature.properties.place);
     if (!point) {
-      console.error("point with id " + featureID + " not found");
+      console.error("point with place " + feature.properties.place + " not found");
     }
     return point;
   }
@@ -195,7 +196,7 @@ function init() {
   let createCheckbox = (point: IPoint) => `
   <tr><td><div class="checkbox">
     <label>
-      <input class="gte-viz-selected-checkbox ${point.selected ? "gte-viz-selected-checkbox-checked": "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.selected && "checked"} />
+      <input class="gte-viz-selected-checkbox ${point.selected ? "gte-viz-selected-checkbox-checked" : "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.selected && "checked"} />
       <span>${point.feature.properties.place}</span>
     </label>
   </div></td></tr>`;
@@ -225,7 +226,7 @@ function init() {
     map.on('mouseover', 'missing-coordinates-gte-final', function (e) {
       if (!e.features || !e.features.length) return;
       map.getCanvas().style.cursor = 'pointer';
-      let point = getPoint(e.features[0].id);
+      let point = getPoint(e.features[0]);
       if (!point) return;
       if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
         point.wasHovered = true;
@@ -244,7 +245,7 @@ function init() {
     // clicking on point will select/deselect point
     map.on('click', 'missing-coordinates-gte-final', function (e) {
       if (!e.features || !e.features.length) return;
-      let point = getPoint(e.features[0].id);
+      let point = getPoint(e.features[0]);
       if (!point) return;
       onPointClick(point);
     });

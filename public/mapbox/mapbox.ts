@@ -22,36 +22,6 @@ function init() {
     closeOnClick: false
   });
 
-  // hovering over point reveals popup
-  map.on('mouseover', 'missing-coordinates-gte-final', function (e) {
-    map.getCanvas().style.cursor = 'pointer';
-    let feature = e.features[0];
-    if (!isSelected(feature)) { // will not reveal hoverPopup for already selected points (which have popups)
-      hoverPopup.setLngLat(e.lngLat)
-        .setHTML('<h4>' + feature.properties.place + '</h4>')
-        .addTo(map);
-    }
-  });
-
-  // clicking on point will select/deselect point
-  map.on('click', 'missing-coordinates-gte-final', function (e) {
-    let feature = e.features[0];
-    let button = getPlaceButton(feature)
-
-    if (isSelected(feature)) {
-      deselectPopup(button);
-    } else { // case deselected -> selected
-      hoverPopup.remove();
-      selectPopup(feature, button);
-    }
-  });
-
-  // hovering off point hides hover popup
-  map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
-    map.getCanvas().style.cursor = '';
-    hoverPopup.remove();
-  });
-
   // these divs are the parents of place buttons, which switch depending on if they are selected or not.
   let unselected = document.getElementById('unselected');
   let selected = document.getElementById('selected');
@@ -76,7 +46,7 @@ function init() {
    */
   function getPlaceButton(feature) {
     if (isSelected(feature)) {
-      for (let child of (Array.from(selected.children) as HTMLElement[]) ) {
+      for (let child of (Array.from(selected.children) as HTMLElement[])) {
         if (feature.properties.place === child.innerText) {
           return child;
         }
@@ -123,7 +93,7 @@ function init() {
     let selectedPopup = new mapboxgl.Popup({ offset: [0, -10], closeButton: false, closeOnClick: false })
       .setLngLat(feature.geometry.coordinates).setHTML('<h4>' + feature.properties.place + '</h4>').addTo(map);
     selectedPopups.push(selectedPopup);
-    // selected.appendChild(placeButton); // TODO: fix
+    selected.appendChild(placeButton);
     sortButtons(selected);
     updateStateButton(feature);
   }
@@ -185,7 +155,7 @@ function init() {
   function updateStateButton(feature) {
     var stateName = feature.properties['18thcentury state'];
     let stateButton;
-    for (let div of (Array.from(states.children) as HTMLElement[]) ) {
+    for (let div of (Array.from(states.children) as HTMLElement[])) {
       if ((div.lastChild as HTMLElement).innerText === stateName) {
         stateButton = div;
         break;
@@ -212,10 +182,39 @@ function init() {
    * Triggers once map is ready to be interacted with. Sets up buttons for each location, allowing one to select and deselect places, 
    * displaying or hiding their popups.
    */
-  map.once('moveend', function () {
-    var points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] });
+  map.once('load', function () {
+    map.on('mouseover', 'missing-coordinates-gte-final', function (e) {
+      map.getCanvas().style.cursor = 'pointer';
+      let feature = e.features[0];
+      if (!isSelected(feature)) { // will not reveal hoverPopup for already selected points (which have popups)
+        hoverPopup.setLngLat(e.lngLat)
+          .setHTML('<h4>' + feature.properties.place + '</h4>')
+          .addTo(map);
+      }
+    });
+
+    // clicking on point will select/deselect point
+    map.on('click', 'missing-coordinates-gte-final', function (e) {
+      let feature = e.features[0];
+      let button = getPlaceButton(feature)
+
+      if (isSelected(feature)) {
+        deselectPopup(button);
+      } else { // case deselected -> selected
+        hoverPopup.remove();
+        selectPopup(feature, button);
+      }
+    });
+
+    // hovering off point hides hover popup
+    map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
+      map.getCanvas().style.cursor = '';
+      hoverPopup.remove();
+    });
+
+    let points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] });
     points.forEach(function (f) {
-      var placeButton = document.createElement('button');
+      let placeButton = document.createElement('button');
       placeButton.innerHTML = f.properties.place;
       placeButton.style.display = 'block';
 

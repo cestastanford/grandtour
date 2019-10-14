@@ -224,6 +224,7 @@ const SIZE_DEFAULT = 3;
  * This class handles the functionality of the visualization.
  */
 export class VisualizationComponent {
+    initMapboxCompleted: boolean;
 
     constructor(private http: HttpClient) {
         this.draw("none", "none", "none"); // on startup, all dots are displayed without any filters
@@ -267,7 +268,10 @@ export class VisualizationComponent {
                     dotsBox.style.display = "none";
                     mapBox.style.display = "block";
 
-                    initMapbox();
+                    if (!this.initMapboxCompleted) {
+                        initMapbox();
+                        this.initMapboxCompleted = true;
+                    }
                     break;
                 default:
                     return;

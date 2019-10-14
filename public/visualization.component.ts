@@ -114,7 +114,12 @@ const SIZE_DEFAULT = 3;
                 </div>
                 <div class='states-box top'>
                 <div class='states-box-inner'>
-                    <div id='states'></div>
+                    <div id='states'>
+                        <div class='statebutton' id='gte-viz-statebutton-show-all'>
+                            <div class='stateColor'></div>
+                            <p class='stateName'>Show All</p>
+                        </div>
+                    </div>
                 </div>
                 </div>
             </div>

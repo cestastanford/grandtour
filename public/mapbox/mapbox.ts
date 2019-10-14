@@ -46,13 +46,16 @@ interface IState {
   name: string,
   color: string,
   buttonElement?: HTMLDivElement,
-  selected?: string
+  selected?: boolean
 }
+
+const COLOR_BACKGROUND_STATE_SELECTED = 'rgba(164, 127, 200, 0.5)';
+const COLOR_BACKGROUND_STATE_DESELECTED = '#ffffff';
 
 function init() {
   // sets up map
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
-  var map = new mapboxgl.Map({
+  let map = new mapboxgl.Map({
     container: 'map',
     style: require('./styles.json'),
     center: [12.5674, 41.8719],
@@ -83,6 +86,10 @@ function init() {
     { name: 'Republic of San Marino', color: '#81b9da' },
     { name: 'Tyrol', color: '#fdde86' },
   ];
+
+  const stateButtonShowAll = document.getElementById("gte-viz-statebutton-show-all");
+  const selected = document.getElementById("selected");
+  const states = document.getElementById('states');
 
   /*
    * Called to select an unselected place. When passed a feature and a place's
@@ -141,8 +148,44 @@ function init() {
   /*
    * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are selected.
    */
-  function selectState(state) {
-    for (let point of getStatePoints(state)) {
+  function selectState(state: IState) {
+    selectBulk(getStatePoints(state));
+    state.selected = true;
+    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
+    updatePlaceButtons();
+  }
+
+  /*
+   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are deselected.
+   */
+  function deselectState(state: IState) {
+    deselectBulk(getStatePoints(state));
+    state.selected = false;
+    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
+  }
+
+  /* Select all points. */
+  function selectAll() {
+    selectBulk(points);
+    stateElements.forEach(e => {
+      e.selected = true;
+      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
+    });
+    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
+  }
+
+  /* Deselect all points. */
+  function deselectAll() {
+    deselectBulk(points);
+    stateElements.forEach(e => {
+      e.selected = false;
+      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
+    });
+    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
+  }
+
+  function selectBulk(points_) {
+    for (let point of points_) {
       setFeatureState(point, { showBlack: false });
       // The below code shows all labels when a state is selected.
       // if (!point.showLabel) {
@@ -150,24 +193,16 @@ function init() {
       // }
       point.selected = true;
     }
-    state.selected = true;
-    state.buttonElement.style.backgroundColor = 'rgba(164, 127, 200, 0.5)';
-    updatePlaceButtons();
   }
 
-  /*
-   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are deselected.
-   */
-  function deselectState(state) {
-    for (let point of getStatePoints(state)) {
+  function deselectBulk(points_) {
+    for (let point of points_) {
       setFeatureState(point, { showBlack: true });
       point.selected = false;
       if (point.showLabel) {
         hideLabel(point);
       }
     }
-    state.selected = false;
-    state.buttonElement.style.backgroundColor = '#ffffff';
   }
 
   function getPoint(feature: IFeature) {
@@ -192,7 +227,6 @@ function init() {
     point.wasHovered = false;
   }
 
-  let selected = document.getElementById("selected");
   let createCheckbox = (point: IPoint) => `
   <tr><td><div class="checkbox">
     <label>
@@ -267,7 +301,6 @@ function init() {
       setFeatureState(point, { showBlack: true });
     });
 
-    let states = document.getElementById('states');
     stateElements.forEach(stateElement => {
       let button = document.createElement('div');
       let color = document.createElement('div');
@@ -294,6 +327,15 @@ function init() {
       });
       states.appendChild(button);
       stateElement.buttonElement = button;
+    });
+
+    stateButtonShowAll.addEventListener('click', function () {
+      const allSelected = stateElements.every(e => e.selected);
+      if (allSelected) {
+        deselectAll();
+      } else {
+        selectAll();
+      }
     });
     updatePlaceButtons();
   });

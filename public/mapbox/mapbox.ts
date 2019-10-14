@@ -97,7 +97,9 @@ function init() {
    */
   function showLabel(point: IPoint) {
     if (point.showLabel) return;
-    const color = getState(point).color;
+    const state = getState(point);
+    if (!state) return;
+    const color = state.color;
     point.selectedPopup = new mapboxgl.Popup({
       offset: [0, -10],
       closeButton: false,

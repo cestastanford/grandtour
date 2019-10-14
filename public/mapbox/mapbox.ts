@@ -270,7 +270,7 @@ function init() {
       }
 
       // Hide hover labels from other points.
-      points.filter(point => (point.feature.id !== e.features[0].id) &&
+      points.filter(point => (point.feature.properties.place !== e.features[0].properties.place) &&
         point.wasHovered &&
         point.showLabel
       ).forEach(point => {

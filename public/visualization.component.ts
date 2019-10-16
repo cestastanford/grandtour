@@ -504,8 +504,10 @@ export class VisualizationComponent {
 
         let div = d3.select("body").append("div")
             .attr("class", "tool_tip")
-            .style("opacity", 0)
-        let width = d3.select("svg")[0][0].clientWidth;
+            .style("opacity", 0);
+        const svg = d3.select("svg")[0][0];
+        if (!svg) return;
+        let width = svg.clientWidth;
 
         let zEntries = [] as any; // entries sorted by z-index
 

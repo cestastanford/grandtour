@@ -66,35 +66,35 @@ function createPopup(id, content?) {
         <div class='viz-box' id='dots-box'>
             <div class='dimension'>
                 <p>COLOR</p>
-                <select id="color" [(ngModel)]="color">
+                <select id="color" [(ngModel)]="color" (change)="update()">
                     <option value="none">None</option>
                     <option value="gender">Gender</option> 
                     <option value="new">Origin</option>
                 </select>
-                <div id="colorPopupWrapper" class="popup-wrapper" [hidden]="!color || color === 'none'">
+                <div id="colorPopupWrapper" class="popup-wrapper" [hidden]="color === 'none'">
                     ${createPopup("color")}
                 </div>
             </div>
             <div class='dimension'>
                 <p>SIZE</p>
-                <select id="size" [(ngModel)]="size">
+                <select id="size" [(ngModel)]="size" (change)="update()">
                     <option value="none">None </option>
                     <option value="length">Word count</option>
                     <option value="travelTime">Travel length</option>
                 </select>
-                <div id="sizePopupWrapper" class="popup-wrapper" [hidden]="!size || size === 'none'">
+                <div id="sizePopupWrapper" class="popup-wrapper" [hidden]="size === 'none'">
                     ${createPopup("size")}
                 </div>
             </div>
             <div class='dimension'>
                 <p>GROUP</p>
-                <select id="group" [(ngModel)]="group">
+                <select id="group" [(ngModel)]="group" (change)="update()">
                     <option value="none">None </option>
                     <option value="travel">Date of travel</option>
                     <option value="gender">Gender</option>
                     <option value="tours">Number of tours</option>
                 </select>
-                <div id="groupPopupWrapper" class="popup-wrapper" [hidden]="!group || group === 'none'">
+                <div id="groupPopupWrapper" class="popup-wrapper" [hidden]="group === 'none'">
                     ${createPopup("group")}
                 </div>
             </div>

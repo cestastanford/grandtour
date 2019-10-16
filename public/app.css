@@ -1181,6 +1181,7 @@ div.tool_tip {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  overflow-x: hidden;
 }
 .site-content {
   flex: 1;

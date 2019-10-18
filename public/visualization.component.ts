@@ -4,8 +4,7 @@
  */
 
 import d3 from "d3";
-import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { ElementRef, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import '@swimlane/ngx-datatable/release/index.css';
 import '@swimlane/ngx-datatable/release/themes/material.css';
 import '@swimlane/ngx-datatable/release/assets/icons.css';
@@ -27,6 +26,16 @@ const COLOR_QUESTION = "#257DBD";
 
 const SIZE_DEFAULT = 3;
 
+function createPopup(id, content?) {
+    return `
+    <div class="gte-viz-popup-wrapper" (mouseover)="tooltip = '${id}'">
+        <p class="hover-item" (mouseover)="tooltip = '${id}'" (mouseleave)="(tooltip === '${id}') && (tooltip = null)">?</p>
+        <div class="mentioned-names-popup" (mouseleave)="(tooltip === '${id}') && (tooltip = null)" [ngStyle]="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip === '${id}' ? '1': '0', 'z-index': tooltip == '${id}' ? 99: -1, clear: both}">
+            ${content || `<div [innerHtml]="getSelectedPopupText('${id}')"></div>`}
+        </div>
+    </div>`;
+}
+
 /*
  * Handles the View "page", and its HTML and some styles.
  */
@@ -39,19 +48,17 @@ const SIZE_DEFAULT = 3;
             <div id='dotsSwitchWrapper' class='switchWrapper' (click)="switch('dots')">
                 <button id="dotsSwitch" class="switch">Dot Chart of Travelers</button>
                 <div id='dotsDescription' class="description">
-                    <p class="hover-item" (mouseover)="showPopup('dotsPopup')" (mouseout)="hidePopup('dotsPopup')">?</p>
-                    <div class="tool_tip popup" id="dotsPopup">
-                        <p>In this interactive chart every dot represents a traveler all 6005 travelers are represented. If you hover on a dot, the name of that traveler will appear, and if you click on it you will get to that traveler’s entry. You can color, size and group the dots according to the various categories shown as options here below. <span class="hover-item">Learn more...</span></p>
-                    </div>
+                    ${createPopup("dots", `
+                    <p>In this interactive chart every dot represents a traveler all 6005 travelers are represented. If you hover on a dot, the name of that traveler will appear, and if you click on it you will get to that traveler’s entry. You can color, size and group the dots according to the various categories shown as options here below.</p>
+                    `)}
                 </div>
             </div>
             <div id='mapSwitchWrapper' class='switchWrapper' (click)="switch('map')">
                 <button id="mapSwitch" class="switch">Map of Travel Places</button>
                 <div id='mapDescription' class="description">
-                    <p class="hover-item" (mouseover)="showPopup('mapPopup')" (mouseout)="hidePopup('mapPopup')">?</p>
-                    <div class="tool_tip popup" id="mapPopup">
-                        <p>This interactive map shows all the locations of places of travel within the Italian peninsula and islands, and their historical political affiliations. Note that you can zoom in for clearer vision. <span class="hover-item">Learn more...</span></p>
-                    </div>
+                    ${createPopup("map", `
+                    <p>This interactive map shows all the locations of places of travel within the Italian peninsula and islands, and their historical political affiliations. Note that you can zoom in for clearer vision.</p>
+                    `)}
                 </div>
             </div>
         </div>
@@ -59,48 +66,36 @@ const SIZE_DEFAULT = 3;
         <div class='viz-box' id='dots-box'>
             <div class='dimension'>
                 <p>COLOR</p>
-                <select id="color" (change)="update()">
+                <select id="color" [(ngModel)]="color" (change)="update()">
                     <option value="none">None</option>
                     <option value="gender">Gender</option> 
                     <option value="new">Origin</option>
                 </select>
-                <div id="colorPopupWrapper" class="popup-wrapper">
-                    <p class="hover-item" (mouseover)="showPopup('colorPopup')" (mouseout)="hidePopup('colorPopup')">?</p>
-                    <div class="tool_tip popup" id="colorPopup">
-                        <p></p>
-                        <span class="hover-item"> Learn more...</span>
-                    </div>
+                <div id="colorPopupWrapper" class="popup-wrapper" [hidden]="color === 'none'">
+                    ${createPopup("color")}
                 </div>
             </div>
             <div class='dimension'>
                 <p>SIZE</p>
-                <select id="size" (change)="update()">
+                <select id="size" [(ngModel)]="size" (change)="update()">
                     <option value="none">None </option>
                     <option value="length">Word count</option>
                     <option value="travelTime">Travel length</option>
                 </select>
-                <div id="sizePopupWrapper" class="popup-wrapper">
-                    <p class="hover-item" (mouseover)="showPopup('sizePopup')" (mouseout)="hidePopup('sizePopup')">?</p>
-                    <div class="tool_tip popup" id="sizePopup">
-                        <p></p>
-                        <span class="hover-item"> Learn more...</span>
-                    </div>
+                <div id="sizePopupWrapper" class="popup-wrapper" [hidden]="size === 'none'">
+                    ${createPopup("size")}
                 </div>
             </div>
             <div class='dimension'>
                 <p>GROUP</p>
-                <select id="group" (change)="update()">
+                <select id="group" [(ngModel)]="group" (change)="update()">
                     <option value="none">None </option>
                     <option value="travel">Date of travel</option>
                     <option value="gender">Gender</option>
                     <option value="tours">Number of tours</option>
                 </select>
-                <div id="groupPopupWrapper" class="popup-wrapper">
-                    <p class="hover-item" (mouseover)="showPopup('groupPopup')" (mouseout)="hidePopup('groupPopup')">?</p>
-                    <div class="tool_tip popup" id="groupPopup">
-                        <p></p>
-                        <span class="hover-item"> Learn more...</span>
-                    </div>
+                <div id="groupPopupWrapper" class="popup-wrapper" [hidden]="group === 'none'">
+                    ${createPopup("group")}
                 </div>
             </div>
             
@@ -125,12 +120,6 @@ const SIZE_DEFAULT = 3;
         display: inline-block;
         position: relative;
         left: 8px;
-    }
-
-    .description p {
-        display: inline-block;
-        font-family: serif; 
-        font-size: 11pt; 
     }
 
     .switchWrapper {
@@ -189,19 +178,28 @@ const SIZE_DEFAULT = 3;
         min-width: 325px;
     }
 
-    .popup p {
-        font: 13px 'Open Sans', sans-serif;	
+    .mentioned-names-popup p {
         display: inline-block;
+        font-size: 12px;
     }
 
     .popup-wrapper {
-        display: none; /* "None" by default */
+        display: inline-block;
         position: relative;
         right: 28px;
     }
 
+    .popup-wrapper[hidden] {
+        display: none;
+    }
+
     .popup-wrapper p {
         color: #d0b67d;
+    }
+
+    .gte-viz-popup-wrapper {
+        position: relative;
+        display: inline-block;
     }
     `]
 })
@@ -210,9 +208,16 @@ const SIZE_DEFAULT = 3;
  * This class handles the functionality of the visualization.
  */
 export class VisualizationComponent {
+    tooltip: string; // "color", "size", or "group"
+    color: string;
+    size: string;
+    group: string;
 
     constructor(private http: HttpClient) {
-        this.draw("none", "none", "none"); // on startup, all dots are displayed without any filters
+        this.group = "none";
+        this.size = "none";
+        this.color = "none";
+        this.update();
         window.addEventListener("resize", (e: Event) => {
             this.update();
         });
@@ -260,40 +265,16 @@ export class VisualizationComponent {
         
     }
 
-    /*
-     * When passed a popup element's id as a string, that popup is revealed.
-     */
-    showPopup(id) {
-        var popup = document.getElementById(id);
-        popup.style.transition = "all 0.3s"
-        popup.style.opacity = "1";
-
-        var select;
-        var value;
-        if (id !== "dotsPopup" && id !== "mapPopup") {
-            switch (id) {
-                case "colorPopup":
-                    select = document.getElementById("color") as HTMLSelectElement;
-                    value = select.options[select.selectedIndex].value;
-                    break;
-                case "sizePopup":
-                    select = document.getElementById("size") as HTMLSelectElement;
-                    value = select.options[select.selectedIndex].value;
-                    break;
-                case "groupPopup":
-                    select = document.getElementById("group") as HTMLSelectElement;
-                    value = select.options[select.selectedIndex].value;
-                    break;
-                default:
-            }
-            let p = popup.firstChild as HTMLParagraphElement;
-            p.style.display = "inline";
-            p.style.color = "black";
-            if (value !== "new") {
-                p.innerText = this.getPopupText(value);
-            } else {
-                p.innerHTML = "Origin distinguishes between entries extracted from Ingamells’ <span style='font-style: oblique'>Dictionary</span> and additional entries created within the Explorer database. "
-            }
+    getSelectedPopupText(dimension) {
+        switch (dimension) {
+            case "color":
+                return this.getPopupText(this.color);
+            case "group":
+                return this.getPopupText(this.group);
+            case "size":
+                return this.getPopupText(this.size);
+            default:
+                return;
         }
     }
 
@@ -304,7 +285,7 @@ export class VisualizationComponent {
         const texts = {
             "none": "",
             "gender": "Whether we know the travelers as male or female. ",
-            "new": "Origin distinguishes between entries extracted from Ingamells’ Dictionary and additional entries created within the Explorer database. ", // not expected to be called
+            "new": "Origin distinguishes between entries extracted from Ingamells’ <span style='font-style: oblique'>Dictionary</span> and additional entries created within the Explorer database. ",
             "length": "Entries containing fifty or less words are all represented as the smallest dot shown, while the rest is sized to scale by word count. ",
             "travelTime": "Tours of six months or less are all represented as the smallest dot shown, while the rest are sized to scale by months spent abroad. ",
             "travel": "For each decade are shown the travelers who set on their tours of Italy during that timeframe. ",
@@ -314,46 +295,10 @@ export class VisualizationComponent {
     }
 
     /*
-     * When passed a popup element's id as a string, that popup is hidden.
-     */
-    hidePopup(id) {
-        var popup = document.getElementById(id);
-        popup.style.transition = "all 0.3s"
-        popup.style.opacity = "0";
-    }
-
-    /*
      * Called when a select element is changed. All values are collected and the svg is updated.
      */
     update() {
-        var colorSelect = document.getElementById("color") as HTMLSelectElement;
-        var colorBy = colorSelect.options[colorSelect.selectedIndex].value;
-        var colorIcon = document.getElementById("colorPopupWrapper");
-        if (colorBy === "none") {
-            colorIcon.style.display = "none";
-        } else {
-            colorIcon.style.display = "inline-block";
-        }
-
-        var sizeSelect = document.getElementById("size") as HTMLSelectElement;
-        var sizeBy = sizeSelect.options[sizeSelect.selectedIndex].value;
-        var sizeIcon = document.getElementById("sizePopupWrapper");
-        if (sizeBy === "none") {
-            sizeIcon.style.display = "none";
-        } else {
-            sizeIcon.style.display = "inline-block";
-        }
-
-        var groupSelect = document.getElementById("group") as HTMLSelectElement;
-        var groupBy = groupSelect.options[groupSelect.selectedIndex].value;
-        var groupIcon = document.getElementById("groupPopupWrapper");
-        if (groupBy === "none") {
-            groupIcon.style.display = "none";
-        } else {
-            groupIcon.style.display = "inline-block";
-        }
-
-        this.draw(colorBy, sizeBy, groupBy);
+        this.draw(this.color, this.size, this.group);
     }
 
     clear() {

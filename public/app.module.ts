@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
 import moduleName from './app.module.ajs';
@@ -11,7 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
         BrowserModule,
         UpgradeModule,
         NgxDatatableModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule
     ],
     declarations: [
         GridComponent,

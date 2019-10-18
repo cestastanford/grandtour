@@ -5,12 +5,11 @@
 
 import d3 from "d3";
 import { Component } from '@angular/core';
-import '@swimlane/ngx-datatable/release/index.css';
-import '@swimlane/ngx-datatable/release/themes/material.css';
-import '@swimlane/ngx-datatable/release/assets/icons.css';
 import { find, values } from "lodash";
-import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient } from '@angular/common/http';
+import "mapbox-gl/dist/mapbox-gl.css";
+import "./mapbox/mapbox.css";
+import initMapbox from "./mapbox/mapbox";
 
 const BUFFER = 5;
 const LEGEND_DOT_HEIGHT = 12;
@@ -103,7 +102,24 @@ function createPopup(id, content?) {
         </div>
 
         <div class='viz-box' id='map-box' width="100%" height="100%" style="display:none">
-            <iframe src="mapbox.html" width="100%" height="600px"></iframe>
+            <div id="map-container">  
+                <div id='map'></div>
+                <div class='places-box top'>
+                <div class='places-box-inner'>
+                    <div id='selected'></div>
+                </div>
+                </div>
+                <div class='states-box top'>
+                <div class='states-box-inner'>
+                    <div id='states'>
+                        <div class='statebutton' id='gte-viz-statebutton-show-all'>
+                            <div class='stateColor'></div>
+                            <p class='stateName'>Show All</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
     `,
@@ -208,6 +224,7 @@ function createPopup(id, content?) {
  * This class handles the functionality of the visualization.
  */
 export class VisualizationComponent {
+    initMapboxCompleted: boolean;
     tooltip: string; // "color", "size", or "group"
     color: string;
     size: string;
@@ -257,6 +274,11 @@ export class VisualizationComponent {
                     
                     dotsBox.style.display = "none";
                     mapBox.style.display = "block";
+
+                    if (!this.initMapboxCompleted) {
+                        initMapbox();
+                        this.initMapboxCompleted = true;
+                    }
                     break;
                 default:
                     return;

@@ -3,7 +3,6 @@
 
 body {
   font: 13px 'Open Sans', sans-serif;
-  padding-bottom: 100px;
 }
 
 .article {
@@ -1176,4 +1175,14 @@ div.tool_tip {
   background-color: white;
   border-top: 2px solid #dddddd;
   border-bottom: 2px solid #dddddd;
+}
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+.site-content {
+  flex: 1;
 }

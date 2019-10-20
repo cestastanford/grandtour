@@ -324,7 +324,6 @@ export class VisualizationComponent {
     }
 
     clear() {
-        d3.selectAll("body > div").remove(); // removes remaining tooltips
         d3.selectAll("svg > *").remove();
     }
 

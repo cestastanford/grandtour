@@ -36,13 +36,11 @@ html(lang="en")
               a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
             li(ng-if="currentUser")
                 a(ui-sref="lists") Saved Lists
-            li
-              div.index-dropdown-wrapper
-                div.index-dropdown
-                  a Downloads
-                  div.index-dropdown-content
-                    a(href="GTE Bibliography.txt" download) Bibliography
-                    a(href="GTE Coordinates.txt" download) Coordinates
+            li.index-dropdown-wrapper
+              a Downloads
+              div.index-dropdown-content
+                a(href="GTE Bibliography.txt" download) Bibliography
+                a(href="GTE Coordinates.txt" download) Coordinates
             li
               a {{currentUser.fullName || currentUser.username}}
             a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")

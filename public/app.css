@@ -640,23 +640,6 @@ hr {
   position: relative;
 }
 
-.index-dropdown {
-  display: inherit;
-  overflow: hidden;
-  border-bottom: inherit;
-  margin: 17px 15px 0px;
-  color: #777;
-}
-
-.index-dropdown>a {
-  color: #777;
-  text-decoration: none;
-}
-
-.index-dropdown>a:hover {
-  color: #222;
-}
-
 .index-dropdown-content {
   display: none;
   position: absolute;
@@ -664,11 +647,12 @@ hr {
   padding: 0px 10px 10px;
   background-color: #F8F8F8;
   z-index: 1;
+  margin-top: -15px;
 }
 
 .index-dropdown-content>a {
   display: block;
-  padding: 15px 0px 0px;
+  padding-top: 15px;
   color: #777;
   text-decoration: none;
 }
@@ -677,7 +661,7 @@ hr {
   color: #222;
 }
 
-.index-dropdown:hover .index-dropdown-content {
+.index-dropdown-wrapper:hover .index-dropdown-content {
   display: block;
 }
 

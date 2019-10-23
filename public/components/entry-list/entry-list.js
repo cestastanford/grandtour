@@ -39,6 +39,14 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
       //  expose shared list model to scope
       scope.sharedListModel = savedListService.sharedListModel
 
+      scope.toLogin = function() {
+        let url = window.location.href;
+        let i = url.indexOf("#");
+        url = url.slice(0, i);
+        url = url.concat("#/login");
+        window.open(url, '_blank');
+      }
+
       //  selection/delection commands
       scope.selectAllEntries = function() {
         for (var i = 0; i < scope.entries.length; i++) {

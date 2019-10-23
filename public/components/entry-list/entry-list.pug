@@ -9,6 +9,9 @@
       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown", ng-if="currentUser")
         span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
         span.caret
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", ng-click="toLogin()", ng-if="!currentUser")
+        span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
+        span.caret
       ul.dropdown-menu
         li.dropdown-header(ng-show="isSavedListView") copy selected entries to list:
         li(ng-show="sharedListModel.listsLoading")
@@ -65,6 +68,9 @@
 
     div.btn-group
       button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="loading...", ng-click="export()", ng-disabled="!entries.length", ng-if="currentUser")
+        i.fa.fa-download.margin-right
+        | export results
+      button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="loading...", ng-click="toLogin()", ng-disabled="!entries.length", ng-if="!currentUser")
         i.fa.fa-download.margin-right
         | export results
 

@@ -39,7 +39,7 @@ require('bootstrap');
 /**********************************************************************
  * Angular Application
  **********************************************************************/
-const BOOK_ORIGIN = 'http://localhost:12345';
+declare const BOOK_ORIGIN: string;
 const MODULE_NAME = 'app';
  const app = angular.module(MODULE_NAME, [
   ngAnimate,
@@ -107,7 +107,7 @@ const MODULE_NAME = 'app';
   }]
 )
 .run(function() {
-  if (window.parent !== window) {
+  if (BOOK_ORIGIN && window.parent !== window) {
     window.addEventListener('hashchange', function(event) {
       window.parent.postMessage(
         { navigatedPath: location.pathname + location.hash },

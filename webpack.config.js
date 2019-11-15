@@ -78,7 +78,8 @@ module.exports = {
     }),
     new HtmlWebpackPugPlugin(),
     new webpack.DefinePlugin({
-    })
+      BOOK_ORIGIN: JSON.stringify(process.env.BOOK_ORIGIN),
+    }),
   ]
 
 };

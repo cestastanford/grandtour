@@ -39,6 +39,7 @@ require('bootstrap');
 /**********************************************************************
  * Angular Application
  **********************************************************************/
+declare const BOOK_ORIGIN: string;
 const MODULE_NAME = 'app';
  const app = angular.module(MODULE_NAME, [
   ngAnimate,
@@ -105,7 +106,16 @@ const MODULE_NAME = 'app';
 
   }]
 )
-
+.run(function() {
+  if (BOOK_ORIGIN && window.parent !== window) {
+    window.addEventListener('hashchange', function(event) {
+      window.parent.postMessage(
+        { navigatedPath: location.pathname + location.hash },
+        BOOK_ORIGIN,
+      );
+    });
+  }
+})
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   //  Retrieves the user object

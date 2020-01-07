@@ -772,7 +772,7 @@ function parseExport(res) {
             travelIndex: i,
         }))
 
-        entry.sources = d.sources.length ? d.sources.map(function (d) { return d.abbrev; }).join(",") : "";
+        entry.sources = d.sources && d.sources.length ? d.sources.map(function (d) { return d.abbrev; }).join(",") : "";
 
         entry.eventsIndex = activities
             .filter(function (d) { return d.entry == entry.index; })

@@ -12,7 +12,7 @@ const Entry = require('../models/entry')
 
 router.get('/api/birth-death-date-markers', (req, res, next) => {
 
-    Entry.findAtRevision(null, req.user.activeRevisionIndex, 'index dates biography')
+    Entry.findAtRevision(null, res.locals.activeRevisionIndex, 'index dates biography')
     .then(entries => Promise.all(entries.map(entry => {
 
         exclude = [ 311, 403, 570, 730.2, 748, 903, 955.2, 1062, 1192, 1303, 1655, 1706, 1748, 2074, 2625, 2649, 2656, 2830, 3484, 3554, 3627, 3769, 3778, 3856, 3877.2, 4173, 4315, 4361, 4996, 5252, 5293 ]
@@ -64,7 +64,7 @@ router.get('/api/birth-death-date-markers', (req, res, next) => {
 
 router.get('/api/reorder', (req, res, next) => {
 
-    Entry.findAtRevision({}, req.user.activeRevisionIndex, 'index occupations military')
+    Entry.findAtRevision({}, res.locals.activeRevisionIndex, 'index occupations military')
     .then(entries => Promise.all(entries.map(entry => {
 
         const reorder = (arr, orderValueKey) => {
@@ -190,7 +190,7 @@ router.get('/api/unmatched-mentioned-names', (req, res, next) => {
 
 router.get('/api/no-full-name', (req, res, next) => {
 
-    Entry.findAtRevision({ fullName: null }, req.user.activeRevisionIndex, 'index')
+    Entry.findAtRevision({ fullName: null }, res.locals.activeRevisionIndex, 'index')
     .then(entries => {
 
         const csv = entries.reduce((accum, entry) => accum + `"${ entry.index }"\n`, '"index"\n')
@@ -208,7 +208,7 @@ router.get('/api/no-full-name', (req, res, next) => {
 
 router.get('/api/no-type', (req, res, next) => {
 
-    Entry.findAtRevision({ type: null }, req.user.activeRevisionIndex, 'index')
+    Entry.findAtRevision({ type: null }, res.locals.activeRevisionIndex, 'index')
     .then(entries => {
 
         const csv = entries.reduce((accum, entry) => accum + `"${ entry.index }"\n`, '"index"\n')
@@ -226,7 +226,7 @@ router.get('/api/no-type', (req, res, next) => {
 
 router.get('/api/no-travels', (req, res, next) => {
 
-    Entry.findAtRevision({ $or: [ { travels : null }, { travels : [] }, { 'travels.place' : null } ] }, req.user.activeRevisionIndex, 'index')
+    Entry.findAtRevision({ $or: [ { travels : null }, { travels : [] }, { 'travels.place' : null } ] }, res.locals.activeRevisionIndex, 'index')
     .then(entries => {
 
         const csv = entries.reduce((accum, entry) => accum + `"${ entry.index }"\n`, '"index"\n')

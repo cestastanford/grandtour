@@ -31,7 +31,7 @@ class List {
 
     static myLists(req, res) {
 
-        var username = req.body.username;
+        var username = req.user.username;
         console.log('finding lists for ' + username)
 
         this.find({ owner : username }, function(err, response) {
@@ -45,12 +45,12 @@ class List {
 
     static newList(req, res) {
 
-        var user = req.body.username;
+        var username = req.user.username;
         var listName = req.body.name;
 
         var newList = new this({
             name: listName,
-            owner: user,
+            owner: username,
             entryIDs: []
         });
 
@@ -61,10 +61,10 @@ class List {
 
     static deleteList(req, res) {
 
-        var user = req.body.username;
+        var username = req.user.username;
         var id = req.body.id;
 
-        this.remove({ _id: id }, function(error) {
+        this.remove({ _id: id, owner: username }, function(error) {
             res.json({ error: error });
         });
     };

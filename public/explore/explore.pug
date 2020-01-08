@@ -11,25 +11,18 @@
     
       .row
         .col-lg-2
-          label Dimensions
+          label Filters
           ul.list-unstyled
             li.border-top(ng-repeat="dimension in dimensions",style="position:relative")
-              span.small.text-light.pull-right.explore-count(title="{{ counts[dimension.field] }} entries have a value for this dimension.") {{ counts[dimension.field] }}
-              div(ng-click="tooltip = dimension.field", style="position:absolute;right:-10px;top:5px;margin-left:4px;cursor:pointer;")
-                  span(style="font-weight:bold", ng-click="tooltip = dimension.field") •
-                  div.mentioned-names-popup(
-                        ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
-                        ng-style="{'margin-left': '0px', 'margin-top': '-20px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1}"
-                  )
-                      //i(class="fa fa-times",style="top:10px;right:10px;position:absolute",ng-click="(tooltip == dimension.field) && (tooltip = null)")
-                      h4 {{ dimension.label }}
-                      p {{ dimension.description }}
+              span.small.text-light.pull-right.explore-count(title="{{ counts[dimension.field] }} entries have a value for this filter.") {{ counts[dimension.field] }}
 
               .checkbox(style="")
                 label
                   input(type="checkbox", ng-model="dimension.active")
                   div(ng-class="{ 'text-strong' : query.hasOwnProperty(dimension.field) }")
-                      span {{dimension.label}}
+                      span(ng-if="dimension.label !== 'DBITI Employments & Identifiers'") {{ dimension.label }}
+                      span(ng-if="dimension.label === 'DBITI Employments & Identifiers'", style="font-style: italic") DBITI 
+                      span(ng-if="dimension.label === 'DBITI Employments & Identifiers'", style="font-style: normal") Employments & Identifiers
                   span.small(ng-show="dimension.subgroup") {{dimension.subgroup}}
                   
         .col-lg-10
@@ -40,8 +33,29 @@
           form
             .row
               .col-lg-3(ng-repeat='dimension in activeDimensions')
+                div(ng-mouseover="tooltip = dimension.field", style="float: right; position: relative; right: 7px; cursor: pointer;")
+                    span(ng-mouseover="tooltip = dimension.field", ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)", style="color: #80b8da; font-weight: bold") ?
+                    div.mentioned-names-popup(
+                          ng-mouseleave="(tooltip == dimension.field) && (tooltip = null)"
+                          ng-style="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip == dimension.field ? '1': '0', 'z-index': tooltip == dimension.field ? 99: -1, clear: both}"
+                    )
+                        h4(ng-if="dimension.label !== 'DBITI Employments & Identifiers'") {{ dimension.label }}
+                        div(ng-if="dimension.label === 'DBITI Employments & Identifiers'" style="margin: 10px 0px")
+                          h4(style="font-style: italic; display: inline") DBITI 
+                          h4(style="font-style: normal; display: inline") Employments & Identifiers
+                        p(style="display: inline") {{ dimension.description }}
+                        span.hover-item Learn more...
                 div(ng-switch="dimension.type")
-                  div(ng-switch-when="facet", facet="", label="{{dimension.label}}", subgroup="{{dimension.subgroup}}", data-model="dimension.antani", field="{{dimension.field}}", suggestions='{{dimension.suggestions}}', data-query='query')
+                  div(ng-switch-when="facet",
+                      facet="",
+                      label="{{dimension.label}}",
+                      subgroup="{{dimension.subgroup}}",
+                      data-model="dimension.antani",
+                      field="{{dimension.field}}",
+                      suggestion='{{dimension.suggestion}}',
+                      data-query='query'
+                      data-rawuniques='uniques[dimension.suggestion]'
+                      data-searching='searching')
                   div(ng-switch-when="number")
                     .form-group    
                       label {{dimension.label}} 
@@ -54,9 +68,8 @@
                       input.input-sm.form-control(type="text", ng-model="query[dimension.field]", ng-model-options="{debounce:1000}")
                   div(ng-switch-when="freesearch")
                     free-search
-                  
                   div(ng-switch-when="date")
-                    date-search(data-title="{{dimension.label}}", data-field="{{dimension.field}}")
+                    date-search(data-title=" {{dimension.label}} ", data-field=" {{dimension.field}} ")
         
     .col-lg-12 
     

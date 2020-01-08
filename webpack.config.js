@@ -11,6 +11,11 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'app.bundle.js'
   },
+  optimization: {
+    splitChunks: {
+      chunks: "all"
+    }
+  },
   module:
   {
     rules: [
@@ -73,7 +78,8 @@ module.exports = {
     }),
     new HtmlWebpackPugPlugin(),
     new webpack.DefinePlugin({
-    })
+      BOOK_ORIGIN: JSON.stringify(process.env.BOOK_ORIGIN),
+    }),
   ]
 
 };

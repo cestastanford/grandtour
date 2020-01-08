@@ -3,6 +3,7 @@ import angular, { IDirectiveFactory } from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import LoginCtrl from './login/login.js';
+import SignupCtrl from './signup/signup.js';
 import AdminCtrl from './admin/admin.js';
 import SearchCtrl from './search/search.js';
 import ExploreCtrl from './explore/explore.js';
@@ -38,6 +39,7 @@ require('bootstrap');
 /**********************************************************************
  * Angular Application
  **********************************************************************/
+declare const BOOK_ORIGIN: string;
 const MODULE_NAME = 'app';
  const app = angular.module(MODULE_NAME, [
   ngAnimate,
@@ -104,7 +106,16 @@ const MODULE_NAME = 'app';
 
   }]
 )
-
+.run(function() {
+  if (BOOK_ORIGIN && window.parent !== window) {
+    window.addEventListener('hashchange', function(event) {
+      window.parent.postMessage(
+        { navigatedPath: location.pathname + location.hash },
+        BOOK_ORIGIN,
+      );
+    });
+  }
+})
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   //  Retrieves the user object
@@ -121,13 +132,19 @@ const MODULE_NAME = 'app';
   
   }
   
-  //  Checks that the user is logged in; redirects to 'login' if not
+  //  Checks that the user is logged in.
   var isLoggedIn = ['$http', '$rootScope', '$state', function($http, $rootScope, $state) {
 
     return getUser($http)
     .then(function(user) {
-      if (user) $rootScope.currentUser = user
-      else $state.go('login')
+      if (user) {
+        $rootScope.currentUser = user
+      }
+      else {
+        // Don't redirect to 'login' if the user is not logged in.
+        $rootScope.currentUser = null;
+        return null;
+      }
       return user
 
     })
@@ -173,6 +190,13 @@ const MODULE_NAME = 'app';
     template: require("pug-loader!./login/login.pug"),
     title: 'Login',
     controller: LoginCtrl
+  })
+
+  .state('signup', {
+    url: "/signup",
+    template: require("pug-loader!./signup/signup.pug"),
+    title: 'Signup',
+    controller: SignupCtrl
   })
 
   // .state('register', {

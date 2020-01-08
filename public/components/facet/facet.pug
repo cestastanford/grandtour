@@ -1,6 +1,8 @@
 .form-group    
-  label {{label}} 
-    span.text-muted(ng-show="subgroup") {{subgroup}} 
+  label {{ label === 'DBITI Employments & Identifiers' ? "​" : label }} 
+    span.text-muted(ng-show="subgroup") {{subgroup}}
+  label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-style: italic; display: inline") DBITI 
+  label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-style: normal; display: inline") Employments & Identifiers
 
   .facet-wrapper
     
@@ -12,25 +14,25 @@
       .fa.fa-times-circle.clear-input-icon(ng-click="search._id = ''", ng-show="search._id.length")
 
     div.margin-bottom(ng-show="uniques.length")
-      a.small(ng-click="open=!open") {{ open ? 'Show selected only' : 'Show all' }}  
+      a.small(ng-click="open=!open" style="color: #80b8da") {{ open ? 'Show selected only' : 'Show all' }}  
       div.select-facet-sorting.btn-group.btn-group-xs(ng-model="sortingSelection", ng-init="sortingSelection = '-count'")
         button.btn.btn-default(type="button", ng-click="sortingSelection = '-count'") #
         button.btn.btn-default(type="button", ng-click="sortingSelection = '_id'") A
       div.btn-group.btn-group-xs.pull-right(style="margin-right: 5px")
-        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'or'}", ng-click="operator = 'or'; update()") any
-        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'and'}", ng-click="operator = 'and'; update()") all
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'and'}", ng-click="operator = 'and'; update()") and
+        button.btn.btn-default(type="button", ng-class="{'btn-primary': operator === 'or'}", ng-click="operator = 'or'; update()") or
 
     
     .mini-table(ng-show="uniques.length")
       table.table
         tbody
-          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection) | limitTo:limit", ng-class="{ closed: !u.count }", ng-show="open || u.selected")
+          tr(ng-repeat="u in filtered = (uniques | filter:search | orderBy:sortingSelection) | limitTo:limit", ng-class="{ closed: !u.count && !u.selected }", ng-show="open || u.selected")
             td
               .checkbox
                 label(ng-class="{'explore-alternate-name': field === 'fullName' && u.parentFullName !== u._id, 'facet-crossed-out': u.negative, 'facet-disabled': u.disabled}")
-                  input(type="checkbox", ng-model="u.selected", ng-change="!u.disabled && refresh(u)", ng-disabled="!u.count || u.disabled")
-                  span {{u._id || "Unknown"}} 
-                  span.text-light.pull-right {{u.count}}
+                  input(type="checkbox", ng-model="u.selected", ng-change="!u.disabled && refresh(u)", ng-disabled="u.searching || (!u.selected && (!u.count || u.disabled)) ")
+                  span {{(u.unmatched ? u._id + "*" : u._id) || "Unknown"}}
+                  span.text-light.pull-right {{(!u.negative && u.count !== 99999) ? u.count: ""}}
                   span.alternate-name-see(ng-show="field === 'fullName' && u.parentFullName !== u._id") (see {{u.parentFullName}})
           
           tr(ng-show="filtered.length > limit")

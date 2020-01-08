@@ -1,0 +1,432 @@
+place	complete current name	latitude	longitude	REGION	COUNTRY	COUNTRY CODE	Italy	18thcentury state	WIKIDATA ID	GEONAME ID	COORDINATE SOURCE	notes	COORDINATE NOTES
+Abano	"Abano Terme, Padua, Italy"	45.360458	11.78979015	Padua	Italy	IT	Y	Republic of Venice	Q34603	3183587	BING		
+Aberglasney	"Aberglasney, Llangathen, UK"	51.8806	-4.06223011	Llangathen	UK	GB			Q4667099		BING	used coordinates of village where this is: Llangathen	
+Acquapendente	"Acquapendente, Viterbo, Italy"	42.743889	11.864444	Viterbo	Italy	IT	Y	Papal States	Q159474	3183516	ORIGINAL		all are within <1km
+Acqui	"Acqui Terme, Alessandria, Italy"	44.675072	8.466609955	Alessandria	Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q17244	3183490	BING		all are within <1km
+Aix	"Aix-les-Bains, Savoie, France"	45.68803	5.914619923	Savoie	France	FR			Q181955	6299398	BING		
+Aix in Savoy	"Aix-les-Bains, Savoie, France"	45.68803	5.914619923	Savoie	France	FR			Q181955	3038350	BING		
+Alban Hills	"Alban Hills, Italy"	41.73	12.69999981		Italy	IT	Y	Papal States	Q1129380	3183359	BING		
+Albania	"Tirana, Albania"	41.33	19.82		Albania	AL			Q19689	3183875	WIKI		
+Albano	"Albano Laziale, Italy"	41.728534	12.658854		Italy	IT	Y	Papal States	Q191115	3183356	BING		
+Alessandria	"Alessandria, Italy"	44.907242	8.611559868		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q6088	3183299	BING		
+Algiers	"Algiers, Algeria"	36.771568	3.059259892		Algeria	DZ			Q3561	2507480	BING		
+Amalfi	"Amalfi, Italy"	40.633888	14.60321999		Italy	IT	Y	Kingdom of Naples	Q80563	3183130	BING		all are within <1km
+Amantea	"Amantea, Italy"	39.133121	16.07139969		Italy	IT	Y	Kingdom of Naples	Q53827	2525727	BING		
+Amsterdam	"Amsterdam, Netherlands"	52.37403	4.88969		Netherlands	NL			Q727	2759794	GEONAMES		
+Ancona	"Ancona, Italy"	43.61666667	13.51666667		Italy	IT	Y	Papal States	Q3415	3183089	WIKI		
+Anspach	"Ansbach, Germany"	49.300678	10.57203007		Germany	DE			Q14859	2955936	BING		
+Antibes	"Antibes, France"	43.580139	7.12130022		France	FR			Q126898	3037456	BING		
+Antium	"Anzio, Italy"	41.45063	12.62467003		Italy	IT	Y	Papal States	Q241717	3183005	BING		
+Anzio	"Anzio, Italy"	41.45063	12.62467003		Italy	IT	Y	Papal States	Q241717	3183005	BING		
+Aosta	"Aosta, Italy"	45.737511	7.320720196		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q3367	3182997	BING		
+Aprica	"Aprica, Sondrio, Italy"	46.153912	10.15217972	Sondrio	Italy	IT	Y	Duchy of Milan and Mantua	Q41040	3182961	BING		
+Aquila	"Aquila, Italy"	42.35397	13.39476967		Italy	IT	Y	Kingdom of Naples	Q3476	3175121	BING		
+Arco Felice	"Arco Felice, Italy"	40.84527778	14.07194444		Italy	IT	Y	Kingdom of Naples	Q776548	10346156	WIKI	is this good enough for the geocoding?	
+Arezzo	"Arezzo, Italy"	43.46305556	11.87805556		Italy	IT	Y	Grand Duchy of Tuscany	Q13378	3182884	WIKI		all are within <1km
+Argenta	"Argenta, Ferrara, Italy"	44.6171421	11.8369081	Ferrara	Italy	IT	Y	Papal States	Q95090	3182878	ORIGINAL		all are within <1km
+Ariano Irpino	"Ariano Irpino, Avellino, Italy"	41.152061	15.08308983	Avellino	Italy	IT	Y	Kingdom of Naples	Q55000	3182854	BING		
+Ariccia	"Ariccia, Rome, Italy"	41.7211083	12.6726413	Rome	Italy	IT	Y	Papal States	Q241744	3182851	ORIGINAL		all are within <1km
+Arienzo	"Arienzo, Caserta, Italy"	41.0218158	14.5000054	Caserta	Italy	IT	Y	Kingdom of Naples	Q58442	6541148	ORIGINAL		all are within <1km
+Arqua	"Arquà Petrarca, Italy"	45.26911	11.72045		Italy	IT	Y	Republic of Venice	Q34638	3182805	GEONAMES		
+Ascoli	"Ascoli Piceno, Italy"	42.85472222	13.57527778		Italy	IT	Y	Papal States	Q6624	3182749	WIKI		
+Asia Minor	"Constantinople, Turkey"	41.01224	28.976018		Turkey	TR			Q16869	745044	WIKI		
+Asola	"Asola, Mantua, Italy"	45.2201286	10.4130142	Mantua	Italy	IT	Y	Duchy of Milan and Mantua	Q42288	3182734	ORIGINAL		all are within <1km
+Assisi	"Assisi, Italy"	43.0707017	12.6195966		Italy	IT	Y	Papal States	Q20103	3182722	ORIGINAL		all are within <1km
+Asti	"Asti, Italy"	44.9007512	8.2064257		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q6122	3182714	ORIGINAL		all are within <1km
+Augsburg	"Augsburg, Germany"	48.370338	10.8978796		Germany	DE			Q2749	2954172	BING		
+Austria	"Vienna, Austria"	48.20833	16.373064		Austria	AT			Q1741	2761369	WIKI	currently at center	
+Avellino	"Avellino, Italy"	40.914388	14.7906121		Italy	IT	Y	Kingdom of Naples	Q13433	3182650	ORIGINAL		all are within <1km
+Avezzano	"Avezzano, Italy"	42.0281396	13.4255637		Italy	IT	Y	Kingdom of Naples	Q47125	3182636	ORIGINAL		all are within <1km
+Avignon	"Avignon, France"	43.94861111	4.808333333		France	FR			Q6397	3035681	WIKI		
+Bagni di San Giuliano	"San Giuliano Terme, Pisa"	43.762161	10.44073963	Pisa	Italy	IT	Y	Grand Duchy of Tuscany	Q103239	3168221	BING		
+Baiae	"Baia, Naples, Italy"	40.817558	14.07110977	Naples	Italy	IT	Y	Kingdom of Naples	Q290097	3182488	BING		
+Barcelona	"Barcelona, Spain"	41.388039	2.17001009		Spain	ES			Q1492	3128760	BING		
+Bari	"Bari, Italy"	41.12587	16.86665916		Italy	IT	Y	Kingdom of Naples	Q3519	3182351	BING		
+Barletta	"Barletta, Italy"	41.3196635	16.2838207		Italy	IT	Y	Kingdom of Naples	Q13470	3182340	ORIGINAL		all are within <1km
+Bassano	"Bassano del Grappa, Italy"	45.76656	11.72739		Italy	IT	Y	Republic of Venice	Q47094	3182297	GEONAMES		
+Bassano Romano	"Bassano Romano, Italy"	42.22228	12.18785		Italy	IT	Y	Papal States	Q159520	3182295	GEONAMES		
+Bay of Naples	"Bay of Naples, Italy"	40.71667	14.16667		Italy	IT	Y	Kingdom of Naples	Q201385	3172393	GEONAMES		
+Benevento	"Benevento, Italy"	41.1297613	14.7826208		Italy	IT	Y	Kingdom of Naples	Q13437	3182179	ORIGINAL		all are within <1km
+Bergamo	"Bergamo, Italy"	45.6982642	9.6772698		Italy	IT	Y	Republic of Venice	Q628	3182164	ORIGINAL		
+Berlin	"Berlin, Germany"	52.516041	13.37691021		Germany	DE			Q64	2950159	BING		
+Berne	"Berne, Switzerland"	46.948429	7.440460205		Switzerland	CH			Q70	2661552	BING		
+Bisceglie	"Bisceglie, Italy"	41.240459	16.50164032		Italy	IT	Y	Kingdom of Naples	Q23178	3182007	BING		
+Blois	"Blois, Paris"	47.586929	1.331310034	Paris	France	FR			Q160927	3032213	BING		all are within <1km
+Bologna	"Bologna, Italy"	44.504822	11.34517956		Italy	IT	Y	Papal States	Q1891	3181928	BING		
+Bolsena	"Bolsena, Italy"	42.6442035	11.9864377		Italy	IT	Y	Papal States	Q159685	3181916	ORIGINAL		
+Bolzano	"Bolzano, Italy"	46.495281	11.35346031		Italy	IT	Y	Bishopric of Trento	Q6526	3181913	BING		
+Bordeaux	"Bordeaux, France"	44.84	-0.58		France	FR			Q1479	3031582	ORIGINAL		all are within <1km
+Borgo San Sepolcro	"Sansepolcro, Italy"	43.57258	12.13858		Italy	IT	Y	Grand Duchy of Tuscany	Q52098	3167736	GEONAMES		
+Borromean Islands	"Borromean Islands, Italy"	45.90375	8.5305		Italy	IT	Y	Duchy of Milan and Mantua	Q894161	11127828	GEONAMES		
+Boulogne	"Boulogne-sur-Mer, France"	50.72555556	1.613888889		France	FR			Q81997	3031133	WIKI	"This for Bologne-sur-Mer (could it instead be Bologna, Italy?)"	
+Bracciano	"Bracciano, Italy"	42.102371	12.17640018		Italy	IT	Y	Papal States	Q241791	3181628	BING		
+Brenner	"Brenner, Italy"	47	11.5		Italy	IT	Y	Tyrol		3181570	ORIGINAL		all are within <1km
+Brenner Pass	"Brenner Pass, Italy"	47.00707	11.50653		Italy	IT	Y	Tyrol	Q212946	2781423	WIKI		
+Brescia	"Brescia, Italy"	45.536591	10.23204041		Italy	IT	Y	Republic of Venice	Q6221	3181554	BING		
+Brescia/Gottolengo	"Brescia, Italy"	45.53888889	10.22028056		Italy	IT	Y	Republic of Venice	Q6221	3181554	WIKI		
+Brighthelmstone	"Brighton, UK"	50.82838	-0.13947		UK	GB			Q131491	2654710	GEONAMES		
+Brindisi	"Brindisi, Italy"	40.6327278	17.9417616		Italy	IT	Y	Kingdom of Naples	Q13496	3181528	ORIGINAL		all are within <1km
+Britain	"London, UK"	51.50722222	-0.1275		UK	GB			Q84	2643743	WIKI		
+Brunswick	"Braunschweig, Germany"	52.26594	10.52673		Germany	DE			Q2773	2945024	GEONAMES	uk? Germany? Which one?	all are within <1km
+Brussels	"Brussels, Belgium"	50.8467	4.3547		Belgium	BE			Q239	2800866	WIKI		
+Buonconvento	"Buonconvento, Siena, Italy"	43.1360569	11.4796048	Siena	Italy	IT	Y	Grand Duchy of Tuscany	Q91119	3181407	ORIGINAL		all are within <1km
+Cadiz	"Cádiz , Spain"	36.529881	-6.29025984		Spain	ES			Q15682	2520600	BING		all are within <1km
+Caiazzo	"Caiazzo, Caserta, Italy"	41.1784083	14.3646988	Caserta	Italy	IT	Y	Kingdom of Naples	Q58457	3181267	ORIGINAL		all are within <1km
+Calabria	"Cosenza, Italy"	39.293129	16.25702095		Italy	IT	Y	Kingdom of Naples	Q13619	2524907	BING		
+Calais	"Calais, France"	50.95319	1.853659987		France	FR			Q6454	3029162	BING		
+Calci	"Calci, Pisa, Italy"	43.7262346	10.5134513	Pisa	Italy	IT	Y	Grand Duchy of Tuscany	Q103010	3181229	ORIGINAL		all are within <1km
+Calvi	"Calvi, Corsica"	42.56604	8.75713	Corsica	France	FR			Q202439	3029090	GEONAMES		all are within <1km
+Candia	"Candia, Crete"	35.342449	25.15333939	Crete	Greece	GR					BING	as in Venetian Crete?	
+Capistrello	"Capistrello, Italy"	41.9685623	13.393248		Italy	IT	Y	Kingdom of Naples	Q50064	3180712	ORIGINAL		all are within <1km
+Caprarola	"Caprarola, Italy"	42.3272312	12.2387494		Italy	IT	Y	Papal States	Q160262	3180635	ORIGINAL		all are within <1km
+Capri	"Capri, Italy"	40.55073	14.24263		Italy	IT	Y	Kingdom of Naples	Q173292	3180630	GEONAMES		
+Capua	"Capua, Italy"	41.10555556	14.21388889		Italy	IT	Y	Kingdom of Naples	Q58477	3180601	WIKI		
+Carrara	"Carrara, Italy"	44.0793245	10.097677		Italy	IT	Y	"Duchy of Modena, Massa and Carrara"	Q13372	3180423	ORIGINAL		all are within <1km
+Caserta	"Caserta, Italy"	41.07262	14.33231		Italy	IT	Y	Kingdom of Naples	Q1906	3179866	GEONAMES		
+Casiano	"San Casciano dei Bagni, Siena, Italy"	42.870461	11.87724972	Siena	Italy	IT	Y	Grand Duchy of Tuscany	Q91403	3168499	BING		
+Castel Gandolfo	"Castel Gandolfo, Italy"	41.75	12.65		Italy	IT	Y	Papal States	Q242105	6536942	WIKI		
+Castelfranco	"Castelfranco Veneto, Italy"	45.67146	11.92755		Italy	IT	Y	Republic of Venice	Q29352	3179684	GEONAMES		
+Castello	"Castel Gandolfo, Italy"	41.75	12.65		Italy	IT	Y	Papal States	Q242105	6536942	WIKI		
+Castelluccio dei Sauri	"Castelluccio dei Sauri, Italy"	41.30579	15.48281002		Italy	IT	Y	Kingdom of Naples	Q51917		BING		
+Celano	"Celano, Italy"	42.0822512	13.5429874		Italy	IT	Y	Kingdom of Naples	Q50079	3179216	ORIGINAL		
+Cento	"Cento, Italy"	44.7315319	11.2908156		Italy	IT	Y	Papal States	Q95094	3179162	ORIGINAL		all are within <1km
+Cerignola	"Cerignola, Puglia, Italy"	41.2656592	15.8939163	Puglia	Italy	IT	Y	Kingdom of Naples	Q19277	3179075	ORIGINAL		all are within <1km
+Chamonix	"Chamonix-Mont-Blanc, France"	45.92375	6.86933		France	FR			Q83236	3027301	GEONAMES		
+Chatham	"Chatham, UK"	51.38194444	0.523333333		UK	GB			Q729006	2653305	WIKI		
+Chieti	"Chieti, Italy"	42.346642	14.16526985		Italy	IT	Y	Kingdom of Naples	Q13138	3178796	BING		all are within <1km
+Civita Castellana	"Civita Castellana, Italy"	42.2891482	12.4143169		Italy	IT	Y	Papal States	Q160954	3178595	ORIGINAL		all are within <1km
+Civitavecchia	"Civitavecchia, Italy"	42.0924239	11.7954132		Italy	IT	Y	Papal States	Q242533	3178587	ORIGINAL		all are within <1km
+Clitumnus	"Campello sul Clitumno, Perugia, Italy"	42.82685	12.76931	Perugia	Italy	IT	Y	Papal States	Q20146	3181031	GEONAMES		
+Coblentz	"Koblenz, Germany"	50.360901	7.592820168		Germany	DE			Q3104	2886946	BING		
+Cologne	"Koln, Germany"	50.93333	6.95		Germany	DE			Q365	2886242	GEONAMES		
+Como	"Como, Italy"	45.810711	9.08714962		Italy	IT	Y	Duchy of Milan and Mantua	Q1308	3178229	BING		all are within <1km
+Conegliano	"Conegliano, Italy"	45.889197	12.3006368		Italy	IT	Y	Republic of Venice	Q47224	3178197	ORIGINAL		all are within <1km
+Constantinople	"Constantinople, Turkey"	41.01384	28.94966		Turkey	TR			Q16869	745044	GEONAMES		
+Corfu	"Cordu, Greece"	39.618599	19.90770912		Greece	GR				2463679	BING		Corfu?
+Cori	"Cori, Lazio, Italy"	41.64358	12.91121	Lazio	Italy	IT	Y	Papal States	Q128081	3178099	GEONAMES		
+Corsica	"Corsica, France"	42.148235	9.102701187		France	FR			Q14112		BING		centroid of island
+Cortona	"Cortona, Italy"	43.2750634	11.98512		Italy	IT	Y	Grand Duchy of Tuscany	Q52080	3177948	ORIGINAL		all are within <1km
+Cosenza	"Cosenza, Italy"	39.2982629	16.2537357		Italy	IT	Y	Kingdom of Naples	Q13619	2524907	ORIGINAL		all are within <1km
+Crema	"Crema, Italy"	45.3643375	9.6824841		Italy	IT	Y	Republic of Venice	Q42793	3177841	ORIGINAL		all are within <1km
+Cremona	"Cremona, Italy"	45.133249	10.0226511		Italy	IT	Y	Duchy of Milan and Mantua	Q6231	3177838	ORIGINAL		
+Crete	"Crete, Greece"	35.15585	24.89502		Greece	GR			Q34374	6697802	GEONAMES		
+crossing the Alps	"Great St Bernard Pass, Switzerland"	45.86889	7.17056		Switzerland	CH			Q623424	2660518	GEONAMES		
+Cuma	"Cuma, Italy"	40.848611	14.053611		Italy	IT	Y	Kingdom of Naples	Q243456	3177706	WIKI		
+Cumae	"Cuma, Italy"	40.848611	14.053611		Italy	IT	Y	Kingdom of Naples	Q243456	3177706	WIKI		
+Dalmatia	"Split, Dalmatia, Croatia"	43.51	16.45	Dalmatia	Croatia	HR			Q1663	3190261	WIKI	currently at center	
+Delaware	"Delaware, USA"	39.008125	-75.4674683		USA	US			Q1393		BING		
+Derby	"Derby, UK"	52.923431	-1.48444998		UK	GB			Q43475	2651347	BING		
+Dieppe	"Dieppe, France"	49.927151	1.079380035		France	FR			Q183557	3021411	BING		
+Dijon	"Dijon, France"	47.32305556	5.041944444		France	FR			Q7003	3021372	WIKI		
+Dover	"Dover, UK"	51.1275	1.312222222		UK	GB			Q179224	2651048	WIKI		
+Dresden	"Dresden, Germany"	51.05089	13.73832		Germany	DE			Q1731	2935022	GEONAMES		
+Dublin	"Dublin, Ireland"	53.3425	-6.265833333		Ireland	IE			Q1761	2964574	WIKI		
+eastern Europe	"Budapest, Hungary"	47.499722	19.05508041		Hungary	HU			Q1781	3054643	BING	currently at center	
+Eboli	"Eboli, Italy"	40.61694444	15.05638889		Italy	IT	Y	Kingdom of Naples	Q80933	6541807	WIKI		
+Edinburgh	"Edinburgh, UK"	55.9543	-3.20188999		UK	GB			Q23436	2650225	BING		
+Egypt	"Cairo, Egypt"	30.049919	31.24860001		Egypt	EG			Q85	360630	BING		
+Elba	"Elba Island, Italy"	42.77663	10.27788		Italy	IT	Y	Grand Duchy of Tuscany		3177426	GEONAMES		
+England	"London, England"	51.50722222	-0.1275	England	UK	GB			Q84	2643743	WIKI		
+Exeter	"Exeter, UK"	50.72153889	-3.533108333		UK	GB			Q134672	2649808	WIKI		
+Faenza	"Faenza, Italy"	44.28333333	11.88333333		Italy	IT	Y	Papal States	Q52981	3177300	WIKI		
+Falmouth	"Falmouth, UK"	50.15441	-5.07113		UK	GB			Q478029	2649715	GEONAMES		
+Fano	"Fano, Italy"	43.8398164	13.0194201		Italy	IT	Y	Papal States	Q13142	3177219	ORIGINAL		all are within <1km
+Fermo	"Fermo, Italy"	43.1588734	13.7200884		Italy	IT	Y	Papal States	Q13139	3177099	ORIGINAL		all are within <1km
+Ferney	"Ferney-Voltaire, France"	46.25858	6.11063		France	FR			Q233733	3018679	GEONAMES		all are within <1km
+Ferrara	"Ferrara, Italy"	44.8381237	11.619787		Italy	IT	Y	Papal States	Q13362	6299592	ORIGINAL		all are within <1km
+Fiesole	"Fiesole, Italy"	43.8064785	11.2931525		Italy	IT	Y	Grand Duchy of Tuscany	Q82670	3177019	ORIGINAL		all are within <1km
+Fiorenzuola	"Fiorenzuola D'Arda, Italy"	44.9278495	9.9131456		Italy	IT	Y	Duchy of Parma and Piacenza	Q102767	3176964	ORIGINAL		
+Fiumicino	"Fiumicino, Italy"	41.76666667	12.23333333		Italy	IT	Y	Papal States	Q19326	6299619	WIKI		
+Florence	"Florence, Italy"	43.77138889	11.25416667		Italy	IT	Y	Grand Duchy of Tuscany	Q2044	3176959	WIKI		
+Foggia	"Foggia, Italy"	41.462158	15.54483986		Italy	IT	Y	Kingdom of Naples	Q13464	3176885	BING		
+Foligno	"Foligno, Italy"	42.95611111	12.70333333		Italy	IT	Y	Papal States	Q20436	3176854	WIKI		all are within <1km
+Fondi	"Fondi, Italy"	41.35787	13.42718		Italy	IT	Y	Kingdom of Naples	Q128084	3176843	GEONAMES		
+Fontainebleau	"Fontainebleau, France"	48.4	2.7		France	FR			Q182872	3018074	GEONAMES		all are within <1km
+Fonthill	"Fonthill Gifford, UK"	51.08638	-2.10773993		UK	GB			Q1217555	7300344	BING	nr? Currently just Ausburg	
+Forli	"Forlì, Italy"	44.2225	12.04083333		Italy	IT	Y	Papal States	Q13367	3176746	WIKI		
+Fossombrone	"Fossombrone, Marche, Italy"	43.69017	12.81173	Marche	Italy	IT	Y	Papal States	Q190646	3176630	GEONAMES		
+France	"Paris, France"	48.85657778	2.351827778		France	FR			Q90	2988507	WIKI		
+Frankfurt	"Frankfurt, Germany"	50.11208	8.683409691		Germany	DE			Q1794	2925533	BING		
+Frascati	"Frascati, Italy"	41.8091	12.67942		Italy	IT	Y	Papal States	Q190963	3176589	GEONAMES		all are within <1km
+Frontignac	"Frontignan, France"	43.44722222	3.755555556		France	FR			Q216280	3016956	WIKI		all are within <1km
+Fucine Lake	"Fucine Lake, Italy"	41.995	13.547222		Italy	IT	Y	Kingdom of Naples	Q914789		ORIGINAL		
+Fusina	"Fusina, Venice, Italy"	45.41981	12.257	Venice	Italy	IT	Y	Republic of Venice	Q60483616	3176466	GEONAMES		all are within <1km
+Gaeta	"Gaeta, Italy"	41.21408	13.57082		Italy	IT	Y	Kingdom of Naples	Q128089	3176438	GEONAMES		all are within <1km
+Gallipoli	"Gallipoli, Italy"	40.0558508	17.9926137		Italy	IT	Y	Kingdom of Naples	Q52143	3176366	ORIGINAL		all are within <1km
+Geneva	"Geneva, Switzreland"	46.20222	6.14569		Switzerland	CH			Q71	2660646	GEONAMES		
+Genoa	"Genoa, Italy"	44.40718611	8.933983333		Italy	IT	Y	Republic of Genoa	Q1449	3176219	WIKI		
+Gensano	"Genzano di Roma, Italy"	41.70706	12.68904		Italy	IT	Y	Papal States	Q242683	3176203	GEONAMES		all are within <1km
+Genzano	"Genzano di Roma, Italy"	41.70706	12.68904		Italy	IT	Y	Papal States	Q242683	3176203	GEONAMES	which one?	all are within <1km
+Germany	"Munich, Germany"	48.13743	11.57549		Germany	DE			Q1726	2867714	GEONAMES		all are within <1km
+Ghent	"Ghent, Belgium"	51.05563	3.728559971		Belgium	BE			Q1296	2797656	BING		
+Gibraltar	"Gibraltar, British Overseas Territory in Spain "	36.13775	-5.345361111	British Overseas Territory in Spain	UK	GB			Q1410	2411586	WIKI		
+Giovinazzo	"Giovinazzo, Italy"	41.1866839	16.6735966		Italy	IT	Y	Kingdom of Naples	Q51828	3176072	ORIGINAL		all are within <1km
+Gratz	"Graz, Austria"	47.068611	15.44326973		Austria	AT			Q13298	2778067	BING		
+Gravesend	"Gravesend, UK"	51.44206	0.37106		UK	GB			Q18511	2648187	GEONAMES		
+Grecian Islands	"Santorini, Greece"	36.41666667	25.43333333		Greece	GR			Q129296	252919	WIKI		
+Greece	"Athens, Greece"	37.97944444	23.71611111		Greece	GR			Q1524	264371	WIKI		
+Greek Islands	"Santorini, Greece"	36.41666667	25.43333333		Greece	GR			Q129296	252919	WIKI	mainland greece	
+Greenwich	"Greenwich, UK"	51.48	0		UK	GB			Q693450	6634195	ORIGINAL		
+Grenatello	"Porto del Granatello, Portici, Naples"	40.81563	14.33716	Portici	Italy	IT	Y	Kingdom of Naples	Q60483509	3170116	GEONAMES		all are within <1km
+Grenoble	"Grenoble, France"	45.18694444	5.726388889		France	FR			Q1289	3014728	WIKI		
+Gruno	"Grumo Nevano, Naples, Italy"	40.93591	14.25983	Naples	Italy	IT	Y	Kingdom of Naples	Q72130	3175743	GEONAMES		all are within <1km
+Hague	"The Hague, Netherlands"	52.067299	4.288990021		Netherlands	NL			Q36600	2747373	BING		
+Hamburg	"Hamburg, Germany"	53.55	10		Germany	DE			Q1055	2911298	WIKI		
+Hanover	"Hannover, Germany"	52.372269	9.738149643		Germany	DE			Q1715	2910831	BING		
+Harwich	"Harwich, UK"	51.93527778	1.2625		UK	GB			Q990616	2647383	WIKI		
+Heidelburg	"Heidelberg, Germany"	49.40768	8.69079		Germany	DE			Q2966	2907911	GEONAMES		all are within <1km
+Herculaneum	"Ercolano, Italy"	40.80569	14.34799		Italy	IT	Y	Kingdom of Naples	Q72111	3177364	GEONAMES		all are within <1km
+Holland	"Amsterdam, Netherlands"	52.38333333	4.9		Netherlands	NL			Q727	2759794	WIKI		
+Imola	"Imola, Italy"	44.3599996	11.7124294		Italy	IT	Y	Papal States	Q50195	3175537	ORIGINAL		all are within <1km
+Innsbruck	"Innsbruck, Austria"	47.26266	11.39454		Austria	AT			Q1735	2775220	GEONAMES		all are within <1km
+Ireland	"Dublin, Ireland"	53.3425	-6.265833333		Ireland	IE			Q1761	2964574	WIKI		
+Ischia	"Ischia, Italy"	40.742809	13.94301987		Italy	IT	Y	Kingdom of Naples	Q72134	3175455	BING		
+Isernia	"Isernia, Italy"	41.5960411	14.2331612		Italy	IT	Y	Kingdom of Naples	Q13450	3175445	ORIGINAL		all are within <1km
+Isle of Elba	"Elba, Italy"	42.782711	10.286335		Italy	IT	Y	Grand Duchy of Tuscany	Q45328	3177426	ORIGINAL		
+Isle of Procida	"Procida, Italy"	40.75636	14.01457		Italy	IT	Y	Kingdom of Naples	Q72432	3169807	GEONAMES		island centroid
+Isola Bella	"Isola Bella, Lake Maggiore, Italy"	45.89538	8.52708	Lake Maggiore	Italy	IT	Y	Duchy of Milan and Mantua	Q174054	6693888	WIKI		
+Isola di Sora	"Isola del Liri, Italy"	41.67841	13.57015038		Italy	IT	Y	Duchy of Sora	Q116948	3175427	BING		
+Istria	"Pula, Istria, Croatia"	44.865791	13.84943962	Istria	Croatia	HR			Q4656	3192224	BING		
+Italy	"Rome, Italy"	41.89305556	12.48277778		Italy	IT	Y	Papal States	Q220	3169070	WIKI		
+Lake Avernus	"Lake Avernus, Italy"	40.838856	14.07614994		Italy	IT	Y	Kingdom of Naples	Q782896		BING		all are within <1km
+Lake Bolsena	"Lake Bolsena, Italy"	42.6	11.93333		Italy	IT	Y	Papal States	Q208180	3181916	GEONAMES		all are within <1km
+Lake Como	"Lake Como, Italy"	46.0160486	9.2571676		Italy	IT	Y	Duchy of Milan and Mantua	Q15523	3178228	ORIGINAL		
+Lake Garda	"Lake Garda, Italy"	45.6049385	10.6351414		Italy	IT	Y	Republic of Venice	Q6414	3176317	ORIGINAL		
+Lake Maggiore	"Lake Maggiore, Italy"	45.95	8.633333333		Italy	IT	Y	Duchy of Milan and Mantua	Q14379	2659792	WIKI		
+Lake Nemi	"Lake Nemi, Italy"	41.71667	12.7		Italy	IT	Y	Papal States	Q648679	3172327	GEONAMES		all are within <1km
+Lake Vico	"Lake Vico, Italy"	42.316667	12.166667		Italy	IT	Y	Papal States	Q1246006	3164414	ORIGINAL		all are within <1km
+Lausanne	"Lausanne, Switzerland"	46.5196	6.632219791		Switzerland	CH			Q807	2659994	BING		
+Lecce	"Lecce, Italy"	40.3515155	18.1750161		Italy	IT	Y	Kingdom of Naples	Q13386	3174953	ORIGINAL		all are within <1km
+Leghorn	"Leghorn, Italy"	43.55	10.31666667		Italy	IT	Y	Grand Duchy of Tuscany	Q6761	3174659	WIKI		
+Leiden	"Leiden, Netherlands"	52.15833	4.49306		Netherlands	NL			Q43631	2751773	GEONAMES		
+Leith	"Leith, Scotland, UK"	55.977299	-3.17535996	Scotland	UK	GB			Q1018540	2644641	BING		
+Lerici	"Lerici, Italy"	44.0756332	9.9169337		Italy	IT	Y	Republic of Genoa	Q270189	3174856	ORIGINAL		all are within <1km
+Licenza	"Licenza, Italy"	42.0727827	12.9004489		Italy	IT	Y	Papal States	Q242844	3174758	ORIGINAL		all are within <1km
+Liege	"Liège, Belgium"	50.63373	5.56749		Belgium	BE			Q3992	2792413	GEONAMES		
+Limerick	"Limerick, Ireland"	52.6653	-8.6238		Ireland	IE				2962943	ORIGINAL		
+Lisbon	"Lisbon, Portugal"	38.726391	-9.14947987		Portugal	PT			Q597	2267057	BING		
+Liverpool	"Liverpool, UK"	53.410091	-2.97843003		UK	GB			Q24826	2644210	BING		
+Livorno	"Leighorn, Italy"	43.548473	10.3105674		Italy	IT	Y	Grand Duchy of Tuscany	Q6761	3174659	ORIGINAL		
+Lodi	"Lodi, Italy"	45.3097228	9.503716		Italy	IT	Y	Duchy of Milan and Mantua	Q6244	3174638	ORIGINAL		all are within <1km
+Lombardy	"Milan, Italy"	45.464161	9.190336		Italy	IT	Y	Duchy of Milan and Mantua	Q490	3173435	WIKI		
+London	"London, UK"	51.50853	-0.12574		UK	GB			Q84	2643743	GEONAMES		all are within <1km
+Loreto	"Loreto, Italy"	43.4396423	13.6065668		Italy	IT	Y	Papal States		3174567	ORIGINAL		all are within <1km
+Lorraine	"Nancy, Lorraine, France"	48.69277778	6.183611111	Lorraine	France	FR			Q40898	2990999	WIKI		
+Lovere	"Lovere, Bergamo, Italy"	45.81379	10.06995	Bergamo	Italy	IT	Y	Republic of Venice	Q101202	3174543	GEONAMES		all are within <1km
+Lucca	"Lucca, Italy"	43.84198	10.51531029		Italy	IT	Y	Republic of Lucca	Q13373	3174530	BING		
+Lugano	"Lugano, Switzerland"	46.0065117	8.9523121		Switzerland	CH			Q7024	2659836	ORIGINAL		all are within <1km
+Lyons	"Lyons, France"	45.759392	4.828979969		France	FR			Q456	2996944	BING		
+Macerata	"Macerata, Italy"	43.2984268	13.4534767		Italy	IT	Y	Kingdom of Naples	Q13135	3174380	ORIGINAL		all are within <1km
+Mahon	"Mahon, Menorca, Spain"	39.88944444	4.264166667	Menorca	Spain	ES			Q49550	2514301	WIKI		
+Malta	Malta	35.890556	14.43953609		Malta	MT			Q233	2562770	BING		centroid of island
+Manfredonia	"Manfredonia, Italy"	41.6307347	15.9165105		Italy	IT	Y	Kingdom of Naples	Q19286	3174092	ORIGINAL		all are within <1km
+Mannheim	"Mannheim, Germany"	49.488889	8.469167		Germany	DE			Q2119	2873891	ORIGINAL		all are within <1km
+Mantua	"Mantua, Italy"	45.1564168	10.7913751		Italy	IT	Y	Duchy of Milan and Mantua	Q6247	3174051	ORIGINAL		all are within <1km
+Margate	"Margate, UK"	51.38132	1.38617		UK	GB			Q618045	2643044	GEONAMES		all are within <1km
+Marino	"Marino, Lazio, Italy"	41.76984	12.65917	Lazio	Italy	IT	Y	Papal States	Q242926	3173914	GEONAMES		all are within <1km
+Marradi	"Marradi, Florence, Italy"	44.0777573	11.613709	Florence	Italy	IT	Y	Grand Duchy of Tuscany	Q82759	3173875	ORIGINAL		all are within <1km
+Marseilles	"Marseilles, France"	43.29666667	5.376388889		France	FR			Q23482	2995469	WIKI		
+Massa	"Massa, Italy"	44.0354437	10.1393221		Italy	IT	Y	"Duchy of Modena, Massa and Carrara"	Q13370	3173775	ORIGINAL		all are within <1km
+Mayence	"Mainz, Germany"	50.000622	8.272410393		Germany	DE			Q1720	2874225	BING		
+Messina	"Messina, Italy"	38.18333333	15.55		Italy	IT	Y	Kingdom of Naples	Q13666	2524170	WIKI		
+Middle East	"Jerusalem, Israel"	31.78333333	35.21666667		Israel	IL			Q1218	7498240	WIKI		
+Milan	"Milan, Italy"	45.4654219	9.1859243		Italy	IT	Y	Duchy of Milan and Mantua	Q490	3173435	ORIGINAL		all are within <1km
+Minorca	"Menorca, Spain"	39.96666667	4.083333333		Spain	ES			Q52636	2513925	WIKI		centroid of island
+Modena	"Modena, Italy"	44.64783	10.92539		Italy	IT	Y	"Duchy of Modena, Massa and Carrara"	Q279	3173331	GEONAMES		
+Mogliano	"Mogliano Veneto, Italy"	45.55594	12.24294		Italy	IT	Y	Republic of Venice	Q48039	3173314	GEONAMES		all are within <1km
+Molfetta	"Molfetta, Italy"	41.2027767	16.5987187		Italy	IT	Y	Kingdom of Naples	Q19300	3173287	ORIGINAL		all are within <1km
+Monaco	"Monaco, Principality of Monaco"	43.73141	7.41903		Principality of Monaco	MC			Q235	2993457	GEONAMES		all are within <1km
+Monopoli	"Monopoli, Italy"	40.9525166	17.2985559		Italy	IT	Y	Kingdom of Naples	Q51835	3173131	ORIGINAL		all are within <1km
+Mont Cenis	"Mont Cenis, Savoie, France"	45.260162	6.900895	Savoie	France	FR			Q13411496	3007538	WIKI		
+Monte Cassino	"Monte Cassino, Italy"	41.4916194	13.8158578		Italy	IT	Y	Kingdom of Naples	Q154372	3173005	ORIGINAL		all are within <1km
+Montebello	"Montebello Vicentino, Italy"	45.45919	11.38272		Italy	IT	Y	Republic of Venice	Q46173	3173030	GEONAMES		all are within <1km
+Montefiascone	"Montefiascone, Lazio, Italy"	42.5402375	12.0337914	Lazio	Italy	IT	Y	Papal States	Q176142	3172931	ORIGINAL		all are within <1km
+Montefortino	"Montefortino, Marche, Italy"	42.9430097	13.3446715	Marche	Italy	IT	Y	Papal States	Q59257	3172920	ORIGINAL		all are within <1km
+Monza	"Monza, Italy"	45.5845001	9.2744485		Italy	IT	Y	Duchy of Milan and Mantua	Q6252	3172629	ORIGINAL		all are within <1km
+Munich	"Munich, Germany"	48.13743	11.57549		Germany	DE			Q1726	2867714	GEONAMES		all are within <1km
+Nancy	"Nancy, France"	48.68439	6.18496		France	FR			Q40898	2990999	GEONAMES		all are within <1km
+Naples	"Naples, Italy"	40.840141	14.25226021		Italy	IT	Y	Kingdom of Naples	Q2634	3172394	BING		
+Narni	"Narni, Italy"	42.517799	12.51640034		Italy	IT	Y	Papal States	Q10866	3172377	BING		
+Near East	"Antalya, Turkey"	36.878941	30.70926094		Turkey	TR			Q40249	323777	BING		
+near Venice	"Abano Terme, Italy"	45.35753	11.78725		Italy	IT	Y	Republic of Venice	Q34603	3183587	GEONAMES		all are within <1km
+Netherlands	"Amsterdam, Netherlands"	52.38333333	4.9		Netherlands	NL			Q727	2759794	WIKI	currently at center	
+Nettuno	"Nettuno, Lazio, Italy"	41.458969	12.66298008	Lazio	Italy	IT	Y	Papal States	Q243116	3172287	BING		
+Nice	"Nice, France"	43.70313	7.26608		France	FR			Q33959	2990440	GEONAMES		all are within <1km
+Nisida	"Nisida Island, Italy"	40.79546	14.16359		Italy	IT	Y	Kingdom of Naples	Q1192720	3172256	GEONAMES		
+Nocera	"Nocera Inferiore, Campania, Italy"	40.747338	14.638914	Campania	Italy	IT	Y	Kingdom of Naples	Q81138	3172244	ORIGINAL		all are within <1km
+Nola	"Nola, Italy"	40.9270884	14.528886		Italy	IT	Y	Kingdom of Naples		3172227	ORIGINAL		all are within <1km
+Norfolk	"Norfolk, UK"	52.66666667	1		UK	GB			Q23109		WIKI		centroid of region
+northern Italy	"Milan, Italy"	45.4654219	9.1859243		Italy	IT	Y	Duchy of Milan and Mantua	Q490	3173435	ORIGINAL		
+Norwich	"Norwich, UK"	52.62783	1.29834		UK	GB			Q130191	2641181	GEONAMES		all are within <1km
+Novalese	"Novalesa, Turin, Italy"	45.19065	7.01416	Turin	Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q9514	3172193	GEONAMES		all are within <1km
+Novara	"Novara, Italy"	45.44693	8.6221612		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q6046	3172189	ORIGINAL		all are within <1km
+Novi	"Novi Ligure, Italy"	44.76246	8.787		Italy	IT	Y	Republic of Genoa	Q16337	3172170	GEONAMES		all are within <1km
+nr. Augsburg	"Augsburg, Germany"	48.366667	10.9		Germany	DE			Q2749	2954172	ORIGINAL	nr? Currently just Ausburg	all are within <1km
+Ohlau	"Olawa, Poland"	50.9466	17.2926		Poland	PL			Q924049	3090205	GEONAMES		all are within <1km
+Olavano	"Olevano Romano, Italy"	41.85869	13.03601		Italy	IT	Y	Papal States	Q243128	3172074	GEONAMES		all are within <1km
+Orfordness	"Orford Ness, UK"	52.08333	1.56667		UK	GB			Q2029730	2640929	GEONAMES		all are within <1km
+Orvieto	"Orvieto, Italy"	42.7185068	12.1107446		Italy	IT	Y	Papal States	Q541	3171874	ORIGINAL		all are within <1km
+Ostend	"Ostend, Belgium"	51.21551	2.927		Belgium	BE			Q12996	2789786	GEONAMES		
+Ostia	"Ostia, Italy"	41.73212	12.27654		Italy	IT	Y	Papal States	Q1012797	3174741	GEONAMES		
+Otranto	"Otranto, Italy"	40.1438978	18.4911678		Italy	IT	Y	Kingdom of Naples	Q52174	3171785	ORIGINAL		all are within <1km
+Oxford	"Oxford, UK"	51.751944	-1.257778		UK	GB			Q34217	2640729	ORIGINAL		
+Padua	"Padua, Italy"	45.40638889	11.87777778		Italy	IT	Y	Republic of Venice	Q617	3171728	WIKI		
+Paestum	"Paestum, Italy"	40.42	15.00555556		Italy	IT	Y	Kingdom of Naples	Q329967	3171709	WIKI		
+Palermo	"Palermo, Italy"	38.115658	13.361262		Italy	IT	Y	Kingdom of Naples	Q2656	2523920	WIKI		
+Palestrina	"Palestrina, Italy"	41.84029	12.89270973		Italy	IT	Y	Papal States	Q243133	3171606	BING		
+Paluello	"Paluello, Venice, Italy"	45.412967	12.054112	Venice	Italy	IT	Y	Republic of Venice	Q60483405	3218996	ORIGINAL		all are within <1km
+Paris	"Paris, France"	48.85657778	2.351827778		France	FR			Q90	2988507	WIKI		
+Parma	"Parma, Italy"	44.80147222	10.328		Italy	IT	Y	Duchy of Parma and Piacenza	Q2683	3171457	WIKI		
+Pavia	"Pavia, Italy"	45.18528056	9.155		Italy	IT	Y	Duchy of Milan and Mantua	Q6259	3171366	WIKI		all are within <1km
+Penna	"Penna in Teverina, Italy"	42.4933212	12.3548194		Italy	IT	Y	Papal States	Q10880	3171251	ORIGINAL		
+Pera	"Beyoğlu, Turkey"	41.03694	28.9775		Turkey	TR			Q217411	750640	GEONAMES		
+Perugia	"Perugia, Italy"	43.1121	12.3888		Italy	IT	Y	Papal States	Q3437	3171180	WIKI		all are within <1km
+Pesaro	"Pesaro, Italy"	43.91015	12.9133		Italy	IT	Y	Papal States	Q13134	3171173	WIKI		all are within <1km
+Philadelphia	"Philadelphia, USA"	39.952221	-75.162178		USA	US			Q1345	4560349	BING		
+Piacenza	"Piacenza, Italy"	45.05242	9.69342		Italy	IT	Y	Duchy of Parma and Piacenza	Q13329	3171058	GEONAMES		
+Piedimonte	"Piedimonte Matese, Italy"	41.35082	14.36803		Italy	IT	Y	Kingdom of Naples	Q58749	6542350	GEONAMES		
+Piedmont	"Turin, Italy"	45.06666667	7.7		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q495	3165524	WIKI		
+Piedmontese frontier	"Susa, Italy"	45.13677	7.05809		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q180773	3166018	GEONAMES	which frontier?	all are within <1km
+Piperno	"Priverno, Italy"	41.47047	13.17867		Italy	IT	Y	Papal States	Q128139	3169811	GEONAMES		
+Pisa	"Pisa, Italy"	43.70853	10.4036		Italy	IT	Y	Grand Duchy of Tuscany	Q13375	3170647	GEONAMES		all are within <1km
+Pistoia	"Pistoia, Italy"	43.93333333	10.91666667		Italy	IT	Y	Grand Duchy of Tuscany	Q13376	3170621	WIKI		
+Placentia	"Piacenza, Italy"	45.05242	9.69342		Italy	IT	Y	Duchy of Parma and Piacenza	Q13329	3171058	GEONAMES		
+Plymouth	"Plymouth, UK"	50.37153	-4.14305		UK	GB			Q43382	2640194	GEONAMES		all are within <1km
+Poggibonsi	"Poggibonsi, Italy"	43.4725646	11.146754		Italy	IT	Y	Grand Duchy of Tuscany	Q91350	3170504	ORIGINAL		all are within <1km
+Pola	"Pula, Istria, Croatia"	44.865791	13.84943962	Istria	Croatia	HR			Q4656	3192224	BING		
+Pola in Istria	"Pula, Istria, Croatia"	44.86833	13.84806	Istria	Croatia	HR			Q4656	3192224	GEONAMES		all are within <1km
+Poland	"Krakow, Poland"	50.06138889	19.93722222		Poland	PL			Q31487	3094802	WIKI		
+Polignano a Mare	"Polignano a Mare, Italy"	40.9948996	17.2225389		Italy	IT	Y	Kingdom of Naples	Q51842	3170382	ORIGINAL		all are within <1km
+Polla	"Polla, Salerno, Italy"	40.5148399	15.4948137	Salerno	Italy	IT	Y	Kingdom of Naples	Q81333	3170376	ORIGINAL		all are within <1km
+Pompeii	"Pompeii, Italy"	40.750556	14.489722		Italy	IT	Y	Kingdom of Naples	Q43332	3170336	WIKI		
+Pontecorvo	"Pontecorvo, Frosinone, Italy"	41.4545679	13.6637674	Frosinone	Italy	IT	Y	Kingdom of Naples	Q117186	3170286	ORIGINAL		all are within <1km
+Pontine Marshes	"Agro Pontino, Italy"	41.41667	12.91667		Italy	IT	Y	Papal States 	Q1756467	3170195	GEONAMES		unclear site
+Portici	"Portici, Naples, Italy"	40.81563	14.33716	Naples	Italy	IT	Y	Kingdom of Naples	Q72414	3170116	GEONAMES		all are within <1km
+Porto Ferraio	"Porto Ferraio, Italy"	42.8108565	10.3211801		Italy	IT	Y	Grand Duchy of Tuscany	Q157856	3170094	ORIGINAL		all are within <1km
+Porto Palinuro	"Palinuro, Italy"	40.03681	15.28812		Italy	IT	Y	Kingdom of Naples	Q769262	3171598	GEONAMES		
+Portofino	"Portofino, Italy"	44.30349	9.20942		Italy	IT	Y	Republic of Genoa	Q232782	3170092	GEONAMES		all are within <1km
+Portsmouth	"Portsmouth, UK"	50.79899	-1.09125		UK	GB			Q72259	2639996	GEONAMES		all are within <1km
+Portugal	"Lisbon, Portugal"	38.726391	-9.14947987		Portugal	PT			Q597	2267057	BING		
+Posillipo	"Posillipo, Italy"	40.81139	14.20172977		Italy	IT	Y	Kingdom of Naples	Q589347	3170053	BING		
+Pozzuoli	"Pozzuoli, Naples, Italy"	40.84394	14.0952	Naples	Italy	IT	Y	Kingdom of Naples	Q72425	3169984	GEONAMES		
+Prague	"Prague, Czech Republic"	50.083333	14.416667		Czech Republic	CZ			Q1085	3067696	ORIGINAL		
+Primolano	"Primolano, Vicenza, Italy"	45.9646956	11.7095642	Vicenza	Italy	IT	Y	Republic of Venice	Q3921914	3169817	ORIGINAL		all are within <1km
+Procida	"Procida, Italy"	40.75636	14.01457		Italy	IT	Y	Kingdom of Naples	Q72432	3169807	GEONAMES		
+Radicofani	"Radicofani, Italy"	42.89553	11.77005		Italy	IT	Y	Grand Duchy of Tuscany	Q91373	6538600	GEONAMES		all are within <1km
+Rapallo	"Rapallo, Italy"	44.3496	9.22796		Italy	IT	Y	Republic of Genoa	Q210098	3169602	GEONAMES		
+Ratisbon	"Ratisbon, Germany"	49.01513	12.10161		Germany	DE			Q2978	2849483	GEONAMES		all are within <1km
+Ravenna	"Ravenna, Italy"	44.4183598	12.2035294		Italy	IT	Y	Papal States	Q13364	3169561	ORIGINAL		all are within <1km
+Recoaro	"Recoaro Terme, Italy"	45.70373	11.22216		Italy	IT	Y	Republic of Venice	Q46131	3169536	GEONAMES		all are within <1km
+Reggio Calabria	"Reggio Calabria, Italy"	38.1113006	15.6472914		Italy	IT	Y	Kingdom of Naples	Q8471	2523630	ORIGINAL		
+Reggio Emilia	"Reggio Emilia, Italy"	44.69825	10.63125		Italy	IT	Y	"Duchy of Modena, Massa and Carrara"	Q13360	3169522	GEONAMES		
+Rimini	"Rimini, Italy"	44.05755	12.56528		Italy	IT	Y	Papal States	Q13369	3169361	GEONAMES		all are within <1km
+Rivoli	"Rivoli, Italy"	45.071331	7.515940189		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q10231	3169231	BING		
+Rochester	"Rochester, UK"	51.3883	0.4982		UK	GB				2639268	ORIGINAL		all are within <1km
+Rome	"Rome, Italy"	41.89305556	12.48277778		Italy	IT	Y	Papal States	Q220	3169070	WIKI		
+Ronciglione	"Ronciglione, Viterbo, Italy"	42.28899	12.21479	Viterbo	Italy	IT	Y	Papal States	Q177695	3169012	GEONAMES		all are within <1km
+Rotterdam	"Rotterdam, Netherlands"	51.9225	4.47917		Netherlands	NL			Q34370	2747891	GEONAMES		
+Rovereto	"Rovereto, Italy"	45.89096	11.0401399		Italy	IT	Y	Republic of Venice	Q279373	3168854	ORIGINAL		all are within <1km
+Roverodo	"Rovereto, Italy"	45.8904	11.04053		Italy	IT	Y	Republic of Venice	Q279373	3168854	GEONAMES		
+Rovigo	"Rovigo, Italy"	45.070148	11.78954983		Italy	IT	Y	Republic of Venice	Q6572	3168843	BING		all are within <1km
+Russia	"Moscow, Russia"	55.75222	37.61556		Russia	RU			Q649	524901	GEONAMES		all are within <1km
+"S. Casciano, near Pisa"	"San Casciano, Cascina, Italy"	43.69039	10.51691	Cascina	Italy	IT	Y	Grand Duchy of Tuscany	Q18490498		WIKI	"double check (nearest town to Pisa with this name, but too small to be in Wikipedia)"	
+S. Fiorenzo	"Saint-Florent, Corsica, France "	42.685089	9.307290077	Corsica	France	FR			Q677952	2980115	BING		
+S. Pietro Paterno	"San Pietro a Patierno, Naples, Italy"	40.893291	14.28569031	Naples	Italy	IT	Y	Kingdom of Naples	Q1085929		BING		all are within <1km
+S.Remo	"San Remo, Italy"	43.81725	7.7772		Italy	IT	Y	Republic of Genoa	Q33962	3167777	GEONAMES		
+"Sacheron, nr. Geneva"	"Geneva, Switzerland"	46.20222	6.14569		Switzerland	CH			Q71	2660646	GEONAMES		
+Salerno	"Salerno, Italy"	40.673481	14.77124977		Italy	IT	Y	Kingdom of Naples	Q1083	3168673	BING		
+Salo	"Salò, Italy"	45.608392	10.5104769		Italy	IT	Y	Republic of Venice	Q111705	3168633	ORIGINAL		
+Salzburg	"Salzburg, Austria"	47.800652	13.04337025		Austria	AT			Q34713	2766824	BING		
+San Marino	"San Marino, Italy"	43.93333333	12.46666667		Italy	IT	Y	Republic of San Marino	Q238		WIKI		is this the correct one?
+San Remo	"San Remo, Italy"	43.81725	7.7772		Italy	IT	Y	Republic of Genoa	Q33962	3167777	GEONAMES		
+Santa Casa	"Loreto, Italy"	43.439758	13.60725975		Italy	IT	Y	Papal States		3174567	BING		all are within <1km
+Savona	"Savona, Italy"	44.2975603	8.4645		Italy	IT	Y	Republic of Genoa	Q13320	3167022	ORIGINAL		
+Savoy	"Chambéry, Savoie, France"	45.56465	5.92645	Savoie	France	FR			Q165090	3027422	GEONAMES	use capitalized	all are within <1km
+Schio	"Schio, Italy"	45.7170517	11.3597702		Italy	IT	Y	Republic of Venice	Q47262	3166917	ORIGINAL		all are within <1km
+Scotland	"Edimburgh, Scotland"	55.95206	-3.19648	Scotland	UK	GB			Q23436	2650225	GEONAMES		all are within <1km
+Senigallia	"Senigallia, Italy"	43.7197926	13.2152224		Italy	IT	Y	Papal States	Q124925	3166740	ORIGINAL		all are within <1km
+Seravalle	"Serravalle di Chienti, Macerata, Italy"	43.07185	12.95217	Macerata	Italy	IT	Y	Papal States	Q94976	3166639	GEONAMES		all are within <1km
+Serravezza	"Seravezza, Italy"	43.995093	10.228071		Italy	IT	Y	Grand Duchy of Tuscany	Q221193	3166714	ORIGINAL		all are within <1km
+Sessa	"Sessa Aurunca, Italy"	41.23987	13.92966		Italy	IT	Y	Kingdom of Naples	Q58898	3166614	GEONAMES		all are within <1km
+Sestri	"Sestri Levante, Italy"	44.27317	9.39683		Italy	IT	Y	Republic of Genoa	Q194081	3166595	GEONAMES		all are within <1km
+Sicily	"Messina, Sicily, Italy"	38.18333333	15.55	Sicily	Italy	IT	Y	Kingdom of Naples	Q13666	2524170	WIKI		
+Siena	"Siena, Italy"	43.31833333	11.33138889		Italy	IT	Y	Grand Duchy of Tuscany	Q2751	3166548	WIKI		
+Smyrna	"Izmir, Turkey"	38.418611	27.139167		Turkey	TR			Q35997	311046	ORIGINAL		
+Solfatara	"Solfatara, Pozzuoli, Naples, Italy"	40.82758	14.1394	Pozzuoli	Italy	IT	Y	Kingdom of Naples	Q943209	3175082	GEONAMES		all are within <1km
+Sora	"Sora, Lazio, Italy"	41.7188539	13.6130491	Lazio	Italy	IT	Y	Duchy of Sora		3166387	ORIGINAL		all are within <1km
+Sorrento	"Sorrento, Italy"	40.62678	14.37771		Italy	IT	Y	Kingdom of Naples	Q72672	3166350	GEONAMES		all are within <1km
+south of France	"Nice, France"	44.793396	3.279489		France	FR					ORIGINAL	(randomly selected)	"generally in southern france, not nice specifcially"
+southern Italy	"Lecce, Italy"	40.35481	18.17244		Italy	IT	Y	Kingdom of Naples	Q13386	3174953	GEONAMES		all are within <1km
+Spa	"Spa, Belgium"	50.49115	5.8635602		Belgium	BE			Q39865	2786318	BING		
+Spain	"Madrid, Spain"	40.4165	-3.70256		Spain	ES			Q2807	3117735	GEONAMES		
+Spalato	"Split, Croatia"	43.506969	16.44207001		Croatia	HR			Q1663	3190261	BING		
+Spezia	"Spezia, Italy"	44.10202	9.820240021		Italy	IT	Y	Republic of Genoa		3175081	BING		
+Spoleto	"Spoleto, Italy"	42.73333333	12.73333333		Italy	IT	Y	Papal States	Q20571	3166236	WIKI		
+St Artien -near Venice-	"Mogliano Veneto, Italy"	45.55594	12.24294		Italy	IT	Y	Republic of Venice	Q48039	3173314	GEONAMES		all are within <1km
+St Gothard Pass	"Gotthard Pass, Italy"	46.55916667	8.561666667		Italy	IT	Y	Duchy of Milan and Mantua	Q25233		WIKI		all are within <1km
+St Petersburg	"Saint Petersburg, Russia"	59.933182	30.30603981		Russia	RU			Q656	498817	BING		
+St. Bernard	"Great St Bernard Pass, Switzerland"	45.86889	7.17056		Switzerland	CH			Q623424	2660518	GEONAMES		all are within <1km
+Strasbourg	"Strasbourg, France"	48.585041	7.736420155		France	FR			Q6602	2973783	BING		
+Stromboli	"Stromboli, Italy"	38.78333	15.21667		Italy	IT	Y	Kingdom of Naples	Q131148	2522991	GEONAMES		all are within <1km
+Subiaco	"Subiaco, Italy"	41.9246531	13.0936685		Italy	IT	Y	Papal States	Q243467	3166052	ORIGINAL		
+Susa	"Susa, Italy"	45.138538	7.048409939		Italy	IT	Y	House of Savoy/Kingdom of Sardinia		3166018	BING		
+Switzerland	"Bern, Switzerland"	46.94798	7.44743		Switzerland	CH			Q70	2661552	WIKI		
+Tagliacozzo	"Tagliacozzo, Italy"	42.0686395	13.2517751		Italy	IT	Y	Kingdom of Naples	Q50159	3165991	ORIGINAL		all are within <1km
+Tajano	"Bologna, Italy"	44.504822	11.34517956		Italy	IT	Y	Papal States	Q1891	3181928	BING		
+Taranto	"Taranto, Italy"	40.46537	17.25053978		Italy	IT	Y	Kingdom of Naples	Q13498	3165926	BING		
+Teramo	"Teramo, Italy"	42.6611431	13.6986639		Italy	IT	Y	Kingdom of Naples	Q13137	3165803	ORIGINAL		all are within <1km
+Terni	"Terni, Italy"	42.56666667	12.65		Italy	IT	Y	Papal States	Q8621	3165771	WIKI		
+Terracina	"Terracina, Italy"	41.29174	13.24359		Italy	IT	Y	Papal States	Q128226	3165762	GEONAMES		
+the Abruzzi	"Sulmona, Italy"	42.04945	13.92578		Italy	IT	Y	Kingdom of Naples	Q50157	3166034	GEONAMES		all are within <1km
+The Hague	"The Hague, Netherlands"	52.083333	4.316667		Netherlands	NL			Q36600	2747373	ORIGINAL		
+the Veneto	"Castelfranco Veneto, Italy"	45.67146	11.92755		Italy	IT	Y	Republic of Venice	Q29352	3179684	GEONAMES		
+Tivoli	"Tivoli, Italy"	41.959721	12.79805565		Italy	IT	Y	Papal States	Q159605	3165624	BING		
+Todi	"Todi, Italy"	42.7819352	12.4065686		Italy	IT	Y	Papal States	Q20579	3165612	ORIGINAL		all are within <1km
+Torre del Greco	"Torre del Greco, Italy"	40.78931	14.36806		Italy	IT	Y	Kingdom of Naples	Q72719	3165456	GEONAMES		
+Tortona	"Tortona, Italy"	44.8952122	8.8633326		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q17686	3165370	ORIGINAL		all are within <1km
+Toulon	"Toulon, France"	43.125	5.930555556		France	FR			Q44160	2972328	WIKI		
+Toulouse	"Toulouse, France"	43.60444444	1.443888889		France	FR			Q7880	2972315	WIKI		
+Trani	"Trani, Italy"	41.2774857	16.4178334		Italy	IT	Y	Kingdom of Naples	Q13495	3165322	ORIGINAL		all are within <1km
+Trasacco	"Trasacco, Italy"	41.9600762	13.536615		Italy	IT	Y	Kingdom of Naples	Q50165	3165314	ORIGINAL		all are within <1km
+Trent	"Trento, Italy"	46.06787	11.12108		Italy	IT	Y	Bishopric of Trento	Q3376	3165243	GEONAMES		
+Trento	"Trento, Italy"	46.06787	11.12108		Italy	IT	Y	Bishopric of Trento	Q3376	3165243	GEONAMES		
+Trevi	"Trevi, Italy"	42.877529	12.74876022		Italy	IT	Y	Papal States	Q20604	3165209	BING		
+Treviso	"Treviso, Italy"	45.6668893	12.2430437		Italy	IT	Y	Republic of Venice	Q5475	3165201	ORIGINAL		all are within <1km
+Trieste	"Trieste, Italy"	45.6495264	13.7768182		Italy	IT	Y	Republic of Venice	Q546	3165185	ORIGINAL		
+Tropea	"Tropea, Italy"	38.6769938	15.8972233		Italy	IT	Y	Kingdom of Naples	Q54747	2522847	ORIGINAL		all are within <1km
+Turin	"Turin, Italy"	45.06666667	7.7		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q495	3165524	WIKI		
+Turkey	"Bodrum, Turkey"	37.03944444	27.42916667		Turkey	TR			Q172267	320995	WIKI	Ankara	
+Tuscany	"Florence, Italy"	43.7710513	11.2486208		Italy	IT	Y	Grand Duchy of Tuscany	Q2044	3176959	ORIGINAL		all are within <1km
+Tyrol	"Innsbruck, Austria"	47.26266	11.39454		Austria	AT			Q1735	2775220	GEONAMES		all are within <1km
+Udine	"Udine, Italy"	46.064522	13.23806953		Italy	IT	Y	Republic of Venice	Q2790	3165072	BING		all are within <1km
+Urbino	"Urbino, Italy"	43.72523889	12.6372		Italy	IT	Y	Papal States	Q2759		WIKI		
+Utrecht	"Utrecht, Netherlands"	52.08888889	5.115555556		Netherlands	NL			Q803	2745912	WIKI		
+Vado	"Vado Ligure, Italy"	44.26913	8.43375		Italy	IT	Y	Republic of Genoa	Q271350	3164988	GEONAMES		all are within <1km
+Valcimara	"Valcimarra, Marche, Italy"	43.13851	13.17156	Marche	Italy	IT	Y	Papal States	Q18497971	8963978	GEONAMES	"valcimarra, italy?"	all are within <1km
+Valdagno	"Valdagno, Vicenza, Italy"	45.6448315	11.3024802	Vicenza	Italy	IT	Y	Republic of Venice	Q47251	3164954	ORIGINAL		all are within <1km
+Valencia	"Valencia, Spain"	39.468681	-0.37691		Spain	ES			Q8818	2509954	BING		all are within <1km
+Vallombrosa	"Vallombrosa Abbey, Reggello, Italy"	43.732201	11.55751896	Reggello	Italy	IT	Y	Grand Duchy of Tuscany	Q971123		BING		all are within <1km
+Valpolicella	"Valpolicella, Verona, Italy"	45.50948	11.02798557	Verona	Italy	IT	Y	Republic of Venice	Q852467	3167513	BING		centroid of region
+Vaprio d'Adda	"Vaprio d'Adda, Italy"	45.5768405	9.5311364		Italy	IT	Y	Duchy of Milan and Mantua	Q42612	3164723	ORIGINAL		all are within <1km
+Varese	"Varese, Italy"	45.82058	8.82511		Italy	IT	Y	Duchy of Milan and Mantua	Q6285	3164699	GEONAMES		all are within <1km
+Velletri	"Velletri, Italy"	41.68573	12.77753		Italy	IT	Y	Papal States	Q189236	3164630	GEONAMES		
+Veneto	"Castelfranco Veneto, Italy"	45.67146	11.92755		Italy	IT	Y	Republic of Venice	Q29352	3179684	GEONAMES		
+Venice	"Venice, Italy"	45.43811	12.31814957		Italy	IT	Y	Republic of Venice	Q641	3164603	BING		
+Vercelli	"Vercelli, Italy"	45.3202272	8.4185735		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q5990	3164565	ORIGINAL		all are within <1km
+Vermei	"Vicenza, Italy"	45.54672	11.5475		Italy	IT	Y	Republic of Venice	Q6537	3164419	GEONAMES	can't find	all are within <1km
+Verona	"Verona, Italy"	45.43815833	10.99374167		Italy	IT	Y	Republic of Venice	Q2028	3164527	WIKI		
+Vesuvius	"Vesuvius, Italy"	40.82293	14.42874		Italy	IT	Y	Kingdom of Naples	Q524	3164481	GEONAMES		all are within <1km
+Veterano	"Avetrana, Italy"	40.3507	17.7326		Italy	IT	Y	Kingdom of Naples	Q52007	3182637	GEONAMES		all are within <1km
+Viareggio	"Viareggio, Italy"	43.86693	10.2502		Italy	IT	Y	Republic of Lucca	Q221377	3164433	GEONAMES		
+Vicenza	"Vicenza, Italy"	45.54672	11.5475		Italy	IT	Y	Republic of Venice	Q6537	3164419	GEONAMES		all are within <1km
+Vienna	"Vienna, Austria"	48.20849	16.37208		Austria	AT			Q1741	2761369	GEONAMES		all are within <1km
+Vietri	"Vietri sul Mare, Italy"	40.6702	14.72661		Italy	IT	Y	Kingdom of Naples	Q81814	3164385	GEONAMES		all are within <1km
+Villafranca	"Villefranche-sur-Mer, France"	43.70392	7.31088		France	FR			Q207080	2968749	GEONAMES		all are within <1km
+Viterbo	"Viterbo, Italy"	42.4206766	12.107669		Italy	IT	Y	Papal States	Q13395	3164039	ORIGINAL		all are within <1km
+Voghera	"Voghera, Italy"	44.9916599	9.0120442		Italy	IT	Y	House of Savoy/Kingdom of Sardinia	Q39981	3163995	ORIGINAL		all are within <1km
+Voltaggio	"Voltaggio, Italy"	44.6223796	8.842666		Italy	IT	Y	Republic of Genoa	Q17703	3163967	ORIGINAL		all are within <1km
+Yarmouth	"Great Yarmouth, UK"	52.60831	1.73052		UK	GB			Q237253	2647984	GEONAMES		all are within <1km
+Yorkshire	"Hull, Yorkshire, UK"	53.7446	-0.33525	Yorkshire	UK	GB			Q128147	2645425	GEONAMES		all are within <1km
+Zante	"Zante, Greece"	37.8	20.75		Greece	GR			Q144880	6299516	WIKI		centroid of island
+Zell	"Zell unter Aichelberg, Germany"	48.64882	9.57137		Germany	DE			Q80446	2804803	GEONAMES		all are within <1km
+Zurich	"Zurich, Switzerland"	47.377071	8.539560318		Switzerland	CH			Q72	2657896	BING		

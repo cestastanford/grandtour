@@ -9,9 +9,15 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
       removeSelectedEntriesFromList: '&?',
       duplicateList: '&?',
       deleteList: '&?',
+      isSharedList: '='
     },
     template: require('pug-loader!./entry-list.pug'),
     link: function(scope, element, attributes) {
+
+      savedListService.fetchLists();
+
+      // TODO: remove this hack and find a better way to pass around currentUser.
+      scope.currentUser = scope.$root.currentUser;
 
       //  Saves entry list view to entryListContext service
       var saveEntryListContext = function() {
@@ -81,7 +87,7 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
         const promises = ids.map(id => savedListService.addToList(currentList, {index: parseInt(id) }));
         Promise.all(promises).then(e => {
           viewModel.importIds = "";
-          scope.$parent.downloadEntries(currentList);
+          scope.$parent.downloadEntries(currentList._id);
         })
       }
 

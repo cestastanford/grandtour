@@ -20,10 +20,10 @@ exports.getCounts = async revisionIndex => {
 
             fullName: { fullName: { $ne: null, $ne: '' } },
             alternateNames: { 'alternateNames.alternateName': { $exists: true } },
-            birthDate: { 'dates.0.birthDate': { $exists: true } },
-            birthPlace: { 'places.0.birthPlace': { $exists: true } },
-            deathDate: { 'dates.0.deathDate': { $exists: true } },
-            deathPlace: { 'places.0.deathPlace': { $exists: true } },
+            birthDate: { 'dates.birthDate': { $exists: true } },
+            birthPlace: { 'places.birthPlace': { $exists: true } },
+            deathDate: { 'dates.deathDate': { $exists: true } },
+            deathPlace: { 'places.deathPlace': { $exists: true } },
             type: { type: { $ne: null } },
             societies: { 'societies.title': { $exists: true } },
             societies_role: { 'societies.role': { $exists: true } },
@@ -36,14 +36,15 @@ exports.getCounts = async revisionIndex => {
             occupations_group: { 'occupations.group': { $exists: true } },
             occupations_place: { 'occupations.place': { $exists: true } },
             military: { 'military.rank': { $exists: true } },
-            travel_place: { travels: { $not: { $size: 0 } }, 'travels.place': { $exists: true } },
-            travel_date: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
+            travelPlace: { travels: { $not: { $size: 0 } }, 'travels.place': { $exists: true } },
+            travelDate: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
             travel_year: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartYear': { $ne: 0 } }, { 'travels.travelEndYear': { $ne: 0 } }] },
             travel_month: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartMonth': { $ne: 0 } }, { 'travels.travelEndMonth': { $ne: 0 } }] },
             travel_day: { travels: { $not: { $size: 0 } }, $or: [{ 'travels.travelStartDay': { $ne: 0 } }, { 'travels.travelEndDay': { $ne: 0 } }] },
             exhibitions: { 'exhibitions.title': { $exists: true } },
             exhibitions_activity: { 'exhibitions.activity': { $exists: true } },
-
+            mentionedNames: { 'mentionedNames.name': { $exists: true } },
+            sources: { 'sources': { $exists: true } },
         }
 
         const facets = {}
@@ -103,7 +104,7 @@ exports.suggest = function (req, res, next) {
 
         var query = { $or: [{ fullName: condition[field] }, { alternateNames: { $elemMatch: { alternateName: condition[field] } } }] };
         var projection = { fullName: true, alternateNames: true };
-        Entry.findAtRevision(query, req.user.activeRevisionIndex, projection, field)
+        Entry.findAtRevision(query, res.locals.activeRevisionIndex, projection, field)
             .then(response => {
 
                 var matches = [];
@@ -129,7 +130,7 @@ exports.suggest = function (req, res, next) {
 
     } else {
 
-        Entry.distinctAtRevision(field, condition, req.user.activeRevisionIndex)
+        Entry.distinctAtRevision(field, condition, res.locals.activeRevisionIndex)
             .then(results => res.json({ results }))
             .catch(next)
 
@@ -138,15 +139,25 @@ exports.suggest = function (req, res, next) {
 }
 
 
-exports.uniques = function (req, res, next) {
-
-    const field = req.body.field;
-    const query = parseQuery(req.body.query);
-    const pipeline = Entry.aggregateAtRevision(req.user.activeRevisionIndex)
+/*
+ * Get uniques for a given query and suggestion field.
+ * example: query = {}, field = "occupations", suggestion = "occupations.group"
+ */
+async function getUniquesForSingleSuggestion({ activeRevisionIndex, query, field, suggestion }) {
+    if (query[field] && query[field].operator === "or") {
+        // When we have an OR query, for the field corresponding to the current
+        // suggestions field, remove that field from the query. Otherwise,
+        // it ends up essentially becoming an AND query.
+        let {[field]: fieldPartOfQuery, ...restOfQuery} = query;
+        query = restOfQuery;
+    }
+    
+    query = parseQuery(query);
+    const pipeline = Entry.aggregateAtRevision(activeRevisionIndex)
         .append({ $match: query })
-        .append({ $unwind: '$' + field.split('.')[0] });
+        .append({ $unwind: '$' + suggestion.split('.')[0] });
 
-    if (field === 'fullName') {
+    if (suggestion === 'fullName') {
 
         pipeline.append({
             $project: {
@@ -177,27 +188,27 @@ exports.uniques = function (req, res, next) {
     }
 
     const group = {}
-    if (field === 'fullName') {
+    if (suggestion === 'fullName') {
         group['_id'] = { d: { fullName: '$fullName', parentFullName: '$parentFullName' }, u: '$index' }
     }
-    else if (field === 'mentionedNames.name') {
+    else if (suggestion === 'mentionedNames.name') {
         group['_id'] = { d: "$mentionedNames.name", u: '$index', entryIndex: "$mentionedNames.entryIndex" };
     }
     else {
-        group['_id'] = { d: '$' + field, u: '$index' }
+        group['_id'] = { d: '$' + suggestion, u: '$index' }
     }
     group['count'] = { $sum: 1 };
     pipeline.append({ $group: group });
 
-    if (field === "mentionedNames.name") {
+    if (suggestion === "mentionedNames.name") {
         pipeline.append({ $group: { _id: '$_id.d', entryIndex: { $first: "$_id.entryIndex" }, count: { $sum: 1 } } });
-        pipeline.append({ $project: { _id: "$_id", count: "$count", disabled: { "$lte": ["$entryIndex", null] } } }); // disabled will be false when $entryIndex is defined, and true when $entryIndex is undefined.
+        pipeline.append({ $project: { _id: "$_id", count: "$count", unmatched: { "$lte": ["$entryIndex", null] } } });
     }
     else {
         pipeline.append({ $group: { _id: '$_id.d', count: { $sum: 1 } } });
     }
 
-    if (field === 'fullName') pipeline.append({
+    if (suggestion === 'fullName') pipeline.append({
         $project: {
             _id: '$_id.fullName',
             parentFullName: '$_id.parentFullName',
@@ -205,9 +216,48 @@ exports.uniques = function (req, res, next) {
         }
     })
 
-    pipeline.append({ $sort: { count: -1 } })
-        .then(results => res.json({ values: results.filter(d => d._id !== null) }))
-        .catch(next)
+    const results = await pipeline.append({ $sort: { count: -1 } })
+    return results.filter(d => d._id !== null);
+}
+
+/* Get uniques for a range of fields specified in "suggestions",
+ * filtered by "query".
+ * Sample req.body:
+    {
+        "query": {},
+        "suggestions": ["occupations.group", "pursuits.pursuit"],
+        "fields": ["occupations", "pursuits"]
+    }
+    // TODO: We don't really need to accept a "fields" attribute, if we refactor the field list
+    // from public/explore/explore.pug into constants that can be read by the server too.
+ */
+exports.uniques = async function (req, res, next) {
+    const query = req.body.query;
+    const activeRevisionIndex = res.locals.activeRevisionIndex;
+    const fields = req.body.fields;
+    const suggestions = req.body.suggestions;
+
+    const uniquesRequests = suggestions.map((suggestion, i) =>
+        getUniquesForSingleSuggestion({
+            activeRevisionIndex,
+            query,
+            field: fields[i],
+            suggestion,
+        })
+    );
+    let results;
+    try {
+        results = await Promise.all(uniquesRequests);
+    }
+    catch (e) {
+        next(e);
+    }
+    let response = {};
+    for (const i in suggestions) {
+        const suggestion = suggestions[i];
+        response[suggestion] = results[i];
+    }
+    res.json(response);
 
 }
 
@@ -363,6 +413,8 @@ var searchMap = {
     education_degree: (d, exact) => ({ education: { $elemMatch: { fullDegree: getRegExp(d, exact) } } }),
     education_teacher: (d, exact) => ({ education: { $elemMatch: { teacher: getRegExp(d, exact) } } }),
 
+    sources: (d, exact) => ({ sources: {$elemMatch: { abbrev: getRegExp(d, exact) } } }),
+    
     pursuits: (d, exact) => ({ pursuits: { $elemMatch: { pursuit: getRegExp(d, exact) } } }),
 
     occupations: (d, exact) => ({ occupations: { $elemMatch: { title: getRegExp(d, exact) } } }),
@@ -390,7 +442,9 @@ var searchMap = {
         })
     })),
 
-    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact), entryIndex: { $exists: true } } } })
+    mentionedNames: (d, exact) => ({ mentionedNames: { $elemMatch: { name: getRegExp(d, exact) } } }),
+    numTours: d => ({ numTours: d }),
+
 }
 
 
@@ -426,7 +480,14 @@ function parseQuery(query) {
                     let item = searchMap[k](queryItem._id, true);
                     if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
-                            item[key] = { $not: item[key] };
+                            let value = item[key];
+                            if (Array.isArray(value)) { // in the case that an array of queries is given, the entire array is negated with the $nor operator
+                                delete item[key];
+                                key = "$nor";
+                            } else {
+                                value = { $not: value };
+                            }
+                            item[key] = value;
                         }
                     }
                     list.push(item);
@@ -436,7 +497,7 @@ function parseQuery(query) {
         else {
             // Search functionality - fuzzy search. "uniques" would actually just be a single object.
             if (k === "entry") {
-                // In the case of free search, searchMap[k] returns a list itself.
+                // In the case of free search (renamed word search in the entries), searchMap[k] returns a list itself.
                 list = searchMap[k](uniques, false);
             }
             else {
@@ -493,12 +554,19 @@ exports.search = (req, res, next) => {
 
     Entry.findAtRevision(
         query,
-        req.user.activeRevisionIndex,
+        res.locals.activeRevisionIndex,
+        // values to retrieve for projectForEntryList
         {
             index: true,
             fullName: true,
+            type: true,
+            numTours: true,
             biography: true,
+            tours: true,
+            narrative: true,
+            notes: true,
             travels: true,
+            numTours: true,
         },
         null,
         req.body.limit || null,
@@ -510,18 +578,44 @@ exports.search = (req, res, next) => {
 
 }
 
+/*
+ *  Given an entry's travels array and total number of tours, this function
+ *  returns the sum of all tour times.
+ */
+function getTravelTime(travels, numTours) {
+    
+    var accum = 0;
+    var i;
+    for (i = 1; i <= numTours; i++) {
+        var thisTour = travels.filter(function (d) {
+            return d.tourIndex === i;
+        });
+
+        if (thisTour && thisTour[0]) {
+            var firstTravel = thisTour[0];
+            var lastTravel = thisTour[thisTour.length - 1];
+
+            if (firstTravel.tourStartFrom && (firstTravel.travelStartMonth || firstTravel.travelStartMonth == 0) && lastTravel.tourEndTo && (lastTravel.travelEndMonth || lastTravel.travelEndMonth == 0)) {
+                var firstDate = new Date(firstTravel.tourStartFrom, firstTravel.travelStartMonth);
+                var lastDate = new Date(lastTravel.tourEndTo, lastTravel.travelEndMonth);
+    
+                accum += lastDate - firstDate;
+            }
+        }
+    }
+    return accum;
+}
+
 
 const projectForEntryList = entry => ({
 
     index: entry.index,
     fullName: entry.fullName,
+    gender: entry.type,
+    numTours: entry.numTours,
+    entryLength: entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
     biographyLength: entry.biography.length,
-    travelTime: entry.travels ? 10 * entry.travels.reduce((accum, travel) => {
-        if (travel.travelEndYear && travel.travelStartYear) {
-            return accum + (new Date(travel.travelEndYear) - new Date(travel.travelStartYear));
-        }
-        return accum;
-    }, 0) : 0,
+    travelTime: entry.travels ? getTravelTime(entry.travels, entry.numTours) : 0,
     biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
     dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {
 
@@ -531,7 +625,7 @@ const projectForEntryList = entry => ({
             return utc
         }
 
-    }, 0) : 0
+    }, 0) : 0,
 
 })
 
@@ -539,6 +633,9 @@ exports.projectForEntryList = projectForEntryList
 
 
 function parseExport(res) {
+
+    var mentions = [];
+    var mentionIndex = 0;
 
     var activities = [];
     var activityIndex = 0;
@@ -551,7 +648,7 @@ function parseExport(res) {
         // index
         entry.index = d.index;
         // fullName
-        entry.fullName = d.fullName;
+        entry.travelerNames = d.fullName;
         // gender
         entry.gender = d.type || "Unknown";
         // birthDate
@@ -559,15 +656,15 @@ function parseExport(res) {
         // deathDate
         entry.deathDate = d.dates[0] ? d.dates[0].deathDate || "" : "";
         // birthPlace
-        entry.birthPlace = d.dates[0] ? d.dates[0].birthPlace || "" : "";
+        entry.birthPlace = d.places[0] ? d.places[0].birthPlace || "" : "";
         // deathPlace
-        entry.deathPlace = d.dates[0] ? d.dates[0].deathPlace || "" : "";
+        entry.deathPlace = d.places[0] ? d.places[0].deathPlace || "" : "";
         // parents
         entry.parents = (d.parents && d.parents.parents) || "";
 
         let entryBase = {
-            entry: d.index,
-            fullName: entry.fullName,
+            entryID: d.index,
+            travelerNames: entry.travelerNames,
             birthDate: entry.birthDate,
             deathDate: entry.deathDate,
             gender: entry.gender
@@ -577,93 +674,91 @@ function parseExport(res) {
         // marriages
         if (d.marriages && d.marriages.length) d.marriages.forEach(a => activities.push({
             ...entryBase,
-            type: 'marriage',
-            details: a.sequence || "",
-            value: a.spouse || "",
+            lifeEvents: 'marriage',
+            eventsDetail1: a.sequence || "",
+            eventsDetail2: a.spouse || "",
             place: "",
             startDate: a.year || "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
-
-        //
 
         // education
         if (d.education && d.education.length) d.education.forEach(a => activities.push({
             ...entryBase,
-            type: 'education',
-            details: "",
-            value: a.institution || "",
+            lifeEvents: 'education',
+            eventsDetail1: "",
+            eventsDetail2: a.institution || "",
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // societies
         if (d.societies && d.societies.length) d.societies.forEach(a => activities.push({
             ...entryBase,
-            type: 'society',
-            details: a.role || "",
-            value: a.title || "",
+            lifeEvents: 'society',
+            eventsDetail1: a.role || "",
+            eventsDetail2: a.title || "",
             place: "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // exhibitions
         if (d.exhibitions && d.exhibitions.length) d.exhibitions.forEach(a => activities.push({
             ...entryBase,
-            type: 'exhibition',
-            details: "",
-            value: a.title || "",
+            lifeEvents: 'exhibition',
+            eventsDetail1: "",
+            eventsDetail2: a.title || "",
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // pursuits
         if (d.pursuits && d.pursuits.length) d.pursuits.forEach(a => activities.push({
             ...entryBase,
-            type: 'pursuit',
-            details: "",
-            value: a.pursuit,
+            lifeEvents: 'DBITI employment or identifier',
+            eventsDetail1: "",
+            eventsDetail2: a.pursuit,
             place: "",
             startDate: "",
             endDate: "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
-        // occuaptions
+        // occupations
         if (d.occupations && d.occupations.length) d.occupations.forEach(a => activities.push({
             ...entryBase,
-            type: 'occupation',
-            details: a.group,
-            value: a.title,
+            lifeEvents: 'occupation',
+            eventsDetail1: a.group,
+            eventsDetail2: a.title,
             place: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
-        // occuaptions
-        if (d.military && d.military.length) d.occupations.forEach(a => activities.push({
+        // military
+        if (d.military && d.military.length) d.military.forEach(a => activities.push({
             ...entryBase,
-            type: 'military careers',
-            details: a.officeType,
-            value: a.rank,
-            place: a.place || "",
+            lifeEvents: 'military career',
+            eventsDetail1: a.officeType,
+            eventsDetail2: a.rank,
+            place: "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
-            index: ++activityIndex,
+            eventsIndex: ++activityIndex,
         }))
 
         // travels
-        if (d.travels && d.travels.length) d.travels.forEach(a => travels.push({
+        if (d.travels && d.travels.length) d.travels.forEach((a, i) => travels.push({
             ...entryBase,
-            place: a.place || "",
+            travelPlace: a.place || "",
             coordinates: a.latitude ? [a.latitude, a.longitude].join(",") : "",
             startDate: a.travelStartYear ? a.travelStartYear + "-" + (a.travelStartMonth || "01") + "-" + (a.travelStartDay || "01") : "", //a.travelStartMonth ? a.travelStartDay ? a.travelStartYear + "/" + (a.travelStartMonth || "01") + "/" + (a.travelStartDay || "01") : a.travelStartYear + "/" + a.travelStartMonth : a.travelStartYear : "",
             endDate: a.travelEndYear ? a.travelEndYear + "-" + (a.travelEndMonth || "01") + "-" + (a.travelEndDay || "01") : "", //a.travelEndMonth ? a.travelEndDay ? a.travelEndYear + "/" + a.travelEndMonth + "/" + a.travelEndDay : a.travelEndYear + "/" + a.travelEndMonth : a.travelEndYear : "",
@@ -673,30 +768,52 @@ function parseExport(res) {
             endYear: a.travelEndYear || "",
             endMonth: a.travelEndMonth || "",
             endDay: a.travelEndDay || "",
-            travelIndex: a.travelindexTotal
+            markers: a.markers || "",
+            travelIndex: i,
         }))
 
-        entry.activities = activities
+        entry.sources = d.sources && d.sources.length ? d.sources.map(function (d) { return d.abbrev; }).join(",") : "";
+
+        entry.eventsIndex = activities
             .filter(function (d) { return d.entry == entry.index; })
             .map(function (d) { return d.index; })
             .join(",");
 
-        // if (d.mentionedNames && d.mentionedNames.length) {
-        //     entry.matchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => e.name.replace(",", ";"));
+        // mentionedNames stored into mentions array
+        if (d.mentionedNames && d.mentionedNames.length) d.mentionedNames.forEach(m => mentions.push({
+            matchedMentions: m.name && typeof m.entryIndex === 'number' ? m.name : "",
+            unmatchedMentions: m.name && typeof m.entryIndex !== 'number' ? m.name : "",
+            matchedMentionsEntryIndexes: m.name && typeof m.entryIndex === 'number' ? "" + m.entryIndex : "",
+            index: d.index,
+        }))
 
-        //     entry.unmatchedMentions = d.mentionedNames.filter(e => e.name && typeof e.entryIndex !== 'number').map(e => e.name.replace(",", ";"));
+        // mentions array parsed to get mentioned names for each entry
+        if (d.mentionedNames && d.mentionedNames.length) {
+            entry.matchedMentions = mentions
+                .filter(function (m) { return m.index == entry.index && m.matchedMentions !== ""; })
+                .map(function (m) { return m.matchedMentions; })
+                .join(";");
 
-        //     entry.matchedMentionsEntryIndexes = d.mentionedNames.filter(e => e.name && typeof e.entryIndex === 'number').map(e => "" + e.entryIndex);
-        //     if (entry.matchedMentions.length === 0) {
-        //         delete entry.matchedMentions;
-        //     }
-        //     if (entry.unmatchedMentions.length === 0) {
-        //         delete entry.unmatchedMentions;
-        //     }
-        //     if (entry.matchedMentionsEntryIndexes.length === 0) {
-        //         delete entry.matchedMentionsEntryIndexes;
-        //     }
-        // }
+            entry.unmatchedMentions = mentions
+                .filter(function (m) { return m.index == entry.index && m.unmatchedMentions !== ""; })
+                .map(function (m) { return m.unmatchedMentions; })
+                .join(";");
+
+            entry.matchedMentionsEntryIndexes = mentions
+                .filter(function (m) { return m.index == entry.index && m.matchedMentionsEntryIndexes !== ""; })
+                .map(function (m) { return m.matchedMentionsEntryIndexes; })
+                .join(",");
+
+            if (entry.matchedMentions.length === 0) {
+                delete entry.matchedMentions;
+            }
+            if (entry.unmatchedMentions.length === 0) {
+                delete entry.unmatchedMentions;
+            }
+            if (entry.matchedMentionsEntryIndexes.length === 0) {
+                delete entry.matchedMentionsEntryIndexes;
+            }
+        }
 
         return entry;
 
@@ -725,7 +842,7 @@ exports.export = (req, res, next) => {
 
     }
 
-    Entry.aggregateAtRevision(req.user.activeRevisionIndex)
+    Entry.aggregateAtRevision(res.locals.activeRevisionIndex)
         .match(query)
         .then(result => res.json({ result: parseExport(result) }))
         .catch(next)

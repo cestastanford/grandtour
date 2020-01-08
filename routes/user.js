@@ -42,6 +42,16 @@ router.post('/login', function(req, res, next) {
             return res.status(200).send({ username: user.username })
         })
     })(req, res, next)
+});
+
+router.post('/signup', (req, res, next) => {
+  // TODO: Make sure email is unique.
+  // TODO: Add a confirmation / verification email upon signup.
+  const {username, fullName, email, password} = req.body;
+  User.register(new User({username, fullName, email}), password, (err, data) => {
+    if (err) { return res.status(401).send(err) }
+    return res.status(200).send({user: data});
+  })
 })
 
 router.post('/logout', function(req, res){

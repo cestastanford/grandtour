@@ -2,7 +2,7 @@
 *   List management service
 */
 
-export default ['$rootScope', '$http', function($rootScope, $http) {
+export default ['$rootScope', '$http', '$window', function($rootScope, $http, $window) {
 
   //  public service object
   var sharedListModel = {
@@ -27,18 +27,20 @@ export default ['$rootScope', '$http', function($rootScope, $http) {
 
   //  delete a list
   var deleteList = function(list, callback) {
-    $http.post('/api/lists/deletelist', {
-      username: $rootScope.currentUser.username,
-      id: list._id
-    })
-    .then(function(res) {
-      if (res.data.error) console.error(res.data.error);
-      else {
-        var index = sharedListModel.myLists.indexOf(list);
-        sharedListModel.myLists.splice(index, 1);
-        callback();
-      }
-    }, function(res) { console.error(res); });
+    if ($window.confirm('Are you sure you want to permanently delete this list?')) {
+      $http.post('/api/lists/deletelist', {
+        username: $rootScope.currentUser.username,
+        id: list._id
+      })
+      .then(function(res) {
+        if (res.data.error) console.error(res.data.error);
+        else {
+          var index = sharedListModel.myLists.indexOf(list);
+          sharedListModel.myLists.splice(index, 1);
+          callback();
+        }
+      }, function(res) { console.error(res); });
+    }
   };
 
   //  add to a list
@@ -77,14 +79,26 @@ export default ['$rootScope', '$http', function($rootScope, $http) {
   };
 
   //  do initial list download
-  var myListsPromise = $http.post('/api/lists/mylists', {
-    username: $rootScope.currentUser.username
-  })
-  .then(function(res) {
-    if (res.data.error) console.error(res.data.error);
-    else sharedListModel.myLists = res.data.entries;
-    sharedListModel.listsLoading = false;
-  }, function(res) { console.error(res); });
+  let fetchLists = async () => {
+    sharedListModel.myLists = [];
+    sharedListModel.listsLoading = true;
+    if ($rootScope.currentUser) {
+      return $http.get('/api/lists/mylists')
+      .then(function(res) {
+        if (res.data.error) console.error(res.data.error);
+        else sharedListModel.myLists = res.data.entries;
+        sharedListModel.listsLoading = false;
+      }, function(res) { console.error(res); });
+    } else {
+      // If user is not logged in, do not do an initial list download
+      // and populate sharedListModel with some empty data.
+      return new Promise((resolve, reject) => {
+        sharedListModel.myLists = [];
+        sharedListModel.listsLoading = false;
+        resolve(null);
+      });
+    }
+  }
 
   //  return service's public fields
   return {
@@ -93,7 +107,7 @@ export default ['$rootScope', '$http', function($rootScope, $http) {
     deleteList: deleteList,
     addToList: addToList,
     removeFromList: removeFromList,
-    myListsPromise: myListsPromise,
+    fetchLists: fetchLists,
   };
 
 }];

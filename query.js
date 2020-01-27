@@ -775,8 +775,8 @@ function parseExport(res) {
         entry.sources = d.sources && d.sources.length ? d.sources.map(function (d) { return d.abbrev; }).join(",") : "";
 
         entry.eventsIndex = activities
-            .filter(function (d) { return d.entry == entry.index; })
-            .map(function (d) { return d.index; })
+            .filter(d => d.entryID === entry.index)
+            .map(d => d.eventsIndex)
             .join(",");
 
         // mentionedNames stored into mentions array

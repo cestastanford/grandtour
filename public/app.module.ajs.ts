@@ -141,9 +141,13 @@ const MODULE_NAME = 'app';
         $rootScope.currentUser = user
       }
       else {
-        // Don't redirect to 'login' if the user is not logged in.
+        
         $rootScope.currentUser = null;
-        return null;
+        // Redirect to 'login' if the user is not logged in.
+        $state.go('login');
+        // The below code would not redirect to 'login' if the user is not logged in.
+        // return null;
+        
       }
       return user
 

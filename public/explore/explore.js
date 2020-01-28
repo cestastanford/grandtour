@@ -73,18 +73,33 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
 
   var runQuery = async function (query) {
     const activeDimensionsWithSuggestions = $scope.activeDimensions.filter(e => e.suggestion);
-    const uniquesPromise = $http.post('/api/entries/uniques/', {
-      query: $scope.query,
-      suggestions: activeDimensionsWithSuggestions.map(e => e.suggestion),
-      fields: activeDimensionsWithSuggestions.map(e => e.field)
-    }).then(e => {
-      $scope.uniques = e.data;
-    });
+    // Call uniques endpoint single time
+    // const uniquesPromise = $http.post('/api/entries/uniques/', {
+    //   query: $scope.query,
+    //   suggestions: activeDimensionsWithSuggestions.map(e => e.suggestion),
+    //   fields: activeDimensionsWithSuggestions.map(e => e.field)
+    // }).then(e => {
+    //   $scope.uniques = e.data;
+    // });
+
+    // Call uniques endpoint multiple times
+    const uniquesPromise = async () => {
+      let uniques = {};
+      const uniquesPromiseResults = await Promise.all(activeDimensionsWithSuggestions.map(e => $http.post('/api/entries/uniques/', {
+        query: $scope.query,
+        suggestions: [e.suggestion],
+        fields: [e.field]
+      })));
+      for (let result of uniquesPromiseResults) {
+        uniques = {...uniques, ...result.data};
+      }
+      $scope.uniques = uniques;
+    };
 
     if (query === null) {
       // Run only uniques, not query.
       $scope.searching = true;
-      await uniquesPromise;
+      await uniquesPromise();
       $scope.searching = false;
     }
     else {
@@ -101,7 +116,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
       });
       
       $scope.searching = true;
-      await Promise.all([queryPromise, uniquesPromise]);
+      await Promise.all([queryPromise, uniquesPromise()]);
       $scope.searching = false;
     }
   };

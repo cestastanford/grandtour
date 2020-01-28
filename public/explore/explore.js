@@ -83,7 +83,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     // });
 
     // Call uniques endpoint multiple times
-    const uniques = {};
+    let uniques = {};
     const uniquesPromiseResults = await Promise.all(activeDimensionsWithSuggestions.map(e => $http.post('/api/entries/uniques/', {
       query: $scope.query,
       suggestions: [e.suggestion],

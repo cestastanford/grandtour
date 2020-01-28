@@ -92,7 +92,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     for (let result of uniquesPromiseResults) {
       uniques = {...uniques, result};
     }
-    $scope.uniques = unique;
+    $scope.uniques = uniques;
 
     if (query === null) {
       // Run only uniques, not query.

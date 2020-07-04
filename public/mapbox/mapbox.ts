@@ -300,7 +300,7 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
-      setFeatureState(point, { showBlack: true });
+      setFeatureState(point, { showBlack: false }); // colors appear from start
     });
 
     stateElements.forEach(stateElement => {

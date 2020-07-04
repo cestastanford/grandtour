@@ -188,7 +188,7 @@ function init() {
 
   function selectBulk(points_) {
     for (let point of points_) {
-      setFeatureState(point, { showBlack: false });
+      // setFeatureState(point, { showBlack: false });
       // The below code shows all labels when a state is selected.
       // if (!point.showLabel) {
       //   showLabel(point, false);
@@ -199,7 +199,7 @@ function init() {
 
   function deselectBulk(points_) {
     for (let point of points_) {
-      setFeatureState(point, { showBlack: true });
+      // setFeatureState(point, { showBlack: true });
       point.selected = false;
       if (point.showLabel) {
         hideLabel(point);
@@ -218,13 +218,13 @@ function init() {
   function onPointClick(point: IPoint) {
     if (point.showLabel && point.wasHovered) { // when clicking on a point after hovering over it.
       showLabel(point);
-      setFeatureState(point, { showBlack: false });
+      // setFeatureState(point, { showBlack: false });
     } else if (point.showLabel) { // case selected -> deselected
       hideLabel(point);
-      setFeatureState(point, { showBlack: true });
+      // setFeatureState(point, { showBlack: true });
     } else { // case deselected -> selected
       showLabel(point);
-      setFeatureState(point, { showBlack: false });
+      // setFeatureState(point, { showBlack: false });
     }
     point.wasHovered = false;
   }
@@ -300,7 +300,7 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
-      setFeatureState(point, { showBlack: true });
+      setFeatureState(point, { showBlack: false }); // colors appear from start
     });
 
     stateElements.forEach(stateElement => {

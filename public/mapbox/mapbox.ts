@@ -33,7 +33,6 @@ interface IFeature {
   }
 }
 interface IPoint {
-  showBlack: boolean,
   showLabel: boolean,
   selected: boolean,
   wasHovered: boolean,
@@ -49,19 +48,14 @@ interface IState {
   selected?: boolean
 }
 
-const COLOR_BACKGROUND_STATE_SELECTED = 'rgba(164, 127, 200, 0.5)';
-const COLOR_BACKGROUND_STATE_DESELECTED = '#ffffff';
-
 function init() {
   // sets up map
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
   let map = new mapboxgl.Map({
     container: 'map',
     style: require('./styles.json'),
-    center: [12.5674, 41.8719],
-    zoom: 4.8,
-    minZoom: 4.8,
-    maxBounds: [[-2.5674, 32.8719], [26.5674, 50.8719]]
+    center: [13, 41],
+    zoom: 4.6,
   });
 
   let points: IPoint[] = [];
@@ -92,20 +86,17 @@ function init() {
 
   search.addEventListener("search", searchMap)
 
-  const capitalize = (str, lower = false) =>
-  (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-;
-
   function searchMap() {
     var rawInput = search.value;
-    var input = capitalize(rawInput);
-    var found = points.filter(point => point.feature.properties['PLACE'] === input);
+    var input = rawInput.toLowerCase();
+    var found = points.filter(point => point.feature.properties['PLACE'].toLowerCase() === input);
     if (found.length < 1) {
       window.alert("Could not find \"" + rawInput + "\".");
       return;
     }
     let location = found[0];
     var coordinates = location.feature.geometry.coordinates;
+    showLabel(location);
     map.flyTo({
       // These options control the ending camera position: centered at
       // the target, at zoom level 9, and north up.
@@ -247,8 +238,9 @@ function init() {
       button.appendChild(name);
       button.setAttribute("class", "stateButton")
 
-      let buttonWrapper = document.createElement('div')
-      states.appendChild(button);
+      let buttonWrapper = document.createElement('span')
+      buttonWrapper.appendChild(button)
+      states.appendChild(buttonWrapper);
     });
   });
 }

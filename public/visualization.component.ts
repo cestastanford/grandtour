@@ -106,7 +106,7 @@ function createPopup(id, content?) {
                 <div id='map'></div>
                 <div class='places-box top'>
                 <div class='places-box-inner'>
-                    <div id='selected'></div>
+                    <div id='search'></div>
                 </div>
                 </div>
                 <div class='states-box top'>
@@ -114,7 +114,6 @@ function createPopup(id, content?) {
                     <div id='states'>
                         <div class='statebutton' id='gte-viz-statebutton-show-all'>
                             <div class='stateColor'></div>
-                            <p class='stateName'>Show All</p>
                         </div>
                     </div>
                 </div>

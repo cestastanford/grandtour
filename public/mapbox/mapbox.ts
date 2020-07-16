@@ -109,9 +109,6 @@ function init() {
       .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
     point.selected = true;
-    if (!point.wasHovered) {
-      updatePlaceButtons();
-    }
   }
 
   /*
@@ -125,7 +122,6 @@ function init() {
     point.wasHovered = false;
     point.showLabel = false;
     point.selected = false;
-    updatePlaceButtons();
   }
 
   /*
@@ -145,66 +141,6 @@ function init() {
       sourceLayer: "missing_coordinates_GTE_-_final_",
       id: point.feature.id
     }, state);
-  }
-
-  /*
-   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are selected.
-   */
-  function selectState(state: IState) {
-    selectBulk(getStatePoints(state));
-    state.selected = true;
-    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-    updatePlaceButtons();
-  }
-
-  /*
-   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are deselected.
-   */
-  function deselectState(state: IState) {
-    deselectBulk(getStatePoints(state));
-    state.selected = false;
-    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-  }
-
-  /* Select all points. */
-  function selectAll() {
-    selectBulk(points);
-    stateElements.forEach(e => {
-      e.selected = true;
-      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-    });
-    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-  }
-
-  /* Deselect all points. */
-  function deselectAll() {
-    deselectBulk(points);
-    stateElements.forEach(e => {
-      e.selected = false;
-      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-    });
-    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-  }
-
-  function selectBulk(points_) {
-    for (let point of points_) {
-      // setFeatureState(point, { showBlack: false });
-      // The below code shows all labels when a state is selected.
-      // if (!point.showLabel) {
-      //   showLabel(point, false);
-      // }
-      point.selected = true;
-    }
-  }
-
-  function deselectBulk(points_) {
-    for (let point of points_) {
-      // setFeatureState(point, { showBlack: true });
-      point.selected = false;
-      if (point.showLabel) {
-        hideLabel(point);
-      }
-    }
   }
 
   function getPoint(feature: IFeature) {
@@ -227,31 +163,6 @@ function init() {
       // setFeatureState(point, { showBlack: false });
     }
     point.wasHovered = false;
-  }
-
-  let createCheckbox = (point: IPoint) => `
-  <tr><td><div class="checkbox">
-    <label>
-      <input class="gte-viz-selected-checkbox ${point.selected ? "gte-viz-selected-checkbox-checked" : "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.selected && "checked"} />
-      <span>${point.feature.properties.place}</span>
-    </label>
-  </div></td></tr>`;
-  function updatePlaceButtons() {
-    const sortFn = (a: IPoint, b: IPoint) => (a.feature.properties.place > b.feature.properties.place) ? 1 : -1;
-    let selectedPoints = points.filter(e => e.selected).sort(sortFn);
-    let unselectedPoints = points.filter(e => !e.selected).sort(sortFn);
-    selected.innerHTML = `<div class="mini-table"><table class="table"><tbody>
-      ${selectedPoints.map(createCheckbox).join("\n")}
-      ${unselectedPoints.map(createCheckbox).join("\n")}
-    </tbody></table></div>`;
-
-    // Add appropriate event listeners.
-    document.querySelectorAll("#selected .gte-viz-selected-checkbox-checked").forEach((checkbox, i) => {
-      checkbox.addEventListener('change', () => onPointClick(selectedPoints[i]));
-    });
-    document.querySelectorAll("#selected .gte-viz-selected-checkbox-unchecked").forEach((checkbox, i) => {
-      checkbox.addEventListener('change', () => onPointClick(unselectedPoints[i]));
-    })
   }
 
   /*
@@ -320,26 +231,9 @@ function init() {
       button.appendChild(color);
       button.appendChild(name);
 
-      button.addEventListener('click', function () {
-        if (stateElement.selected) {
-          deselectState(stateElement);
-        } else {
-          selectState(stateElement);
-        }
-      });
       states.appendChild(button);
       stateElement.buttonElement = button;
     });
-
-    stateButtonShowAll.addEventListener('click', function () {
-      const allSelected = stateElements.every(e => e.selected);
-      if (allSelected) {
-        deselectAll();
-      } else {
-        selectAll();
-      }
-    });
-    updatePlaceButtons();
   });
 }
 export default init;

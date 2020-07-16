@@ -151,20 +151,6 @@ function init() {
     return point;
   }
 
-  function onPointClick(point: IPoint) {
-    if (point.showLabel && point.wasHovered) { // when clicking on a point after hovering over it.
-      showLabel(point);
-      // setFeatureState(point, { showBlack: false });
-    } else if (point.showLabel) { // case selected -> deselected
-      hideLabel(point);
-      // setFeatureState(point, { showBlack: true });
-    } else { // case deselected -> selected
-      showLabel(point);
-      // setFeatureState(point, { showBlack: false });
-    }
-    point.wasHovered = false;
-  }
-
   /*
    * Triggers once map is ready to be interacted with. Sets up buttons for each location, allowing one to select and deselect places, 
    * displaying or hiding their popups.
@@ -189,14 +175,6 @@ function init() {
       });
     });
 
-    // clicking on point will select/deselect point
-    map.on('click', 'missing-coordinates-gte-final', function (e) {
-      if (!e.features || !e.features.length) return;
-      let point = getPoint(e.features[0]);
-      if (!point) return;
-      onPointClick(point);
-    });
-
     // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
       map.getCanvas().style.cursor = '';
@@ -211,7 +189,8 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
-      setFeatureState(point, { showBlack: false }); // colors appear from start
+      setFeatureState(point, { showLabel: true }); // colors appear from start
+      showLabel(point)
     });
 
     stateElements.forEach(stateElement => {

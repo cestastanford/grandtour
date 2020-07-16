@@ -87,10 +87,48 @@ function init() {
     { name: 'Tyrol', color: '#fdde86' },
   ];
 
-  const stateButtonShowAll = document.getElementById("gte-viz-statebutton-show-all");
-  const selected = document.getElementById("selected");
+  const search = document.getElementById("searchbar");
   const states = document.getElementById('states');
 
+  search.addEventListener("search", searchMap)
+
+  const capitalize = (str, lower = false) =>
+  (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+;
+
+  function searchMap() {
+    var rawInput = search.value;
+    var input = capitalize(rawInput);
+    var found = points.filter(point => point.feature.properties['PLACE'] === input);
+    if (found.length < 1) {
+      window.alert("Could not find \"" + rawInput + "\".");
+      return;
+    }
+    let location = found[0];
+    var coordinates = location.feature.geometry.coordinates;
+    map.flyTo({
+      // These options control the ending camera position: centered at
+      // the target, at zoom level 9, and north up.
+      center: coordinates,
+      zoom: 9,
+      bearing: 0,
+       
+      // These options control the flight curve, making it move
+      // slowly and zoom out almost completely before starting
+      // to pan.
+      speed: 1, // flying speed
+      curve: 1, // change the speed at which it zooms out
+       
+      // This can be any easing function: it takes a number between
+      // 0 and 1 and returns another number between 0 and 1.
+      easing: function(t) {
+      return t;
+      },
+       
+      // this animation is considered essential with respect to prefers-reduced-motion
+      essential: true
+      });
+  }
   /*
    * Called to select an unselected place. When passed a feature and a place's
    * button, a popup is created at that feature.
@@ -189,8 +227,7 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
-      setFeatureState(point, { showLabel: true }); // colors appear from start
-      showLabel(point)
+      setFeatureState(point, { showLabel: false }); // colors appear from start
     });
 
     stateElements.forEach(stateElement => {
@@ -205,13 +242,13 @@ function init() {
       name.innerHTML = stateElement.name;
 
       button.setAttribute("class", "stateButton")
-      button.style.backgroundColor = "white"; // set here and not in <style>, because it is used to toggle whether the state is selected
 
       button.appendChild(color);
       button.appendChild(name);
+      button.setAttribute("class", "stateButton")
 
+      let buttonWrapper = document.createElement('div')
       states.appendChild(button);
-      stateElement.buttonElement = button;
     });
   });
 }

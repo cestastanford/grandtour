@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<!-- home.html handles the home display of the website, mostly Table of Contents features. See default.html for default display.-->
+
 
   {% include head.html %}
 
@@ -15,28 +17,29 @@
             <b>Table of Contents</b>
             {% assign sessions = site.data.sessions %}
             {% for session in sessions %}
-              {% assign session_index = page.session | plus: 1 %}
+              {% assign session_index = page.session | plus: 1 %} <!-- Current loop -->
               {% assign session_loop = forloop.index %}
-              <div class="session">
-                <a class="session-title" href="{{ session.link }}{{ session.chapters[0].link }}">{{ session.name }}</a>
-                {% if session.chapters  %}
-                  {% if session_index == session_loop  %}
-                    <div class="chapters">
-                      {% for chapter in session.chapters %}
-                        {% assign chapter_index = page.chapter | plus: 1 %}
-                        <div class="chapter {% if chapter_index == forloop.index  %}active{% endif %}">
-                          {% if chapter.link  %}
-                            <a href="{{ session.link }}{{ chapter.link }}">{{ chapter.name }}
-                              <div class="chapter-author">
-                                {% if chapter.author  %}{{ chapter.author }}{% endif %}
-                              </div>
-                            </a>
-                          {% endif %}
-                          {% if chapter.external %}<a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">{{ chapter.name }}</a>{% endif %}
-                        </div>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
+              <div class="session {% if session_index == session_loop  %}active{% endif %}">
+                {% if session.chapters %}
+                <a class="session-title" style="cursor:pointer" onclick="toggleChapters({{session_loop}})">{{ session.name }}</a> <!-- Clicking a title will reveal all chapters -->
+                  <div id="{{session_loop}}" style="{% if session_index != session_loop %}display:none{% endif %}" class="chapters">
+                    {% for chapter in session.chapters %}
+                      {% assign chapter_index = page.chapter | plus: 1 %}
+                      <div class="chapter {% if chapter_index == forloop.index  %}active{% endif %}">
+                        {% if chapter.link  %}
+                          <a href="{{ session.link }}{{ chapter.link }}">{{ chapter.name }}</a>
+                        {% endif %}
+                        {% if chapter.external %}<a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">{{ chapter.name }}</a>{% endif %}
+                        {% if chapter.author  %}
+                          <div class="chapter-author">
+                            {{ chapter.author }}
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% else %} <!-- Preface and Acknowledgements, Epilogue -->
+                  <a class="session-title" href="{{ session.link }}{{ session.chapters[0].link }}">{{ session.name }}</a>
                 {% endif %}
               </div>
             {% endfor %}
@@ -51,6 +54,17 @@
     </div>
 
     {% include header-script.html %}
+
+  <script>
+    function toggleChapters(session_loop) {
+      chapters = document.getElementById(session_loop);
+      if (chapters.style.display === "none") {
+        chapters.style.display = "block";
+      } else {
+        chapters.style.display = "none";
+      }
+    }
+  </script>
 
   </body>
 

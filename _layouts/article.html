@@ -1,0 +1,63 @@
+---
+layout: default
+---
+<article class="post">
+
+  <header id="postHeader" class="post-header">
+    <p class="post-meta">{{ site.data.sessions[page.session].name }}</p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="" style="display: flex; justify-content: space-between">
+      <div class="">
+        {% if page.author %}<p class="post-author">by {{ page.author }}</p> {% endif %}
+      </div>
+      <div class="paragraph">
+      <!--  <span class="link-meta">Paragraph 2</span>-->
+        <i class="material-icons" aria-label="Copy link to article" data-balloon-pos="left">link</i>
+        <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+      </div>
+    </div>
+
+  </header>
+
+  <div id="stickyHeader" class="post-sticky-header">
+    <!--<a class="post-sticky-site" href="{{ site.baseurl }}/">{{ site.title }}</a>-->
+    <div class="" style="display: flex; flex-direction: column">
+      <a class="post-sticky-site" href="{{ site.baseurl }}/">{{ site.title }}</a>
+      <span class="post-sticky-meta">{{ site.data.sessions[page.session].name }} </span>
+    </div>
+    <div class="">
+      <b class="post-sticky-title">{{ page.title }} </b>
+      {% if page.author %}<span class="post-sticky-author">– {{ page.author }}</span>{% endif %}
+    </div>
+    <div class="">
+
+    </div>
+  </div>
+
+
+  <div id="postContent" class="post-content">
+    {{ content }}
+
+    <div class="paragraph-links">
+    <!--  <span class="link-meta">Paragraph 2</span>-->
+      <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
+      <i class="material-icons" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
+      <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+    </div>
+
+  </div>
+
+  <div class="overlay">
+    <h3>Citation</h3>
+    <div class="overlay-close">
+      <a><i class="material-icons">close</i></a>
+    </div>
+    <p class="overlay-text">Rosemary Sweet. "Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers." <i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019, section IV: 1, paragraph 7. <a href="https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7" target="_blank">https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7</a></p>
+    <p class="overlay-links">
+      <a>Copy to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
+    </p>
+  </div>
+
+  {% include footer.html %}
+
+</article>

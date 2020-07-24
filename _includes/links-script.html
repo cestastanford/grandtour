@@ -1,0 +1,43 @@
+<script>
+
+  var content = document.getElementById("postContent");
+  var paragraphs = content.getElementsByTagName("p");
+  var links = document.getElementsByClassName("paragraph-links")[0];
+
+  document.getElementsByClassName("overlay-close")[0].addEventListener("click", function(e){
+    document.getElementsByClassName("overlay")[0].classList.remove("visible");
+  })
+
+  //paragraphs.onmousemove = handler;
+  for (let p of paragraphs) {
+
+    var cln = links.cloneNode(true);
+    p.appendChild(cln);
+
+    cln.style.height = p.offsetHeight + "px";
+
+
+    /*p.addEventListener("mouseover", function(e){
+        var links = p.getElementById("paragraphLinks");
+        links.classList.add("visible");
+    })
+
+    p.addEventListener("mouseout", function(e){
+        var links = p.getElementById("paragraphLinks");
+        links.classList.remove("visible");
+    })*/
+  }
+
+  var ls = document.getElementsByClassName("link-cite");
+
+  for (let link of ls) {
+    link.addEventListener("click", function(e){
+      document.getElementsByClassName("overlay")[0].classList.add("visible");
+    })
+}
+
+
+
+
+
+</script>

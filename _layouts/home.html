@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    <div class="main">
+      {% include cover.html %}
+
+      <div class="page-content">
+        <div class="wrapper">
+
+          <div class="site-nav">
+            <b>Table of Contents</b>
+            {% assign sessions = site.data.sessions %}
+            {% for session in sessions %}
+              {% assign session_index = page.session | plus: 1 %}
+              {% assign session_loop = forloop.index %}
+              <div class="session">
+                <a class="session-title" href="{{ session.link }}{{ session.chapters[0].link }}">{{ session.name }}</a>
+                {% if session.chapters  %}
+                  {% if session_index == session_loop  %}
+                    <div class="chapters">
+                      {% for chapter in session.chapters %}
+                        {% assign chapter_index = page.chapter | plus: 1 %}
+                        <div class="chapter {% if chapter_index == forloop.index  %}active{% endif %}">
+                          {% if chapter.link  %}
+                            <a href="{{ session.link }}{{ chapter.link }}">{{ chapter.name }}
+                              <div class="chapter-author">
+                                {% if chapter.author  %}{{ chapter.author }}{% endif %}
+                              </div>
+                            </a>
+                          {% endif %}
+                          {% if chapter.external %}<a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">{{ chapter.name }}</a>{% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            {% endfor %}
+            <div class="button">
+              <a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">Open the Grand Tour Explorer</a>
+            </div>
+          </div>
+
+          {{ content }}
+        </div>
+      </div>
+    </div>
+
+    {% include header-script.html %}
+
+  </body>
+
+</html>

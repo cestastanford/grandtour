@@ -33,7 +33,6 @@ interface IFeature {
   }
 }
 interface IPoint {
-  showBlack: boolean,
   showLabel: boolean,
   selected: boolean,
   wasHovered: boolean,
@@ -49,19 +48,14 @@ interface IState {
   selected?: boolean
 }
 
-const COLOR_BACKGROUND_STATE_SELECTED = 'rgba(164, 127, 200, 0.5)';
-const COLOR_BACKGROUND_STATE_DESELECTED = '#ffffff';
-
 function init() {
   // sets up map
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
   let map = new mapboxgl.Map({
     container: 'map',
     style: require('./styles.json'),
-    center: [12.5674, 41.8719],
-    zoom: 4.8,
-    minZoom: 4.8,
-    maxBounds: [[-2.5674, 32.8719], [26.5674, 50.8719]]
+    center: [13, 41],
+    zoom: 4.6,
   });
 
   let points: IPoint[] = [];
@@ -87,10 +81,57 @@ function init() {
     { name: 'Tyrol', color: '#fdde86' },
   ];
 
-  const stateButtonShowAll = document.getElementById("gte-viz-statebutton-show-all");
-  const selected = document.getElementById("selected");
+  let popular = new Set();
+  popular.add("Bologna");
+  popular.add("Florence");
+  popular.add("Leghorn");
+  popular.add("Milan");
+  popular.add("Naples");
+  popular.add("Padua");
+  popular.add("Rome");
+  popular.add("Turin");
+  popular.add("Venice");
+  
+
+  const search = document.getElementById("searchbar");
   const states = document.getElementById('states');
 
+  search.addEventListener("search", searchMap)
+
+  function searchMap() {
+    var rawInput = search.value;
+    var input = rawInput.toLowerCase();
+    var found = points.filter(point => point.feature.properties['PLACE'].toLowerCase() === input);
+    if (found.length < 1) {
+      window.alert("Could not find \"" + rawInput + "\".");
+      return;
+    }
+    let location = found[0];
+    var coordinates = location.feature.geometry.coordinates;
+    showLabel(location);
+    map.flyTo({
+      // These options control the ending camera position: centered at
+      // the target, at zoom level 9, and north up.
+      center: coordinates,
+      zoom: 9,
+      bearing: 0,
+       
+      // These options control the flight curve, making it move
+      // slowly and zoom out almost completely before starting
+      // to pan.
+      speed: 1, // flying speed
+      curve: 1, // change the speed at which it zooms out
+       
+      // This can be any easing function: it takes a number between
+      // 0 and 1 and returns another number between 0 and 1.
+      easing: function(t) {
+      return t;
+      },
+       
+      // this animation is considered essential with respect to prefers-reduced-motion
+      essential: true
+      });
+  }
   /*
    * Called to select an unselected place. When passed a feature and a place's
    * button, a popup is created at that feature.
@@ -109,9 +150,6 @@ function init() {
       .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
     point.selected = true;
-    if (!point.wasHovered) {
-      updatePlaceButtons();
-    }
   }
 
   /*
@@ -125,7 +163,6 @@ function init() {
     point.wasHovered = false;
     point.showLabel = false;
     point.selected = false;
-    updatePlaceButtons();
   }
 
   /*
@@ -147,111 +184,12 @@ function init() {
     }, state);
   }
 
-  /*
-   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are selected.
-   */
-  function selectState(state: IState) {
-    selectBulk(getStatePoints(state));
-    state.selected = true;
-    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-    updatePlaceButtons();
-  }
-
-  /*
-   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are deselected.
-   */
-  function deselectState(state: IState) {
-    deselectBulk(getStatePoints(state));
-    state.selected = false;
-    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-  }
-
-  /* Select all points. */
-  function selectAll() {
-    selectBulk(points);
-    stateElements.forEach(e => {
-      e.selected = true;
-      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-    });
-    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-  }
-
-  /* Deselect all points. */
-  function deselectAll() {
-    deselectBulk(points);
-    stateElements.forEach(e => {
-      e.selected = false;
-      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-    });
-    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-  }
-
-  function selectBulk(points_) {
-    for (let point of points_) {
-      // setFeatureState(point, { showBlack: false });
-      // The below code shows all labels when a state is selected.
-      // if (!point.showLabel) {
-      //   showLabel(point, false);
-      // }
-      point.selected = true;
-    }
-  }
-
-  function deselectBulk(points_) {
-    for (let point of points_) {
-      // setFeatureState(point, { showBlack: true });
-      point.selected = false;
-      if (point.showLabel) {
-        hideLabel(point);
-      }
-    }
-  }
-
   function getPoint(feature: IFeature) {
     const point = find(points, e => e.feature.properties.place === feature.properties.place);
     if (!point) {
       console.error("point with place " + feature.properties.place + " not found");
     }
     return point;
-  }
-
-  function onPointClick(point: IPoint) {
-    if (point.showLabel && point.wasHovered) { // when clicking on a point after hovering over it.
-      showLabel(point);
-      // setFeatureState(point, { showBlack: false });
-    } else if (point.showLabel) { // case selected -> deselected
-      hideLabel(point);
-      // setFeatureState(point, { showBlack: true });
-    } else { // case deselected -> selected
-      showLabel(point);
-      // setFeatureState(point, { showBlack: false });
-    }
-    point.wasHovered = false;
-  }
-
-  let createCheckbox = (point: IPoint) => `
-  <tr><td><div class="checkbox">
-    <label>
-      <input class="gte-viz-selected-checkbox ${point.selected ? "gte-viz-selected-checkbox-checked" : "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.selected && "checked"} />
-      <span>${point.feature.properties.place}</span>
-    </label>
-  </div></td></tr>`;
-  function updatePlaceButtons() {
-    const sortFn = (a: IPoint, b: IPoint) => (a.feature.properties.place > b.feature.properties.place) ? 1 : -1;
-    let selectedPoints = points.filter(e => e.selected).sort(sortFn);
-    let unselectedPoints = points.filter(e => !e.selected).sort(sortFn);
-    selected.innerHTML = `<div class="mini-table"><table class="table"><tbody>
-      ${selectedPoints.map(createCheckbox).join("\n")}
-      ${unselectedPoints.map(createCheckbox).join("\n")}
-    </tbody></table></div>`;
-
-    // Add appropriate event listeners.
-    document.querySelectorAll("#selected .gte-viz-selected-checkbox-checked").forEach((checkbox, i) => {
-      checkbox.addEventListener('change', () => onPointClick(selectedPoints[i]));
-    });
-    document.querySelectorAll("#selected .gte-viz-selected-checkbox-unchecked").forEach((checkbox, i) => {
-      checkbox.addEventListener('change', () => onPointClick(unselectedPoints[i]));
-    })
   }
 
   /*
@@ -278,14 +216,6 @@ function init() {
       });
     });
 
-    // clicking on point will select/deselect point
-    map.on('click', 'missing-coordinates-gte-final', function (e) {
-      if (!e.features || !e.features.length) return;
-      let point = getPoint(e.features[0]);
-      if (!point) return;
-      onPointClick(point);
-    });
-
     // hovering off point hides hover popup
     map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
       map.getCanvas().style.cursor = '';
@@ -300,7 +230,12 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
-      setFeatureState(point, { showBlack: false }); // colors appear from start
+      if (popular.has(point.feature.properties['place'])) {
+        showLabel(point);
+        //setFeatureState(point, { showLabel: true });
+      } else {
+        setFeatureState(point, { showLabel: false }); // hide labels
+      }
     });
 
     stateElements.forEach(stateElement => {
@@ -315,31 +250,15 @@ function init() {
       name.innerHTML = stateElement.name;
 
       button.setAttribute("class", "stateButton")
-      button.style.backgroundColor = "white"; // set here and not in <style>, because it is used to toggle whether the state is selected
 
       button.appendChild(color);
       button.appendChild(name);
+      button.setAttribute("class", "stateButton")
 
-      button.addEventListener('click', function () {
-        if (stateElement.selected) {
-          deselectState(stateElement);
-        } else {
-          selectState(stateElement);
-        }
-      });
-      states.appendChild(button);
-      stateElement.buttonElement = button;
+      let buttonWrapper = document.createElement('span')
+      buttonWrapper.appendChild(button)
+      states.appendChild(buttonWrapper);
     });
-
-    stateButtonShowAll.addEventListener('click', function () {
-      const allSelected = stateElements.every(e => e.selected);
-      if (allSelected) {
-        deselectAll();
-      } else {
-        selectAll();
-      }
-    });
-    updatePlaceButtons();
   });
 }
 export default init;

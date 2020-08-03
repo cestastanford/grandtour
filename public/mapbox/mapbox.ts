@@ -93,7 +93,7 @@ function init() {
   popular.add("Venice");
   
 
-  const search = document.getElementById("searchbar");
+  const search = <HTMLInputElement>document.getElementById("searchbar");
   const states = document.getElementById('states');
 
   search.addEventListener("search", searchMap)

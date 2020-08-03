@@ -81,6 +81,18 @@ function init() {
     { name: 'Tyrol', color: '#fdde86' },
   ];
 
+  let popular = new Set();
+  popular.add("Bologna");
+  popular.add("Florence");
+  popular.add("Leghorn");
+  popular.add("Milan");
+  popular.add("Naples");
+  popular.add("Padua");
+  popular.add("Rome");
+  popular.add("Turin");
+  popular.add("Venice");
+  
+
   const search = document.getElementById("searchbar");
   const states = document.getElementById('states');
 
@@ -218,7 +230,12 @@ function init() {
       feature: e
     }));
     points.forEach((point) => {
-      setFeatureState(point, { showLabel: false }); // colors appear from start
+      if (popular.has(point.feature.properties['place'])) {
+        showLabel(point);
+        //setFeatureState(point, { showLabel: true });
+      } else {
+        setFeatureState(point, { showLabel: false }); // hide labels
+      }
     });
 
     stateElements.forEach(stateElement => {

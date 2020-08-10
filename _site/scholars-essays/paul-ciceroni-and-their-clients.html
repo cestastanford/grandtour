@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- default.html handles the default display of the website, mostly Table of Contents features. See home.html for homepage display.-->
 
   <head>
   <meta charset="utf-8">
@@ -11,7 +10,11 @@
   <meta name="description" content="Sometihng
 ">
 
+<<<<<<< HEAD
   <link rel="stylesheet" href="/css/main.css"> <!-- head.html requires "/css/main.css", not "css/main.css" -->
+=======
+  <link rel="stylesheet" href="/css/main.css">
+>>>>>>> master
   <link rel="canonical" href="http://localhost:4000/scholars-essays/paul-ciceroni-and-their-clients.html">
   <link rel="alternate" type="application/rss+xml" title="A World Made by Travel" href="http://localhost:4000/feed.xml">
 
@@ -40,7 +43,17 @@
         <div class="wrapper">
 
           <div class="site-nav">
-            <b>Table of Contents</b>
+
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input type="text" id="search-input" placeholder="Search">
+            </div>
+
+
+            <div class="session toc" style="display: flex; justify-content: space-between; padding: 10px 0px;">
+              <b>Table of Contents</b>
+              <i class="material-icons md-18 download-toc" aria-label="Download Table of Contents (PDF)" data-balloon-pos="right">arrow_downward</i>
+            </div>
             
             
                <!-- Current loop -->
@@ -371,7 +384,7 @@
       <div class="paragraph">
       <!--  <span class="link-meta">Paragraph 2</span>-->
         <i class="material-icons" aria-label="Copy link to article" data-balloon-pos="left">link</i>
-        <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+        <i class="material-icons" aria-label="Download article (PDF)" data-balloon-pos="left">arrow_downward</i>
       </div>
     </div>
 
@@ -400,11 +413,20 @@
 
 
     <div class="paragraph-links">
-    <!--  <span class="link-meta">Paragraph 2</span>-->
+     <span class="post-meta paragraph-link">Par.1</span>
       <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
       <i class="material-icons" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
       <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
     </div>
+
+    <div class="">
+      
+    </div>
+
+    <div class="">
+      
+    </div>
+
 
   </div>
 
@@ -415,7 +437,7 @@
     </div>
     <p class="overlay-text">Rosemary Sweet. "Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers." <i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019, section IV: 1, paragraph 7. <a href="https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7" target="_blank">https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7</a></p>
     <p class="overlay-links">
-      <a>Copy to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
+      <a>Copy citation to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
     </p>
   </div>
 
@@ -476,8 +498,8 @@
 
   //paragraphs.onmousemove = handler;
   for (let p of paragraphs) {
-
     var cln = links.cloneNode(true);
+
     p.appendChild(cln);
 
     cln.style.height = p.offsetHeight + "px";
@@ -543,8 +565,7 @@
       }
     }
   </script>
-
-
+    
   </body>
 
 </html>

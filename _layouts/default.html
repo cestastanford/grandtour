@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- default.html handles the default display of the website, mostly Table of Contents features. See home.html for homepage display.-->
 
   {% include head.html %}
 
@@ -13,7 +12,17 @@
         <div class="wrapper">
 
           <div class="site-nav">
-            <b>Table of Contents</b>
+
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input type="text" id="search-input" placeholder="Search">
+            </div>
+
+
+            <div class="session toc" style="display: flex; justify-content: space-between; padding: 10px 0px;">
+              <b>Table of Contents</b>
+              <i class="material-icons md-18 download-toc" aria-label="Download Table of Contents (PDF)" data-balloon-pos="right">arrow_downward</i>
+            </div>
             {% assign sessions = site.data.sessions %}
             {% for session in sessions %}
               {% assign session_index = page.session | plus: 1 %} <!-- Current loop -->
@@ -71,8 +80,7 @@
       }
     }
   </script>
-
-
+    
   </body>
 
 </html>

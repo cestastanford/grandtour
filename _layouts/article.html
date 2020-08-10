@@ -13,7 +13,7 @@ layout: default
       <div class="paragraph">
       <!--  <span class="link-meta">Paragraph 2</span>-->
         <i class="material-icons" aria-label="Copy link to article" data-balloon-pos="left">link</i>
-        <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+        <i class="material-icons" aria-label="Download article (PDF)" data-balloon-pos="left">arrow_downward</i>
       </div>
     </div>
 
@@ -39,11 +39,28 @@ layout: default
     {{ content }}
 
     <div class="paragraph-links">
-    <!--  <span class="link-meta">Paragraph 2</span>-->
+     <span class="post-meta paragraph-link">Par.1</span>
       <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
       <i class="material-icons" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
       <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
     </div>
+
+    <div class="">
+      {% if page.references %}
+      <div class="post-references">
+        <h3>References</h3>
+        <p>{{ page.references }}</p>
+      </div>{% endif %}
+    </div>
+
+    <div class="">
+      {% if page.about %}
+      <div class="post-about">
+        <h3>About {{page.author}}</h3>
+        <p>{{ page.about }}</p>
+      </div>{% endif %}
+    </div>
+
 
   </div>
 
@@ -54,7 +71,7 @@ layout: default
     </div>
     <p class="overlay-text">Rosemary Sweet. "Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers." <i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019, section IV: 1, paragraph 7. <a href="https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7" target="_blank">https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7</a></p>
     <p class="overlay-links">
-      <a>Copy to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
+      <a>Copy citation to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
     </p>
   </div>
 

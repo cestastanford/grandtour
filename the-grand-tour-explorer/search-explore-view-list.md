@@ -1,7 +1,6 @@
 ---
 layout: article
 title: "2. Search, Explore, View and List"
-author: Rachel Something
 session: 3
 chapter: 1
 ---

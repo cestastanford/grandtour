@@ -1,7 +1,6 @@
 ---
 layout: article
-title: "2. Brinsley Ford’s research and Ingamells’ Dictionary"
-author: Rachel Something
+title: "1. Explanation of the tool"
 session: 3
 chapter: 0
 ---

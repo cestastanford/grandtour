@@ -151,6 +151,40 @@ a.site-title{
 
 }
 
+.site-nav .toc .download-toc {
+  opacity: 0;
+}
+
+.site-nav:hover .toc .download-toc {
+  opacity: 1;
+}
+
+.search-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0px;
+  align-items: center;
+  flex-direction: row;
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 20px;
+}
+
+
+input[type="text"] {
+  border: none;
+  background: none;
+}
+
+#search-input {
+  flex-grow: 1;
+  margin-left: 8px;
+}
+
+#search-input:focus {
+  flex-grow: 1;
+  outline: none;
+}
 
 
 /**
@@ -247,6 +281,20 @@ a.site-title{
 .post-meta {
     font-size: $small-font-size;
     color: $grey-color;
+}
+
+.post-about {
+  font-size: $small-font-size;
+  background: #f7f6f3;
+  padding: 20px;
+}
+
+.post-content .post-about p {
+  margin-bottom: 0px;
+}
+
+.post-references {
+  font-size: $small-font-size;
 }
 
 .post-link {

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- home.html handles the home display of the website, mostly Table of Contents features. See default.html for default display.-->
-
 
   <head>
   <meta charset="utf-8">
@@ -12,7 +10,7 @@
   <meta name="description" content="Sometihng
 ">
 
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://localhost:4000/">
   <link rel="alternate" type="application/rss+xml" title="A World Made by Travel" href="http://localhost:4000/feed.xml">
 
@@ -62,10 +60,19 @@
         <div class="wrapper">
 
           <div class="site-nav">
-            <b>Table of Contents</b>
+
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input type="text" id="search-input" placeholder="Search">
+            </div>
+
+            <div class="session toc" style="display: flex; justify-content: space-between; padding: 10px 0px;">
+              <b>Table of Contents</b>
+              <i class="material-icons md-18 download-toc" aria-label="Download Table of Contents (PDF)" data-balloon-pos="right">arrow_downward</i>
+            </div>
             
             
-               <!-- Current loop -->
+              
               
               <div class="session active">
                  <!-- Preface and Acknowledgements, Epilogue -->
@@ -73,7 +80,7 @@
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
                 
@@ -111,7 +118,7 @@
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
                 
@@ -149,7 +156,7 @@
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
                 
@@ -189,7 +196,7 @@
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
                 
@@ -317,7 +324,7 @@
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
                 
@@ -368,7 +375,7 @@
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
                  <!-- Preface and Acknowledgements, Epilogue -->
@@ -443,7 +450,6 @@
   }
 </script>
 
-
   <script>
     function toggleChapters(session_loop) {
       chapters = document.getElementById(session_loop);
@@ -454,7 +460,6 @@
       }
     }
   </script>
-
   </body>
 
 </html>

@@ -214,3 +214,12 @@ pre {
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
+
+.material-icons {
+  opacity: .7;
+  transition: opacity 150ms;
+}
+
+.material-icons:hover {
+  opacity: 1;
+}

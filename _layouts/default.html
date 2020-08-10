@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- default.html handles the default display of the website, mostly Table of Contents features. See home.html for homepage display.-->
 
   {% include head.html %}
 
@@ -13,32 +12,42 @@
         <div class="wrapper">
 
           <div class="site-nav">
-            <b>Table of Contents</b>
+
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input type="text" id="search-input" placeholder="Search">
+            </div>
+
+
+            <div class="session toc" style="display: flex; justify-content: space-between; padding: 10px 0px;">
+              <b>Table of Contents</b>
+              <i class="material-icons md-18 download-toc" aria-label="Download Table of Contents (PDF)" data-balloon-pos="right">arrow_downward</i>
+            </div>
             {% assign sessions = site.data.sessions %}
             {% for session in sessions %}
-              {% assign session_index = page.session | plus: 1 %} <!-- Current loop -->
+              {% assign session_index = page.session | plus: 1 %}
               {% assign session_loop = forloop.index %}
               <div class="session {% if session_index == session_loop  %}active{% endif %}">
-                {% if session.chapters %}
-                <a class="session-title" style="cursor:pointer" onclick="toggleChapters({{session_loop}})">{{ session.name }}</a> <!-- Clicking a title will reveal all chapters -->
-                  <div id="{{session_loop}}" style="{% if session_index != session_loop %}display:none{% endif %}" class="chapters">
-                    {% for chapter in session.chapters %}
-                      {% assign chapter_index = page.chapter | plus: 1 %}
-                      <div class="chapter {% if chapter_index == forloop.index  %}active{% endif %}">
-                        {% if chapter.link  %}
-                          <a href="{{ session.link }}{{ chapter.link }}">{{ chapter.name }}</a>
-                        {% endif %}
-                        {% if chapter.external %}<a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">{{ chapter.name }}</a>{% endif %}
-                        {% if chapter.author  %}
-                          <div class="chapter-author">
-                            {{ chapter.author }}
-                          </div>
-                        {% endif %}
-                      </div>
-                    {% endfor %}
-                  </div>
-                {% else %} <!-- Preface and Acknowledgements, Epilogue -->
-                  <a class="session-title" href="{{ session.link }}{{ session.chapters[0].link }}">{{ session.name }}</a>
+                <a class="session-title" href="{{ session.link }}{{ session.chapters[0].link }}">{{ session.name }}</a>
+                {% if session.chapters  %}
+                  {% if session_index == session_loop  %}
+                    <div class="chapters">
+                      {% for chapter in session.chapters %}
+                        {% assign chapter_index = page.chapter | plus: 1 %}
+                        <div class="chapter {% if chapter_index == forloop.index  %}active{% endif %}">
+                          {% if chapter.link  %}
+                            <a href="{{ session.link }}{{ chapter.link }}">{{ chapter.name }}</a>
+                          {% endif %}
+                          {% if chapter.external %}<a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">{{ chapter.name }}</a>{% endif %}
+                          {% if chapter.author  %}
+                            <div class="chapter-author">
+                              {{ chapter.author }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 {% endif %}
               </div>
             {% endfor %}
@@ -60,18 +69,6 @@
     {% include header-script.html %}
     {% include links-script.html %}
     {% include scroll-top.html %}
-
-  <script>
-    function toggleChapters(session_loop) {
-      chapters = document.getElementById(session_loop);
-      if (chapters.style.display === "none") {
-        chapters.style.display = "block";
-      } else {
-        chapters.style.display = "none";
-      }
-    }
-  </script>
-
 
   </body>
 

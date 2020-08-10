@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- default.html handles the default display of the website, mostly Table of Contents features. See home.html for homepage display.-->
 
   <head>
   <meta charset="utf-8">
@@ -11,7 +10,7 @@
   <meta name="description" content="Sometihng
 ">
 
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://localhost:4000/scholars-essays/sama-rosalba-carriera.html">
   <link rel="alternate" type="application/rss+xml" title="A World Made by Travel" href="http://localhost:4000/feed.xml">
 
@@ -40,317 +39,196 @@
         <div class="wrapper">
 
           <div class="site-nav">
-            <b>Table of Contents</b>
+
+            <div class="search-box">
+              <i class="material-icons">search</i>
+              <input type="text" id="search-input" placeholder="Search">
+            </div>
+
+
+            <div class="session toc" style="display: flex; justify-content: space-between; padding: 10px 0px;">
+              <b>Table of Contents</b>
+              <i class="material-icons md-18 download-toc" aria-label="Download Table of Contents (PDF)" data-balloon-pos="right">arrow_downward</i>
+            </div>
             
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
-                 <!-- Preface and Acknowledgements, Epilogue -->
-                  <a class="session-title" href="/preface-and-acknowledgments">Preface and Acknowledgments</a>
+                <a class="session-title" href="/preface-and-acknowledgments">Preface and Acknowledgments</a>
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
+                <a class="session-title" href="/study-the-grand-tour/travel-to-italy">I. Studying the Grand Tour: from archives to a computational approach</a>
                 
-                <a class="session-title" style="cursor:pointer" onclick="toggleChapters(2)">I. Studying the Grand Tour: from archives to a computational approach</a> <!-- Clicking a title will reveal all chapters -->
-                  <div id="2" style="display:none" class="chapters">
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/study-the-grand-tour/travel-to-italy">1. Eighteenth-century British travel to Italy: practices of travel and practices of study</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/study-the-grand-tour/ford-and-ingamells">2. Brinsley Ford’s research and Ingamells’ Dictionary</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/study-the-grand-tour/a-digital-transformation">3. A digital transformation of a print book</a>
-                        
-                        
-                        
-                      </div>
-                    
-                  </div>
+                  
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
+                <a class="session-title" href="/presenting-the-data/collecting-the-data">II. Presenting the Data</a>
                 
-                <a class="session-title" style="cursor:pointer" onclick="toggleChapters(3)">II. Presenting the Data</a> <!-- Clicking a title will reveal all chapters -->
-                  <div id="3" style="display:none" class="chapters">
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/presenting-the-data/collecting-the-data">1. Collecting the Data: from text to spreadsheet</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/presenting-the-data/meaning-of-the-data">2. Meaning of the Data</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/presenting-the-data/uses-of-the-data">3. Uses of the Data</a>
-                        
-                        
-                        
-                      </div>
-                    
-                  </div>
+                  
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
+                <a class="session-title" href="/the-grand-tour-explorer/explanation">III. The Grand Tour Explorer</a>
                 
-                <a class="session-title" style="cursor:pointer" onclick="toggleChapters(4)">III. The Grand Tour Explorer</a> <!-- Clicking a title will reveal all chapters -->
-                  <div id="4" style="display:none" class="chapters">
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/the-grand-tour-explorer/explanation">1. Explanation of the Tool</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/the-grand-tour-explorer/search-explore-view-list">2. Search, Explore, View and List</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                        <a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">3. The Grand Tour Explorer</a>
-                        
-                          <div class="chapter-author">
-                            Co-created with Giorgio Caviglia
-                          </div>
-                        
-                      </div>
-                    
-                  </div>
+                  
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session active">
+                <a class="session-title" href="/scholars-essays/ceserani-introduction">IV. Scholars’ Essays Digitizing the Grand Tour</a>
                 
-                <a class="session-title" style="cursor:pointer" onclick="toggleChapters(5)">IV. Scholars’ Essays Digitizing the Grand Tour</a> <!-- Clicking a title will reveal all chapters -->
-                  <div id="5" style="" class="chapters">
-                    
+                  
+                    <div class="chapters">
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/ceserani-introduction">Introduction</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Giovanna Ceserani
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/ceserani-introduction">Introduction</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Giovanna Ceserani
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/sweet-who-traveled">1. Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Rosemary Sweet
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/sweet-who-traveled">1. Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Rosemary Sweet
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/midura-british-arrival">2. The British Arrival in Italy</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Rachel Midura
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/midura-british-arrival">2. The British Arrival in Italy</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Rachel Midura
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/calaresu-life-and-death">3. Life and Death in Naples: Thomas Jones and Urban Experience in the Grand Tour (Explorer)</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Melissa Calaresu
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/calaresu-life-and-death">3. Life and Death in Naples: Thomas Jones and Urban Experience in the Grand Tour (Explorer)</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Melissa Calaresu
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/paul-ciceroni-and-their-clients">4. Ciceroni and their Clients: making a profession of tourism</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Carole Paul
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/paul-ciceroni-and-their-clients">4. Ciceroni and their Clients: making a profession of tourism</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Carole Paul
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/reinert-economic-grand-tour">5. Mapping the Economic Grand Tour: Travel and Emulation in Enlightenment Europe</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Sophus Reinert
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/reinert-economic-grand-tour">5. Mapping the Economic Grand Tour: Travel and Emulation in Enlightenment Europe</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Sophus Reinert
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter active">
                         
-                          <a href="/scholars-essays/sama-rosalba-carriera">6. Rosalba Carriera: a woman painter’s studio and clients</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Catherine Sama
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter active">
+                          
+                            <a href="/scholars-essays/sama-rosalba-carriera">6. Rosalba Carriera: a woman painter’s studio and clients</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Catherine Sama
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/mcdonald-harlequin-horsemanship">7. Harlequin Horsemanship: Non-Grand Tourists on the Grand Tour (Explorer)</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Simon McDonald
-                          </div>
-                        
-                      </div>
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/mcdonald-harlequin-horsemanship">7. Harlequin Horsemanship: Non-Grand Tourists on the Grand Tour (Explorer)</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Simon McDonald
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
                         
-                          <a href="/scholars-essays/baker-brewer-responses">Responses</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Malcolm Baker and John Brewer
-                          </div>
-                        
-                      </div>
-                    
-                  </div>
-                
-              </div>
-            
-               <!-- Current loop -->
-              
-              <div class="session ">
-                
-                <a class="session-title" style="cursor:pointer" onclick="toggleChapters(6)">V. The Grand Tour Explorer in the Classroom</a> <!-- Clicking a title will reveal all chapters -->
-                  <div id="6" style="display:none" class="chapters">
-                    
+                        <div class="chapter ">
+                          
+                            <a href="/scholars-essays/baker-brewer-responses">Responses</a>
+                          
+                          
+                          
+                            <div class="chapter-author">
+                              Malcolm Baker and John Brewer
+                            </div>
+                          
+                        </div>
                       
-                      <div class="chapter ">
-                        
-                          <a href="/in-the-classroom/introduction">Introduction</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/in-the-classroom/sample-syllabus">Sample Syllabus</a>
-                        
-                        
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/in-the-classroom/sample-digital-practicums">Sample Digital Practicums</a>
-                        
-                        
-                        
-                          <div class="chapter-author">
-                            Rachel Midura
-                          </div>
-                        
-                      </div>
-                    
-                      
-                      <div class="chapter ">
-                        
-                          <a href="/in-the-classroom/sample-students-work">Sample Students’ Work</a>
-                        
-                        
-                        
-                      </div>
-                    
-                  </div>
+                    </div>
+                  
                 
               </div>
             
-               <!-- Current loop -->
+              
               
               <div class="session ">
-                 <!-- Preface and Acknowledgements, Epilogue -->
-                  <a class="session-title" href="/epilogue">Epilogue</a>
+                <a class="session-title" href="/in-the-classroom/introduction">V. The Grand Tour Explorer in the Classroom</a>
+                
+                  
+                
+              </div>
+            
+              
+              
+              <div class="session ">
+                <a class="session-title" href="/epilogue">Epilogue</a>
                 
               </div>
             
@@ -371,7 +249,7 @@
       <div class="paragraph">
       <!--  <span class="link-meta">Paragraph 2</span>-->
         <i class="material-icons" aria-label="Copy link to article" data-balloon-pos="left">link</i>
-        <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+        <i class="material-icons" aria-label="Download article (PDF)" data-balloon-pos="left">arrow_downward</i>
       </div>
     </div>
 
@@ -400,11 +278,20 @@
 
 
     <div class="paragraph-links">
-    <!--  <span class="link-meta">Paragraph 2</span>-->
+     <span class="post-meta paragraph-link">Par.1</span>
       <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
       <i class="material-icons" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
       <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
     </div>
+
+    <div class="">
+      
+    </div>
+
+    <div class="">
+      
+    </div>
+
 
   </div>
 
@@ -415,7 +302,7 @@
     </div>
     <p class="overlay-text">Rosemary Sweet. "Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers." <i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019, section IV: 1, paragraph 7. <a href="https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7" target="_blank">https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7</a></p>
     <p class="overlay-links">
-      <a>Copy to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
+      <a>Copy citation to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
     </p>
   </div>
 
@@ -476,8 +363,8 @@
 
   //paragraphs.onmousemove = handler;
   for (let p of paragraphs) {
-
     var cln = links.cloneNode(true);
+
     p.appendChild(cln);
 
     cln.style.height = p.offsetHeight + "px";
@@ -531,18 +418,6 @@
   }
 
 </script>
-
-
-  <script>
-    function toggleChapters(session_loop) {
-      chapters = document.getElementById(session_loop);
-      if (chapters.style.display === "none") {
-        chapters.style.display = "block";
-      } else {
-        chapters.style.display = "none";
-      }
-    }
-  </script>
 
 
   </body>

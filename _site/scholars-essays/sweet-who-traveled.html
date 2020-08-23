@@ -414,16 +414,15 @@
 <figure>
 
 <a name="figure-1">
-    <img src="figure-1.svg" />
+    <img src="figure-1.svg" onclick="zoom(this)" />
 </a>
 <a name="figure-2">
-    <img src="figure-2.svg" />
+    <img src="figure-2.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
 
 <b>Fig. 1 and 2:</b> Bar and line graphs charting the numbers of travelers by start year of travel to selected cities. The top five cities bear out many known patterns, however the addition of the next five cities complicates the picture of rising and falling traveler numbers. Note that the number of travelers has been aggregated by decade. This has been done for readability, as absent data prevents perfect continuous representation by individual year. (For another strategy, see the use of a moving average trend-line in <a href="/gt-book/scholars-essays/midura-british-arrival">Rachel Midura's essay</a>.
-<!-- Annoying workaround. Links doesn't seem to work inside figure > figcaption, so just use href. -->
 </figcaption>
 </figure>
 
@@ -438,7 +437,7 @@
 <figure>
 
 <a name="figure-3">
-    <img src="figure-3.svg" />
+    <img src="figure-3.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -640,7 +639,7 @@
 
 <figure>
 <a name="figure-5b">
-    <img src="figure-5b.svg" />
+    <img src="figure-5b.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -743,7 +742,7 @@
 <figure>
 
 <a name="figure-7">
-    <img src="figure-7.svg" />
+    <img src="figure-7.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -758,7 +757,7 @@
 <figure>
 
 <a name="figure-8">
-    <img src="figure-8.svg" />
+    <img src="figure-8.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -784,6 +783,35 @@ I0MTcsLTE0MTE5MTAsLTkwODc2OTI5OCw2NzA0Nzc3NTEsLTEz
 NDE3MTI3MzEsLTU1NTgxODg0NSwtNjMwMDQxNzEzLDExOTYxOT
 Y0MzFdfQ==
 -->
+
+<div class="overlay" id="popup">
+    <div class="overlay-close">
+        <a><i class="material-icons">close</i></a>
+    </div>
+    <img id="img" />
+</div>
+
+<script>
+function zoom(obj) {
+    var popup = document.getElementById("popup");
+    var image = document.getElementById("img");
+    image.src = obj.src;
+    
+    
+    image.style.display = "block";
+    image.style.marginLeft = "auto";
+    image.style.marginRight = "auto";
+    popup.style.maxHeight = "80%";
+    popup.style.height = "80%"
+    image.style.left = "0";
+    image.style.right = "0";
+    image.style.width = "100%";
+    image.style.height = "100%";
+    
+    popup.classList.add("visible");
+}    
+</script>
+
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">

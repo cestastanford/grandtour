@@ -16,3 +16,5 @@ This should start a server with the website running at http://localhost:4000/
 
 The website contains very little real content but the structure and links should work.
 '''
+
+View the GitHub Pages site here: https://ryanctan.github.io/gt-book/.

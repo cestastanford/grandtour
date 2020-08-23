@@ -36,7 +36,7 @@
                       <div class="chapter {% if chapter_index == forloop.index  %}active{% endif %}">
                         {% if chapter.link  %}
                           <a href="/gt-book{{ session.link }}{{ chapter.link }}">{{ chapter.name }}</a>
-                        {% endif %}
+                          {% endif %}
                         {% if chapter.external %}<a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">{{ chapter.name }}</a>{% endif %}
                         {% if chapter.author  %}
                           <div class="chapter-author">
@@ -46,7 +46,8 @@
                       </div>
                     {% endfor %}
                   </div>
-                {% else %} <!-- Preface and Acknowledgements, Epilogue -->
+                {% else %} 
+                  <!-- Preface and Acknowledgements, Epilogue -->
                   <a class="session-title" href="/gt-book{{ session.link }}{{ session.chapters[0].link }}">{{ session.name }}</a>
                 {% endif %}
               </div>

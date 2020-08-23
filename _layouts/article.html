@@ -8,7 +8,7 @@ layout: default
     <h1 class="post-title">{{ page.title }}</h1>
     <div class="" style="display: flex; justify-content: space-between">
       <div class="">
-        {% if page.author %}<p class="post-author">by {{ page.author }}</p> {% endif %}
+        {% if page.author %}<p class="post-author" onclick="about( page.author )">by {{ page.author }}</p> {% endif %}
       </div>
       <div class="paragraph">
       <!--  <span class="link-meta">Paragraph 2</span>-->
@@ -77,4 +77,9 @@ layout: default
 
   {% include footer.html %}
 
+  <script>
+  function about(author) {
+    alert(author);
+  }
+  </script>
 </article>

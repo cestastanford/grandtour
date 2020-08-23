@@ -377,7 +377,7 @@
     <h1 class="post-title">1. Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers</h1>
     <div class="" style="display: flex; justify-content: space-between">
       <div class="">
-        <p class="post-author">by Rosemary Sweet</p> 
+        <p class="post-author" onclick="about( page.author )">by Rosemary Sweet</p> 
       </div>
       <div class="paragraph">
       <!--  <span class="link-meta">Paragraph 2</span>-->
@@ -414,10 +414,10 @@
 <figure>
 
 <a name="figure-1">
-    <img src="figure-1.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-1.svg" onclick="zoom(this)" />
 </a>
 <a name="figure-2">
-    <img src="figure-2.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-2.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -437,7 +437,7 @@
 <figure>
 
 <a name="figure-3">
-    <img src="figure-3.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-3.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -639,7 +639,7 @@
 
 <figure>
 <a name="figure-5b">
-    <img src="figure-5b.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-5b.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -742,7 +742,7 @@
 <figure>
 
 <a name="figure-7">
-    <img src="figure-7.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-7.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -757,7 +757,7 @@
 <figure>
 
 <a name="figure-8">
-    <img src="figure-8.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-8.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -788,7 +788,7 @@ Y0MzFdfQ==
     <div class="overlay-close">
         <a><i class="material-icons">close</i></a>
     </div>
-    <img id="img" />
+    <img class="fig" id="img" />
 </div>
 
 <script>
@@ -934,6 +934,11 @@ function zoom(obj) {
 </footer>
 
 
+  <script>
+  function about(author) {
+    alert(author);
+  }
+  </script>
 </article>
 
         </div>

@@ -14,10 +14,10 @@ My initial approach was very basic: simply looking at patterns of travel and the
 <figure>
 
 <a name="figure-1">
-    <img src="figure-1.svg" onclick="zoom(this)">
+    <img class="fig" src="figure-1.svg" onclick="zoom(this)">
 </a>
 <a name="figure-2">
-    <img src="figure-2.svg" onclick="zoom(this)">
+    <img class="fig" src="figure-2.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -37,7 +37,7 @@ Numbers of visitors to all cities increased in the 1760s, but the spike for Turi
 <figure>
 
 <a name="figure-3">
-    <img src="figure-3.svg" onclick="zoom(this)">
+    <img class="fig" src="figure-3.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -104,7 +104,7 @@ Decade | Total Number of Travelers (Known Birthdate) | % = Young Men | Total Tra
 
 <figure>
 <a name="figure-5b">
-    <img src="figure-5b.svg" onclick="zoom(this)">
+    <img class="fig" src="figure-5b.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -149,7 +149,7 @@ Although the data will always remain frustratingly incomplete, the general trend
 <figure>
 
 <a name="figure-7">
-    <img src="figure-7.svg" onclick="zoom(this)">
+    <img class="fig" src="figure-7.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -164,7 +164,7 @@ Considering together the age profile and the numbers of women traveling—flawed
 <figure>
 
 <a name="figure-8">
-    <img src="figure-8.svg" onclick="zoom(this)">
+    <img class="fig" src="figure-8.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -240,7 +240,7 @@ Y0MzFdfQ==
     <div class="overlay-close">
         <a><i class="material-icons">close</i></a>
     </div>
-    <img id="img">
+    <img class="fig" id="img">
 </div>
 
 <script>

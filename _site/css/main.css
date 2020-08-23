@@ -338,6 +338,8 @@ table th, table td { padding: .5em; border: 1px solid lightgrey; }
 
 [data-table-theme*=dark] th, [data-table-theme*=dark] td { padding: .5em; border: 1px solid grey; }
 
+.fig { cursor: pointer; }
+
 :root { --balloon-color: rgba(16, 16, 16, 0.95); --balloon-font-size: 14px; --balloon-move: 4px; }
 
 button[aria-label][data-balloon-pos] { overflow: visible; }

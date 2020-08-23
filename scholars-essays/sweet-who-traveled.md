@@ -4,7 +4,6 @@ title: "1. Who Traveled, Where and When?: Using the Grand Tour Explorer to exami
 author: Rosemary Sweet
 session: 4
 chapter: 1
-[comment]: <> (A major downside to the current implementation is the use of "/gt-book" in the links... ideally, baseurl would replace these. This is a temporary workaround so that the local and Github Pages environment are compatible.)
 ---
 My interest in the Grand Tour explorer arises out of my own work on the engagement of British travelers with Italian cities during the long eighteenth century. Some years ago, I published a book that concentrated upon British experiences and representations of Italian cities during the long eighteenth century, _Cities and the Grand Tour: The British in Italy, c. 1690-1820_.[^1] As an urban historian, I was less concerned with what was collected or purchased by travelers, or with their social networks, than with exploring how images of major Italian cities were constructed and considering their influence in British culture. Given the opportunity to work with the _Grand Tour Explorer_, I wanted to use it to pursue several questions.
 
@@ -15,16 +14,15 @@ My initial approach was very basic: simply looking at patterns of travel and the
 <figure>
 
 <a name="figure-1">
-    <img src="figure-1.svg">
+    <img class="fig" src="figure-1.svg" onclick="zoom(this)">
 </a>
 <a name="figure-2">
-    <img src="figure-2.svg">
+    <img class="fig" src="figure-2.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
 
 <b>Fig. 1 and 2:</b> Bar and line graphs charting the numbers of travelers by start year of travel to selected cities. The top five cities bear out many known patterns, however the addition of the next five cities complicates the picture of rising and falling traveler numbers. Note that the number of travelers has been aggregated by decade. This has been done for readability, as absent data prevents perfect continuous representation by individual year. (For another strategy, see the use of a moving average trend-line in <a href = "/gt-book/scholars-essays/midura-british-arrival">Rachel Midura's essay</a>.
-<!-- Annoying workaround. Links doesn't seem to work inside figure > figcaption, so just use href. -->
 </figcaption>
 </figure>
 
@@ -39,7 +37,7 @@ Numbers of visitors to all cities increased in the 1760s, but the spike for Turi
 <figure>
 
 <a name="figure-3">
-    <img src="figure-3.svg">
+    <img class="fig" src="figure-3.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -106,7 +104,7 @@ Decade | Total Number of Travelers (Known Birthdate) | % = Young Men | Total Tra
 
 <figure>
 <a name="figure-5b">
-    <img src="figure-5b.svg">
+    <img class="fig" src="figure-5b.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -151,7 +149,7 @@ Although the data will always remain frustratingly incomplete, the general trend
 <figure>
 
 <a name="figure-7">
-    <img src="figure-7.svg">
+    <img class="fig" src="figure-7.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -166,7 +164,7 @@ Considering together the age profile and the numbers of women traveling—flawed
 <figure>
 
 <a name="figure-8">
-    <img src="figure-8.svg">
+    <img class="fig" src="figure-8.svg" onclick="zoom(this)">
 </a>
 
 <figcaption>
@@ -237,3 +235,31 @@ I0MTcsLTE0MTE5MTAsLTkwODc2OTI5OCw2NzA0Nzc3NTEsLTEz
 NDE3MTI3MzEsLTU1NTgxODg0NSwtNjMwMDQxNzEzLDExOTYxOT
 Y0MzFdfQ==
 -->
+
+<div class="overlay" id="popup">
+    <div class="overlay-close">
+        <a><i class="material-icons">close</i></a>
+    </div>
+    <img class="fig" id="img">
+</div>
+
+<script>
+function zoom(obj) {
+    var popup = document.getElementById("popup");
+    var image = document.getElementById("img");
+    image.src = obj.src;
+    
+    
+    image.style.display = "block";
+    image.style.marginLeft = "auto";
+    image.style.marginRight = "auto";
+    popup.style.maxHeight = "80%";
+    popup.style.height = "80%"
+    image.style.left = "0";
+    image.style.right = "0";
+    image.style.width = "100%";
+    image.style.height = "100%";
+    
+    popup.classList.add("visible");
+}    
+</script>

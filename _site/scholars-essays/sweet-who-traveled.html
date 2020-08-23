@@ -377,7 +377,7 @@
     <h1 class="post-title">1. Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers</h1>
     <div class="" style="display: flex; justify-content: space-between">
       <div class="">
-        <p class="post-author">by Rosemary Sweet</p> 
+        <p id="Rosemary Sweet" class="post-author" style="cursor: pointer" onclick="about(this)">by Rosemary Sweet</p> 
       </div>
       <div class="paragraph">
       <!--  <span class="link-meta">Paragraph 2</span>-->
@@ -414,16 +414,15 @@
 <figure>
 
 <a name="figure-1">
-    <img src="figure-1.svg" />
+    <img class="fig" src="figure-1.svg" onclick="zoom(this)" />
 </a>
 <a name="figure-2">
-    <img src="figure-2.svg" />
+    <img class="fig" src="figure-2.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
 
 <b>Fig. 1 and 2:</b> Bar and line graphs charting the numbers of travelers by start year of travel to selected cities. The top five cities bear out many known patterns, however the addition of the next five cities complicates the picture of rising and falling traveler numbers. Note that the number of travelers has been aggregated by decade. This has been done for readability, as absent data prevents perfect continuous representation by individual year. (For another strategy, see the use of a moving average trend-line in <a href="/gt-book/scholars-essays/midura-british-arrival">Rachel Midura's essay</a>.
-<!-- Annoying workaround. Links doesn't seem to work inside figure > figcaption, so just use href. -->
 </figcaption>
 </figure>
 
@@ -438,7 +437,7 @@
 <figure>
 
 <a name="figure-3">
-    <img src="figure-3.svg" />
+    <img class="fig" src="figure-3.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -640,7 +639,7 @@
 
 <figure>
 <a name="figure-5b">
-    <img src="figure-5b.svg" />
+    <img class="fig" src="figure-5b.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -743,7 +742,7 @@
 <figure>
 
 <a name="figure-7">
-    <img src="figure-7.svg" />
+    <img class="fig" src="figure-7.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -758,7 +757,7 @@
 <figure>
 
 <a name="figure-8">
-    <img src="figure-8.svg" />
+    <img class="fig" src="figure-8.svg" onclick="zoom(this)" />
 </a>
 
 <figcaption>
@@ -784,6 +783,35 @@ I0MTcsLTE0MTE5MTAsLTkwODc2OTI5OCw2NzA0Nzc3NTEsLTEz
 NDE3MTI3MzEsLTU1NTgxODg0NSwtNjMwMDQxNzEzLDExOTYxOT
 Y0MzFdfQ==
 -->
+
+<div class="overlay" id="popup">
+    <div class="overlay-close">
+        <a><i class="material-icons">close</i></a>
+    </div>
+    <img class="fig" id="img" />
+</div>
+
+<script>
+function zoom(obj) {
+    var popup = document.getElementById("popup");
+    var image = document.getElementById("img");
+    image.src = obj.src;
+    
+    
+    image.style.display = "block";
+    image.style.marginLeft = "auto";
+    image.style.marginRight = "auto";
+    popup.style.maxHeight = "80%";
+    popup.style.height = "80%"
+    image.style.left = "0";
+    image.style.right = "0";
+    image.style.width = "100%";
+    image.style.height = "100%";
+    
+    popup.classList.add("visible");
+}    
+</script>
+
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
@@ -888,6 +916,13 @@ Y0MzFdfQ==
     </p>
   </div>
 
+  <div id="about" class="overlay">
+    <div class="overlay-close">
+      <a><i class="material-icons" onclick="hide()">close</i></a>
+    </div>
+    <b id="name"></b><span id="bio"> </span>
+  </div>
+
   <footer class="site-footer">
 
   <div class="">
@@ -906,6 +941,21 @@ Y0MzFdfQ==
 </footer>
 
 
+  <script>
+  function about(author) {
+    var about = document.getElementById("about");
+    var bio = document.getElementById("bio");
+    var name = document.getElementById("name");
+    name.innerHTML = author.id;
+    bio.innerHTML = " is a world-renowned chef and pop singer. She began work on this article over 88 years ago and has loved every minute of it. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    about.classList.toggle("visible");
+  }
+
+  function hide() {
+    var about = document.getElementById("about")
+    about.classList.remove("visible");
+  }
+  </script>
 </article>
 
         </div>

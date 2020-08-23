@@ -14,6 +14,8 @@ This is replaced with something like:
 
 # Misc
 
+A major downside to the current implementation is the use of "/gt-book" in the links... ideally, baseurl would replace these. This is a temporary workaround so that the local and Github Pages environment are compatible.
+
 Common UTF-8 Encoding Problems (https://www.i18nqa.com/debug/utf8-debug.html):
 
 â€˜ -> ' (open)

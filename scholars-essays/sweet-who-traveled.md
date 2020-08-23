@@ -14,12 +14,16 @@ My initial approach was very basic: simply looking at patterns of travel and the
 
 <figure>
 
-{figure-1}
-{figure-2}
+<a name="figure-1">
+    <img src="figure-1.svg">
+</a>
+<a name="figure-2">
+    <img src="figure-2.svg">
+</a>
 
 <figcaption>
 
-**Fig. 1 and 2:** Bar and line graphs charting the numbers of travelers by start year of travel to selected cities. The top five cities bear out many known patterns, however the addition of the next five cities complicates the picture of rising and falling traveler numbers. Note that the number of travelers has been aggregated by decade. This has been done for readability, as absent data prevents perfect continuous representation by individual year. (For another strategy, see the use of a moving average trend-line in <a href = "/gt-book/scholars-essays/midura-british-arrival">Rachel Midura's essay</a>.
+<b>Fig. 1 and 2:</b> Bar and line graphs charting the numbers of travelers by start year of travel to selected cities. The top five cities bear out many known patterns, however the addition of the next five cities complicates the picture of rising and falling traveler numbers. Note that the number of travelers has been aggregated by decade. This has been done for readability, as absent data prevents perfect continuous representation by individual year. (For another strategy, see the use of a moving average trend-line in <a href = "/gt-book/scholars-essays/midura-british-arrival">Rachel Midura's essay</a>.
 <!-- Annoying workaround. Links doesn't seem to work inside figure > figcaption, so just use href. -->
 </figcaption>
 </figure>
@@ -34,11 +38,13 @@ Numbers of visitors to all cities increased in the 1760s, but the spike for Turi
 
 <figure>
 
-{figure-3}
+<a name="figure-3">
+    <img src="figure-3.svg">
+</a>
 
 <figcaption>
 
-**Fig. 3: Number of travelers as counted by start year of travel to Turin. The graph shows the anomalous spike in numbers of travelers between 1761-1770.**
+<b>Fig. 3: Number of travelers as counted by start year of travel to Turin. The graph shows the anomalous spike in numbers of travelers between 1761-1770.</b>
 
 </figcaption>
 </figure>
@@ -51,13 +57,28 @@ Young men and foreigners, advised [Thomas Martyn (1735-1825, travel years 1779-1
 
 Analyzing visitor numbers by age indicates that, of the visitors that are known to have visited Turin, more youths were recorded here than in any other cities, such as Rome. Using their birthdates, I identified the number of travelers per decade who were between the ages of 15-25 at time of travel.[^13] This is an approximate exercise given that only around 41% of the entries have confirmed birth dates. However, it is likely that the majority of those whose birth dates are recorded would have been members of the aristocratic elite whose lives in general are so much better documented. The peaks in terms of the presence of travelers in Turin designated as "youths" based on this criteria can be related to those identified by Paola Bianchi in terms of attendance at the Accademia by British noblemen and their tutors.[^14] Bianchi's data shows that the Accademia was at its most popular amongst the British aristocratic elite during the period 1745-65, a pattern that calls for comparison with what the _Explorer_ data shows.[^15]
 
-<figure>
+<a name="figure-4"></a>
 
-{figure-4}
+| Years   | Number of British |
+| :------ | ----------------: | 
+| 1733    | 3                 |
+| 1736-40 | 15                |               
+| 1741-45 | 16                |
+| 1746-50 | 35                |
+| 1751-55 | 14                |
+| 1756-60 | 30                |
+| 1761-65 | 21                |
+| 1766-70 | 19                |
+| 1771-75 | 13                |
+| 1776-79 | 11                |
+| 1784-85 | 3                 |
+| 1786-90 | 4                 |
+
+<figure>
 
 <figcaption>
 
-**Fig. 4: Table indicating the number of recorded British travelers in Turin in residence at the Accademia. While exact ages are not given, their enrollment in this educational institution signals their youth.** Reproduced from  Bianchi, "In cerca del moderno", _Rivista Italiana,_ 1032.
+<b>Fig. 4: Table indicating the number of recorded British travelers in Turin in residence at the Accademia. While exact ages are not given, their enrollment in this educational institution signals their youth.</b> Reproduced from  Bianchi, "In cerca del moderno", <i>Rivista Italiana,</i> 1032.
 
 </figcaption>
 </figure>
@@ -66,27 +87,59 @@ The usual caveat regarding the inherent aristocratic bias of the _Dictionary_ ap
 
 The number of these 'classic' Grand Tourists (meaning elite, young men) recorded in Turin can therefore be approached as reasonably accurate. Yet it should be noted that Bianchi's data, drawn from the records of attendees at the Accademia in the Treasury archives of Turin, includes 80 names of young men, their companions and their tutors, whose presence in Turin is not recorded in the _Dictionary._. In any case--and possibly also because of the different time slicing in Bianchi (five year versus ten year intervals), there is not an exact match in peak numbers between the Explorer's data and that of Bianchi.[^16]
 
-<figure>
 
-{figure-5a}
-{figure-5b}
+
+<a name="figure-5a"> </a>
+
+Decade | Total Number of Travelers (Known Birthdate) | % = Young Men | Total Travelers to Turin | % = Young Men | Total Travelers to Rome | % = Young Men
+---|---|---|---|---|---|---
+1701-1710 | 170 | 60.59% | 35 | 40% | 181 | 32.04%
+1711-1720 | 194 | 45.36% | 74 | 29.73% | 243 | 23.87%
+1721-1730 | 223 | 43.5% | 50 | 24% | 425 | 18.82%
+1731-1740 | 280 | 48.57% | 123 | 40.65% | 395 | 22.28%
+1741-1750 | 215 | 42.79% | 50 | 36% | 191 | 27.75%
+1751-1760 | 278 | 46.4% | 91 | 45.05% | 333 | 28.53%
+1761-1770 | 382 | 46.86% | 245 | 27.35% | 454 | 25.33%
+1771-1780 | 401 | 35.41% | 123 | 20.33% | 550 | 18.18%
+1781-1790 | 353 | 31.44% | 140 | 18.57% | 566 | 13.25%
+1791-1800 | 284 | 30.28% | 86 | 17.44% | 463 | 14.04
+
+<figure>
+<a name="figure-5b">
+    <img src="figure-5b.svg">
+</a>
 
 <figcaption>
 
-**Fig. 5: Number of travelers aged 15-25 as percentage of traveler population with known birthdates by decade intervals. The subsets of Turin and Rome shows that Turin had a greater proportion of young male tourists.**
+<b>Fig. 5: Number of travelers aged 15-25 as percentage of traveler population with known birthdates by decade intervals. The subsets of Turin and Rome shows that Turin had a greater proportion of young male tourists.</b>
 
 </figcaption>
 </figure>
 
 Consideration of the age profile of travelers across the period and across the different cities confirms the model identified by John Towner, based upon his survey of around 200 examples of published travel literature. Towner argued that the high point of the typical "Grand Tour" was in the mid-eighteenth century, and began to tail off thereafter as other types of traveler (Towner's "middle classes") increased in number.[^17] The detailed picture offered by the _Explorer_ data is rather more interesting. The numbers (particularly in Rome and Naples, two of the most popular cities for which most information survives) continued to be higher than in the earlier part of the century. That said, as a proportion of the total number of travelers, the young men were becoming less significant. Meanwhile a snapshot of those whom we know to have been "middle aged" (that is between forty and fifty) shows that their numbers per decade roughly doubled over the course of the century.
 
-<figure>
 
-{figure-6}
+
+<a name="figure-6"> </a>
+
+Decade | Total Number of Travelers (Known Birthdate) | Number of Middle-Aged Men | % Middle-Aged Men
+---|---|---|---
+1701-1710 | 170 | 15 | 8.82%
+1711-1720 | 194 | 25 | 12.89%
+1721-1730 | 223 | 28 | 12.56%
+1731-1740 | 280 | 38 | 13.57%
+1741-1750 | 215 | 25 | 11.63%
+1751-1760 | 278 | 27 | 9.71%
+1761-1770 | 382 | 53 | 13.87%
+1771-1780 | 401 | 58 | 14.46%
+1781-1790 | 353 | 61 | 17.28%
+1791-1800 | 284 | 55 | 19.37%
+
+<figure>
 
 <figcaption>
 
-**Fig. 6: Number of travelers aged 40-50 as count and as percentage of traveler population with known birthdates by decade intervals.**
+<b>Fig. 6: Number of travelers aged 40-50 as count and as percentage of traveler population with known birthdates by decade intervals.</b>
 
 </figcaption>
 </figure>
@@ -97,11 +150,13 @@ Although the data will always remain frustratingly incomplete, the general trend
 
 <figure>
 
-{figure-7}
+<a name="figure-7">
+    <img src="figure-7.svg">
+</a>
 
 <figcaption>
 
-**Fig. 7:** Bar graphs charting the numbers of female travelers by decade of start year of travel, and showing an overall pattern of increasing presence of women on the Grand Tour across the century.
+<b>Fig. 7:</b> Bar graphs charting the numbers of female travelers by decade of start year of travel, and showing an overall pattern of increasing presence of women on the Grand Tour across the century.
 
 </figcaption>
 </figure>
@@ -110,11 +165,13 @@ Considering together the age profile and the numbers of women traveling—flawed
 
 <figure>
 
-{figure-8}
+<a name="figure-8">
+    <img src="figure-8.svg">
+</a>
 
 <figcaption>
 
-**Fig. 8:** Bar graph charting the numbers of men, women, and subset of young men among travelers. By 1771-1780, the number of female travelers had outpaced the number of young men.
+<b>Fig. 8:</b> Bar graph charting the numbers of men, women, and subset of young men among travelers. By 1771-1780, the number of female travelers had outpaced the number of young men.
 
 </figcaption>
 </figure>
@@ -129,13 +186,13 @@ One of the great pleasures of using the _Dictionary_ is the wealth of extraordin
 
 [^1]: Rosemary Sweet, _Cities and the Grand Tour: the British in Italy, c. 1690-1820_ (Cambridge: Cambridge University Press, 2012).
 
-[^2]: Bruce Redford, _Venice and the Grand Tour_ (New Haven: Yale University Press, 1996). See also John Brewer "Whose Grand Tour?" in, MarÃ­a Dolores SÃ¡nchez-JÃ¡uregui and Scott Wilcox, eds., _The English Prize: The Capture of the Westmorland, an Episode of the Grand Tour_ (New Haven: Yale University Press, 2012), pp. 45-61, for expanding the scope beyond the 'typical' Grand Tourists.
+[^2]: Bruce Redford, _Venice and the Grand Tour_ (New Haven: Yale University Press, 1996). See also John Brewer "Whose Grand Tour?" in, María Dolores Sánchez-Jáuregui and Scott Wilcox, eds., _The English Prize: The Capture of the Westmorland, an Episode of the Grand Tour_ (New Haven: Yale University Press, 2012), pp. 45-61, for expanding the scope beyond the 'typical' Grand Tourists.
 
 [^3]: On attitudes towards and relative popularity of the different cities see Sweet, _Cities and the Grand Tour_, chapters 2-5.
 
 [^4]: For more on shifts in transalpine travel, see the essay by Rachel Midura.
 
-[^5]: Horatio F. Brown, _Inglesi e Scozzesi all' UniversitÃ  di Padova dall' anno 1618 sino al 1765_ (Venice, 1921).
+[^5]: Horatio F. Brown, _Inglesi e Scozzesi all' Università  di Padova dall' anno 1618 sino al 1765_ (Venice, 1921).
 
 [^6]: Ingamells, _Dictionary_, p. x.
 

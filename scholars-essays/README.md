@@ -1,0 +1,1 @@
+Note: links inside figure > figcaption don't work for some reason. Just use <a href> instead.

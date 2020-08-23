@@ -18,3 +18,6 @@ The website contains very little real content but the structure and links should
 '''
 
 View the GitHub Pages site here: https://ryanctan.github.io/gt-book/.
+
+Important dev note:
+Much of the site links are hardcoded with a "/gt-book/" baseurl, which is necessary for the GitHub Pages site to work. This will need to be adapted for the final host.

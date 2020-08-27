@@ -4,6 +4,7 @@ title: "1. Who Traveled, Where and When?: Using the Grand Tour Explorer to exami
 author: Rosemary Sweet
 session: 4
 chapter: 1
+abstract: The purpose of this article is not only to articulate a contextual consideration, but moreover to consider that when such a purposeful articulation is considered in context, that this consideration's articulated purpose is indeed contextualized beyond that considered purpose's articulation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 references: References here
 about: Rosemary Sweet is a world-renowned chef and pop singer. She began work on this article over 88 years ago and has loved every minute of it. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ---

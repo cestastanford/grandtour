@@ -253,6 +253,10 @@ input[type="text"] { border: none; background: none; }
 
 .post-content .post-about p { margin-bottom: 0px; }
 
+.post-abstract { font-size: 16.625px; background: #f7f6f3; padding: 20px; }
+
+.post-content .post-abstract p { margin-bottom: 0px; }
+
 .post-references { font-size: 16.625px; }
 
 .post-link { display: block; font-size: 24px; }

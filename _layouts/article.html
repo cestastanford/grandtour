@@ -34,8 +34,18 @@ layout: default
     </div>
   </div>
 
-
   <div id="postContent" class="post-content">
+
+    <div class="">
+      {% if page.abstract %}
+      <div class="post-abstract">
+        <h3>Abstract</h3>
+        <p>{{ page.abstract }}</p>
+      </div>
+      <br>
+      {% endif %}
+    </div>
+
     {{ content }}
 
     <div class="paragraph-links">

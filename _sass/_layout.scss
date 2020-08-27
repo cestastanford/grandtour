@@ -293,6 +293,16 @@ input[type="text"] {
   margin-bottom: 0px;
 }
 
+.post-abstract {
+  font-size: $small-font-size;
+  background: #f7f6f3;
+  padding: 20px;
+}
+
+.post-content .post-abstract p {
+  margin-bottom: 0px;
+}
+
 .post-references {
   font-size: $small-font-size;
 }

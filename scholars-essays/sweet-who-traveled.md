@@ -16,6 +16,8 @@ My initial approach was very basic: simply looking at patterns of travel and the
 <a name="figure-1">
     <img class="fig" src="figure-1.svg" onclick="zoom(this)">
 </a>
+<br>
+<br>
 <a name="figure-2">
     <img class="fig" src="figure-2.svg" onclick="zoom(this)">
 </a>

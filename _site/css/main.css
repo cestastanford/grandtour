@@ -311,6 +311,9 @@ article { margin: 0 auto; max-width: 680px; padding: 60px 20px 0px 20px; }
 
 .footnotes { font-size: 16.625px; }
 
+/* Jumping to footnote link adjusts for header size */
+html { scroll-padding-top: 100px; }
+
 #buttonTop { display: none; position: fixed; bottom: 0px; right: 40px; padding: 10px 20px; background: #eee; cursor: pointer; font-size: 16px; flex-direction: column; align-items: center; }
 
 /* Table style from default design found at https://codepen.io/tomhodgins/pen/QEwvEK */

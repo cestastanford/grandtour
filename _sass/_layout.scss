@@ -507,6 +507,11 @@ input[type="text"] {
   font-size: $small-font-size;
 }
 
+/* Jumping to footnote link adjusts for header size */
+html {
+  scroll-padding-top: 100px;
+}
+
 #buttonTop {
   display: none;
   position: fixed;

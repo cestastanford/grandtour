@@ -276,7 +276,9 @@ article { margin: 0 auto; max-width: 680px; padding: 60px 20px 0px 20px; }
 .post-title { font-family: "Source Serif Pro", serif; font-size: 2.2em; margin: 0.4em 0; line-height: 1.2; }
 @media screen and (max-width: 680px) { .post-title { font-size: 36px; } }
 
-.post-author { color: #AA8C00; font-size: 1.2em; line-height: 1; }
+.post-author { color: #AA8C00; font-size: 1.2em; line-height: 1; cursor: pointer; }
+
+.post-author:hover { color: #5e4d00; }
 
 .post-content { font-family: "Source Serif Pro", serif; margin-bottom: 30px; position: relative; }
 .post-content p { position: relative; margin-bottom: 30px; }

@@ -380,6 +380,11 @@ input[type="text"] {
     color: $gold-color;
     font-size: 1.2em;
     line-height: 1;
+    cursor: pointer; 
+}
+
+.post-author:hover {
+    color: darken($gold-color, 15%);
 }
 
 .post-content {

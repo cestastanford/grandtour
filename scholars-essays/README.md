@@ -1,3 +1,9 @@
+# References and About
+
+Near the end of article.html is a section involving page.references and page.about. I've decided to instead edit each .md file individually.
+For references, just add a <h3> before the footnotes of the .md file. The about should be filled in later by editing the .md's about section
+at the top. See Sweet article for example.
+
 # Figures
 
 Links inside figure > figcaption don't work for some reason. Just use <a href> instead.

@@ -14,10 +14,12 @@ My initial approach was very basic: simply looking at patterns of travel and the
 <figure>
 
 <a name="figure-1">
-    <img class="fig" src="figure-1.svg" onclick="zoom(this)">
+    <img id="fig1" class="fig" src="figure-1.svg" onclick="zoom(this, getElementById('fig2'))">
 </a>
+<br>
+<br>
 <a name="figure-2">
-    <img class="fig" src="figure-2.svg" onclick="zoom(this)">
+    <img id="fig2" class="fig" src="figure-2.svg" onclick="zoom(getElementById('fig1'), this)">
 </a>
 
 <figcaption>
@@ -241,25 +243,43 @@ Y0MzFdfQ==
         <a><i class="material-icons">close</i></a>
     </div>
     <img class="fig" id="img">
+    <img class="fig" id="img2">
 </div>
 
 <script>
-function zoom(obj) {
+function zoom(obj, obj2) {
     var popup = document.getElementById("popup");
+    popup.style.maxHeight = "80%";
+    popup.style.height = "80%"
     var image = document.getElementById("img");
+    var image2 = document.getElementById("img2");
+        
     image.src = obj.src;
-    
-    
     image.style.display = "block";
     image.style.marginLeft = "auto";
     image.style.marginRight = "auto";
-    popup.style.maxHeight = "80%";
-    popup.style.height = "80%"
     image.style.left = "0";
     image.style.right = "0";
     image.style.width = "100%";
     image.style.height = "100%";
-    
-    popup.classList.add("visible");
+
+    image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
+
+    if (obj2 != undefined) { // Figure 1 & 2 are paired
+        image.style.float = "left";
+        image.style.width = "50%";
+
+        image2.src = obj2.src;
+        
+        image2.style.display = "block";
+        image2.style.marginLeft = "auto";
+        image2.style.marginRight = "auto";
+        image2.style.left = "0";
+        image2.style.right = "0";
+        image2.style.float = "left";
+        image2.style.width = "50%";
+        image2.style.height = "100%";
+    }   
+    popup.classList.add("visible"); 
 }    
 </script>

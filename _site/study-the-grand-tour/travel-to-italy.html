@@ -42,7 +42,8 @@
 
             <div class="search-box">
               <i class="material-icons">search</i>
-              <input type="text" id="search-input" placeholder="Search">
+              <input type="text" id="search-input" placeholder="Search...">
+              <ul class="results-container" id="results-container"></ul>
             </div>
 
 
@@ -568,7 +569,6 @@
   window.addEventListener("scroll",scrollFunction)
 
   function scrollFunction() {
-    console.log("babab")
     if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
       mybutton.style.display = "flex";
     } else {
@@ -585,6 +585,10 @@
 </script>
 
 
+  <script src="/gt-book/js/search-script.js" type="text/javascript"></script>
+
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+
   <script>
     function toggleChapters(session_loop) {
       chapters = document.getElementById(session_loop);
@@ -594,6 +598,12 @@
         chapters.style.display = "none";
       }
     }
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('results-container'),
+      json: '/gt-book/search.json'
+    });
   </script>
     
   </body>

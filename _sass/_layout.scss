@@ -170,6 +170,15 @@ a.site-title{
   margin-bottom: 20px;
 }
 
+.results-container {
+  position: relative;
+  right: 85px;
+  list-style-type: none;
+}
+
+.results-container li {
+  margin: 0 0 10px 0;
+}
 
 input[type="text"] {
   border: none;

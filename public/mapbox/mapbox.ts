@@ -8,25 +8,19 @@ import { find } from "lodash";
 interface IFeature {
   id: Number,
   layer: any,
+  type: string,
   properties: {
-    "18thcentury state": string,
-    "COORDINATE NOTES": string,
-    "COORDINATE SOURCE": string,
-    "COUNTRY": string,
-    "COUNTRY CODE": string,
-    "GEONAME ID": string,
-    "Italy": string,
-    "PLACE": string,
-    "REGION": string,
-    "WIKIDATA ID": string,
-    "complete current name": string,
-    "notes": string,
+    "id": number,
     "place": string,
+    "latitude": number,
+    "longitude": number,
+    "cc_count": number,
+    "cc_class": number,
+    "GTE_States_18thcentury state": string
   },
   source: string,
   sourceLayer: string,
   state: {}
-  type: string,
   geometry: {
     type: string,
     coordinates: [number, number]
@@ -53,7 +47,7 @@ function init() {
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
   let map = new mapboxgl.Map({
     container: 'map',
-    style: require('./styles.json'),
+    style: require('./style.json'),
     center: [13, 41],
     zoom: 4.6,
   });
@@ -81,18 +75,16 @@ function init() {
     { name: 'Tyrol', color: '#fdde86' },
   ];
 
-  let popular = new Set();
-  popular.add("Bologna");
-  popular.add("Florence");
-  popular.add("Leghorn");
-  popular.add("Milan");
-  popular.add("Naples");
-  popular.add("Padua");
-  popular.add("Rome");
-  popular.add("Turin");
-  popular.add("Venice");
+  let lowerCaseAlternate = new Map();
+    lowerCaseAlternate["aix in savoy"] = "aix";
+    lowerCaseAlternate["antium"] = "anzio";
+    lowerCaseAlternate["cuma"] = "cumae";
+    lowerCaseAlternate["leghorn"] = "livorno";
+    lowerCaseAlternate["pola in istria"] = "pola";
+    lowerCaseAlternate["roverodo"] = "rovereto";
+    lowerCaseAlternate["trent"] = "trento";
+    lowerCaseAlternate["the veneto"] = "veneto";
   
-
   const search = <HTMLInputElement>document.getElementById("searchbar");
   const states = document.getElementById('states');
 
@@ -101,14 +93,22 @@ function init() {
   function searchMap() {
     var rawInput = search.value;
     var input = rawInput.toLowerCase();
-    var found = points.filter(point => point.feature.properties['PLACE'].toLowerCase() === input);
+
+    // check if alternate name, and if so change it
+    if (input in lowerCaseAlternate) {
+      input = lowerCaseAlternate[input];
+    }
+
+    var found = points.filter(point => point.feature.properties['place'].toLowerCase() === input);
     if (found.length < 1) {
       window.alert("Could not find \"" + rawInput + "\".");
       return;
     }
     let location = found[0];
     var coordinates = location.feature.geometry.coordinates;
-    showLabel(location);
+    if (!location.showLabel) {
+      showLabel(location);
+    }
     map.flyTo({
       // These options control the ending camera position: centered at
       // the target, at zoom level 9, and north up.
@@ -132,6 +132,7 @@ function init() {
       essential: true
       });
   }
+
   /*
    * Called to select an unselected place. When passed a feature and a place's
    * button, a popup is created at that feature.
@@ -169,18 +170,17 @@ function init() {
    * When given a state, all of its points are returned.
    */
   function getStatePoints(state) {
-    return points.filter(point => point.feature.properties['18thcentury state'] === state.name);
+    return points.filter(point => point.feature.properties['GTE_States_18thcentury state'] === state.name);
   }
 
   function getState(point: IPoint): IState {
-    return find(stateElements, e => e.name === point.feature.properties['18thcentury state']);
+    return find(stateElements, e => e.name === point.feature.properties['GTE_States_18thcentury state']);
   }
 
   function setFeatureState(point: IPoint, state) {
     map.setFeatureState({
       source: "composite",
-      sourceLayer: "missing_coordinates_GTE_-_final_",
-      id: point.feature.id
+      sourceLayer: "mytileset-2bl2sr",
     }, state);
   }
 
@@ -193,11 +193,10 @@ function init() {
   }
 
   /*
-   * Triggers once map is ready to be interacted with. Sets up buttons for each location, allowing one to select and deselect places, 
-   * displaying or hiding their popups.
+   * Triggers once map is ready to be interacted with.
    */
   map.once('load', function () {
-    map.on('mouseover', 'missing-coordinates-gte-final', function (e) {
+    map.on('mouseover', 'mytileset-2bl2sr', function (e) {
       if (!e.features || !e.features.length) return;
       map.getCanvas().style.cursor = 'pointer';
       let point = getPoint(e.features[0]);
@@ -217,7 +216,7 @@ function init() {
     });
 
     // hovering off point hides hover popup
-    map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
+    map.on('mouseout', 'mytileset-2bl2sr', function (e) {
       map.getCanvas().style.cursor = '';
       for (let point of points) {
         if (point.showLabel && point.wasHovered) {
@@ -226,16 +225,11 @@ function init() {
       }
     });
 
-    points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] }).map(e => ({
+    points = map.queryRenderedFeatures({ layers: ['mytileset-2bl2sr'] }).map(e => ({ // notice the lowercase t
       feature: e
     }));
     points.forEach((point) => {
-      if (popular.has(point.feature.properties['place'])) {
-        showLabel(point);
-        //setFeatureState(point, { showLabel: true });
-      } else {
-        setFeatureState(point, { showLabel: false }); // hide labels
-      }
+      setFeatureState(point, { showLabel: false }); // hide labels
     });
 
     stateElements.forEach(stateElement => {

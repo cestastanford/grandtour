@@ -176,20 +176,20 @@ function init() {
   }
 
   function showAllLabels(classes) {
-    classes.forEach((points) => {
-      points.forEach((point) => {
-        if (contains(map.getBounds(), point.feature.geometry.coordinates)) {
-          showLabel(point);
+    classes.forEach((pts) => {
+      pts.forEach((pt) => {
+        if (contains(map.getBounds(), pt.feature.geometry.coordinates)) {
+          showLabel(pt);
         }
       })
     })
   }
 
   function hideAllLabels(classes) {
-    classes.forEach((points) => {
-      points.forEach((point) => {
-        if (contains(map.getBounds(), point.feature.geometry.coordinates)) {
-          hideLabel(point);
+    classes.forEach((pts) => {
+      pts.forEach((pt) => {
+        if (contains(map.getBounds(), pt.feature.geometry.coordinates)) {
+          hideLabel(pt);
         }
       })
     })
@@ -245,6 +245,7 @@ function init() {
       let zoom = map.getZoom();
       let show = []
       let hide = []
+
       if (zoom >= 9.1) {
         show = [class6, class5, class4, class3, class2, class1]; // reverse order displays most important on top
       } else if (zoom >= 8.0) {

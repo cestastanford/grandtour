@@ -270,10 +270,6 @@ function init() {
       hideAllLabels(hide);
     });
 
-    // points.forEach((point) => {
-    //   setFeatureState(point, { showLabel: false }); // hide labels
-    // });
-
     stateElements.forEach(stateElement => {
       let button = document.createElement('div');
       let color = document.createElement('div');

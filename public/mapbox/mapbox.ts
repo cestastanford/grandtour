@@ -88,7 +88,7 @@ function init() {
   const search = <HTMLInputElement>document.getElementById("searchbar");
   const states = document.getElementById('states');
 
-  search.addEventListener("search", searchMap)
+  search.addEventListener("search", searchMap);
 
   function searchMap() {
     var rawInput = search.value;
@@ -106,9 +106,6 @@ function init() {
     }
     let location = found[0];
     var coordinates = location.feature.geometry.coordinates;
-    if (!location.showLabel) {
-      showLabel(location);
-    }
     map.flyTo({
       // These options control the ending camera position: centered at
       // the target, at zoom level 9, and north up.
@@ -143,7 +140,8 @@ function init() {
     if (!state) return;
     const color = state.color;
     point.selectedPopup = new mapboxgl.Popup({
-      offset: [0, -10],
+      offset: [-10, 0],
+      anchor: 'center',
       closeButton: false,
       closeOnClick: false
     })
@@ -166,71 +164,114 @@ function init() {
     point.selected = false;
   }
 
-  /*
-   * When given a state, all of its points are returned.
-   */
-  function getStatePoints(state) {
-    return points.filter(point => point.feature.properties['GTE_States_18thcentury state'] === state.name);
-  }
-
   function getState(point: IPoint): IState {
     return find(stateElements, e => e.name === point.feature.properties['GTE_States_18thcentury state']);
   }
 
-  function setFeatureState(point: IPoint, state) {
-    map.setFeatureState({
-      source: "composite",
-      sourceLayer: "mytileset-2bl2sr",
-    }, state);
+  /* This function theoretically exists in MapBox but it kept failing. */
+  function contains(outer, inner) {
+    let lng = inner[0];
+    let lat = inner[1];
+    return outer.getWest() <= lng && lng <= outer.getEast() && outer.getSouth() <= lat && lat <= outer.getNorth();
   }
 
-  function getPoint(feature: IFeature) {
-    const point = find(points, e => e.feature.properties.place === feature.properties.place);
-    if (!point) {
-      console.error("point with place " + feature.properties.place + " not found");
-    }
-    return point;
+  function showAllLabels(classes) {
+    classes.forEach((points) => {
+      points.forEach((point) => {
+        if (contains(map.getBounds(), point.feature.geometry.coordinates)) {
+          showLabel(point);
+        }
+      })
+    })
+  }
+
+  function hideAllLabels(classes) {
+    classes.forEach((points) => {
+      points.forEach((point) => {
+        if (contains(map.getBounds(), point.feature.geometry.coordinates)) {
+          hideLabel(point);
+        }
+      })
+    })
   }
 
   /*
    * Triggers once map is ready to be interacted with.
    */
   map.once('load', function () {
-    map.on('mouseover', 'mytileset-2bl2sr', function (e) {
-      if (!e.features || !e.features.length) return;
-      map.getCanvas().style.cursor = 'pointer';
-      let point = getPoint(e.features[0]);
-      if (!point) return;
-      if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
-        point.wasHovered = true;
-        showLabel(point);
-      }
+    // map.on('mouseover', 'mytileset-2bl2sr', function (e) {
+    //   if (!e.features || !e.features.length) return;
+    //   map.getCanvas().style.cursor = 'pointer';
+    //   let point = getPoint(e.features[0]);
+    //   if (!point) return;
+    //   if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
+    //     point.wasHovered = true;
+    //     showLabel(point);
+    //   }
 
-      // Hide hover labels from other points.
-      points.filter(point => (point.feature.properties.place !== e.features[0].properties.place) &&
-        point.wasHovered &&
-        point.showLabel
-      ).forEach(point => {
-        hideLabel(point);
-      });
-    });
+    //   // Hide hover labels from other points.
+    //   points.filter(point => (point.feature.properties.place !== e.features[0].properties.place) &&
+    //     point.wasHovered &&
+    //     point.showLabel
+    //   ).forEach(point => {
+    //     hideLabel(point);
+    //   });
+    // });
 
     // hovering off point hides hover popup
-    map.on('mouseout', 'mytileset-2bl2sr', function (e) {
-      map.getCanvas().style.cursor = '';
-      for (let point of points) {
-        if (point.showLabel && point.wasHovered) {
-          hideLabel(point);
-        }
+    // map.on('mouseout', 'mytileset-2bl2sr', function (e) {
+    //   map.getCanvas().style.cursor = '';
+    //   for (let point of points) {
+    //     if (point.showLabel && point.wasHovered) {
+    //       hideLabel(point);
+    //     }
+    //   }
+    // });
+
+    points = map.queryRenderedFeatures({ layers: ['mytileset-2bl2sr'] /* lowercase t */ }).map(e => ({
+      feature: e
+    }));;
+    var class1 = points.filter(point => point.feature.properties['cc_class'] === 1);
+    var class2 = points.filter(point => point.feature.properties['cc_class'] === 2);
+    var class3 = points.filter(point => point.feature.properties['cc_class'] === 3);
+    var class4 = points.filter(point => point.feature.properties['cc_class'] === 4);
+    var class5 = points.filter(point => point.feature.properties['cc_class'] === 5);
+    var class6 = points.filter(point => point.feature.properties['cc_class'] === 6);
+
+    // only class 1 shows at start
+    showAllLabels([class1]);
+
+    map.on('zoom', function() {
+      let zoom = map.getZoom();
+      let show = []
+      let hide = []
+      if (zoom >= 9.1) {
+        show = [class6, class5, class4, class3, class2, class1]; // reverse order displays most important on top
+      } else if (zoom >= 8.0) {
+        show = [class5, class4, class3, class2, class1];
+        hide = [class6];
+      } else if (zoom >= 6.9) {
+        show = [class4, class3, class2, class1];
+        hide = [class5, class6];
+      } else if (zoom >= 5.8) {
+        show = [class3, class2, class1];
+        hide = [class4, class5, class6];
+      } else if (zoom >= 4.7) {
+        show = [class2, class1];
+        hide = [class3, class4, class5, class6];
+      } else if (zoom >= 3.6) {
+        show = [class1];
+        hide = [class2, class3, class4, class5, class6];
+      } else {
+        hide = [class1, class2, class3, class4, class5, class6];
       }
+      showAllLabels(show);
+      hideAllLabels(hide);
     });
 
-    points = map.queryRenderedFeatures({ layers: ['mytileset-2bl2sr'] }).map(e => ({ // notice the lowercase t
-      feature: e
-    }));
-    points.forEach((point) => {
-      setFeatureState(point, { showLabel: false }); // hide labels
-    });
+    // points.forEach((point) => {
+    //   setFeatureState(point, { showLabel: false }); // hide labels
+    // });
 
     stateElements.forEach(stateElement => {
       let button = document.createElement('div');

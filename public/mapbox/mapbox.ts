@@ -55,8 +55,7 @@ function init() {
   let points: IPoint[] = [];
 
   /*
-   * Sets up states interaction. Places comprise states, such that every place has a state it belongs to. Clicking a state button will toggle
-   * all of its corresponding places.
+   * Sets up states interaction. Places comprise states, such that every place has a state it belongs to.
    */
   let stateElements: IState[] = [
     { name: 'Papal States', color: '#a879af' },
@@ -75,6 +74,7 @@ function init() {
     { name: 'Tyrol', color: '#fdde86' },
   ];
 
+  /* For use in Search */
   let lowerCaseAlternate = new Map();
     lowerCaseAlternate["aix in savoy"] = "aix";
     lowerCaseAlternate["antium"] = "anzio";
@@ -131,8 +131,7 @@ function init() {
   }
 
   /*
-   * Called to select an unselected place. When passed a feature and a place's
-   * button, a popup is created at that feature.
+   * Called to make a popup with a label appear for a given point.
    */
   function showLabel(point: IPoint) {
     if (point.showLabel) return;
@@ -152,7 +151,7 @@ function init() {
   }
 
   /*
-   * Called to deselect a selected place. When passed its button, the button is relocated and the popup is removed.
+   * Called to hide a point's label.
    */
   function hideLabel(point: IPoint) {
     if (point.selectedPopup) {
@@ -164,6 +163,7 @@ function init() {
     point.selected = false;
   }
 
+  /* Returns the corresponding state of a point */
   function getState(point: IPoint): IState {
     return find(stateElements, e => e.name === point.feature.properties['GTE_States_18thcentury state']);
   }
@@ -175,6 +175,7 @@ function init() {
     return outer.getWest() <= lng && lng <= outer.getEast() && outer.getSouth() <= lat && lat <= outer.getNorth();
   }
 
+  /* When passed an array of arrays of points, those points' labels are shown */
   function showAllLabels(classes) {
     classes.forEach((pts) => {
       pts.forEach((pt) => {
@@ -185,6 +186,7 @@ function init() {
     })
   }
 
+  /* When passed an array of arrays of points, those points' labels are hidden */
   function hideAllLabels(classes) {
     classes.forEach((pts) => {
       pts.forEach((pt) => {
@@ -231,6 +233,7 @@ function init() {
     points = map.queryRenderedFeatures({ layers: ['mytileset-2bl2sr'] /* lowercase t */ }).map(e => ({
       feature: e
     }));;
+    /* Points ranked by popularity among travelers */
     var class1 = points.filter(point => point.feature.properties['cc_class'] === 1);
     var class2 = points.filter(point => point.feature.properties['cc_class'] === 2);
     var class3 = points.filter(point => point.feature.properties['cc_class'] === 3);
@@ -270,6 +273,7 @@ function init() {
       hideAllLabels(hide);
     });
 
+    /* Creates legend */
     stateElements.forEach(stateElement => {
       let button = document.createElement('div');
       let color = document.createElement('div');

@@ -302,6 +302,16 @@ input[type="text"] {
   margin-bottom: 0px;
 }
 
+.post-abstract {
+  font-size: $small-font-size;
+  background: #f7f6f3;
+  padding: 20px;
+}
+
+.post-content .post-abstract p {
+  margin-bottom: 0px;
+}
+
 .post-references {
   font-size: $small-font-size;
 }
@@ -389,6 +399,11 @@ input[type="text"] {
     color: $gold-color;
     font-size: 1.2em;
     line-height: 1;
+    cursor: pointer; 
+}
+
+.post-author:hover {
+    color: darken($gold-color, 15%);
 }
 
 .post-content {
@@ -509,6 +524,11 @@ input[type="text"] {
 
 .footnotes {
   font-size: $small-font-size;
+}
+
+/* Jumping to footnote link adjusts for header size */
+html {
+  scroll-padding-top: 100px;
 }
 
 #buttonTop {

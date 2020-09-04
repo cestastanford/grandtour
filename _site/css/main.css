@@ -257,6 +257,10 @@ input[type="text"] { border: none; background: none; }
 
 .post-content .post-about p { margin-bottom: 0px; }
 
+.post-abstract { font-size: 16.625px; background: #f7f6f3; padding: 20px; }
+
+.post-content .post-abstract p { margin-bottom: 0px; }
+
 .post-references { font-size: 16.625px; }
 
 .post-link { display: block; font-size: 24px; }
@@ -280,7 +284,9 @@ article { margin: 0 auto; max-width: 680px; padding: 60px 20px 0px 20px; }
 .post-title { font-family: "Source Serif Pro", serif; font-size: 2.2em; margin: 0.4em 0; line-height: 1.2; }
 @media screen and (max-width: 680px) { .post-title { font-size: 36px; } }
 
-.post-author { color: #AA8C00; font-size: 1.2em; line-height: 1; }
+.post-author { color: #AA8C00; font-size: 1.2em; line-height: 1; cursor: pointer; }
+
+.post-author:hover { color: #5e4d00; }
 
 .post-content { font-family: "Source Serif Pro", serif; margin-bottom: 30px; position: relative; }
 .post-content p { position: relative; margin-bottom: 30px; }
@@ -312,6 +318,9 @@ article { margin: 0 auto; max-width: 680px; padding: 60px 20px 0px 20px; }
 .overlay-close { position: absolute; top: 30px; right: 30px; }
 
 .footnotes { font-size: 16.625px; }
+
+/* Jumping to footnote link adjusts for header size */
+html { scroll-padding-top: 100px; }
 
 #buttonTop { display: none; position: fixed; bottom: 0px; right: 40px; padding: 10px 20px; background: #eee; cursor: pointer; font-size: 16px; flex-direction: column; align-items: center; }
 

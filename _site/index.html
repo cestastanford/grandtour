@@ -33,7 +33,12 @@
     <div class="" style="display: flex; padding-bottom: 60px;">
       <div class="" style="max-width: 500px; padding-top: 0px">
         <span class="site-description" style="margin-left: 20px;">The Digital Grand Tour</span>
-        <h2 class="cover-title">A World Made by Travel</h2>
+        <h2 class="cover-title">A World Made by Travel 
+          <span class="icons">
+            <i id="cite" onmouseover="onHover()" onmouseout="offHover()" class="material-icons link-cite hide" aria-label="Cite the book" data-balloon-pos="left">format_quote</i>
+            <i id="link" onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide" aria-label="Copy link to book" data-balloon-pos="left">link</i>
+          </span> 
+      </h2>
         <span class="cover-author" style="margin-left: 80px;">Giovanna Ceserani</span>
       </div>
       <div class="cover-intro">
@@ -54,6 +59,46 @@
 
 </header>
 
+<script>
+
+var timer;
+var cite = document.getElementById("cite");
+var link = document.getElementById("link");
+
+var iconsAreHovered = false;
+
+/* Icons to cite and link appear when mouse moves over window. While icons are hovered over, neither will disappear. */
+
+function showIcons() {
+  cite.classList.add("show");
+  link.classList.add("show");
+
+  clearTimeout(timer); 
+  timer=setTimeout(hideIcons,1000); // when mouse has stopped, hide icons
+}
+
+function hideIcons() {
+  if (!iconsAreHovered) {
+    cite.classList.remove("show");
+    link.classList.remove("show");
+    cite.classList.add("hide");
+    link.classList.add("hide");
+  }
+}
+
+function onHover() {
+  iconsAreHovered = true;
+  showIcons();
+}
+
+function offHover() {
+  iconsAreHovered = false;
+  clearTimeout(timer); 
+  timer=setTimeout(hideIcons,1000);
+}
+
+window.addEventListener("mousemove", showIcons);
+</script>
 
       <div class="page-content">
         <div class="wrapper">

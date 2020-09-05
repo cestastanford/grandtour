@@ -175,6 +175,10 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .material-icons:hover { opacity: 1; }
 
+.hide { opacity: 0; transition: opacity 0.2s linear; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; -o-transition: opacity 0.2s linear; }
+
+.show { opacity: .7; transition: opacity 0.2s linear; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; -o-transition: opacity 0.2s linear; }
+
 /** Site cover */
 .site-cover { background: url(../assets/background.png); display: flex; height: 100vh; align-items: center; justify-content: center; }
 

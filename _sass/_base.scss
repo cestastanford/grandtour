@@ -223,3 +223,18 @@ pre {
 .material-icons:hover {
   opacity: 1;
 }
+
+.hide {
+    opacity: 0;
+    transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+}
+.show {
+    opacity: .7; // material-icons opacity
+    transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+}

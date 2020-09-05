@@ -14,6 +14,8 @@ at the top. See Sweet article for example.
 
 # Figures
 
+We want some spacing between the main text and the figures. Put a <br> before and after the <figure> tag.
+
 Links inside figure > figcaption don't work for some reason. Just use <a href> instead.
 Neither does bolding as in **Fig. 1** or Italics as in _Explorer_. Use <b> and <i>.
 

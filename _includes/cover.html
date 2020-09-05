@@ -6,9 +6,9 @@
       <div class="" style="max-width: 500px; padding-top: 0px">
         <span class="site-description" style="margin-left: 20px;">The Digital Grand Tour</span>
         <h2 class="cover-title">{{ site.title }} 
-          <span class="icons">
-            <i id="cite" onmouseover="onHover()" onmouseout="offHover()" class="material-icons link-cite hide" aria-label="Cite the book" data-balloon-pos="left">format_quote</i>
-            <i id="link" onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide" aria-label="Copy link to book" data-balloon-pos="left">link</i>
+          <span>
+            <i onmouseover="onHover()" onmouseout="offHover()" class="material-icons link-cite hide home-icons" aria-label="Cite the book" data-balloon-pos="left">format_quote</i>
+            <i onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide home-icons" aria-label="Copy link to book" data-balloon-pos="left">link</i>
           </span> 
       </h2>
         <span class="cover-author" style="margin-left: 80px;">Giovanna Ceserani</span>
@@ -34,16 +34,17 @@
 <script>
 
 var timer;
-var cite = document.getElementById("cite");
-var link = document.getElementById("link");
+var homeIcons = document.getElementsByClassName("home-icons");
 
 var iconsAreHovered = false;
 
 /* Icons to cite and link appear when mouse moves over window. While icons are hovered over, neither will disappear. */
 
 function showIcons() {
-  cite.classList.add("show");
-  link.classList.add("show");
+  for (let i = 0; i < homeIcons.length; i++) {
+    homeIcons[i].classList.remove("hide");
+    homeIcons[i].classList.add("show");
+  }
 
   clearTimeout(timer); 
   timer=setTimeout(hideIcons,1000); // when mouse has stopped, hide icons
@@ -51,10 +52,10 @@ function showIcons() {
 
 function hideIcons() {
   if (!iconsAreHovered) {
-    cite.classList.remove("show");
-    link.classList.remove("show");
-    cite.classList.add("hide");
-    link.classList.add("hide");
+    for (let i = 0; i < homeIcons.length; i++) {
+      homeIcons[i].classList.remove("show");
+      homeIcons[i].classList.add("hide");
+    }
   }
 }
 

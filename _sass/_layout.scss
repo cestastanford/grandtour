@@ -548,7 +548,7 @@ html {
 
 /* Center tables for demo */
 table {
-  margin: 0 auto;
+  margin: 0 $spacing-unit -40px;
 }
 
 /* Default Table Style */

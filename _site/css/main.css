@@ -122,6 +122,8 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure { margin-bottom: 
 img { max-width: 100%; vertical-align: middle; }
 
 /** Figures */
+figure { margin: 50px 30px; }
+
 figure > img { display: block; }
 
 figcaption { font-size: 16.625px; }
@@ -330,7 +332,7 @@ html { scroll-padding-top: 100px; }
 
 /* Table style from default design found at https://codepen.io/tomhodgins/pen/QEwvEK */
 /* Center tables for demo */
-table { margin: 0 auto; }
+table { margin: 0 30px -40px; }
 
 /* Default Table Style */
 table { color: #333; background: white; border: 1px solid grey; font-size: 12pt; border-collapse: collapse; }

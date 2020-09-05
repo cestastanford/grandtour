@@ -57,6 +57,11 @@ img {
 /**
  * Figures
  */
+
+figure {
+    margin: 50px $spacing-unit;
+}
+
 figure > img {
     display: block;
 }

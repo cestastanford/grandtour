@@ -14,8 +14,6 @@ at the top. See Sweet article for example.
 
 # Figures
 
-We want some spacing between the main text and the figures. Put a <br> before and after the <figure> tag.
-
 Links inside figure > figcaption don't work for some reason. Just use <a href> instead.
 Neither does bolding as in **Fig. 1** or Italics as in _Explorer_. Use <b> and <i>.
 
@@ -26,7 +24,7 @@ This is replaced with something like:
         <img src="figure-1.svg">
     </a>
 
-.md files are pasted in directly OUTSIDE of the <figure> tag. Requires columns to have three hyphens, possibly add colons for alignment. Also requires blank line above heading. See sweet essay for example. Note: Copied table style from online, can be edited in _layout.scss
+Tables as .md files are pasted in directly OUTSIDE of the <figure> tag. Requires columns to have three hyphens, possibly add colons for alignment. Also requires blank line above heading. See sweet essay for example. Note: Copied table style from online, can be edited in _layout.scss
 
 # Misc
 

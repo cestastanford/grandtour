@@ -1,3 +1,5 @@
+This document details further adaptations to make Markdown files appear properly on the website.
+
 # General
 
 A major downside to the current implementation is the use of "/gt-book" in the links... ideally, baseurl would replace these. This is a temporary workaround so that the local and Github Pages environment are compatible.
@@ -12,7 +14,9 @@ Near the end of article.html is a section involving page.references and page.abo
 For references, just add a <h3> before the footnotes of the .md file. The about should be filled in later by editing the .md's about section
 at the top. See Sweet article for example.
 
-# Figures
+# Figures and Links
+
+External links (Explorer and Book, but not figure links) need to open in a new tab. Use this format: [text that appears in body](link/to/book/or/explorer){:target="_blank"}
 
 Links inside figure > figcaption don't work for some reason. Just use <a href> instead.
 Neither does bolding as in **Fig. 1** or Italics as in _Explorer_. Use <b> and <i>.

@@ -1057,24 +1057,34 @@ function zoom(obj, obj2, caption) {
     document.getElementsByClassName("overlay")[0].classList.remove("visible");
   })
 
+  let pNum = 1;
   //paragraphs.onmousemove = handler;
   for (let p of paragraphs) {
-    var cln = links.cloneNode(true);
+    var children = p.childNodes;
+    var parent = p.parentElement;
 
-    p.appendChild(cln);
+    if (children[0] && children[0].nodeName != "A" && parent.nodeName != "LI" && parent.className != "post-abstract" && parent.className != "post-about" && parent.className != "paragraph-link") { // exclude tables, non-body paragraphs
+      let label = links.childNodes[1];
+      label.innerHTML = "Par. " + pNum;
+      pNum++;
 
-    cln.style.height = p.offsetHeight + "px";
+      var cln = links.cloneNode(true);
+
+      p.appendChild(cln);
+
+      cln.style.height = p.offsetHeight + "px";
 
 
-    /*p.addEventListener("mouseover", function(e){
-        var links = p.getElementById("paragraphLinks");
-        links.classList.add("visible");
-    })
+      /*p.addEventListener("mouseover", function(e){
+          var links = p.getElementById("paragraphLinks");
+          links.classList.add("visible");
+      })
 
-    p.addEventListener("mouseout", function(e){
-        var links = p.getElementById("paragraphLinks");
-        links.classList.remove("visible");
-    })*/
+      p.addEventListener("mouseout", function(e){
+          var links = p.getElementById("paragraphLinks");
+          links.classList.remove("visible");
+      })*/
+    }
   }
 
   var ls = document.getElementsByClassName("link-cite");

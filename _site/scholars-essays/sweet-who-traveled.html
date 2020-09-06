@@ -425,17 +425,17 @@
 <figure>
 
 <a name="figure-1">
-    <img id="fig1" class="fig" src="figure-1.svg" onclick="zoom(this, getElementById('fig2'))" />
+    <img id="fig1" class="fig" src="figure-1.svg" onclick="zoom(this, getElementById('fig2'), getElementById('cap12'))" />
 </a>
 <br />
 <br />
 <a name="figure-2">
-    <img id="fig2" class="fig" src="figure-2.svg" onclick="zoom(getElementById('fig1'), this)" />
+    <img id="fig2" class="fig" src="figure-2.svg" onclick="zoom(getElementById('fig1'), this, getElementById('cap12'))" />
 </a>
 
-<figcaption>
+<figcaption id="cap12">
 
-<b>Fig. 1 and 2:</b> Bar and line graphs charting the numbers of travelers by start year of travel to selected cities. The top five cities bear out many known patterns, however the addition of the next five cities complicates the picture of rising and falling traveler numbers. Note that the number of travelers has been aggregated by decade. This has been done for readability, as absent data prevents perfect continuous representation by individual year. (For another strategy, see the use of a moving average trend-line in <a href="/gt-book/scholars-essays/midura-british-arrival">Rachel Midura's essay</a>.
+<b>Fig. 1 and 2:</b> Bar and line graphs charting the numbers of travelers by start year of travel to selected cities. The top five cities bear out many known patterns, however the addition of the next five cities complicates the picture of rising and falling traveler numbers. Note that the number of travelers has been aggregated by decade. This has been done for readability, as absent data prevents perfect continuous representation by individual year. (For another strategy, see the use of a moving average trend-line in <a href="/gt-book/scholars-essays/midura-british-arrival" target="_blank">Rachel Midura's essay</a>.
 </figcaption>
 </figure>
 
@@ -450,10 +450,10 @@
 <figure>
 
 <a name="figure-3">
-    <img class="fig" src="figure-3.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-3.svg" onclick="zoom(this, null, getElementById('cap3'))" />
 </a>
 
-<figcaption>
+<figcaption id="cap3">
 
 <b>Fig. 3: Number of travelers as counted by start year of travel to Turin. The graph shows the anomalous spike in numbers of travelers between 1761-1770.</b>
 
@@ -652,10 +652,10 @@
 
 <figure>
 <a name="figure-5b">
-    <img class="fig" src="figure-5b.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-5b.svg" onclick="zoom(this, null, getElementById('cap5'))" />
 </a>
 
-<figcaption>
+<figcaption id="cap5">
 
 <b>Fig. 5: Number of travelers aged 15-25 as percentage of traveler population with known birthdates by decade intervals. The subsets of Turin and Rome shows that Turin had a greater proportion of young male tourists.</b>
 
@@ -755,10 +755,10 @@
 <figure>
 
 <a name="figure-7">
-    <img class="fig" src="figure-7.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-7.svg" onclick="zoom(this, null, getElementById('cap7'))" />
 </a>
 
-<figcaption>
+<figcaption id="cap7">
 
 <b>Fig. 7:</b> Bar graphs charting the numbers of female travelers by decade of start year of travel, and showing an overall pattern of increasing presence of women on the Grand Tour across the century.
 
@@ -770,10 +770,10 @@
 <figure>
 
 <a name="figure-8">
-    <img class="fig" src="figure-8.svg" onclick="zoom(this)" />
+    <img class="fig" src="figure-8.svg" onclick="zoom(this, null, getElementById('cap8'))" />
 </a>
 
-<figcaption>
+<figcaption id="cap8">
 
 <b>Fig. 8:</b> Bar graph charting the numbers of men, women, and subset of young men among travelers. By 1771-1780, the number of female travelers had outpaced the number of young men.
 
@@ -799,16 +799,28 @@ NDE3MTI3MzEsLTU1NTgxODg0NSwtNjMwMDQxNzEzLDExOTYxOT
 Y0MzFdfQ==
 -->
 
-<div class="overlay" id="popup">
-    <div class="overlay-close">
-        <a><i class="material-icons">close</i></a>
+<div class="overlay" id="popup" style="display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3">
+    <div id="imgs" style="height:80%">
+        <div class="overlay-close">
+            <a><i class="material-icons">close</i></a>
+        </div>
+        <img id="img" />
+        <img id="img2" />
     </div>
-    <img class="fig" id="img" />
-    <img class="fig" id="img2" />
+    <div id="capWrapper" style="height:20%">
+        <p id="cap" style="float:left; max-width:80%; position:relative; left:120px; display:inline-block"></p>
+        <div style="display:inline-block; float: right">
+            <div style="display:flex; flex-direction:column; position:relative; right:100px">
+                <i class="material-icons link-cite" aria-label="Cite this image" data-balloon-pos="left">format_quote</i>
+                <i class="material-icons" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
+                <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-function zoom(obj, obj2) {
+function zoom(obj, obj2, caption) {
     var popup = document.getElementById("popup");
     popup.style.maxHeight = "80%";
     popup.style.height = "80%"
@@ -825,8 +837,9 @@ function zoom(obj, obj2) {
     image.style.height = "100%";
 
     image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
+    document.getElementById("capWrapper").style.width = image.offsetWidth;
 
-    if (obj2 != undefined) { // Figure 1 & 2 are paired
+    if (obj2 != undefined && obj2 != null) { // Figure 1 & 2 are paired
         image.style.float = "left";
         image.style.width = "50%";
 
@@ -840,7 +853,16 @@ function zoom(obj, obj2) {
         image2.style.float = "left";
         image2.style.width = "50%";
         image2.style.height = "100%";
-    }   
+
+        document.getElementById("capWrapper").style.width = image.offsetWidth + image2.offsetWidth; 
+    }
+    var cap = document.getElementById("cap");
+    if (caption != undefined && caption != null) {
+        cap.innerHTML = caption.innerHTML;
+        cap.style.display = "block";
+    } else {
+        cap.style.display = "none";
+    }
     popup.classList.add("visible"); 
 }    
 </script>

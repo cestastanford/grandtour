@@ -16,8 +16,6 @@ at the top. See Sweet article for example.
 
 # Figures and Links
 
-External links (Explorer and Book, but not figure links) need to open in a new tab. Use this format: [text that appears in body](link/to/book/or/explorer){:target="_blank"}
-
 Links inside figure > figcaption don't work for some reason. Just use <a href> instead.
 Neither does bolding as in **Fig. 1** or Italics as in _Explorer_. Use <b> and <i>.
 
@@ -29,6 +27,17 @@ This is replaced with something like:
     </a>
 
 Tables as .md files are pasted in directly OUTSIDE of the <figure> tag. Requires columns to have three hyphens, possibly add colons for alignment. Also requires blank line above heading. See sweet essay for example. Note: Copied table style from online, can be edited in _layout.scss
+
+External links (Explorer and Book, but not figure links) need to open in a new tab. Use this format: [text that appears in body](link/to/book/or/explorer){:target="_blank"}. Be sure to do this for links inside <figcaption>s as well!
+
+Recall that Explorer links should only link the name of the traveler, and not the parentheticals. NOT like this:
+[Robert Harvey's (1753-1820, travel year 1773, GTE 2294)](http://grand-tour-explorer-2017.herokuapp.com/#/entries/2294){:target="_blank"} <!-- WRONG -->
+but instead like this:
+[Robert Harvey](http://grand-tour-explorer-2017.herokuapp.com/#/entries/2294){:target="_blank"}'s (1753-1820, travel year 1773, GTE 2294) <!-- RIGHT -->
+
+See the Sweet file for figure zoom functionality.
+
+
 
 # Misc
 

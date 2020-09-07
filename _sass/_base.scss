@@ -57,6 +57,11 @@ img {
 /**
  * Figures
  */
+
+figure {
+    margin: 50px $spacing-unit;
+}
+
 figure > img {
     display: block;
 }
@@ -222,4 +227,23 @@ pre {
 
 .material-icons:hover {
   opacity: 1;
+}
+
+.home-icons {
+// for getElementsByClassName
+}
+
+.hide {
+    opacity: 0;
+    transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+}
+.show {
+    opacity: .7; // material-icons opacity
+    transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
 }

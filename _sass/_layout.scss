@@ -84,7 +84,7 @@ a.site-title{
 }
 
 .site-nav {
-
+  z-index: 2;
   width: 280px;
   background: #fafafa;
   font-size: 15px;
@@ -157,6 +157,39 @@ a.site-title{
 
 .site-nav:hover .toc .download-toc {
   opacity: 1;
+}
+
+#arrow-sensor {
+  position: relative;
+  bottom: 76px;
+  height: 1px;
+  visibility: hidden;
+  z-index: -1;
+}
+
+.arrow-box {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 77px;
+  margin-top: 3px;
+}
+
+.arrow {
+  position: relative;
+  left: 128px;
+  cursor: pointer;
+  transition: all ease-out 150ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#table {
+  max-width: 280px; // site-nav
+}
+
+.table-fixed {
+  position: fixed;
+  top: 103px;
 }
 
 .search-box {
@@ -327,6 +360,7 @@ input[type="text"] {
   justify-content: space-between;
   align-items: center;
   opacity: 0;
+  visibility: hidden;
   position: fixed;
   top: -10px;
   left: 0;
@@ -349,6 +383,7 @@ input[type="text"] {
 .post-sticky-header.visible {
   opacity: .98;
   top: 0px;
+  visibility: visible;
   transition: all ease-out 150ms;
 }
 
@@ -526,6 +561,10 @@ input[type="text"] {
   font-size: $small-font-size;
 }
 
+.bk {
+  display: none;
+}
+
 /* Jumping to footnote link adjusts for header size */
 html {
   scroll-padding-top: 100px;
@@ -548,7 +587,7 @@ html {
 
 /* Center tables for demo */
 table {
-  margin: 0 auto;
+  margin: 0 $spacing-unit -40px;
 }
 
 /* Default Table Style */

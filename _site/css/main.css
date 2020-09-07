@@ -122,6 +122,8 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure { margin-bottom: 
 img { max-width: 100%; vertical-align: middle; }
 
 /** Figures */
+figure { margin: 50px 30px; }
+
 figure > img { display: block; }
 
 figcaption { font-size: 16.625px; }
@@ -175,6 +177,10 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .material-icons:hover { opacity: 1; }
 
+.hide { opacity: 0; transition: opacity 0.2s linear; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; -o-transition: opacity 0.2s linear; }
+
+.show { opacity: .7; transition: opacity 0.2s linear; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; -o-transition: opacity 0.2s linear; }
+
 /** Site cover */
 .site-cover { background: url(../assets/background.png); display: flex; height: 100vh; align-items: center; justify-content: center; }
 
@@ -197,7 +203,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 a.site-title { color: #fff; font-size: 26px; font-weight: 800; text-decoration: none; }
 
-.site-nav { width: 280px; background: #fafafa; font-size: 15px; padding: 40px; }
+.site-nav { z-index: 2; width: 280px; background: #fafafa; font-size: 15px; padding: 40px; }
 .site-nav a { color: #111; }
 @media screen and (max-width: 600px) { .site-nav { display: none; } }
 .site-nav .session { padding: 10px; border-bottom: 1px solid #eee; line-height: 1.4; }
@@ -212,6 +218,16 @@ a.site-title { color: #fff; font-size: 26px; font-weight: 800; text-decoration: 
 .site-nav .toc .download-toc { opacity: 0; }
 
 .site-nav:hover .toc .download-toc { opacity: 1; }
+
+#arrow-sensor { position: relative; bottom: 76px; height: 1px; visibility: hidden; z-index: -1; }
+
+.arrow-box { position: -webkit-sticky; position: sticky; top: 77px; margin-top: 3px; }
+
+.arrow { position: relative; left: 128px; cursor: pointer; transition: all ease-out 150ms; visibility: hidden; opacity: 0; }
+
+#table { max-width: 280px; }
+
+.table-fixed { position: fixed; top: 103px; }
 
 .search-box { display: flex; justify-content: space-between; padding: 10px 0px; align-items: center; flex-direction: row; background: #fff; padding: 8px; margin-bottom: 20px; }
 
@@ -265,10 +281,10 @@ input[type="text"] { border: none; background: none; }
 
 .post-link { display: block; font-size: 24px; }
 
-.post-sticky-header { display: flex; flex-direction: row; justify-content: space-between; align-items: center; opacity: 0; position: fixed; top: -10px; left: 0; right: 0; background: #fff; padding: 15px 30px 15px 30px; font-size: 14px; font-family: "Source Serif Pro", serif; border-bottom: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0px 6px 8px -8px rgba(0, 0, 0, 0.1); transition: all ease-out 150ms; z-index: 2; }
+.post-sticky-header { display: flex; flex-direction: row; justify-content: space-between; align-items: center; opacity: 0; visibility: hidden; position: fixed; top: -10px; left: 0; right: 0; background: #fff; padding: 15px 30px 15px 30px; font-size: 14px; font-family: "Source Serif Pro", serif; border-bottom: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0px 6px 8px -8px rgba(0, 0, 0, 0.1); transition: all ease-out 150ms; z-index: 2; }
 @media screen and (max-width: 600px) { .post-sticky-header { flex-direction: column; } }
 
-.post-sticky-header.visible { opacity: .98; top: 0px; transition: all ease-out 150ms; }
+.post-sticky-header.visible { opacity: .98; top: 0px; visibility: visible; transition: all ease-out 150ms; }
 
 .post-sticky-site { color: #AA8C00; font-family: "IBM Plex Sans", Arial, sans-serif; font-weight: 500; }
 
@@ -319,6 +335,8 @@ article { margin: 0 auto; max-width: 680px; padding: 60px 20px 0px 20px; }
 
 .footnotes { font-size: 16.625px; }
 
+.bk { display: none; }
+
 /* Jumping to footnote link adjusts for header size */
 html { scroll-padding-top: 100px; }
 
@@ -326,7 +344,7 @@ html { scroll-padding-top: 100px; }
 
 /* Table style from default design found at https://codepen.io/tomhodgins/pen/QEwvEK */
 /* Center tables for demo */
-table { margin: 0 auto; }
+table { margin: 0 30px -40px; }
 
 /* Default Table Style */
 table { color: #333; background: white; border: 1px solid grey; font-size: 12pt; border-collapse: collapse; }

@@ -1097,8 +1097,6 @@ function zoom(obj, obj2, caption) {
     const turndownService = new TurndownService();
     const markdown = turndownService.turndown(createHTML(filename));
 
-    console.log(markdown);
-
     var element = document.createElement('a');
 
     var filename = getFilename();
@@ -1214,7 +1212,8 @@ function zoom(obj, obj2, caption) {
       text.innerHTML += "Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour</i>, CESTA Stanford 2019, ";
       text.innerHTML += "section IV: " + document.getElementById("bkTitle").innerHTML.slice(0,1);
       if (link.parentElement.children[0]) {
-        let number = parseInt(link.parentElement.children[0].innerHTML.slice(-1));
+        let labelParts = link.parentElement.children[0].innerHTML.split(" ");
+        let number = labelParts[1];
         if (!isNaN(number)) {
           text.innerHTML += ", paragraph " + number + ". ";
         } else {
@@ -1227,9 +1226,9 @@ function zoom(obj, obj2, caption) {
 
 function makeUrl(link) {
   let href = window.location.protocol + "//" + window.location.hostname + (location.port ? ":" + location.port : "") + window.location.pathname;
-  console.log(link.parentElement.children[0])
   if (link.parentElement.children[0].nodeName == "SPAN") { // i.e., not the entire article
-    href += "#paragraph-" + link.parentElement.children[0].innerHTML.slice(-1)
+    let labelParts = link.parentElement.children[0].innerHTML.split(" ");
+    href += "#paragraph-" + labelParts[1]
   }
   
   let url = "<a href='" + href + "' target='_blank'>" + href + "</a>" + ".";

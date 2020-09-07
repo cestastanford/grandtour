@@ -183,8 +183,6 @@ layout: default
     const turndownService = new TurndownService();
     const markdown = turndownService.turndown(createHTML(filename));
 
-    console.log(markdown);
-
     var element = document.createElement('a');
 
     var filename = getFilename();

@@ -403,10 +403,12 @@
   var sticky = header.offsetTop + header.offsetHeight - 40;
 
   function myFunction() {
-    if (window.pageYOffset > sticky) {
-      stickyHeader.classList.add("visible");
-    } else {
-      stickyHeader.classList.remove("visible");
+    if (stickyHeader) {
+      if (window.pageYOffset > sticky) {
+        stickyHeader.classList.add("visible");
+      } else {
+        stickyHeader.classList.remove("visible");
+      }
     }
   }
 </script>

@@ -210,7 +210,10 @@ layout: default
     var words = document.getElementById("overlay-text").innerHTML.split(" ");
     let i = words.indexOf("paragraph") + 1;
 
-    return lastName + ", paragraph " + words[i][0] + " citation";
+    if (!isNaN(words[i])) {
+      return lastName + ", paragraph " + words[i][0] + " citation";
+    }
+    return lastName + " citation"; // whole article
   }
   
   </script>

@@ -1124,7 +1124,10 @@ function zoom(obj, obj2, caption) {
     var words = document.getElementById("overlay-text").innerHTML.split(" ");
     let i = words.indexOf("paragraph") + 1;
 
-    return lastName + ", paragraph " + words[i][0] + " citation";
+    if (!isNaN(words[i])) {
+      return lastName + ", paragraph " + words[i][0] + " citation";
+    }
+    return lastName + " citation"; // whole article
   }
   
   </script>
@@ -1218,9 +1221,14 @@ function zoom(obj, obj2, caption) {
       text.innerHTML += "\"" + document.getElementById("bkTitle").innerHTML.slice(3) + ".\" ";
       text.innerHTML += "<i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. ";
       text.innerHTML += "Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour</i>, CESTA Stanford 2019, ";
-      text.innerHTML += "section IV: " + document.getElementById("bkTitle").innerHTML.slice(0,1) + ", ";
+      text.innerHTML += "section IV: " + document.getElementById("bkTitle").innerHTML.slice(0,1);
       if (link.parentElement.children[0]) {
-        text.innerHTML += "paragraph " + link.parentElement.children[0].innerHTML.slice(-1) + ". ";
+        let number = parseInt(link.parentElement.children[0].innerHTML.slice(-1));
+        if (!isNaN(number)) {
+          text.innerHTML += ", paragraph " + number + ". ";
+        } else {
+          text.innerHTML += ". "; // whole article
+        }
       }
       text.innerHTML += makeUrl(link);
     })

@@ -208,6 +208,27 @@
       return "Ceserani, A World Made by Travel citation";
     }
   }
+
+  function homeLink(where) {
+    var text; 
+    if (where == "cover") {
+      text = "https://www.worldmadebytravel.org/";
+    } else { // == index
+      text = "https://www.worldmadebytravel.org/#info";
+    }
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This link has been copied to your clipboard!")
+  }
+  
   </script>
   </body>
 

@@ -36,7 +36,7 @@
         <h2 class="cover-title">A World Made by Travel 
           <span>
             <i onclick="homeCite('cover')" onmouseover="onHover()" onmouseout="offHover()" class="material-icons link-cite hide home-icons" aria-label="Cite the book" data-balloon-pos="left">format_quote</i>
-            <i onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide home-icons" aria-label="Copy link to book" data-balloon-pos="left">link</i>
+            <i onclick="homeLink('cover')" onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide home-icons" aria-label="Copy link to book" data-balloon-pos="left">link</i>
           </span> 
       </h2>
         <span class="cover-author" style="margin-left: 80px;">Giovanna Ceserani</span>
@@ -444,12 +444,12 @@ window.addEventListener("mousemove", showIcons);
       </div>
       <div class="paragraph">
         <i onclick="homeCite('index')" onmouseover="onHover()" onmouseout="offHover()" class="material-icons link-cite hide home-icons" aria-label="Cite this article" data-balloon-pos="left">format_quote</i>
-        <i onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide home-icons" aria-label="Copy link to article" data-balloon-pos="left">link</i>
+        <i onclick="homeLink('index')" onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide home-icons" aria-label="Copy link to article" data-balloon-pos="left">link</i>
       </div>
     </div>
   </header>
 
-  <div class="post-content">
+  <div id="info" class="post-content">
     <p>
       <i>A World Made by Travel</i> is a digital publication and it integrates dynamically function and content. 
       Clicking on the table of contents’s sections titles here to the left will  show the subsections--chapters and essays--and in turn clicking on each of these will pull them up for reading. 
@@ -653,6 +653,27 @@ window.addEventListener("mousemove", showIcons);
       return "Ceserani, A World Made by Travel citation";
     }
   }
+
+  function homeLink(where) {
+    var text; 
+    if (where == "cover") {
+      text = "https://www.worldmadebytravel.org/";
+    } else { // == index
+      text = "https://www.worldmadebytravel.org/#info";
+    }
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This link has been copied to your clipboard!")
+  }
+  
   </script>
   </body>
 

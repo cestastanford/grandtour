@@ -67,7 +67,10 @@
 
 function makeUrl(link) {
   let href = window.location.protocol + "//" + window.location.hostname + (location.port ? ":" + location.port : "") + window.location.pathname;
-  href += "#paragraph-" + link.parentElement.children[0].innerHTML.slice(-1)
+  console.log(link.parentElement.children[0])
+  if (link.parentElement.children[0].nodeName == "SPAN") { // i.e., not the entire article
+    href += "#paragraph-" + link.parentElement.children[0].innerHTML.slice(-1)
+  }
   
   let url = "<a href='" + href + "' target='_blank'>" + href + "</a>" + ".";
   return url;

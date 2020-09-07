@@ -558,7 +558,7 @@ window.addEventListener("mousemove", showIcons);
     /* Build citation */
     let text = document.getElementById("overlay-text");
     if (where == "cover") {
-      text.innerHTML = "Giovanna Ceserani. \"Introduction.\" <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019. <a href='https://www.worldmadebytravel.org/' target='_blank'>https://www.worldmadebytravel.org/</a></p>"
+      text.innerHTML = "Giovanna Ceserani. \"Cover.\" <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019. <a href='https://www.worldmadebytravel.org/' target='_blank'>https://www.worldmadebytravel.org/</a></p>"
     } else { // == "index"
       text.innerHTML = "Giovanna Ceserani. \"A World Made by Travel.\" <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019. <a href='https://www.worldmadebytravel.org/' target='_blank'>https://www.worldmadebytravel.org/</a></p>"
     }
@@ -647,8 +647,8 @@ window.addEventListener("mousemove", showIcons);
     var text = document.getElementById("overlay-text").innerText;
     var words = text.split(" ");
     /* Hardcoding */
-    if (words[2] == "Introduction") {
-      return "Ceserani, Introduction citation";
+    if (words[2] == "Cover") {
+      return "Ceserani, Cover citation";
     } else { // == index
       return "Ceserani, A World Made by Travel citation";
     }

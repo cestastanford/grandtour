@@ -256,7 +256,7 @@ Y0MzFdfQ==
         <div style="display:inline-block; float: right">
             <div style="display:flex; flex-direction:column; position:relative; right:100px">
                 <i class="material-icons link-cite" aria-label="Cite this image" data-balloon-pos="left">format_quote</i>
-                <i class="material-icons" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
+                <i class="material-icons link-copy" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
                 <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
             </div>
         </div>

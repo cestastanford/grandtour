@@ -386,7 +386,7 @@
       </div>
       <div class="paragraph">
         <i class="material-icons link-cite" aria-label="Cite this article" data-balloon-pos="left">format_quote</i>
-        <i class="material-icons" aria-label="Copy link to article" data-balloon-pos="left">link</i>
+        <i class="material-icons link-copy" aria-label="Copy link to article" data-balloon-pos="left">link</i>
         <i class="material-icons" aria-label="Download article (PDF)" data-balloon-pos="left">arrow_downward</i>
       </div>
     </div>
@@ -424,7 +424,7 @@
     <div class="paragraph-links">
       <span class="post-meta paragraph-link">Par. X</span>
       <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
-      <i class="material-icons" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
+      <i class="material-icons link-copy" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
       <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
     </div>
 
@@ -700,16 +700,40 @@
     })
 }
 
-function makeUrl(link) {
+var copies = document.getElementsByClassName('link-copy');
+for (let copy of copies) {
+  copy.addEventListener("click", function(e){
+    var text = makeHref(copy);
+
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This link has been copied to your clipboard!")
+  })
+}
+
+function makeHref(icon) {
   let href = window.location.protocol + "//" + window.location.hostname + (location.port ? ":" + location.port : "") + window.location.pathname;
-  if (link.parentElement.children[0].nodeName == "SPAN") { // i.e., not the entire article
-    let labelParts = link.parentElement.children[0].innerHTML.split(" ");
+  if (icon.parentElement.children[0].nodeName == "SPAN") { // i.e., not the entire article
+    let labelParts = icon.parentElement.children[0].innerHTML.split(" ");
     href += "#paragraph-" + labelParts[1];
-  } else if (link.getAttribute('aria-label') == "Cite this image") { // image citation
+  } else if (icon.getAttribute('aria-label') == "Cite this image" || icon.getAttribute('aria-label') == "Copy link to this image") { // image citation
     let src = document.getElementById("img").src;
     let i = src.search(".svg") - 1;
     href += "#figure-" + src[i];
   }
+  return href;
+}
+
+function makeUrl(icon) {
+  let href = makeHref(icon);
   
   let url = "<a href='" + href + "' target='_blank'>" + href + "</a>" + ".";
   return url;

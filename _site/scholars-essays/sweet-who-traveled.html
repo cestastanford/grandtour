@@ -951,7 +951,7 @@ function zoom(obj, obj2, caption) {
 
 
     <div class="paragraph-links">
-      <span class="post-meta paragraph-link">Par.1</span>
+      <span class="post-meta paragraph-link">Par. X</span>
       <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
       <i class="material-icons" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
       <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
@@ -1174,14 +1174,13 @@ function zoom(obj, obj2, caption) {
     })
   }
     
-
   let pNum = 1;
   //paragraphs.onmousemove = handler;
   for (let p of paragraphs) {
     var children = p.childNodes;
     var parent = p.parentElement;
 
-    if (children[0] && children[0].nodeName != "A" && parent.nodeName != "LI" && parent.className != "post-abstract" && parent.className != "post-about" && parent.className != "paragraph-link") { // exclude tables, non-body paragraphs
+    if (children[0] && children[0].nodeName != "A" && parent.nodeName != "LI" && parent.className != "post-abstract" && parent.className != "post-about") { // exclude tables, non-body paragraphs
       let label = links.childNodes[1];
       label.innerHTML = "Par. " + pNum;
 
@@ -1197,17 +1196,9 @@ function zoom(obj, obj2, caption) {
 
       cln.style.height = p.offsetHeight + "px";
 
-      /*p.addEventListener("mouseover", function(e){
-          var links = p.getElementById("paragraphLinks");
-          links.classList.add("visible");
-      })
-
-      p.addEventListener("mouseout", function(e){
-          var links = p.getElementById("paragraphLinks");
-          links.classList.remove("visible");
-      })*/
     }
   }
+  links.remove(); // removes dummy links
 
   var ls = document.getElementsByClassName("link-cite");
 

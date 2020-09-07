@@ -4,9 +4,16 @@
   var paragraphs = content.getElementsByTagName("p");
   var links = document.getElementsByClassName("paragraph-links")[0];
 
-  document.getElementsByClassName("overlay-close")[0].addEventListener("click", function(e){
-    document.getElementsByClassName("overlay")[0].classList.remove("visible");
-  })
+  var closes = document.getElementsByClassName("overlay-close")
+  for (x of closes) {
+    x.addEventListener("click", function(e){
+      var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }  
+    })
+  }
+    
 
   let pNum = 1;
   //paragraphs.onmousemove = handler;
@@ -17,6 +24,11 @@
     if (children[0] && children[0].nodeName != "A" && parent.nodeName != "LI" && parent.className != "post-abstract" && parent.className != "post-about" && parent.className != "paragraph-link") { // exclude tables, non-body paragraphs
       let label = links.childNodes[1];
       label.innerHTML = "Par. " + pNum;
+
+      /* Sets up hash for href functionality */
+      let id = "paragraph-" + pNum;
+      p.setAttribute("id", id)
+
       pNum++;
 
       var cln = links.cloneNode(true);
@@ -24,7 +36,6 @@
       p.appendChild(cln);
 
       cln.style.height = p.offsetHeight + "px";
-
 
       /*p.addEventListener("mouseover", function(e){
           var links = p.getElementById("paragraphLinks");
@@ -42,10 +53,29 @@
 
   for (let link of ls) {
     link.addEventListener("click", function(e){
-      document.getElementsByClassName("overlay")[0].classList.add("visible");
+      document.getElementById("citation-overlay").classList.add("visible");
+      
+      /* Build citation */
+      let text = document.getElementById("overlay-text");
+      text.innerHTML = document.getElementById("bkAuthor").innerHTML + ". ";
+      text.innerHTML += "\"" + document.getElementById("bkTitle").innerHTML.slice(3) + ".\" ";
+      text.innerHTML += "<i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. ";
+      text.innerHTML += "Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour</i>, CESTA Stanford 2019, ";
+      text.innerHTML += "section IV: " + document.getElementById("bkTitle").innerHTML.slice(0,1) + ", ";
+      if (link.parentElement.children[0]) {
+        text.innerHTML += "paragraph " + link.parentElement.children[0].innerHTML.slice(-1) + ". ";
+      }
+      text.innerHTML += makeUrl(link);
     })
 }
 
+function makeUrl(link) {
+  let href = window.location.protocol + "//" + window.location.hostname + (location.port ? ":" + location.port : "") + window.location.pathname;
+  href += "#paragraph-" + link.parentElement.children[0].innerHTML.slice(-1)
+  
+  let url = "<a href='" + href + "' target='_blank'>" + href + "</a>" + ".";
+  return url;
+}
 
 
 

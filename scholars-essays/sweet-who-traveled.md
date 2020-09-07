@@ -307,6 +307,10 @@ function zoom(obj, obj2, caption) {
     } else {
         cap.style.display = "none";
     }
+    var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }
     popup.classList.add("visible"); 
 }    
 </script>

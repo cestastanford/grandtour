@@ -325,6 +325,8 @@ article { margin: 0 auto; max-width: 680px; padding: 60px 20px 0px 20px; }
 
 .footnotes { font-size: 16.625px; }
 
+.bk { display: none; }
+
 /* Jumping to footnote link adjusts for header size */
 html { scroll-padding-top: 100px; }
 

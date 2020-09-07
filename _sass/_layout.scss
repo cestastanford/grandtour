@@ -526,6 +526,10 @@ input[type="text"] {
   font-size: $small-font-size;
 }
 
+.bk {
+  display: none;
+}
+
 /* Jumping to footnote link adjusts for header size */
 html {
   scroll-padding-top: 100px;

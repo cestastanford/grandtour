@@ -373,6 +373,10 @@
 
           <article class="post">
 
+  <!-- Bookkeeping for links-script (does not display on document) -->
+  <p id="bkAuthor" class="bk"></p>
+  <p id="bkTitle" class="bk">2. Search, Explore, View and List</p>
+
   <header id="postHeader" class="post-header">
     <p class="post-meta">III. The Grand Tour Explorer</p>
     <h1 class="post-title">2. Search, Explore, View and List</h1>
@@ -416,7 +420,7 @@
 
 
     <div class="paragraph-links">
-     <span class="post-meta paragraph-link">Par.1</span>
+      <span class="post-meta paragraph-link">Par.1</span>
       <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
       <i class="material-icons" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
       <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
@@ -434,14 +438,14 @@
 
   </div>
 
-  <div class="overlay">
+  <div id="citation-overlay" class="overlay">
     <h3>Citation</h3>
     <div class="overlay-close">
       <a><i class="material-icons">close</i></a>
     </div>
-    <p class="overlay-text">Rosemary Sweet. "Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers." <i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019, section IV: 1, paragraph 7. <a href="https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7" target="_blank">https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7</a></p>
+    <p id="overlay-text" class="overlay-text">Rosemary Sweet. "Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers." <i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019, section IV: 1, paragraph 7. <a href="https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7" target="_blank">https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7</a></p>
     <p class="overlay-links">
-      <a>Copy citation to clipboard</a> | Download citation as: <a href="#">.txt</a> <a href="#">.html</a> <a href="#">.md</a>
+      <a onclick="copyToClipboard()">Copy citation to clipboard</a> | Download citation as: <a onclick="txtDownload()">.txt</a> <a onclick="HTMLDownload()">.html</a> <a onclick="mdDownload()">.md</a>
     </p>
   </div>
 
@@ -470,6 +474,9 @@
 </footer>
 
 
+  <!-- For HTML to Markdown conversion -->
+  <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+
   <script>
   function about(author) {
     var about = document.getElementById("about");
@@ -484,6 +491,103 @@
     var about = document.getElementById("about")
     about.classList.remove("visible");
   }
+
+  function copyToClipboard() {
+    var text = document.getElementById("overlay-text").innerHTML;
+
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This citation has been copied to your clipboard!")
+  }
+
+  function txtDownload() {
+    var element = document.createElement('a');
+    var text = document.getElementById("overlay-text").innerText;
+
+    var filename = getFilename();
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function HTMLDownload() {
+    var filename = getFilename();
+
+    let doc = createHTML(filename);
+
+    var element = document.createElement('a');
+
+    element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(doc.documentElement.outerHTML));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function createHTML(filename) {
+    let doc = document.implementation.createHTMLDocument(filename);
+    let p = doc.createElement("p");
+    p.innerHTML = document.getElementById("overlay-text").innerHTML;
+    
+    try {
+      doc.body.appendChild(p);
+    } catch(e) {
+      console.log(e);
+    }
+    return doc
+  }
+
+  function mdDownload() {
+    var filename = getFilename();
+
+    const turndownService = new TurndownService();
+    const markdown = turndownService.turndown(createHTML(filename));
+
+    console.log(markdown);
+
+    var element = document.createElement('a');
+
+    var filename = getFilename();
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(markdown));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function getFilename() {
+    let authorNames = document.getElementById("bkAuthor").innerText.split(" ");
+    var lastName;
+    if (authorNames.length == 5) {
+      lastName = "Baker and Brewer"; // hardcoded
+    } else {
+      lastName = authorNames[1];
+    }
+
+    var words = document.getElementById("overlay-text").innerHTML.split(" ");
+    let i = words.indexOf("paragraph") + 1;
+
+    return lastName + ", paragraph " + words[i][0] + " citation";
+  }
+  
   </script>
 </article>
 
@@ -518,9 +622,16 @@
   var paragraphs = content.getElementsByTagName("p");
   var links = document.getElementsByClassName("paragraph-links")[0];
 
-  document.getElementsByClassName("overlay-close")[0].addEventListener("click", function(e){
-    document.getElementsByClassName("overlay")[0].classList.remove("visible");
-  })
+  var closes = document.getElementsByClassName("overlay-close")
+  for (x of closes) {
+    x.addEventListener("click", function(e){
+      var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }  
+    })
+  }
+    
 
   let pNum = 1;
   //paragraphs.onmousemove = handler;
@@ -531,6 +642,11 @@
     if (children[0] && children[0].nodeName != "A" && parent.nodeName != "LI" && parent.className != "post-abstract" && parent.className != "post-about" && parent.className != "paragraph-link") { // exclude tables, non-body paragraphs
       let label = links.childNodes[1];
       label.innerHTML = "Par. " + pNum;
+
+      /* Sets up hash for href functionality */
+      let id = "paragraph-" + pNum;
+      p.setAttribute("id", id)
+
       pNum++;
 
       var cln = links.cloneNode(true);
@@ -538,7 +654,6 @@
       p.appendChild(cln);
 
       cln.style.height = p.offsetHeight + "px";
-
 
       /*p.addEventListener("mouseover", function(e){
           var links = p.getElementById("paragraphLinks");
@@ -556,10 +671,29 @@
 
   for (let link of ls) {
     link.addEventListener("click", function(e){
-      document.getElementsByClassName("overlay")[0].classList.add("visible");
+      document.getElementById("citation-overlay").classList.add("visible");
+      
+      /* Build citation */
+      let text = document.getElementById("overlay-text");
+      text.innerHTML = document.getElementById("bkAuthor").innerHTML + ". ";
+      text.innerHTML += "\"" + document.getElementById("bkTitle").innerHTML.slice(3) + ".\" ";
+      text.innerHTML += "<i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. ";
+      text.innerHTML += "Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour</i>, CESTA Stanford 2019, ";
+      text.innerHTML += "section IV: " + document.getElementById("bkTitle").innerHTML.slice(0,1) + ", ";
+      if (link.parentElement.children[0]) {
+        text.innerHTML += "paragraph " + link.parentElement.children[0].innerHTML.slice(-1) + ". ";
+      }
+      text.innerHTML += makeUrl(link);
     })
 }
 
+function makeUrl(link) {
+  let href = window.location.protocol + "//" + window.location.hostname + (location.port ? ":" + location.port : "") + window.location.pathname;
+  href += "#paragraph-" + link.parentElement.children[0].innerHTML.slice(-1)
+  
+  let url = "<a href='" + href + "' target='_blank'>" + href + "</a>" + ".";
+  return url;
+}
 
 
 

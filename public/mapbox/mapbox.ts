@@ -8,32 +8,25 @@ import { find } from "lodash";
 interface IFeature {
   id: Number,
   layer: any,
+  type: string,
   properties: {
-    "18thcentury state": string,
-    "COORDINATE NOTES": string,
-    "COORDINATE SOURCE": string,
-    "COUNTRY": string,
-    "COUNTRY CODE": string,
-    "GEONAME ID": string,
-    "Italy": string,
-    "PLACE": string,
-    "REGION": string,
-    "WIKIDATA ID": string,
-    "complete current name": string,
-    "notes": string,
+    "id": number,
     "place": string,
+    "latitude": number,
+    "longitude": number,
+    "cc_count": number,
+    "cc_class": number,
+    "GTE_States_18thcentury state": string
   },
   source: string,
   sourceLayer: string,
   state: {}
-  type: string,
   geometry: {
     type: string,
     coordinates: [number, number]
   }
 }
 interface IPoint {
-  showBlack: boolean,
   showLabel: boolean,
   selected: boolean,
   wasHovered: boolean,
@@ -49,19 +42,14 @@ interface IState {
   selected?: boolean
 }
 
-const COLOR_BACKGROUND_STATE_SELECTED = 'rgba(164, 127, 200, 0.5)';
-const COLOR_BACKGROUND_STATE_DESELECTED = '#ffffff';
-
 function init() {
   // sets up map
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
   let map = new mapboxgl.Map({
     container: 'map',
-    style: require('./styles.json'),
-    center: [12.5674, 41.8719],
-    zoom: 4.8,
-    minZoom: 4.8,
-    maxBounds: [[-2.5674, 32.8719], [26.5674, 50.8719]]
+    style: require('./style.json'),
+    center: [13, 41],
+    zoom: 4.6,
   });
 
   let points: IPoint[] = [];
@@ -87,9 +75,60 @@ function init() {
     { name: 'Tyrol', color: '#fdde86' },
   ];
 
-  const stateButtonShowAll = document.getElementById("gte-viz-statebutton-show-all");
-  const selected = document.getElementById("selected");
+  let lowerCaseAlternate = new Map();
+    lowerCaseAlternate["aix in savoy"] = "aix";
+    lowerCaseAlternate["antium"] = "anzio";
+    lowerCaseAlternate["cuma"] = "cumae";
+    lowerCaseAlternate["leghorn"] = "livorno";
+    lowerCaseAlternate["pola in istria"] = "pola";
+    lowerCaseAlternate["roverodo"] = "rovereto";
+    lowerCaseAlternate["trent"] = "trento";
+    lowerCaseAlternate["the veneto"] = "veneto";
+  
+  const search = <HTMLInputElement>document.getElementById("searchbar");
   const states = document.getElementById('states');
+
+  search.addEventListener("search", searchMap);
+
+  function searchMap() {
+    var rawInput = search.value;
+    var input = rawInput.toLowerCase();
+
+    // check if alternate name, and if so change it
+    if (input in lowerCaseAlternate) {
+      input = lowerCaseAlternate[input];
+    }
+
+    var found = points.filter(point => point.feature.properties['place'].toLowerCase() === input);
+    if (found.length < 1) {
+      window.alert("Could not find \"" + rawInput + "\".");
+      return;
+    }
+    let location = found[0];
+    var coordinates = location.feature.geometry.coordinates;
+    map.flyTo({
+      // These options control the ending camera position: centered at
+      // the target, at zoom level 9, and north up.
+      center: coordinates,
+      zoom: 9,
+      bearing: 0,
+       
+      // These options control the flight curve, making it move
+      // slowly and zoom out almost completely before starting
+      // to pan.
+      speed: 1, // flying speed
+      curve: 1, // change the speed at which it zooms out
+       
+      // This can be any easing function: it takes a number between
+      // 0 and 1 and returns another number between 0 and 1.
+      easing: function(t) {
+      return t;
+      },
+       
+      // this animation is considered essential with respect to prefers-reduced-motion
+      essential: true
+      });
+  }
 
   /*
    * Called to select an unselected place. When passed a feature and a place's
@@ -101,7 +140,8 @@ function init() {
     if (!state) return;
     const color = state.color;
     point.selectedPopup = new mapboxgl.Popup({
-      offset: [0, -10],
+      offset: [-10, 0],
+      anchor: 'center',
       closeButton: false,
       closeOnClick: false
     })
@@ -109,9 +149,6 @@ function init() {
       .setHTML(`<h4 style='color: ${color}'>${point.feature.properties.place}</h4>`).addTo(map);
     point.showLabel = true;
     point.selected = true;
-    if (!point.wasHovered) {
-      updatePlaceButtons();
-    }
   }
 
   /*
@@ -125,182 +162,112 @@ function init() {
     point.wasHovered = false;
     point.showLabel = false;
     point.selected = false;
-    updatePlaceButtons();
-  }
-
-  /*
-   * When given a state, all of its points are returned.
-   */
-  function getStatePoints(state) {
-    return points.filter(point => point.feature.properties['18thcentury state'] === state.name);
   }
 
   function getState(point: IPoint): IState {
-    return find(stateElements, e => e.name === point.feature.properties['18thcentury state']);
+    return find(stateElements, e => e.name === point.feature.properties['GTE_States_18thcentury state']);
   }
 
-  function setFeatureState(point: IPoint, state) {
-    map.setFeatureState({
-      source: "composite",
-      sourceLayer: "missing_coordinates_GTE_-_final_",
-      id: point.feature.id
-    }, state);
+  /* This function theoretically exists in MapBox but it kept failing. */
+  function contains(outer, inner) {
+    let lng = inner[0];
+    let lat = inner[1];
+    return outer.getWest() <= lng && lng <= outer.getEast() && outer.getSouth() <= lat && lat <= outer.getNorth();
   }
 
-  /*
-   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are selected.
-   */
-  function selectState(state: IState) {
-    selectBulk(getStatePoints(state));
-    state.selected = true;
-    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-    updatePlaceButtons();
+  function showAllLabels(classes) {
+    classes.forEach((pts) => {
+      pts.forEach((pt) => {
+        if (contains(map.getBounds(), pt.feature.geometry.coordinates)) {
+          showLabel(pt);
+        }
+      })
+    })
   }
 
-  /*
-   * Called by clicking a state's button. When passed a string of the state's name, all of the state's places are deselected.
-   */
-  function deselectState(state: IState) {
-    deselectBulk(getStatePoints(state));
-    state.selected = false;
-    state.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-  }
-
-  /* Select all points. */
-  function selectAll() {
-    selectBulk(points);
-    stateElements.forEach(e => {
-      e.selected = true;
-      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-    });
-    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_SELECTED;
-  }
-
-  /* Deselect all points. */
-  function deselectAll() {
-    deselectBulk(points);
-    stateElements.forEach(e => {
-      e.selected = false;
-      e.buttonElement.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-    });
-    stateButtonShowAll.style.backgroundColor = COLOR_BACKGROUND_STATE_DESELECTED;
-  }
-
-  function selectBulk(points_) {
-    for (let point of points_) {
-      setFeatureState(point, { showBlack: false });
-      // The below code shows all labels when a state is selected.
-      // if (!point.showLabel) {
-      //   showLabel(point, false);
-      // }
-      point.selected = true;
-    }
-  }
-
-  function deselectBulk(points_) {
-    for (let point of points_) {
-      setFeatureState(point, { showBlack: true });
-      point.selected = false;
-      if (point.showLabel) {
-        hideLabel(point);
-      }
-    }
-  }
-
-  function getPoint(feature: IFeature) {
-    const point = find(points, e => e.feature.properties.place === feature.properties.place);
-    if (!point) {
-      console.error("point with place " + feature.properties.place + " not found");
-    }
-    return point;
-  }
-
-  function onPointClick(point: IPoint) {
-    if (point.showLabel && point.wasHovered) { // when clicking on a point after hovering over it.
-      showLabel(point);
-      setFeatureState(point, { showBlack: false });
-    } else if (point.showLabel) { // case selected -> deselected
-      hideLabel(point);
-      setFeatureState(point, { showBlack: true });
-    } else { // case deselected -> selected
-      showLabel(point);
-      setFeatureState(point, { showBlack: false });
-    }
-    point.wasHovered = false;
-  }
-
-  let createCheckbox = (point: IPoint) => `
-  <tr><td><div class="checkbox">
-    <label>
-      <input class="gte-viz-selected-checkbox ${point.selected ? "gte-viz-selected-checkbox-checked" : "gte-viz-selected-checkbox-unchecked"}" type="checkbox" ${point.selected && "checked"} />
-      <span>${point.feature.properties.place}</span>
-    </label>
-  </div></td></tr>`;
-  function updatePlaceButtons() {
-    const sortFn = (a: IPoint, b: IPoint) => (a.feature.properties.place > b.feature.properties.place) ? 1 : -1;
-    let selectedPoints = points.filter(e => e.selected).sort(sortFn);
-    let unselectedPoints = points.filter(e => !e.selected).sort(sortFn);
-    selected.innerHTML = `<div class="mini-table"><table class="table"><tbody>
-      ${selectedPoints.map(createCheckbox).join("\n")}
-      ${unselectedPoints.map(createCheckbox).join("\n")}
-    </tbody></table></div>`;
-
-    // Add appropriate event listeners.
-    document.querySelectorAll("#selected .gte-viz-selected-checkbox-checked").forEach((checkbox, i) => {
-      checkbox.addEventListener('change', () => onPointClick(selectedPoints[i]));
-    });
-    document.querySelectorAll("#selected .gte-viz-selected-checkbox-unchecked").forEach((checkbox, i) => {
-      checkbox.addEventListener('change', () => onPointClick(unselectedPoints[i]));
+  function hideAllLabels(classes) {
+    classes.forEach((pts) => {
+      pts.forEach((pt) => {
+        if (contains(map.getBounds(), pt.feature.geometry.coordinates)) {
+          hideLabel(pt);
+        }
+      })
     })
   }
 
   /*
-   * Triggers once map is ready to be interacted with. Sets up buttons for each location, allowing one to select and deselect places, 
-   * displaying or hiding their popups.
+   * Triggers once map is ready to be interacted with.
    */
   map.once('load', function () {
-    map.on('mouseover', 'missing-coordinates-gte-final', function (e) {
-      if (!e.features || !e.features.length) return;
-      map.getCanvas().style.cursor = 'pointer';
-      let point = getPoint(e.features[0]);
-      if (!point) return;
-      if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
-        point.wasHovered = true;
-        showLabel(point);
-      }
+    // map.on('mouseover', 'mytileset-2bl2sr', function (e) {
+    //   if (!e.features || !e.features.length) return;
+    //   map.getCanvas().style.cursor = 'pointer';
+    //   let point = getPoint(e.features[0]);
+    //   if (!point) return;
+    //   if (!point.showLabel) { // will not reveal hoverPopup for already selected points (which have popups)
+    //     point.wasHovered = true;
+    //     showLabel(point);
+    //   }
 
-      // Hide hover labels from other points.
-      points.filter(point => (point.feature.properties.place !== e.features[0].properties.place) &&
-        point.wasHovered &&
-        point.showLabel
-      ).forEach(point => {
-        hideLabel(point);
-      });
-    });
-
-    // clicking on point will select/deselect point
-    map.on('click', 'missing-coordinates-gte-final', function (e) {
-      if (!e.features || !e.features.length) return;
-      let point = getPoint(e.features[0]);
-      if (!point) return;
-      onPointClick(point);
-    });
+    //   // Hide hover labels from other points.
+    //   points.filter(point => (point.feature.properties.place !== e.features[0].properties.place) &&
+    //     point.wasHovered &&
+    //     point.showLabel
+    //   ).forEach(point => {
+    //     hideLabel(point);
+    //   });
+    // });
 
     // hovering off point hides hover popup
-    map.on('mouseout', 'missing-coordinates-gte-final', function (e) {
-      map.getCanvas().style.cursor = '';
-      for (let point of points) {
-        if (point.showLabel && point.wasHovered) {
-          hideLabel(point);
-        }
-      }
-    });
+    // map.on('mouseout', 'mytileset-2bl2sr', function (e) {
+    //   map.getCanvas().style.cursor = '';
+    //   for (let point of points) {
+    //     if (point.showLabel && point.wasHovered) {
+    //       hideLabel(point);
+    //     }
+    //   }
+    // });
 
-    points = map.queryRenderedFeatures({ layers: ['missing-coordinates-gte-final'] }).map(e => ({
+    points = map.queryRenderedFeatures({ layers: ['mytileset-2bl2sr'] /* lowercase t */ }).map(e => ({
       feature: e
-    }));
-    points.forEach((point) => {
-      setFeatureState(point, { showBlack: true });
+    }));;
+    var class1 = points.filter(point => point.feature.properties['cc_class'] === 1);
+    var class2 = points.filter(point => point.feature.properties['cc_class'] === 2);
+    var class3 = points.filter(point => point.feature.properties['cc_class'] === 3);
+    var class4 = points.filter(point => point.feature.properties['cc_class'] === 4);
+    var class5 = points.filter(point => point.feature.properties['cc_class'] === 5);
+    var class6 = points.filter(point => point.feature.properties['cc_class'] === 6);
+
+    // only class 1 shows at start
+    showAllLabels([class1]);
+
+    map.on('zoom', function() {
+      let zoom = map.getZoom();
+      let show = []
+      let hide = []
+
+      if (zoom >= 9.1) {
+        show = [class6, class5, class4, class3, class2, class1]; // reverse order displays most important on top
+      } else if (zoom >= 8.0) {
+        show = [class5, class4, class3, class2, class1];
+        hide = [class6];
+      } else if (zoom >= 6.9) {
+        show = [class4, class3, class2, class1];
+        hide = [class5, class6];
+      } else if (zoom >= 5.8) {
+        show = [class3, class2, class1];
+        hide = [class4, class5, class6];
+      } else if (zoom >= 4.7) {
+        show = [class2, class1];
+        hide = [class3, class4, class5, class6];
+      } else if (zoom >= 3.6) {
+        show = [class1];
+        hide = [class2, class3, class4, class5, class6];
+      } else {
+        hide = [class1, class2, class3, class4, class5, class6];
+      }
+      showAllLabels(show);
+      hideAllLabels(hide);
     });
 
     stateElements.forEach(stateElement => {
@@ -315,31 +282,15 @@ function init() {
       name.innerHTML = stateElement.name;
 
       button.setAttribute("class", "stateButton")
-      button.style.backgroundColor = "white"; // set here and not in <style>, because it is used to toggle whether the state is selected
 
       button.appendChild(color);
       button.appendChild(name);
+      button.setAttribute("class", "stateButton")
 
-      button.addEventListener('click', function () {
-        if (stateElement.selected) {
-          deselectState(stateElement);
-        } else {
-          selectState(stateElement);
-        }
-      });
-      states.appendChild(button);
-      stateElement.buttonElement = button;
+      let buttonWrapper = document.createElement('span')
+      buttonWrapper.appendChild(button)
+      states.appendChild(buttonWrapper);
     });
-
-    stateButtonShowAll.addEventListener('click', function () {
-      const allSelected = stateElements.every(e => e.selected);
-      if (allSelected) {
-        deselectAll();
-      } else {
-        selectAll();
-      }
-    });
-    updatePlaceButtons();
   });
 }
 export default init;

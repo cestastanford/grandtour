@@ -57,7 +57,7 @@
     "passport": "*",
     "passport-local": "*",
     "passport-local-mongoose": "^1.0.0",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "reflect-metadata": "^0.1.12",
     "socialcalc": "^2.3.0",
     "socket.io": "^1.3.5",

@@ -52,7 +52,7 @@
     "mapbox-gl": "^1.4.1",
     "memory-cache": "^0.2.0",
     "mongodb": "^3.6.3",
-    "mongoose": "^4.13.17",
+    "mongoose": "^4.13.21",
     "morgan": "^1.9.1",
     "passport": "*",
     "passport-local": "*",

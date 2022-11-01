@@ -1,10 +1,73 @@
 ---
 layout: article
-title: "3. A digital transformation of a print book"
-author: Rachel Something
+title: "3. Going Digital: Re-Searching Connections Between Rosalba Carriera and British Grand Tourists"
+author: Catherine Sama
 session: 4
 chapter: 6
+abstract: The career of the Venetian artist Rosalba Carriera (1673-1757) was deeply intertwined with the eighteenth-century Grand Tour of Italy, and British travelers in particular played a vital and multifaceted role in the artist’s work life. In this essay, the search power of the Grand Tour Explorer is used in combination with primary sources to build a nuanced map of Carriera’s connections with these travelers. While there is no entry in the database for the Italian Carriera, searching the Explorer turns up a number of her British interlocutors, including famous and less well-known clients, acquaintances and friends, intermediaries and visitors to her studio. These search results bring new focus to some aspects of the artist’s career. Carriera’s role as a businesswoman is considered through her connections with other women in the Explorer, and her studio, both as a physical and a social space, is investigated through different travelers’ accounts of their visits.
+references: 
+about: 
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
-My interest in the Grand Tour explorer arises out of my own work on the engagement of British travelers with Italian cities during the long eighteenth century. Some years ago, I published a book that concentrated upon British experiences and representations of Italian cities during the long eighteenth century, Cities and the Grand Tour: The British in Italy, c. 1690-1820.1 As an urban historian, I was less concerned with what was collected or purchased by travelers, or with their social networks, than with exploring how images of major Italian cities were constructed and considering their influence in British culture. Given the opportunity to work with the Grand Tour Explorer, I wanted to use it to pursue several questions.</p>
 
-Like many historians, years of immersion in the primary sources meant that I had an intuitive sense of evolving patterns of travel and the composition of the traveling body. However, I was unable to provide any rigorous quantifiable basis for my conclusions or generalizations. How far were my generalizations borne out by the evidence of the Explorer, while taking into account the complex nature of its data, which we know to be far from complete (see the introduction of the book)? What new light could the Explorer cast on my own qualitative and more impressionistic research by providing more granular and accurate snapshots of topics such as itineraries, numbers of travelers, or duration of stay? What could the Explorer tell us about the changing social composition of tourists, shifts in the gender ratio, and patterns in the age cohort of the traveling body? The dominant paradigm of the Grand Tour is that of the aristocratic young man, sent to Italy to finish his education and to prepare him socially for a life of political and cultural leadership, whose taste, acquired and polished in Italy, exercised such a powerful influence upon Britain’s eighteenth-century cultural life through patronage of artists and architects.2 But it was also clear from my own research in both published and unpublished sources that traveling alongside such young men were a diverse range of other individuals, whose recorded experience had become subsumed within that of an archetypal aristocratic grand tourist. One of the themes that I had tried to draw out throughout my book was the increasing presence of both female travelers and travelers from beyond the landed elite over the course of the eighteenth century, and the Explorer provided the opportunity to test this thesis. Finally, because I had focused very heavily on the four major cities of the Italia tour in my book: Florence, Rome, Naples and Venice, I was interested to see what light the Explorer might cast both on the dominance exercised by these cities in the Grand Tour as an institution, and the significance of other centers with a lower profile: such as Turin, Bologna, Milan, Padua, Genoa and Leghorn.
+The Venetian Rosalba Carriera (1673-1757) was one of the most important
+female artists in Europe during the first half of the eighteenth century
+(Figure 1). Her patrons included foreign collectors, artists, and
+members of the clergy, as well as fellow Venetians and other Italians.
+Royals across Europe sought her work: Frederick IV, King of Denmark;
+Johann Wilhelm von der Platz, Elector Palatine; and Frederick Augustus
+II, Prince-Elector of Saxony (also known as Augustus III, King of
+Poland), who amassed over one hundred pastels by Carriera for a gallery
+he dedicated to her in Dresden. Carriera's studio, which she maintained
+in her home on the Grand Canal, was an important stop on the Grand Tour.
+Her clients sought portraits of themselves, depictions of various types
+of allegories, or portraits of Venetian women famous for their beauty or
+musical talent.
+
+British travelers were among her most numerous and devoted clients. One
+of Carriera's most ardent supporters was Christian Cole (fl. 1697-1735,
+travel years 1701-1705), secretary to the English Ambassador to Venice.
+In a letter to the artist alerting her to the imminent arrival of Sir
+Thomas Frankland (c. 1683-1747, travel years 1704-1705), Cole noted that
+his compatriot, "would not like to pass through Venice without seeing
+the Signora Rosalba [who is] justly esteemed an ornament of Italy, and
+[the] premier painter of Europe." When traveling through Venice British
+travelers also acted as couriers for the artist, ferrying letters,
+books, pastel chalks and works of art between Carriera and other friends
+and acquaintances; among these individuals who populate the Explorer, we
+can count Cole, Frankland, and Thomas Turner (travel years 1704-1705).
+Still others---Peter Philip Jamineau (travel years -1735-1745) and Owen
+Swiney (1676-1754, travel years 1715-1732)---acted as agents for
+Carriera, negotiating commissions and arranging for payment and
+deliveries. In short, Carriera's career was tightly bound to the
+transactional world of the Grand Tour, and British travelers
+collectively played a vital and multifaceted role in the artist's work
+life.
+
+I came to the *Grand Tour Explorer* as a scholar of Rosalba Carriera,
+whose correspondence I am currently co-translating and editing. With few
+exceptions (including Cole), British clients and acquaintances are
+mostly absent from this correspondence. I wondered what further
+information the Explorer could offer about the artist and her
+interactions with these individuals, beyond the connections already
+widely established by art historians. This seemed a particularly
+intriguing question because, as an Italian artist, Rosalba Carriera does
+not have an entry in the richly detailed *A Dictionary of British and
+Irish Travellers in Italy*, compiled from the Brinsley Ford Archive by
+John Ingamells (1997). Consequently, information about Carriera cannot
+be found in one easily identifiable place; instead, references to her
+appear scattered throughout the entries of the *Dictionary*. The search
+power of the *Explorer* made it easy to gather these references: one
+inquiry using the 'Free Search' tool with the terms 'Rosalba' or
+'Carriera' elicited 81 entries---a promising start to a more detailed
+investigation. I decided to explore the database in tandem with
+Carriera's correspondence, her work diary, and other primary sources to
+confirm or clarify details about her British clients and to see if I
+could discover new information. Pairing primary sources with the
+database's digital search capability was powerful: in some cases it
+allowed me to trace connections between Carriera and British clients
+even when neither Carriera nor Venice were mentioned in the Explorer's
+entries. In others, unexpected aggregations of travelers in the search
+results produced new questions and ideas.

@@ -9,17 +9,29 @@ references:
 about: Catherine M. Sama is a professor of Italian at the University of Rhode Island. Her research focuses on Early Modern and 18th-Century Italian Women Writers, Correspondence Networks, The Italian Enlightenment, Italian Women Artists, and Gender Studies. In 2013 she was a recipient of the National Endowment for the Humanities Research Fellowship. She also serves as a board member of the URI Center for the Humanities. She has edited the work and written a biography of the eighteenth-century Italian writer Elisabetta Caminèr Turra.
 ---
 
+<figure>
+
+<a name="figure-1"> <img src="sama-figure-0.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+
+<figcaption id="samaCap1">
+
+<b>Fig. 1:</b>
+
+</figcaption>
+
+</figure>
+
 The Venetian Rosalba Carriera (1673-1757) was one of the most important female artists in Europe during the first half of the eighteenth century ([Figure 1](#figure-1)). Her patrons included foreign collectors, artists, and members of the clergy, as well as fellow Venetians and other Italians. Royals across Europe sought her work: Frederick IV, King of Denmark; Johann Wilhelm von der Platz, Elector Palatine; and Frederick Augustus II, Prince-Elector of Saxony (also known as Augustus III, King of Poland), who amassed over one hundred pastels by Carriera for a gallery he dedicated to her in Dresden. Carriera's studio, which she maintained in her home on the Grand Canal, was an important stop on the Grand Tour. Her clients sought portraits of themselves, depictions of various types of allegories, or portraits of Venetian women famous for their beauty or musical talent.[^1]
 
 [^1]: For essential works on Carriera, see Bernardina Sani's edited volumes of the artist's correspondence and diary as well as her catalogs of Carriera's works: *Rosalba Carriera. Lettere, diari, frammenti* (Firenze: Olschki, 1985); *Rosalba Carriera (1673-1757). Maestra del pastello nell'Europa ancien régime*. Catalogo delle opere. (Torino: Umberto Allemandi, 2007). [First edition: 1988]. See also Giuseppe Pavanello's edited volumes *Rosalba Carriera "prima pittrice de l'Europa"* (Venezia: Marsilio, 2007); and Rosalba Carriera (1673-1757). *Atti del Convegno Internazionale di Studi*, 26-28 aprile 2007 (Venezia: Scripta, 2009). For the most up to date and complete catalog of Carriera's pastel works, see Jeffares, *Dictionary of pastellists before 1800*, London, 2006; online edition [<http://www.pastellists.com/articles/Carriera.pdf>], accessed/update 07-04-2019.
 
 <figure>
 
-<a name="figure-1"> <img src="sama-figure-1.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-2"> <img src="sama-figure-1.png" id="fig2" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
 
-<figcaption id="samaCap1">
+<figcaption id="samaCap2">
 
-<b>Fig. 1:</b> Self portrait <a href="https://www.rct.uk/collection/452375" target="_blank">(Royal Collection Trust)</a>. Credit: Royal Collection Trust / © Her Majesty Queen Elizabeth II 2019
+<b>Fig. 2:</b> Self portrait <a href="https://www.rct.uk/collection/452375" target="_blank">(Royal Collection Trust)</a>. Credit: Royal Collection Trust / © Her Majesty Queen Elizabeth II 2019
 
 </figcaption>
 
@@ -37,11 +49,11 @@ I came to the *Grand Tour Explorer* as a scholar of Rosalba Carriera, whose corr
 
 <figure>
 
-<a name="figure-2"> <img src="sama-figure-2.png" id="fig2" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-3"> <img src="sama-figure-2.png" id="fig3" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
 
-<figcaption id="samaCap2">
+<figcaption id="samaCap3">
 
-<b>Fig. 2:</b> Rosalba Giovanna Carriera, Caterina Sagredo Barbarigo as "Berenice", ca.1741, Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://www.dia.org/art/collection/object/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
+<b>Fig. 3:</b> Rosalba Giovanna Carriera, Caterina Sagredo Barbarigo as "Berenice", ca.1741, Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://www.dia.org/art/collection/object/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
 
 </figcaption>
 
@@ -51,9 +63,23 @@ Searches of the database using specific dates and places also help identify indi
 
 [^5]: Footnote missing.
 
+<figure>
+
+<a name="figure-4"> <img src="sama-figure-4b.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+
+<figcaption id="samaCap4">
+
+<b>Fig. 4:</b>
+
+</figcaption>
+
+</figure>
+
 In this essay I share my experience using the *Explorer* in order to investigate two specific aspects of Carriera's life and work: first, her connections with other women, and second, her studio as a physical and social space. In so doing, I also aim to provide a vademecum of sorts for anyone wishing to navigate the expansive territories of the *Explorer*, particularly for those whose research focuses on the Italians or other Europeans with whom the British travelers interacted.
 
-**Rosalba Carriera** Little is known about Carriera's early life and artistic training.[^6] Most women who became successful artists had fathers, brothers or husbands who were also artists. This was not the case for Carriera: her father worked as a government office clerk, she had no brothers, and she never married. She maintained her own studio where her sisters Giovanna and Angela (until the latter's marriage) worked as assistants and collaborators. After their father's death, Rosalba---aged 46---became the head of the family household, continuing to live with and support her mother and younger sister Giovanna for the rest of their lives.
+**Rosalba Carriera**
+
+Little is known about Carriera's early life and artistic training.[^6] Most women who became successful artists had fathers, brothers or husbands who were also artists. This was not the case for Carriera: her father worked as a government office clerk, she had no brothers, and she never married. She maintained her own studio where her sisters Giovanna and Angela (until the latter's marriage) worked as assistants and collaborators. After their father's death, Rosalba---aged 46---became the head of the family household, continuing to live with and support her mother and younger sister Giovanna for the rest of their lives.
 
 [^6]: On Carriera's training, see Sani, "Precisazioni su Rosalba Carriera, i suoi maestri e la sua scuola. Un percorso europeo tra Rococò e Illuminismo," in Pavanello, ed., *Atti del Convegno Internazionale*, 97-113; and Sergio Marinelli, "Antonio Balestra e Rosalba Carriera", Ibid., 115-128.
 
@@ -67,17 +93,31 @@ Throughout her life, Carriera worked assiduously. She was an astute businesswoma
 
 [^8]: On Carriera as a businesswoman, see Shearer West, "Gender and Internationalism: The Case of Rosalba Carriera," in Shearer West, ed., *Italian Culture in Northern Europe in the Eighteenth Century* (Cambridge: Cambridge University Press, 1999), 46-66. On Sartori, see Caterina Furlan, "Pittura al femminile a Dresden: Rosalba Carriera e Felicita Sartori Hoffmann," in *Arte per i re: Capolavori del settecento dalla Galleria Statale di Dresden*, ed. Harald Marx (Udine: Arti grafiche friulane, 2004), 104-114 and Bernardina Sani, ed., *Rosalba Carriera. Lettere, diari, frammenti* (Firenze: Olschki, 1985), 497; 818.
 
-**Miniatures and Pastels** Early in her career, Carriera was renowned for her delicate miniature portraits and allegories in tempera, watercolor, or gouache on an ivory ground. She helped raise the status of miniature painting to a fine art by removing it from the purely decorative realm of snuff boxes. She was one of the first artists in Europe to bring the feel and texture of large paintings to the miniature form, and her innovative techniques influenced the evolution of the art of miniature painting over the course of the eighteenth century.[^9] At first Carriera used the ivory bottoms or tops of snuff boxes (no longer attached or functioning as such) for her miniatures, but eventually she began to purchase small pieces of ivory and have them cut to size, usually in a vertical oval form. She covered her miniatures with glass and mounted them in metal or tortoiseshell cases before sending them to her clients, who could display them in cabinets, keep them in coat pockets, or hang them from ribbons around their necks. Among the clients present in the *Explorer* who commissioned miniatures from Carriera are [Richard Boyle Burlington](http://grand-tour-explorer-2017.herokuapp.com/#/entries/707){:target="\_blank"} (1694-1753, travel years 1714-1715), who bought twelve of them, [Lucius Charles Cary](http://grand-tour-explorer-2017.herokuapp.com/#/entries/834){:target="\_blank"} (1705-1785, travel years 1724-1725), [Christian Cole](http://grand-tour-explorer-2017.herokuapp.com/#/entries/1035){:target="\_blank"}, [William Osbaldeston](http://grand-tour-explorer-2017.herokuapp.com/#/entries/3682){:target="\_blank"} (1688-1766, travel years 1710-1711), [Mrs. Summers](http://grand-tour-explorer-2017.herokuapp.com/#/entries/4632){:target="\_blank"} (travel years c. 1700-1705), [William Murray, Marquess of Tullibardine](http://grand-tour-explorer-2017.herokuapp.com/#/entries/4860){:target="\_blank"} (1689-1746, travel year 1710, 1717) and [Robert Walpole](http://grand-tour-explorer-2017.herokuapp.com/#/entries/4977){:target="\_blank"} (c. 1701-1751, travel years 1722-1723).
+**Miniatures and Pastels**
+
+Early in her career, Carriera was renowned for her delicate miniature portraits and allegories in tempera, watercolor, or gouache on an ivory ground. She helped raise the status of miniature painting to a fine art by removing it from the purely decorative realm of snuff boxes. She was one of the first artists in Europe to bring the feel and texture of large paintings to the miniature form, and her innovative techniques influenced the evolution of the art of miniature painting over the course of the eighteenth century.[^9] At first Carriera used the ivory bottoms or tops of snuff boxes (no longer attached or functioning as such) for her miniatures, but eventually she began to purchase small pieces of ivory and have them cut to size, usually in a vertical oval form. She covered her miniatures with glass and mounted them in metal or tortoiseshell cases before sending them to her clients, who could display them in cabinets, keep them in coat pockets, or hang them from ribbons around their necks. Among the clients present in the *Explorer* who commissioned miniatures from Carriera are [Richard Boyle Burlington](http://grand-tour-explorer-2017.herokuapp.com/#/entries/707){:target="\_blank"} (1694-1753, travel years 1714-1715), who bought twelve of them, [Lucius Charles Cary](http://grand-tour-explorer-2017.herokuapp.com/#/entries/834){:target="\_blank"} (1705-1785, travel years 1724-1725), [Christian Cole](http://grand-tour-explorer-2017.herokuapp.com/#/entries/1035){:target="\_blank"}, [William Osbaldeston](http://grand-tour-explorer-2017.herokuapp.com/#/entries/3682){:target="\_blank"} (1688-1766, travel years 1710-1711), [Mrs. Summers](http://grand-tour-explorer-2017.herokuapp.com/#/entries/4632){:target="\_blank"} (travel years c. 1700-1705), [William Murray, Marquess of Tullibardine](http://grand-tour-explorer-2017.herokuapp.com/#/entries/4860){:target="\_blank"} (1689-1746, travel year 1710, 1717) and [Robert Walpole](http://grand-tour-explorer-2017.herokuapp.com/#/entries/4977){:target="\_blank"} (c. 1701-1751, travel years 1722-1723).
 
 [^9]: On Carriera's miniatures, see Bernardo Falconi, "Rosalba Carriera e la miniatura su avorio," in Pavanello, ed., *Atti del Convegno*, 215-236.
 
 <figure>
 
-<a name="figure-5"> <img src="sama-figure-6.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> <br> <br> <a name="figure-6"> <img src="sama-figure-7.png" id="fig6" class="fig" onclick="zoom(getElementById(&apos;fig1&apos;), this, getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-5"> <img src="sama-figure-6.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
 
-<figcaption id="samaCap4">
+<figcaption id="samaCap5">
 
-<b>Fig. 5 and 6:</b> Robert Walpole and William Osbadeston.
+<b>Fig. 5:</b> Robert Walpole
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<a name="figure-6"> <img src="sama-figure-7.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+
+<figcaption id="samaCap6">
+
+<b>Fig. 6:</b> William Osbaldeston
 
 </figcaption>
 
@@ -89,11 +129,23 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 <figure>
 
-<a name="figure-7"> <img src="sama-figure-8.png" id="fig7" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/><a name="figure-8"> <img src="sama-figure-9.png" id="fig8" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-7"> <img src="sama-figure-8.png" id="fig7" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/></a>
 
 <figcaption id="samaCap7">
 
 <b>Fig. 7:</b> Gustavus Hamilton
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<a name="figure-8"> <img src="sama-figure-9.png" id="fig8" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/></a>
+
+<figcaption id="samaCap8">
+
+<b>Fig. 8:</b> Gustavus Hamilton
 
 </figcaption>
 
@@ -107,15 +159,15 @@ Exploring the Grand Tour Explorer Most of the travelers that emerge from searchi
 
 Carriera's connections with other women One way I attempted to harness the powers of the Explorer was to tap it for information regarding Rosalba Carriera's connections with other women. By using the 'Free Search' term and filtering for gender with search terms such as woman, wife, widow, daughter, Mrs., etc. the database led me to two women: Elizabeth Eaton Broughton (d. 1734, travel years -1691-1734) whom we hear about through the Dictionary's entry on her husband, Hugh Broughton, British Consul of Venice (d. 1716, travel years -1691-1716); and the pastellist, Katherine Read, sometimes referred to by contemporaries as "the present English Rosalba" and one of the few women with her own entry in the original Dictionary. I was already familiar with Broughton and Read because of their (spare) presence in the Carriera correspondence. However, because the Explorer search aggregated them into a single result, I noticed that they both highlighted difficulties Carriera experienced in working with the impresario Owen Swiney, who acted as agent and intermediary between the artist and her British clients, handling commissions, deliveries and payments. I was therefore able to look at these women in a new way, appreciating their role as sources of information on Carriera as a businesswoman, and considering further the artist's place in a network of supportive women.
 
-Unlike many of the travelers in the Explorer database, Elizabeth Eaton Broughton was a long-term resident in Venice. From 1690 to 1716 she lived there in her role as wife of the British Consul. After her husband's passing, she remained in the lagoon city (or at least sojourned there) until her own death nearly twenty years later in 1734. The two extant letters Broughton wrote to Carriera indicate that she was a close friend of the artist and her family, and that she interacted with them in both English and Italian. One of the letters reflects a quotidian familiarity between the two women; in it, Broughton extends an invitation to Carriera's sister Angela for a "country gallop a satterday in y.e afternoon" in Mestre, should weather permit such an outing ([Figure 10](#figure-10)).
+Unlike many of the travelers in the Explorer database, Elizabeth Eaton Broughton was a long-term resident in Venice. From 1690 to 1716 she lived there in her role as wife of the British Consul. After her husband's passing, she remained in the lagoon city (or at least sojourned there) until her own death nearly twenty years later in 1734. The two extant letters Broughton wrote to Carriera indicate that she was a close friend of the artist and her family, and that she interacted with them in both English and Italian. One of the letters reflects a quotidian familiarity between the two women; in it, Broughton extends an invitation to Carriera's sister Angela for a "country gallop a satterday in y.e afternoon" in Mestre, should weather permit such an outing ([Figure 9](#figure-9)).
 
 <figure>
 
-<a name="figure-10"> <img src="sama-figure-14a.jpg" id="fig10" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-9"> <img src="sama-figure-14a.jpg" id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
 
-<figcaption id="samaCap10">
+<figcaption id="samaCap9">
 
-<b>Fig. 10:</b>
+<b>Fig. 9:</b>
 
 </figcaption>
 
@@ -129,15 +181,15 @@ The younger artist concludes her letter expressing her desire to purchase one of
 
 The letters of Broughton and Read give us a brief behind-the-scenes look into the ways friends, artists, patrons and agents navigated the waters of producing and selling art. Like the letter mentioned above from Robert Dingley to Carriera, these missives also reflect the highly interconnected and at times secretive social networking among British travelers to Italy. When considered together, the three letters allow us to consider how Carriera interacted with that network as a businesswoman. Were Broughton and Read writing to her simply as supportive friends? Or were they also writing as women seeking to protect another woman (artist) from being exploited by a man like Swiney, who could manipulate the art market in British circles? Regretfully, if Carriera penned responses to these letters, they are lost to us, so we can only speculate about what her thoughts might have been. Nevertheless, it is clear that the artist gained important information from women such as Broughton and Read. Ultimately, as Carriera's correspondence reveals, her business could both benefit and suffer from the close connections and maneuverings in the circles of British travelers to Italy.
 
-Into the studio What might the Explorer be able to tell us about Carriera's studio? The richest source of information on the physical layout and contents of the studio is the inventory of Carriera's belongings after her death. We thus know that when visitors entered the gallery area of the artist's studio, they would have stepped into a large, comfortable, vibrant space decorated with green wallpaper and gilt-framed mirrors. The room was populated by numerous chairs upholstered in green damask, small Chinoiserie tables and a small clock set on a pedestal. At the ready were sets of porcelain cups and saucers for hot chocolate and coffee. In winter, visitors could warm themselves by the fireplace as they studied the paintings on display: the inventory notes twenty pastels and seven oil paintings in the gallery in addition to numerous other works of art in the central corridor ([Figure 11](#figure-11)).
+Into the studio What might the Explorer be able to tell us about Carriera's studio? The richest source of information on the physical layout and contents of the studio is the inventory of Carriera's belongings after her death. We thus know that when visitors entered the gallery area of the artist's studio, they would have stepped into a large, comfortable, vibrant space decorated with green wallpaper and gilt-framed mirrors. The room was populated by numerous chairs upholstered in green damask, small Chinoiserie tables and a small clock set on a pedestal. At the ready were sets of porcelain cups and saucers for hot chocolate and coffee. In winter, visitors could warm themselves by the fireplace as they studied the paintings on display: the inventory notes twenty pastels and seven oil paintings in the gallery in addition to numerous other works of art in the central corridor ([Figure 10](#figure-10)).
 
 <figure>
 
-<a name="figure-11"> <img src="sama-figure-16.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-10"> <img src="sama-figure-16.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
 
-<figcaption id="samaCap11">
+<figcaption id="samaCap10">
 
-<b>Fig. 11:</b>
+<b>Fig. 10:</b>
 
 </figcaption>
 

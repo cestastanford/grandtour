@@ -11,7 +11,7 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 <figure>
 
-<a name="figure-1"> <img src="sama-figure-0.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-1"> <img src="sama-figure-0.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig1&apos;), getElementById(&apos;samaCap1&apos;))"/> </a>
 
 <figcaption id="samaCap1">
 
@@ -27,7 +27,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 <figure>
 
-<a name="figure-2"> <img src="sama-figure-1.png" id="fig2" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-2"> <img src="sama-figure-1.png" id="fig2" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;samaCap2&apos;))"/> </a>
 
 <figcaption id="samaCap2">
 
@@ -49,7 +49,7 @@ I came to the *Grand Tour Explorer* as a scholar of Rosalba Carriera, whose corr
 
 <figure>
 
-<a name="figure-3"> <img src="sama-figure-2.png" id="fig3" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-3"> <img src="sama-figure-2.png" id="fig3" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;samaCap3&apos;))"/> </a>
 
 <figcaption id="samaCap3">
 
@@ -65,7 +65,7 @@ Searches of the database using specific dates and places also help identify indi
 
 <figure>
 
-<a name="figure-4"> <img src="sama-figure-4b.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-4"> <img src="sama-figure-4b.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig4&apos;), getElementById(&apos;samaCap4&apos;))"/> </a>
 
 <figcaption id="samaCap4">
 
@@ -101,7 +101,7 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 
 <figure>
 
-<a name="figure-5"> <img src="sama-figure-6.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-5"> <img src="sama-figure-6.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig5&apos;), getElementById(&apos;samaCap5&apos;))"/> </a>
 
 <figcaption id="samaCap5">
 
@@ -113,7 +113,7 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 
 <figure>
 
-<a name="figure-6"> <img src="sama-figure-7.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-6"> <img src="sama-figure-7.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig6&apos;), getElementById(&apos;samaCap6&apos;))"/> </a>
 
 <figcaption id="samaCap6">
 
@@ -129,7 +129,7 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 [^11]: <figure>
 
-<a name="figure-7"> <img src="sama-figure-8.png" id="fig7" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/></a>
+<a name="figure-7"> <img src="sama-figure-8.png" id="fig7" class="fig" onclick="zoom(this, getElementById(&apos;fig7&apos;), getElementById(&apos;samaCap7&apos;))"/></a>
 
 <figcaption id="samaCap7">
 
@@ -137,11 +137,9 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 </figcaption>
 
-</figure>
-
 <figure>
 
-<a name="figure-8"> <img src="sama-figure-9.png" id="fig8" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/></a>
+<a name="figure-8"> <img src="sama-figure-9.png" id="fig8" class="fig" onclick="zoom(this, getElementById(&apos;fig8&apos;), getElementById(&apos;samaCap8&apos;))"/></a>
 
 <figcaption id="samaCap8">
 
@@ -159,7 +157,7 @@ Whether creating pastels or miniatures, Carriera heightened both the academic va
 
 <figure>
 
-<a name="figure-9"> <img src="sama-figure-11.png" id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/></a>
+<a name="figure-9"> <img src="sama-figure-11.png" id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig9&apos;), getElementById(&apos;samaCap9&apos;))"/></a>
 
 <figcaption id="samaCap9">
 
@@ -185,7 +183,7 @@ One way I attempted to harness the powers of the Explorer was to tap it for info
 
 [^16]: For my previous work on Carriera and networking with other women, see Sama, "Luisa Bergalli e le sorelle Carriera: un rapporto d'amicizia e di collaborazione professionale" in Adriana Chemello, ed., *Luisa Bergalli, poetessa drammaturga traduttrice critica letteraria* (Mirano-Venice: Eidos, 2008), 59-75 and Sama, "'On Canvas and On the Page': Women Shaping Culture in 18th-Century Venice," in Paula Findlen, Wendy Roworth and Catherine Sama, eds., *Gender and Culture in the Age of the Grand Tour* (Stanford: Stanford University Press, 2009), 125-150.
 
-Unlike many of the travelers in the *Explorer* database, [Elizabeth Eaton Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} was a long-term resident in Venice. From 1690 to 1716 she lived there in her role as wife of the [British Consul](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621){:target="\_blank"}. After her husband's passing, she remained in the lagoon city (or at least sojourned there) until her own death nearly twenty years later in 1734.[^17] The two extant letters Broughton wrote to Carriera indicate that she was a close friend of the artist and her family, and that she interacted with them in both English and Italian. One of the letters reflects a quotidian familiarity between the two women; in it, Broughton extends an invitation to Carriera's sister Angela for a "country gallop a satterday in y.e afternoon" in Mestre, should weather permit such an outing ([Figure 9](#figure-9)).[^18]
+Unlike many of the travelers in the *Explorer* database, [Elizabeth Eaton Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} was a long-term resident in Venice. From 1690 to 1716 she lived there in her role as wife of the [British Consul](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621){:target="\_blank"}. After her husband's passing, she remained in the lagoon city (or at least sojourned there) until her own death nearly twenty years later in 1734.[^17] The two extant letters Broughton wrote to Carriera indicate that she was a close friend of the artist and her family, and that she interacted with them in both English and Italian. One of the letters reflects a quotidian familiarity between the two women; in it, Broughton extends an invitation to Carriera's sister Angela for a "country gallop a satterday in y.e afternoon" in Mestre, should weather permit such an outing ([Figure 10](#figure-10)).[^18]
 
 [^17]: [Elizabeth Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} is buried in Venice in a Protestant cemetery on the Lido. See *Miscellania Genealogica et Heraldica*, Vol.1, Joseph Jackson Howard, ed., (London: Mitchel and Hughes, 1886), 348.
 
@@ -193,11 +191,11 @@ Unlike many of the travelers in the *Explorer* database, [Elizabeth Eaton Brough
 
 <figure>
 
-<a name="figure-9"> <img src="sama-figure-14a.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-10"> <img src="sama-figure-14a.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig10&apos;), getElementById(&apos;samaCap10&apos;))"/> </a>
 
-<figcaption id="samaCap9">
+<figcaption id="samaCap10">
 
-<b>Fig. 9:</b>
+<b>Fig. 10:</b>
 
 </figcaption>
 
@@ -221,37 +219,47 @@ The younger artist concludes her letter expressing her desire to purchase one of
 
 [^24]: Ibid, 733. My translation. In the original French: “Mandez moi aussi si vous préférez di partager avec la Madona [sic], qui me semble m’a dit être votre dernier ouvrage...la Cleopatre [sic] ou une autre de vos meilleures têtes idéals...Je vous payeray [sic] pour cela ce qu’il vous plaira...Je serais plus exacte que Swinnie.”
 
-The letters of Broughton and Read give us a brief behind-the-scenes look into the ways friends, artists, patrons and agents navigated the waters of producing and selling art. Like the letter mentioned above from Robert Dingley to Carriera, these missives also reflect the highly interconnected and at times secretive social networking among British travelers to Italy. When considered together, the three letters allow us to consider how Carriera interacted with that network as a businesswoman. Were Broughton and Read writing to her simply as supportive friends? Or were they also writing as women seeking to protect another woman (artist) from being exploited by a man like Swiney, who could manipulate the art market in British circles? Regretfully, if Carriera penned responses to these letters, they are lost to us, so we can only speculate about what her thoughts might have been. Nevertheless, it is clear that the artist gained important information from women such as Broughton and Read. Ultimately, as Carriera's correspondence reveals, her business could both benefit and suffer from the close connections and maneuverings in the circles of British travelers to Italy.
+The letters of [Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} and [Read](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4047){:target="\_blank"} give us a brief behind-the-scenes look into the ways friends, artists, patrons and agents navigated the waters of producing and selling art. Like the letter mentioned above from [Robert Dingley](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1405){:target="\_blank"} to Carriera, these missives also reflect the highly interconnected and at times secretive social networking among British travelers to Italy. When considered together, the three letters allow us to consider how Carriera interacted with that network as a businesswoman. Were Broughton and Read writing to her simply as supportive friends? Or were they also writing as women seeking to protect another woman (artist) from being exploited by a man like [Swiney](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4657){:target="\_blank"}, who could manipulate the art market in British circles? Regretfully, if Carriera penned responses to these letters, they are lost to us, so we can only speculate about what her thoughts might have been. Nevertheless, it is clear that the artist gained important information from women such as Broughton and Read. Ultimately, as Carriera's correspondence reveals, her business could both benefit and suffer from the close connections and maneuverings in the circles of British travelers to Italy.
 
-Into the studio What might the Explorer be able to tell us about Carriera's studio? The richest source of information on the physical layout and contents of the studio is the inventory of Carriera's belongings after her death. We thus know that when visitors entered the gallery area of the artist's studio, they would have stepped into a large, comfortable, vibrant space decorated with green wallpaper and gilt-framed mirrors. The room was populated by numerous chairs upholstered in green damask, small Chinoiserie tables and a small clock set on a pedestal. At the ready were sets of porcelain cups and saucers for hot chocolate and coffee. In winter, visitors could warm themselves by the fireplace as they studied the paintings on display: the inventory notes twenty pastels and seven oil paintings in the gallery in addition to numerous other works of art in the central corridor ([Figure 10](#figure-10)).
+**Into the studio**
+
+What might the *Explorer* be able to tell us about Carriera's studio? The richest source of information on the physical layout and contents of the studio is the inventory of Carriera's belongings after her death.[^25]  We thus know that when visitors entered the gallery area of the artist's studio, they would have stepped into a large, comfortable, vibrant space decorated with green wallpaper and gilt-framed mirrors. The room was populated by numerous chairs upholstered in green damask, small Chinoiserie tables and a small clock set on a pedestal. At the ready were sets of porcelain cups and saucers for hot chocolate and coffee. In winter, visitors could warm themselves by the fireplace as they studied the paintings on display: the inventory notes twenty pastels and seven oil paintings in the gallery in addition to numerous other works of art in the central corridor ([Figure 11](#figure-11)).
+
+[^25]: 
 
 <figure>
 
-<a name="figure-10"> <img src="sama-figure-16.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-11"> <img src="sama-figure-16.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig11&apos;), getElementById(&apos;samaCap11&apos;))"/> </a>
 
-<figcaption id="samaCap10">
+<figcaption id="samaCap11">
 
-<b>Fig. 10:</b>
+<b>Fig. 11:</b>
 
 </figcaption>
 
 </figure>
 
-I hoped the Explorer could help me learn more about the process of sitting for a portrait in Carriera's studio as well as the studio's role as a social space. I was, therefore, looking for first-hand descriptions by Grand Tourists of their visits to the studio, something I could do efficiently because the database includes excerpts from travelers' letters and journals. I created search term combinations such as 'Carriera'/'Rosalba' combined with words and phrases such as: 'studio,' 'sat to,' 'sitting,' 'miniature,' 'pastel,' 'portrait,' 'likeness,' 'draw,' 'paint,' 'chalk,' 'studio,' 'mask,' etc. These searches resulted in, among others, three entries for George Sinclair (after 1714-1776, travel years 1737-1738), Martin Folkes (1690-1754, travel years 1733-1735) and Willem (or William) Bentinck (1704-1774, travel years 1727-1728). The information in each individual entry has been noted in the past by scholars, but the Explorer search results pushed me to consider the three entries together as a group. The result is that we are granted a more vibrant and nuanced picture of life inside Carriera's studio from the traveler's vantage point.
+I hoped the *Explorer* could help me learn more about the process of sitting for a portrait in Carriera's studio as well as the studio's role as a social space. I was, therefore, looking for first-hand descriptions by Grand Tourists of their visits to the studio, something I could do efficiently because the database includes excerpts from travelers' letters and journals. I created search term combinations such as 'Carriera'/'Rosalba' combined with words and phrases such as: 'studio,' 'sat to,' 'sitting,' 'miniature,' 'pastel,' 'portrait,' 'likeness,' 'draw,' 'paint,' 'chalk,' 'studio,' 'mask,' etc. These searches resulted in, among others, three entries for [George Sinclair](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4366){:target="\_blank"} (after 1714-1776, travel years 1737-1738), [Martin Folkes](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1760){:target="\_blank"} (1690-1754, travel years 1733-1735) and [Willem (or William) Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} (1704-1774, travel years 1727-1728). The information in each individual entry has been noted in the past by scholars, but the *Explorer* search results pushed me to consider the three entries together as a group. The result is that we are granted a more vibrant and nuanced picture of life inside Carriera's studio from the traveler's vantage point.
 
-Visitors frequently remarked that Carriera had portraits of their compatriots on display in her studio. When George Sinclair visited the artist in the spring of 1738, he noted in his travel journal that he "saw many of her Portraits, both men and women, several english [sic] among them." Keeping these likenesses about the studio was surely Carriera's strategy not only to exhibit her talent but also to induce visitors to have their own portraits made by the famous artist's hand. In this way, she promoted the notion that possession of her artworks was a benchmark of social success.
+Visitors frequently remarked that Carriera had portraits of their compatriots on display in her studio. When [George Sinclair](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4366){:target="\_blank"} visited the artist in the spring of 1738, he noted in his travel journal that he "saw many of her Portraits, both men and women, several english [sic] among them." Keeping these likenesses about the studio was surely Carriera's strategy not only to exhibit her talent but also to induce visitors to have their own portraits made by the famous artist's hand. In this way, she promoted the notion that possession of her artworks was a benchmark of social success.
 
-The display of such portraits also served a social function in the life of the studio. Martin Folkes---scientist, antiquary and protégé of Isaac Newton---visited Carriera in the summer of 1733 as part of his travels in Italy. In his journal on 14 July, he noted that the artist's "pictures in crayon have been with Justice esteem[e]d the most excellent pieces of art of that sort." He described the artist as "now better than 50" (she was 60 years old) and declared that during his visit to the studio he was "extremely well entertained with a great number of fine portraits some of my acquaintance very like." Folkes also mentioned seeing an Allegory of Music in the studio, which he declared to be "as fine and well disposed as almost anyth[ing] I have seen." He believes the model for the painting was the lover of an Englishman
+The display of such portraits also served a social function in the life of the studio. [Martin Folkes](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1760){:target="\_blank"}---scientist, antiquary and protégé of Isaac Newton---visited Carriera in the summer of 1733 as part of his travels in Italy. In his journal on 14 July, he noted that the artist's "pictures in crayon have been with Justice esteem[e]d the most excellent pieces of art of that sort."[^26] He described the artist as "now better than 50" (she was 60 years old) and declared that during his visit to the studio he was "extremely well entertained with a great number of fine portraits some of my acquaintance very like." Folkes also mentioned seeing an Allegory of Music in the studio, which he declared to be "as fine and well disposed as almost anyth[ing] I have seen." He believes the model for the painting was the lover of an Englishman.[^27]
 
-Whether or not visitors commissioned a work by Carriera, then, it could please and amuse them to find their acquaintances visually present in the studio along with them. By functioning as 'virtual' companions and as conversation pieces, the portraits enhanced the level of sociability in Carriera's studio by encouraging sitters and guests to feel at ease and engaged. Although the excerpt is not included in the Explorer entry, Folkes' journal supplies us with further information about social life in the studio. Folkes noted that all three Carriera sisters were present during his visit---Rosalba, Giovanna and Angela---and he remarked that the latter expressed 'a great regard' for England, since she had sojourned there with her husband, the artist Antonio Pellegrini. Not only did Angela and especially Giovanna work in the studio; they also engaged in professional networking by participating in social gatherings with visitors and potential clients.
+[^26]: 
 
-The Explorer entry on Anglo-Dutch traveler and statesman Willem (or William) Bentinck (van Rhoon) is especially rich regarding Carriera's studio. Excerpts from Bentinck's and from his tutor's letters to family in England offer what may be the most detailed account that we have of a client sitting to Carriera. In 1727, as part of a two-year tour of Europe, the grand tourist and his tutor Moses Bernège (travel years 1717-1728, 1730-1731)spent three weeks in Venice. Just prior to their arrival in Venice, they had seen and admired Carriera's portraits of King Augustus in Dresden. Bentinck sat to Carriera, intending the portrait to be a gift for his mother, the Dowager Countess of Portland. Bernège's letter to the Countess discloses that when Bentinck arrived for the fifth and final sitting, "Rosalba chastised him roundly" for having cut his hair. In Bernège's account the artist was so frustrated at the change in her client's appearance from his previous sittings that she demanded that he complete the portrait himself by drawing in his hair the way it was before he had cut it. This image of an impatient Carriera is echoed in her correspondence where she occasionally bemoans the fact that she must spend time making portraits of so many inglesi that she cannot get to her other commissions, even for important, royal patrons.
+[^27]: 
 
-The Explorer search results prompted me to take a closer look at the Bernège/Bentinck papers directly. Many of Carriera's European contacts and clients populate these letters: from couriers and middlemen to clergy, royalty and artists. Details in the manuscripts that are not included in the database allowed me to add further dimension to our view into Carriera's studio. In contrast to his tutor's version of events, Bentinck's is far more peaceable, implying that it had been a collaborative and even thoughtful idea for him to draw in his own hair, specifically in order to ensure that his mother not be startled by any change in his appearance. As he relates the experience: "But as you remember me with my hair, which was cut off before the Picture was made, that must have made some alteration in the Physio[g]nomy. Yet to prevent that as much as possible and to hide the cutting of my hair, which I did not think you knew, Rosalba gave me her colours, and all the hair upon the forehead, and close to the face are of my own painting, as much as I could remember my hair had been." Frequently eager to please and assuage his mother in his letters, Bentinck is keen to assure her that the portrait was indeed a good likeness, as "it was thought like by those that saw it at Venice, before I sent it." In fact, son and tutor consistently offer conflicting views of the visit. While Bentinck assures his mother that his portrait "will always be worth something," his tutor notes that there were portraits hanging in Carriera's studio that were 'strong likenesses,' and that Bentnick's, while good, would have been better had he not cut his hair. Bernège also implies that his ward may have squandered his opportunity for acquiring a fine portrait by Carriera, commenting tersely that "she will stop working very soon as she is starting to become quite aged." Carriera would go on to work for over two more decades.
+Whether or not visitors commissioned a work by Carriera, then, it could please and amuse them to find their acquaintances visually present in the studio along with them. By functioning as 'virtual' companions and as conversation pieces, the portraits enhanced the level of sociability in Carriera's studio by encouraging sitters and guests to feel at ease and engaged. Although the excerpt is not included in the *Explorer* entry, [Folkes](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1760){:target="\_blank"}' journal supplies us with further information about social life in the studio. Folkes noted that all three Carriera sisters were present during his visit---Rosalba, Giovanna and Angela---and he remarked that the latter expressed 'a great regard' for England, since she had sojourned there with her husband, the artist Antonio Pellegrini.[^28] Not only did Angela and especially Giovanna work in the studio; they also engaged in professional networking by participating in social gatherings with visitors and potential clients.
 
-The Bentinck/Bernège papers also highlight the dangers inherent in shipping works of art and other memorabilia acquired on the Grand Tour: namely, damage and theft. Bentinck's instructions to the Dowager Countess reflect the attention Carriera gave to protecting her works from damage in transit, a theme that appears frequently in her correspondence. He tells his mother that the portrait will arrive "in a little black frame with a glass over it and must be left so, she [Carriera] herself desired me that it might be left just as it is because taking it out might easily spoil the Picture, and nothing moist must come near it." In a subsequent letter, Bernège expresses relief in the knowledge that Carriera's portrait arrived safely in England "because there was reason to fear that the ship had been commandeered by pirates and taken to Spain. The loss of the portrait would have deeply saddened us."
+[^28]: 
 
-The Bentinck/Bernège correspondence is also of interest because it may challenge the oft-quoted notion that the creation of pastel portraits was a quick affair, especially when compared to portraits in oil, which required extensive time to dry. Bernège reported that "Madame Rosalba took great care to do it, and requested several visits of Monsieur Bentinck so she could be as successful as possible." Perhaps pastel portraits did take longer than is usually assumed if Carriera typically had her clients sit to her several times for one portrait.
+The *Explorer* entry on Anglo-Dutch traveler and statesman [Willem (or William) Bentinck (van Rhoon)](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} is especially rich regarding Carriera's studio.[^29] Excerpts from Bentinck's and from his tutor's letters to family in England offer what may be the most detailed account that we have of a client sitting to Carriera. In 1727, as part of a two-year tour of Europe, the grand tourist and his tutor [Moses Bernège](https://grand-tour-explorer-2017.herokuapp.com/#/entries/389){:target="\_blank"} (travel years 1717-1728, 1730-1731)spent three weeks in Venice. Just prior to their arrival in Venice, they had seen and admired Carriera's portraits of King Augustus in Dresden. Bentinck sat to Carriera, intending the portrait to be a gift for his mother, the Dowager Countess of Portland. Bernège's letter to the Countess discloses that when Bentinck arrived for the fifth and final sitting, "Rosalba chastised him roundly" for having cut his hair. In Bernège's account the artist was so frustrated at the change in her client's appearance from his previous sittings that she demanded that he complete the portrait himself by drawing in his hair the way it was before he had cut it. This image of an impatient Carriera is echoed in her correspondence where she occasionally bemoans the fact that she must spend time making portraits of so many inglesi that she cannot get to her other commissions, even for important, royal patrons.
+
+The Explorer search results prompted me to take a closer look at the [Bernège](https://grand-tour-explorer-2017.herokuapp.com/#/entries/389){:target="\_blank"}/[Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} papers directly. Many of Carriera's European contacts and clients populate these letters: from couriers and middlemen to clergy, royalty and artists. Details in the manuscripts that are not included in the database allowed me to add further dimension to our view into Carriera's studio. In contrast to his tutor's version of events, Bentinck's is far more peaceable, implying that it had been a collaborative and even thoughtful idea for him to draw in his own hair, specifically in order to ensure that his mother not be startled by any change in his appearance. As he relates the experience: "But as you remember me with my hair, which was cut off before the Picture was made, that must have made some alteration in the Physio[g]nomy. Yet to prevent that as much as possible and to hide the cutting of my hair, which I did not think you knew, Rosalba gave me her colours, and all the hair upon the forehead, and close to the face are of my own painting, as much as I could remember my hair had been." Frequently eager to please and assuage his mother in his letters, Bentinck is keen to assure her that the portrait was indeed a good likeness, as "it was thought like by those that saw it at Venice, before I sent it." In fact, son and tutor consistently offer conflicting views of the visit. While Bentinck assures his mother that his portrait "will always be worth something," his tutor notes that there were portraits hanging in Carriera's studio that were 'strong likenesses,' and that Bentinck's, while good, would have been better had he not cut his hair. Bernège also implies that his ward may have squandered his opportunity for acquiring a fine portrait by Carriera, commenting tersely that "she will stop working very soon as she is starting to become quite aged." Carriera would go on to work for over two more decades.
+
+The [Bernège](https://grand-tour-explorer-2017.herokuapp.com/#/entries/389){:target="\_blank"}/[Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} papers also highlight the dangers inherent in shipping works of art and other memorabilia acquired on the Grand Tour: namely, damage and theft. Bentinck's instructions to the Dowager Countess reflect the attention Carriera gave to protecting her works from damage in transit, a theme that appears frequently in her correspondence. He tells his mother that the portrait will arrive "in a little black frame with a glass over it and must be left so, she [Carriera] herself desired me that it might be left just as it is because taking it out might easily spoil the Picture, and nothing moist must come near it." In a subsequent letter, Bernège expresses relief in the knowledge that Carriera's portrait arrived safely in England "because there was reason to fear that the ship had been commandeered by pirates and taken to Spain. The loss of the portrait would have deeply saddened us."
+
+The [Bernège](https://grand-tour-explorer-2017.herokuapp.com/#/entries/389){:target="\_blank"}/[Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} correspondence is also of interest because it may challenge the oft-quoted notion that the creation of pastel portraits was a quick affair, especially when compared to portraits in oil, which required extensive time to dry. Bernège reported that "Madame Rosalba took great care to do it, and requested several visits of Monsieur Bentinck so she could be as successful as possible." Perhaps pastel portraits did take longer than is usually assumed if Carriera typically had her clients sit to her several times for one portrait.
 
 As we have seen in the case with Rosalba Carriera, navigating the Explorer in combination with primary sources is an effective and engaging way to build a more nuanced map of the connections between British Grand Tourists and their Italian contemporaries. In diverse ways, the Explorer exemplifies the best of digital humanities resources. Its accessibility on line makes it a resource not only for scholars, but for any interested reader, regardless of one's knowledge about the world of the Grand Tour. Scholars interacting with the database can design and employ diverse combinations of searches and filters for efficient and precise targeting of information. Finally, one of the Explorer's most important features is the way that its search power, puts seemingly unrelated pieces of information (some familiar, other no) into dialogue with another, leading to new perspectives, questions and ideas.
 

@@ -281,7 +281,7 @@ The [Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:ta
 
 As we have seen in the case with Rosalba Carriera, navigating the *Explorer* in combination with primary sources is an effective and engaging way to build a more nuanced map of the connections between British Grand Tourists and their Italian contemporaries. In diverse ways, the *Explorer* exemplifies the best of digital humanities resources. Its accessibility online makes it a resource not only for scholars, but for any interested reader, regardless of one's knowledge about the world of the Grand Tour. Scholars interacting with the database can design and employ diverse combinations of searches and filters for efficient and precise targeting of information. Finally, one of the *Explorer*'s most important features is the way that its search power puts seemingly unrelated pieces of information (some familiar, some not) into dialogue with one another, leading to new perspectives, questions and ideas.
 
-<h3>References</h3>
+<h3>Bibliography</h3>
 
 **Primary Sources**
 

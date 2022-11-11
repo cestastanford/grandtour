@@ -283,42 +283,122 @@ As we have seen in the case with Rosalba Carriera, navigating the *Explorer* in 
 
 Cite as Catherine M. Sama "Going Digital: Re-Searching Connections between Rosalba Carriera and British Grand Tourists." Scholars' Essays Digitizing the Grand Tour, edited by Giovanna Ceserani and Rachel Midura. G. Ceserani, A World Made by Travel: The Digital Grand Tour, section IV. CESTA Stanford 2020. <https://dx.doi.org/xxxx/xxx>
 
-Bibliography
+<h3>References</h3>
 
-Primary Sources Letters to the Countess Dowager of Portland from her sons, William and Charles Bentinck, and their tutors; 1718-31. British Library, MS Egerton 1711.
+**Primary Sources**
+
+Letters to the Countess Dowager of Portland from her sons, William and Charles Bentinck, and their tutors; 1718-31. British Library, MS Egerton 1711.
 
 Manoscritti Originali, e Carteggio della celebre Pittrice Rosalba Carriera. Biblioteca Medicea Laurenziana, MS Ashburnham 1781.
 
-Secondary Sources Pietro Del Negro, "Le relazioni di Rosalba Carriera e della sua famiglia con il patriziato veneziano," in G. Pavanello, ed., Rosalba Carriera. Atti del Convegno Internazionale di Studi, 26-28 aprile 2007 (Venezia: Scripta, 2009), 45-96.
+**Secondary Sources**
 
-Falconi, Bernardo. "Rosalba Carriera e la miniatura su avorio," in G. Pavanello, ed., Rosalba Carriera. Atti del Convegno Internazionale di Studi, 26-28 aprile 2007 (Venezia: Scripta, 2009), 215-236.
+Pietro Del Negro, "Le relazioni di Rosalba Carriera e della sua famiglia con il patriziato veneziano," in G. Pavanello, ed., Rosalba Carriera. *Atti del Convegno Internazionale di Studi*, 26-28 aprile 2007 (Venezia: Scripta, 2009), 45-96.
 
-Furlan, Caterina. "Pittura al femminile a Dresden: Rosalba Carriera e Felicita Sartori Hoffmann," in Harald Marx Arte, ed., Arte per i re: Capolavori del settecento dalla Galleria Statale di Dresden, (Udine: Arti grafiche friulane, 2004), 104-114.
+Falconi, Bernardo. "Rosalba Carriera e la miniatura su avorio," in G. Pavanello, ed., *Rosalba Carriera. Atti del Convegno Internazionale di Studi*, 26-28 aprile 2007 (Venezia: Scripta, 2009), 215-236.
 
-Jeffares, Neil. Dictionary of pastellists before 1800, London, 2006; online edition [<http://www.pastellists.com>].
+Furlan, Caterina. "Pittura al femminile a Dresden: Rosalba Carriera e Felicita Sartori Hoffmann," in Harald Marx Arte, ed., *Arte per i re: Capolavori del settecento dalla Galleria Statale di Dresden* (Udine: Arti grafiche friulane, 2004), 104-114.
 
-Johns, Christopher. "'An Ornament of Italy and the Premier Female Painter of Europe': Rosalba Carriera and the Roman Academy" in Melissa Hyde and Jennifer Milam, eds., Women, Art and the Politics of Identity in Eighteenth-Century Europe (Hants, England: Ashgate, 2003), 20-45.
+Jeffares, Neil. *Dictionary of pastellists before 1800*, London, 2006; online edition [<http://www.pastellists.com>].
 
-McGeary, Thomas. "British Grand Tourists visit Rosalba Carriera, 1732-1741. New Documents," The British Art Journal 15.1(2014) 117-119.
+Johns, Christopher. "'An Ornament of Italy and the Premier Female Painter of Europe': Rosalba Carriera and the Roman Academy" in Melissa Hyde and Jennifer Milam, eds., *Women, Art and the Politics of Identity in Eighteenth-Century Europe* (Hants, England: Ashgate, 2003), 20-45.
 
-Moretti, Lino. "Rosalba Carriera: l'inventario dei suoi beni e alcune minuzie marginali," in Arte veneta 68 (2011): 308-319.
+McGeary, Thomas. "British Grand Tourists visit Rosalba Carriera, 1732-1741. New Documents," *The British Art Journal* 15.1(2014) 117-119.
 
-Pavanello, Giuseppe, Ed., Rosalba Carriera "prima pittrice de l'Europa" Catalogo della mostra (Venezia: Marsilio, 2007).
+Moretti, Lino. "Rosalba Carriera: l'inventario dei suoi beni e alcune minuzie marginali," in *Arte veneta* 68 (2011): 308-319.
 
---- Rosalba Carriera (1673-1757). Atti del Convegno Internazionale di Studi, 26-28 aprile 2007 (Venezia: Scripta, 2009).
+Pavanello, Giuseppe, Ed., *Rosalba Carriera "prima pittrice de l'Europa"*, Catalogo della mostra (Venezia: Marsilio, 2007).
 
-Redford, Bruce. Venice and the Grand Tour (New Haven: Yale University Press, 1996).
+--- Rosalba Carriera (1673-1757). *Atti del Convegno Internazionale di Studi*, 26-28 aprile 2007 (Venezia: Scripta, 2009).
 
-Sama, Catherine. "Luisa Bergalli e le sorelle Carriera: un rapporto d'amicizia e di collaborazione professionale," in Adriana Chemello, ed., Luisa Bergalli, poetessa drammaturga traduttrice critica letteraria (Mirano-Venice: Eidos, 2008), 59-75.
+Redford, Bruce. *Venice and the Grand Tour* (New Haven: Yale University Press, 1996).
 
---- "'On Canvas and On the Page': Women Shaping Culture in 18th-Century Venice," in Paula Findlen, Wendy Roworth and Catherine Sama, eds., Gender and Culture in the Age of the Grand Tour (Stanford: Stanford University Press, 2009), 125-150.
+Sama, Catherine. "Luisa Bergalli e le sorelle Carriera: un rapporto d'amicizia e di collaborazione professionale," in Adriana Chemello, ed., *Luisa Bergalli, poetessa drammaturga traduttrice critica letteraria* (Mirano-Venice: Eidos, 2008), 59-75.
 
-Sani, Bernardina. Ed., Rosalba Carriera. Lettere, Diari, Frammenti (Firenze: Olschki Editore, 1985).
+--- "'On Canvas and On the Page': Women Shaping Culture in 18th-Century Venice," in Paula Findlen, Wendy Roworth and Catherine Sama, eds., *Gender and Culture in the Age of the Grand Tour* (Stanford: Stanford University Press, 2009), 125-150.
 
---- Rosalba Carriera (1673-1757). Maestra del pastello nell'Europa ancien régime. Catalogo delle opere. (Torino: Umberto Allemandi, 2007). [First edition: 1988].
+Sani, Bernardina. Ed., *Rosalba Carriera. Lettere, Diari, Frammenti* (Firenze: Olschki Editore, 1985).
 
---- "Precisazioni su Rosalba Carriera, i suoi maestri e la sua scuola. Un percorso europeo tra Rococò e Illuminismo," in G. Pavanello, ed., Atti del convegno, 97-113.
+--- Rosalba Carriera (1673-1757). *Maestra del pastello nell'Europa ancien régime. Catalogo delle opere.* (Torino: Umberto Allemandi, 2007). [First edition: 1988].
 
-West, Shearer. "Gender and Internationalism: The Case of Rosalba Carriera," in Shearer West, ed., Italian Culture in Northern Europe in the Eighteenth Century (Cambridge: Cambridge University Press, 1999), 46-66.
+--- "Precisazioni su Rosalba Carriera, i suoi maestri e la sua scuola. Un percorso europeo tra Rococò e Illuminismo," in G. Pavanello, ed., *Atti del convegno*, 97-113.
 
-Whistler, Catherine. "Rosalba Carriera e il mondo britannico," in G. Pavenallo, ed., Rosalba Carriera 1673-1757 Atti del convegno,181-206.
+West, Shearer. "Gender and Internationalism: The Case of Rosalba Carriera," in Shearer West, ed., *Italian Culture in Northern Europe in the Eighteenth Century* (Cambridge: Cambridge University Press, 1999), 46-66.
+
+Whistler, Catherine. "Rosalba Carriera e il mondo britannico," in G. Pavenallo, ed., *Rosalba Carriera 1673-1757 Atti del convegno*, 181-206.
+
+<h3>References</h3>
+
+::: {#popup .overlay style="display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3"}
+    <div id="imgs" style="height:80%">
+        <div class="overlay-close">
+            <a><i class="material-icons">close</i></a>
+        </div>
+        <img id="img">
+        <img id="img2">
+    </div>
+    <div id="capWrapper" style="height:20%">
+        <p id="cap" style="float:left; max-width:80%; position:relative; left:120px; display:inline-block"></p>
+        <div style="display:inline-block; float: right">
+            <div style="display:flex; flex-direction:column; position:relative; right:100px">
+                <i class="material-icons link-cite" aria-label="Cite this image" data-balloon-pos="left">format_quote</i>
+                <i class="material-icons link-copy" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
+                <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+            </div>
+        </div>
+    </div>
+:::
+
+```{=html}
+<script>
+function zoom(obj, obj2, caption) {
+    var popup = document.getElementById("popup");
+    popup.style.maxHeight = "80%";
+    popup.style.height = "80%"
+    var image = document.getElementById("img");
+    var image2 = document.getElementById("img2");
+        
+    image.src = obj.src;
+    image.style.display = "block";
+    image.style.marginLeft = "auto";
+    image.style.marginRight = "auto";
+    image.style.left = "0";
+    image.style.right = "0";
+    image.style.width = "100%";
+    image.style.height = "100%";
+
+    image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
+    document.getElementById("capWrapper").style.width = image.offsetWidth;
+
+    if (obj2 != undefined && obj2 != null) { // Figure 1 & 2 are paired
+        image.style.float = "left";
+        image.style.width = "50%";
+
+        image2.src = obj2.src;
+        
+        image2.style.display = "block";
+        image2.style.marginLeft = "auto";
+        image2.style.marginRight = "auto";
+        image2.style.left = "0";
+        image2.style.right = "0";
+        image2.style.float = "left";
+        image2.style.width = "50%";
+        image2.style.height = "100%";
+
+        document.getElementById("capWrapper").style.width = image.offsetWidth + image2.offsetWidth; 
+    }
+    var cap = document.getElementById("cap");
+    if (caption != undefined && caption != null) {
+        cap.innerHTML = caption.innerHTML;
+        cap.style.display = "block";
+    } else {
+        cap.style.display = "none";
+    }
+    var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }
+    popup.classList.add("visible"); 
+}    
+</script>
+```

@@ -281,8 +281,6 @@ The [Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:ta
 
 As we have seen in the case with Rosalba Carriera, navigating the *Explorer* in combination with primary sources is an effective and engaging way to build a more nuanced map of the connections between British Grand Tourists and their Italian contemporaries. In diverse ways, the *Explorer* exemplifies the best of digital humanities resources. Its accessibility online makes it a resource not only for scholars, but for any interested reader, regardless of one's knowledge about the world of the Grand Tour. Scholars interacting with the database can design and employ diverse combinations of searches and filters for efficient and precise targeting of information. Finally, one of the *Explorer*'s most important features is the way that its search power puts seemingly unrelated pieces of information (some familiar, some not) into dialogue with one another, leading to new perspectives, questions and ideas.
 
-Cite as Catherine M. Sama "Going Digital: Re-Searching Connections between Rosalba Carriera and British Grand Tourists." Scholars' Essays Digitizing the Grand Tour, edited by Giovanna Ceserani and Rachel Midura. G. Ceserani, A World Made by Travel: The Digital Grand Tour, section IV. CESTA Stanford 2020. <https://dx.doi.org/xxxx/xxx>
-
 <h3>References</h3>
 
 **Primary Sources**

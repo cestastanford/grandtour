@@ -31,7 +31,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 <figcaption id="samaCap2">
 
-<b>Fig. 2:</b> Rosalba Carriera. Self portrait. ([Royal Collection Trust](https://www.rct.uk/collection/452375){:target="\_blank"})</a>. Credit: Royal Collection Trust / © His Majesty King Charles III 2022
+<b>Fig. 2:</b> Rosalba Carriera. Self portrait. ([Royal Collection Trust](https://www.rct.uk/collection/452375){:target="\_blank"}). Credit: Royal Collection Trust / © His Majesty King Charles III 2022
 
 </figcaption>
 

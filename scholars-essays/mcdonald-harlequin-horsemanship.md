@@ -80,7 +80,7 @@ The equestrian trick-riders offer a revealing starting point for approaching the
 
 <figcaption id="cap3">
 
-<b>Fig. 3:</b> *E giunto in questa dominante città il celebre signor Hughes, cavallerizzo dell’accademia di suà maestà brittanica, del quale vengono rappresentate vari giuochi di cavallerizza, non mai più veduti, e che sorprenderanno l’universale aspettazzione*, wood engraving, n. d., dimensions unknown. Present location unknown; photographic copy held by Archives Arlequin (France), Gustave Soury collection.
+<b>Fig. 3:</b> <i>E giunto in questa dominante città il celebre signor Hughes, cavallerizzo dell’accademia di suà maestà brittanica, del quale vengono rappresentate vari giuochi di cavallerizza, non mai più veduti, e che sorprenderanno l’universale aspettazzione</i>, wood engraving, n. d., dimensions unknown. Present location unknown; photographic copy held by Archives Arlequin (France), Gustave Soury collection.
 
 </figcaption>
 

@@ -129,4 +129,56 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 [^11]: See Whistler, "Rosalba Carriera e il mondo britannico," in Pavanello, ed., *Atti del Convegno*, 197-202.
 
-Whether creating pastels or miniatures, Carriera heightened both the academic value and the popularity of her work by painting allegories or imbuing her portraits with allegorical elements. This strategy was highly successful with Grand Tourists who specifically requested pictures depicting mythological figures, allegorical figures or portraits of beautiful Venetian women as well as portraits of themselves. Her sets of the Four Seasons and the Four Elements were very popular, as were her renditions of Diana and Flora.[12] [Robert Dingley](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1405){:target="\_blank"} (1710-81, travel years 1733-34), collector and future director of the Bank of England, wrote to Carriera from London in 1735, requesting a picture of a "pretty young country girl" in the guise of Winter, specifically "like the one in the cabinet of [Mr. (Joseph) Smith](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4417){:target="\_blank"}" (c. 1674-1770, travel years c. 1700-1770). It is likely that Dingley had noticed this picture during his Italian tour in the personal collection of Smith, who spent most of his life in Venice as a merchant banker and as the British Consul from 1744 to 1760. Dingley hastened to add that there was "no need to say anything to Mr. Smith about this."[^13] His letter reveals how Carriera at times needed to deftly and discreetly serve the ambitions of multiple, competitive British clients.
+```{=html}
+<script>
+function zoom(obj, obj2, caption) {
+    var popup = document.getElementById("popup");
+    popup.style.maxHeight = "80%";
+    popup.style.height = "80%"
+    var image = document.getElementById("img");
+    var image2 = document.getElementById("img2");
+        
+    image.src = obj.src;
+    image.style.display = "block";
+    image.style.marginLeft = "auto";
+    image.style.marginRight = "auto";
+    image.style.left = "0";
+    image.style.right = "0";
+    image.style.width = "100%";
+    image.style.height = "100%";
+
+    image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
+    document.getElementById("capWrapper").style.width = image.offsetWidth;
+
+    if (obj2 != undefined && obj2 != null) { // Figure 1 & 2 are paired
+        image.style.float = "left";
+        image.style.width = "50%";
+
+        image2.src = obj2.src;
+        
+        image2.style.display = "block";
+        image2.style.marginLeft = "auto";
+        image2.style.marginRight = "auto";
+        image2.style.left = "0";
+        image2.style.right = "0";
+        image2.style.float = "left";
+        image2.style.width = "50%";
+        image2.style.height = "100%";
+
+        document.getElementById("capWrapper").style.width = image.offsetWidth + image2.offsetWidth; 
+    }
+    var cap = document.getElementById("cap");
+    if (caption != undefined && caption != null) {
+        cap.innerHTML = caption.innerHTML;
+        cap.style.display = "block";
+    } else {
+        cap.style.display = "none";
+    }
+    var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }
+    popup.classList.add("visible"); 
+}    
+</script>
+```

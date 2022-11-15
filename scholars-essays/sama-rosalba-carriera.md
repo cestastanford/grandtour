@@ -31,7 +31,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 <figcaption id="samaCap2">
 
-<b>Fig. 2:</b> Self portrait <a href="https://www.rct.uk/collection/452375" target="_blank">(Royal Collection Trust)</a>. Credit: Royal Collection Trust / © Her Majesty Queen Elizabeth II 2019
+<b>Fig. 2:</b> Rosalba Carriera. Self portrait. ([Royal Collection Trust](https://www.rct.uk/collection/452375){:target="\_blank"})</a>. Credit: Royal Collection Trust / © His Majesty King Charles III 2022
 
 </figcaption>
 
@@ -45,7 +45,7 @@ British travelers were among her most numerous and devoted clients. One of Carri
 
 I came to the *Grand Tour Explorer* as a scholar of Rosalba Carriera, whose correspondence I am currently co-translating and editing.[^4] With few exceptions (including [Cole](http://grand-tour-explorer-2017.herokuapp.com/#/entries/1035){:target="\_blank"}), British clients and acquaintances are mostly absent from this correspondence. I wondered what further information the *Explorer* could offer about the artist and her interactions with these individuals, beyond the connections already widely established by art historians. This seemed a particularly intriguing question because, as an Italian artist, Rosalba Carriera does not have an entry in the richly detailed *A Dictionary of British and Irish Travellers in Italy*, compiled from the Brinsley Ford Archive by John Ingamells (1997). Consequently, information about Carriera cannot be found in one easily identifiable place; instead, references to her appear scattered throughout the entries of the *Dictionary*. The search power of the *Explorer* made it easy to gather these references: one inquiry using the 'Free Search' tool with the terms 'Rosalba' or 'Carriera' elicited 81 entries---a promising start to a more detailed investigation. I decided to explore the database in tandem with Carriera's correspondence, her work diary, and other primary sources to confirm or clarify details about her British clients and to see if I could discover new information. Pairing primary sources with the database's digital search capability was powerful: in some cases it allowed me to trace connections between Carriera and British clients even when neither Carriera nor Venice were mentioned in the *Explorer*'s entries. In others, unexpected aggregations of travelers in the search results produced new questions and ideas.
 
-[^4]: The co-translator for this volume is Julia Kisacky of Baylor University. The volume was commissioned for publication in The Other Voice in Early Modern Europe book series edited by Margaret King and Albert Rabil [<http://www.othervoiceineme.com/othervoice-toronto.html>].
+[^4]: The co-translator for this volume is Julia Kisacky of Baylor University. The volume was commissioned for publication in *The Other Voice in Early Modern Europe* book series, edited by Margaret King and Albert Rabil [http://www.othervoiceineme.com/othervoice-toronto.html](http://www.othervoiceineme.com/othervoice-toronto.html){:target="\_blank"}.
 
 <figure>
 
@@ -53,7 +53,7 @@ I came to the *Grand Tour Explorer* as a scholar of Rosalba Carriera, whose corr
 
 <figcaption id="samaCap3">
 
-<b>Fig. 3:</b> Rosalba Giovanna Carriera, Caterina Sagredo Barbarigo as "Berenice", ca.1741, Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://www.dia.org/art/collection/object/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
+<b>Fig. 3:</b> Rosalba Carriera. Caterina Sagredo Barbarigo as "Berenice", ca.1741, pastel on gray-blue laid paper, mounted onto thin canvas. [Detroit Institute of Arts](https://www.dia.org/art/collection/object/caterina-sagredo-barbarigo-berenice-36302){:target="\_blank"}, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
 
 </figcaption>
 

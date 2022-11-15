@@ -40,27 +40,29 @@ These depict him undertaking impressive acrobatic feats with multiple horses: in
 [^7]:
 
 This essay takes the idea of a parallel, juxtaposition or overlap between these very different social categories of traveler as a cue to explore questions about the actual social range of foreign visitors to Italy around this juncture. More specifically, it takes the case of these *cavallerizzi* as a vantage point for examining the prosopography of over 6,000 British and Irish travelers to Italy during the eighteenth century offered by the *Grand Tour Explorer*. The *Explorer* allows a novel point of access to the mass of valuable research material presented in *A Dictionary of British and Irish Travellers in Italy*, compiled from the Brinsley Ford Archive by John Ingamells (1997). Appraising the social range and representativeness of the *Dictionary*’s prosopography through the interface of the *Explorer* necessitates an understanding of the original book’s scope and its underlying sources. Reviewed in this light, the *cavallerizzi* are discussed here as a case study of the many possibilities---as well as some of the limitations---of prosopographical enquiry into the wider social field of British and Irish travelers to Italy. 
-Name	Entry in Dictionary	Entry in GTE	Sources
-Wear	YES	YES
-ASR, Paesi stranieri, 28 [Inghelterra], letter from Wear to Casali, 19 July 1770, and report by Camporese on Wear’s “Teatro’; Diario Ordinario, 11 August 1770; Boulukos, ed., Memoirs on the Life and travels of Thomas Hammond. Wear is probably the ‘inglese’ noted in Biblioteca Bertoiliana di Vicenza del conte Amrdo Amaldi Tomieri, 9 December 1770.
-Peter Price	YES	YES
-Parts of Price’s Italian tour of 1782-3 are noted in the Dictionary; his 1770 tour does not appear at all. For the former, se also Serengo, ed., Carteggio di Pietro e Allessandro Verri, vol. 12, p. 372; Oppe, ed., “Memoirs of Thomas Jones, Penkerring, Radnorshire, 1803”, p. 121. For the latter, see Boulukos, ed., Memoirs on the Life and Travels of Thomas Hammond. For an undated letter relating to one of Price’s tours, see the entry below on his wife.
-Wife of Peter Price	NO	YES
-ASR, Paesi stranieri, 28 [Inghelterra], letter from “Pietro Price, sua Consorte, ed altri Campagni tutti inglesi” to [Spinelli]. N.d. It is unclear whether Price’s wife took part in his tour, his 1782-3 ASR, Paesi stranieri, 28 [Inghelterra], letter from tour, or both.
-Parry	YES	YES
 
-Greenwood	YES	YES
+<a name="figure-2"></a>
 
-Potts	YES	YES
+| Name | Entry in <i>Dictionary</i> | Entry in <i>GTE<i> | Sources |
+|:--------|------------------:|
+| Wear    |                 3 |
+| Peter Price |                15 |
+| Wife of Peter Price |                16 |
+| Parry |                35 |
+| Greenwood |                14 |
+| Potts |                30 |
+| Charles Hughes |                21 |
+| James Wolton |                19 |
+| Elizabeth Page (d. 1770) |                13 |
+| Thomas Hammond (b. 1748) |                11 |
+| Peter, surname unknown (“an English lad call’d Peter”) |                 3 |
+| 1786-90 |                 4 |
 
-Charles Hughes	YES	YES
-ASR, Paesi stranieri, 28 [Inghelterra], letter from Hughes to [Giovanni] Comaro, n. d. [?1775]; Gazetta Universale, 3 June 1775; Giulini and Seregni, ed., Carteggio di Pietro e Allessandro Verri, vol. 8, p. 110 (8 June 1776). For publicly produced during Highes’s Italian travels, see fig. 2.
-James Wolton	NO	NO	Notizie de mondo (Florence), 30 June 1770; Boulukos, ed., Memoirs on the Life and Travels of Thomas Hammond
-Elizabeth Page (d. 1770)	NO	NO	Boulukos, ed., Memoirs on the Life and Travels of Thomas Hammond
-Thomas Hammond (b. 1748)	NO	NO	ibid.
-Peter, surname unknown (“an English lad call’d Peter”)	NO	NO	ibid.
+<figure>
 
-Fig. 2: Table of cavallerizzi mentioned that appear within and outside of the Explorer.
+<figcaption><b>Fig. 2:</b> Table of <i>cavallerizzi</i> mentioned that appear within and outside of the <i>Explorer</i>.</figcaption>
+
+</figure>
 
 The equestrian trick-riders offer a revealing starting point for approaching these questions, as they are poised on the tentative cusp between inclusion and absence in the Dictionary’s coverage. My own encounter with Wear and Price began in an archive in Rome, but led to the Dictionary in order further to trace their careers. I then turned to the Explorer—and especially to the word search feature it offers, which greatly facilitates access to the Dictionary text—in order to seek further such cases beyond those I had chanced upon during my initial archival research, before finally exploring further in additional sources. Happily, both Wear and Price do in fact have biographical entries in the Dictionary. Several of their competitors also feature.
 Parry and Greenwood (travel year 1770), a two-man team, were in Florence in 1770, hot on Wear’s heels. A trick-rider named Potts (travel year 1772) performed in Venice in 1772: his “feats of Horsemanship” were noted by one British tourist, Philip Francis (travel year 1772), as the only diversion then available in the city.  Another such performer, Charles Hughes (travel year 1775), is recorded in Florence and Rome a few years later; a poster also survives advertising his performances in Venice.  

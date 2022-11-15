@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "3. Going Digital: Re-Searching Connections Between Rosalba Carriera and British Grand Tourists"
+title: "6. Going Digital: Re-Searching Connections Between Rosalba Carriera and British Grand Tourists"
 author: Catherine Sama
 session: 4
 chapter: 6
@@ -39,7 +39,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 British travelers were among her most numerous and devoted clients. One of Carriera's most ardent supporters was [Christian Cole](http://grand-tour-explorer-2017.herokuapp.com/#/entries/1035){:target="\_blank"} (fl. 1697-1735, travel years 1701-1705, 1707-1714, 1715), secretary to the [English Ambassador to Venice](https://grand-tour-explorer-2017.herokuapp.com/#/entries/3158){:target="\_blank"}. In a letter to the artist alerting her to the imminent arrival of [Sir Thomas Frankland](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1833){:target="\_blank"} (c. 1683-1747, travel years 1704-1705), Cole noted that his compatriot, "would not like to pass through Venice without seeing the Signora Rosalba [who is] justly esteemed an ornament of Italy, and [the] premier painter of Europe."[^2] When traveling through Venice British travelers also acted as couriers for the artist, ferrying letters, books, pastel chalks and works of art between Carriera and other friends and acquaintances; among these individuals who populate the *Explorer*, we can count Cole, Frankland, and [Thomas Turner](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4868){:target="\_blank"} (travel years 1704-1705). Still others---[Peter Philip Jamineau](https://grand-tour-explorer-2017.herokuapp.com/#/entries/2658){:target="\_blank"} (travel years -1735-1745) and [Owen Swiney](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4657){:target="\_blank"} (1676-1754, travel years 1715-1732)---acted as agents for Carriera, negotiating commissions and arranging for payment and deliveries. In short, Carriera's career was tightly bound to the transactional world of the Grand Tour, and British travelers collectively played a vital and multifaceted role in the artist's work life.[^3]
 
-[^2]: My translation. In the original Italian: "...non vorrebbe passar à Venetia senza veder La signora Rosalba giustamente stimata un ornamento d'Italia, e prima pittrice de l'Europa" The letter is published in Sani, ed., *Rosalba Carriera. Lettere, Diari, Frammenti*, 89. Christopher Johns includes parts of this and other letters from Cole(to Carriera in his essay on Cole's influence on the artist's early career: "'An Ornament of Italy and the Premier Female Painter of Europe': Rosalba Carriera and the Roman Academy" in Melissa Hyde and Jennifer Milam, eds., *Women, Art and the Politics of Identity in Eighteenth-Century Europe* (Hants, England: Ashgate, 2003), 20-45.
+[^2]: My translation. In the original Italian: "...non vorrebbe passar à Venetia senza veder La signora Rosalba giustamente stimata un ornamento d'Italia, e prima pittrice de l'Europa." The letter is published in Sani, ed., *Rosalba Carriera. Lettere, Diari, Frammenti*, 89. Christopher Johns includes parts of this and other letters from Cole to Carriera in his essay on Cole's influence on the artist's early career: "'An Ornament of Italy and the Premier Female Painter of Europe': Rosalba Carriera and the Roman Academy" in Melissa Hyde and Jennifer Milam, eds., *Women, Art and the Politics of Identity in Eighteenth-Century Europe* (Hants, England: Ashgate, 2003), 20-45.
 
 [^3]: On Carriera's connections to the British, see especially Catherine Whistler, "Rosalba Carriera e il mondo britannico," in G. Pavanello, ed., *Rosalba Carriera 1673-1757 Atti del convegno*, 181-206 and Bruce Redford, *Venice and the Grand Tour* (New Haven: Yale University Press, 1996).
 
@@ -127,7 +127,9 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 [^10]: See Jeffares, "Rosalba Carriera", *Dictionary of pastellists*; online edition.
 
-[^11]: <figure>
+[^11]: See Whistler, “Rosalba Carriera e il mondo britannico,” in Pavanello, ed., *Atti del Convegno*, 197-202.
+
+<figure>
 
 <a name="figure-7"> <img src="sama-figure-8.png" id="fig7" class="fig" onclick="zoom(this, getElementById(&apos;fig7&apos;), getElementById(&apos;samaCap7&apos;))"/></a>
 
@@ -183,23 +185,11 @@ One way I attempted to harness the powers of the Explorer was to tap it for info
 
 [^16]: For my previous work on Carriera and networking with other women, see Sama, "Luisa Bergalli e le sorelle Carriera: un rapporto d'amicizia e di collaborazione professionale" in Adriana Chemello, ed., *Luisa Bergalli, poetessa drammaturga traduttrice critica letteraria* (Mirano-Venice: Eidos, 2008), 59-75 and Sama, "'On Canvas and On the Page': Women Shaping Culture in 18th-Century Venice," in Paula Findlen, Wendy Roworth and Catherine Sama, eds., *Gender and Culture in the Age of the Grand Tour* (Stanford: Stanford University Press, 2009), 125-150.
 
-Unlike many of the travelers in the *Explorer* database, [Elizabeth Eaton Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} was a long-term resident in Venice. From 1690 to 1716 she lived there in her role as wife of the [British Consul](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621){:target="\_blank"}. After her husband's passing, she remained in the lagoon city (or at least sojourned there) until her own death nearly twenty years later in 1734.[^17] The two extant letters Broughton wrote to Carriera indicate that she was a close friend of the artist and her family, and that she interacted with them in both English and Italian. One of the letters reflects a quotidian familiarity between the two women; in it, Broughton extends an invitation to Carriera's sister Angela for a "country gallop a satterday in y.e afternoon" in Mestre, should weather permit such an outing ([Figure 10](#figure-10)).[^18]
+Unlike many of the travelers in the *Explorer* database, [Elizabeth Eaton Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} was a long-term resident in Venice. From 1690 to 1716 she lived there in her role as wife of the [British Consul](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621){:target="\_blank"}. After her husband's passing, she remained in the lagoon city (or at least sojourned there) until her own death nearly twenty years later in 1734.[^17] The two extant letters Broughton wrote to Carriera indicate that she was a close friend of the artist and her family, and that she interacted with them in both English and Italian. One of the letters reflects a quotidian familiarity between the two women; in it, Broughton extends an invitation to Carriera's sister Angela for a "country gallop a satterday in y.e afternoon" in Mestre, should weather permit such an outing.[^18]
 
 [^17]: [Elizabeth Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} is buried in Venice in a Protestant cemetery on the Lido. See *Miscellania Genealogica et Heraldica*, Vol.1, Joseph Jackson Howard, ed., (London: Mitchel and Hughes, 1886), 348.
 
 [^18]: The letter is undated. In Sani, ed., *Lettere, Diari, Frammenti*, 750.
-
-<figure>
-
-<a name="figure-10"> <img src="sama-figure-14a.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig10&apos;), getElementById(&apos;samaCap10&apos;))"/> </a>
-
-<figcaption id="samaCap10">
-
-<b>Fig. 10:</b>
-
-</figcaption>
-
-</figure>
 
 [Broughton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/621.1){:target="\_blank"} penned the other letter (in Italian) in 1721 soon after Carriera returned to Venice following the artist's year away in Paris. Perhaps in part because Carriera was still re-inserting herself into life and work in Venice, Broughton wrote in order to relay confidential information about current gossip regarding payments for Carriera's paintings: "My dear friend, since [Mr. Sueniy](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4657){:target="\_blank"} has let all our compatriots know that he isn't giving more than 15 sequins for the Portrait you made of Milord, I thought it a good idea to warn you, so that you can act accordingly and make sure you are well paid for the one of Mr. Ratley, and have no other regard than your own interest." After penning the closing salutation, Broughton made sure to add, "I send this for your information and all of it must remain between us."[^19] Although Carriera's work diary---the principal source we have of payments received---is silent at the time Broughton penned this letter, we know that between 1723 and 1728, the artist charged roughly 22 sequins for a large pastel portrait. We also know that her prices generally remained consistent throughout her career. Furthermore, Broughton---a well-informed and well-connected member of British grand tourist circles---clearly indicates that she thought Swiney was promoting insufficient remuneration of the artist.[^20]
 

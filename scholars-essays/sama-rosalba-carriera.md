@@ -21,7 +21,7 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 </figure>
 
-The Venetian Rosalba Carriera (1673-1757) was one of the most important female artists in Europe during the first half of the eighteenth century ([Figure 1](#figure-1)). Her patrons included foreign collectors, artists, and members of the clergy, as well as fellow Venetians and other Italians. Royals across Europe sought her work: Frederick IV, King of Denmark; Johann Wilhelm von der Platz, Elector Palatine; and Frederick Augustus II, Prince-Elector of Saxony (also known as Augustus III, King of Poland), who amassed over one hundred pastels by Carriera for a gallery he dedicated to her in Dresden. Carriera's studio, which she maintained in her home on the Grand Canal, was an important stop on the Grand Tour. Her clients sought portraits of themselves, depictions of various types of allegories, or portraits of Venetian women famous for their beauty or musical talent.[^1]
+The Venetian Rosalba Carriera (1673-1757) was one of the most important female artists in Europe during the first half of the eighteenth century ([Figure 2](#figure-2)). Her patrons included foreign collectors, artists, and members of the clergy, as well as fellow Venetians and other Italians. Royals across Europe sought her work: Frederick IV, King of Denmark; Johann Wilhelm von der Platz, Elector Palatine; and Frederick Augustus II, Prince-Elector of Saxony (also known as Augustus III, King of Poland), who amassed over one hundred pastels by Carriera for a gallery he dedicated to her in Dresden. Carriera's studio, which she maintained in her home on the Grand Canal, was an important stop on the Grand Tour. Her clients sought portraits of themselves, depictions of various types of allegories, or portraits of Venetian women famous for their beauty or musical talent.[^1]
 
 [^1]: For essential works on Carriera, see Bernardina Sani's edited volumes of the artist's correspondence and diary as well as her catalogs of Carriera's works: *Rosalba Carriera. Lettere, diari, frammenti* (Firenze: Olschki, 1985); *Rosalba Carriera (1673-1757). Maestra del pastello nell'Europa ancien régime*. Catalogo delle opere. (Torino: Umberto Allemandi, 2007). [First edition: 1988]. See also Giuseppe Pavanello's edited volumes *Rosalba Carriera "prima pittrice de l'Europa"* (Venezia: Marsilio, 2007); and Rosalba Carriera (1673-1757). *Atti del Convegno Internazionale di Studi*, 26-28 aprile 2007 (Venezia: Scripta, 2009). For the most up to date and complete catalog of Carriera's pastel works, see Jeffares, *Dictionary of pastellists before 1800*, London, 2006; online edition [http://www.pastellists.com/articles/Carriera.pdf](http://www.pastellists.com/articles/Carriera.pdf){:target="\_blank"}, accessed/update 07-04-2019.
 
@@ -47,29 +47,17 @@ I came to the *Grand Tour Explorer* as a scholar of Rosalba Carriera, whose corr
 
 [^4]: The co-translator for this volume is Julia Kisacky of Baylor University. The volume was commissioned for publication in *The Other Voice in Early Modern Europe* book series, edited by Margaret King and Albert Rabil <http://www.othervoiceineme.com/othervoice-toronto.html>{:target="\_blank"}.
 
-<figure>
-
-<a name="figure-3"> <img src="sama-figure-2.png" id="fig3" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;samaCap3&apos;))"/> </a>
-
-<figcaption id="samaCap3">
-
-<b>Fig. 3:</b> Rosalba Carriera. Caterina Sagredo Barbarigo as "Berenice", ca.1741, pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://www.dia.org/art/collection/object/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
-
-</figcaption>
-
-</figure>
-
 Searches of the database using specific dates and places also help identify individuals whose names are illegible in manuscript sources. For example, on 9 May 1724 Carriera recorded in her work diary the visit to her studio of a 'M.r Felo inglese' ([Figure 3](#figure-3)). A quick search of the *Explorer* using 'Venice' and this specific date reveals that the British traveler [Coulson Fellowes](http://grand-tour-explorer-2017.herokuapp.com/#/entries/1683){:target="\_blank"} (1696-1769, travel year 1724), was in and around Venice at this time. Even though Carriera is not mentioned in Fellowes' entry and despite the fact that his name is difficult to decipher in the primary source, we can confirm his identity. By perusing Ingamells' *Dictionary* in print form, art historians have used this strategy to resolve questions about Fellowes and several other names in Carriera's work diary.[^5] Anyone seeking to clarify such uncertainties can now do so much more easily using the database.
 
 [^5]: Footnote missing.
 
 <figure>
 
-<a name="figure-4"> <img src="sama-figure-4b.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig4&apos;), getElementById(&apos;samaCap4&apos;))"/> </a>
+<a name="figure-3"> <img src="sama-figure-4b.png" id="fig3" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;samaCap3&apos;))"/> </a>
 
-<figcaption id="samaCap4">
+<figcaption id="samaCap3">
 
-<b>Fig. 4:</b>
+<b>Fig. 3:</b>
 
 </figcaption>
 
@@ -81,7 +69,7 @@ In this essay I share my experience using the *Explorer* in order to investigate
 
 Little is known about Carriera's early life and artistic training.[^6] Most women who became successful artists had fathers, brothers or husbands who were also artists. This was not the case for Carriera: her father worked as a government office clerk, she had no brothers, and she never married. She maintained her own studio where her sisters Giovanna and Angela (until the latter's marriage) worked as assistants and collaborators. After their father's death, Rosalba---aged 46---became the head of the family household, continuing to live with and support her mother and younger sister Giovanna for the rest of their lives.
 
-[^6]: On Carriera's training, see Sani, "Precisazioni su Rosalba Carriera, i suoi maestri e la sua scuola. Un percorso europeo tra Rococò e Illuminismo," in Pavanello, ed., *Atti del Convegno Internazionale*, 97-113; and Sergio Marinelli, "Antonio Balestra e Rosalba Carriera", Ibid., 115-128.
+[^6]: On Carriera's training, see Sani, "Precisazioni su Rosalba Carriera, i suoi maestri e la sua scuola. Un percorso europeo tra Rococò e Illuminismo," in Pavanello, ed., *Atti del Convegno Internazionale*, 97-113; and Sergio Marinelli, "Antonio Balestra e Rosalba Carriera", *Ibid.*, 115-128.
 
 By her late twenties, the Venetian artist began to make a name for herself throughout Europe. She received invitations to courts across Europe and left the lagoon city for three extended trips. The most important of these was an invitation to Paris, where she lived for a year (1720-21) with her mother and sisters in the home of the financier and collector, Pierre Crozat. Much admired by fellow artists as well as royalty, she counted among her numerous clients Antoine Watteau and the young Louis XV. Back in Italy, two years later, in 1723, she was invited to the court of the Duchy of Modena and Reggio, where she lived for about five months while she created portraits of the princesses of the Este family. In 1730, she travelled with her sister, Giovanna, to the court in Vienna where she worked for about three months, creating portraits of various members of the court, including the Dowager Empress Wilhelmina Amalia.
 
@@ -99,30 +87,6 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 
 [^9]: On Carriera's miniatures, see Bernardo Falconi, "Rosalba Carriera e la miniatura su avorio," in Pavanello, ed., *Atti del Convegno*, 215-236.
 
-<figure>
-
-<a name="figure-5"> <img src="sama-figure-6.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig5&apos;), getElementById(&apos;samaCap5&apos;))"/> </a>
-
-<figcaption id="samaCap5">
-
-<b>Fig. 5:</b> Robert Walpole
-
-</figcaption>
-
-</figure>
-
-<figure>
-
-<a name="figure-6"> <img src="sama-figure-7.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig6&apos;), getElementById(&apos;samaCap6&apos;))"/> </a>
-
-<figcaption id="samaCap6">
-
-<b>Fig. 6:</b> William Osbaldeston
-
-</figcaption>
-
-</figure>
-
 Although she enjoyed great success with her miniatures, Carriera is even more famous for her contributions to the medium of pastel. Indeed, about three-quarters of the roughly 440 works attributed to her are pastels.[^10] The Venetian artist helped transform pastel chalks from something used mostly for preliminary sketches to a respected and popular medium for portraiture. French and Italian artists who admired and were influenced by Carriera include Charles-Antoine Coypel, Maurice Quentin de LaTour, Giovanna Fratellini, Jean-Baptiste Perroneau, Pietro Rotari, Nicolas Vleughels and Antoine Watteau. Among British artists who admired, owned or copied her works we may count [George Knapton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/2797){:target="\_blank"} (1698-1778, travel years 1725-1733), [Arthur Pond](https://grand-tour-explorer-2017.herokuapp.com/#/entries/3921){:target="\_blank"} (1701-1758, travel years 1725-1727), [William Hoare](https://grand-tour-explorer-2017.herokuapp.com/#/entries/2446){:target="\_blank"} (1707-1792, travel years 1728-1737), Francis Cotes and [Katherine Read](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4047){:target="\_blank"} (1723-1778, travel years 1751-1753).[^11] The artist's pastels were extremely popular among her clients, whether these were foreign royalty, Venetian patricians, or Grand Tourists. In fact, the majority of the individuals from the database who have some connection to Carriera sat for a pastel portrait or commissioned allegorical works in pastel. Some of the most well-known British Grand Tourists in the *Explorer* with pastel portraits by the Venetian artist are [Gustavus Hamilton, Second Viscount Boyne](https://grand-tour-explorer-2017.herokuapp.com/#/entries/543){:target="\_blank"} (1710-1746, travel years 1730-1731), [Henry Fiennes Clinton, Ninth Earl of Lincoln](https://grand-tour-explorer-2017.herokuapp.com/#/entries/2956){:target="\_blank"} (1720-1794, travel years 1739-1741), [Charles Lennox, Second Duke of Richmond](https://grand-tour-explorer-2017.herokuapp.com/#/entries/3185){:target="\_blank"} (1701-1750, travel year 1721), [Charles Sackville Middlesex, Second Duke of Dorset](https://grand-tour-explorer-2017.herokuapp.com/#/entries/3305){:target="\_blank"} (1711-1769, travel years 1731-1733) and [Joseph Spence](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4469){:target="\_blank"} (1699-1768, travel years 1731-1733, 1739-1741), [Philip, First Duke of Wharton](https://grand-tour-explorer-2017.herokuapp.com/#/entries/5088){:target="\_blank"} (1698-1731, travel years 1719, 1726, 1728), and [Lewis Watson, Second Earl of Rockingham](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4129){:target="\_blank"} (c. 1714-1745, travel years 1733-1734).
 
 [^10]: See Jeffares, "Rosalba Carriera", *Dictionary of pastellists*; online edition.
@@ -131,7 +95,7 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 Whether creating pastels or miniatures, Carriera heightened both the academic value and the popularity of her work by painting allegories or imbuing her portraits with allegorical elements. This strategy was highly successful with Grand Tourists who specifically requested pictures depicting mythological figures, allegorical figures or portraits of beautiful Venetian women as well as portraits of themselves. Her sets of the Four Seasons and the Four Elements were very popular, as were her renditions of Diana and Flora.[^12] [Robert Dingley](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1405){:target="\_blank"} (1710-81, travel years 1733-34), collector and future director of the Bank of England, wrote to Carriera from London in 1735, requesting a picture of a "pretty young country girl" in the guise of Winter, specifically "like the one in the cabinet of [Mr. (Joseph) Smith](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4417){:target="\_blank"}" (c. 1674-1770, travel years c. 1700-1770). It is likely that Dingley had noticed this picture during his Italian tour in the personal collection of Smith, who spent most of his life in Venice as a merchant banker and as the British Consul from 1744 to 1760. Dingley hastened to add that there was "no need to say anything to Mr. Smith about this."[^13] His letter reveals how Carriera at times needed to deftly and discreetly serve the ambitions of multiple, competitive British clients.
 
-[^12]: Ibid.
+[^12]: *Ibid.*
 
 [^13]: My translation. In the original Italian: "una bella giovinetta contadina...nel gusto del quadro dell'Inverno nella cabinetta del Sig. Smith....Non è necessario dire niente al Signor Smith." See Francis Haskell who describes this exchange in *Patrons and Painters. Art and Society in Baroque Italy* (New Haven: Yale, 1980), 303. The complete letter is published in Sani, ed., *Rosalba Carriera. Lettere, Diari, Frammenti*, 603.
 
@@ -181,6 +145,18 @@ What might the *Explorer* be able to tell us about Carriera's studio? The riches
 
 [^25]: Lino Moretti, "Rosalba Carriera: l'inventario dei suoi beni e alcune minuzie marginali," in *Arte veneta* 68 (2011): 308-319.
 
+<figure>
+
+<a name="figure-11"> <img src="sama-figure-16.jpg" class="fig" onclick="zoom(this, getElementById(&apos;fig11&apos;), getElementById(&apos;samaCap11&apos;))"/> </a>
+
+<figcaption id="samaCap11">
+
+<b>Fig. 11:</b>
+
+</figcaption>
+
+</figure>
+
 I hoped the *Explorer* could help me learn more about the process of sitting for a portrait in Carriera's studio as well as the studio's role as a social space. I was, therefore, looking for first-hand descriptions by Grand Tourists of their visits to the studio, something I could do efficiently because the database includes excerpts from travelers' letters and journals. I created search term combinations such as 'Carriera'/'Rosalba' combined with words and phrases such as: 'studio,' 'sat to,' 'sitting,' 'miniature,' 'pastel,' 'portrait,' 'likeness,' 'draw,' 'paint,' 'chalk,' 'studio,' 'mask,' etc. These searches resulted in, among others, three entries for [George Sinclair](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4366){:target="\_blank"} (after 1714-1776, travel years 1737-1738), [Martin Folkes](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1760){:target="\_blank"} (1690-1754, travel years 1733-1735) and [Willem (or William) Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} (1704-1774, travel years 1727-1728). The *Explorer* search results pushed me to consider the three entries together as a group. The result is that we are granted a more vibrant and nuanced picture of life inside Carriera's studio from the traveler's vantage point.
 
 Visitors frequently remarked that Carriera had portraits of their compatriots on display in her studio. When [George Sinclair](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4366){:target="\_blank"} visited the artist in the spring of 1738, he noted in his travel journal that he "saw many of her Portraits, both men and women, several english [sic] among them." Keeping these likenesses about the studio was surely Carriera's strategy not only to exhibit her talent but also to induce visitors to have their own portraits made by the famous artist's hand. In this way, she promoted the notion that possession of her artworks was a benchmark of social success.
@@ -193,7 +169,7 @@ The display of such portraits also served a social function in the life of the s
 
 Whether or not visitors commissioned a work by Carriera, then, it could please and amuse them to find their acquaintances visually present in the studio along with them. By functioning as 'virtual' companions and as conversation pieces, the portraits enhanced the level of sociability in Carriera's studio by encouraging sitters and guests to feel at ease and engaged. Although the excerpt is not included in the *Explorer* entry, [Folkes](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1760){:target="\_blank"}' journal supplies us with further information about social life in the studio. Folkes noted that all three Carriera sisters were present during his visit---Rosalba, Giovanna and Angela---and he remarked that the latter expressed 'a great regard' for England, since she had sojourned there with her husband, the artist Antonio Pellegrini.[^28] Not only did Angela and especially Giovanna work in the studio; they also engaged in professional networking by participating in social gatherings with visitors and potential clients.
 
-[^28]: Ibid.
+[^28]: *Ibid.*
 
 The *Explorer* entry on Anglo-Dutch traveler and statesman [Willem (or William) Bentinck (van Rhoon)](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} is especially rich regarding Carriera's studio.[^29] Excerpts from Bentinck's and from his tutor's letters to family in England offer what may be the most detailed account that we have of a client sitting to Carriera. In 1727, as part of a two-year tour of Europe, the grand tourist and his tutor [Moses Bernège](https://grand-tour-explorer-2017.herokuapp.com/#/entries/389){:target="\_blank"} (travel years 1717-1728, 1730-1731) spent three weeks in Venice. Just prior to their arrival in Venice, they had seen and admired Carriera's portraits of King Augustus in Dresden. Bentinck sat to Carriera, intending the portrait to be a gift for his mother, the Dowager Countess of Portland. Bernège's letter to the Countess discloses that when Bentinck arrived for the fifth and final sitting, "Rosalba chastised him roundly" for having cut his hair.[^30] In Bernège's account the artist was so frustrated at the change in her client's appearance from his previous sittings that she demanded that he complete the portrait himself by drawing in his hair the way it was before he had cut it. This image of an impatient Carriera is echoed in her correspondence where she occasionally bemoans the fact that she must spend time making portraits of so many *inglesi* that she cannot get to her other commissions, even for important, royal patrons.
 
@@ -207,7 +183,7 @@ The *Explorer* search results prompted me to take a closer look at the [Bernège
 
 [^32]: British Library, MS Egerton 1711, ff.531-532v. [Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"} penned the letter in Rome on 13 September 1727.
 
-[^33]: Ibid.
+[^33]: *Ibid.*
 
 [^34]: My translation. In the original French: "Nous avons vu chez elle des portraits de sa façon qui sont fort ressemblant, quoyque celui de M.r Bentinck soit bon, il auroit encore eté mieux s'il avoit eu ses cheveux, la Rosalba le querella fort de les avoir coupez, et elle cessera bien tot di travailler car elle commence d'etre fort agée." From [Bernège](https://grand-tour-explorer-2017.herokuapp.com/#/entries/389){:target="\_blank"}'s letter of 30 August 1727 to the Dowager Countess. British Library, MS Egerton 1711, ff 527-528 v.
 
@@ -219,7 +195,7 @@ The [Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:ta
 
 The [Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:target="\_blank"}/[Bernège](https://grand-tour-explorer-2017.herokuapp.com/#/entries/389){:target="\_blank"} correspondence is also of interest because it may challenge the oft-quoted notion that the creation of pastel portraits was a quick affair, especially when compared to portraits in oil, which required extensive time to dry. Bernège reported that "Madame Rosalba took great care to do it, and requested several visits of Monsieur Bentinck so she could be as successful as possible."[^37] Perhaps pastel portraits did take longer than is usually assumed if Carriera typically had her clients sit to her several times for one portrait.
 
-[^37]: Ibid. My translation. In the original French: "la Donna Rosalba a pris de la peine a le faire, et demanda plusieurs visites de Mons. Bentinck pour y pouvoir mieux reussir."
+[^37]: *Ibid.* My translation. In the original French: "la Donna Rosalba a pris de la peine a le faire, et demanda plusieurs visites de Mons. Bentinck pour y pouvoir mieux reussir."
 
 As we have seen in the case with Rosalba Carriera, navigating the *Explorer* in combination with primary sources is an effective and engaging way to build a more nuanced map of the connections between British Grand Tourists and their Italian contemporaries. In diverse ways, the *Explorer* exemplifies the best of digital humanities resources. Its accessibility online makes it a resource not only for scholars, but for any interested reader, regardless of one's knowledge about the world of the Grand Tour. Scholars interacting with the database can design and employ diverse combinations of searches and filters for efficient and precise targeting of information. Finally, one of the *Explorer*'s most important features is the way that its search power puts seemingly unrelated pieces of information (some familiar, some not) into dialogue with one another, leading to new perspectives, questions and ideas.
 

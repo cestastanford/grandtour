@@ -157,7 +157,7 @@ Finally, if some of the considerations discussed here highlight the need, when u
 [^31]: Ingamells, *Dictionary*, p. xi.
 
 **Acknowledgements**
+
 Research behind this essay was funded by a Rome Scholarship at the British School at Rome (2010–11), and a Max Weber Fellowship at the European University Institute, Florence (2015–16). For comments and other generous assistance, the author is greatly indebted to Giovanna Ceserani, Rachel Midura, Melissa Calaresu, and all the participants at the two ‘Grand Tour Explorer’ workshops held at Stanford in March 2016 and September 2017.
 
 <h3>References</h3>
-

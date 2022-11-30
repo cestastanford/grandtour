@@ -156,81 +156,8 @@ Finally, if some of the considerations discussed here highlight the need, when u
 [^30]: Justin Stagl, *A History of Curiosity: The Theory of Travel 1550–1800*, Chur, Switzerland: Harwood Academic Publishers, 1995; Joan-Pau Rubiés, “Instructions for Travellers: Teaching the Eye to See”, *History and Anthropology*, 9:2–3 (1996), pp. 139–90.
 [^31]: Ingamells, *Dictionary*, p. xi.
 
-*Acknowledgements**
+**Acknowledgements**
 Research behind this essay was funded by a Rome Scholarship at the British School at Rome (2010–11), and a Max Weber Fellowship at the European University Institute, Florence (2015–16). For comments and other generous assistance, the author is greatly indebted to Giovanna Ceserani, Rachel Midura, Melissa Calaresu, and all the participants at the two ‘Grand Tour Explorer’ workshops held at Stanford in March 2016 and September 2017.
 
 <h3>References</h3>
 
-::: {#popup .overlay style="display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3"}
-    <div id="imgs" style="height:80%">
-        <div class="overlay-close">
-            <a><i class="material-icons">close</i></a>
-        </div>
-        <img id="img">
-        <img id="img2">
-    </div>
-    <div id="capWrapper" style="height:20%">
-        <p id="cap" style="float:left; max-width:80%; position:relative; left:120px; display:inline-block"></p>
-        <div style="display:inline-block; float: right">
-            <div style="display:flex; flex-direction:column; position:relative; right:100px">
-                <i class="material-icons link-cite" aria-label="Cite this image" data-balloon-pos="left">format_quote</i>
-                <i class="material-icons link-copy" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
-                <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
-            </div>
-        </div>
-    </div>
-:::
-
-```{=html}
-<script>
-function zoom(obj, obj2, caption) {
-    var popup = document.getElementById("popup");
-    popup.style.maxHeight = "80%";
-    popup.style.height = "80%"
-    var image = document.getElementById("img");
-    var image2 = document.getElementById("img2");
-        
-    image.src = obj.src;
-    image.style.display = "block";
-    image.style.marginLeft = "auto";
-    image.style.marginRight = "auto";
-    image.style.left = "0";
-    image.style.right = "0";
-    image.style.width = "100%";
-    image.style.height = "100%";
-
-    image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
-    document.getElementById("capWrapper").style.width = image.offsetWidth;
-
-    if (obj2 != undefined && obj2 != null) { // Figure 1 & 2 are paired
-        image.style.float = "left";
-        image.style.width = "50%";
-
-        image2.src = obj2.src;
-        
-        image2.style.display = "block";
-        image2.style.marginLeft = "auto";
-        image2.style.marginRight = "auto";
-        image2.style.left = "0";
-        image2.style.right = "0";
-        image2.style.float = "left";
-        image2.style.width = "50%";
-        image2.style.height = "100%";
-
-        document.getElementById("capWrapper").style.width = image.offsetWidth + image2.offsetWidth; 
-    }
-    var cap = document.getElementById("cap");
-    if (caption != undefined && caption != null) {
-        cap.innerHTML = caption.innerHTML;
-        cap.style.display = "block";
-    } else {
-        cap.style.display = "none";
-    }
-    var overlays = document.getElementsByClassName("overlay");
-      for (overlay of overlays) {
-        overlay.classList.remove("visible");
-      }
-    popup.classList.add("visible"); 
-}    
-</script>
-```

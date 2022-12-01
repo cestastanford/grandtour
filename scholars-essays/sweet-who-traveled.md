@@ -55,7 +55,7 @@ Numbers of visitors to all cities increased in the 1760s, but the spike for Turi
 
 <figcaption id="cap3">
 
-<b>Fig. 3: Number of travelers as counted by start year of travel to Turin. The graph shows the anomalous spike in numbers of travelers between 1761-1770.</b>
+<b>Fig. 3:</b> Number of travelers as counted by start year of travel to Turin. The graph shows the anomalous spike in numbers of travelers between 1761-1770.
 
 </figcaption>
 
@@ -135,7 +135,7 @@ The number of these 'classic' Grand Tourists (meaning elite, young men) recorded
 
 <figcaption id="cap5">
 
-<b>Fig. 5: Number of travelers aged 15-25 as percentage of traveler population with known birthdates by decade intervals. The subsets of Turin and Rome shows that Turin had a greater proportion of young male tourists.</b>
+<b>Fig. 5:</b> Number of travelers aged 15-25 as percentage of traveler population with known birthdates by decade intervals. The subsets of Turin and Rome shows that Turin had a greater proportion of young male tourists.
 
 </figcaption>
 
@@ -162,7 +162,9 @@ Consideration of the age profile of travelers across the period and across the d
 
 <figure>
 
-<figcaption><b>Fig. 6: Number of travelers aged 40-50 as count and as percentage of traveler population with known birthdates by decade intervals.</b></figcaption>
+<figcaption><b>Fig. 6:</b> Number of travelers aged 40-50 as count and as percentage of traveler population with known birthdates by decade intervals.
+
+</figcaption>
 
 </figure>
 

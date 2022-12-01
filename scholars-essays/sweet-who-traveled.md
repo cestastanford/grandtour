@@ -104,7 +104,7 @@ Analyzing visitor numbers by age indicates that, of the visitors that are known 
 
 <figure>
 
-<figcaption><b>Fig. 4: Table indicating the number of recorded British travelers in Turin in residence at the Accademia. While exact ages are not given, their enrollment in this educational institution signals their youth.</b> Reproduced from Bianchi, "In cerca del moderno", <i>Rivista Italiana,</i> 1032.</figcaption>
+<figcaption><b>Fig. 4:</b> Table indicating the number of recorded British travelers in Turin in residence at the Accademia. While exact ages are not given, their enrollment in this educational institution signals their youth. Reproduced from Bianchi, "In cerca del moderno", <i>Rivista Italiana,</i> 1032.</figcaption>
 
 </figure>
 

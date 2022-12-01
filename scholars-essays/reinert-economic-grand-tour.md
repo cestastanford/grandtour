@@ -71,7 +71,17 @@ Ford, Ingamells, and their collaborators did *not* plan on their work being tran
 [^29]: Ingamells, *Dictionary*, p. x.
 [^30]: On such actual bear-walkers, see Michel Pastoureau, *L’ours: Histoire d’un roi déchu*, Paris: Éditions du Seuil, 2007.
 
-************FIGURE 1 GOES HERE************
+<figure>
+
+<a name="figure-1"> <img src="reinert-figure-1.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig1&apos;), getElementById(&apos;cap1&apos;))"/> </a>
+
+<figcaption id="cap1">
+
+<b>Fig. 1:</b> Pier Leone Ghezzi, *Dr. Hay as Bear-Leader*, c. 1725, London, British Museum. For more on Hay, see the essay on ciceroni by Carole Paul in this volume.
+
+</figcaption>
+
+</figure>
 
 Even a cursory engagement with the *Dictionary* through the *Explorer* would reveal, as I already hinted, that the authors cared little, if at all, about the ‘economic’ Grand Tour. Its only ‘economist’ was the Irish banker and writer Richard Cantillon (1680-1734, travel years 1724-1725); its ‘political economist’ was Adam Smith’s nemesis Sir James Steuart (1712-1780, travel years -1739, 1758-); the lone ‘agricultural writer’ Ingamells detected was Jethro Tull (1674-1741, travel years c.1711-14); and his ‘agriculturist’ was Arthur Young (1741-1820, travel year 1789).[^31] John Symonds (1730-1807, travel years 1765-1771), Regius Professor of Modern History in Cambridge for nearly four decades, was the only tourist identified as an “agronomist, and miscellaneous writer” in the *Dictionary*, though not a ‘historian’ or, for that matter, a ‘lawyer,’ which he also was.[^32] The Welsh Major-General Henry Lloyd, one of the most Münchausen-like figures of his century, appeared both as “soldier and economist Henry Humfrey [sic] Evans” in Parma in 1769, and as the ‘mercenary, military historian’ Gen. Henry Humphrey Evans Lloyd, who traveled widely through Genoa, Leghorn, Milan, Rome, Vaprio d’Adda, and Venice.[^33] In the digital version of the *Explorer*, such redundancies can be swiftly located and resolved: Henry Lloyd’s two entries have been combined into one, for example. Moreover, the *Explorer* curates and adds new layers of navigation to the *Dictionary*’s text. The ‘Occupations and Posts’ categories now group the professions and interests of travelers in more searchable forms. Still, as a digital transformation of the original text, the *Explorer*’s data remains, so far, largely dependent on the information contained in the *Dictionary*.
 
@@ -85,19 +95,49 @@ Yet, Ford, Ingamells, and their team *did* take note of merchants, to the extent
 
 As a baseline of analysis, most Grand Tourists with an employment identifier, occupation or post visited Italian cities in the same order that the raw total did: Rome (1,371), distantly trailed by Florence (926) and Venice (812), then Naples (810), Turin (476), Leghorn (441), Padua (404), and Genoa (339), then a broad swath of locations from Trieste to Sicily. Many travelers reached Italy through France and the Alps, arriving at Turin in Savoy. Genoa and Leghorn’s prominent places in the second tier of cities might also reflect geographical necessities of travel at the time (for more on this, see Rachel Midura’s essay in this collection). One can only assume that Milan would have ranked higher in an aggregate map of Grand Tourists from Northern Europe, and Trieste would be ranked higher in the case of travelers from the East.
 
-**************FIGURE 2 GOES HERE********************
+<figure>
+
+<a name="figure-2"> <img src="reinert-figure-2.png" id="fig2" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap2&apos;))"/> </a>
+
+<figcaption id="cap2">
+
+<b>Fig. 2:</b> Travels of Grand Tourists with ‘Employment or Identifier’ and/or ‘Occupations and Posts’ information. Note the concentration of travelers on the major cities of Rome, Florence, Venice and Naples. Points sized by the number of travelers.
+
+</figcaption>
+
+</figure>
 
 Focusing on the subset of 176 ‘painters,’ ‘portrait painters,’ and ‘watercolourists,’ as identified in the ‘Employers and Identifiers,’ changes things somewhat. Unsurprisingly, Rome (158 travelers) remains the premier destination on the Grand Tour, with Florence a distant second (68). These are followed by Naples (63) and Venice (43), closely trailed by Bologna (31) and Parma (27). Only around a third of these travelers voyaged south of Rome, and, of these, even fewer outside of Naples, though it is remarkable that more visited Naples than Venice. Though this would require sustained archival work to ascertain, it is tempting to guess that the trips by this subset to many of the smaller cities reflected wishes to visit specific places of beauty or artworks on display. As William Hazlitt so famously, if wrong-headedly, derided his countrymen, “the English abroad turn out of their way to visit every pettifogging, huckstering object that they can see better at home…”[^35]
 
 [^35]: William Hazlitt, *Notes of a Journey through France and Italy*, London: Hunt and Clark, 1826, p. 390.
 
-***********FIGURE 3 GOES HERE***************
+<figure>
+
+<a name="figure-3"> <img src="reinert-figure-3.png" id="fig3" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
+
+<figcaption id="cap3">
+
+<b>Fig. 3:</b> Travels of Grand Tourists with ‘Painter,’ ‘Portrait Painter’ or ‘Watercolourist’ as the ‘Employment or Identifier.’ Travels tended to feature the major cities of the traditional Grand Tour, but show a wider distribution outside of them. Note that additional figures might be added who featured similar labels, but in the ‘Occupations and Posts’ category. Points sized by the number of unique travelers.
+
+</figcaption>
+
+</figure>
 
 Turning to the 180 travelers on the ‘economic’ Grand Tour, the same number of entries now reveals a rather different set of itineraries. The Eternal City has, for the first time, been supplanted as the premier destination by Leghorn (98), followed by Naples (45), Venice (34), and Rome (31). Destinations further south were generally neglected by the itineraries of such ‘economic’ Grand Tourists, who focused squarely on the country’s center and north, with comparably high frequencies of visits to the old economic core of the peninsula from Turin down to Genoa, and through Milan to Venice. Strikingly, these travelers were far less likely to be recorded in smaller cities on the Grand Tour than were artists. As the Danish Cameralist Peter Christian Schumacher, who explicitly had set out on a Grand Tour to study European practices of political economy, justified his decision not to visit Naples, “it holds so little influence in the European system that it cannot be of particularly dire importance [*magtpaaliggende*] what system they have.”[^36]
 
 [^36]: Peter Christian Schumacher to *Ove Høegh-Guldberg, 2 April 1784, in Ove Høegh Guldbergs og Arveprins Frederiks brevveksling med Peter Christian Schumacher 1778-1807*, ed. J.O. Bro-Jørgensen, Copenhagen: Nyt Nordisk Forlag Arnold Busck, 1972, p. 329. I have discussed Schumacher’s travels in my ‘Another Grand Tour’.
 
-***********FIGURE 4 GOES HERE***************
+<figure>
+
+<a name="figure-4"> <img src="reinert-figure-4.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig4&apos;), getElementById(&apos;cap4&apos;))"/> </a>
+
+<figcaption id="cap4">
+
+<b>Fig. 4:</b> Travels of ‘economic’ grand tourists (180), with ‘Employment or Identifier’ related to finance and trade. Note that additional figures might be added who featured similar labels, but in the ‘Occupations and Posts’ category. Points sized by the number of unique travelers.
+
+</figcaption>
+
+</figure>
 
 The *Grand Tour Explorer* in conjunction with *Palladio* amply demonstrates that an ‘economic’ Grand Tour indeed existed, and that it differed significantly in its itinerary from the travels of other groups, such as artists.[^37]
 
@@ -115,8 +155,17 @@ Henry Lloyd’s version of the Grand Tour was, in many ways, characteristic of t
 [^42]: See particularly Franco Venturi, *Utopia e riforma nell’Illuminismo*, Turin: Einaudi, 1970 and John Robertson, *The Case for the Enlightenment: Scotland and Naples, 1680-1760*, Cambridge: Cambridge University Press, 2005; Reinert, *Translating Empire*.
    
 
-***********FIGURE 5 GOES HERE *******************
-Fig. 5: Comparison of recorded travels of Henry Lloyd (Left, Blue), Sir Lambert Blackwell (Right, Red) and Lewis Blaquier (Bottom, Green). The maps demonstrate the diversity between Lloyd and Blackwell, and relative scarcity of data for Blaquier. 
+<figure>
+
+<a name="figure-5"> <img src="reinert-figure-5.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig5&apos;), getElementById(&apos;cap5&apos;))"/> </a>
+
+<figcaption id="cap5">
+
+<b>Fig. 5:</b> Comparison of recorded travels of Henry Lloyd (left, blue), Sir Lambert Blackwell (center, red) and Lewis Blaquiere (right, green). The maps demonstrate the diversity between Lloyd and Blackwell, and relative scarcity of data for Blaquiere.
+
+</figcaption>
+
+</figure>
 
 For an example of a more specifically mercantile-political sojourn, that of Sir Lambert Blackwell (1665-1727, travel years 1689-1705), merchant and Britain’s first consul to Leghorn, later Ambassador to Venice, Florence, and Genoa, and Director of the South Sea Company, is representative, as his political appointments closely mirrored British strategic and commercial interests on the peninsula. Though hardly evocative of the Grand Tour as commonly understood, Ingamells’ fleeting and melancholy mention of Lewis Blaquiere (1722-1754, travel years 1744-1754) is also illustrative of countless other British merchants who escaped mention in the *Dictionary*:
 
@@ -144,8 +193,19 @@ Turning to the larger occupational subset of ‘Statesmen and Political Appointe
 
 [^49]: https://scholar.google.com; last accessed 5 March 2016.
 
-****************FIGURES 6 AND 7 GO HERE***************
-Fig. 6 & 7: Travels of Grand Tourists included in the ‘Finance and Trade’ (Above) and ‘Statesmen & Political Appointees’ (below) categories by the *Explorer* designers in the ‘Occupations and Posts’ Group. The group represents the curation of data based upon the *Dictionary*-provided occupations and posts. 
+<figure>
+
+<a name="figure-6"> <img src="reiner-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig6&apos;), getElementById(&apos;cap67&apos;))"/> </a> <br> <br> <a name="figure-7"> <img src="reiner-figure-7.png" id="fig7" class="fig" onclick="zoom(getElementById(&apos;fig7&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
+
+<figcaption id="cap67">
+
+<b>Fig. 6 and 7:</b> Travels of Grand Tourists included in the ‘Finance and Trade’ (above) and ‘Statesmen & Political Appointees’ (below) categories by the *Explorer* designers in the ‘Occupations and Posts’ Group. The group represents the curation of data based upon the *Dictionary*-provided occupations and posts.
+
+</figcaption>
+
+</figure>
+
+<a name="figure-8"></a>
 
 City | Number of “Finance and Trade” | Number of “Statesmen and Political Appointees” | Overall Number of Travelers
 -|-|-|-
@@ -160,15 +220,29 @@ Bologna | 2 | 163 | 665
 Genoa | 3 | 180 | 613
 Milan | 3 | 166 | 588
 
-*********FIGURE 8 HERE IN WORD DOC BUT MAY BE BETTER TO MOVE UP OR TO LAST PARA******************
-Fig. 8: Table comparing number of recorded traveler by ‘Occupation and Post’ to overall number of travelers. The comparison supports that the travelers belonging to the ‘Finance and Trade’ subset did follow different itineraries from the overall Tour, as well as larger subset of ‘Statesmen and Political Appointees’.
+<figure>
+
+<figcaption><b>Fig. 8:</b> Table comparing number of recorded traveler by ‘Occupation and Post’ to overall number of travelers. The comparison supports that the travelers belonging to the ‘Finance and Trade’ subset did follow different itineraries from the overall Tour, as well as larger subset of ‘Statesmen and Political Appointees’.</figcaption>
+
+</figure>
 
 Though far from a perfect proxy for general cultural interest, a Google Ngram of the names of Italian cities in English publications of the eighteenth century can throw light on the problem from a complementary perspective.[^50] Rome naturally remains by far the most often mentioned Italian city throughout the century, because it was the seat of the Papacy, capital of the greatest Empire in world history, and, to many, the fountainhead of Western civilization.[^51] The other, less myth-spun cities enjoyed shifting fortunes, with Naples seeing two peaks of interest around 1730 and 1760, along with a resurgence of mentions of most other major Italian cities. In the eighteenth century, English books mentioned Naples more frequently than English travelers actually visited the city, based on the *Explorer*, particularly in comparison to other cities. Leghorn was more important to English trade and travel than the aggregate book history as channeled by a Google Ngram would suggest. If nothing else, these different perspectives on the Grand Tour made possible by digital history suggest more expansive approaches to different cities than have been traditionally employed.
 
 [^50]: https://books.google.com/ngrams; last accessed  5 March 2016.
 [^51]: The literature on Rome’s many and changing aspects is immense, but see still the epochal Edward Gibbon, *The History of the Decline and Fall of the Roman Empire*, ed. David P. Womersley, 3 vols., London: Penguin, 1996, on which see J.G.A. Pocock, *Barbarism and Religion*, 6 vols., Cambridge: Cambridge University Press, 1999-2015; and, for recent scholarship, Peter Bondanella, *The Eternal City: Roman Images in the Modern World*, Chapel Hill: The University of North Carolina Press, 1987 as well as Richard J. B. Bosworth, *Whispering City: Rome and Its Histories*, New Haven: Yale University Press, 2011; Greg Woolf, *Rome: An Empire’s Story*, Oxford: Oxford University Press, 2012; and, for today’s Rome, Isabella Clough Marinaro and Bjørn Thomassen (eds.), *Global Rome: Changing Faces of the Eternal City*, Bloomington: Indiana University Press, 2014.
 
-**************FIGURES 9 AND 10 GO HERE--MAYBE ONLY #9?*****
+<figure>
+
+<a name="figure-9"> <img src="reinert-figure-9.png" id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig9&apos;), getElementById(&apos;cap910&apos;))"/> </a> <br> <br>
+<a name="figure-10"> <img src="reinert-figure-10.png" id="fig10" class="fig" onclick="zoom(this, getElementById(&apos;fig10&apos;), getElementById(&apos;cap910&apos;))"/>
+
+<figcaption id="cap910">
+
+<b>Fig. 9 and 10:</b> Google Ngrams of Mentions of Select Italian Cities in English Publications, 1700-1800.
+
+</figcaption>
+
+</figure>
 
 The *Grand Tour Explorer* supports the theory that economic travelers to Italy as a whole ventured to different places than those visited by the average traveler identified in the *Dictionary*, as well as those habitually emphasized by historians of the Grand Tour. Furthermore, it indicates a direction for more extensive archival work to answer the question of why, exactly, economically-interested individual British travelers chose particular destinations. Finally, the visualizations made possible by the use of digital tools suggest that significant historiographical revisionism is in order, as the center of gravity for British travelers to Italy matched the centers of economic activity on the peninsula far more closely than recent scholarship would suggest, even, as the aggregate data reveals, in the case of stereotypically aristocratic travelers seeking *Bildung* through exposure to the material remnants of antiquity.[^52] The Grand Tour was a protean institution in the eighteenth and nineteenth centuries, the shifting geography of which reflected changing spaces of cultural importance in Europe.[^53] Though the Enlightenment fervor for exoticism, antiquarianism, collecting, and bric-a-brac generally has been studied in recent decades, travel was also one of the most important vectors for worldlier processes of international commerce, communication, competition, and emulation at the time. The greatest difference between the traditional scholarly Grand Tour and its economic variation, however, might be that while the former looked to the past, the latter looked resolutely to the future, inventing rather than confirming established tropes.[^54] Journeying for business and political economy remains a vast, trans-historical phenomenon, of which the economic tourism traceable through the *Grand Tour Explorer* must be considered an important subset; the Grand Tour itself a particularly vibrant chapter in the timeless flow of goods, people, and ideas that forms our past and our present.
 

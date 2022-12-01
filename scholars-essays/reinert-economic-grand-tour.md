@@ -195,7 +195,7 @@ Turning to the larger occupational subset of ‘Statesmen and Political Appointe
 
 <figure>
 
-<a name="figure-6"> <img src="reiner-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig6&apos;), getElementById(&apos;cap67&apos;))"/> </a> <br> <br> <a name="figure-7"> <img src="reiner-figure-7.png" id="fig7" class="fig" onclick="zoom(getElementById(&apos;fig7&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
+<a name="figure-6"> <img src="reinert-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig6&apos;), getElementById(&apos;cap67&apos;))"/> </a> <br> <br> <a name="figure-7"> <img src="reinert-figure-7.png" id="fig7" class="fig" onclick="zoom(getElementById(&apos;fig7&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
 
 <figcaption id="cap67">
 
@@ -233,8 +233,11 @@ Though far from a perfect proxy for general cultural interest, a Google Ngram of
 
 <figure>
 
-<a name="figure-9"> <img src="reinert-figure-9.png" id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig9&apos;), getElementById(&apos;cap910&apos;))"/> </a> <br> <br>
-<a name="figure-10"> <img src="reinert-figure-10.png" id="fig10" class="fig" onclick="zoom(this, getElementById(&apos;fig10&apos;), getElementById(&apos;cap910&apos;))"/>
+<a name="figure-9"> <img src="reinert-figure-9.png"
+ id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig9&apos;),
+ getElementById(&apos;cap910&apos;))"/>
+ </a> <br> <br> <a name="figure-10"> <img src="reinert-figure-10.png" id="fig10" class="fig"
+ onclick="zoom(getElementById(&apos;fig7&apos;), this, getElementById(&apos;cap910&apos;))"/> </a>
 
 <figcaption id="cap910">
 
@@ -243,6 +246,7 @@ Though far from a perfect proxy for general cultural interest, a Google Ngram of
 </figcaption>
 
 </figure>
+
 
 The *Grand Tour Explorer* supports the theory that economic travelers to Italy as a whole ventured to different places than those visited by the average traveler identified in the *Dictionary*, as well as those habitually emphasized by historians of the Grand Tour. Furthermore, it indicates a direction for more extensive archival work to answer the question of why, exactly, economically-interested individual British travelers chose particular destinations. Finally, the visualizations made possible by the use of digital tools suggest that significant historiographical revisionism is in order, as the center of gravity for British travelers to Italy matched the centers of economic activity on the peninsula far more closely than recent scholarship would suggest, even, as the aggregate data reveals, in the case of stereotypically aristocratic travelers seeking *Bildung* through exposure to the material remnants of antiquity.[^52] The Grand Tour was a protean institution in the eighteenth and nineteenth centuries, the shifting geography of which reflected changing spaces of cultural importance in Europe.[^53] Though the Enlightenment fervor for exoticism, antiquarianism, collecting, and bric-a-brac generally has been studied in recent decades, travel was also one of the most important vectors for worldlier processes of international commerce, communication, competition, and emulation at the time. The greatest difference between the traditional scholarly Grand Tour and its economic variation, however, might be that while the former looked to the past, the latter looked resolutely to the future, inventing rather than confirming established tropes.[^54] Journeying for business and political economy remains a vast, trans-historical phenomenon, of which the economic tourism traceable through the *Grand Tour Explorer* must be considered an important subset; the Grand Tour itself a particularly vibrant chapter in the timeless flow of goods, people, and ideas that forms our past and our present.
 

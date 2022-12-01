@@ -199,7 +199,7 @@ Turning to the larger occupational subset of ‘Statesmen and Political Appointe
 
 <figcaption id="cap67">
 
-<b>Fig. 6 and 7:</b> Travels of Grand Tourists included in the ‘Finance and Trade’ (above) and ‘Statesmen & Political Appointees’ (below) categories by the *Explorer* designers in the ‘Occupations and Posts’ Group. The group represents the curation of data based upon the *Dictionary*-provided occupations and posts.
+<b>Fig. 6 and 7:</b> Travels of Grand Tourists included in the ‘Finance and Trade’ (above) and ‘Statesmen & Political Appointees’ (below) categories by the <i>Explorer</i> designers in the ‘Occupations and Posts’ Group. The group represents the curation of data based upon the <i>Dictionary</i>-provided occupations and posts.
 
 </figcaption>
 

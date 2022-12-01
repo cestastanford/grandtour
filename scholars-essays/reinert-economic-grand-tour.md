@@ -63,7 +63,7 @@ The *Explorer* retains many of the cornucopian qualities of its source, *A Dicti
 [^24]: On the unique attractiveness to travelers of Tuscan Enlightened reforms, see Reinert, ‘Another Grand Tour’; Jeremy Black, *The British Abroad: The Grand Tour in the Eighteenth Century*, Stroud: The History Press, 2003 [1992], p. 246; Sweet, *Cities and the Grand Tour*, p. 71.
 [^25]: Orlando Pescetti, *Proverbi italiani*, Verona: La compagnia degli aspiranti, 1603, p. 30.
 
-Ford, Ingamells, and their collaborators did *not* plan on their work being transformed into an easily accessible database. This is clear when considering, for example, the defining terms with which many of the *Dictionary*’s entries begin, which the *Explorer* has organized in the category of “Employments and Identifiers.” Perhaps only a lone British ‘editor of Shakespeare’ and a solitary ‘bear-leader’ really ventured to Italian shores in the eighteenth century---though if one were to substitute ‘bear-leader’ with the term ‘tutor’ or ‘traveling tutor’ the number swells to four---but it is hard to believe that only one solitary traveler was a ‘dilettante poet,’ one an ‘amateur scientist,’ and only one, rather implausibly, warranted the qualifier ‘miscreant.’[^26] Ingamells cared first and foremost (one is tempted to say singularly) about what Ford had called “matters connected with the arts, patronage [and] collecting,” yet he called only one lonely voyager an ‘art critic’; boding poorly for subjects he cared for not at all.[^27] Similarly, though focusing on British travelers, even for the period following the War of Independence (1775-1783), he continued to list several Americans. And can we really be certain that William Bosville (1745-1813, travel year 1779) was the British Grand Tour’s *only* ‘bon vivant,’ and John Hall Stevenson (1718-85, travel year 1753) its token ‘hedonist,’ rather than the other way around?[^28] The *Explorer* illustrates how the *Dictionary*’s categories were literary in many cases rather than simply analytical. It also shows how, in extrapolating data from a different medium, one risks codifying the tentative and impressionistic. Ingamells, after all, wished for the book to be 'readable’ and---somewhat lethally for an analytical database---to embrace “a certain variety of style.”[^29] To a scholar of the Grand Tour, the classification of the physician and tour-guide Dr. James Hay (d. 1746, travel years 1704-1706, 1707-1709, 1711-1712, 1715, 1718-1719, 1720, 1722-1723, 1729-1734) as ‘bear-leader,’ for example, is a witty implicit reference to Pier Leone Ghezzi’s c. 1725 caricature “Dr. Hay as Bear-Leader” and the colloquial eighteenth-century nickname for a traveling tutor. But it also risks suggesting Hay was touring with actual bears---also an early modern practice---around the ruins of ancient Rome rather than wealthy British youths.[^30]
+Ford, Ingamells, and their collaborators did *not* plan on their work being transformed into an easily accessible database. This is clear when considering, for example, the defining terms with which many of the *Dictionary*’s entries begin, which the *Explorer* has organized in the category of “Employments and Identifiers.” Perhaps only a lone British ‘editor of Shakespeare’ and a solitary ‘bear-leader’ really ventured to Italian shores in the eighteenth century---though if one were to substitute ‘bear-leader’ with the term ‘tutor’ or ‘traveling tutor’ the number swells to four---but it is hard to believe that only one solitary traveler was a ‘dilettante poet,’ one an ‘amateur scientist,’ and only one, rather implausibly, warranted the qualifier ‘miscreant.’[^26] Ingamells cared first and foremost (one is tempted to say singularly) about what Ford had called “matters connected with the arts, patronage [and] collecting,” yet he called only one lonely voyager an ‘art critic’; boding poorly for subjects he cared for not at all.[^27] Similarly, though focusing on British travelers, even for the period following the War of Independence (1775-1783), he continued to list several Americans. And can we really be certain that William Bosville (1745-1813, travel year 1779) was the British Grand Tour’s *only* ‘bon vivant,’ and John Hall Stevenson (1718-85, travel year 1753) its token ‘hedonist,’ rather than the other way around?[^28] The *Explorer* illustrates how the *Dictionary*’s categories were literary in many cases rather than simply analytical. It also shows how, in extrapolating data from a different medium, one risks codifying the tentative and impressionistic. Ingamells, after all, wished for the book to be ‘readable’ and---somewhat lethally for an analytical database---to embrace “a certain variety of style.”[^29] To a scholar of the Grand Tour, the classification of the physician and tour-guide Dr. James Hay (d. 1746, travel years 1704-1706, 1707-1709, 1711-1712, 1715, 1718-1719, 1720, 1722-1723, 1729-1734) as ‘bear-leader,’ for example, is a witty implicit reference to Pier Leone Ghezzi’s c. 1725 caricature “Dr. Hay as Bear-Leader” and the colloquial eighteenth-century nickname for a traveling tutor. But it also risks suggesting Hay was touring with actual bears---also an early modern practice---around the ruins of ancient Rome rather than wealthy British youths.[^30]
 
 [^26]: These were, and Dr. Thomas Bowdler, Dr. James Hay, Robert Merry, George Nassau Clavering Cowper, 3rd Earl Cowper, and Henry Fisher respectively, see Ingamells, *Dictionary*, pp. 111-112, 245-247, 357, 476-477, 655-656.
 [^27]: Ingamells, *Dictionary*, p. xvi. The ‘art critic’ in question was George Cumberland, on which see Ingamells, Dictionary, pp. 259-260.
@@ -147,17 +147,18 @@ Turning to the larger occupational subset of ‘Statesmen and Political Appointe
 ****************FIGURES 6 AND 7 GO HERE***************
 Fig. 6 & 7: Travels of Grand Tourists included in the ‘Finance and Trade’ (Above) and ‘Statesmen & Political Appointees’ (below) categories by the *Explorer* designers in the ‘Occupations and Posts’ Group. The group represents the curation of data based upon the *Dictionary*-provided occupations and posts. 
 
-City	Number of "Finance and Trade"	Number of "Statesmen & Political Appointees"	Overall Number of Travelers
-Rome	19	663	3367
-Florence	14	475	2136
-Venice	15	429	2135
-Naples	4	412	1931
-Padua	8	230	1148
-Leghorn	11	140	969
-Turin	3	280	949
-Bologna	2	163	665
-Genoa	3	180	613
-Milan	3	166	588
+City | Number of “Finance and Trade” | Number of “Statesmen and Political Appointees” | Overall Number of Travelers
+-|-|-|-
+Rome | 19 | 663 | 3367
+Florence | 14 | 475 | 2136
+Venice | 15 | 429 | 2135
+Naples | 4 | 412 | 1931
+Padua | 8 | 230 | 1148
+Leghorn | 11 | 140 | 969
+Turin | 3 | 280 | 949
+Bologna | 2 | 163 | 665
+Genoa | 3 | 180 | 613
+Milan | 3 | 166 | 588
 
 *********FIGURE 8 HERE IN WORD DOC BUT MAY BE BETTER TO MOVE UP OR TO LAST PARA******************
 Fig. 8: Table comparing number of recorded traveler by ‘Occupation and Post’ to overall number of travelers. The comparison supports that the travelers belonging to the ‘Finance and Trade’ subset did follow different itineraries from the overall Tour, as well as larger subset of ‘Statesmen and Political Appointees’.

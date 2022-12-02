@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "1. Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers"
+title: "1. Who Traveled, Where and When?: Using the Grand Tour Explorer to Examine Patterns of Travels and Travelers"
 author: Rosemary Sweet
 session: 4
 chapter: 1

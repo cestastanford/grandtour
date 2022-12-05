@@ -73,7 +73,7 @@ Ford, Ingamells, and their collaborators did *not* plan on their work being tran
 
 <figure>
 
-<a name="figure-1"> <img src="reinert-figure-1.png" id="fig1" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-1" class="fig"> <img src="reinert-figure-1.png" id="fig1"  onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
 
 <figcaption id="cap1">
 
@@ -97,7 +97,7 @@ As a baseline of analysis, most Grand Tourists with an employment identifier, oc
 
 <figure>
 
-<a name="figure-2"> <img src="reinert-figure-2.png" id="fig2" class="fig" onclick="zoom(this, null, getElementById(&apos;cap2&apos;))"/> </a>
+<a name="figure-2" class="fig"> <img src="reinert-figure-2.png" id="fig2"  onclick="zoom(this, null, getElementById(&apos;cap2&apos;))"/> </a>
 
 <figcaption id="cap2">
 
@@ -113,7 +113,7 @@ Focusing on the subset of 176 ‘painters,’ ‘portrait painters,’ and ‘wa
 
 <figure>
 
-<a name="figure-3"> <img src="reinert-figure-3.png" id="fig3" class="fig" onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-3" class="fig"> <img src="reinert-figure-3.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap3">
 
@@ -129,7 +129,7 @@ Turning to the 180 travelers on the ‘economic’ Grand Tour, the same number o
 
 <figure>
 
-<a name="figure-4"> <img src="reinert-figure-4.png" id="fig4" class="fig" onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
+<a name="figure-4" class="fig"> <img src="reinert-figure-4.png" id="fig4"  onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
 
 <figcaption id="cap4">
 
@@ -157,7 +157,7 @@ Eighteenth-century Italy continued to have purchase not merely in art and cultur
 
 <figure>
 
-<a name="figure-5"> <img src="reinert-figure-5.png" id="fig5" class="fig" onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
+<a name="figure-5" class="fig"> <img src="reinert-figure-5.png" id="fig5"  onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
 
 <figcaption id="cap5">
 
@@ -195,7 +195,7 @@ Turning to the larger occupational subset of ‘Statesmen and Political Appointe
 
 <figure>
 
-<a name="figure-6"> <img src="reinert-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig7&apos;), getElementById(&apos;cap67&apos;))"/> </a> <br> <br> <a name="figure-7"> <img src="reinert-figure-7.png" id="fig7" class="fig" onclick="zoom(getElementById(&apos;fig6&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
+<a name="figure-6" class="half-fig"> <img src="reinert-figure-6.png" id="fig6"  onclick="zoom(this, getElementById(&apos;fig7&apos;), getElementById(&apos;cap67&apos;))"/> </a> <a name="figure-7" class="half-fig"> <img src="reinert-figure-7.png" id="fig7"  onclick="zoom(getElementById(&apos;fig6&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
 
 <figcaption id="cap67">
 
@@ -233,10 +233,10 @@ Though far from a perfect proxy for general cultural interest, a Google Ngram of
 
 <figure>
 
-<a name="figure-9"> <img src="reinert-figure-9.png"
- id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig10&apos;),
+<a name="figure-9" class="half-fig"> <img src="reinert-figure-9.png"
+ id="fig9"  onclick="zoom(this, getElementById(&apos;fig10&apos;),
  getElementById(&apos;cap910&apos;))"/>
- </a> <br> <br> <a name="figure-10"> <img src="reinert-figure-10.png" id="fig10" class="fig"
+ </a> <a name="figure-10" class="half-fig"> <img src="reinert-figure-10.png" id="fig10"
  onclick="zoom(getElementById(&apos;fig9&apos;), this, getElementById(&apos;cap910&apos;))"/> </a>
 
 <figcaption id="cap910">

@@ -21,7 +21,7 @@ My initial approach was very basic: simply looking at patterns of travel and the
 
 <figure>
 
-<a name="figure-1"> <img src="sweet-figure-1.svg" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a> <br> <br> <a name="figure-2"> <img src="sweet-figure-2.svg" id="fig2" class="fig" onclick="zoom(getElementById(&apos;fig1&apos;), this, getElementById(&apos;cap12&apos;))"/> </a>
+<a name="figure-1" class="half-fig"> <img src="sweet-figure-1.svg" id="fig1"  onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))"/> </a> <a name="figure-2" class="half-fig"> <img src="sweet-figure-2.svg" id="fig2" onclick="zoom(getElementById(&apos;fig1&apos;), this, getElementById(&apos;cap12&apos;))"/> </a>
 
 <figcaption id="cap12">
 
@@ -51,7 +51,7 @@ Numbers of visitors to all cities increased in the 1760s, but the spike for Turi
 
 <figure>
 
-<a name="figure-3"> <img src="sweet-figure-3.svg" class="fig" onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-3" class="fig"> <img src="sweet-figure-3.svg"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap3">
 
@@ -131,7 +131,7 @@ The number of these 'classic' Grand Tourists (meaning elite, young men) recorded
 
 <figure>
 
-<a name="figure-5b"> <img src="sweet-figure-5b.svg" class="fig" onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
+<a name="figure-5b" class="fig"> <img src="sweet-figure-5b.svg"  onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
 
 <figcaption id="cap5">
 
@@ -182,7 +182,7 @@ Although the data will always remain frustratingly incomplete, the general trend
 
 <figure>
 
-<a name="figure-7"> <img src="sweet-figure-7.svg" class="fig" onclick="zoom(this, null, getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7" class="fig"> <img src="sweet-figure-7.svg"  onclick="zoom(this, null, getElementById(&apos;cap7&apos;))"/> </a>
 
 <figcaption id="cap7">
 
@@ -196,7 +196,7 @@ Considering together the age profile and the numbers of women traveling---flawed
 
 <figure>
 
-<a name="figure-8"> <img src="sweet-figure-8.svg" class="fig" onclick="zoom(this, null, getElementById(&apos;cap8&apos;))"/> </a>
+<a name="figure-8" class="fig"> <img src="sweet-figure-8.svg"  onclick="zoom(this, null, getElementById(&apos;cap8&apos;))"/> </a>
 
 <figcaption id="cap8">
 

@@ -11,7 +11,7 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 <figure>
 
-<a name="figure-1"> <img src="sama-figure-0.png" id="fig1" class="fig" onclick="zoom(this, null, getElementById(&apos;samaCap1&apos;))"/> </a>
+<a name="figure-1" class="fig"> <img src="sama-figure-0.png" id="fig1"  onclick="zoom(this, null, getElementById(&apos;samaCap1&apos;))"/> </a>
 
 <figcaption id="samaCap1">
 
@@ -27,7 +27,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 <figure>
 
-<a name="figure-2"> <img src="sama-figure-1.png" id="fig2" class="fig" onclick="zoom(this, null, getElementById(&apos;samaCap2&apos;))"/> </a>
+<a name="figure-2" class="fig"> <img src="sama-figure-1.png" id="fig2"  onclick="zoom(this, null, getElementById(&apos;samaCap2&apos;))"/> </a>
 
 <figcaption id="samaCap2">
 
@@ -53,7 +53,7 @@ Searches of the database using specific dates and places also help identify indi
 
 <figure>
 
-<a name="figure-3"> <img src="sama-figure-4b.png" id="fig3" class="fig" onclick="zoom(this, null, getElementById(&apos;samaCap3&apos;))"/> </a>
+<a name="figure-3" class="fig"> <img src="sama-figure-4b.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;samaCap3&apos;))"/> </a>
 
 <figcaption id="samaCap3">
 
@@ -147,7 +147,7 @@ What might the *Explorer* be able to tell us about Carriera's studio? The riches
 
 <figure>
 
-<a name="figure-11"> <img src="sama-figure-16.jpg" class="fig" onclick="zoom(this, null, getElementById(&apos;samaCap11&apos;))"/> </a>
+<a name="figure-11" class="fig"> <img src="sama-figure-16.jpg"  onclick="zoom(this, null, getElementById(&apos;samaCap11&apos;))"/> </a>
 
 <figcaption id="samaCap11">
 

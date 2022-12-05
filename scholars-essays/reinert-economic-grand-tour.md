@@ -254,7 +254,7 @@ The *Grand Tour Explorer* supports the theory that economic travelers to Italy a
 [^53]: See, for the change of German emphasis from antique Rome to Renaissance Florence as the premier goal of the Grand Tour, for example, Martin A. Ruehl, *The Italian Renaissance in the German Historical Imagination, 1860-1930*, Cambridge: Cambridge University Press, 2015, pp. 1-3.
 [^54]: On the Grand Tour reaffirming tropes, see among others Brewer, “Whose Grand Tour?,’ p. 50.
 
-**Acknowledgements**
+**Acknowledgments**
 
 This paper was prepared as part of Giovanna Cesarani’s *Grand Tour Explorer Project*, and I am grateful to the participants at her Stanford conference of 4-5 March 2016 as well as to Steven L. Kaplan and Robert Fredona for comments.
 

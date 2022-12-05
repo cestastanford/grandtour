@@ -8,6 +8,24 @@ abstract: (Abstract missing)
 references: 
 about: Melissa Calaresu is a cultural historian who originally trained as a historian of political thought in Cambridge. Her work moves between her interests in material culture, the urban environment, and the history of ideas in early modern Italy. Her general research interests range from the uses and representation of urban space in the early modern period, the history of street food, eighteenth-century antiquarianism, collecting and historical writing in Italy and Spain, and travel and the Grand Tour in Europe through texts and images in the eighteenth and nineteenth centuries.
 ---
+<figure>
+
+<a name="figure-1" class="half-fig"> <img src="calaresu-figure-1.png" id="fig1" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap2&apos;))"/> </a> <a name="figure-2" class="half-fig"> <img src="calaresu-figure-2.png" id="fig2" onclick="zoom(getElementById(&apos;fig1&apos;), this, getElementById(&apos;cap1&apos;))"/> </a>
+
+<figcaption id="cap1">
+
+<b>Fig. 1:</b> Giuseppe Filippo Liberati Marchi (c.1735–1808), <i>Thomas Jones (1739-1787)</i>, 1768, oil on canvas, 92 x 72 cm, National Museum of Wales (NMW A 82).
+
+</figcaption>
+
+<figcaption id="cap2">
+
+<b>Fig. 2:</b> Francesco Renaldi (1755 – c. 1790), <i>Thomas Jones and His Family</i>, 1797. Oil on canvas, 74.9 x 101.6 cm National Museum of Wales, Cardiff (NMW A 92).
+
+</figcaption>
+
+</figure>
+
 The life of the Welsh painter, Thomas Jones (1742-1803, travel years 1776-83), is framed by the production of two portraits which together demonstrate the interlinked nature of Anglo-Italian cultural relations created by the Grand Tour, as the *Grand Tour Explorer* so clearly shows. 
 The first portrait, by Jones’ friend Giuseppe (or Joseph) Liberati Marchi (1735?-1808), was painted in 1768 when Jones and the artist were visiting Wales from London (Figure 1).[^1] The preeminent British portraitist of the late eighteenth century, Joshua Reynolds (1723-1792, travel years 1750-1752), had met the teenage Marchi on his tour of Italy and brought him back to Britain, where he worked as Reynolds’ assistant for more than forty years.
 

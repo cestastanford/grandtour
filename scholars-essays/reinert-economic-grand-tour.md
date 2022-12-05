@@ -73,7 +73,7 @@ Ford, Ingamells, and their collaborators did *not* plan on their work being tran
 
 <figure>
 
-<a name="figure-1"> <img src="reinert-figure-1.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig1&apos;), getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-1"> <img src="reinert-figure-1.png" id="fig1" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
 
 <figcaption id="cap1">
 
@@ -97,7 +97,7 @@ As a baseline of analysis, most Grand Tourists with an employment identifier, oc
 
 <figure>
 
-<a name="figure-2"> <img src="reinert-figure-2.png" id="fig2" class="fig" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap2&apos;))"/> </a>
+<a name="figure-2"> <img src="reinert-figure-2.png" id="fig2" class="fig" onclick="zoom(this, null, getElementById(&apos;cap2&apos;))"/> </a>
 
 <figcaption id="cap2">
 
@@ -113,7 +113,7 @@ Focusing on the subset of 176 ‘painters,’ ‘portrait painters,’ and ‘wa
 
 <figure>
 
-<a name="figure-3"> <img src="reinert-figure-3.png" id="fig3" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-3"> <img src="reinert-figure-3.png" id="fig3" class="fig" onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap3">
 
@@ -129,7 +129,7 @@ Turning to the 180 travelers on the ‘economic’ Grand Tour, the same number o
 
 <figure>
 
-<a name="figure-4"> <img src="reinert-figure-4.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig4&apos;), getElementById(&apos;cap4&apos;))"/> </a>
+<a name="figure-4"> <img src="reinert-figure-4.png" id="fig4" class="fig" onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
 
 <figcaption id="cap4">
 
@@ -157,7 +157,7 @@ Eighteenth-century Italy continued to have purchase not merely in art and cultur
 
 <figure>
 
-<a name="figure-5"> <img src="reinert-figure-5.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig5&apos;), getElementById(&apos;cap5&apos;))"/> </a>
+<a name="figure-5"> <img src="reinert-figure-5.png" id="fig5" class="fig" onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
 
 <figcaption id="cap5">
 
@@ -195,7 +195,7 @@ Turning to the larger occupational subset of ‘Statesmen and Political Appointe
 
 <figure>
 
-<a name="figure-6"> <img src="reinert-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig6&apos;), getElementById(&apos;cap67&apos;))"/> </a> <br> <br> <a name="figure-7"> <img src="reinert-figure-7.png" id="fig7" class="fig" onclick="zoom(getElementById(&apos;fig7&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
+<a name="figure-6"> <img src="reinert-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig7&apos;), getElementById(&apos;cap67&apos;))"/> </a> <br> <br> <a name="figure-7"> <img src="reinert-figure-7.png" id="fig7" class="fig" onclick="zoom(getElementById(&apos;fig6&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
 
 <figcaption id="cap67">
 
@@ -234,10 +234,10 @@ Though far from a perfect proxy for general cultural interest, a Google Ngram of
 <figure>
 
 <a name="figure-9"> <img src="reinert-figure-9.png"
- id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig9&apos;),
+ id="fig9" class="fig" onclick="zoom(this, getElementById(&apos;fig10&apos;),
  getElementById(&apos;cap910&apos;))"/>
  </a> <br> <br> <a name="figure-10"> <img src="reinert-figure-10.png" id="fig10" class="fig"
- onclick="zoom(getElementById(&apos;fig7&apos;), this, getElementById(&apos;cap910&apos;))"/> </a>
+ onclick="zoom(getElementById(&apos;fig9&apos;), this, getElementById(&apos;cap910&apos;))"/> </a>
 
 <figcaption id="cap910">
 
@@ -259,3 +259,77 @@ The *Grand Tour Explorer* supports the theory that economic travelers to Italy a
 This paper was prepared as part of Giovanna Cesarani’s *Grand Tour Explorer Project*, and I am grateful to the participants at her Stanford conference of 4-5 March 2016 as well as to Steven L. Kaplan and Robert Fredona for comments.
 
 <h3>References</h3>
+
+<div class="overlay" id="popup" style="display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3">
+    <div id="imgs" style="height:80%">
+        <div class="overlay-close">
+            <a><i class="material-icons">close</i></a>
+        </div>
+        <img id="img">
+        <img id="img2">
+    </div>
+    <div id="capWrapper" style="height:20%">
+        <p id="cap" style="float:left; max-width:80%; position:relative; left:120px; display:inline-block"></p>
+        <div style="display:inline-block; float: right">
+            <div style="display:flex; flex-direction:column; position:relative; right:100px">
+                <i class="material-icons link-cite" aria-label="Cite this image" data-balloon-pos="left">format_quote</i>
+                <i class="material-icons link-copy" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
+                <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function zoom(obj, obj2, caption) {
+    var popup = document.getElementById("popup");
+    popup.style.maxHeight = "90%";
+    popup.style.height = "90%"
+    var image = document.getElementById("img");
+    var image2 = document.getElementById("img2");
+        
+    image.src = obj.src;
+    image.style.display = "block";
+    image.style.marginLeft = "auto";
+    image.style.marginRight = "auto";
+    image.style.left = "0";
+    image.style.right = "0";
+    image.style.width = "100%";
+    image.style.height = "100%";
+    image.style.objectFit = "contain";
+
+    image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
+    document.getElementById("capWrapper").style.width = image.offsetWidth;
+
+    if (obj2 != undefined && obj2 != null) { // Figure 1 & 2 are paired
+        image.style.float = "left";
+        image.style.width = "50%";
+
+        image2.src = obj2.src;
+        
+        image2.style.display = "block";
+        image2.style.marginLeft = "auto";
+        image2.style.marginRight = "auto";
+        image2.style.left = "0";
+        image2.style.right = "0";
+        image2.style.float = "left";
+        image2.style.width = "50%";
+        image2.style.height = "100%";
+        image2.style.objectFit = "contain";
+
+        document.getElementById("capWrapper").style.width = image.offsetWidth + image2.offsetWidth; 
+    }
+    var cap = document.getElementById("cap");
+    if (caption != undefined && caption != null) {
+        cap.innerHTML = caption.innerHTML;
+        cap.style.display = "block";
+    } else {
+        cap.style.display = "none";
+    }
+    var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }
+    popup.classList.add("visible"); 
+}    
+</script>

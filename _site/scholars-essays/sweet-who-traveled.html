@@ -784,31 +784,31 @@
 
 <h3>References</h3>
 
-<p>::: {#popup .overlay style=”display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3”}
-    &lt;div id="imgs" style="height:80%"&gt;
-        &lt;div class="overlay-close"&gt;
+<div class="overlay" id="popup" style="display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3">
+    <div id="imgs" style="height:80%">
+        <div class="overlay-close">
             <a><i class="material-icons">close</i></a>
-        &lt;/div&gt;
+        </div>
         <img id="img" />
         <img id="img2" />
-    &lt;/div&gt;
-    &lt;div id="capWrapper" style="height:20%"&gt;
-        &lt;p id="cap" style="float:left; max-width:80%; position:relative; left:120px; display:inline-block"&gt;&lt;/p&gt;
-        &lt;div style="display:inline-block; float: right"&gt;
-            &lt;div style="display:flex; flex-direction:column; position:relative; right:100px"&gt;
+    </div>
+    <div id="capWrapper" style="height:20%">
+        <p id="cap" style="float:left; max-width:80%; position:relative; left:120px; display:inline-block"></p>
+        <div style="display:inline-block; float: right">
+            <div style="display:flex; flex-direction:column; position:relative; right:100px">
                 <i class="material-icons link-cite" aria-label="Cite this image" data-balloon-pos="left">format_quote</i>
                 <i class="material-icons link-copy" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
                 <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-:::</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<pre><code class="language-{=html}">&lt;script&gt;
+<script>
 function zoom(obj, obj2, caption) {
     var popup = document.getElementById("popup");
-    popup.style.maxHeight = "80%";
-    popup.style.height = "80%"
+    popup.style.maxHeight = "90%";
+    popup.style.height = "90%"
     var image = document.getElementById("img");
     var image2 = document.getElementById("img2");
         
@@ -820,11 +820,12 @@ function zoom(obj, obj2, caption) {
     image.style.right = "0";
     image.style.width = "100%";
     image.style.height = "100%";
+    image.style.objectFit = "contain";
 
     image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
     document.getElementById("capWrapper").style.width = image.offsetWidth;
 
-    if (obj2 != undefined &amp;&amp; obj2 != null) { // Figure 1 &amp; 2 are paired
+    if (obj2 != undefined && obj2 != null) { // Figure 1 & 2 are paired
         image.style.float = "left";
         image.style.width = "50%";
 
@@ -838,11 +839,12 @@ function zoom(obj, obj2, caption) {
         image2.style.float = "left";
         image2.style.width = "50%";
         image2.style.height = "100%";
+        image2.style.objectFit = "contain";
 
         document.getElementById("capWrapper").style.width = image.offsetWidth + image2.offsetWidth; 
     }
     var cap = document.getElementById("cap");
-    if (caption != undefined &amp;&amp; caption != null) {
+    if (caption != undefined && caption != null) {
         cap.innerHTML = caption.innerHTML;
         cap.style.display = "block";
     } else {
@@ -854,8 +856,8 @@ function zoom(obj, obj2, caption) {
       }
     popup.classList.add("visible"); 
 }    
-&lt;/script&gt;
-</code></pre>
+</script>
+
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">

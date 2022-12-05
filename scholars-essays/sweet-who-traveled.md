@@ -227,7 +227,7 @@ One of the great pleasures of using the *Dictionary* is the wealth of extraordin
 
 <h3>References</h3>
 
-::: {#popup .overlay style="display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3"}
+<div class="overlay" id="popup" style="display:flex; flex-direction:column; flex-wrap: wrap; background: #f7f6f3">
     <div id="imgs" style="height:80%">
         <div class="overlay-close">
             <a><i class="material-icons">close</i></a>
@@ -245,14 +245,13 @@ One of the great pleasures of using the *Dictionary* is the wealth of extraordin
             </div>
         </div>
     </div>
-:::
+</div>
 
-```{=html}
 <script>
 function zoom(obj, obj2, caption) {
     var popup = document.getElementById("popup");
-    popup.style.maxHeight = "80%";
-    popup.style.height = "80%"
+    popup.style.maxHeight = "90%";
+    popup.style.height = "90%"
     var image = document.getElementById("img");
     var image2 = document.getElementById("img2");
         
@@ -264,6 +263,7 @@ function zoom(obj, obj2, caption) {
     image.style.right = "0";
     image.style.width = "100%";
     image.style.height = "100%";
+    image.style.objectFit = "contain";
 
     image2.style.display = "none"; // hide in case Fig 1 or 2 were clicked
     document.getElementById("capWrapper").style.width = image.offsetWidth;
@@ -282,6 +282,7 @@ function zoom(obj, obj2, caption) {
         image2.style.float = "left";
         image2.style.width = "50%";
         image2.style.height = "100%";
+        image2.style.objectFit = "contain";
 
         document.getElementById("capWrapper").style.width = image.offsetWidth + image2.offsetWidth; 
     }
@@ -299,4 +300,3 @@ function zoom(obj, obj2, caption) {
     popup.classList.add("visible"); 
 }    
 </script>
-```

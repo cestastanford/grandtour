@@ -10,13 +10,19 @@ about: Melissa Calaresu is a cultural historian who originally trained as a hist
 ---
 <figure>
 
-<a name="figure-1" class="half-fig"> <img src="calaresu-figure-1.png" id="fig1" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap2&apos;))"/> </a> <a name="figure-2" class="half-fig"> <img src="calaresu-figure-2.png" id="fig2" onclick="zoom(getElementById(&apos;fig1&apos;), this, getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-1" class="fig"> <img src="calaresu-figure-1.png" id="fig1" onclick="zoom(this, getElementById(&apos;fig1&apos;), getElementById(&apos;cap2&apos;))"/> </a>
 
 <figcaption id="cap1">
 
 <b>Fig. 1:</b> Giuseppe Filippo Liberati Marchi (c.1735–1808), <i>Thomas Jones (1739-1787)</i>, 1768, oil on canvas, 92 x 72 cm, National Museum of Wales (NMW A 82).
 
 </figcaption>
+
+</figure>
+
+<figure>
+
+<a name="figure-2" class="fig"> <img src="calaresu-figure-2.png" id="fig2" onclick="zoom(getElementById(&apos;fig2&apos;), this, getElementById(&apos;cap1&apos;))"/> </a>
 
 <figcaption id="cap2">
 

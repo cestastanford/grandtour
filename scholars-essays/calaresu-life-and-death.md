@@ -10,7 +10,7 @@ about: Melissa Calaresu is a cultural historian who originally trained as a hist
 ---
 <figure>
 
-<a name="figure-1" class="fig"> <img src="calaresu-figure-1.png" id="fig1" onclick="zoom(this, getElementById(&apos;fig1&apos;), getElementById(&apos;cap2&apos;))"/> </a>
+<a name="figure-1" class="fig"> <img src="calaresu-figure-1.png" id="fig1" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
 
 <figcaption id="cap1">
 
@@ -22,7 +22,7 @@ about: Melissa Calaresu is a cultural historian who originally trained as a hist
 
 <figure>
 
-<a name="figure-2" class="fig"> <img src="calaresu-figure-2.png" id="fig2" onclick="zoom(getElementById(&apos;fig2&apos;), this, getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-2" class="fig"> <img src="calaresu-figure-2.png" id="fig2" onclick="zoom(this, null, getElementById(&apos;cap2&apos;))"/> </a>
 
 <figcaption id="cap2">
 

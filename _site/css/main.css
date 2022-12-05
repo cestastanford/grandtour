@@ -371,6 +371,10 @@ table th, table td { padding: .5em; border: 1px solid lightgrey; }
 
 .fig { cursor: pointer; }
 
+.half-fig { cursor: pointer; max-width: 48%; display: inline-block; }
+
+.third-fig { cursor: pointer; max-width: 32%; display: inline-block; }
+
 :root { --balloon-color: rgba(16, 16, 16, 0.95); --balloon-font-size: 14px; --balloon-move: 4px; }
 
 button[aria-label][data-balloon-pos] { overflow: visible; }

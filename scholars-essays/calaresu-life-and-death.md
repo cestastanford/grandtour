@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "3. Life and Death in Naples: Thomas Jones and Urban Experience in the Grand Tour (Explorer)
+title: "3. Life and Death in Naples: Thomas Jones and Urban Experience in the Grand Tour (Explorer)"
 author: Melissa Calaresu
 session: 4
 chapter: 3

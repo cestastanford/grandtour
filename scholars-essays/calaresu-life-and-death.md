@@ -227,14 +227,14 @@ Figure 7 shows the division of travelers by occupation, but indicates the diffic
 
 <figure>
 
-<a name="figure-7a" class="four-fig"> <img src="calaresu-figure-7a.svg" id="fig7a"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;cap7&apos;))"/> </a>
-a name="figure-7b" class="four-fig"> <img src="calaresu-figure-7b.svg" id="fig7b"  onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;cap7&apos;))"/> </a>
-a name="figure-7c" class="four-fig"> <img src="calaresu-figure-7c.svg" id="fig7c"  onclick="zoom(this, getElementById(&apos;fig7c&apos;), getElementById(&apos;cap7&apos;))"/> </a>
-a name="figure-7d" class="four-fig"> <img src="calaresu-figure-7d.svg" id="fig7d"  onclick="zoom(this, getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7a" class="quarter-fig"> <img src="calaresu-figure-7a.svg" id="fig7a"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7b" class="quarter-fig"> <img src="calaresu-figure-7b.svg" id="fig7b"  onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7c" class="quarter-fig"> <img src="calaresu-figure-7c.svg" id="fig7c"  onclick="zoom(this, getElementById(&apos;fig7c&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7d" class="quarter-fig"> <img src="calaresu-figure-7d.svg" id="fig7d"  onclick="zoom(this, getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
 
 <figcaption id="cap7">
 
-<b>Fig. 7:</b> The median number of days spent in each city by occupation of traveller. While cases such as the merchants of Leghorn become difficult to compare, we can note the generally lengthy stays in Rome and Naples across occupations.
+<b>Fig. 7:</b> The median number of days spent in each city by occupation of traveler. From top to bottom: diplomats, merchants, painters, and statesmen. While cases such as the merchants of Leghorn become difficult to compare, we can note the generally lengthy stays in Rome and Naples across occupations.
 
 </figcaption>
 

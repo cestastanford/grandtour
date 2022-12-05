@@ -227,10 +227,10 @@ Figure 7 shows the division of travelers by occupation, but indicates the diffic
 
 <figure>
 
-<a name="figure-7a" class="quarter-fig"> <img src="calaresu-figure-7a.svg" id="fig7a"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;cap7&apos;))"/> </a>
-a name="figure-7b" class="quarter-fig"> <img src="calaresu-figure-7b.svg" id="fig7b"  onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;cap7&apos;))"/> </a>
-a name="figure-7c" class="quarter-fig"> <img src="calaresu-figure-7c.svg" id="fig7c"  onclick="zoom(this, getElementById(&apos;fig7c&apos;), getElementById(&apos;cap7&apos;))"/> </a>
-a name="figure-7d" class="quarter-fig"> <img src="calaresu-figure-7d.svg" id="fig7d"  onclick="zoom(this, getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7a" class="half-fig"> <img src="calaresu-figure-7a.svg" id="fig7a"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7b" class="half-fig"> <img src="calaresu-figure-7b.svg" id="fig7b"  onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7c" class="half-fig"> <img src="calaresu-figure-7c.svg" id="fig7c"  onclick="zoom(this, getElementById(&apos;fig7c&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7d" class="half-fig"> <img src="calaresu-figure-7d.svg" id="fig7d"  onclick="zoom(this, getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
 
 <figcaption id="cap7">
 

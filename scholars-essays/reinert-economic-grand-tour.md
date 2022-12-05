@@ -195,7 +195,7 @@ Turning to the larger occupational subset of “Statesmen and Political Appointe
 
 <figure>
 
-<a name="figure-6" class="half-fig"> <img src="reinert-figure-6.png" id="fig6"  onclick="zoom(this, getElementById(&apos;fig6&apos;), getElementById(&apos;cap67&apos;))"/> </a> <a name="figure-7" class="half-fig"> <img src="reinert-figure-7.png" id="fig7"  onclick="zoom(getElementById(&apos;fig7&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
+<a name="figure-6" class="half-fig"> <img src="reinert-figure-6.png" id="fig6"  onclick="zoom(this, getElementById(&apos;fig7&apos;), getElementById(&apos;cap67&apos;))"/> </a> <a name="figure-7" class="half-fig"> <img src="reinert-figure-7.png" id="fig7"  onclick="zoom(getElementById(&apos;fig6&apos;), this, getElementById(&apos;cap67&apos;))"/> </a>
 
 <figcaption id="cap67">
 

@@ -225,11 +225,12 @@ This smaller subset of data replicates many of the noted patterns across the dat
 
 Figure 7 shows the division of travelers by occupation, but indicates the difficulty of data absence in many categories. While diplomats, merchants, painters, and statesmen represent some of the most numerous groups, there are still significant limitations to the dating of their travels. The long residencies of men such as George Jackson as a merchant in Livorno stand out immediately---in fact, only three merchants have precise enough dating to be included within the subset, N. Brooke (travel years 1786-1797), George Chetham (1678-1701, travel years 1700-1701), and Christopher Hanbury (c. 1661-1716, travel years -1704-1716). We know anecdotally and from current research which focuses on Rome that artists spent extensive periods of time, in some cases, their entire working life in the city.[^60] But the result for a city like Livorno is harder to read. Nonetheless the length of stay in Naples across these occupation groups indicates the greater depth of British engagement with the urban life in Naples by Grand Tourists.
 
-</figure>
-
 <figure>
 
-<a name="figure-7" class="fig"> <img src="calaresu-figure-7.svg" id="fig7"  onclick="zoom(this, null, getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7a" class="four-fig"> <img src="calaresu-figure-7a.svg" id="fig7a"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7b" class="four-fig"> <img src="calaresu-figure-7b.svg" id="fig7b"  onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7c" class="four-fig"> <img src="calaresu-figure-7c.svg" id="fig7c"  onclick="zoom(this, getElementById(&apos;fig7c&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+a name="figure-7d" class="four-fig"> <img src="calaresu-figure-7d.svg" id="fig7d"  onclick="zoom(this, getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
 
 <figcaption id="cap7">
 

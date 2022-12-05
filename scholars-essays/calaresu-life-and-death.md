@@ -67,6 +67,18 @@ On his visit to Naples, the German painter Jacob Philipp Hackert complimented Jo
 
 His paintings of the city are the visual equivalent of these sensory descriptions---the light hitting the pitted surface of walls, the dark cavities of building interiors. These descriptions and paintings establish Jones as an evocative witness to urban life.
 
+<figure>
+
+<a name="figure-3" class="fig"> <img src="calaresu-figure-3.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
+
+<figcaption id="cap3">
+
+<b>Fig. 3:</b> Thomas Jones, <i>Buildings in Naples</i>, 1782. Oil on paper, 14.2 x 21.6 cm. National Museum of Wales, Cardiff (NMW A 89).
+
+</figcaption>
+
+</figure>
+
 In his “Memoirs,” Jones also gives us clues to his immersion in Italian culture. Like many Grand Tourists, he literally carried ideas about Italians in his jacket pocket as he travelled, but these guidebooks were soon put to the test by his actual interactions with people. Not long after arriving in Rome, he seemed genuinely surprised not to be knifed after a night of conversation with “three sprightly girls,” the daughters of an innkeeper near Frascati. He wrote: 
 
 *We were joined by a Couple of young Fellows muffled up to the nose in their long cloaks - I had been so prepossessed, by books, with frightful ideas of Italian jealousy and Italian revenge, that I sat in Agony for the Consequence, nor could my Companions reasoning or ridicule entirely divert me of it - However we at length cheerfully sat down to supper - and soon after went to bed and slept soundly, devoid of Care.*[^17]
@@ -82,6 +94,18 @@ By 1779, Jones knew Italian well enough to write love-letters for his friend, Wi
 [^22]: Jones writes of Renaldi after his arrival in Naples in July: “By him I was introduced to Sig’re Don Bonito, painter to the King of Naples, as likewise to Mons'r Volaire a french Painter and imitator of Vernet.” (“Memoirs of Thomas Jones,” p. 107). Of Luigi Micheli, Jones writes, “Among other acquaintance which I got through the intervention of Mr Renaldi was a Roman Painter who assumed the title of Don Luigi, and lived in a little narrow Street call’d the viccolo canale, not far from Capo de Monte” (*ibid.*). 
 [^23]: Jones refers to Lusieri throughout his “Memoirs” as Don Titta, although this was transcribed as Don Tito in the *Dictionary* (“Memoirs of Thomas Jones,” pp. 115, 116, 127, and 128). On Lusieri, see the recent exhibition catalog, Aidan Weston-Lewis and Fabrizia Spirito (eds), *Giovanni Battista Lusieri and the Panoramic Landscape: Expanding Horizons* (National Galleries of Scotland: Edinburgh, 2012). Lusieri appears in the entries for Robert Parker, Lord Bruce, William Forbes, and Richard Colt Hoare.
 [^24]: On the French artistic community in Naples, see Émile Beck-Saiello’s study, *Napoli e Francia: I pittori di paesaggio da Vernet a Valenciennes* (Rome: L’Erma di Bretschneider, 2010).
+
+<figure>
+
+<a name="figure-4" class="fig"> <img src="calaresu-figure-4.png" id="fig4"  onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
+
+<figcaption id="cap4">
+
+<b>Fig. 4:</b> Thomas Jones in relation to the mentioned names in his entry text, as parsed by the <i>Explorer</i>. Names in italics do not have their own entries, suggest a much wider network of non-British relationships. The figure also distinguishes in maroon the relationships that originated or flourished in Naples, indicating the depth of Jones’ involvement in this city’s social life.
+
+</figcaption>
+
+</figure>
 
 This brief analysis of Jones’ paintings and “Memoirs” show the extent to which both are witness to his Neapolitan life.  Jones lived in three residences across the city---the first near the Dogana di Sale which kept him close to the clamor of the warehouses and port, the second near Capodimonte which kept him close to his new Italian artist friends, Lusieri and Micheli, and the third, behind Chiaia, which brought him closer to the “court side” of town and represented a final attempt to find the Grand Tourist patrons that he so desired. His evocation of urban life in Naples illustrates how he could escape the rhetorical and visual tropes of British representations of Italy. When he was writing his “Memoirs,” which he finished fifteen years after his return to Britain in 1798, he reflected on his delight, early during his time in Italy, that he was so “familiarized with, & enamoured of Italian forms,” having copied Italian landscapes under the tutelage of Richard Wilson in London in the 1760s (1713-1782, travel years 1750-1756/7).[^25] However, Jones’ cityscapes show his willingness to look elsewhere for inspiration. In this way, he was able to develop his own unique visual style, which recorded the light, space, and textures which surrounded him in the city of Naples.
 
@@ -167,9 +191,47 @@ It is important to note that the absences in the archive continue to shape the p
 
 [^59]: Itineraries were filtered to exclude travels for which the start date or end date could not be known to the day.
 
+<figure>
+
+<a name="figure-5" class="fig"> <img src="calaresu-figure-5.svg" id="fig5"  onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
+
+<figcaption id="cap5">
+
+<b>Fig. 5:</b> Number of trips to popular cities. This graph demonstrates the popularity of different cities within the subset of travelers whose entries contain enough detail to calculate duration of stay.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<a name="figure-6" class="fig"> <img src="calaresu-figure-6.svg" id="fig6"  onclick="zoom(this, null, getElementById(&apos;cap6&apos;))"/> </a>
+
+<figcaption id="cap6">
+
+<b>Fig. 6:</b> Median duration of stay in popular cities. This graph demonstrates the high median length of stay in Naples.
+
+</figcaption>
+
+</figure>
+
 This smaller subset of data replicates many of the noted patterns across the data. Figure 5 demonstrates that Rome, Florence, Venice, and Naples all recorded a number of visitors roughly proportionate to the whole of the *Explorer* data. Figure 6 shows instead the median number of days per visit to each of the cities. While Naples had only the fourth largest number of visitors, the average length of stay in the city (43 days) was nearly as long as that in Rome (50.5) and far longer than all other popular cities.
 
 Figure 7 shows the division of travelers by occupation, but indicates the difficulty of data absence in many categories. While diplomats, merchants, painters, and statesmen represent some of the most numerous groups, there are still significant limitations to the dating of their travels. The long residencies of men such as George Jackson as a merchant in Livorno stand out immediately---in fact, only three merchants have precise enough dating to be included within the subset, N. Brooke (travel years 1786-1797), George Chetham (1678-1701, travel years 1700-1701), and Christopher Hanbury (c. 1661-1716, travel years -1704-1716). We know anecdotally and from current research which focuses on Rome that artists spent extensive periods of time, in some cases, their entire working life in the city.[^60] But the result for a city like Livorno is harder to read. Nonetheless the length of stay in Naples across these occupation groups indicates the greater depth of British engagement with the urban life in Naples by Grand Tourists.
+
+</figure>
+
+<figure>
+
+<a name="figure-7" class="fig"> <img src="calaresu-figure-7.svg" id="fig7"  onclick="zoom(this, null, getElementById(&apos;cap7&apos;))"/> </a>
+
+<figcaption id="cap7">
+
+<b>Fig. 7:</b> The median number of days spent in each city by occupation of traveller. While cases such as the merchants of Leghorn become difficult to compare, we can note the generally lengthy stays in Rome and Naples across occupations.
+
+</figcaption>
+
+</figure>
 
 [^60]: Giovanna Ceserani, Giorgio Caviglia, Nicole Coleman, Thea De Armond, Sarah Murray, Molly Taylor-Poleskey, “British Travelers in Eighteenth-Century Italy: The Grand Tour and the Profession of Architecture,” *The American Historical Review*, 122/2 (April 2017), pp. 425–450.
 

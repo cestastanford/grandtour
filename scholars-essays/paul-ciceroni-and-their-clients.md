@@ -45,7 +45,42 @@ Patrick Moir (1769-1810) | 6 | 6
 
 </figure>
 
-In addition to identifying *ciceroni*, I sought, through the biographies in the *Dictionary* and other sources, to understand how their profession evolved, how those who practiced it defined themselves professionally, how they were remunerated, and the nature of their tours and services. Searching within the *Explorer* for entries related to each *cicerone*, I compiled a list of clients who toured with specific guides (Appendix).  For each client I collected various sorts of information to see what---if any---patterns emerged pertaining to class, gender, occupation, education, and religion (Figure 2). My aim also was to learn why tourists hired guides and why specific ones and how they experienced and thought about their time with them. 
+In addition to identifying *ciceroni*, I sought, through the biographies in the *Dictionary* and other sources, to understand how their profession evolved, how those who practiced it defined themselves professionally, how they were remunerated, and the nature of their tours and services. Searching within the *Explorer* for entries related to each *cicerone*, I compiled a list of clients who toured with specific guides (Appendix).  For each client I collected various sorts of information to see what---if any---patterns emerged pertaining to class, gender, occupation, education, and religion (Figure 2). My aim also was to learn why tourists hired guides and why specific ones and how they experienced and thought about their time with them.
+
+<a name="figure-2"></a>
+
+| Ficoroni | Parker | Winckelmann | Russel | Jenkins | Morison | Byres | Norton | Clark | Moir | Total
+-|-|-|-|-|-|-|-|-|-|-|-
+**Clerics** | 2 |  | 1 | 2 |  |  | 3 |  |  |  | 8
+**Writers/Scholars** | 3 |  | 2 |  |  | 3 | 3 |  | 2 | 1 | 14
+**Military Officers** |  | 1 | 2 |  | 1 | 2 | 4 |  | 3 |  | 13
+**Tutors** | 2 |  |  | 1 |  |  | 4 |  | 1 |  | 8
+**Artists** |  | 1 |  |  |  |  | 1 |  | 1 |  | 3
+**Physicians/Scientists** | 1 |  |  |  |  |  | 2 |  |  |  | 3
+**Statesmen** | 4 | 3 | 3 | 3 |  | 3 | 19 | 1 | 4 |  | 40
+**Merchants** | 2 |  |  |  |  |  |  |  |  |  | 2
+**Bankers** |  |  |  |  |  |  |  |  | 1 | 1 | 2
+**Eton** |  | 1 | 3 | 1 |  | 1 | 7 |  | 1 |  | 14
+**Westminster** | 1 | 1 |  |  |  | 2 | 5 | 1 | 3 |  | 13
+**Oxford** | 5 | 1 |  | 6 |  | 5 | 11 | 1 | 5 |  | 34
+**Cambridge** | 1 |  | 1 | 1 |  | 2 | 10 |  | 1 |  | 16
+**Groups** | 5 | 1 | 2 | 4? |  | 5? | 12 |  | 7 | 1 | 37?
+**Women** |  | 1 | 1 |  | 1 | 2 | 4 |  | 2 | 4 | 15
+**Families** |  |  | 1 | 1 |  | 1 | 1 |  | 2 | 2 | 8
+**Titled/Royals** | 7 | 5 | 9 | 2 | 2 | 8 | 18 | 1 | 4 | 5 | 61
+**Catholics** | 1 |  |  |  |  |  | 5 |  |  |  | 6
+**British/Irish** | 13 | 5 | 10 | 11 | 2 | 17 | 49 | 1 | 17 | 6 | 131
+**German** | 2 |  | 4 |  |  |  |  |  |  |  | 6
+**French** | 1 |  |  |  |  |  |  |  |  |  | 1
+**Other** | 3 |  |  |  |  |  |  |  |  |  | 3
+**Dilettanti** |  | 2 | 1 |  |  | 4 | 2 |  | 1 | 1 | 11
+**Other Societies** | 1 | 3 | 2 | 1 | 1 | 5 | 14 |  |  |  | 27
+
+<figure>
+
+<figcaption><b>Fig. 2:</b> </figcaption>
+
+</figure>
 
 **The *Ciceroni***
 
@@ -114,7 +149,7 @@ Travelers, for their part, came to expect these services, while guides profited,
 
 **The Clients**
 
-The *Explorer* was essential to identifying the clients of *ciceroni*, as many as 135 (see Figure 1). Most of these (119) appear in the *Explorer*, usually with an entry under their own name, but sometimes under another, such as that of a traveling companion. Other travelers who toured with *ciceroni* were identified in the *Explorer*, but because their guides were not named they don’t appear on the client list. As would be expected, the information in the *Explorer* was fullest for British clients. However, no clients were found for Venuti, John Parker, Andrew Lumisden (1720-1801, travel years 1749-1769), William Patoun (fl. 1761-d. 1783, travel years 1761-1763, 1763-1764, 1768-1769, 1773-1774, 1775-1776), or Abbé Peter Grant (1708-1784, travel years 1726-1735, 1737-1784), even though the last, a Jesuit priest and antiquarian, was regarded as “something of an institution” among Grand Tourists. Patoun seems to have worked more as a bear leader than a *cicerone*; a few of his charges appear in the *Explorer*. In 1775 he accompanied one of them, George Herbert, 2nd Earl of Powis, on a tour conducted by James Byres.[^24] It is hard---maybe impossible---to know how many more travelers than those I identified were guided by *ciceroni*, which should be kept in mind in considering the information presented here.
+The *Explorer* was essential to identifying the clients of *ciceroni*, as many as 142 (see Figure 1). Most of these (126) appear in the *Explorer*, usually with an entry under their own name, but sometimes under another, such as that of a traveling companion. Other travelers who toured with *ciceroni* were identified in the *Explorer*, but because their guides were not named they don’t appear on the client list. As would be expected, the information in the *Explorer* was fullest for British clients. However, no clients were found for Venuti, John Parker, Andrew Lumisden (1720-1801, travel years 1749-1769), William Patoun (fl. 1761-d. 1783, travel years 1761-1763, 1763-1764, 1768-1769, 1773-1774, 1775-1776), or Abbé Peter Grant (1708-1784, travel years 1726-1735, 1737-1784), even though the last, a Jesuit priest and antiquarian, was regarded as “something of an institution” among Grand Tourists. Patoun seems to have worked more as a bear leader than a *cicerone*; a few of his charges appear in the *Explorer*. In 1775 he accompanied one of them, George Herbert, 2nd Earl of Powis, on a tour conducted by James Byres.[^24] It is hard---maybe impossible---to know how many more travelers than those I identified were guided by *ciceroni*, which should be kept in mind in considering the information presented here.
 
 [^24]: See Appendix.
 
@@ -125,7 +160,7 @@ Most of Ficoroni’s clients, whom he listed in his own publication, appear in t
 [^27]: See note 9.
 [^28]: For Winckelmann’s clients, see also Müller, “Reisende der Grand Tour.”
 
-The first three clients listed for Mark Parker, all British noblemen, toured as a group with him in 1740. One of them, Francis Dashwood (1708-1781, travel years 1730-1731, 1739-1740), was a founding member of the Society of Dilettanti, which another, John Rawdon (1720-1793, travel years 1739-1740), joined in 1741. The aristocratic British writer Horace Walpole (1717-1797, travel years 1739-1741) famously described the Dilettanti as “ . . . a club, for which the nominal qualification is having been in Italy and the real one being drunk; the two chiefs are Lord Middlesex and Sir Francis Dashwood, who were seldom sober the whole time they were in Italy.”[^29] Nonetheless, the Dilettanti made significant cultural contributions later in the century.[^30] Touring with Dashwood and Rawdon was Roger Newdigate (1719-1806, travel years 1739-1740, 1774-1775), a draughtsman and amateur architect who wrote an important account of the Uffizi Gallery in Florence during his travels.[^31] Among Mark Parker’s clients was also Henrietta Louisa Fermor, Countess of Pomfret (c. 1700-1761, travel years 1739-1741), the first woman we know to have toured with a *cicerone*.
+The first three clients listed for Mark Parker, all British noblemen, toured as a group with him in 1740. One of them, Francis Dashwood (1708-1781, travel years 1730-1731, 1739-1740), was a founding member of the Society of Dilettanti, which another, John Rawdon (1720-1793, travel years 1739-1740), joined in 1741. The aristocratic British writer Horace Walpole (1717-1797, travel years 1739-1741) famously described the Dilettanti as “...a club, for which the nominal qualification is having been in Italy and the real one being drunk; the two chiefs are Lord Middlesex and Sir Francis Dashwood, who were seldom sober the whole time they were in Italy.”[^29] Nonetheless, the Dilettanti made significant cultural contributions later in the century.[^30] Touring with Dashwood and Rawdon was Roger Newdigate (1719-1806, travel years 1739-1740, 1774-1775), a draughtsman and amateur architect who wrote an important account of the Uffizi Gallery in Florence during his travels.[^31] Among Mark Parker’s clients was also Henrietta Louisa Fermor, Countess of Pomfret (c. 1700-1761, travel years 1739-1741), the first woman we know to have toured with a *cicerone*.
 
 [^29]: Walpole to Horace Mann, 14 April 1743, *The Yale Edition of Horace Walpole’s Correspondence*, 48 vols. in 49, edited by Wilmarth Sheldon Lewis (New Haven: Yale Univ. Press, 1937-83), 18:211.
 [^30]: See Jason Kelly, *The Society of Dilettanti: Archaeology and Identity in the British Enlightenment* (New Haven and London: Yale University Press, 2009).

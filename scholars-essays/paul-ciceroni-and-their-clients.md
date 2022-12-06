@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "4. <i>*ciceroni*</i> and their Clients: Making a Profession of Tourism
+title: "4. Ciceroni and their Clients: Making a Profession of Tourism
 author: Carole Paul
 session: 4
 chapter: 4
@@ -8,6 +8,7 @@ abstract: (Abstract missing)
 references:
 about: Carole Paul has received fellowships from the Kress Foundation, the American Academy in Rome, the Getty Research Institute, and the National Endowment for the Humanities. Her current work concerns the history of museums and collections in the early modern period, especially in Rome, and the related significance of the city as an international artistic center in the age of the Grand Tour.
 ---
+
 The Grand Tour was critical to establishing the demand for many of the resources and phenomena that we associate with modern cultural tourism, such as maps, guidebooks, itineraries, souvenirs, and tour guides. On his visit to Rome in 1644, the British writer John Evelyn toured with one of the latter, “who get their living onely by leading strangers about to see the Citty.”[^1] Scant information survives on seventeenth-century guides, but the call for their services continued as the popularity of travel grew. Known in the eighteenth century as *ciceroni* or cicerones, guides explicated the great antiquities, artworks, buildings, and sights of Italy to visitors who came from all over Europe to see them.[^2] Tourists, especially young men for whom travel was intended to be educational, may also have been escorted by “bear leaders,” tutors, or governors, but these were chaperones rather than guides and sometimes accompanied their charges on tours with *ciceroni*.[^3] This essay will examine the work of *ciceroni* and the experiences of their clients on the Grand Tour.
 
 [^1]:

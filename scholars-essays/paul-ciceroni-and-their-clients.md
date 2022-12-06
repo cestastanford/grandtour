@@ -49,7 +49,7 @@ In addition to identifying *ciceroni*, I sought, through the biographies in the 
 
 <a name="figure-2"></a>
 
-| Ficoroni | Parker | Winckelmann | Russel | Jenkins | Morison | Byres | Norton | Clark | Moir | Total
+ | Ficoroni | Parker | Winckelmann | Russel | Jenkins | Morison | Byres | Norton | Clark | Moir | Total
 -|-|-|-|-|-|-|-|-|-|-|-
 **Clerics** | 2 |  | 1 | 2 |  |  | 3 |  |  |  | 8
 **Writers/Scholars** | 3 |  | 2 |  |  | 3 | 3 |  | 2 | 1 | 14

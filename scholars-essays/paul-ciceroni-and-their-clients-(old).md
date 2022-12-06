@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "4. Ciceroni and their Clients: Making a Profession of Tourism
+title: "4. Ciceroni and their Clients: Making a Profession of Tourism"
 author: Carole Paul
 session: 4
 chapter: 4

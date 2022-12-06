@@ -1,12 +1,12 @@
 ---
 layout: article
-title: "4. Ciceroni and their Clients: Making a Profession of Tourism"
+title: "4. *Ciceroni* and their Clients: Making a Profession of Tourism"
 author: Carole Paul
 session: 4
 chapter: 4
 abstract: (Abstract missing)
 references: 
-about: Melissa Calaresu is a cultural historian who originally trained as a historian of political thought in Cambridge. Her work moves between her interests in material culture, the urban environment, and the history of ideas in early modern Italy. Her general research interests range from the uses and representation of urban space in the early modern period, the history of street food, eighteenth-century antiquarianism, collecting and historical writing in Italy and Spain, and travel and the Grand Tour in Europe through texts and images in the eighteenth and nineteenth centuries.
+about: Carole Paul has received fellowships from the Kress Foundation, the American Academy in Rome, the Getty Research Institute, and the National Endowment for the Humanities. Her current work concerns the history of museums and collections in the early modern period, especially in Rome, and the related significance of the city as an international artistic center in the age of the Grand Tour.
 ---
 <figure>
 

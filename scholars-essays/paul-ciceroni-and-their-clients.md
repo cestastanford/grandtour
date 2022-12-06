@@ -1,9 +1,9 @@
 ---
 layout: article
-title: "3. Life and Death in Naples: Thomas Jones and Urban Experience in the Grand Tour (Explorer)"
-author: Melissa Calaresu
+title: "4. Ciceroni and their Clients: Making a Profession of Tourism"
+author: Carole Paul
 session: 4
-chapter: 3
+chapter: 4
 abstract: (Abstract missing)
 references: 
 about: Melissa Calaresu is a cultural historian who originally trained as a historian of political thought in Cambridge. Her work moves between her interests in material culture, the urban environment, and the history of ideas in early modern Italy. Her general research interests range from the uses and representation of urban space in the early modern period, the history of street food, eighteenth-century antiquarianism, collecting and historical writing in Italy and Spain, and travel and the Grand Tour in Europe through texts and images in the eighteenth and nineteenth centuries.

@@ -14,9 +14,36 @@ The Grand Tour was critical to establishing the demand for many of the resources
 [^2]: The term *cicerone* (singular) derives from the name of the great ancient orator, Cicero; see Manlio Cortelazzo and Paolo Zolli, *Dizionario etimologico della lingua italiana* (Bologna: Nicola Zanichelli S.p.A. Editore, 1979), 1: 236.
 [^3]: Bear leaders, tutors, and governors traveled with their charges and also may have set up educational programs with teachers, but they usually weren’t teachers themselves; see María Dolores Sánchez-Jáuregui, “Educating the Travelers: The Tutors,” in *The English Prize: The Capture of the Westmorland, An Episode of the Grand Tour*, edited by María Dolores Sánchez-Jáuregui and Scott Wilcox (New Haven and London: Yale Univ. Press, 2012), 88-97.
 
-Although there have been a few studies of individual *ciceroni*, they have not been considered systematically as a group. Relatively few *ciceroni* are known to us, most of them British, along with some Italians and at least one German. The fundamental published source for many of these figures is John Ingamells’ *A Dictionary of British and Irish Travellers in Italy*, compiled from the Brinsley Ford archive, but it is not indexed, so information can be difficult to find in its entries.[^4] The *Grand Tour Explorer*’s digital transformation of the *Dictionary* allowed me to begin a more thorough study of the subject. Using the pre-selected list of employments and identifiers in the *Explorer* or conducting free searches, I searched various terms---“antiquarian,” “antiquary,” *cicerone* (singular), *ciceroni* (plural) and “tour guide”---and compiled a list of fifteen *ciceroni*. The terms *cicerone(i)* are not on the *Explorer*’s pre-selected list of employments and identifiers, though a free search brought up forty-seven entries.
+Although there have been a few studies of individual *ciceroni*, they have not been considered systematically as a group. Relatively few *ciceroni* are known to us, most of them British, along with some Italians and at least one German. The fundamental published source for many of these figures is John Ingamells’ *A Dictionary of British and Irish Travellers in Italy*, compiled from the Brinsley Ford archive, but it is not indexed, so information can be difficult to find in its entries.[^4] The *Grand Tour Explorer*’s digital transformation of the *Dictionary* allowed me to begin a more thorough study of the subject. Using the pre-selected list of employments and identifiers in the *Explorer* or conducting free searches, I searched various terms---“antiquarian,” “antiquary,” *cicerone* (singular), *ciceroni* (plural) and “tour guide”---and compiled a list of fifteen *ciceroni* (Figure 1). The terms *cicerone(i)* are not on the *Explorer*’s pre-selected list of employments and identifiers, though a free search brought up forty-seven entries.
 
 [^4]: John Ingamells, *A Dictionary of British and Irish Travellers in Italy 1701-1800* (New Haven and London: Yale Univ. Press, 1997).
+
+<a name="figure-1"></a>
+
+*Cicerone* | Number of clients found | Number of clients appearing in *Explorer*
+-|-|-
+Francesco de’ Ficoroni (1664-1747) | 19 | 12
+Mark Parker (c. 1698-1747) | 5 | 5
+Ridolfino Venuti (1705-1763) | |
+Abbé Peter Grant (1708-1784) | |
+Johann Joachim Winckelmann (1717-1768) | 14 | 8
+John Parker (fl. 1740, d. 1765) | |
+James Russel (1720-1763) | 11 | 8
+Andrew Lumisden (1720-1801) | |
+Thomas Jenkins (1722-1798) | 2 | 2
+Colin Morison (1732-1810) | 18 | 18
+James Byres (1734-1817) | 49 | 49
+Christopher Norton (c. 1740-1799) | 1 | 1
+William Patoun (fl. 1761, d. 1783) | |
+James Clark (c. 1745-1800) | 17 | 17
+Patrick Moir (1769-1810) | 6 | 6
+**Total** | **142** | **126**
+
+<figure>
+
+<figcaption><b>Fig. 1:</b><i>Ciceroni</i> of the Grand Tour. Where possible, <i>ciceroni</i> are listed in birth order.</figcaption>
+
+</figure>
 
 In addition to identifying *ciceroni*, I sought, through the biographies in the *Dictionary* and other sources, to understand how their profession evolved, how those who practiced it defined themselves professionally, how they were remunerated, and the nature of their tours and services. Searching within the *Explorer* for entries related to each *cicerone*, I compiled a list of clients who toured with specific guides (Appendix).  For each client I collected various sorts of information to see what---if any---patterns emerged pertaining to class, gender, occupation, education, and religion (Figure 2). My aim also was to learn why tourists hired guides and why specific ones and how they experienced and thought about their time with them. 
 
@@ -53,6 +80,18 @@ The major Roman *ciceroni* of the later eighteenth century were Colin Morison (1
 [^14]: In addition to the *Explorer*, for Morison see Ilaria Bignamini and Clare Hornsby, *Digging and Dealing in Eighteenth-Century Rome*, 2 vols. (New Haven and London: Yale Univ. Press, 2010), 1: 302-04; Elisabetta Giffi Ponzi, *Colin Morison (1734-1809): antiquaria, storiografia e collezionismo tra Roma e Aberdeen* (Rome: Artemide, 2016).
 [^15]: In addition to the *Explorer*, for Byres see Brinsley Ford, “James Byres: Principal Antiquarian for the English Visitors to Rome, *Apollo* 99 (1974): 446-61; Bignamini and Hornsby, *Digging and Dealing*, 1: 246-49.
 
+<figure>
+
+<a name="figure-3" class="fig"> <img src="paul-figure-3.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
+
+<figcaption id="cap3">
+
+<b>Fig. 3:</b>
+
+</figcaption>
+
+</figure>
+
 Christopher Norton (c. 1740-1799, travel years 1760-1790), an engraver and antiquarian, began working as a *cicerone* under Byres.[^16] According to Thomas Egerton, Baron Grey de Wilton (1749-1814, travel years 1785, 1788), who toured with Byres in 1785, Norton stood in for Byres when the former was not well. Norton solidified the association by marrying Byres’ niece, Janet Moir, in 1792. By that time Byres’ nephew and Janet’s cousin, Patrick Moir (1769-1810, travel years 1785-1805), himself a respected antiquarian who had already been living with his uncle, took over Byres’ business as a *cicerone* and dealer.[^17] Norton lived until 1799 and Moir stayed in Rome until 1805, both carrying on in the tradition of Byres.
 
 [^16]: In addition to the Explorer, for Norton see Bignamini and Hornsby, *Digging and Dealing*, 1: 307-08.
@@ -77,7 +116,7 @@ Travelers, for their part, came to expect these services, while guides profited,
 
 The *Explorer* was essential to identifying the clients of *ciceroni*, as many as 135 (see Figure 1). Most of these (119) appear in the *Explorer*, usually with an entry under their own name, but sometimes under another, such as that of a traveling companion. Other travelers who toured with *ciceroni* were identified in the *Explorer*, but because their guides were not named they don’t appear on the client list. As would be expected, the information in the *Explorer* was fullest for British clients. However, no clients were found for Venuti, John Parker, Andrew Lumisden (1720-1801, travel years 1749-1769), William Patoun (fl. 1761-d. 1783, travel years 1761-1763, 1763-1764, 1768-1769, 1773-1774, 1775-1776), or Abbé Peter Grant (1708-1784, travel years 1726-1735, 1737-1784), even though the last, a Jesuit priest and antiquarian, was regarded as “something of an institution” among Grand Tourists. Patoun seems to have worked more as a bear leader than a *cicerone*; a few of his charges appear in the *Explorer*. In 1775 he accompanied one of them, George Herbert, 2nd Earl of Powis, on a tour conducted by James Byres.[^24] It is hard---maybe impossible---to know how many more travelers than those I identified were guided by *ciceroni*, which should be kept in mind in considering the information presented here.
 
-[^24]: See Appendix. APPENDIX IS MISSING.
+[^24]: See Appendix.
 
 Most of Ficoroni’s clients, whom he listed in his own publication, appear in the *Explorer*. Thus, although there is no entry for the Italian *cicerone* himself, his importance as a guide and antiquarian emerges from the *Explorer*.[^25] Among his British clients were Addison, Spence, and the well-known bear leader Dr. James Hay (d. 1746, travel years 1704-1706, 1707-1709, 1711-1712, 1715, 1718-1719, 1720, 1722-1723, 1729-1734), who toured with his charge, Benjamin Bathurst (c. 1691-1767, travel years 1711-1712). Unlike most later *ciceroni*, Ficoroni also had clients from various other European countries.[^26] The *Explorer* was similarly helpful in identifying clients for Winckelmann, who does not have an entry either.[^27] In addition to aristocratic Britons, Winckelmann’s clientele included the politician John Wilkes (1725-1797, travel year 1765), the writer Laurence Sterne (1713-1768, travel years 1765-1766), and some of his own countrymen, such as the Duke of Braunschweig, who toured with his wife, a British princess.[^28]
 

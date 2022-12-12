@@ -25,7 +25,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 [^1]: For essential works on Carriera, see Bernardina Sani's edited volumes of the artist's correspondence and diary as well as her catalogs of Carriera's works: *Rosalba Carriera. Lettere, diari, frammenti* (Firenze: Olschki, 1985); *Rosalba Carriera (1673-1757). Maestra del pastello nell'Europa ancien régime*. Catalogo delle opere. (Torino: Umberto Allemandi, 2007). [First edition: 1988]. See also Giuseppe Pavanello's edited volumes *Rosalba Carriera "prima pittrice de l'Europa"* (Venezia: Marsilio, 2007); and Rosalba Carriera (1673-1757). *Atti del Convegno Internazionale di Studi*, 26-28 aprile 2007 (Venezia: Scripta, 2009). For the most up to date and complete catalog of Carriera's pastel works, see Jeffares, *Dictionary of pastellists before 1800*, London, 2006; online edition [http://www.pastellists.com/articles/Carriera.pdf](http://www.pastellists.com/articles/Carriera.pdf){:target="\_blank"}, accessed/update 07-04-2019.
 
-</figure>
+<figure>
 
 <a name="figure-self" class="half-fig"> <img src="sama-figure-1.png"
  id="figure-self"  onclick="zoom(this, getElementById(&apos;figure-berenice&apos;),

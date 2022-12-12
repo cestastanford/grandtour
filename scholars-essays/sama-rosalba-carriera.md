@@ -97,7 +97,7 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 <a name="figure-mini-1" class="third-fig"> <img src="sama-figure-5.png"
  id="figure-mini-1"  onclick="zoom(this, getElementById(&apos;figure-mini-2&apos;), getElementById(&apos;figure-mini-3&apos;),
  getElementById(&apos;cap-mini&apos;))"/>
- </a> <a name="figure-mini-2" class="third-fig"> <img src="sama-figure-6.jpg" id="figure-mini-2"
+ </a> <a name="figure-mini-2" class="third-fig"> <img src="sama-figure-6.jpeg" id="figure-mini-2"
  onclick="zoom(getElementById(&apos;figure-mini-1&apos;), this, getElementById(&apos;figure-mini-3&apos;), getElementById(&apos;cap-mini&apos;))"/> </a> <a name="figure-mini-3" class="third-fig"> <img src="sama-figure-7.png" id="figure-mini-3"
  onclick="zoom(getElementById(&apos;figure-mini-1&apos;), getElementById(&apos;figure-mini-2&apos;), this, getElementById(&apos;cap-mini&apos;))"/> </a>
  

@@ -57,7 +57,7 @@ Searches of the database using specific dates and places also help identify indi
 
 <figure>
 
-<a name="figure-3" class="fig"> <img src="sama-figure-4b.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;samaCap3&apos;))"/> </a>
+<a name="figure-3" class="fig"> <img src="sama-figure-4a.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;samaCap3&apos;))"/> </a>
 
 <figcaption id="samaCap3">
 

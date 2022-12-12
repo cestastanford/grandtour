@@ -35,7 +35,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
  
 <figcaption id="cap-women">
 
-<b>Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm <a href="https://www.rct.uk/collection/452375" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
+<b>Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm. <a href="https://www.rct.uk/collection/452375/a-self-portrait" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
 <b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as “Berenice”</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
 
 </figcaption>
@@ -62,7 +62,7 @@ Searches of the database using specific dates and places also help identify indi
 
 <figcaption id="samaCap3">
 
-<b>Fig. 4:</b> Excerpt from Rosa Carriera's work diary showing her record of a visitor to her studio on May 9, 1724, referred to as "M.r Felo inglese". Ashburnham 1781, 5, c. 62r.
+<b>Fig. 4:</b> Excerpt from Rosa Carriera's work diary showing her record of a visitor to her studio on May 9, 1724, referred to as “M.r Felo inglese.” Ashburnham 1781, 5, c. 62r.
 
 </figcaption>
 
@@ -103,8 +103,8 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
  
 <figcaption id="cap-mini">
 
-<b>Fig. 5:</b> Rosalba Carriera. <i>Self-Portrait as “Innocence”<i>. c.1705-1757. Watercolour on ivory. 10.2 x 8.0 cm. <a href="https://www.rct.uk/collection/420544/self-portrait-as-innocence" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
-<b>Fig. 6:</b> Rosalba Carriera. <i>Portrait miniature of Robert, Lord Walpole<i>. c. 1720-40. Watercolour on ivory. 8.4 x 5.9 cm. <a href="https://collections.vam.ac.uk/item/O72539/portrait-miniature-of-robert-lord-miniature-carriera-rosalba/" target="_blank">Victoria and Albert Museum</a>. <br>
+<b>Fig. 5:</b> Rosalba Carriera. <i>Self-Portrait as “Innocence”</i>. c.1705-1757. Watercolour on ivory. 10.2 x 8.0 cm. <a href="https://www.rct.uk/collection/420544/self-portrait-as-innocence" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
+<b>Fig. 6:</b> Rosalba Carriera. <i>Portrait miniature of Robert, Lord Walpole</i>. c. 1720-40. Watercolour on ivory. 8.4 x 5.9 cm. <a href="https://collections.vam.ac.uk/item/O72539/portrait-miniature-of-robert-lord-miniature-carriera-rosalba/" target="_blank">Victoria and Albert Museum</a>. <br>
 <b>Fig. 7:</b> Rosalba Carriera. <i>Portrait of an unknown man said to be W. Osbaldeston</i>. 1730s. Watercolour on ivory. 7.6 x 5.7 cm. <a href="https://collections.vam.ac.uk/item/O82244/portrait-of-an-unknown-man-miniature-carriera-rosalba-giovanna/" target="_blank">Victoria and Albert Museum</a>.   
 
 </figcaption>
@@ -127,8 +127,8 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
  
 <figcaption id="cap-pastel">
 
-<b>Fig. 8:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume<i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>. <br>
-<b>Fig. 9:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume<i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>.
+<b>Fig. 8:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume</i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>. <br>
+<b>Fig. 9:</b> Rosalba Carriera. <i>Philip, Duke of Wharton (1698-1731)</i>. c.1718-20. Pastel on paper. 55.9 x 44.5 cm. <a href="https://www.rct.uk/collection/406905/philip-duke-of-wharton-1698-1731" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
 
 </figcaption>
 
@@ -147,7 +147,9 @@ Whether creating pastels or miniatures, Carriera heightened both the academic va
  
 <figcaption id="cap-alleg">
 
-<b>Fig. NUMBER MISSING:</b> CAPTION MISSING
+<b>Fig. 10:</b> Rosalba Carriera. <i>Allegory of Painting</i>. 1730s. Pastel and red chalk on blue laid paper mounted on canvas (on strainer). 44.3 × 34.1 cm <a href="https://www.nga.gov/collection/art-object-page.277.html" target="_blank">National Gallery of Art</a>. <br>
+<b>Fig. 11:</b> Rosalba Carriera. <i>A Personification of Summer</i>. c.1744. Pastel on blue paper laid on a strainer. 59.8 x 50.1 cm. <a href="https://www.rct.uk/collection/400648/a-personification-of-summer" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
+<b>Fig. 12:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume<i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>.
 
 </figcaption>
 

@@ -35,7 +35,8 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
  
 <figcaption id="cap-women">
 
-<b>Fig. 2:</b> Rosalba Carriera. Self portrait. <a href="https://www.rct.uk/collection/452375" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust / © His Majesty King Charles III 2022. <b>Fig. 3:</b> CAPTION MISSING.
+<b>Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm <a href="https://www.rct.uk/collection/452375" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
+<b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as "Berenice"</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
 
 </figcaption>
 
@@ -61,7 +62,7 @@ Searches of the database using specific dates and places also help identify indi
 
 <figcaption id="samaCap3">
 
-<b>Fig. 3:</b>
+<b>Fig. 4:</b> Excerpt from Rosa Carriera's work diary showing her record of a visitor to her studio on May 9, 1724, referred to as "M.r Felo inglese". Ashburnham 1781, 5, c. 62r.
 
 </figcaption>
 
@@ -91,6 +92,8 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 
 [^9]: On Carriera's miniatures, see Bernardo Falconi, "Rosalba Carriera e la miniatura su avorio," in Pavanello, ed., *Atti del Convegno*, 215-236.
 
+<figure>
+
 <a name="figure-mini-1" class="third-fig"> <img src="sama-figure-5.png"
  id="figure-mini-1"  onclick="zoom(this, getElementById(&apos;figure-mini-2&apos;), getElementById(&apos;figure-mini-3&apos;),
  getElementById(&apos;cap-mini&apos;))"/>
@@ -100,7 +103,9 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
  
 <figcaption id="cap-mini">
 
-<b>Fig. NUMBER MISSING:</b> CAPTION MISSING
+<b>Fig. 5:</b> Rosalba Carriera. <i>Self-Portrait as “Innocence”<i>. c.1705-1757. Watercolour on ivory. 10.2 x 8.0 cm. <a href="https://www.rct.uk/collection/420544/self-portrait-as-innocence" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
+<b>Fig. 6:</b> Rosalba Carriera. <i>Portrait miniature of Robert, Lord Walpole<i>. c. 1720-40. Watercolour on ivory. 8.4 x 5.9 cm. <a href="https://collections.vam.ac.uk/item/O72539/portrait-miniature-of-robert-lord-miniature-carriera-rosalba/" target="_blank">Victoria and Albert Museum</a>. <br>
+<b>Fig. 7:</b> 
 
 </figcaption>
 
@@ -112,6 +117,8 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 [^11]: See Whistler, "Rosalba Carriera e il mondo britannico," in Pavanello, ed., *Atti del Convegno*, 197-202.
 
+<figure>
+
 <a name="figure-pastel-1" class="half-fig"> <img src="sama-figure-8.png"
  id="figure-pastel-1"  onclick="zoom(this, getElementById(&apos;figure-pastel-2&apos;),
  getElementById(&apos;cap-pastel&apos;))"/>
@@ -120,13 +127,16 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
  
 <figcaption id="cap-pastel">
 
-<b>Fig. NUMBER MISSING:</b> CAPTION MISSING
+<b>Fig. 8:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume<i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>. <br>
+<b>Fig. 9:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume<i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>.
 
 </figcaption>
 
 </figure>
 
 Whether creating pastels or miniatures, Carriera heightened both the academic value and the popularity of her work by painting allegories or imbuing her portraits with allegorical elements. This strategy was highly successful with Grand Tourists who specifically requested pictures depicting mythological figures, allegorical figures or portraits of beautiful Venetian women as well as portraits of themselves. Her sets of the Four Seasons and the Four Elements were very popular, as were her renditions of Diana and Flora.[^12] [Robert Dingley](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1405){:target="\_blank"} (1710-81, travel years 1733-34), collector and future director of the Bank of England, wrote to Carriera from London in 1735, requesting a picture of a "pretty young country girl" in the guise of Winter, specifically "like the one in the cabinet of [Mr. (Joseph) Smith](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4417){:target="\_blank"}" (c. 1674-1770, travel years c. 1700-1770). It is likely that Dingley had noticed this picture during his Italian tour in the personal collection of Smith, who spent most of his life in Venice as a merchant banker and as the British Consul from 1744 to 1760. Dingley hastened to add that there was "no need to say anything to Mr. Smith about this."[^13] His letter reveals how Carriera at times needed to deftly and discreetly serve the ambitions of multiple, competitive British clients.
+
+<figure>
 
 <a name="figure-alleg-1" class="third-fig"> <img src="sama-figure-10.jpg"
  id="figure-alleg-1"  onclick="zoom(this, getElementById(&apos;figure-alleg-2&apos;), getElementById(&apos;figure-alleg-3&apos;),

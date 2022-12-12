@@ -252,7 +252,7 @@ The *Grand Tour Explorer* supports the theory that economic travelers to Italy a
 
 [^52]: On the importance of Southern Italy from this perspective, see among others Giovanna Cesarani, *Italy’s Lost Greece: Magna Graecia and the Making of Modern Archaeology*, Oxford: Oxford University Press, 2012.
 [^53]: See, for the change of German emphasis from antique Rome to Renaissance Florence as the premier goal of the Grand Tour, for example, Martin A. Ruehl, *The Italian Renaissance in the German Historical Imagination, 1860-1930*, Cambridge: Cambridge University Press, 2015, pp. 1-3.
-[^54]: On the Grand Tour reaffirming tropes, see among others Brewer, “Whose Grand Tour?,’ p. 50.
+[^54]: On the Grand Tour reaffirming tropes, see among others Brewer, “Whose Grand Tour?,” p. 50.
 
 **Acknowledgments**
 

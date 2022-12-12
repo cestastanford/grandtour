@@ -149,7 +149,7 @@ Whether creating pastels or miniatures, Carriera heightened both the academic va
 
 <b>Fig. 10:</b> Rosalba Carriera. <i>Allegory of Painting</i>. 1730s. Pastel and red chalk on blue laid paper mounted on canvas (on strainer). 44.3 × 34.1 cm <a href="https://www.nga.gov/collection/art-object-page.277.html" target="_blank">National Gallery of Art</a>. <br>
 <b>Fig. 11:</b> Rosalba Carriera. <i>A Personification of Summer</i>. c.1744. Pastel on blue paper laid on a strainer. 59.8 x 50.1 cm. <a href="https://www.rct.uk/collection/400648/a-personification-of-summer" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
-<b>Fig. 12:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume<i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>.
+<b>Fig. 12:</b> Rosalba Carriera. <i>A Personification of Autumn</i>. c.1730. Pastel on blue paper. 66.0 x 49.2 cm. <a href="https://www.rct.uk/collection/400650/a-personification-of-autumn" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
 
 </figcaption>
 
@@ -207,11 +207,11 @@ What might the *Explorer* be able to tell us about Carriera's studio? The riches
 
 <figure>
 
-<a name="figure-11" class="fig"> <img src="sama-figure-16.jpg"  onclick="zoom(this, null, getElementById(&apos;samaCap11&apos;))"/> </a>
+<a name="figure-13" class="fig"> <img src="sama-figure-16.jpg"  onclick="zoom(this, null, getElementById(&apos;cap13&apos;))"/> </a>
 
-<figcaption id="samaCap11">
+<figcaption id="cap13">
 
-<b>Fig. 11:</b>
+<b>Fig. 13:</b>An excerpt from the inventory of Rosa Carriera's studio. Inquisitori alle acque, b. 79, no. 80 [carta con “Nella Galleria”].
 
 </figcaption>
 

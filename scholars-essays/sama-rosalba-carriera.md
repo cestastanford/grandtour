@@ -95,6 +95,21 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 Whether creating pastels or miniatures, Carriera heightened both the academic value and the popularity of her work by painting allegories or imbuing her portraits with allegorical elements. This strategy was highly successful with Grand Tourists who specifically requested pictures depicting mythological figures, allegorical figures or portraits of beautiful Venetian women as well as portraits of themselves. Her sets of the Four Seasons and the Four Elements were very popular, as were her renditions of Diana and Flora.[^12] [Robert Dingley](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1405){:target="\_blank"} (1710-81, travel years 1733-34), collector and future director of the Bank of England, wrote to Carriera from London in 1735, requesting a picture of a "pretty young country girl" in the guise of Winter, specifically "like the one in the cabinet of [Mr. (Joseph) Smith](https://grand-tour-explorer-2017.herokuapp.com/#/entries/4417){:target="\_blank"}" (c. 1674-1770, travel years c. 1700-1770). It is likely that Dingley had noticed this picture during his Italian tour in the personal collection of Smith, who spent most of his life in Venice as a merchant banker and as the British Consul from 1744 to 1760. Dingley hastened to add that there was "no need to say anything to Mr. Smith about this."[^13] His letter reveals how Carriera at times needed to deftly and discreetly serve the ambitions of multiple, competitive British clients.
 
+<a name="figure-alleg-1" class="third-fig"> <img src="sama-figure-10.jpg"
+ id="figure-alleg1"  onclick="zoom(this, getElementById(&apos;figure-alleg-2&apos;), getElementById(&apos;figure-alleg-3&apos;),
+ getElementById(&apos;cap-alleg&apos;))"/>
+ </a> <a name="figure-alleg-2" class="third-fig"> <img src="sama-figure-11.png" id="figure-alleg-2"
+ onclick="zoom(getElementById(&apos;figure-alleg-1&apos;), this, getElementById(&apos;figure-alleg-3&apos;), getElementById(&apos;cap-alleg&apos;))"/> </a> <a name="figure-alleg-3" class="third-fig"> <img src="sama-figure-12.png" id="figure-alleg-3"
+ onclick="zoom(getElementById(&apos;figure-alleg-1&apos;), getElementById(&apos;figure-alleg-2&apos;), this, getElementById(&apos;cap-alleg&apos;))"/> </a>
+ 
+<figcaption id="cap-alleg">
+
+<b>Fig. NUMBER MISSING:</b> CAPTION MISSING
+
+</figcaption>
+
+</figure>
+
 [^12]: *Ibid.*
 
 [^13]: My translation. In the original Italian: "una bella giovinetta contadina...nel gusto del quadro dell'Inverno nella cabinetta del Sig. Smith....Non è necessario dire niente al Signor Smith." See Francis Haskell who describes this exchange in *Patrons and Painters. Art and Society in Baroque Italy* (New Haven: Yale, 1980), 303. The complete letter is published in Sani, ed., *Rosalba Carriera. Lettere, Diari, Frammenti*, 603.

@@ -36,7 +36,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 <figcaption id="cap-women">
 
 <b>Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm <a href="https://www.rct.uk/collection/452375" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
-<b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as "Berenice"</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
+<b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as “Berenice”</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
 
 </figcaption>
 
@@ -105,7 +105,7 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 
 <b>Fig. 5:</b> Rosalba Carriera. <i>Self-Portrait as “Innocence”<i>. c.1705-1757. Watercolour on ivory. 10.2 x 8.0 cm. <a href="https://www.rct.uk/collection/420544/self-portrait-as-innocence" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
 <b>Fig. 6:</b> Rosalba Carriera. <i>Portrait miniature of Robert, Lord Walpole<i>. c. 1720-40. Watercolour on ivory. 8.4 x 5.9 cm. <a href="https://collections.vam.ac.uk/item/O72539/portrait-miniature-of-robert-lord-miniature-carriera-rosalba/" target="_blank">Victoria and Albert Museum</a>. <br>
-<b>Fig. 7:</b> 
+<b>Fig. 7:</b> Rosalba Carriera. <i>Portrait of an unknown man said to be W. Osbaldeston</i>. 1730s. Watercolour on ivory. 7.6 x 5.7 cm. <a href="https://collections.vam.ac.uk/item/O82244/portrait-of-an-unknown-man-miniature-carriera-rosalba-giovanna/" target="_blank">Victoria and Albert Museum</a>.   
 
 </figcaption>
 

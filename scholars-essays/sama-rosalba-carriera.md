@@ -15,7 +15,7 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 <figcaption id="samaCap1">
 
-<b>Fig. 1:</b>
+<b>Fig. 1:</b> This visualization shows the names of Grand Tourists who appear in the <i>Grand Tour Explorer</i> and are associated with Rosalba Carriera. The different colors indicate the nature of their association(s) with the artist.
 
 </figcaption>
 

@@ -4,7 +4,7 @@ title: "5. Mapping the Economic Grand Tour: Travel and Emulation in Enlightenmen
 author: Sophus A Reinert
 session: 4
 chapter: 5
-abstract: <i>The Grand Tour Explorer</i> exemplifies new modes of historical understanding made possible by the advent of digital humanities in offering novel tools for mapping and analyzing British travels to Italy during the eighteenth century. More specifically, it allows us to parse travelers on the basis of their professions and interests, revealing that the institution of the Grand Tour was protean enough to embrace different justifications and itineraries. As the following essays demonstrate, a form of “economic travel’ existed within the larger Grand Tour. This was informed less by the lure of antiquity than by the needs of the present and the future, by the incentives of trade, and by the emulative nature of international competition in early modern Europe.
+abstract: <i>The Grand Tour Explorer</i> exemplifies new modes of historical understanding made possible by the advent of digital humanities in offering novel tools for mapping and analyzing British travels to Italy during the eighteenth century. More specifically, it allows us to parse travelers on the basis of their professions and interests, revealing that the institution of the Grand Tour was protean enough to embrace different justifications and itineraries. As the following essays demonstrate, a form of “economic travel” existed within the larger Grand Tour. This was informed less by the lure of antiquity than by the needs of the present and the future, by the incentives of trade, and by the emulative nature of international competition in early modern Europe.
 references:
 about: Sophus Reinert is a Professor of Business Administration in the Business, Government, and the International Economy Unit at Harvard Business School, where he currently teaches a course on Globalization and Emerging Markets (GEM) in the MBA elective curriculum. He has also taught for the Summer Venture in Management Program, the PEEK Program, START, and the executive education General Management Program. Before joining HBS, he was a research fellow and an affiliated lecturer in history at Gonville & Caius College at the University of Cambridge (UK).
 ---
@@ -252,7 +252,7 @@ The *Grand Tour Explorer* supports the theory that economic travelers to Italy a
 
 [^52]: On the importance of Southern Italy from this perspective, see among others Giovanna Cesarani, *Italy’s Lost Greece: Magna Graecia and the Making of Modern Archaeology*, Oxford: Oxford University Press, 2012.
 [^53]: See, for the change of German emphasis from antique Rome to Renaissance Florence as the premier goal of the Grand Tour, for example, Martin A. Ruehl, *The Italian Renaissance in the German Historical Imagination, 1860-1930*, Cambridge: Cambridge University Press, 2015, pp. 1-3.
-[^54]: On the Grand Tour reaffirming tropes, see among others Brewer, “Whose Grand Tour?,’ p. 50.
+[^54]: On the Grand Tour reaffirming tropes, see among others Brewer, “Whose Grand Tour?,” p. 50.
 
 **Acknowledgments**
 

@@ -271,7 +271,7 @@ This paper was prepared as part of Giovanna Cesarani’s *Grand Tour Explorer Pr
     <div id="capWrapper" style="height:20%">
         <p id="cap" style="float:left; max-width:80%; position:relative; left:120px; display:inline-block"></p>
         <div style="display:inline-block; float: right">
-            <div style="display:flex; flex-direction:column; position:relative; right:100px">
+            <div style="display:flex; flex-direction:column; position:relative; right:100px; top:20px">
                 <i class="material-icons link-cite" aria-label="Cite this image" data-balloon-pos="left">format_quote</i>
                 <i class="material-icons link-copy" aria-label="Copy link to this image" data-balloon-pos="left">link</i>
                 <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
@@ -323,6 +323,7 @@ function zoom(obj, obj2, caption) {
     if (caption != undefined && caption != null) {
         cap.innerHTML = caption.innerHTML;
         cap.style.display = "block";
+        cap.style.marginTop = "20px";
     } else {
         cap.style.display = "none";
     }

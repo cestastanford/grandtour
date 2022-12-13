@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Epilogue"
-author: Rachel Something
+author: Rachel Midura
 session: 6
 chapter: 0
 ---

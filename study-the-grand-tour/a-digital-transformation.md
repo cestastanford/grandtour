@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "3. A digital transformation of a print book"
-author: Rachel Something
+author: Rachel Midura
 session: 1
 chapter: 2
 ---

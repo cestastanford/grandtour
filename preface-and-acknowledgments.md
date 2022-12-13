@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Preface"
-author: Rachel Something
+author: Rachel Midura
 session: 0
 chapter: 0
 ---

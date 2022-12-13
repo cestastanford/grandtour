@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "1. Eighteenth-century British travel to Italy: practices of travel and practices of study"
-author: Rachel Something
-about: "Rachel Something is out of my own work on the engagement of British travelers with Italian cities during the long eighteenth century. Some years ago, I published a book that concentrated upon British experiences and representations of Italian cities during the long eighteenth century, Cities and the Grand Tour: The British in Italy, c. 1690-1820.1 As an urban historian, I was less concerned with what was collected or purchased by travelers, or with their social networks, than with exploring how images of major Italian cities were constructed and considering their influence in British culture. Given the opportunity to work with the Grand Tour Explorer, I wanted to use it to pursue several questions."
+author: Rachel Midura
+about: "Rachel Midura is out of my own work on the engagement of British travelers with Italian cities during the long eighteenth century. Some years ago, I published a book that concentrated upon British experiences and representations of Italian cities during the long eighteenth century, Cities and the Grand Tour: The British in Italy, c. 1690-1820.1 As an urban historian, I was less concerned with what was collected or purchased by travelers, or with their social networks, than with exploring how images of major Italian cities were constructed and considering their influence in British culture. Given the opportunity to work with the Grand Tour Explorer, I wanted to use it to pursue several questions."
 references: "References here"
 session: 1
 chapter: 0

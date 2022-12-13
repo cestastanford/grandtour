@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "2. Brinsley Ford’s research and Ingamells’ Dictionary"
-author: Rachel Something
+author: Rachel Midura
 session: 1
 chapter: 1
 ---

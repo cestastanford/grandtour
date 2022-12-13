@@ -376,7 +376,7 @@
           <article class="post">
 
   <!-- Bookkeeping for links-script (does not display on document) -->
-  <p id="bkAuthor" class="bk">Rachel Something</p>
+  <p id="bkAuthor" class="bk">Rachel Midura</p>
   <p id="bkTitle" class="bk">1. Eighteenth-century British travel to Italy: practices of travel and practices of study</p>
 
   <header id="postHeader" class="post-header">
@@ -384,7 +384,7 @@
     <h1 class="post-title">1. Eighteenth-century British travel to Italy: practices of travel and practices of study</h1>
     <div class="" style="display: flex; justify-content: space-between">
       <div class="">
-        <p id="Rachel Something" class="post-author" onclick="about(this)">by Rachel Something</p> 
+        <p id="Rachel Midura" class="post-author" onclick="about(this)">by Rachel Midura</p> 
       </div>
       <div class="paragraph">
         <i class="material-icons link-cite" aria-label="Cite this article" data-balloon-pos="left">format_quote</i>
@@ -403,7 +403,7 @@
     </div>
     <div class="">
       <b class="post-sticky-title">1. Eighteenth-century British travel to Italy: practices of travel and practices of study </b>
-      <span class="post-sticky-author">– Rachel Something</span>
+      <span class="post-sticky-author">– Rachel Midura</span>
     </div>
     <div class="">
 
@@ -442,8 +442,8 @@
     <div class="">
       
       <div class="post-about">
-        <h3>About Rachel Something</h3>
-        <p>Rachel Something is out of my own work on the engagement of British travelers with Italian cities during the long eighteenth century. Some years ago, I published a book that concentrated upon British experiences and representations of Italian cities during the long eighteenth century, Cities and the Grand Tour: The British in Italy, c. 1690-1820.1 As an urban historian, I was less concerned with what was collected or purchased by travelers, or with their social networks, than with exploring how images of major Italian cities were constructed and considering their influence in British culture. Given the opportunity to work with the Grand Tour Explorer, I wanted to use it to pursue several questions.</p>
+        <h3>About Rachel Midura</h3>
+        <p>Rachel Midura is out of my own work on the engagement of British travelers with Italian cities during the long eighteenth century. Some years ago, I published a book that concentrated upon British experiences and representations of Italian cities during the long eighteenth century, Cities and the Grand Tour: The British in Italy, c. 1690-1820.1 As an urban historian, I was less concerned with what was collected or purchased by travelers, or with their social networks, than with exploring how images of major Italian cities were constructed and considering their influence in British culture. Given the opportunity to work with the Grand Tour Explorer, I wanted to use it to pursue several questions.</p>
       </div>
     </div>
 
@@ -495,7 +495,7 @@
     var bio = document.getElementById("bio");
     var name = document.getElementById("name");
     name.innerHTML = author.id;
-    bio.innerHTML = " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    bio.innerHTML = author.about;
     about.classList.toggle("visible");
   }
 

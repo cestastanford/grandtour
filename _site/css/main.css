@@ -324,7 +324,7 @@ article { margin: 0 auto; max-width: 680px; padding: 60px 20px 0px 20px; }
 .overlay h3 { font-weight: 500; }
 .overlay a { color: #806533; cursor: pointer; }
 
-.overlay.visible { opacity: .98; visibility: visible; bottom: 0px; }
+.overlay.visible { opacity: 1; visibility: visible; bottom: 0px; }
 
 .overlay-text { font-family: "Source Serif Pro", serif; }
 

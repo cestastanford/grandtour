@@ -57,8 +57,7 @@ This essay takes the idea of a parallel, juxtaposition or overlap between these 
 | Parry | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3748" target="_blank">YES</a> | <i>Gazz. Tosc.</i> | |
 | Greenwood | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2098" target="_blank">YES</a> | <i>Gazz. Tosc.</i> | |
 | Potts | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3947" target="_blank">YES</a> | ASV <br> <i>Francis jnl.MSS</i> | |
-| Charles Hughes | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2568" target="_blank">YES</a> | <i>Gazz. Tosc.</i> <br> Bertolotti, <i>Relazioni</i> |
-ASR, *Paesi stranieri*, 28 [Inghelterra], letter from Hughes to [Giovanni] Comaro, n. d. [?1775] <br> *Gazetta Universale*, 3 June 1775 <br> Giulini and Seregni, ed., *Carteggio di Pietro e Allessandro Verri*, vol. 8, p. 110 (8 June 1776). <br> For publicity produced during Hughes’s Italian travels, see fig. 2. |
+| Charles Hughes | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2568" target="_blank">YES</a> | <i>Gazz. Tosc.</i> <br> Bertolotti, <i>Relazioni</i> | ASR, *Paesi stranieri*, 28 [Inghelterra], letter from Hughes to [Giovanni] Comaro, n. d. [?1775] <br> *Gazetta Universale*, 3 June 1775 <br> Giulini and Seregni, ed., *Carteggio di Pietro e Allessandro Verri*, vol. 8, p. 110 (8 June 1776). <br> For publicity produced during Hughes’s Italian travels, see fig. 2. |
 | James Wolton | NO | NO | | *Notizie de mondo* (Florence), 30 June 1770 <br> Boulukos, ed., *Memoirs on the Life and Travels of Thomas Hammond* |
 | Elizabeth Page (d. 1770) | NO | NO | | Boulukos, ed., *Memoirs on the Life and Travels of Thomas Hammond* |
 | Thomas Hammond (b. 1748) | NO | NO | | Boulukos, ed., *Memoirs on the Life and Travels of Thomas Hammond* |

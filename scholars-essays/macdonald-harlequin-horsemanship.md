@@ -51,7 +51,7 @@ This essay takes the idea of a parallel, juxtaposition or overlap between these 
 
 | Name | Entry in <i>Dictionary</i> | Entry in <i>GTE<i> | Sources in <i>Dictionary</i>/<i>GTE<i> | Other Sources and Notes |
 |--------|--------|--------|--------|--------|
-| Wear | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/5031" target="_blank">YES</a> | Verri, <i>Cart</i> <br> <i>Gazz. Tosc.</i> | Letter from Wear to Casali, 19 July 1770. <br> Report by Camporese on Wear’s “Teatro”, 11 August 1770. <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
+| Wear | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/5031" target="_blank">YES</a> | Verri, <i>Cart</i>. <br> <i>Gazz. Tosc.</i> | Letter from Wear to Casali, 19 July 1770. <br> Report by Camporese on Wear’s “Teatro”, 11 August 1770. <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
 | Peter Price | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976" target="_blank">YES</a> | <i>Jones Memoirs</i>. <br> Bertolotti, <i>Relazioni</i>. | Giulini and Serengo, ed., *Carteggio di Pietro e Allessandro Verri*. <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
 | Wife of Peter Price | NO | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976.1" target="_blank">YES</a> | [Bertolotti, <i>Relazioni</i>.] | |
 | Parry | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3748" target="_blank">YES</a> | [<i>Gazz. Tosc.</i>] | |

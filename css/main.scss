@@ -9,6 +9,7 @@ $base-font-size:   19px;
 $base-font-weight: 400;
 $serif-font-family: "Source Serif Pro", serif;
 $small-font-size:  $base-font-size * 0.875;
+$caption-font-size: $small-font-size * 0.667;
 $base-line-height: 1.6;
 
 $spacing-unit:     30px;
@@ -16,6 +17,7 @@ $spacing-unit:     30px;
 $text-color:       #111;
 $background-color: #fdfdfd;
 $brand-color:      #806533;
+$caption-color:    #a1a1a1;
 
 $grey-color:       #666666;
 $grey-color-light: lighten($grey-color, 40%);

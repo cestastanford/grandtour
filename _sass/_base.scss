@@ -67,7 +67,8 @@ figure > img {
 }
 
 figcaption {
-    font-size: $small-font-size;
+    font-size: $caption-font-size;
+    color: $caption-color;
 }
 
 

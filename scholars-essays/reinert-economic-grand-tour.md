@@ -169,9 +169,7 @@ Eighteenth-century Italy continued to have purchase not merely in art and cultur
 
 For an example of a more specifically mercantile-political sojourn, that of [Sir Lambert Blackwell](http://grand-tour-explorer-2017.herokuapp.com/#/entries/445){:target="\_blank"} (1665-1727, travel years 1689-1705), merchant and Britain’s first consul to Leghorn, later Ambassador to Venice, Florence, and Genoa, and Director of the South Sea Company, is representative, as his political appointments closely mirrored British strategic and commercial interests on the peninsula. Though hardly evocative of the Grand Tour as commonly understood, Ingamells’ fleeting and melancholy mention of [Lewis Blaquiere](http://grand-tour-explorer-2017.herokuapp.com/#/entries/459){:target="\_blank"} (1722-1754, travel years 1744-1754) is also illustrative of countless other British merchants who escaped mention in the *Dictionary*:
 
-<blockquote>BLAQUIERE, LEWIS (c.1722-54), merchant.<lb>
--1744-54 Leghorn<lb>
-With several other members of the British Factory at Leghorn, he signed a memorial in May 1744. He was presumably the Lewis Blaquiere who died in Leghorn on 3 August 1754, aged 32, and who was buried in the Protestant cemetery<span markdown="43">[^43]</span></blockquote>
+<blockquote>BLAQUIERE, LEWIS (c.1722-54), merchant.-1744-54 Leghorn.With several other members of the British Factory at Leghorn, he signed a memorial in May 1744. He was presumably the Lewis Blaquiere who died in Leghorn on 3 August 1754, aged 32, and who was buried in the Protestant cemetery<span markdown="1">[^43]</span></blockquote>
 
 [^43]: Ingamells, *Dictionary*, p. 98.
 

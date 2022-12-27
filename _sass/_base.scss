@@ -132,6 +132,11 @@ blockquote {
         margin-bottom: 0;
     }
 }
+/*
+ * Note: in the rare case of having a footnote inside a blockquote (e.g., Macdonald essay), include the footnote inside of its own
+ * span tag with the markdown argument, for example:
+ * <blockquote>Lorem ipsum dolor sit amet<span markdown="1">[^1]</span></blockquote>
+ */
 
 
 

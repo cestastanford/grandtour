@@ -121,7 +121,7 @@ Hammond’s picaresque narrative can only be briefly presented here. He introduc
 
 [^20]: *Ibid.*, pp. 73, 84.
 
-*… the great channel from St. Mark’s Square was Covered with Gondoloes full of Gentlemen & Ladies all Mask’d, who being seated in the Ride, look’d like so Many specters, for their Masks were all white; and their coming over in those black Gondoloes looked as if they had been a troop of Ghosts that Mercury had conducted to the borders of the River Styx to be wafted over by the inexorable Charon into the Elysian fields, or Mansions of the Dead. However---Ugly as they were they brought us money, and we performed there twelve times[.]*[^21]
+<blockquote>… the great channel from St. Mark’s Square was Covered with Gondoloes full of Gentlemen & Ladies all Mask’d, who being seated in the Ride, look’d like so Many specters, for their Masks were all white; and their coming over in those black Gondoloes looked as if they had been a troop of Ghosts that Mercury had conducted to the borders of the River Styx to be wafted over by the inexorable Charon into the Elysian fields, or Mansions of the Dead. However---Ugly as they were they brought us money, and we performed there twelve times[.]<span markdown="21">[^21]</span></blockquote>
 
 [^21]: *Ibid.*, pp. 98, 100.
 

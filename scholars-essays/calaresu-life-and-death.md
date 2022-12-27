@@ -88,7 +88,7 @@ His paintings of the city are the visual equivalent of these sensory description
 
 In his “Memoirs,” [Jones](https://grand-tour-explorer-2017.herokuapp.com/#/entries/2715){:target="\_blank"} also gives us clues to his immersion in Italian culture. Like many Grand Tourists, he literally carried ideas about Italians in his jacket pocket as he travelled, but these guidebooks were soon put to the test by his actual interactions with people. Not long after arriving in Rome, he seemed genuinely surprised not to be knifed after a night of conversation with “three sprightly girls,” the daughters of an innkeeper near Frascati. He wrote: 
 
-*We were joined by a Couple of young Fellows muffled up to the nose in their long cloaks - I had been so prepossessed, by books, with frightful ideas of Italian jealousy and Italian revenge, that I sat in Agony for the Consequence, nor could my Companions reasoning or ridicule entirely divert me of it - However we at length cheerfully sat down to supper - and soon after went to bed and slept soundly, devoid of Care.*[^17]
+<blockquote>We were joined by a Couple of young Fellows muffled up to the nose in their long cloaks - I had been so prepossessed, by books, with frightful ideas of Italian jealousy and Italian revenge, that I sat in Agony for the Consequence, nor could my Companions reasoning or ridicule entirely divert me of it - However we at length cheerfully sat down to supper - and soon after went to bed and slept soundly, devoid of Care.<span markdown="17">[^17]</span></blockquote>
 
 [^17]: “Memoirs of Thomas Jones,” p. 54.
  

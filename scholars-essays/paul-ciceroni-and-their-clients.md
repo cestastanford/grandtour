@@ -229,20 +229,18 @@ Winckelmann shared [Byres](https://grand-tour-explorer-2017.herokuapp.com/#/entr
 
 Winckelmann’s dramatic responses to ancient statuary, which he hoped to cultivate in others, seem to have remained unique among *ciceroni* but not tourists. Roman antiquities had sparked the imaginations of travelers long before the eighteenth century; the reactions of Grand Tourists, especially Britons, are particularly distinguished by their excited visualizations of the distant past. Educated in the classics, many of these travelers were routinely prompted by the material remains of antiquity to imagine the ancient world, enthusiastically reconstructing it in their minds through historical and literary association.[^53] Indeed, [Lumisden](https://grand-tour-explorer-2017.herokuapp.com/#/entries/3049){:target="\_blank"} noted in the guide he wrote to Rome that, “...on the spot we read them [the classics] with an additional enthusiasm,...”[^54] Thus the historian [Edward Gibbon](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1935){:target="\_blank"} (1737-1794, travel years 1764-1765) recalled the beginning of his Roman tour with [Byres](https://grand-tour-explorer-2017.herokuapp.com/#/entries/747){:target="\_blank"}, which inspired him to write his famous history of Rome:
 
-[^53]: For a fuller discussion of this issue, see Carole Paul, *The Borghese Collections and the Display of Art in the Age of the Grand Tour* (Aldershot: Ashgate, 2008; paperback ed., London and New York: Routledge, 2016), 35-42.
-[^54]: Andrew Lumisden, *Remarks on the Antiquities of Rome and its Environs* (London: W. Bulmer and Co., 1797), 11.
-
 <blockquote>My temper is not very susceptible of enthusiasm, and the enthusiasm which I do not feel I have ever scorned to affect. But at the distance of twenty-five years, I can neither forget nor express the strong emotions which agitated my mind as I first approached and entered the *eternal City*. After a sleepless night, I trod, with a lofty step, the ruins of the Forum; each memorable spot where Romulus *stood*, or Tully spoke, or Caesar fell, was at once present to my eye; and several days of intoxication were lost or enjoyed before I could descend to a cool and minute investigation.<span markdown="55">[^55]</span></blockquote>
-
-[^55]: [Edward Gibbon](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1935){:target="\_blank"}, *The Autobiographies of Edward Gibbon*, edited by John Murray (London: John Murray, 1896), 267; *The History of the Decline and Fall of the Roman Empire*, 6 vols. (London: W. Strahan and T. Cadell, 1776-88).
 
 Similarly, when [Boswell](https://grand-tour-explorer-2017.herokuapp.com/#/entries/509){:target="\_blank"} visited the Palatine hill with [Morison](https://grand-tour-explorer-2017.herokuapp.com/#/entries/3436){:target="\_blank"}:
 
 <blockquote>We walked to where the house of Cicero had stood. A statue there resembles him a great deal. Struck by these famous places, I was seized with enthusiasm. I began to speak Latin. Mr. Morison replied. He laughed a bit at the beginning. But we made a resolution to speak Latin continually during this course of antiquities. We have persisted, and every day we speak with greater facility, so that we have harangued on Roman antiquities in the language of the Romans themselves.<span markdown="56">[^56]</span></blockquote>
 
-[^56]: [Boswell](https://grand-tour-explorer-2017.herokuapp.com/#/entries/509){:target="\_blank"}, *Boswell on the Grand Tour*, 62.
-
 Despite its playfulness, this episode illustrates the imaginative depth of the experience possible for tourists, even if [Boswell](https://grand-tour-explorer-2017.herokuapp.com/#/entries/509){:target="\_blank"} had to lead his *cicerone*. Nonetheless, the professional guide---however changed since the eighteenth century---has become a fixture of modern travel, and that is the undeniable legacy of the *ciceroni* of the Grand Tour.
+
+[^53]: For a fuller discussion of this issue, see Carole Paul, *The Borghese Collections and the Display of Art in the Age of the Grand Tour* (Aldershot: Ashgate, 2008; paperback ed., London and New York: Routledge, 2016), 35-42.
+[^54]: Andrew Lumisden, *Remarks on the Antiquities of Rome and its Environs* (London: W. Bulmer and Co., 1797), 11.
+[^55]: [Edward Gibbon](https://grand-tour-explorer-2017.herokuapp.com/#/entries/1935){:target="\_blank"}, *The Autobiographies of Edward Gibbon*, edited by John Murray (London: John Murray, 1896), 267; *The History of the Decline and Fall of the Roman Empire*, 6 vols. (London: W. Strahan and T. Cadell, 1776-88).
+[^56]: [Boswell](https://grand-tour-explorer-2017.herokuapp.com/#/entries/509){:target="\_blank"}, *Boswell on the Grand Tour*, 62.
 
 <h3>References</h3>
 

@@ -253,7 +253,6 @@ As we have seen in the case with Rosalba Carriera, navigating the *Explorer* in 
 
 **[Explore the data behind this essay.](https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0){:target="\_blank"}**
 
-<h4>[Explore the data behind this essay.](https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0){:target="\_blank"}</h4>
 
 <h3>Bibliography</h3>
 

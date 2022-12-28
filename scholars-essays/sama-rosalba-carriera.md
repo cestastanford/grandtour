@@ -106,13 +106,9 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 <figure>
 
-<a name="figure-pastel-1" class="half-fig"> <img src="sama-figure-8.png"
- id="figure-pastel-1"  onclick="zoom(this, getElementById(&apos;figure-pastel-2&apos;),
- getElementById(&apos;cap-pastel&apos;))"/>
- </a> <a name="figure-pastel-2" class="half-fig"> <img src="sama-figure-9.png" id="figure-pastel-2"
- onclick="zoom(getElementById(&apos;figure-pastel-1&apos;), this, getElementById(&apos;cap-pastel&apos;))"/> </a>
- 
-<figcaption id="cap-pastel">
+<a name="figure-89" class="fig"> <img src="sama-figure-89.png" id="fig89"  onclick="zoom(this, null, getElementById(&apos;cap89&apos;))"/> </a>
+
+<figcaption id="cap89">
 
 <b>Figs. 8-9. Fig. 8:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume</i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>. <b>Fig. 9:</b> Rosalba Carriera. <i>Philip, Duke of Wharton (1698-1731)</i>. c.1718-20. Pastel on paper. 55.9 x 44.5 cm. <a href="https://www.rct.uk/collection/406905/philip-duke-of-wharton-1698-1731" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
 
@@ -124,14 +120,9 @@ Whether creating pastels or miniatures, Carriera heightened both the academic va
 
 <figure>
 
-<a name="figure-alleg-1" class="third-fig"> <img src="sama-figure-10.jpg"
- id="figure-alleg-1"  onclick="zoom(this, getElementById(&apos;figure-alleg-2&apos;), getElementById(&apos;figure-alleg-3&apos;),
- getElementById(&apos;cap-alleg&apos;))"/>
- </a> <a name="figure-alleg-2" class="third-fig"> <img src="sama-figure-11.png" id="figure-alleg-2"
- onclick="zoom(getElementById(&apos;figure-alleg-1&apos;), this, getElementById(&apos;figure-alleg-3&apos;), getElementById(&apos;cap-alleg&apos;))"/> </a> <a name="figure-alleg-3" class="third-fig"> <img src="sama-figure-12.png" id="figure-alleg-3"
- onclick="zoom(getElementById(&apos;figure-alleg-1&apos;), getElementById(&apos;figure-alleg-2&apos;), this, getElementById(&apos;cap-alleg&apos;))"/> </a>
- 
-<figcaption id="cap-alleg">
+<a name="figure-1012" class="fig"> <img src="sama-figure-1012.png" id="fig1012"  onclick="zoom(this, null, getElementById(&apos;cap1012&apos;))"/> </a>
+
+<figcaption id="cap1012">
 
 <b>Figs. 10-12. Fig. 10:</b> Rosalba Carriera. <i>Allegory of Painting</i>. 1730s. Pastel and red chalk on blue laid paper mounted on canvas (on strainer). 44.3 × 34.1 cm <a href="https://www.nga.gov/collection/art-object-page.277.html" target="_blank">National Gallery of Art</a>. <b>Fig. 11:</b> Rosalba Carriera. <i>A Personification of Summer</i>. c.1744. Pastel on blue paper laid on a strainer. 59.8 x 50.1 cm. <a href="https://www.rct.uk/collection/400648/a-personification-of-summer" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <b>Fig. 12:</b> Rosalba Carriera. <i>A Personification of Autumn</i>. c.1730. Pastel on blue paper. 66.0 x 49.2 cm. <a href="https://www.rct.uk/collection/400650/a-personification-of-autumn" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
 
@@ -191,7 +182,7 @@ What might the *Explorer* be able to tell us about Carriera’s studio? The rich
 
 <figure>
 
-<a name="figure-13" class="fig"> <img src="sama-figure-16.jpg"  onclick="zoom(this, null, getElementById(&apos;cap13&apos;))"/> </a>
+<a name="figure-13" class="fig"> <img src="sama-figure-13.jpg"  onclick="zoom(this, null, getElementById(&apos;cap13&apos;))"/> </a>
 
 <figcaption id="cap13">
 

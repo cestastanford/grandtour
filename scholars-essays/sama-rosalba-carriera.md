@@ -24,11 +24,11 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 [^1]: For essential works on Carriera, see Bernardina Sani’s edited volumes of the artist’s correspondence and diary as well as her catalogs of Carriera’s works: *Rosalba Carriera. Lettere, diari, frammenti* (Firenze: Olschki, 1985); *Rosalba Carriera (1673-1757). Maestra del pastello nell’Europa ancien régime*. Catalogo delle opere. (Torino: Umberto Allemandi, 2007). [First edition: 1988]. See also Giuseppe Pavanello’s edited volumes *Rosalba Carriera “prima pittrice de l’Europa”* (Venezia: Marsilio, 2007); and Rosalba Carriera (1673-1757). *Atti del Convegno Internazionale di Studi*, 26-28 aprile 2007 (Venezia: Scripta, 2009). For the most up to date and complete catalog of Carriera’s pastel works, see Jeffares, *Dictionary of pastellists before 1800*, London, 2006; online edition [http://www.pastellists.com/articles/Carriera.pdf](http://www.pastellists.com/articles/Carriera.pdf){:target="\_blank"}, accessed/update 07-04-2019.
 
+
 <figure>
 
-<a name="figure-23" class="fig"> <img src="sama-figure-23.png"
- id="figure-23"  onclick="zoom(this, null, getElementById(&apos;cap23&apos;)/> </a>
- 
+<a name="figure-23" class="fig"> <img src="sama-figure-23.png" id="fig23"  onclick="zoom(this, null, getElementById(&apos;cap23&apos;))"/> </a>
+
 <figcaption id="cap23">
 
 <b>Figs. 2-3. Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm. <a href="https://www.rct.uk/collection/452375/a-self-portrait" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as “Berenice”</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.

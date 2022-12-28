@@ -11,9 +11,9 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 <figure>
 
-<a name="figure-1" class="fig"> <img src="sama-figure-0.png" id="fig1"  onclick="zoom(this, null, getElementById(&apos;samaCap1&apos;))"/> </a>
+<a name="figure-1" class="fig"> <img src="sama-figure-1.png" id="fig1"  onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
 
-<figcaption id="samaCap1">
+<figcaption id="cap1">
 
 <b>Fig. 1:</b> This visualization shows the names of 81 individuals in the <i>Grand Tour Explorer</i> who were identified by using the “Free word search” tool to locate entries containing “Rosalba” <i>or</i> “Carriera”. Close reading of the 81 entries was combined with information from additional sources to identify the types of association each traveler had with Rosalba Carriera. These are indicated in the different colors above. This visualization gives a vivid impression of how many British travelers Carriera interacted with&#8212;and made portraits of&#8212;during her long career. Indeed, the <i>Explorer</i> data is almost certainly an undercount. Many of the women travelers whom Carriera is known to have interacted with are not listed here because their entries in the <i>Grand Tour Explorer</i> are stubs produced from their husbands’ or fathers’ entries in Ingamells’ <i>Dictionary</i>, and as such do not contain a narrative about their travels. See discussion in <a href=" " target="_blank">Introduction</a>. <a href="https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0" target="_blank">Explore the data behind this visualization.</a>
 </figcaption>
@@ -26,13 +26,10 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 <figure>
 
-<a name="figure-self" class="half-fig"> <img src="sama-figure-1.png"
- id="figure-self"  onclick="zoom(this, getElementById(&apos;figure-berenice&apos;),
- getElementById(&apos;cap-women&apos;))"/>
- </a> <a name="figure-berenice" class="half-fig"> <img src="sama-figure-2.png" id="figure-berenice"
- onclick="zoom(getElementById(&apos;figure-self&apos;), this, getElementById(&apos;cap-women&apos;))"/> </a>
+<a name="figure-23" class="fig"> <img src="sama-figure-23.png"
+ id="figure-23"  onclick="zoom(this, null, getElementById(&apos;cap23&apos;)/> </a>
  
-<figcaption id="cap-women">
+<figcaption id="cap23">
 
 <b>Figs. 2-3. Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm. <a href="https://www.rct.uk/collection/452375/a-self-portrait" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as “Berenice”</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
 

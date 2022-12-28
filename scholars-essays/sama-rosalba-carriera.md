@@ -53,9 +53,9 @@ Searches of the database using specific dates and places also help identify indi
 
 <figure>
 
-<a name="figure-3" class="fig"> <img src="sama-figure-4a.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;samaCap3&apos;))"/> </a>
+<a name="figure-4" class="fig"> <img src="sama-figure-4.png" id="fig4"  onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
 
-<figcaption id="samaCap3">
+<figcaption id="cap4">
 
 <b>Fig. 4:</b> Excerpt from Rosalba Carriera’s work diary, where she recorded the visits of visits to her studio. The entry for 9 May 1724 notes a visit from a “M.r Felo inglese.” By searching the <i>Explorer</i> for that date and “Venice” (the location of Carriera’s studio), it was possible to quickly identify the individual as Coulson Fellowes, a British Grand Tourist. The searchability of Grand Tour data enabled by the <i>Explorer</i> makes discoveries such as this much faster than before. Ashburnham 1781, 5, c. 62r.
 </figcaption>
@@ -88,14 +88,9 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 
 <figure>
 
-<a name="figure-mini-1" class="third-fig"> <img src="sama-figure-5.png"
- id="figure-mini-1"  onclick="zoom(this, getElementById(&apos;figure-mini-2&apos;), getElementById(&apos;figure-mini-3&apos;),
- getElementById(&apos;cap-mini&apos;))"/>
- </a> <a name="figure-mini-2" class="third-fig"> <img src="sama-figure-6.jpeg" id="figure-mini-2"
- onclick="zoom(getElementById(&apos;figure-mini-1&apos;), this, getElementById(&apos;figure-mini-3&apos;), getElementById(&apos;cap-mini&apos;))"/> </a> <a name="figure-mini-3" class="third-fig"> <img src="sama-figure-7.png" id="figure-mini-3"
- onclick="zoom(getElementById(&apos;figure-mini-1&apos;), getElementById(&apos;figure-mini-2&apos;), this, getElementById(&apos;cap-mini&apos;))"/> </a>
- 
-<figcaption id="cap-mini">
+<a name="figure-57" class="fig"> <img src="sama-figure-57.png" id="fig57"  onclick="zoom(this, null, getElementById(&apos;cap57&apos;))"/> </a>
+
+<figcaption id="cap57">
 
 <b>Figs. 5-7. Fig. 5:</b> Rosalba Carriera. <i>Self-Portrait as “Innocence”</i>. c.1705-1757. Watercolour on ivory. 10.2 x 8.0 cm. <a href="https://www.rct.uk/collection/420544/self-portrait-as-innocence" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <b>Fig. 6:</b> Rosalba Carriera. <i>Portrait miniature of Robert, Lord Walpole</i>. c. 1720-40. Watercolour on ivory. 8.4 x 5.9 cm. <a href="https://collections.vam.ac.uk/item/O72539/portrait-miniature-of-robert-lord-miniature-carriera-rosalba/" target="_blank">Victoria and Albert Museum</a>. <b>Fig. 7:</b> Rosalba Carriera. <i>Portrait of an unknown man said to be W. Osbaldeston</i>. 1730s. Watercolour on ivory. 7.6 x 5.7 cm. <a href="https://collections.vam.ac.uk/item/O82244/portrait-of-an-unknown-man-miniature-carriera-rosalba-giovanna/" target="_blank">Victoria and Albert Museum</a>.   
 

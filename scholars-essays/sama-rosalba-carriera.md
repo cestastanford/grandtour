@@ -15,7 +15,7 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 <figcaption id="cap1">
 
-<b>Fig. 1:</b> This visualization shows the names of 81 individuals in the <i>Grand Tour Explorer</i> who were identified by using the “Free word search” tool to locate entries containing “Rosalba” <i>or</i> “Carriera”. Close reading of the 81 entries was combined with information from additional sources to identify the types of association each traveler had with Rosalba Carriera. These are indicated in the different colors above. This visualization gives a vivid impression of how many British travelers Carriera interacted with&#8212;and made portraits of&#8212;during her long career. Indeed, the <i>Explorer</i> data is almost certainly an undercount. Many of the women travelers whom Carriera is known to have interacted with are not listed here because their entries in the <i>Grand Tour Explorer</i> are stubs produced from their husbands’ or fathers’ entries in Ingamells’ <i>Dictionary</i>, and as such do not contain a narrative about their travels. See discussion in <a href=" " target="_blank">Introduction</a>. <a href="https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0" target="_blank">Explore the data behind this visualization.</a>
+<b>Fig. 1:</b> This visualization shows the names of 81 travelers in the <i>Grand Tour Explorer</i> who are associated with Rosalba Carriera, as well as the nature of their association(s) with her. The 81 were identified by using the “Free word search” tool to locate entries containing “Rosalba” <i>or</i> “Carriera”. Close reading of the 81 entries was combined with information from additional sources to identify the types of association each traveler had with the artist, whether she appears in their correspondence or diaries, or they are known to have sat for a portrait by her or commissioned a piece of her artwork. The different types of association are indicated in different colors. This visualization gives a vivid impression of how many British travelers Carriera interacted with&#8212;and made portraits of&#8212;during her long career. Indeed, the <i>Explorer</i> data is almost certainly an undercount, due both to the vagaries of the historical record and to the particularities of the making of the <i>Dictionary</i> and its transformation into the virtual <i>Explorer</i>. See discussion in <a href=" " target="_blank">Introduction</a>. <a href="https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0" target="_blank">Download and explore the data behind this visualization.</a>
 </figcaption>
 
 </figure>
@@ -186,7 +186,7 @@ What might the *Explorer* be able to tell us about Carriera’s studio? The rich
 
 <figcaption id="cap13">
 
-<b>Fig. 13:</b>An excerpt from the inventory that was made of Rosalba Carriera’s studio following her death. This document is a rich source of information about the physical layout of Carriera’s studio, but the <i>Grand Tour Explorer</i> complements this by enabling the researcher to quickly bring together several accounts of those who sat for portraits in her studio, offering a traveler’s perspective on her process. Inquisitori alle acque, b. 79, no. 80 [carta con “Nella Galleria”].
+<b>Fig. 13:</b> An excerpt from the inventory that was made of Rosalba Carriera’s studio following her death. This document is a rich source of information about the physical layout of Carriera’s studio, but the <i>Grand Tour Explorer</i> complements this by enabling the researcher to quickly bring together several accounts of those who sat for portraits in her studio, offering a traveler’s perspective on her process. Inquisitori alle acque, b. 79, no. 80 [carta con “Nella Galleria”].
 
 </figcaption>
 
@@ -234,7 +234,7 @@ The [Bentinck](https://grand-tour-explorer-2017.herokuapp.com/#/entries/368){:ta
 
 As we have seen in the case with Rosalba Carriera, navigating the *Explorer* in combination with primary sources is an effective and engaging way to build a more nuanced map of the connections between British Grand Tourists and their Italian contemporaries. In diverse ways, the *Explorer* exemplifies the best of digital humanities resources. Its accessibility online makes it a resource not only for scholars, but for any interested reader, regardless of one’s knowledge about the world of the Grand Tour. Scholars interacting with the database can design and employ diverse combinations of searches and filters for efficient and precise targeting of information. Finally, one of the *Explorer*’s most important features is the way that its search power puts seemingly unrelated pieces of information (some familiar, some not) into dialogue with one another, leading to new perspectives, questions and ideas.
 
-**[Explore the data behind this essay.](https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0){:target="\_blank"}**
+**[Download and explore the data behind this essay.](https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0){:target="\_blank"}**
 
 
 <h3>Bibliography</h3>

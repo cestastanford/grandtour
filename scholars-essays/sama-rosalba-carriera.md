@@ -100,9 +100,7 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
  
 <figcaption id="cap-mini">
 
-<b>Fig. 5:</b> Rosalba Carriera. <i>Self-Portrait as “Innocence”</i>. c.1705-1757. Watercolour on ivory. 10.2 x 8.0 cm. <a href="https://www.rct.uk/collection/420544/self-portrait-as-innocence" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
-<b>Fig. 6:</b> Rosalba Carriera. <i>Portrait miniature of Robert, Lord Walpole</i>. c. 1720-40. Watercolour on ivory. 8.4 x 5.9 cm. <a href="https://collections.vam.ac.uk/item/O72539/portrait-miniature-of-robert-lord-miniature-carriera-rosalba/" target="_blank">Victoria and Albert Museum</a>. <br>
-<b>Fig. 7:</b> Rosalba Carriera. <i>Portrait of an unknown man said to be W. Osbaldeston</i>. 1730s. Watercolour on ivory. 7.6 x 5.7 cm. <a href="https://collections.vam.ac.uk/item/O82244/portrait-of-an-unknown-man-miniature-carriera-rosalba-giovanna/" target="_blank">Victoria and Albert Museum</a>.   
+<b>Figs. 5-7. Fig. 5:</b> Rosalba Carriera. <i>Self-Portrait as “Innocence”</i>. c.1705-1757. Watercolour on ivory. 10.2 x 8.0 cm. <a href="https://www.rct.uk/collection/420544/self-portrait-as-innocence" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <b>Fig. 6:</b> Rosalba Carriera. <i>Portrait miniature of Robert, Lord Walpole</i>. c. 1720-40. Watercolour on ivory. 8.4 x 5.9 cm. <a href="https://collections.vam.ac.uk/item/O72539/portrait-miniature-of-robert-lord-miniature-carriera-rosalba/" target="_blank">Victoria and Albert Museum</a>. <b>Fig. 7:</b> Rosalba Carriera. <i>Portrait of an unknown man said to be W. Osbaldeston</i>. 1730s. Watercolour on ivory. 7.6 x 5.7 cm. <a href="https://collections.vam.ac.uk/item/O82244/portrait-of-an-unknown-man-miniature-carriera-rosalba-giovanna/" target="_blank">Victoria and Albert Museum</a>.   
 
 </figcaption>
 
@@ -124,8 +122,7 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
  
 <figcaption id="cap-pastel">
 
-<b>Fig. 8:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume</i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>. <br>
-<b>Fig. 9:</b> Rosalba Carriera. <i>Philip, Duke of Wharton (1698-1731)</i>. c.1718-20. Pastel on paper. 55.9 x 44.5 cm. <a href="https://www.rct.uk/collection/406905/philip-duke-of-wharton-1698-1731" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
+<b>Figs. 8-9. Fig. 8:</b> Rosalba Carriera. <i>Gustavus Hamilton (1710–1746), Second Viscount Boyne, in Masquerade Costume</i>. 1730–31. Pastel on paper, laid down on canvas. 56.5 x 42.9 cm. <a href="https://www.metmuseum.org/art/collection/search/438544" target="_blank">Metropolitan Museum of Art</a>. <b>Fig. 9:</b> Rosalba Carriera. <i>Philip, Duke of Wharton (1698-1731)</i>. c.1718-20. Pastel on paper. 55.9 x 44.5 cm. <a href="https://www.rct.uk/collection/406905/philip-duke-of-wharton-1698-1731" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
 
 </figcaption>
 
@@ -144,9 +141,7 @@ Whether creating pastels or miniatures, Carriera heightened both the academic va
  
 <figcaption id="cap-alleg">
 
-<b>Fig. 10:</b> Rosalba Carriera. <i>Allegory of Painting</i>. 1730s. Pastel and red chalk on blue laid paper mounted on canvas (on strainer). 44.3 × 34.1 cm <a href="https://www.nga.gov/collection/art-object-page.277.html" target="_blank">National Gallery of Art</a>. <br>
-<b>Fig. 11:</b> Rosalba Carriera. <i>A Personification of Summer</i>. c.1744. Pastel on blue paper laid on a strainer. 59.8 x 50.1 cm. <a href="https://www.rct.uk/collection/400648/a-personification-of-summer" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
-<b>Fig. 12:</b> Rosalba Carriera. <i>A Personification of Autumn</i>. c.1730. Pastel on blue paper. 66.0 x 49.2 cm. <a href="https://www.rct.uk/collection/400650/a-personification-of-autumn" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
+<b>Figs. 10-12. Fig. 10:</b> Rosalba Carriera. <i>Allegory of Painting</i>. 1730s. Pastel and red chalk on blue laid paper mounted on canvas (on strainer). 44.3 × 34.1 cm <a href="https://www.nga.gov/collection/art-object-page.277.html" target="_blank">National Gallery of Art</a>. <b>Fig. 11:</b> Rosalba Carriera. <i>A Personification of Summer</i>. c.1744. Pastel on blue paper laid on a strainer. 59.8 x 50.1 cm. <a href="https://www.rct.uk/collection/400648/a-personification-of-summer" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <b>Fig. 12:</b> Rosalba Carriera. <i>A Personification of Autumn</i>. c.1730. Pastel on blue paper. 66.0 x 49.2 cm. <a href="https://www.rct.uk/collection/400650/a-personification-of-autumn" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022.
 
 </figcaption>
 

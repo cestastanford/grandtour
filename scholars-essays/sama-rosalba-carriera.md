@@ -15,8 +15,7 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 <figcaption id="samaCap1">
 
-<b>Fig. 1:</b> This visualization shows the names of Grand Tourists who appear in the <i>Grand Tour Explorer</i> and are associated with Rosalba Carriera. The different colors indicate the nature of their association(s) with the artist.
-
+<b>Fig. 1:</b> This visualization shows the names of 81 individuals in the <i>Grand Tour Explorer</i> who were identified by entering "Rosa Carriera" into the free search tool. This means that her name occurs somewhere in each of their <i>Explorer</i> entries. Close reading of the 81 entries was combined with information from additional sources to identify what associations the travelers had with Rosa Carriera. Notably, many of the women travelers whom Carriera is known to have interacted with are not listed here because their entries in the <i>Grand Tour Explorer</i> are stubs produced from their husbands'or fathers' entries in Ingamells' <i>Dictionary</i>, and as such do not contain a narrative about their travels. See discussion in <a href=" " target="_blank">Introduction</a>. <a href="https://docs.google.com/spreadsheets/d/14Ex2B4Int9NgSkkf8kQ8vKCSATOKxR0UBdB4yzlkJ8I/edit#gid=0 target="_blank">Explore the data behind this visualization.</a>
 </figcaption>
 
 </figure>

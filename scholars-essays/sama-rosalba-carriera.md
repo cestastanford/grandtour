@@ -35,8 +35,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
  
 <figcaption id="cap-women">
 
-<b>Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm. <a href="https://www.rct.uk/collection/452375/a-self-portrait" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <br>
-<b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as “Berenice”</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
+<b>Figs. 2-3. Fig. 2:</b> Rosalba Carriera. <i>A Self-Portrait</i>. c. 1745. Pastel on paper. 56.7 x 45.8 cm. <a href="https://www.rct.uk/collection/452375/a-self-portrait" target="_blank">Royal Collection Trust</a>. Credit: Royal Collection Trust. © His Majesty King Charles III 2022. <b>Fig. 3:</b> Rosalba Carriera. <i>Caterina Sagredo Barbarigo as “Berenice”</i>. c.1741. Pastel on gray-blue laid paper, mounted onto thin canvas. <a href="https://dia.org/collection/caterina-sagredo-barbarigo-berenice-36302" target="_blank">Detroit Institute of Arts</a>, Gift of Mrs. William D. Vogel in memory of her mother Mrs. Ralph Harman Booth, 56.264.
 
 </figcaption>
 

@@ -60,7 +60,7 @@ Searches of the database using specific dates and places also help identify indi
 
 <figcaption id="samaCap3">
 
-<b>Fig. 4:</b> Excerpt from Rosalba Carriera’s work diary, where she recorded client visits to her studio. The entry for 9 May 1724 notes a visit from a “M.r Felo inglese.” By searching the <i>Explorer</i> for that date and “Venice” (the location of Carriera’s studio), it was possible to quickly identify the individual as one Coulson Fellowes, a British Grand Tourist. The searchability of Grand Tour data enabled by the <i>Explorer</i> makes discoveries such as this much faster than before. Ashburnham 1781, 5, c. 62r.
+<b>Fig. 4:</b> Excerpt from Rosalba Carriera’s work diary, where she recorded the visits of visits to her studio. The entry for 9 May 1724 notes a visit from a “M.r Felo inglese.” By searching the <i>Explorer</i> for that date and “Venice” (the location of Carriera’s studio), it was possible to quickly identify the individual as Coulson Fellowes, a British Grand Tourist. The searchability of Grand Tour data enabled by the <i>Explorer</i> makes discoveries such as this much faster than before. Ashburnham 1781, 5, c. 62r.
 </figcaption>
 
 </figure>
@@ -203,7 +203,7 @@ What might the *Explorer* be able to tell us about Carriera’s studio? The rich
 
 <figcaption id="cap13">
 
-<b>Fig. 13:</b>An excerpt from the inventory that was made of Rosalba Carriera’s studio following her death. The <i>Grand Tour Explorer</i> offers another inventory of Carriera’s working life, by allowing the researcher to draw together all references to her from across the 6000 entries in Ingamells’ <i>Dictionary</i>. Inquisitori alle acque, b. 79, no. 80 [carta con “Nella Galleria”].
+<b>Fig. 13:</b>An excerpt from the inventory that was made of Rosalba Carriera’s studio following her death. This document is a rich source of information about the physical layout of Carriera’s studio, but the <i>Grand Tour Explorer</i> complements this by enabling the researcher to quickly bring together several accounts of those who sat for portraits in her studio, offering a traveler’s perspective on her process. Inquisitori alle acque, b. 79, no. 80 [carta con “Nella Galleria”].
 
 </figcaption>
 

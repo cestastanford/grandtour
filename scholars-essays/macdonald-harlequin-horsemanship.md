@@ -51,17 +51,27 @@ This essay takes the idea of a parallel, juxtaposition or overlap between these 
 
 | Name | Entry in <i>Dictionary</i> | Entry in <i>GTE<i> | Sources in <i>Dictionary</i>/<i>GTE<i> | Other Sources and Notes |
 |--------|--------|--------|--------|--------|
-| Wear | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/5031" target="_blank">YES</a> | Verri, <i>Cart</i>. <br> <i>Gazz. Tosc.</i> | Letter from Wear to Casali, 19 July 1770. <br> Report by Camporese on Wear’s “Teatro”, 11 August 1770. <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
-| Peter Price | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976" target="_blank">YES</a> | <i>Jones Memoirs</i>. <br> Bertolotti, <i>Relazioni</i>. | Giulini and Serengo, ed., *Carteggio di Pietro e Allessandro Verri*. <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
-| Wife of Peter Price | NO | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976.1" target="_blank">YES</a> | [Bertolotti, <i>Relazioni</i>.] | |
+| Wear | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/5031" target="_blank">YES</a> | Verri, <i>Cart</i>. <br> <i>Gazz. Tosc.</i> | Letter from Wear to Casali, 19 July 1770.[^9] <br> Report by Camporese on Wear’s “Teatro”, 11 August 1770.[^10] <br> Boulukos, ed., *Memoirs of Thomas Hammond*.[^11] |
+| Peter Price | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976" target="_blank">YES</a> | <i>Jones Memoirs</i>. <br> Bertolotti, <i>Relazioni</i>. | Letter from Price and his wife to Spinelli, undated.[^12] Giulini and Serengo, ed., *Carteggio di Pietro e Allessandro Verri*.[^13] <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
+| Wife of Peter Price | NO | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976.1" target="_blank">YES</a> | [Bertolotti, <i>Relazioni</i>.] | Letter from Price and his wife to Spinelli, undated.[^14] |
 | Parry | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3748" target="_blank">YES</a> | [<i>Gazz. Tosc.</i>] | |
 | Greenwood | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2098" target="_blank">YES</a> | <i>Gazz. Tosc.</i> | |
 | Potts | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3947" target="_blank">YES</a> | ASV. <br> <i>Francis jnl.MSS</i>. | |
-| Charles Hughes | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2568" target="_blank">YES</a> | <i>Gazz. Tosc.</i> <br> Bertolotti, <i>Relazioni</i>. | Letter from Hughes to [Giovanni] Comaro, n. d. <br> *Gazetta Universale*, 3 June 1775. <br> Giulini and Seregni, ed., *Carteggio di Pietro e Allessandro Verri*.|
+| Charles Hughes | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2568" target="_blank">YES</a> | <i>Gazz. Tosc.</i> <br> Bertolotti, <i>Relazioni</i>. | Letter from Hughes to [Giovanni] Comaro, n. d. [^15] <br> *Gazetta Universale*, 3 June 1775. <br> Giulini and Seregni, ed., *Carteggio di Pietro e Allessandro Verri*.[^16] |
 | James Wolton | NO | NO | | *Notizie de mondo* (Florence), 30 June 1770. <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
 | Elizabeth Page (d. 1770) | NO | NO | | Boulukos, ed., *Memoirs of Thomas Hammond* |
 | Thomas Hammond (b. 1748) | NO | NO | | Boulukos, ed., *Memoirs of Thomas Hammond* |
-| Peter, surname unknown | NO | NO | | Boulukos, ed., *Memoirs of Thomas Hammond* |
+| Peter, surname unknown[^17] | NO | NO | | Boulukos, ed., *Memoirs of Thomas Hammond* |
+
+[^9]: ASR, *Paesi stranieri*, 28 [Inghelterra].
+[^10]: *Diario Ordinario*.
+[^11]: Wear is probably the “inglese” noted in *Biblioteca Bertoiliana di Vicenza del conte Amrdo Amaldi Tomieri*, 9 December 1770.
+[^12]: The letter is signed “Pietro Price, sua Consorte, ed altri Campagni tutti inglesi.” ASR, *Paesi stranieri*, 28 [Inghelterra].
+[^13]: See vol. 12, p. 372.
+[^14]: See note 12.
+[^15]: The letter is undated, but likely from 1775. ASR, *Paesi stranieri*, 28 [Inghelterra].
+[^16]: See vol. 8, p. 110 (8 June 1776). For publicity produced during Hughes’s Italian travels, see Fig. 2.
+[^17]: He is described in Hammond's memoirs as “an English lad call’d Peter.”
 
 <figure>
 

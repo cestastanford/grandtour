@@ -1,3 +1,6 @@
+
+**VERSION 2**
+
 | Name | Entry in <i>Dictionary</i> | Entry in <i>GTE<i> | Sources in <i>Dictionary</i>/<i>GTE<i> | Other Sources and Notes |
 |--------|--------|--------|--------|--------|
 | Wear | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/5031" target="_blank">YES</a> | Verri, <i>Cart</i> <br> <i>Gazz. Tosc.</i> | ASR, *Paesi stranieri*, 28 [Inghelterra], letter from Wear to Casali, 19 July 1770, and report by Camporese on Wear’s “Teatro’; *Diario Ordinario*, 11 August 1770. <br> Boulukos, ed., *Memoirs on the Life and travels of Thomas Hammond*. <br> Wear is probably the ‘inglese’ noted in *Biblioteca Bertoiliana di Vicenza del conte Amrdo Amaldi Tomieri*, 9 December 1770. |
@@ -13,7 +16,7 @@ ASR, *Paesi stranieri*, 28 [Inghelterra], letter from Hughes to [Giovanni] Comar
 | Thomas Hammond (b. 1748) | NO | NO | | Boulukos, ed., *Memoirs on the Life and Travels of Thomas Hammond* |
 | Peter, surname unknown (“an English lad call’d Peter”) | NO | NO | | Boulukos, ed., *Memoirs on the Life and Travels of Thomas Hammond* |
 
-**OLD VERSION**
+**VERSION 1**
 
 | Name | Entry in <i>Dictionary</i> | Entry in <i>GTE<i> | Sources |
 |--------|----------|--------|----------|

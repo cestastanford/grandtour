@@ -430,7 +430,7 @@
 
 <figure>
 
-<a name="figure-1" class="half-fig"> <img src="sweet-figure-1.svg" id="fig1" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))" /> </a> <a name="figure-2" class="half-fig"> <img src="sweet-figure-2.svg" id="fig2" onclick="zoom(getElementById(&apos;fig1&apos;), this, getElementById(&apos;cap12&apos;))" /> </a>
+<a name="figure-1" class="half-fig"> <img src="sweet-figure-1.svg" id="fig1" onload="resize(this, getElementById(&apos;fig2&apos;))" onclick="zoom(this, getElementById(&apos;fig2&apos;), getElementById(&apos;cap12&apos;))" /> </a> <a name="figure-2" class="half-fig"> <img src="sweet-figure-2.svg" id="fig2" onclick="zoom(getElementById(&apos;fig1&apos;), this, getElementById(&apos;cap12&apos;))" /> </a>
 
 <figcaption id="cap12">
 
@@ -805,6 +805,23 @@
 </div>
 
 <script>
+/*
+* Paired images should have the same height, the smaller of the two.
+*/
+function resize(obj, obj2, obj3){
+
+    if (!obj3) {
+        if (obj.height <= obj2.height) {
+            obj2.height = obj.height;
+        } else {
+            obj.height = obj2.height;
+        }
+    } else {
+        height = Math.min(obj.height, obj2.height, obj3.height);
+        obj.height, obj2.height, obj3.height = height;
+    }
+}
+
 function zoom(obj, obj2, caption) {
     var popup = document.getElementById("popup");
     popup.style.maxHeight = "90%";

@@ -4,17 +4,30 @@ editor_options:
     wrap: 72
 ---
 
-This document details further adaptations to make Markdown files appear
+This document details instructions to make markdown files for the scholars' essays appear
 properly on the website.
 
 # General
 
-A major downside to the current implementation is the use of "/gt-book"
+Suggested order of operations for putting an essay into markdown:
+- Copy in metadata (abstract, bio, etc.)
+- Add necessary italicization in the metadata using <i> tags; bolding with <b> tags
+- Copy in the text of the essay from the Word file. It will not be formatted properly
+- Use "Find" and "Replace" to italicize Grand Tour Explorer, Explorer, and Dictionary
+- Go through the entire essay text more slowly, adding reference numbers for notes (but not the note content itself)
+- Add the contents from the endnotes of the Word file to the appropriate reference locations
+- Add in the figures and their captions.
+- Format the caption text (use <i> and <b> tags here, and <a href=" " target="_blank"> for hyperlinks).
+- Add in any tables.
+- Go through the essay text again adding hyperlinks to the GTE entries using the format: [Name](https://grand-tour-explorer-2017.herokuapp.com/#/entries/xxxx){:target="\_blank"}
+- Add any additional links in the essay or notes, using the same format: [Link text](Hyperlink){:target="\_blank"}
+  
+For most questions, see the Macdonald essay for an example.
+
+NB from Ryan: A major downside to the current implementation is the use of "/gt-book"
 in the links... ideally, baseurl would replace these. This is a
 temporary workaround so that the local and Github Pages environment are
 compatible.
-
-For most questions, see the Sweet article for an example.
 
 # Abstract, References, and About
 

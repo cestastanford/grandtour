@@ -52,12 +52,12 @@ This essay takes the idea of a parallel, juxtaposition or overlap between these 
 | Name | Entry in <i>Dictionary</i> | Entry in <i>GTE<i> | Sources in <i>Dictionary</i>/<i>GTE<i> | Other Sources and Notes |
 |--------|--------|--------|--------|--------|
 | Wear | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/5031" target="_blank">YES</a> | Verri, <i>Cart</i>. <br> <i>Gazz. Tosc.</i> | Letter from Wear to Casali, 19 July 1770.[^9] <br> Report by Camporese on Wear’s “Teatro”, 11 August 1770.[^10] <br> Boulukos, ed., *Memoirs of Thomas Hammond*.[^11] |
-| Peter Price | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976" target="_blank">YES</a> | <i>Jones Memoirs</i>. <br> Bertolotti, <i>Relazioni</i>. | Letter from Price and his wife to Spinelli, undated.[^12] Giulini and Serengo, ed., *Carteggio di Pietro e Allessandro Verri*.[^13] <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
+| Peter Price | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976" target="_blank">YES</a> | <i>Jones Memoirs</i>. <br> Bertolotti, <i>Relazioni</i>. | Letter from Price and his wife to Spinelli, undated.[^12] Giulini and Serengo, ed., *Carteggio di Pietro e Alessandro Verri*.[^13] <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
 | Wife of Peter Price | NO | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3976.1" target="_blank">YES</a> | [Bertolotti, <i>Relazioni</i>.] | Letter from Price and his wife to Spinelli, undated.[^14] |
 | Parry | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3748" target="_blank">YES</a> | [<i>Gazz. Tosc.</i>] | |
 | Greenwood | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2098" target="_blank">YES</a> | <i>Gazz. Tosc.</i> | |
-| Potts | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3947" target="_blank">YES</a> | ASV. <br> <i>Francis jnl.MSS</i>. | |
-| Charles Hughes | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2568" target="_blank">YES</a> | <i>Gazz. Tosc.</i> <br> Bertolotti, <i>Relazioni</i>. | Letter from Hughes to [Giovanni] Comaro, n. d. [^15] <br> *Gazetta Universale*, 3 June 1775. <br> Giulini and Seregni, ed., *Carteggio di Pietro e Allessandro Verri*.[^16] |
+| Potts | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/3947" target="_blank">YES</a> | ASV IS 759. <br> <i>Francis jnl.MSS</i>. | |
+| Charles Hughes | YES | <a href="http://grand-tour-explorer-2017.herokuapp.com/#/entries/2568" target="_blank">YES</a> | <i>Gazz. Tosc.</i> <br> Bertolotti, <i>Relazioni</i>. | Letter from Hughes to [Giovanni] Comaro, n. d. [^15] <br> *Gazetta Universale*, 3 June 1775. <br> Giulini and Seregni, ed., *Carteggio di Pietro e Alessandro Verri*.[^16] |
 | James Wolton | NO | NO | | *Notizie de mondo* (Florence), 30 June 1770. <br> Boulukos, ed., *Memoirs of Thomas Hammond*. |
 | Elizabeth Page (d. 1770) | NO | NO | | Boulukos, ed., *Memoirs of Thomas Hammond* |
 | Thomas Hammond (b. 1748) | NO | NO | | Boulukos, ed., *Memoirs of Thomas Hammond* |
@@ -75,7 +75,7 @@ This essay takes the idea of a parallel, juxtaposition or overlap between these 
 
 <figure>
 
-<figcaption><b>Fig. 2:</b> Table of <i>cavallerizzi</i> mentioned that appear within and outside of the <i>Explorer</i>.</figcaption>
+<figcaption><b>Fig. 2:</b> Table listing <i>cavallerizzi</i> mentioned in this essay and whether or not they appear in the <i>Explorer</i>. The table also lists the archival sources that preserve the memory of these equestrians, reminding us of both the richness and limitations of the source bases of the <i>Dictionary</i>&#8212;and  of the <i>Explorer</i>&#8212;and how further archival research can nuance and augment the stories that can be told with the <i>Explorer</i> data.</figcaption>
 
 </figure>
 

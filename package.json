@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "heroku-postbuild": "npm test && webpack --mode=production",
+    "postinstall": "npm test && webpack --mode=production",
+    "heroku-postbuild": "npm run postinstall",
     "dev-start": "heroku local -f Procfile.dev",
     "test": "jest"
   },

@@ -229,7 +229,7 @@ async function getUniquesForSingleSuggestion({ activeRevisionIndex, query, field
         "fields": ["occupations", "pursuits"]
     }
     // TODO: We don't really need to accept a "fields" attribute, if we refactor the field list
-    // from public/explore/explore.pug into constants that can be read by the server too.
+    // from pub/explore/explore.pug into constants that can be read by the server too.
  */
 exports.uniques = async function (req, res, next) {
     const query = req.body.query;

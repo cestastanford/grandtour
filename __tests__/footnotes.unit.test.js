@@ -1,4 +1,4 @@
-import { parseFootnotes } from "../public/entry/entry-transformation";
+import { parseFootnotes } from "../pub/entry/entry-transformation";
 
 describe("test footnotes", () => {
   test("after semicolon", () => {

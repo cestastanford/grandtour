@@ -37,7 +37,7 @@ if (
 */
 
 const app = express()
-app.set('views', [__dirname + '/dist/', __dirname + '/public/'])
+app.set('views', [__dirname + '/dist/', __dirname + '/pub/'])
 app.set('view engine', 'pug');
 app.use(forceSsl)
 app.use(morgan('dev'))
@@ -82,7 +82,7 @@ if (process.env['DEBUG_DELAY']) app.use((req, res, next) => setTimeout(next, 100
 
 app.use(express.static(__dirname + '/dist'))
 app.use('/', router)
-app.use(express.static('public'))
+app.use(express.static('pub'))
 
 /*
 *   Handles errors, generating 404 errors for non-error requests

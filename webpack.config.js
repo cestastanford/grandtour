@@ -5,7 +5,7 @@ var path = require('path');
 
 module.exports = {
 
-  entry: './public/main',
+  entry: './pub/main',
   output: {
     publicPath: '',
     path: path.resolve(__dirname, './dist'),
@@ -73,8 +73,8 @@ module.exports = {
     // ),
     new HtmlWebpackPlugin({
       filetype: 'pug',
-      template: './public/index.pug',
-      favicon: './public/favicon.png'
+      template: './pub/index.pug',
+      favicon: './pub/favicon.png'
     }),
     new HtmlWebpackPugPlugin(),
     new webpack.DefinePlugin({

@@ -80,29 +80,34 @@ if (process.env['DEBUG_DELAY']) app.use((req, res, next) => setTimeout(next, 100
 *   Registers static and dynamic routes.
 */
 
-app.use(express.static(__dirname + '/dist'))
-app.use('/', router)
-app.use(express.static('public'))
+// app.use(express.static(__dirname + '/dist'))
+// app.use('/', router)
+// app.use(express.static('public'))
 
-/*
-*   Handles errors, generating 404 errors for non-error requests
-*   not handled by routes, then handing handling off to the default
-*   error handler, which prints the errors to the console and returns
-*   the error status code.
-*/
+// /*
+// *   Handles errors, generating 404 errors for non-error requests
+// *   not handled by routes, then handing handling off to the default
+// *   error handler, which prints the errors to the console and returns
+// *   the error status code.
+// */
 
-app.use((req, res, next) => {
-    const err = new Error(`Not Found: ${req.originalUrl}`)
-    err.status = 404
-    next(err)
-})
+// app.use((req, res, next) => {
+//     const err = new Error(`Not Found: ${req.originalUrl}`)
+//     err.status = 404
+//     next(err)
+// })
 
-/*
- * Set revisionIndex to latest revision index for non-authenticated users.
- */
+// /*
+//  * Set revisionIndex to latest revision index for non-authenticated users.
+//  */
 
-app.use((req, res, next) => {
-    res.locals.activeRevisionIndex = req.user && req.user.activeRevisionIndex ? res.locals.activeRevisionIndex: getLatestRevisionIndex()
+// app.use((req, res, next) => {
+//     res.locals.activeRevisionIndex = req.user && req.user.activeRevisionIndex ? res.locals.activeRevisionIndex: getLatestRevisionIndex()
+// });
+
+// Redirect all requests to reclaim
+app.all('*', function(req, res) {
+  return res.redirect(302,`https://grandtourexplorer.wc.reclaim.cloud${req.path}`);
 });
 
 

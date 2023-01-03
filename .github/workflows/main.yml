@@ -1,0 +1,27 @@
+name: Build
+on:
+  push:
+    branches: [ master ]
+
+# Build code and push to the "build" branch, so it can be deployed
+# to reclaim.hosting.
+jobs:
+  build:
+    name: Build code
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: npm i
+      - run: npx webpack --mode=production
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          keep_history: false
+          target-branch: build
+          build_dir: .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

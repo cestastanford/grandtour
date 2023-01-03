@@ -18,7 +18,7 @@ jobs:
       - run: npm i
       - run: npm test
       - run: npx webpack --mode=production
-      - run: rsync -av --progress . /tmp/build --exclude node_modules --exclude .git
+      - run: rsync -av --progress . /tmp/build --exclude node_modules --exclude .git --exclude .gitignore
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: crazy-max/ghaction-github-pages@v3.1.0

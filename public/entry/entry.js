@@ -177,32 +177,10 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
       wrapperElement[0].innerHTML = '';
       wrapperElement.append(miniMapElement);
 
-      doInitialAnimation($scope.entry.travels);
       $scope.reanimate = doRepeatAnimation;
 
     }
 
-  }
-
-  
-  /*
-  * Performs (no) animation to imitate hovering over every element.
-  */
-
-  function doInitialAnimation(travels) {
-
-    var ANIMATION_INTERVAL = 0; // instant animation at start
-    var i = 0;
-
-    $interval(next, ANIMATION_INTERVAL, travels.length + 1);
-
-    function next() {
-
-      if (i > 0) $scope.miniMapShared.travelUnhovered(travels[i - 1]);
-      if (i < travels.length) $scope.miniMapShared.travelHovered(travels[i]);
-      i++;
-
-    };
   }
 
   /*

@@ -2,15 +2,15 @@ The Grand Tour Explorer
 =======================
 This is the codebase for the Grand Tour Explorer web project.  To set up a local development environment, follow these steps:
 - Make sure you have the following tools installed:
-  - [NodeJS 8.4 or later](https://nodejs.org/en/)
+  - [NodeJS v14.21.2](https://nodejs.org/en/)
   - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-  - [MongoDB](https://www.mongodb.com/download-center/v2/community)
+  - [MongoDB v.4.4.18](https://www.mongodb.com/download-center/v2/community)
 - Clone the repository locally: `git clone https://github.com/cestastanford/grandtour`.
 - From the repository directory, install npm dependencies: `npm install`
 - Create an environmental variable file called `.env` in the root directory.
 - Add the following to .env:
 ```
-MONGODB_URI=localhost:27017
+MONGODB_URI=mongodb://user:EKMPRHu8K0t80bOh@grandtour-alpha-shard-00-00.gxe9c.mongodb.net:27017,grandtour-alpha-shard-00-01.gxe9c.mongodb.net:27017,grandtour-alpha-shard-00-02.gxe9c.mongodb.net:27017/heroku_4rpt6s2b?ssl=true&replicaSet=atlas-y61au9-shard-0&authSource=admin&retryWrites=true&w=majority
 SECRET_KEY_1=abc
 SECRET_KEY_2=abc
 SECRET_KEY_3=abc

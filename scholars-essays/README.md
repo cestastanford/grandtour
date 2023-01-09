@@ -88,5 +88,9 @@ See the Sweet file for figure zoom functionality.
 Common UTF-8 Encoding Problems
 (<https://www.i18nqa.com/debug/utf8-debug.html>):
 
+HTML entity number for colon is &#58;
+HTML entity number for em dash is &#8212;
+In main text of essays, em dash is produced by three dashes (---)
+
 â€˜ -\> ' (open) â€™ -\> ' (closed) â€œ -\> " (open) â€ -\> " (closed)
 â€" -\> --- (em dash) Ã¡ -\> á Ã­ -\> à, í

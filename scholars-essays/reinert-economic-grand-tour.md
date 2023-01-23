@@ -239,7 +239,7 @@ Though far from a perfect proxy for general cultural interest, a Google Ngram of
 
 <figcaption id="cap910">
 
-<b>Fig. 9 and 10:</b> Google Ngrams of Mentions of Select Italian Cities in English Publications, 1700-1800.
+<b>Fig. 9 and 10:</b> Google Ngrams of mentions of select Italian cities in English publications, 1700-1800.
 
 </figcaption>
 

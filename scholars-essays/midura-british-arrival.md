@@ -117,7 +117,7 @@ The Alps themselves posed a formidable obstacle (see Fig. 2), but British travel
 |William Lithgow|<i>A Most Delectable and True Discourse of Peregrination</i>|1609-1612|Savoy|Lombardy|
 |John Evelyn|Diary (MS)|1643-1647|Liguria|Lombardy|
 |John Ghent Raymond|<i>An Itinerary Contayning a Voyage, Made through Italy</i>|1646-1647|Liguria|Lombardy|
-|Richard Lassels|<iThe Description of Italy, the Voyage of Italy</i>|1650-1654|Veneto/Tyrol,Savoy,Lombardy|Lombardy|
+|Richard Lassels|<i>The Description of Italy, the Voyage of Italy</i>|1650-1654|Veneto/Tyrol,Savoy,Lombardy|Lombardy|
 |Sir John Reresby|<i>Memoirs</i>|1656|Lombardy|Veneto/Tyrol|
 |John Ray|<i>Travels through the Low Countries, Germany, Italy, and France</i>|1663-1666|Veneto/Tyrol|Lombardy|
 |John Clenche|<i>A Tour in France & Italy</i>|1675|Savoy|Savoy|

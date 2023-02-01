@@ -11,7 +11,7 @@ about: Rachel Midura is Assistant Professor of Early Modern European and Digital
 
 By the seventeenth century, British travelers had already caught the travel bug. They expressed sentiments strikingly similar to those of modern globetrotters. An early “Grand Tour” account, *Coryat’s Crudities* (1611), satirized how even the hint of foreign climes could infect an armchair traveler: 
 
-<blockquote>A Dutch Post doth ravish him. The mere superscription of a letter from Zurich sets him up like a top: Basil or Heidelberg makes him spinne. And at seeing the word Frankford, or Venice, though but on the title of a Booke, he is readie to breake doublet, cracke elbowes, and overflowe the roome with his murmure…[^1]</blockquote> 
+<blockquote>A Dutch Post doth ravish him. The mere superscription of a letter from Zurich sets him up like a top: Basil or Heidelberg makes him spinne. And at seeing the word Frankford, or Venice, though but on the title of a Booke, he is readie to breake doublet, cracke elbowes, and overflowe the roome with his murmure…<span markdown="1">[^1]</span></blockquote> 
 
 This was wanderlust as mania, brought on by an increasingly interconnected world. Adventurers were tempted by the Dutch packets, Swiss letters, and Italian books that had made their way North as far as Oxford and London. Thomas Coryate and many of his compatriots answered their siren calls, setting forth from their armchairs into the wider world.
 

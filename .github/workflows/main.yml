@@ -26,6 +26,7 @@ jobs:
         with:
           source: ./book
           destination: ./build/book
+      - run: ls ./build/book
       - name: Deploy to GitHub Pages
         # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: crazy-max/ghaction-github-pages@v3.1.0

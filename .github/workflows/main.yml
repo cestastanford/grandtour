@@ -10,6 +10,8 @@ jobs:
   build:
     name: Build code
     runs-on: ubuntu-20.04
+    permissions:
+      actions: write
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -20,7 +22,7 @@ jobs:
       - name: Build Explorer JS code
         run: npx webpack --mode=production
       - name: Copy Explorer code
-        run: rsync -av --progress . /tmp/build --exclude node_modules --exclude .git --exclude .gitignore --exclude book
+        run: rsync -av --progress . /tmp/build --exclude node_modules --exclude .git --exclude .gitignore --exclude book --exclude .github/workflows
       - name: Build Book code
         uses: actions/jekyll-build-pages@v1.0.7
         with:
@@ -29,7 +31,7 @@ jobs:
       - name: Copy Book code
         run: cp -R build/book /tmp/build/book
       - name: Deploy to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           keep_history: true

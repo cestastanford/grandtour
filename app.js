@@ -83,7 +83,7 @@ if (process.env['DEBUG_DELAY']) app.use((req, res, next) => setTimeout(next, 100
 app.use(express.static(__dirname + '/dist'))
 app.use('/', router)
 app.use(express.static('public'))
-app.use(express.static('book'))
+app.use('/book', express.static('book'))
 
 /*
 *   Handles errors, generating 404 errors for non-error requests

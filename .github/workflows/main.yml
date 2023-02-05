@@ -20,7 +20,7 @@ jobs:
       - name: Build Explorer JS code
         run: npx webpack --mode=production
       - name: Copy Explorer code
-        run: rsync -av --progress . /tmp/build --exclude node_modules --exclude .git --exclude .gitignore
+        run: rsync -av --progress . /tmp/build --exclude node_modules --exclude .git --exclude .gitignore --exclude book
       - name: Build Book code
         uses: actions/jekyll-build-pages@v1.0.7
         with:

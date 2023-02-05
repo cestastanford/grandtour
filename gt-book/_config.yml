@@ -10,7 +10,7 @@ title: A World Made by Travel
 email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
   Sometihng
-baseurl: "/book" # the subpath of your site, e.g. /blog
+baseurl: "/gt-book" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 
 # Build settings

@@ -1,0 +1,218 @@
+---
+layout: default
+---
+<article class="post">
+
+  <!-- Bookkeeping for links-script (does not display on document) -->
+  <p id="bkAuthor" class="bk">{% if page.author %}{{ page.author }}{% endif %}</p>
+  <p id="bkTitle" class="bk">{% if page.title %}{{ page.title }}{% endif %}</p>
+
+  <header id="postHeader" class="post-header">
+    <p class="post-meta">{{ site.data.sessions[page.session].name }}</p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="" style="display: flex; justify-content: space-between">
+      <div class="">
+        {% if page.author %}<p id="{{page.author}}" class="post-author" onclick="about(this)">by {{ page.author }}</p> {% endif %}
+      </div>
+      <div class="paragraph">
+        <i class="material-icons link-cite" aria-label="Cite this article" data-balloon-pos="left">format_quote</i>
+        <i class="material-icons link-copy" aria-label="Copy link to article" data-balloon-pos="left">link</i>
+        <i class="material-icons" aria-label="Download article (PDF)" data-balloon-pos="left">arrow_downward</i>
+      </div>
+    </div>
+
+  </header>
+
+  <div id="stickyHeader" class="post-sticky-header">
+    <!--<a class="post-sticky-site" href="{{ site.baseurl }}/">{{ site.title }}</a>-->
+    <div class="" style="display: flex; flex-direction: column">
+      <a class="post-sticky-site" href="{{ site.baseurl }}/">{{ site.title }}</a>
+      <span class="post-sticky-meta">{{ site.data.sessions[page.session].name }} </span>
+    </div>
+    <div class="">
+      <b class="post-sticky-title">{{ page.title }} </b>
+      {% if page.author %}<span class="post-sticky-author">– {{ page.author }}</span>{% endif %}
+    </div>
+    <div class="">
+
+    </div>
+  </div>
+
+  <div id="postContent" class="post-content">
+
+    <div class="">
+      {% if page.abstract %}
+      <div class="post-abstract">
+        <h3>Abstract</h3>
+        <p>{{ page.abstract }}</p>
+      </div>
+      <br>
+      {% endif %}
+    </div>
+
+    {{ content }}
+
+    <div class="paragraph-links">
+      <span class="post-meta paragraph-link">Par. X</span>
+      <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
+      <i class="material-icons link-copy" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
+      <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+    </div>
+
+    
+    <!-- <div class="">
+      {% if page.references %}
+      <div class="post-references">
+        <h3>References</h3>
+        <p>{{ page.references }}</p>
+      </div>{% endif %}
+    </div> -->
+
+    <div class="">
+      {% if page.about %}
+      <div class="post-about">
+        <h3>About {{page.author}}</h3>
+        <p>{{ page.about }}</p>
+      </div>{% endif %}
+    </div>
+
+
+  </div>
+
+  <div id="citation-overlay" class="overlay">
+    <h3>Citation</h3>
+    <div class="overlay-close">
+      <a><i class="material-icons">close</i></a>
+    </div>
+    <p id="overlay-text" class="overlay-text">Rosemary Sweet. "Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers." <i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour,</i> CESTA Stanford 2019, section IV: 1, paragraph 7. <a href="https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7" target="_blank">https://www.worldmadebytravel.org/scholars-essays/sweet-who-traveled#paragraph-7</a></p>
+    <p class="overlay-links">
+      <a onclick="copyToClipboard()">Copy citation to clipboard</a> | Download citation as: <a onclick="txtDownload()">.txt</a> <a onclick="HTMLDownload()">.html</a> <a onclick="mdDownload()">.md</a>
+    </p>
+  </div>
+
+  <div id="about" class="overlay">
+    <div class="overlay-close">
+      <a><i class="material-icons" onclick="hide()">close</i></a>
+    </div>
+    <b id="name"></b><span id="bio"> </span>
+  </div>
+
+  {% include footer.html %}
+
+  <!-- For HTML to Markdown conversion -->
+  <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+
+  <script>
+  function about(author) {
+    var about = document.getElementById("about");
+    var bio = document.getElementById("bio");
+    var name = document.getElementById("name");
+    name.innerHTML = author.id;
+    bio.innerHTML = author.about;
+    about.classList.toggle("visible");
+  }
+
+  function hide() {
+    var about = document.getElementById("about")
+    about.classList.remove("visible");
+  }
+
+  function copyToClipboard() {
+    var text = document.getElementById("overlay-text").innerHTML;
+
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This citation has been copied to your clipboard!")
+  }
+
+  function txtDownload() {
+    var element = document.createElement('a');
+    var text = document.getElementById("overlay-text").innerText;
+
+    var filename = getFilename();
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function HTMLDownload() {
+    var filename = getFilename();
+
+    let doc = createHTML(filename);
+
+    var element = document.createElement('a');
+
+    element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(doc.documentElement.outerHTML));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function createHTML(filename) {
+    let doc = document.implementation.createHTMLDocument(filename);
+    let p = doc.createElement("p");
+    p.innerHTML = document.getElementById("overlay-text").innerHTML;
+    
+    try {
+      doc.body.appendChild(p);
+    } catch(e) {
+      console.log(e);
+    }
+    return doc
+  }
+
+  function mdDownload() {
+    var filename = getFilename();
+
+    const turndownService = new TurndownService();
+    const markdown = turndownService.turndown(createHTML(filename));
+
+    var element = document.createElement('a');
+
+    var filename = getFilename();
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(markdown));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function getFilename() {
+    let authorNames = document.getElementById("bkAuthor").innerText.split(" ");
+    var lastName;
+    if (authorNames.length == 5) {
+      lastName = "Baker and Brewer"; // hardcoded
+    } else {
+      lastName = authorNames[1];
+    }
+
+    var words = document.getElementById("overlay-text").innerHTML.split(" ");
+    let i = words.indexOf("paragraph") + 1;
+
+    if (!isNaN(words[i])) {
+      return lastName + ", paragraph " + words[i][0] + " citation";
+    }
+    return lastName + " citation"; // whole article
+  }
+  
+  </script>
+</article>

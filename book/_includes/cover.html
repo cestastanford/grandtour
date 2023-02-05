@@ -1,0 +1,74 @@
+<header class="site-cover">
+
+  <div class="wrapper">
+
+    <div class="" style="display: flex; padding-bottom: 60px;">
+      <div class="" style="max-width: 500px; padding-top: 0px">
+        <span class="site-description" style="margin-left: 20px;">The Digital Grand Tour</span>
+        <h2 class="cover-title">{{ site.title }} 
+          <span>
+            <i onclick="homeCite('cover')" onmouseover="onHover()" onmouseout="offHover()" class="material-icons link-cite hide home-icons" aria-label="Cite the book" data-balloon-pos="left">format_quote</i>
+            <i onclick="homeLink('cover')" onmouseover="onHover()" onmouseout="offHover()" class="material-icons hide home-icons" aria-label="Copy link to book" data-balloon-pos="left">link</i>
+          </span> 
+      </h2>
+        <span class="cover-author" style="margin-left: 80px;">Giovanna Ceserani</span>
+      </div>
+      <div class="cover-intro">
+        <p>
+          In the eighteenth century thousands of northerners traveled to Italy for a journey of cultural and symbolic capital called at the time the Grand Tour. These travels were a formative institution of modernity, contributing to a massive reimagining of politics and the arts, of the market for culture, of ideas about leisure, and of practices of professionalism.
+        </p>
+        <p>
+          <i>A World Made by Travel</i> makes public the work of the Grand Tour Project, directed since 2008 by Giovanna Ceserani, Associate Professor of Classics at Stanford University. At the core of the project is the transformation of more than five thousand entries from the 1997 <i>Dictionary of British and Irish Travelers to Italy 1701-1800</i> (compiled by John Ingamells from the Brinsley Ford Archive) into a dynamic research resource about these travelers’ journeys and lives. This digital volume includes access to this interactive database--, its raw data and documentation; chapters on the project’s history, rationale and meaning; a collection of original essays produced in working with the Grand Tour Explorer, as well as resources to bring this material to the classroom. This work shows the historical significance of eighteenth-century travel to Italy, and its persisting influence, in new light and with unprecedented granularity, and it showcases the possibilities of digital history approaches to produce original research, while making these new approaches accessible to researchers, the general public and students alike.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-credits">Thomas Jones, <i>Lake Albano,</i> 1777. Yale Center for British Art, Paul Mellon Collection</div>
+  <div class="cover-scroll">
+    <div class="cover-scroll-arrow"></div>
+  </div>
+
+</header>
+
+<script>
+
+var timer;
+var homeIcons = document.getElementsByClassName("home-icons");
+
+var iconsAreHovered = false;
+
+/* Icons to cite and link appear when mouse moves over window. While icons are hovered over, neither will disappear. */
+
+function showIcons() {
+  for (let i = 0; i < homeIcons.length; i++) {
+    homeIcons[i].classList.remove("hide");
+    homeIcons[i].classList.add("show");
+  }
+
+  clearTimeout(timer); 
+  timer=setTimeout(hideIcons,1000); // when mouse has stopped, hide icons
+}
+
+function hideIcons() {
+  if (!iconsAreHovered) {
+    for (let i = 0; i < homeIcons.length; i++) {
+      homeIcons[i].classList.remove("show");
+      homeIcons[i].classList.add("hide");
+    }
+  }
+}
+
+function onHover() {
+  iconsAreHovered = true;
+  showIcons();
+}
+
+function offHover() {
+  iconsAreHovered = false;
+  clearTimeout(timer); 
+  timer=setTimeout(hideIcons,1000);
+}
+
+window.addEventListener("mousemove", showIcons);
+</script>

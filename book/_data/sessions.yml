@@ -1,0 +1,89 @@
+- name: "Preface and Acknowledgments"
+  link: "/preface-and-acknowledgments"
+
+- name: "I. Studying the Grand Tour: from archives to a computational approach"
+  link: "/study-the-grand-tour"
+  chapters:
+    - name: "1. Eighteenth-century British travel to Italy: practices of travel and practices of study"
+      link: "/travel-to-italy"
+    - name: "2. Brinsley Ford’s research and Ingamells’ Dictionary"
+      link: "/ford-and-ingamells"
+    - name: "3. A digital transformation of a print book"
+      link: "/a-digital-transformation"
+
+- name: "II. Presenting the Data"
+  link: "/presenting-the-data"
+  chapters:
+    - name: "1. Collecting the Data: from text to spreadsheet"
+      link: "/collecting-the-data"
+    - name: "2. Meaning of the Data"
+      link: "/meaning-of-the-data"
+    - name: "3. Uses of the Data"
+      link: "/uses-of-the-data"
+
+- name: "III. The Grand Tour Explorer"
+  link: "/the-grand-tour-explorer"
+  chapters:
+    - name: "1. Explanation of the Tool"
+      link: "/explanation"
+    - name: "2. Search, Explore, View and List"
+      link: "/search-explore-view-list"
+    - name: "3. The Grand Tour Explorer"
+      external: "/collecting-the-data"
+      author: "Co-created with Giorgio Caviglia"
+
+
+- name: "IV. Scholars’ Essays Digitizing the Grand Tour"
+  link: "/scholars-essays"
+  chapters:
+    - name: "Introduction"
+      author: "Giovanna Ceserani"
+      link: "/ceserani-introduction"
+
+    - name: "1. Who Traveled, Where and When?: Using the Grand Tour Explorer to examine patterns of travels and travelers"
+      author: "Rosemary Sweet"
+      link: "/sweet-who-traveled"
+
+    - name: "2. The British Arrival in Italy"
+      author: "Rachel Midura"
+      link: "/midura-british-arrival"
+
+    - name: "3. Life and Death in Naples: Thomas Jones and Urban Experience in the Grand Tour (Explorer)"
+      author: "Melissa Calaresu"
+      link: "/calaresu-life-and-death"
+
+    - name: "4. Ciceroni and their Clients: making a profession of tourism"
+      author: "Carole Paul"
+      link: "/paul-ciceroni-and-their-clients"
+
+    - name: "5. Mapping the Economic Grand Tour: Travel and Emulation in Enlightenment Europe"
+      author: "Sophus Reinert"
+      link: "/reinert-economic-grand-tour"
+
+    - name: "6. Going Digital: Re-Searching Connections Between Rosalba Carriera and British Grand Tourists"
+      author: "Catherine Sama"
+      link: "/sama-rosalba-carriera"
+
+    - name: "7. Harlequin Horsemanship: Non-Grand Tourists on the Grand Tour (Explorer)"
+      author: "Simon Macdonald"
+      link: "/macdonald-harlequin-horsemanship"
+
+    - name: "Responses"
+      author: "Malcolm Baker and John Brewer"
+      link: "/baker-brewer-responses"
+
+- name: "V. The Grand Tour Explorer in the Classroom"
+  link: "/in-the-classroom"
+  chapters:
+    - name: "Introduction"
+      link: "/introduction"
+    - name: "Sample Syllabus"
+      link: "/sample-syllabus"
+    - name: "Sample Digital Practicums"
+      link: "/sample-digital-practicums"
+      author: "Rachel Midura"
+    - name: "Sample Students’ Work"
+      link: "/sample-students-work"
+
+- name: "Epilogue"
+  link: "/epilogue"

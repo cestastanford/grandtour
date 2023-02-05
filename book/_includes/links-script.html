@@ -1,0 +1,114 @@
+<script>
+
+  var content = document.getElementById("postContent");
+  var paragraphs = content.getElementsByTagName("p");
+  var links = document.getElementsByClassName("paragraph-links")[0];
+
+  var closes = document.getElementsByClassName("overlay-close")
+  for (x of closes) {
+    x.addEventListener("click", function(e){
+      var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }  
+    })
+  }
+    
+  let pNum = 1;
+  for (let p of paragraphs) {
+    var children = p.childNodes;
+    var parent = p.parentElement;
+
+    if (children[0] && children[0].nodeName != "A" && parent.nodeName != "LI" && parent.className != "post-abstract" && parent.className != "post-about") { // exclude tables, non-body paragraphs
+      let label = links.childNodes[1];
+      label.innerHTML = "Par. " + pNum;
+
+      /* Sets up hash for href functionality */
+      let id = "paragraph-" + pNum;
+      p.setAttribute("id", id)
+
+      pNum++;
+
+      var cln = links.cloneNode(true);
+
+      p.appendChild(cln);
+
+      cln.style.height = p.offsetHeight + "px";
+
+    }
+  }
+  links.remove(); // removes dummy links
+
+  var ls = document.getElementsByClassName("link-cite");
+
+  for (let link of ls) {
+    link.addEventListener("click", function(e){
+      document.getElementById("citation-overlay").classList.add("visible");
+      
+      /* Build citation */
+      let text = document.getElementById("overlay-text");
+      text.innerHTML = document.getElementById("bkAuthor").innerHTML + ". ";
+      text.innerHTML += "\"" + document.getElementById("bkTitle").innerHTML.slice(3) + ".\" ";
+      text.innerHTML += "<i>Scholars’ Essays Digitizing the Grand Tour,</i> edited by Giovanna Ceserani and Rachel Midura. ";
+      text.innerHTML += "Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour</i>, CESTA Stanford 2019, ";
+      text.innerHTML += "section IV: " + document.getElementById("bkTitle").innerHTML.slice(0,1);
+      if (link.parentElement.children[0]) {
+        let labelParts = link.parentElement.children[0].innerHTML.split(" ");
+        let number = labelParts[1];
+        if (!isNaN(number)) { // paragraph citation
+          text.innerHTML += ", paragraph " + number + ". ";
+        } else if (link.getAttribute('aria-label') == "Cite this image") { // image citation
+          let src = document.getElementById("img").src;
+          let i = src.search(".svg") - 1;
+          text.innerHTML += ", figure " + src[i] + ". "
+        } else {
+          text.innerHTML += ". "; // whole article
+        }
+      }
+      text.innerHTML += makeUrl(link);
+    })
+}
+
+var copies = document.getElementsByClassName('link-copy');
+for (let copy of copies) {
+  copy.addEventListener("click", function(e){
+    var text = makeHref(copy);
+
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This link has been copied to your clipboard!")
+  })
+}
+
+function makeHref(icon) {
+  let href = window.location.protocol + "//" + window.location.hostname + (location.port ? ":" + location.port : "") + window.location.pathname;
+  if (icon.parentElement.children[0].nodeName == "SPAN") { // i.e., not the entire article
+    let labelParts = icon.parentElement.children[0].innerHTML.split(" ");
+    href += "#paragraph-" + labelParts[1];
+  } else if (icon.getAttribute('aria-label') == "Cite this image" || icon.getAttribute('aria-label') == "Copy link to this image") { // image citation
+    let src = document.getElementById("img").src;
+    let i = src.search(".svg") - 1;
+    href += "#figure-" + src[i];
+  }
+  return href;
+}
+
+function makeUrl(icon) {
+  let href = makeHref(icon);
+  
+  let url = "<a href='" + href + "' target='_blank'>" + href + "</a>" + ".";
+  return url;
+}
+
+
+
+
+</script>

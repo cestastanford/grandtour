@@ -30,7 +30,7 @@ jobs:
         # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
-          keep_history: false
+          keep_history: true
           target_branch: build
           build_dir: /tmp/build
           absolute_build_dir: true

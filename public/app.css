@@ -1074,6 +1074,14 @@ ul.list-group.entry-facet > li .controls {
   color: #888;
 }
 
+.entry-not-original {
+  color: #888
+}
+
+.entry-original {
+
+}
+
 .entry-origin {
   margin-top: -1em;
   margin-bottom: 1.75em;

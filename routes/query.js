@@ -8,7 +8,7 @@ const queries = require('../query.js')
 
 
 /*
-*   Retrieves the counts of entries that have values for the queries
+*   Retrieves the s of entries that have values for the queries
 *   defined in './mappings/counts".
 */
 

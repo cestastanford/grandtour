@@ -330,6 +330,10 @@
           ng-bind-html="entry[fieldKey + '_formatted']",
         )
 
+      div.col-lg-6(ng-if='entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0) < 50')
+        div.entry-stub This entry is a stub.
+          
+
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")
         button.btn.btn-default.btn-xs.btn-block(type="button", ng-click="reanimate(entry.travels)") Animate
         br

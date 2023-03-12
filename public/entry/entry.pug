@@ -331,7 +331,8 @@
         )
 
       div.col-lg-6(ng-if='entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0) < 50')
-        div.entry-stub This entry is a stub.
+        div.entry-stub Why is this entry blank? This is one of the entries we created for travelers who only existed in others’ entries, with no narrative of their own, of whom a great majority are women. 
+          a Read more about how we found these hidden figures and what we know about them…
           
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")

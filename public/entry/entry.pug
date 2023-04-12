@@ -325,12 +325,13 @@
 
       div.col-lg-6
         div.text-serif.check-html.body-text(
+          ng-if="entry.origin && entry.origin.entryOrigin !== 'Extracted from narrative'",
           ng-repeat="fieldKey in [ 'biography', 'tours', 'narrative', 'notes' ]",
           ng-class="{ narrative: fieldKey === 'narrative', small: fieldKey === 'notes' }",
           ng-bind-html="entry[fieldKey + '_formatted']",
         )
 
-      div.col-lg-6(ng-if='entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0) < 50')
+      div.col-lg-6(ng-if="entry.origin && entry.origin.entryOrigin === 'Extracted from narrative'")
         div.entry-stub Why is this entry blank? This is one of the entries we created for travelers who only existed in others’ entries, with no narrative of their own, of whom a great majority are women. 
           a Read more about how we found these hidden figures and what we know about them…
           

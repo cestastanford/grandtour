@@ -5,3 +5,5 @@ data/
 npm-debug.log
 dist/
 dump
+_site
+venv

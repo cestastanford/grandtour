@@ -1,0 +1,69 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    base(href="/")
+    title(ng-bind="getTitle()")
+
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+    //- link(rel='stylesheet', href='/app.css')
+    
+    link(rel="shortcut icon" href="favicon.png")
+  body
+    
+
+  div.site
+    nav.navbar.navbar-default
+      .container
+        .navbar-header
+          a.navbar-brand(href="#/") The Grand Tour Explorer
+        .navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(ui-sref="search") Search
+            li
+              a(ui-sref="explore") Explore 
+            li
+              a(ui-sref="visualizations") Visualize
+
+          ul.nav.navbar-nav.navbar-right(ng-show="currentUser")
+
+            li(ng-show="currentUser.role=='admin'")
+              a(ui-sref="admin") Manage
+            li
+              a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
+            li(ng-if="currentUser")
+                a(ui-sref="lists") Saved Lists
+            li.index-dropdown-wrapper
+              a Downloads
+              div.index-dropdown-content
+                a(href="GTE Bibliography.txt" download) Bibliography
+                a(href="GTE Coordinates.txt" download) Coordinates
+            li
+              a {{currentUser.fullName || currentUser.username}}
+            a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
+              //i.fa.fa-sign-out.margin-right
+              | Logout
+
+          ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
+            li
+              a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
+            li
+              a(ui-sref="login" target="_blank") Saved Lists
+            li
+              a(ui-sref="login" target="_blank") Downloads
+            li
+              a(ui-sref="login") Login            
+    div.site-content
+      ui-view
+    div.site-footer.navbar-default
+      .container
+        div(style="display: inline")
+          .footer-copyright(style="float: left") © 2019 Stanford University. All rights reserved. 
+            a(ui-sref="about") Terms of use.
+          .footer(style="float: right") ISBN XXXX DOI XXXX OCLC XXX Published by Center for Spatial and Textual Analysis (CESTA) Stanford University
+    script(type="text/javascript" src="1.app.bundle.js")
+    script(type="text/javascript" src="app.bundle.js")

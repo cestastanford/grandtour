@@ -1,0 +1,9 @@
+a(
+    tabindex="-1"
+)
+    span(
+        ng-bind-html="match.label.nameMatch | typeaheadHighlight:query"
+    )
+    span.alternate-name-see(
+        ng-if="match.label.see"
+    ) (see {{ match.label.see }})

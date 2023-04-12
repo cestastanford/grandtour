@@ -1,0 +1,226 @@
+.container.main-view
+
+  ul.nav.nav-tabs
+    li(role="revisions", ng-class="{ active: view === 'revisions' }")
+      a(ng-click="view = 'revisions'") Revisions
+    li(role="presentation", ng-class="{active:view=='data'}")
+      a(ng-click="view='data'") Data
+    li(role="presentation", ng-class="{active:view=='users'}")
+      a(ng-click="view='users'") Users    
+    li(role="presentation", ng-class="{active:view=='addUser'}")
+      a(ng-click="view='addUser'") Add user
+
+  .row
+
+    .col-lg-12(ng-show="view === 'revisions'")
+
+      h1 Revisions
+      p Use this page to manage data revisions.  The currently-active revision will be used for searching, exploring, visualizations, lists and exports.
+      br
+
+      ul.list-group
+        li.revision.list-group-item
+          span.btn-group.pull-right(role="group", ng-show="!revision.editing")
+            button(
+              type="button",
+              class="btn btn-sm btn-default",
+              ng-click="creating ? null : createNewRevision()",
+              ng-class="{ disabled: creating }",
+            ) {{ creating ? 'creating...' : 'begin new revision' }}
+
+        li.revision.list-group-item(
+          ng-repeat="revision in revisions",
+          ng-class="{ 'list-group-item-info': revision.active && revision.latest, 'list-group-item-warning': revision.active && !revision.latest }",
+        )
+          span.revision-label(ng-show="!revision.editing") {{ revision.name }} 
+            em(ng-show="revision.latest") (Latest)
+          
+          span.btn-group.pull-right(role="group", ng-show="!revision.editing")
+            button(
+              type="button",
+              class="btn btn-sm btn-default",
+              ng-click="editRevision(revision)",
+            ) edit name
+
+            button(
+              type="button",
+              class="btn btn-sm btn-info",
+              ng-show="!revision.active",
+              ng-click="revision.activating ? null : setActiveRevision(revision)",
+              ng-class="{ disabled: revision.activating }",
+            ) {{ revision.activating ? 'activating...' : 'activate' }}
+            
+            button(
+              type="button",
+              class="btn btn-sm btn-danger",
+              ng-show="revisions.length > 1",
+              ng-click="revision.deleting ? null : deleteRevision(revision)",
+              ng-class="{ disabled: revision.deleting }",
+            ) {{ revision.deleting ? 'deleting...' : 'delete' }}
+
+          .input-group(ng-show="revision.editing")
+            input.form-control(
+              type="text",
+              ng-model="revision.newName",
+            )
+
+            .input-group-btn(role="group")
+              button(
+                type="button",
+                class="btn btn-sm btn-warning",
+                ng-click="cancelRevisionEdit(revision)",
+              ) cancel
+              button(
+                type="button",
+                class="btn btn-sm btn-default",
+                ng-click="revision.savingEdit ? null : saveRevisionEdit(revision)",
+                ng-class="{ disabled: revision.savingEdit }",
+              ) {{ revision.savingEdit ? 'saving...' : 'save' }}
+
+    .col-lg-12(ng-show="view=='addUser'")
+      h3 Add user
+      .alert.alert-warning(ng-show="message") {{message}}
+      form.form-horizontal(ng-submit="register()")
+        .form-group
+          label.col-sm-3.control-label User name*
+          .col-sm-9
+            input.form-control(type="text", name="username", ng-model="user.username", placeholder="User name", required)
+        .form-group
+          label.col-sm-3.control-label Full name
+          .col-sm-9
+            input.form-control(type="text", name="fullname", ng-model="user.fullName", placeholder="Full name")
+        .form-group
+          label.col-sm-3.control-label Password*
+          .col-sm-9
+            input.form-control(type="password", name="password", ng-model="user.password", placeholder="Password", required)
+        .form-group
+          label.col-sm-3.control-label Confirm password*
+          .col-sm-9
+            input.form-control(type="password", ng-model="confirmPassword", placeholder="Confirm password", required)
+        .form-group(ng-show="user.password.length && confirmPassword.length && user.password != confirmPassword")
+          .col-sm-offset-3.col-sm-9
+            span.text-danger Passwords do not match, please try again.
+        .form-group
+          label.col-sm-3.control-label Email
+          .col-sm-9
+            input.form-control(type="email", name="email", ng-model="user.email", placeholder="Email address")
+        .form-group
+          .col-sm-3
+          .col-sm-9
+            .dropdown
+              button.btn.btn-default.dropdown-toggle(
+                type="button"
+                data-toggle="dropdown"
+              ) 
+                | Role: {{ user.role }} 
+                span.caret
+              
+              ul.dropdown-menu
+                li(ng-repeat="role in [ 'admin', 'editor', 'viewer' ]")
+                  a(ng-click="user.role = role") {{ role }}
+              
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            button.btn.btn-info.btn-block(type="submit", ng-disabled="!user.password.length || !confirmPassword.length || user.password != confirmPassword") Sign up
+      
+      
+    .col-lg-12(ng-show="view=='users'")
+      
+      h3 Users
+      
+      .alert.alert-warning(ng-show="message") {{message}}
+          
+      form
+            
+        table.table.reload-table
+          thead
+            tr
+              th Username
+              th Full name
+              th Email
+              th Role
+              th
+          tbody
+            tr(ng-repeat="user in users")
+              td {{user.username}}
+              td
+                input.form-control(ng-model="user.fullName", placeholder="{{user.fullName}}")
+              td
+                input.form-control(ng-model="user.email", placeholder="{{user.email}}")  
+              td
+                .dropdown
+                  button.btn.btn-default.dropdown-toggle(
+                    type="button"
+                    data-toggle="dropdown"
+                  ) 
+                    | Role: {{ user.role }} 
+                    span.caret
+                  
+                  ul.dropdown-menu
+                    li(ng-repeat="role in [ 'admin', 'editor', 'viewer' ]")
+                      a(ng-click="user.role = role") {{ role }}
+              
+              td
+                button.btn.btn-sm.btn-danger(ng-disabled="currentUser.username==user.username" ng-click="remove(user.username)") Delete
+                span &nbsp;
+                button.btn.btn-sm.btn-info(ng-click="update(user)") Update
+                
+    .col-lg-12(ng-show="view=='data'")
+      .row
+        h3 Import from Google Sheets
+        p Click "Import from Sheets" to initiate data import from Google Sheets.  Entry data will be applied to the latest revision.
+        button#import.btn.btn-danger(type="button" ng-click="import()", data-loading-text="Importing...") Import from Sheets
+        hr(ng-show="importStatus")
+        progressbar.progress-striped(
+            ng-class="{ active: !importStatus.done, 'progress-striped': !importStatus.done && !importStatus.progress }",
+            value="importStatus.progress ? importStatus.progress.value : 100",
+            max="importStatus.progress ? importStatus.progress.max : 100",
+            type="{{importStatus.progress ? 'info' : (importStatus.done ? 'success' : 'warning')}}",
+            ng-show="importStatus",
+          )
+            span {{importStatus.message}}
+
+      .row
+        hr
+        h3 Export to Google Sheets
+        p Select a Revision and click "Export to Sheets" to initiate data export to Google Sheets.  The currently-active revision will be exported.
+        button#export.btn.btn-danger(type="button" ng-click="export()", data-loading-text="Exporting...") Export to Sheets
+        hr(ng-show="exportStatus")
+        progressbar.progress-striped(
+            ng-class="{ active: !exportStatus.done, 'progress-striped': !exportStatus.done && !exportStatus.progress }",
+            value="exportStatus.progress ? exportStatus.progress.value : 100",
+            max="exportStatus.progress ? exportStatus.progress.max : 100",
+            type="{{exportStatus.progress ? 'info' : (exportStatus.done ? 'success' : 'warning')}}",
+            ng-show="exportStatus",
+          )
+            span {{exportStatus.message}}
+
+        hr(ng-show="exportUrls.length")
+        .well.well-sm(ng-repeat="url in exportUrls")
+          a(href="{{url}}" target="_blank") Access exported spreadsheet at {{url}}
+
+      .row
+        hr
+        h3 Import Linked Footnotes from Google Sheets
+        p Enter a spreadsheet ID and click "Import Linked Footnotes" to save the linked footnotes to the database.  Click "Clear All" to remove all saved linked footnotes.  Linked footnote data must be in a sheet named "Linked Footnotes".
+        input.form-control.linked-footnote-sheet-id(
+          type="text",
+          ng-model="linkedFootnoteSheetId",
+          placeholder="spreadsheet ID",
+        )
+        button#import-linked-footnotes.btn.btn-danger(type="button" ng-click="importLinkedFootnotes(linkedFootnoteSheetId)", data-loading-text="Importing...") Import Linked Footnotes
+        hr(ng-show="importLinkedFootnotesStatus")
+        progressbar.progress-striped(
+            ng-class="{ active: !importLinkedFootnotesStatus.done, 'progress-striped': !importLinkedFootnotesStatus.done && !importLinkedFootnotesStatus.progress }",
+            value="importLinkedFootnotesStatus.progress ? importLinkedFootnotesStatus.progress.value : 100",
+            max="importLinkedFootnotesStatus.progress ? importLinkedFootnotesStatus.progress.max : 100",
+            type="{{importLinkedFootnotesStatus.progress ? 'info' : (importLinkedFootnotesStatus.done ? 'success' : 'warning')}}",
+            ng-show="importLinkedFootnotesStatus",
+          )
+            span {{importLinkedFootnotesStatus.message}}
+        br
+        br
+        button#clear-linked-footnotes.btn.btn-danger(type="button" ng-click="clearLinkedFootnotes()", data-loading-text="Clearing...") Clear All
+
+    .col-lg-12(ng-show="view=='datatable'")
+      admin-grid

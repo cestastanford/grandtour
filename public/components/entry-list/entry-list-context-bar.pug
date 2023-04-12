@@ -1,0 +1,30 @@
+.entry-list-context.alert.alert-success
+    .status-text
+        strong(ng-if="!context") Browsing all entries.
+        div(ng-if="context")
+            strong(ng-if="!context.isSavedList") Browsing within results.
+            strong(ng-if="context.isSavedList") Browsing within Saved List.
+        
+            .btn-group.btn-group-sm(role="group")
+                a.btn.btn-default(
+                    type="button",
+                    ng-show="!context.isSavedList",
+                    ng-href="{{ '#' + context.url }}",
+                ) Back to Results
+
+                a.btn.btn-default(
+                    type="button",
+                    ng-show="context.isSavedList",
+                    ng-href="{{ '#' + context.url }}",
+                ) Back to Saved List
+
+                button.btn.btn-default(
+                    type="button",
+                    ng-click="clearContext()"
+                ) Browse all entries
+    
+    .prev-next-buttons
+        a(ng-href="{{ '#/entries/' + previous + (editing ? '/edit' : '') }}")
+            i.fa.fa-angle-left 
+        a(ng-href="{{ '#/entries/' + next + (editing ? '/edit' : '') }}")
+            i.fa.fa-angle-right.margin-left

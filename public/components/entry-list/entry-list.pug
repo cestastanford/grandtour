@@ -1,0 +1,119 @@
+.panel.panel-default
+  .panel-heading(class="entry-list-heading",ng-show="entries")
+    div.btn-group
+      button.btn.btn-default.btn-xs.list-option(type="button", ng-click="selectAllEntries()") select all
+    div.btn-group
+      button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
+
+    div.btn-group.add-to-list-btn.list-option
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown", ng-if="currentUser")
+        span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
+        span.caret
+      a(ui-sref="login", target="_blank", ng-if="!currentUser")
+        button.btn.btn-default.btn-xs.dropdown-toggle(type="button")
+          span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
+          span.caret
+      ul.dropdown-menu
+        li.dropdown-header(ng-show="isSavedListView") copy selected entries to list:
+        li(ng-show="sharedListModel.listsLoading")
+          span loading lists...
+        li(ng-repeat="list in sharedListModel.myLists")
+          a(ng-click="addSelectedEntriesToList(list)") {{ list.name }}
+        li.divider(role="separator")
+        li.dropdown-header or {{ isSavedListView ? 'copy' : 'add' }} to a new list:
+        li
+          form.input-group.input-group-sm
+            input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+            span.input-group-btn
+              button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") create & {{ isSavedListView ? 'copy' : 'add' }}
+    
+    div.btn-group.add-to-list-btn(ng-show="isSavedListView && !isSharedList")
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+        span add by id
+        span.caret
+      ul.dropdown-menu
+        li
+          form.input-group.input-group-sm
+            input.form-control(type="text", placeholder="comma-separated ids", ng-model="viewModel.importIds")
+            span.input-group-btn
+              button.btn.btn-default(type="submit", ng-disabled="!viewModel.importIds", ng-click="handleImportIdsClick()") import
+
+
+    div.btn-group
+      button.btn.btn-warning.btn-xs.list-option(type="button", ng-show="isSavedListView && !isSharedList", ng-click="removeSelectedEntriesFromList()") remove
+
+    div.btn-group.list-option
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+        span sort by...
+        span.caret
+      ul.dropdown-menu
+        li(ng-repeat="option in sortModel.options")
+          a(ng-click="sortModel.current = option", ng-class="{ 'bg-info' : sortModel.current === option }") {{ option.label }}
+        
+        li.divider
+        li
+          .checkbox.entry-order-checkbox
+            label
+              input(type="checkbox", ng-model="sortModel.reversed")
+              div reverse order
+
+    div.btn-group.list-option
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+        span entries per page
+        span.caret
+      ul.dropdown-menu
+        li(ng-repeat="n in [5, 10, 25, 50, 100, 500]")
+          a(ng-click="setEntriesPerPage(n)", ng-class="{ 'bg-info' : entriesPerPage === n }") {{ n }}
+        li
+          a(ng-click="setEntriesPerPage(0)", ng-class="{ 'bg-info' : entriesPerPage === 0 }") all entries
+
+    div.btn-group
+      button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="loading...", ng-click="export()", ng-disabled="!entries.length", ng-if="currentUser")
+        i.fa.fa-download.margin-right
+        | export results
+      a(ui-sref="login", target="_blank", ng-if="!currentUser")
+        button#export-button.btn.btn-default.btn-xs.pull-right(data-loading-text="loading...", ng-disabled="!entries.length")
+          i.fa.fa-download.margin-right
+          | export results
+
+    div#duplicate-button.btn-group.add-to-list-btn.pull-right(ng-show="isSavedListView")
+      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+        span duplicate list
+        span.caret
+      ul.dropdown-menu
+        li
+          form.input-group.input-group-sm
+            input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+            span.input-group-btn
+              button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="handleDuplicateListClick()") duplicate
+
+    div.btn-group
+      button.btn.btn-danger.btn-xs.pull-right(type="button", ng-show="isSavedListView && !isSharedList", ng-click="deleteList()") delete this list
+
+  .panel-body.text-center(ng-show="!entries") Loading entries...
+  .panel-body.text-center(ng-show="entries && !entries.length") No entries.
+  .panel-body(ng-show="entries && entries.length")
+    table.table.table-hover
+      tbody.entry-row
+        tr(ng-repeat="entry in entries | orderBy : sortModel.current.sortFn : sortModel.reversed", ng-if="$index >= entriesPerPage * pageNumber && $index < entriesPerPage * (pageNumber + 1)", ng-class="{ warning: entry.selected, 'sorted-dimension-empty': !sortModel.current.sortFn(entry) }")
+          td.entry-checkbox
+            input(type="checkbox", ng-model="entry.selected")
+          td.entry-list-item
+            a(ng-href="#/entries/{{entry.index}}")
+              span.add-to-list-label.label.label-success(ng-show="entry.addedToList") Added to list
+              span.add-to-list-label.label.label-info(ng-show="entry.alreadyInList") Already in list
+              h4 {{ entry.fullName }}
+              p {{ entry.biographyExcerpt }} ...
+  
+  .panel-footer.page-controls(ng-show="entries && entries.length")
+    a(ng-click="setPage(0)", ng-disabled="isPage(0)") << first page
+    a(ng-click="setPage(pageNumber - 1)", ng-disabled="isPage(0)") < previous page
+    
+    a.page-number(
+      ng-repeat="p in getPages() | limitTo : 9 : getStartPageLink()",
+      ng-click="setPage(p)"
+      ng-disabled="isPage(p)"
+    ) {{ p + 1 }}
+    
+    a(ng-click="setPage(pageNumber + 1)", ng-disabled="isPage(getPages().length - 1)") next page >
+    a(ng-click="setPage(getPages().length - 1)", ng-disabled="isPage(getPages().length - 1)") last page >>

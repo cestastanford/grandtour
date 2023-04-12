@@ -1,0 +1,44 @@
+.row
+  .col-lg-6.col-md-8.col-sm-10.col-lg-offset-3.col-md-offset-2.col-sm-offset-1
+    h4 Sign up
+    .alert.alert-warning(ng-show="message") {{message}}
+    form.form-horizontal(ng-submit="register()")
+      .form-group
+        label.col-sm-3.control-label User name*
+        .col-sm-9
+          input.form-control(type="text", name="username", ng-model="user.username", placeholder="User name", required)
+      .form-group
+        label.col-sm-3.control-label Full name
+        .col-sm-9
+          input.form-control(type="text", name="fullname", ng-model="user.fullName", placeholder="Full name")
+      .form-group
+        label.col-sm-3.control-label Password*
+        .col-sm-9
+          input.form-control(type="password", name="password", ng-model="user.password", placeholder="Password", required)
+      .form-group
+        label.col-sm-3.control-label Confirm password*
+        .col-sm-9
+          input.form-control(type="password", ng-model="confirmPassword", placeholder="Confirm password", required)
+      .form-group
+        label.col-sm-3.control-label Email
+        .col-sm-9
+          input.form-control(type="email", name="email", ng-model="user.email", placeholder="Email address")
+      .form-group
+        .col-sm-3
+        .col-sm-9
+          .checkbox
+            label
+              input(type="checkbox", name="role", ng-model="user.role") 
+              | Set as administrator
+            
+      .form-group(ng-show="user.password.length && confirmPassword.length && user.password != confirmPassword")
+        .col-sm-offset-3.col-sm-9
+          span.text-danger Passwords do not match, please try again.
+      .form-group
+        .col-sm-offset-3.col-sm-9
+          button.btn.btn-info.btn-block(type="submit", ng-disabled="!user.password.length || !confirmPassword.length || user.password != confirmPassword") Sign up
+
+      .form-group
+        .col-sm-offset-3.col-sm-9          
+          p.small.text-right Already registered? 
+            a(ui-sref="login") Login here

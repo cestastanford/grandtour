@@ -5,5 +5,7 @@ data/
 npm-debug.log
 dist/
 dump
-_site
+site
 venv
+notes.md
+**.pyc

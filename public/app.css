@@ -1074,6 +1074,23 @@ ul.list-group.entry-facet > li .controls {
   color: #888;
 }
 
+.entry-not-original {
+  color: #d0b67d
+}
+
+.entry-original {
+
+}
+
+.entry-stub {
+  color: #444;
+  background-color: #ffffff;
+  border: 1px solid #d0b67d;
+  border-radius: 2px;
+  margin: 10px;
+  padding: 12px;
+}
+
 .entry-origin {
   margin-top: -1em;
   margin-bottom: 1.75em;

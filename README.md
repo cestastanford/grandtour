@@ -10,7 +10,7 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
 - Create an environmental variable file called `.env` in the root directory.
 - Add the following to .env:
 ```
-MONGODB_URI=mongodb://user:EKMPRHu8K0t80bOh@grandtour-alpha-shard-00-00.gxe9c.mongodb.net:27017,grandtour-alpha-shard-00-01.gxe9c.mongodb.net:27017,grandtour-alpha-shard-00-02.gxe9c.mongodb.net:27017/heroku_4rpt6s2b?ssl=true&replicaSet=atlas-y61au9-shard-0&authSource=admin&retryWrites=true&w=majority
+MONGODB_URI=mongodb://localhost:27017
 SECRET_KEY_1=abc
 SECRET_KEY_2=abc
 SECRET_KEY_3=abc
@@ -34,3 +34,13 @@ To restore a MongoDB database backup into your local database, unzip the backup 
 
 Map Visualization
 https://www.mapbox.com/install/js/bundler-install/
+
+Deployment
+----------
+
+The GTE is deployed on Reclaim Hosting.
+
+To deploy, first make a pull request or a commit to the `master` branch. Then, a GitHub Action will build the appropriate code and push the results to the `build` branch. Then, to deploy to Reclaim:
+1. Log in to https://app.my.reclaim.cloud/
+2. Go to the "Deployment Manager" -> "GIT / SVN" tab on the bottom. Click the "Deploy to..." icon next to "grandtour". Select the grand tour "Application Environment" for "Environment" and click "Deploy".
+3. Grand Tour Explorer should be deployed at https://grandtourexplorer.wc.reclaim.cloud/; book should be deployed at https://grandtourexplorer.wc.reclaim.cloud/gt-book/.

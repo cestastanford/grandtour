@@ -117,7 +117,7 @@ The major Roman *ciceroni* of the later eighteenth century were [Colin Morison](
 
 <figure>
 
-<a name="figure-3" class="fig"> <img src="paul-figure-3.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-3" class="fig"> <img src="../paul-figure-3.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap3">
 

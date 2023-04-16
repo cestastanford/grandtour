@@ -46,7 +46,7 @@ This essay also seeks to elucidate the British arrival to Italy as an overall hi
 
 <figure>
 
-<a name="figure-1"> <img src="midura-figure-1.png" id="fig1" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>   
+<a name="figure-1"> <img src="../midura-figure-1.png" id="fig1" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>   
 
 <figcaption id="cap1">
 
@@ -86,7 +86,7 @@ The paths of British travelers were dispersed across a broad geography from thei
 
 <figure>
     
-<a name="figure-2"> <img src="midura-figure-2.jpeg" id="fig2" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-2"> <img src="../midura-figure-2.jpeg" id="fig2" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
     
 <figcaption id="cap2">
  
@@ -148,7 +148,7 @@ The method is also not appropriate for use with all traveler entries. The follow
 
 <figure>
 
-<a name="figure-4"> <img src="midura-figure-4.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-4"> <img src="../midura-figure-4.png" id="fig4" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap4">
 
@@ -181,7 +181,7 @@ The Imperial and Venetian posts were among the most advanced and comprehensive p
 
 <figure>
 
-<a name="figure-5"> <img src="midura-figure-5.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-5"> <img src="../midura-figure-5.png" id="fig5" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap5">
 
@@ -199,7 +199,7 @@ At the same time, the Austrian Habsburgs set out an ambitious program for infras
 
 <figure>
 
-<a name="figure-6"> <img src="midura-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-6"> <img src="../midura-figure-6.png" id="fig6" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap6">
 

@@ -11,7 +11,7 @@ about: Catherine M. Sama is a professor of Italian at the University of Rhode Is
 
 <figure>
 
-<a name="figure-1" class="fig"> <img src="sama-figure-1.png" id="fig1"  onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-1" class="fig"> <img src="../sama-figure-1.png" id="fig1"  onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
 
 <figcaption id="cap1">
 
@@ -27,7 +27,7 @@ The Venetian Rosalba Carriera (1673-1757) was one of the most important female a
 
 <figure>
 
-<a name="figure-23" class="fig"> <img src="sama-figure-23.png" id="fig23"  onclick="zoom(this, null, getElementById(&apos;cap23&apos;))"/> </a>
+<a name="figure-23" class="fig"> <img src="../sama-figure-23.png" id="fig23"  onclick="zoom(this, null, getElementById(&apos;cap23&apos;))"/> </a>
 
 <figcaption id="cap23">
 
@@ -53,7 +53,7 @@ Searches of the database using specific dates and places also help identify indi
 
 <figure>
 
-<a name="figure-4" class="fig"> <img src="sama-figure-4.png" id="fig4"  onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
+<a name="figure-4" class="fig"> <img src="../sama-figure-4.png" id="fig4"  onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
 
 <figcaption id="cap4">
 
@@ -88,7 +88,7 @@ Early in her career, Carriera was renowned for her delicate miniature portraits 
 
 <figure>
 
-<a name="figure-57" class="fig"> <img src="sama-figure-57.png" id="fig57"  onclick="zoom(this, null, getElementById(&apos;cap57&apos;))"/> </a>
+<a name="figure-57" class="fig"> <img src="../sama-figure-57.png" id="fig57"  onclick="zoom(this, null, getElementById(&apos;cap57&apos;))"/> </a>
 
 <figcaption id="cap57">
 
@@ -106,7 +106,7 @@ Although she enjoyed great success with her miniatures, Carriera is even more fa
 
 <figure>
 
-<a name="figure-89" class="fig"> <img src="sama-figure-89.png" id="fig89"  onclick="zoom(this, null, getElementById(&apos;cap89&apos;))"/> </a>
+<a name="figure-89" class="fig"> <img src="../sama-figure-89.png" id="fig89"  onclick="zoom(this, null, getElementById(&apos;cap89&apos;))"/> </a>
 
 <figcaption id="cap89">
 
@@ -120,7 +120,7 @@ Whether creating pastels or miniatures, Carriera heightened both the academic va
 
 <figure>
 
-<a name="figure-1012" class="fig"> <img src="sama-figure-1012.png" id="fig1012"  onclick="zoom(this, null, getElementById(&apos;cap1012&apos;))"/> </a>
+<a name="figure-1012" class="fig"> <img src="../sama-figure-1012.png" id="fig1012"  onclick="zoom(this, null, getElementById(&apos;cap1012&apos;))"/> </a>
 
 <figcaption id="cap1012">
 
@@ -182,7 +182,7 @@ What might the *Explorer* be able to tell us about Carriera’s studio? The rich
 
 <figure>
 
-<a name="figure-13" class="fig"> <img src="sama-figure-13.jpg"  onclick="zoom(this, null, getElementById(&apos;cap13&apos;))"/> </a>
+<a name="figure-13" class="fig"> <img src="../sama-figure-13.jpg"  onclick="zoom(this, null, getElementById(&apos;cap13&apos;))"/> </a>
 
 <figcaption id="cap13">
 

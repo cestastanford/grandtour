@@ -23,7 +23,7 @@ One of the gaudier British cultural exports of the later eighteenth century was 
 
 <figure>
 
-<a name="figure-1"> <img src="macdonald-figure-1.png" id="fig1" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-1"> <img src="../macdonald-figure-1.png" id="fig1" class="fig" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
 
 <figcaption id="cap1">
 
@@ -86,7 +86,7 @@ The equestrian trick-riders offer a revealing starting point for approaching the
 
 <figure>
 
-<a name="figure-3"> <img src="macdonald-figure-3.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-3"> <img src="../macdonald-figure-3.png" id="fig1" class="fig" onclick="zoom(this, getElementById(&apos;fig3&apos;), getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap3">
 

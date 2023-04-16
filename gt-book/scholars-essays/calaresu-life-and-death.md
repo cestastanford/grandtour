@@ -10,7 +10,7 @@ about: Melissa Calaresu is a cultural historian who originally trained as a hist
 ---
 <figure>
 
-<a name="figure-1" class="fig"> <img src="calaresu-figure-1.png" id="fig1" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
+<a name="figure-1" class="fig"> <img src="../calaresu-figure-1.png" id="fig1" onclick="zoom(this, null, getElementById(&apos;cap1&apos;))"/> </a>
 
 <figcaption id="cap1">
 
@@ -22,7 +22,7 @@ about: Melissa Calaresu is a cultural historian who originally trained as a hist
 
 <figure>
 
-<a name="figure-2" class="fig"> <img src="calaresu-figure-2.png" id="fig2" onclick="zoom(this, null, getElementById(&apos;cap2&apos;))"/> </a>
+<a name="figure-2" class="fig"> <img src="../calaresu-figure-2.png" id="fig2" onclick="zoom(this, null, getElementById(&apos;cap2&apos;))"/> </a>
 
 <figcaption id="cap2">
 
@@ -76,7 +76,7 @@ His paintings of the city are the visual equivalent of these sensory description
 
 <figure>
 
-<a name="figure-3" class="fig"> <img src="calaresu-figure-3.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
+<a name="figure-3" class="fig"> <img src="../calaresu-figure-3.png" id="fig3"  onclick="zoom(this, null, getElementById(&apos;cap3&apos;))"/> </a>
 
 <figcaption id="cap3">
 
@@ -104,7 +104,7 @@ By 1779, [Jones](https://grand-tour-explorer-2017.herokuapp.com/#/entries/2715){
 
 <figure>
 
-<a name="figure-4" class="fig"> <img src="calaresu-figure-4.png" id="fig4"  onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
+<a name="figure-4" class="fig"> <img src="../calaresu-figure-4.png" id="fig4"  onclick="zoom(this, null, getElementById(&apos;cap4&apos;))"/> </a>
 
 <figcaption id="cap4">
 
@@ -200,7 +200,7 @@ It is important to note that the absences in the archive continue to shape the p
 
 <figure>
 
-<a name="figure-5" class="fig"> <img src="calaresu-figure-5.svg" id="fig5"  onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
+<a name="figure-5" class="fig"> <img src="../calaresu-figure-5.svg" id="fig5"  onclick="zoom(this, null, getElementById(&apos;cap5&apos;))"/> </a>
 
 <figcaption id="cap5">
 
@@ -212,7 +212,7 @@ It is important to note that the absences in the archive continue to shape the p
 
 <figure>
 
-<a name="figure-6" class="fig"> <img src="calaresu-figure-6.svg" id="fig6"  onclick="zoom(this, null, getElementById(&apos;cap6&apos;))"/> </a>
+<a name="figure-6" class="fig"> <img src="../calaresu-figure-6.svg" id="fig6"  onclick="zoom(this, null, getElementById(&apos;cap6&apos;))"/> </a>
 
 <figcaption id="cap6">
 
@@ -228,15 +228,15 @@ This smaller subset of data replicates many of the noted patterns across the dat
 
 <figure>
 
-<a name="figure-7a" class="half-fig"> <img src="calaresu-figure-7a.svg" id="fig7a"  onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;fig7c&apos;), getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7a" class="half-fig"> <img src="../calaresu-figure-7a.svg" id="fig7a"  onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;fig7c&apos;), getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
 
-<a name="figure-7b" class="half-fig"> <img src="calaresu-figure-7b.svg" id="fig7b"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;fig7c&apos;), getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7b" class="half-fig"> <img src="../calaresu-figure-7b.svg" id="fig7b"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;fig7c&apos;), getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
 
 <br><br>
 
-<a name="figure-7c" class="half-fig"> <img src="calaresu-figure-7c.svg" id="fig7c"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;fig7b&apos;), getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7c" class="half-fig"> <img src="../calaresu-figure-7c.svg" id="fig7c"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;fig7b&apos;), getElementById(&apos;fig7d&apos;), getElementById(&apos;cap7&apos;))"/> </a>
 
-<a name="figure-7d" class="half-fig"> <img src="calaresu-figure-7d.svg" id="fig7d"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;fig7b&apos;), getElementById(&apos;fig7c&apos;), getElementById(&apos;cap7&apos;))"/> </a>
+<a name="figure-7d" class="half-fig"> <img src="../calaresu-figure-7d.svg" id="fig7d"  onclick="zoom(this, getElementById(&apos;fig7a&apos;), getElementById(&apos;fig7b&apos;), getElementById(&apos;fig7c&apos;), getElementById(&apos;cap7&apos;))"/> </a>
 
 <figcaption id="cap7">
 

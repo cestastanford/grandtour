@@ -1,11 +1,50 @@
-# Run parsing scripts
-- Install Python 3. Run `pip3 install pymongo tqdm`.
+# Grand Tour Explorer Python Scripts
+
+## Source updater file (Jan 2023)
+
+The source updater file was made in January 2023. It fixes the `sources` based on each entry's text, using manual rule encoding in the script file.
+
+To run it, first get the connection string to the prod MongoDB database and then make a local copy:
+
+```bash
+cd grandtour
+mongodump --uri "[connection string to prod database]" --out dump
+mongod --dbpath ./data
+
+# In another terminal, run:
+mongorestore dump
+```
+
+Now with the local database running, run:
+
+```bash
+pip3 install -r requirements.txt
+export MONGODB_URI=mongodb://localhost:27017/heroku_c4kbv2zc
+python source_updater_master.py
+```
+
+Finally, once you are happy with the changes, you can run this on the actual production database:
+
+```bash
+export MONGODB_URI= # add URL to MongoDB database
+python source_updater_master.py
+```
+
+If you make any changes to the code, make sure you update tests and then run them:
+
+```bash
+pytest
+```
+
+## Older files description
+
+### How to run parsing scripts
+
+- Install Python 3. Run `pip3 install -r requirements.txt`.
 - Make sure that `titles_for_sources_features.csv` is added, too.
 - Run `export MONGODB_URI=...` to set the URI to the mongodb database (such as the production database.)
-- Run `python3 entries_updater_new.py`
-- Run `python3 numTours.py`
+- Run the appropriate script, for example, `python3 entries_updater_new.py`
 
-# Description of files included
 entries_updater.py - This uses consolidated_entries.json to add the values for notes, parsed_notes, and consolidated_notes.
 
 entries_updater_2.py - This uses new_corrected_entries.json to replace the values found in `consolidated_notes` field for each entry with the dictionary found in the JSON. This was done as a correction to the first step, as there were some parsing issues initially.

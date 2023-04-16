@@ -18,3 +18,10 @@ def test_generate_source_regexes():
 
     # Escape
     assert test_source("h+++ello", "h+++ello") == True
+
+    assert test_source("ASV IS 759-781", "ASV IS 759). P") == True
+    assert test_source("HMC Stuart", "HMC/Stuart, 5") == True
+    assert test_source("Voltaire 1967", "1 Voltaire 1967, no.88. 2.") == True
+    assert test_source("Gazz.Tosc.", "on 1 March 1767 (Gazz.Tosc.).") == True
+    print(list(generate_source_regexes("Thomas letters MSS")))
+    assert test_source("Thomas letters MSS", "1. Thomas letters MSS, f.27 (30 Nov. 1750). 2. Constable, Wilson, 22.") == True

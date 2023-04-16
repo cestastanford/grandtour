@@ -1,6 +1,6 @@
 # Grand Tour Explorer Python Scripts
 
-## Source updater file (Jan 2023)
+## Source updater master file (Jan 2023)
 
 The source updater file was made in January 2023. It fixes the `sources` based on each entry's text, using manual rule encoding in the script file.
 

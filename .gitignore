@@ -4,7 +4,7 @@ data/
 .env
 npm-debug.log
 dist/
-dump
+dump*
 site
 venv
 notes.md

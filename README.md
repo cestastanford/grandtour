@@ -19,7 +19,7 @@ SHEETS_PRIVATE_KEY=...
 BOOK_ORIGIN=...
 ```
 - Start the server: `npm run dev-start`.  This will create and host a MongoDB database and start the Node server.
-- Unzip the database dump so that there's a `dump` directory in the root directory of grandtour. Then run `mongorestore -d grandtour dump/heroku_c4kbv2zc --port 27017 --host localhost --drop` in a separate terminal to sync the database to the local version.
+- Unzip the database dump so that there's a `dump` directory in the root directory of grandtour. Then run `mongorestore -d heroku_c4kbv2zc dump/heroku_c4kbv2zc --port 27017 --host localhost --drop` in a separate terminal to sync the database to the local version.
 - Check the console output for the local address of the site (often http://localhost:5100).  Visit that address and log in using username: `root` and password: `root`.
 
 Restoring a MongoDB database backup

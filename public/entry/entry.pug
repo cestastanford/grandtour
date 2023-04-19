@@ -4,7 +4,7 @@
     .col-lg-12
       revision-status
   
-  .row(ng-show="editStatus")
+  .row
     br
     .col-lg-12
       .edit-status.alert.alert-success
@@ -12,7 +12,7 @@
         .edit-status-entry-index
           span Entry Index: 
           a.alert-link(ng-click="editStatus.editingIndex = true", ng-show="!editStatus.editingIndex") {{ $stateParams.id }}
-          em(ng-show="!editStatus.exists && !editStatus.editingIndex") (Empty)
+          em(ng-show="!editStatus.exists && !editStatus.editingIndex && editStatus") (Empty)
           .input-group.input-group-sm(ng-show="editStatus.editingIndex")
             input.form-control(type="text", ng-model="editingIndex.newIndex")
             span.input-group-btn
@@ -21,7 +21,7 @@
                 ng-click="handleEntryClick()",
               ) Go
 
-        strong(ng-show="editStatus.mustActivateLatest") Activate the Latest revision to edit this entry.
+        strong(ng-show="editStatus.mustActivateLatest && editStatus") Activate the Latest revision to edit this entry.
         .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && editStatus.exists")
           a.btn.btn-info(
             ng-class="{ disabled: editStatus.duplicating }",
@@ -31,7 +31,7 @@
           
           a.btn.btn-default(type="button" ng-href="#/entries/{{entry.index}}/edit") Edit Entry
 
-        .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && !editStatus.exists")
+        .btn-group.btn-group-sm(role="group", ng-show=" editStatus && !editStatus.mustActivateLatest && !editStatus.exists")
           button.btn.btn-sm.btn-default(
             ng-class="{ disabled: editStatus.creating }",
             type="button",

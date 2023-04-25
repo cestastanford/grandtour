@@ -660,7 +660,7 @@ function parseExport(res) {
         // deathPlace
         entry.deathPlace = d.places[0] ? d.places[0].deathPlace || "" : "";
         // parents
-        entry.parents = (d.parents && d.parents.parents) || "";
+        entry.parents_parsed = (d.parents_parsed && d.parents_parsed.parent) || "";
 
         let entryBase = {
             entryID: d.index,

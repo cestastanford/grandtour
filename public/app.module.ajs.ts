@@ -19,6 +19,7 @@ import richTextEditor from './components/entry-field/rich-text-editor.js';
 import facet from './components/facet/facet.js';
 import pills from './components/pills/pills.js';
 import revisionStatus from './components/revision-status/revision-status.js';
+import indexSearch from './components/search-field/index-search.js';
 import dateSearch from './components/search-field/date-search.js';
 import freeSearch from './components/search-field/free-search.js';
 import RegisterCtrl from './register/register.js';
@@ -67,6 +68,7 @@ const MODULE_NAME = 'app';
 .directive('pills', pills)
 .directive('revisionStatus', revisionStatus)
 .directive('dateSearch', dateSearch)
+.directive('indexSearch', indexSearch)
 .directive('freeSearch', freeSearch)
 .directive('entryListContext', entryListContextBar)
 .directive('entryList', entryList)

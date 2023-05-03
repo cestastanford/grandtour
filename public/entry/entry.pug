@@ -81,6 +81,12 @@
     .row
       div.col-lg-3.entry-info
         .row
+          .col-lg-12.col-md-4.col-sm-6
+            .panel.panel-default
+              .panel-heading Index
+              ul.list-group
+                li.list-group-item {{ entry.index }}
+
           
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.alternateNames.length") 
             .panel.panel-default

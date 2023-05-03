@@ -12,7 +12,7 @@ database_name = pymongo.uri_parser.parse_uri(uri)['database']
 db = client[database_name]
 
 # Set parents to an array
-db.entries.update_many({},[{"$set": {"parents": [ "$parents" ] }}])
+db.entries.update_many({}, {"$set": {"parents": [ "$parents" ] }})
 
 # Handle entries with no parents
-db.entries.update_many({"parents": [ None ]},[{"$set": {"parents": [] }}])
+db.entries.update_many({"parents": [ None ]}, {"$set": {"parents": [] }})

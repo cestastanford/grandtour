@@ -22,7 +22,8 @@ To run it, first get the connection string to the prod MongoDB database and then
 
 ```bash
 cd grandtour
-mongodump --uri "[connection string to prod database]" --out dump
+export MONGODB_URI=[connection string to prod database]
+mongodump --uri $MONGODB_URI --out dump
 mongod --dbpath ./data
 
 # In another terminal, run:

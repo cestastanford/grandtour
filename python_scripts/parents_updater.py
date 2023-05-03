@@ -11,8 +11,6 @@ client = MongoClient(uri)
 database_name = pymongo.uri_parser.parse_uri(uri)['database']
 db = client[database_name]
 
-# Set parents to an array
-db.entries.update_many({}, {"$set": {"parents": [ "$parents" ] }})
-
-# Handle entries with no parents
-db.entries.update_many({"parents": [ None ]}, {"$set": {"parents": [] }})
+for entry in db.entries.find({}):
+    new_parents = [entry["parents"]] if entry["parents"] else []
+    db.entries.update_one({"_id": entry['_id']}, {"$set": {"parents": new_parents }})

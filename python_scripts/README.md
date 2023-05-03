@@ -51,6 +51,12 @@ If you make any changes to the code, make sure you update tests and then run the
 pytest
 ```
 
+If you made a mistake and have to restore the production database, run:
+
+```bash
+mongorestore -d grandtour dump/grandtour --uri $MONGODB_URI --drop
+```
+
 ## Older files description
 
 ### How to run parsing scripts

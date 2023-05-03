@@ -692,6 +692,30 @@ hr {
   cursor: default;
 }
 
+.index-query-type {
+  font-weight: 400;
+  text-decoration: underline;
+  font-size: 12px;
+  margin-left: 10px;
+  color: gray;
+  cursor: pointer;
+}
+
+.index-query-type.index-query-type-label {
+  text-decoration: none;
+  cursor: default;
+}
+
+.index-query-type.explore {
+  font-size: 11px;
+}
+
+.index-query-type.selected {
+  text-decoration: none;
+  font-weight: 800;
+  cursor: default;
+}
+
 .entry-travel:hover {
   background-color: #DEF;
 }

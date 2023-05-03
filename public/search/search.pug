@@ -23,6 +23,10 @@
             typeahead-template-url="components/fullname-search-suggestion"
             typeahead-focus-first="false" typeahead-min-length="2", typeahead-wait-ms="100"
             typeahead-on-select="search()")
+        
+        .form-group
+          label Index
+          index-search(data-title="", data-field="index")
 
         .form-group
           label Born

@@ -55,14 +55,12 @@ def main():
                     regex=regex,
                     **row
                 ))
-    all_sources_abbrevs = set(source["abbrev"] for source in sources)
 
     with open('output.csv', 'w+') as csvfile:
         fieldnames = ['index', 'source_abbrev', 'context', 'field', 'url', 'source_full']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
-        bulk_updates_deletions = []
-        bulk_updates_insertions = []
+        bulk_updates = []
         # query = {"index": 42}
         # Loop through all revisionIndexes (16 and 15) to make sure we got all entries.
         entries_already_seen = set()
@@ -76,48 +74,6 @@ def main():
                 if entry["index"] in entries_already_seen: continue
                 entries_already_seen.add(entry["index"])
                 entry_sources = set(source["abbrev"] for source in entry.get("sources", []))
-                new_sources = []
-                new_source_abbrevs = set()
-                for source in entry.get("sources", []):
-                    # Remove duplicates
-                    if source["abbrev"] in new_source_abbrevs:
-                        writer.writerow(dict(
-                            index=entry["index"],
-                            source_abbrev=source["abbrev"],
-                            context="DELETE - duplicate source",
-                            field="",
-                            url=f"https://grand-tour-explorer-2017.herokuapp.com/#/entries/{entry['index']}",
-                            source_full=source["full"],))
-                        continue
-                    if source["abbrev"] not in all_sources_abbrevs:
-                        writer.writerow(dict(
-                            index=entry["index"],
-                            source_abbrev=source["abbrev"],
-                            context="DELETE - invalid source, not in original list",
-                            field="",
-                            url=f"https://grand-tour-explorer-2017.herokuapp.com/#/entries/{entry['index']}",
-                            source_full=source["full"],))
-                        continue
-                    entry_text = "\n".join(entry[field] or "" for field in ("biography", "narrative", "tours", "notes")).replace("\xa0", " ")
-                    if not any(regex.search(entry_text) for regex in generate_source_regexes(source["abbrev"])):
-                        writer.writerow(dict(
-                            index=entry["index"],
-                            source_abbrev=source["abbrev"],
-                            context="DELETE - invalid source, doesn't match regex",
-                            field="",
-                            url=f"https://grand-tour-explorer-2017.herokuapp.com/#/entries/{entry['index']}",
-                            source_full=source["full"],))
-                        continue
-                    new_source_abbrevs.add(source["abbrev"])
-                    new_sources.append(source)
-                if len(entry.get("sources", [])) != len(new_sources):
-                    bulk_updates_deletions.append(UpdateOne(
-                        {"_id": entry["_id"]},
-                        {"$set": {"sources": new_sources}}
-                    ))
-                    
-                if len(bulk_updates_deletions) > 0:
-                    continue
                 for source in sources:
                     if source["abbrev"] in entry_sources: continue
                     for field in ("biography", "narrative", "tours", "notes"):
@@ -135,7 +91,7 @@ def main():
                                 field=field,
                                 url=f"https://grand-tour-explorer-2017.herokuapp.com/#/entries/{entry['index']}",
                                 source_full=source["full"],))
-                            bulk_updates_insertions.append(UpdateOne(
+                            bulk_updates.append(UpdateOne(
                                 {"_id": entry["_id"], "_revisionIndex": entry["_revisionIndex"] },
                                 {"$push": {
                                     "sources": {
@@ -146,8 +102,6 @@ def main():
                             ))
 
 
-        # We can only update one at a time, as deletions are stateful (they update the entire sources array).
-        bulk_updates = bulk_updates_deletions if len(bulk_updates_deletions) else bulk_updates_insertions
         print(f"Number of updates: {len(bulk_updates)}")
         if input("Check output.csv to ensure it is correct. Write output to database? (y/n)") == "y":
             try:

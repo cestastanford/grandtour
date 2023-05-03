@@ -78,6 +78,32 @@ export default function() {
                 return pill;
 
             }
+
+            let indexPill = dimension => (key, query) => {
+
+                var travelQuery = query[key]
+                var pill = {}
+                pill.value = '';
+                pill.dimension = dimension;
+
+                if (travelQuery) {
+    
+                    if (travelQuery.startIndex) pill.value += travelQuery.startIndex
+                    
+                    if (travelQuery.endIndex && travelQuery.endIndex !== travelQuery.startIndex) {
+                        
+                        pill.value = pill.value;
+                        pill.value += ' to ' + travelQuery.endIndex;
+                        
+                    }
+
+                }
+
+                return pill;
+
+            }
+
+            getPill.index = indexPill("index")
             
             getPill.birthDate = datePill("birth date");
             getPill.deathDate = datePill("death date");

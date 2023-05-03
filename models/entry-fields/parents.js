@@ -6,7 +6,7 @@ module.exports = {
     type: [{
         "Parent ID": Number,
         order: String,
-        parent: String,
+        parents: String,
         heir: Boolean,
         pupil: Boolean,
         surviving: Boolean,

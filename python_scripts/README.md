@@ -1,5 +1,19 @@
 # Grand Tour Explorer Python Scripts
 
+## Parents updater file (May 2023)
+
+The parents updater file was made in May 2023. It convert the `parents` field, which was a single object, into an array with the single parent in it.
+
+To run it locally, you can run:
+
+```python
+export MONGODB_URI=mongodb://localhost:27017/heroku_c4kbv2zc
+python parents_updater.py
+```
+
+To run it on production, follow the same instructions as with the source updater master file in the section below.
+
+
 ## Source updater master file (Jan 2023)
 
 The source updater file was made in January 2023. It fixes the `sources` based on each entry's text, using manual rule encoding in the script file.

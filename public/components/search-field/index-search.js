@@ -11,10 +11,10 @@ export default function() {
         link: function (scope, elm, attrs) {
             window.scope = scope;
             /*
-            *   Resets travel date model.
+            *   Resets index model.
             */
 
-            function resetTravelSearch(type) {
+            function resetIndexSearch(type) {
                 
                 scope.indexModel = { index: { queryType: type, query: {} } }
                 if (scope.$parent.query[scope.field]) {
@@ -32,11 +32,11 @@ export default function() {
 
             
             /*
-            *   Updates the travel model and main query in response
+            *   Updates the index model and main query in response
             *   to $watch or manual trigger.
             */
 
-            function handleTravelSearchUpdate() {
+            function handleIndexSearchUpdate() {
                 
                 if (scope.indexModel.index.queryType === 'exact') {
                     scope.indexModel.index.query.endIndex = scope.indexModel.index.query.startIndex
@@ -55,16 +55,16 @@ export default function() {
             }
 
 
-            function setupTravelSearch() {
+            function setupIndexSearch() {
 
-                resetTravelSearch('exact')
+                resetIndexSearch('exact')
                 // scope.title = elm[0].dataset['title'];
                 window.scope = scope;
                 window.elm = elm;
-                scope.$watch('indexModel', handleTravelSearchUpdate, true)
+                scope.$watch('indexModel', handleIndexSearchUpdate, true)
 
             }
-            setupTravelSearch()
+            setupIndexSearch()
 
         
         },

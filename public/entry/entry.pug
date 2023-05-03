@@ -148,12 +148,12 @@
                     ng-bind-html="highlighted('pursuits', e.pursuit)"
                   )
                     
-          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents_parsed.length > 0")
+          .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents && entry.parents.length > 0")
             .panel.panel-default
               .panel-heading Parents
               ul.list-group
-                li.list-group-item(ng-repeat="pr in entry.parents_parsed")
-                  span(ng-if="!pr['Parent ID'] && !pr['Parent ID'] !== 0") {{pr.parent}} 
+                li.list-group-item(ng-repeat="pr in entry.parents")
+                  span(ng-if="!pr['Parent ID'] && !pr['Parent ID'] !== 0") {{pr.parents}}
                   a(ng-if="pr['Parent ID']|| pr['Parent ID'] === 0", ng-href="{{ '#/entries/' + pr['Parent ID'] }}") {{pr.parent}}           
           
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.marriages.length")

@@ -21,6 +21,7 @@ exports.getCounts = async revisionIndex => {
             fullName: { fullName: { $ne: null, $ne: '' } },
             alternateNames: { 'alternateNames.alternateName': { $exists: true } },
             birthDate: { 'dates.birthDate': { $exists: true } },
+            index: { 'index': { $exists: true } },
             birthPlace: { 'places.birthPlace': { $exists: true } },
             deathDate: { 'dates.deathDate': { $exists: true } },
             deathPlace: { 'places.deathPlace': { $exists: true } },
@@ -270,6 +271,7 @@ var searchMap = {
         ]
     }),
     type: d => ({ type: d }),
+    index: d => ( { index: { $gte: parseFloat(d.startIndex), $lte: parseFloat(d.endIndex) }  }),
     // todo add month filtering.
     birthDate: d => ({ dates: { $elemMatch: { birthDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),
     deathDate: d => ({ dates: { $elemMatch: { deathDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),

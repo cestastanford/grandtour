@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 module.exports = {
 
     key: 'parents',
-    type: {
+    type: [{
+        "Parent ID": Number,
         order: String,
         parents: String,
         heir: Boolean,
@@ -11,7 +12,7 @@ module.exports = {
         surviving: Boolean,
         posthumous: Boolean,
         illegitimate: Boolean,
-    },
+    }],
     label: 'Parents',
     sheet: {
 

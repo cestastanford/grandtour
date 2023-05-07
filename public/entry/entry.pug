@@ -154,8 +154,7 @@
               ul.list-group
                 li.list-group-item(ng-repeat="pr in entry.parents")
                   span(ng-if="!pr['Parent ID'] && !pr['Parent ID'] !== 0") {{pr.parents}}
-                  a(ng-if="pr['Parent ID']|| pr['Parent ID'] === 0", ng-href="{{ '#/entries/' + pr['Parent ID'] }}") {{pr.parents}} 
-                            
+                  a(ng-if="pr['Parent ID']|| pr['Parent ID'] === 0", ng-href="{{ '#/entries/' + pr['Parent ID'] }}") {{pr.parents}}           
           
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.marriages.length")
             .panel.panel-default

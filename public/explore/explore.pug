@@ -70,6 +70,8 @@
                     free-search
                   div(ng-switch-when="date")
                     date-search(data-title=" {{dimension.label}} ", data-field=" {{dimension.field}} ")
+                  div(ng-switch-when="index")
+                    index-search(data-title=" {{dimension.label}} ", data-field=" {{dimension.field}} ")
         
     .col-lg-12 
     

@@ -25,12 +25,10 @@
             typeahead-on-select="search()")
         
         .form-group
-          label Index
-          index-search(data-title="", data-field="index")
+          index-search(data-title="Index", data-field="index")
 
         .form-group
-          label Born
-          date-search(data-title="", data-field="birthDate")
+          date-search(data-title="Born", data-field="birthDate")
           input.input-sm.form-control.margin-top(
             type="text", 
             ng-model="query.birthPlace",
@@ -41,8 +39,7 @@
             typeahead-on-select="search()")
 
         .form-group
-          label Died
-          date-search(data-title="", data-field="deathDate")
+          date-search(data-title="DIed", data-field="deathDate")
           input.input-sm.margin-top.form-control(
             type="text", 
             ng-model="query.deathPlace",
@@ -217,8 +214,7 @@
             typeahead-on-select="search()")
 
         .form-group
-          label Travel date
-          date-search(data-field="travelDate")
+          date-search(data-title="Travel date", data-field="travelDate")
 
         hr
 

@@ -271,7 +271,13 @@ var searchMap = {
         ]
     }),
     type: d => ({ type: d }),
-    index: d => ( { index: { $gte: parseFloat(d.startIndex), $lte: parseFloat(d.endIndex) }  }),
+    index: d => ({
+        $or: 
+        [ 
+            { index: { $in: d.startIndex.split(",").map(parseFloat) } },
+            { index: { $gte: parseFloat(d.startIndex), $lte: parseFloat(d.endIndex) } },
+        ]
+    }),
     // todo add month filtering.
     birthDate: d => ({ dates: { $elemMatch: { birthDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),
     deathDate: d => ({ dates: { $elemMatch: { deathDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),

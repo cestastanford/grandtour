@@ -2,7 +2,7 @@
 *   Initializes and exports the Socket.IO controller.
 */
 
-const Server = require('socket.io')
+const { Server } = require('socket.io')
 module.exports = {
     
     init(httpServer) {

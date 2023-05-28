@@ -70,10 +70,15 @@ def main():
                     abbrev=abbrev
                 ))
 
-    with open('output.csv', 'w+') as csvfile:
+    with open('output.csv', 'w+') as csvfile, open('output2.csv', 'w+') as csvfile2:
         fieldnames = ['index', 'source_abbrev', 'context', 'field', 'url', 'source_full']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
+
+        fieldnames2 = ['index', 'len_change', 'len_old', 'len_new', 'sources_added', 'sources_removed']
+        writer2 = csv.DictWriter(csvfile2, fieldnames=fieldnames2)
+        writer2.writeheader()
+
         bulk_updates = []
         # query = {"index": 42}
         # Loop through all revisionIndexes (16 and 15) to make sure we got all entries.
@@ -88,13 +93,13 @@ def main():
                 if entry["index"] in entries_already_seen: continue
                 entries_already_seen.add(entry["index"])
                 entry_sources = set(source["abbrev"] for source in entry.get("sources", []))
+                sources_old = sources
+                sources_new = list(sources)
+                sources_changed = False
                 for source in sources:
                     if source["abbrev"] in entry_sources: continue
                     for field in ("biography", "narrative", "tours", "notes"):
                         entry_field_text = (entry[field] or "").replace("\xa0", " ")
-                        # if field == "notes" and source["abbrev"] == "Voltaire 1967":
-                        #     print(source["regex"].search(entry_field_text))
-                        #     import pdb; pdb.set_trace()
                         if source["regex"].search(entry_field_text):
                             ctx_result = re.search(r'(\.{0,5}' + source["regex"].pattern + r'.{0,10})', entry_field_text)
                             context = ctx_result.groups()[0] if ctx_result else None
@@ -105,16 +110,38 @@ def main():
                                 field=field,
                                 url=f"https://grandtourexplorer.wc.reclaim.cloud/#/entries/{entry['index']}",
                                 source_full=source["full"],))
-                            bulk_updates.append(UpdateOne(
-                                {"_id": entry["_id"], "_revisionIndex": entry["_revisionIndex"] },
-                                {"$push": {
-                                    "sources": {
-                                        "abbrev": source["abbrev"],
-                                        "full": source["full"]
-                                    }
-                                }}
-                            ))
+                            sources_new.append({
+                                "abbrev": source["abbrev"],
+                                "full": source["full"]
+                            })
+                            sources_changed = True
+                            # bulk_updates.append(UpdateOne(
+                            #     {"_id": entry["_id"], "_revisionIndex": entry["_revisionIndex"] },
+                            #     {"$push": {
+                            #         "sources": {
+                            #             "abbrev": source["abbrev"],
+                            #             "full": source["full"]
+                            #         }
+                            #     }}
+                            # ))
 
+                if sources_changed:
+                    sources_old_abbrev = [source["abbrev"] for source in sources_old]
+                    sources_new_abbrev = [source["abbrev"] for source in sources_new]
+                    writer2.writerow(dict(
+                        index=entry["index"],
+                        len_old=len(sources_old),
+                        len_new=len(sources_new),
+                        len_change=len(sources_new) - len(sources_old),
+                        sources_added=[source for source in sources_new_abbrev if source not in sources_old_abbrev],
+                        sources_removed=[source for source in sources_old_abbrev if source not in sources_new_abbrev],
+                        ))
+                    bulk_updates.append(UpdateOne(
+                        {"_id": entry["_id"], "_revisionIndex": entry["_revisionIndex"] },
+                        {"$set": {
+                            "sources": sources_new
+                        }}
+                    ))
 
         print(f"Number of updates: {len(bulk_updates)}")
         if input("Check output.csv to ensure it is correct. Write output to database? (y/n)") == "y":

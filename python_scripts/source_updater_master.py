@@ -95,8 +95,8 @@ def main():
         entries_already_seen = set()
         for revisionIndex in range(16, 14, -1):
             print("revisionIndex", revisionIndex)
-            # query = {"_revisionIndex": revisionIndex, "index": {"$nin": list(entries_already_seen) } }
-            query = {"_revisionIndex": revisionIndex, "index": 2227 } # TODO: remove this line
+            query = {"_revisionIndex": revisionIndex, "index": {"$nin": list(entries_already_seen) } }
+            # query = {"_revisionIndex": revisionIndex, "index": 2227 } # TODO: remove this line
             cnt = db.entries.count_documents(query)
             entries = db.entries.find(query)#.sort("index", pymongo.ASCENDING)
             for entry in tqdm(entries, total=cnt):
@@ -135,6 +135,7 @@ def main():
                                     if source_to_remove["abbrev"] in sources_new_abbrev:
                                         sources_new_abbrev.remove(source_to_remove["abbrev"])
                             sources_changed = True
+                            break
 
                 if sources_changed:
                     sources_new = list(filter(lambda source: source["abbrev"] in sources_new_abbrev, sources_new))

@@ -56,6 +56,8 @@ def main():
                     regex=regex,
                     **row
                 ))
+    # renamed_sources is dictionary that maps new source abbreviations (normalized spelling in "Abbreviation in sources") to old source abbreviations (sources that are only in "Abbreviation in dictionary" or otherwise misspelled).
+    renamed_sources = {}
     with open(os.path.join(os.path.dirname(__file__), 'Parsed Linked Footnotes for final review - Abbreviated titles for parsing March 2023.csv')) as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
@@ -69,6 +71,14 @@ def main():
                     full=full,
                     abbrev=abbrev
                 ))
+            renamed_sources[abbrev] = [
+                abbrev + ":",
+                abbrev + " ",
+                abbrev + ".",
+                abbrev + ","
+            ]
+            if abbrev_dict != abbrev:
+                renamed_sources[abbrev].append(abbrev_dict)
 
     with open('output.csv', 'w+') as csvfile, open('output2.csv', 'w+') as csvfile2:
         fieldnames = ['index', 'source_abbrev', 'context', 'field', 'url', 'source_full']
@@ -85,7 +95,8 @@ def main():
         entries_already_seen = set()
         for revisionIndex in range(16, 14, -1):
             print("revisionIndex", revisionIndex)
-            query = {"_revisionIndex": revisionIndex, "index": {"$nin": list(entries_already_seen) } }
+            # query = {"_revisionIndex": revisionIndex, "index": {"$nin": list(entries_already_seen) } }
+            query = {"_revisionIndex": revisionIndex, "index": 2227 } # TODO: remove this line
             cnt = db.entries.count_documents(query)
             entries = db.entries.find(query)#.sort("index", pymongo.ASCENDING)
             for entry in tqdm(entries, total=cnt):
@@ -93,11 +104,13 @@ def main():
                 if entry["index"] in entries_already_seen: continue
                 entries_already_seen.add(entry["index"])
                 entry_sources = set(source["abbrev"] for source in entry.get("sources", []))
-                sources_old = sources
-                sources_new = list(sources)
+                sources_old = entry.get("sources", [])
+                sources_old_abbrev = set(source["abbrev"] for source in sources_old)
+                sources_new = list(sources_old)
+                sources_new_abbrev = set(sources_old_abbrev)
                 sources_changed = False
                 for source in sources:
-                    if source["abbrev"] in entry_sources: continue
+                    if source["abbrev"] in entry_sources or source["abbrev"] in sources_new_abbrev: continue
                     for field in ("biography", "narrative", "tours", "notes"):
                         entry_field_text = (entry[field] or "").replace("\xa0", " ")
                         if source["regex"].search(entry_field_text):
@@ -114,28 +127,28 @@ def main():
                                 "abbrev": source["abbrev"],
                                 "full": source["full"]
                             })
+                            assert source["abbrev"] not in sources_new_abbrev, ("index", entry["index"], source["abbrev"], sources_new_abbrev)
+                            sources_new_abbrev.add(source["abbrev"])
+                            if source["abbrev"] in renamed_sources:
+                                for source_to_remove_abbrev in renamed_sources[source["abbrev"]]:
+                                    source_to_remove = {"abbrev": source_to_remove_abbrev, "full": source["full"]}
+                                    if source_to_remove["abbrev"] in sources_new_abbrev:
+                                        sources_new_abbrev.remove(source_to_remove["abbrev"])
                             sources_changed = True
-                            # bulk_updates.append(UpdateOne(
-                            #     {"_id": entry["_id"], "_revisionIndex": entry["_revisionIndex"] },
-                            #     {"$push": {
-                            #         "sources": {
-                            #             "abbrev": source["abbrev"],
-                            #             "full": source["full"]
-                            #         }
-                            #     }}
-                            # ))
 
                 if sources_changed:
-                    sources_old_abbrev = [source["abbrev"] for source in sources_old]
-                    sources_new_abbrev = [source["abbrev"] for source in sources_new]
-                    writer2.writerow(dict(
+                    sources_new = list(filter(lambda source: source["abbrev"] in sources_new_abbrev, sources_new))
+                    assert len(sources_new_abbrev) == len(sources_new), ("index", entry["index"], "sources_new", sources_new, "sources_new_abbrev", sources_new_abbrev, "sources_old", sources_old)
+                    row = dict(
                         index=entry["index"],
                         len_old=len(sources_old),
                         len_new=len(sources_new),
                         len_change=len(sources_new) - len(sources_old),
-                        sources_added=[source for source in sources_new_abbrev if source not in sources_old_abbrev],
-                        sources_removed=[source for source in sources_old_abbrev if source not in sources_new_abbrev],
-                        ))
+                        sources_added=sources_new_abbrev - sources_old_abbrev or "{}",
+                        sources_removed=sources_old_abbrev - sources_new_abbrev or "{}",
+                    )
+                    writer2.writerow(row)
+                    # csvfile2.flush() # Keep this only for testing.
                     bulk_updates.append(UpdateOne(
                         {"_id": entry["_id"], "_revisionIndex": entry["_revisionIndex"] },
                         {"$set": {

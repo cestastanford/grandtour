@@ -4,6 +4,7 @@ See README for instructions.
 import csv
 import os
 import re
+import itertools
 from typing import Generator, Iterable
 import pymongo
 from pymongo import MongoClient
@@ -55,6 +56,19 @@ def main():
                     regex=regex,
                     **row
                 ))
+    with open(os.path.join(os.path.dirname(__file__), 'Parsed Linked Footnotes for final review - Abbreviated titles for parsing March 2023.csv')) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            abbrev = row["Abbreviation in sources"]
+            abbrev_dict = row["Abbreviation in dictionary"]
+            full = row["Full title"]
+            if not abbrev or not abbrev_dict or not full: continue
+            for regex in itertools.chain(generate_source_regexes(abbrev), generate_source_regexes(abbrev_dict)):
+                sources.append(dict(
+                    regex=regex,
+                    full=full,
+                    abbrev=abbrev
+                ))
 
     with open('output.csv', 'w+') as csvfile:
         fieldnames = ['index', 'source_abbrev', 'context', 'field', 'url', 'source_full']
@@ -89,7 +103,7 @@ def main():
                                 source_abbrev=source["abbrev"],
                                 context=context,
                                 field=field,
-                                url=f"https://grand-tour-explorer-2017.herokuapp.com/#/entries/{entry['index']}",
+                                url=f"https://grandtourexplorer.wc.reclaim.cloud/#/entries/{entry['index']}",
                                 source_full=source["full"],))
                             bulk_updates.append(UpdateOne(
                                 {"_id": entry["_id"], "_revisionIndex": entry["_revisionIndex"] },

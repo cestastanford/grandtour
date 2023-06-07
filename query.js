@@ -299,12 +299,35 @@ var searchMap = {
                     { travelEndMonth: { $exists: false } },
                     { travelStartMonth: { $eq: 0 } },
                     { travelEndMonth: { $eq: 0 } },
+                    { 
+                        $and: [
+                            { travelEndYear: { $gt: startYear } },
+                            { travelStartYear: { $lt: startYear } }
+                        ],
+                    },
+                    { 
+                        $and: [
+                            { travelEndYear: { $eq: startYear } },
+                            { travelStartYear: { $eq: startYear } },
+                            { travelStartMonth: { $lte: startMonth} },
+                            { travelEndMonth: { $gte: startMonth } }
+                        ],
+                    },
+                    { 
+                        $and: [
+                            { travelEndYear: { $gt: startYear } },
+                            { travelStartYear: { $eq: startYear} },
+                            { travelStartMonth: { $lte: startMonth } }
+                        ],
+                    },
                     {
                         $and: [
-                            { travelEndMonth: { $gte: startMonth } },
-                            { travelStartMonth: { $lte: startMonth } }
-                        ]
+                            { travelStartYear: { $lt: startYear } },
+                            { travelEndYear: { $eq: startYear} },
+                            { travelEndMonth: { $gte: startMonth } }
+                        ],
                     }
+
                 ]
             },
             rangeOfYears: {

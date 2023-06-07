@@ -696,13 +696,75 @@ Object {
                     Object {
                       "$and": Array [
                         Object {
-                          "travelEndMonth": Object {
-                            "$gte": 1,
+                          "travelEndYear": Object {
+                            "$gt": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$lt": NaN,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelEndYear": Object {
+                            "$eq": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$eq": NaN,
                           },
                         },
                         Object {
                           "travelStartMonth": Object {
                             "$lte": 1,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 1,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelEndYear": Object {
+                            "$gt": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$eq": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 1,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$lt": NaN,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$eq": NaN,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 1,
                           },
                         },
                       ],
@@ -753,13 +815,75 @@ Object {
                     Object {
                       "$and": Array [
                         Object {
-                          "travelEndMonth": Object {
-                            "$gte": 1,
+                          "travelEndYear": Object {
+                            "$gt": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$lt": NaN,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelEndYear": Object {
+                            "$eq": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$eq": NaN,
                           },
                         },
                         Object {
                           "travelStartMonth": Object {
                             "$lte": 1,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 1,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelEndYear": Object {
+                            "$gt": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$eq": NaN,
+                          },
+                        },
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 1,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$lt": NaN,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$eq": NaN,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 1,
                           },
                         },
                       ],
@@ -857,13 +981,75 @@ Object {
                     Object {
                       "$and": Array [
                         Object {
-                          "travelEndMonth": Object {
-                            "$gte": 5,
+                          "travelEndYear": Object {
+                            "$gt": 1700,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$lt": 1700,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelEndYear": Object {
+                            "$eq": 1700,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$eq": 1700,
                           },
                         },
                         Object {
                           "travelStartMonth": Object {
                             "$lte": 5,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 5,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelEndYear": Object {
+                            "$gt": 1700,
+                          },
+                        },
+                        Object {
+                          "travelStartYear": Object {
+                            "$eq": 1700,
+                          },
+                        },
+                        Object {
+                          "travelStartMonth": Object {
+                            "$lte": 5,
+                          },
+                        },
+                      ],
+                    },
+                    Object {
+                      "$and": Array [
+                        Object {
+                          "travelStartYear": Object {
+                            "$lt": 1700,
+                          },
+                        },
+                        Object {
+                          "travelEndYear": Object {
+                            "$eq": 1700,
+                          },
+                        },
+                        Object {
+                          "travelEndMonth": Object {
+                            "$gte": 5,
                           },
                         },
                       ],

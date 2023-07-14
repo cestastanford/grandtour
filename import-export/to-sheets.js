@@ -56,7 +56,7 @@ const saveEntriesToSheets = (entries, entryFields) => {
                 const transform = field.sheet.toSheet || (d => d)
 
                 //  For fields that accept an array of values
-                if (field.isArrayOfValues()) {
+                if (Array.isArray(value)) {
 
                     const newRows = value.map(valueArrayElement => {
 

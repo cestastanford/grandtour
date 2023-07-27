@@ -4,21 +4,21 @@
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="indexModel.index.query.startIndex",
-        placeholder="index",
+        placeholder="id",
         ng-class="{ filled : indexModel.index.query.startIndex}",
         ng-show="indexModel.index.queryType === 'exact'")
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="indexModel.index.query.startIndex",
-        placeholder="start index",
+        placeholder="start id",
         ng-class="{ filled : indexModel.index.query.startIndex}",
         ng-show="indexModel.index.queryType === 'range'")
     
     input.input-sm.form-control.margin-top(
         type="text", 
         ng-model="indexModel.index.query.endIndex",
-        placeholder="end index",
+        placeholder="end id",
         ng-class="{ filled : indexModel.index.query.endIndex}",
         ng-show="indexModel.index.queryType === 'range'")
     
@@ -26,7 +26,7 @@
         span.index-query-type.index-query-type-label search by: 
         span.index-query-type(
             ng-click="indexModel.index.queryType = 'exact'",
-            ng-class="{selected: indexModel.index.queryType === 'exact'}") exact index
+            ng-class="{selected: indexModel.index.queryType === 'exact'}") exact ID
         span.index-query-type(
             ng-click="indexModel.index.queryType = 'range'",
-            ng-class="{selected: indexModel.index.queryType === 'range'}") range of indices
+            ng-class="{selected: indexModel.index.queryType === 'range'}") range of IDs

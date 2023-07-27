@@ -271,13 +271,33 @@ var searchMap = {
         ]
     }),
     type: d => ({ type: d }),
-    index: d => ({
-        $or: 
-        [ 
-            { index: { $in: d.startIndex.split(",").map(parseFloat) } },
-            { index: { $gte: parseFloat(d.startIndex), $lte: parseFloat(d.endIndex) } },
-        ]
-    }),
+    index: d => {
+        let commaSepValues = d.startIndex.split(",");
+        let hyphenSepValues = [];
+        let hyphenSepDec = [];
+        commaSepValues.forEach(item => {
+            const range = item.split('-');
+            if (range.length === 2) {
+              const start = parseFloat(range[0]);
+              const end = parseFloat(range[1]);
+              for (let i = start; i <= end; i++) { hyphenSepValues.push(i); }
+              for (let i = start; i <= end; i += 0.1) { hyphenSepDec.push(parseFloat(i.toFixed(1))); }
+            } else {
+              hyphenSepValues.push(parseFloat(item));
+            }
+          });
+        let queries = {
+            $or: 
+            [ 
+                { index: { $in: hyphenSepValues } },
+                { index: { $in: hyphenSepDec } },
+                { index: { $gte: parseFloat(d.startIndex), $lte: parseFloat(d.endIndex) } },
+            ]
+        }
+
+
+        return queries;
+    },
     // todo add month filtering.
     birthDate: d => ({ dates: { $elemMatch: { birthDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),
     deathDate: d => ({ dates: { $elemMatch: { deathDate: { $gte: parseInt(d.startYear), $lte: parseInt(d.endYear) } } } }),

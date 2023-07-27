@@ -15,7 +15,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
 
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Traveler name', description: 'The names of the 6005 travelers in the database, including alternate names. ', field : 'fullName', suggestion: 'fullName', sorting : 'fullName' },
-    { type : 'index', active : false, label : 'Index', description: 'Index', field : 'index', suggestion: 'index', sorting : 'index' },
+    { type : 'index', active : false, label : 'Entry ID', description: 'Index', field : 'index', suggestion: 'index', sorting : 'index' },
     { type : 'date', active : false, label : 'Birth date', description: 'The year of birth of travelers in the database, which the Dictionary records for 40.5% of them. ', field : 'birthDate', sorting : 'dates[0].birthDate' },
     { type : 'facet', active : false, label : 'Birth place', description: 'The place of birth—ranging from town to country—of travelers in the database, which the Dictionary records for around 2% of them. ', field : 'birthPlace', suggestion: 'places.birthPlace', sorting : 'places[0].birthPlace' },
     { type : 'date', active : false, label : 'Death date', description: 'The year of death of the travelers in the database, which the Dictionary records for just over 40% of them. ', field : 'deathDate', sorting : 'dates[0].deathDate' },

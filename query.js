@@ -644,7 +644,7 @@ const projectForEntryList = entry => ({
     fullName: entry.fullName,
     gender: entry.type,
     numTours: entry.numTours,
-    entryLength: entry.biography.split(" ").length + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
+    entryLength: (entry.biography ? entry.biography.split(" ").length : 0) + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
     biographyLength: entry.biography.length,
     travelTime: entry.travels ? getTravelTime(entry.travels, entry.numTours) : 0,
     biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',

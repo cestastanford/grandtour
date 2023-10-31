@@ -645,7 +645,7 @@ const projectForEntryList = entry => ({
     gender: entry.type,
     numTours: entry.numTours,
     entryLength: (entry.biography ? entry.biography.split(" ").length : 0) + (entry.tours ? entry.tours.split(" ").length : 0) + (entry.narrative ? entry.narrative.split(" ").length : 0) + (entry.notes ? entry.notes.split(" ").length : 0),
-    biographyLength: entry.biography.length,
+    biographyLength: entry.biography ? entry.biography.length: 0,
     travelTime: entry.travels ? getTravelTime(entry.travels, entry.numTours) : 0,
     biographyExcerpt: entry.biography ? entry.biography.slice(0, 200) : '',
     dateOfFirstTravel: entry.travels ? entry.travels.reduce((accum, travel) => {

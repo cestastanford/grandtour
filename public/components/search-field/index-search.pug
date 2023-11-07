@@ -23,10 +23,10 @@
         ng-show="indexModel.index.queryType === 'range'")
     
     .margin-top
-        span.index-query-type.index-query-type-label search by: 
-        span.index-query-type(
-            ng-click="indexModel.index.queryType = 'exact'",
-            ng-class="{selected: indexModel.index.queryType === 'exact'}") exact ID
-        span.index-query-type(
-            ng-click="indexModel.index.queryType = 'range'",
-            ng-class="{selected: indexModel.index.queryType === 'range'}") range of IDs
+        span.index-query-type.index-query-type-label enter entry IDs and/or entry ranges separated by commas (e.g. 2, 5-8)
+        //- span.index-query-type(
+        //-     ng-click="indexModel.index.queryType = 'exact'",
+        //-     ng-class="{selected: indexModel.index.queryType === 'exact'}") exact ID
+        //- span.index-query-type(
+        //-     ng-click="indexModel.index.queryType = 'range'",
+        //-     ng-class="{selected: indexModel.index.queryType === 'range'}") range of IDs

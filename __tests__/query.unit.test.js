@@ -332,3 +332,51 @@ describe("test parseQuery with dates", () => {
         expect(parseQuery(query)).toMatchSnapshot();
     });
 });
+
+describe("test parseQuery with index", () => {
+    test("single index", () => {
+        const query = {
+            index: {
+                startIndex: "1",
+                endIndex: "1"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("multiple indices", () => {
+        const query = {
+            index: {
+                startIndex: "1,2,3",
+                endIndex: "1,2,3"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("range", () => {
+        const query = {
+            index: {
+                startIndex: "1-3",
+                endIndex: "1-3"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("multiple indices + range", () => {
+        const query = {
+            index: {
+                startIndex: "1,2,3,4-6",
+                endIndex: "1,2,3,4-6"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test("different start and end with multiple indices + range", () => {
+        const query = {
+            index: {
+                startIndex: "1,2,3,4-6",
+                endIndex: "10-12,13,14,15"
+            }
+        };
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+});

@@ -115,7 +115,19 @@ a {
     }
 }
 
+.abstract a:link {
+    color: $gold-color;
+    text-decoration: none;
+}
 
+.abstract a:visited {
+    color: $gold-color;
+}
+
+.abstract a:hover {
+    color: $text-color;
+    text-decoration: underline;
+}
 
 /**
  * Blockquotes
@@ -173,6 +185,7 @@ pre {
  */
 .wrapper {
     display: flex;
+    overflow-y: auto;
   /*  max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
     max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
     margin-right: auto;

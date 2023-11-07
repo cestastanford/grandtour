@@ -9,15 +9,18 @@ layout: default
 
   <header id="postHeader" class="post-header">
     <p class="post-meta">{{ site.data.sessions[page.session].name }}</p>
-    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.italics-title %}<h1 class="post-title">{{ page.italics-title }}</h1><!-- Paul Ciceroni edge case -->
+    {% else %}<h1 class="post-title">{{ page.title }}</h1>{% endif %}
     <div class="" style="display: flex; justify-content: space-between">
-      <div class="">
+      <div>
         {% if page.author %}<p id="{{page.author}}" class="post-author" onclick="about(this)">by {{ page.author }}</p> {% endif %}
+        <p id="bioText" hidden>{{ page.about }}</p>
       </div>
       <div class="paragraph">
         <i class="material-icons link-cite" aria-label="Cite this article" data-balloon-pos="left">format_quote</i>
         <i class="material-icons link-copy" aria-label="Copy link to article" data-balloon-pos="left">link</i>
         <i class="material-icons" aria-label="Download article (PDF)" data-balloon-pos="left">arrow_downward</i>
+        {% if page.data %}<a href="{{page.data}}" target="_blank"><i class="material-icons" aria-label="Download data" data-balloon-pos="left">equalizer</i></a>{% endif %}
       </div>
     </div>
 
@@ -53,10 +56,13 @@ layout: default
     {{ content }}
 
     <div class="paragraph-links">
+      {% if page.hideParagraphLinks %}
+      {% else %}
       <span class="post-meta paragraph-link">Par. X</span>
       <i class="material-icons link-cite" aria-label="Cite this paragraph" data-balloon-pos="left">format_quote</i>
       <i class="material-icons link-copy" aria-label="Copy link to this paragraph" data-balloon-pos="left">link</i>
       <i class="material-icons" aria-label="Download" data-balloon-pos="left">arrow_downward</i>
+      {% endif %}
     </div>
 
     
@@ -72,7 +78,7 @@ layout: default
       {% if page.about %}
       <div class="post-about">
         <h3>About {{page.author}}</h3>
-        <p>{{ page.about }}</p>
+        <p><span> {{page.author}}</span> {{ page.about }}</p>
       </div>{% endif %}
     </div>
 
@@ -94,7 +100,7 @@ layout: default
     <div class="overlay-close">
       <a><i class="material-icons" onclick="hide()">close</i></a>
     </div>
-    <b id="name"></b><span id="bio"> </span>
+    <b id="name" class="overlay-author"></b><span id="bio"> </span>
   </div>
 
   {% include footer.html %}
@@ -105,10 +111,12 @@ layout: default
   <script>
   function about(author) {
     var about = document.getElementById("about");
-    var bio = document.getElementById("bio");
+
     var name = document.getElementById("name");
+    var bio = document.getElementById("bio");
+
     name.innerHTML = author.id;
-    bio.innerHTML = author.about;
+    bio.innerHTML = " " + document.getElementById("bioText").innerHTML;
     about.classList.toggle("visible");
   }
 

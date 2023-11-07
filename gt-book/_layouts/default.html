@@ -36,7 +36,7 @@
                             {% if chapter.link  %}
                               <a href="/gt-book{{ session.link }}{{ chapter.link }}">{{ chapter.name }}</a>
                               {% endif %}
-                            {% if chapter.external %}<a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">{{ chapter.name }}</a>{% endif %}
+                            {% if chapter.external %}<a href="https://grandtourexplorer.wc.reclaim.cloud/" target="_blank">{{ chapter.name }}</a>{% endif %}
                             {% if chapter.author  %}
                               <div class="chapter-author">
                                 {{ chapter.author }}
@@ -57,7 +57,7 @@
                 <i id="arrow" class="material-icons arrow" aria-label="Show Table of Contents" data-balloon-pos="right" onclick="toggleTOC()">keyboard_arrow_down</i>
               </div>
               <div class="button">
-                <a href="https://grand-tour-explorer-2017-alpha.herokuapp.com/" target="_blank">Open the Grand Tour Explorer</a>
+                <a href="https://grandtourexplorer.wc.reclaim.cloud/" target="_blank">Open the Grand Tour Explorer</a>
               </div>
             </div>
           {{ content }}

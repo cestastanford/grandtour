@@ -19,7 +19,7 @@ Suggested order of operations for putting an essay into markdown:
 - Add in the figures and their captions.
 - Format the caption text (use <i> and <b> tags here, and <a href=" " target="_blank"> for hyperlinks).
 - Add in any tables.
-- Go through the essay text again adding hyperlinks to the GTE entries using the format: [Name](https://grand-tour-explorer-2017.herokuapp.com/#/entries/xxxx){:target="\_blank"}
+- Go through the essay text again adding hyperlinks to the GTE entries using the format: [Name](https://grandtourexplorer.wc.reclaim.cloud/#/entries/xxxx){:target="\_blank"}
 - Add any additional links in the essay or notes, using the same format: [Link text](Hyperlink){:target="\_blank"}
   
 For most questions, see the Macdonald essay for an example.
@@ -50,7 +50,7 @@ Links inside figure \> figcaption don't work for some reason. Just use
 *Explorer*. Use <b> and <i>.
 
 Figures are originally encoded like: {figure-1} This is replaced with
-something like: <a name="figure-1"> <img src="../figure-1.svg"/> </a>
+something like: <a name="figure-1"> <img src="figure-1.svg"/> </a>
 
 Tables as .md files are pasted in directly OUTSIDE of the <figure>
 tag. Requires columns to have three hyphens, possibly add colons for
@@ -70,8 +70,8 @@ for links inside <figcaption> elements as well!
 Recall that Explorer links should only link the name of the traveler,
 and not the parentheticals. 
 NOT like this: 
-[Robert Harvey's (1753-1820, travel year 1773, GTE 2294)](http://grand-tour-explorer-2017.herokuapp.com/#/entries/2294){:target="\_blank"} <!-- WRONG --> 
-but instead like this: [Robert Harvey](http://grand-tour-explorer-2017.herokuapp.com/#/entries/2294){:target="\_blank"}'s
+[Robert Harvey's (1753-1820, travel year 1773, GTE 2294)](https://grandtourexplorer.wc.reclaim.cloud/#/entries/2294){:target="\_blank"} <!-- WRONG --> 
+but instead like this: [Robert Harvey](https://grandtourexplorer.wc.reclaim.cloud/#/entries/2294){:target="\_blank"}'s
 (1753-1820, travel year 1773, GTE 2294) <!-- RIGHT -->
 
 

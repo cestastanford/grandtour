@@ -65,6 +65,18 @@ describe('test parseQuery', () => {
         };
         expect(parseQuery(query)).toMatchSnapshot();
     });
+    test('gender female query', () => {
+        const query = {"type":{"operator":"and","uniques":[{"_id":"Female"}]}};
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test('gender unknown query', () => {
+        const query = {"type":{"operator":"and","uniques":[{"_id":""}]}};
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
+    test('gender female negative query', () => {
+        const query = {"type":{"operator":"and","uniques":[{"_id":"Female", "negative":true}]}};
+        expect(parseQuery(query)).toMatchSnapshot();
+    });
 });
 
 describe('test parseQuery with freeSearch', () => {

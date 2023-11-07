@@ -270,7 +270,14 @@ var searchMap = {
             { alternateNames: { $elemMatch: { alternateName: getRegExp(d, exact) } } },
         ]
     }),
-    type: d => ({ type: d }),
+    type: d => {
+        if (d) {
+            return { type: d }
+        } else {
+            // Unknown
+            return { type: {$nin: ["Male", "Female"]}}
+        }
+    },
     index: d => {
         let commaSepValues = d.startIndex.split(",");
         let hyphenSepValues = [];
@@ -527,7 +534,7 @@ function parseQuery(query) {
                 if (typeof queryItem === 'string') {
                     list.push(searchMap[k](queryItem, true))
                 }
-                else if (queryItem._id) {
+                else if (queryItem._id || queryItem._id === "") {
                     let item = searchMap[k](queryItem._id, true);
                     if (queryItem.negative === true && queryItem._id !== "entry") {
                         for (let key in item) {
@@ -535,8 +542,10 @@ function parseQuery(query) {
                             if (Array.isArray(value)) { // in the case that an array of queries is given, the entire array is negated with the $nor operator
                                 delete item[key];
                                 key = "$nor";
-                            } else {
+                            } else if (value instanceof Object) {
                                 value = { $not: value };
+                            } else {
+                                value = { $neq: value };
                             }
                             item[key] = value;
                         }
@@ -701,7 +710,7 @@ function parseExport(res) {
         // fullName
         entry.travelerNames = d.fullName;
         // gender
-        entry.gender = d.type || "Unknown";
+        entry.gender = d.type || "Not available";
         // birthDate
         entry.birthDate = d.dates[0] ? d.dates[0].birthDate || "" : "";
         // deathDate

@@ -31,7 +31,7 @@
               .checkbox
                 label(ng-class="{'explore-alternate-name': field === 'fullName' && u.parentFullName !== u._id, 'facet-crossed-out': u.negative, 'facet-disabled': u.disabled}")
                   input(type="checkbox", ng-model="u.selected", ng-change="!u.disabled && refresh(u)", ng-disabled="u.searching || (!u.selected && (!u.count || u.disabled)) ")
-                  span {{(u.unmatched ? u._id + "*" : u._id) || "Unknown"}}
+                  span {{(u.unmatched ? u._id + "*" : u._id) || "Not available"}}
                   span.text-light.pull-right {{(!u.negative && u.count !== 99999) ? u.count: ""}}
                   span.alternate-name-see(ng-show="field === 'fullName' && u.parentFullName !== u._id") (see {{u.parentFullName}})
           

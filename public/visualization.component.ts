@@ -384,7 +384,7 @@ export class VisualizationComponent {
             d3.select('svg').append("text")
                 .attr("x", x)
                 .attr("y", y)
-                .text("Unknown");
+                .text("Not available");
             // label will specify what information is unknown based on dot attributes
             if (sizeBy === "travelTime") {
                 d3.select('svg').append("text")
@@ -767,7 +767,7 @@ export class VisualizationComponent {
                 d3.select('svg').append("text")
                     .attr("x", 152)
                     .attr("y", LEGEND_TEXT_HEIGHT)
-                    .text(specifyGender ? "Gender unknown" : "Unknown");
+                    .text(specifyGender ? "Gender not available" : "Not available");
                 break;
             case "new":
                 d3.select('svg').append('circle')

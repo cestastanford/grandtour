@@ -710,7 +710,7 @@ function parseExport(res) {
         // fullName
         entry.travelerNames = d.fullName;
         // gender
-        entry.gender = d.type || "Unknown";
+        entry.gender = d.type || "Not available";
         // birthDate
         entry.birthDate = d.dates[0] ? d.dates[0].birthDate || "" : "";
         // deathDate

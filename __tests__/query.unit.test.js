@@ -364,8 +364,8 @@ describe("test parseQuery with index", () => {
     test("multiple indices + range", () => {
         const query = {
             index: {
-                startIndex: "1,2,3,4-6",
-                endIndex: "1,2,3,4-6"
+                startIndex: "1,2,3, 4-6",
+                endIndex: "1,2,3, 4-6"
             }
         };
         expect(parseQuery(query)).toMatchSnapshot();

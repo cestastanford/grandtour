@@ -36,6 +36,55 @@ Object {
 }
 `;
 
+exports[`test parseQuery gender female negative query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "type": Object {
+            "$neq": "Female",
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery gender female query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "type": "Female",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`test parseQuery gender unknown query 1`] = `
+Object {
+  "$and": Array [
+    Object {
+      "$and": Array [
+        Object {
+          "type": Object {
+            "$nin": Array [
+              "Male",
+              "Female",
+            ],
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`test parseQuery negative OR query 1`] = `
 Object {
   "$and": Array [

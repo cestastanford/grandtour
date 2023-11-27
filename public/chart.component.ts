@@ -12,10 +12,10 @@ const LEGEND_DOT_HEIGHT = 12;
 const LEGEND_TEXT_HEIGHT = LEGEND_DOT_HEIGHT + 5;
 
 const COLOR_MAIN = "black"
-const COLOR_MALE = "#6D808E";
+const COLOR_MALE = "#6AA84F";
 const COLOR_FEMALE = "#FAB876";
-const COLOR_OLD = "#6D808E";
-const COLOR_NEW = "#A47FC8";
+const COLOR_OLD = "#b6bfc6"; // Origin: DBITI Entry
+const COLOR_NEW = "#674ea7"; // Origin: Explorer Entry
 const COLOR_OTHER = "#333";
 const COLOR_QUESTION = "#257DBD";
 

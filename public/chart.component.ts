@@ -1,15 +1,11 @@
 /*
- * This file handles the "View" feature of the website. The Travelers feature displays entries as dots, allowing one to color, size, and group 
- * them according to certain properties. The Map feature is handled by mapbox.html.
+ * This file handles the "Chart" feature of the website. The Chart feature displays entries as dots, allowing one to color, size, and group 
+ * them according to certain properties.
  */
 
 import d3 from "d3";
 import { Component } from '@angular/core';
-import { find, values } from "lodash";
 import { HttpClient } from '@angular/common/http';
-import "mapbox-gl/dist/mapbox-gl.css";
-import "./mapbox/mapbox.css";
-import initMapbox from "./mapbox/mapbox";
 
 const BUFFER = 5;
 const LEGEND_DOT_HEIGHT = 12;
@@ -36,27 +32,19 @@ function createPopup(id, content?) {
 }
 
 /*
- * Handles the View "page", and its HTML and some styles.
+ * Handles the Chart "page", and its HTML and some styles.
  */
 @Component({
-    selector: 'visualization',
+    selector: 'chart',
     template: `
 
     <div class='container' style='height:100% width:100%'>
         <div class='viz-btn-group' style='margin:10px 0px'>
-            <div id='dotsSwitchWrapper' class='switchWrapper' (click)="switch('dots')">
+            <div id='dotsSwitchWrapper' class='switchWrapper'>
                 <button id="dotsSwitch" class="switch">Dot Chart of Travelers</button>
                 <div id='dotsDescription' class="description">
                     ${createPopup("dots", `
                     <p>In this interactive chart every dot represents a traveler all 6005 travelers are represented. If you hover on a dot, the name of that traveler will appear, and if you click on it you will get to that traveler’s entry. You can color, size and group the dots according to the various categories shown as options here below.</p>
-                    `)}
-                </div>
-            </div>
-            <div id='mapSwitchWrapper' class='switchWrapper' (click)="switch('map')">
-                <button id="mapSwitch" class="switch">Map of Travel Places</button>
-                <div id='mapDescription' class="description">
-                    ${createPopup("map", `
-                    <p>This interactive map shows all the locations of places of travel within the Italian peninsula and islands, and their historical political affiliations. Note that you can zoom in for clearer vision.</p>
                     `)}
                 </div>
             </div>
@@ -101,23 +89,6 @@ function createPopup(id, content?) {
             <svg width="100%" height="1250px" class="mySvg" id="dotsSvg" (click)="clicked($event)"></svg>
         </div>
 
-        <div class='viz-box' id='map-box' width="100%" height="100%" style="display:none">
-            <div id="map-container">  
-                <div id='map'></div>
-                <div class='places-box top'>
-                <div class='places-box-inner'>
-                    <div id='search'>
-                    <input type='search' placeholder="Search..." id='searchbar'>
-                    </div>
-                </div>
-                </div>
-                <div class='states-box top'>
-                <div class='states-box-inner'>
-                    <div id='states'></div>
-                </div>
-                </div>
-            </div>
-        </div>
     </div>
     `,
     styles: [`
@@ -146,20 +117,9 @@ function createPopup(id, content?) {
         border-top-left-radius: 2px;
         border-bottom-left-radius: 2px;
     }
-      
-    #mapSwitchWrapper {
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
-        background-color: #eeeeee;
-        color: black;
-    }
 
     .switch {
         background-color: inherit;
-    }
-
-    #mapDescription {
-        visibility: hidden;
     }
 
     #color {
@@ -185,10 +145,6 @@ function createPopup(id, content?) {
 
     #dotsPopup {
         min-width: 400px;
-    }
-
-    #mapPopup {
-        min-width: 325px;
     }
 
     .mentioned-names-popup p {
@@ -218,10 +174,9 @@ function createPopup(id, content?) {
 })
 
 /*
- * This class handles the functionality of the visualization.
+ * This class handles the functionality of the chart.
  */
-export class VisualizationComponent {
-    initMapboxCompleted: boolean;
+export class ChartComponent {
     tooltip: string; // "color", "size", or "group"
     color: string;
     size: string;
@@ -235,52 +190,6 @@ export class VisualizationComponent {
         window.addEventListener("resize", (e: Event) => {
             this.update();
         });
-        
-    }
-
-    switch(on) {
-        var dotsSwitchWrapper = document.getElementById("dotsSwitchWrapper");
-        var mapSwitchWrapper = document.getElementById("mapSwitchWrapper");
-        
-        var dotsDescription = document.getElementById("dotsDescription");
-        var mapDescription = document.getElementById("mapDescription");
-        
-        var dotsBox = document.getElementById("dots-box");
-        var mapBox = document.getElementById("map-box");
-
-        if (dotsSwitchWrapper && mapSwitchWrapper && dotsBox && mapBox) {
-            switch (on) {
-                case "dots":
-                    dotsSwitchWrapper.style.backgroundColor = "#dddddd";
-                    mapSwitchWrapper.style.backgroundColor = "#eeeeee";
-                    
-                    dotsDescription.style.visibility = "visible";
-                    mapDescription.style.visibility = "hidden";
-                    
-                    this.update();
-                    
-                    dotsBox.style.display = "block";
-                    mapBox.style.display = "none";
-                    break;
-                case "map":
-                    dotsSwitchWrapper.style.backgroundColor = "#eeeeee";
-                    mapSwitchWrapper.style.backgroundColor = "#dddddd";
-                    
-                    dotsDescription.style.visibility = "hidden";
-                    mapDescription.style.visibility = "visible";
-                    
-                    dotsBox.style.display = "none";
-                    mapBox.style.display = "block";
-
-                    if (!this.initMapboxCompleted) {
-                        initMapbox();
-                        this.initMapboxCompleted = true;
-                    }
-                    break;
-                default:
-                    return;
-            }
-        }
         
     }
 

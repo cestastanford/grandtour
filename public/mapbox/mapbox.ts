@@ -52,6 +52,8 @@ function init() {
     zoom: 4.6,
   });
 
+  console.log('init');
+
   let points: IPoint[] = [];
 
   /*

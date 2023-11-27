@@ -31,7 +31,8 @@ import entryHighlighting from './entry/entry-highlighting.js';
 import httpQueryService from './explore/http-query-service.js';
 import { downgradeComponent } from '@angular/upgrade/static';
 import { GridComponent } from './grid.component';
-import { VisualizationComponent } from './visualization.component';
+import { ChartComponent } from './chart.component';
+import { MapComponent } from './map.component';
 
 require("expose-loader?jQuery!jquery"); 
 require("expose-loader?$!jquery");
@@ -74,7 +75,8 @@ const MODULE_NAME = 'app';
 .directive('entryList', entryList)
 .service('entryListContext', entryListContextService)
 .directive('adminGrid', downgradeComponent({component: GridComponent}))
-.directive('visualization', downgradeComponent({component: VisualizationComponent}))
+.directive('chart', downgradeComponent({component: ChartComponent}))
+.directive('map', downgradeComponent({component: MapComponent}))
 .run(['$rootScope', '$state', '$stateParams', '$http', 
   function ($rootScope, $state, $stateParams, $http) {
     $rootScope.$state = $state;
@@ -272,10 +274,18 @@ const MODULE_NAME = 'app';
     }
   })
 
-  .state('visualizations', {
-    url: "/visualizations",
-    template: "<visualization></visualization>",
-    // controller: ListsCtrl,
+  .state('chart', {
+    url: "/chart",
+    template: "<chart></chart>",
+    title: 'View',
+    resolve: {
+      loggedin: isLoggedIn
+    }
+  })
+
+  .state('map', {
+    url: "/map",
+    template: "<map></map>",
     title: 'View',
     resolve: {
       loggedin: isLoggedIn

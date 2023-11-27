@@ -5,7 +5,8 @@ import { UpgradeModule } from '@angular/upgrade/static';
 import moduleName from './app.module.ajs';
 import { GridComponent } from './grid.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { VisualizationComponent } from './visualization.component';
+import { ChartComponent } from './chart.component';
+import { MapComponent } from './map.component';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
     imports: [
@@ -17,11 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     declarations: [
         GridComponent,
-        VisualizationComponent
+        ChartComponent,
+        MapComponent
     ],
     entryComponents: [
         GridComponent,
-        VisualizationComponent
+        ChartComponent,
+        MapComponent
     ]
 })
 export class AppModule {

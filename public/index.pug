@@ -9,13 +9,40 @@ html(lang="en")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i|Source+Serif+Pro:400,600,700&display=swap")
     //- link(rel='stylesheet', href='/app.css')
 
   body
-    
+
+  header.site-header
+    div
+      a.site-title(href='https://ceserani.github.io/gt-book/') A World Made by Travel
+      span.site-author Giovanna Ceserani
+    nav
+      a(href='/gt-book/home') Table of Contents
+      a(href="#/").selected The Grand Tour Explorer
     
   div.site
-    nav.navbar.navbar-default
+    nav.navbar.navbar-main
+      .container
+        .navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(ui-sref="search") Search
+            li
+              a(ui-sref="explore") Explore 
+            li
+              a(ui-sref="chart") Chart
+            li
+              a(ui-sref="map") Map
+
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="#") Glossary
+            li
+              a(href="#") Data       
+    
+    nav.navbar.navbar-default(ng-show="currentUser")
       .container
         .navbar-header
           a.navbar-brand(href="#/") The Grand Tour Explorer
@@ -60,9 +87,18 @@ html(lang="en")
               a(ui-sref="login") Login            
     div.site-content
       ui-view
-    div.site-footer.navbar-default
-      .container
-        div(style="display: inline")
-          .footer-copyright(style="float: left") © 2019 Stanford University. All rights reserved. 
-            a(ui-sref="about") Terms of use.
-          .footer(style="float: right") ISBN XXXX DOI XXXX OCLC XXX Published by Center for Spatial and Textual Analysis (CESTA) Stanford University
+
+  footer.site-footer
+    div
+      | &copy; 2024 Stanford University | Terms of Use.
+      br
+    div
+      | ISBN 
+      b 9780739339381
+      |  | OCLC 
+      b 304375
+      |  | DOI 
+      b 10.1000/182
+    div
+      | Published by STANFORD UNIVERSITY PRESS
+      img(src='logo-stanford-1.png')

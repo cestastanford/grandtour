@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Poly');
 
 
 body {
-  font: 13px 'Open Sans', sans-serif;
+  font: 13px 'IBM Plex Sans', sans-serif;
 }
 
 .article {
@@ -23,20 +22,36 @@ body {
 
 .header {
   background-color: rgba(0,0,0,.7);
-  padding: 120px 0px;
+  min-height: calc(100vh - 56px - 28px - 52px);
   color: #eee;
 }
 
 .header h1 {
   letter-spacing: 1px;
-  font-size: 48px;
+  font-size: 41.8px;
+  color: #fdfdfd;
 }
 
-.header h1 .small {
-  letter-spacing: normal;
-  font-weight: 100;
-  color: #999;
-  line-height: 1.3;
+.header p {
+  font-size: 16px;
+  color: #fdfdfd;
+}
+
+.header .box-container {
+  align-self: stretch;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  padding: 0;
+}
+
+.header .box {
+  flex-grow: 0;
+  padding: 10px;
+  background-image: linear-gradient(137deg, rgba(221, 221, 221, 0.88) 32%, rgba(221, 221, 221, 0.6) 88%);
 }
 
 .about-heading {
@@ -68,7 +83,7 @@ body {
 }
 
 .text-serif {
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
   font-size: 18px;
   line-height: 1.7;
 }
@@ -122,14 +137,14 @@ label {
 
 
 .h1, h1, .h3, h3 {
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
   font-weight: 500;
   margin-bottom: 20px;
   line-height: 1.6;
 }
 
 .h1, h1 {
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
   font-weight: 200;
 }
 
@@ -142,7 +157,7 @@ label {
 
 .h4, h4 {
   font-size: 15px;
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
   font-weight: 600;
 }
 
@@ -294,7 +309,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .navbar-default .navbar-brand {
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
   color: #222;
 }
 
@@ -345,7 +360,7 @@ sup {
 /* Panels */
 
 .panel {
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
 }
 
 .panel a {
@@ -436,7 +451,7 @@ sup {
 .list-group-item-text {
   line-height: 1.6;
   font-size: 13px;
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
 }
 
 .list-group-item:first-child {
@@ -501,7 +516,7 @@ sup {
 .mini-table label {
   display: block;
   font-size: 11px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   min-height: 0px;
   padding-top: 3px;
   padding-bottom: 3px;
@@ -564,7 +579,7 @@ sup {
 /* Popover */
 
 .popover {
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
   font-size: 14px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -847,7 +862,7 @@ table.table {
 
 #minimap text {
 
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif;
     fill: #77c;
     stroke: #fff;
     stroke-width: .5px;
@@ -1136,7 +1151,7 @@ ul.list-group.entry-facet > li .controls {
 .entry-origin {
   margin-top: -1em;
   margin-bottom: 1.75em;
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
   font-size: 1.375em;
   font-weight: bold;
   color: #888;
@@ -1157,7 +1172,7 @@ div.tool_tip {
   margin-left: 10px;
   margin-bottom: 15px;
   padding: 5px;				
-  font: 13px 'Open Sans', sans-serif;		
+  font: 13px 'IBM Plex Sans', sans-serif;		
   background: white;	
   border: 0px;		
   border-radius: 0px;
@@ -1244,7 +1259,7 @@ div.tool_tip {
 
 .viz-box .dimension p {
   color: #333;
-  font-family: 'Poly', serif;
+  font-family: 'Source Serif Pro', serif;
 }
 
 .viz-box select {

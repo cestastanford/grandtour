@@ -1,36 +1,38 @@
 .header-wrapper
   .header
-    .container
-      h1 The Grand Tour Explorer 
-      p A dynamic and augmented database transformation of The Dictionary of British and Irish Travelers to Italy 1701-1800 to explore the lives and journeys of thousands of travelers as data, including for many-- mostly women--previously forgotten
-    .box-container
-      box
-        h3 Search 
-        small Search and filter the database
-        span.bottom start searching
-        img(src=arrow.png)
-      box
-        h3 Explore 
-        small Browse and filter the database by multiple dimensions
-        span.bottom start exploring
-        img(src=arrow.png)
-      box
-        h3 Chart 
-        small Visualize and sort the travelers as dots
-        span.bottom start charting
-        img(src=arrow.png)
-      box
-        h3 Map 
-        small Visualize travel locations on interactive map
-        span.bottom start mapping
-        img(src=arrow.png)
-      box
-        h3 Data 
-        small Access stored data in Stanford Digital Repository
-        span.bottom external page
-        img(src=arrow.png)
-      box
-        h3 Glossary 
-        small Read descriptions of each data category
-        span.bottom read
-        img(src=arrow.png)
+    .header-container
+      div
+        h1 The Grand Tour Explorer 
+        p A dynamic and augmented database transformation of The Dictionary of British and Irish Travelers to Italy 1701-1800 to explore the lives and journeys of thousands of travelers as data, including for many-- mostly women--previously forgotten
+      .box-container
+        .box
+          h3 Search 
+          p Search and filter the database
+          a.bottom(ui-sref="search") start searching
+            img(src='arrow.png')
+        .box
+          h3 Explore 
+          p Browse and filter the database by multiple dimensions
+          a.bottom(ui-sref="explore") start exploring
+            img(src='arrow.png')
+        .box
+          h3 Chart 
+          p Visualize and sort the travelers as dots
+          a.bottom(ui-sref="chart") start charting
+            img(src='arrow.png')
+        div.break
+        .box
+          h3 Map 
+          p Visualize travel locations on interactive map
+          a.bottom(ui-sref="map") start mapping
+            img(src='arrow.png')
+        .box
+          h3 Data 
+          p Access stored data in Stanford Digital Repository
+          a.bottom(href="#") external page
+            img(src='arrow.png')
+        .box
+          h3 Glossary 
+          p Read descriptions of each data category
+          a.bottom(href="#") read
+            img(src='arrow.png')

@@ -22,36 +22,88 @@ body {
 
 .header {
   background-color: rgba(0,0,0,.7);
-  min-height: calc(100vh - 56px - 28px - 52px);
   color: #eee;
+  height: calc(100vh - 56px - 28px - 52px - 20px);
+}
+
+.header .header-container {
+  padding: 30px 15px 15px;
+}
+
+.header .header-container > div {
+  max-width: 827px;
+  margin: auto;
+}
+
+.header .header-container > .box-container {
+  max-width: 1000px;
+  margin: auto;
 }
 
 .header h1 {
   letter-spacing: 1px;
   font-size: 41.8px;
   color: #fdfdfd;
+  margin-top: 0;
 }
 
 .header p {
   font-size: 16px;
   color: #fdfdfd;
+  font-family: 'Source Serif Pro', serif;
 }
 
 .header .box-container {
   align-self: stretch;
   flex-grow: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 15px;
   padding: 0;
+  padding-top: 15px;
 }
 
 .header .box {
   flex-grow: 0;
+  width: 195.5px;
+  height: 136px;
   padding: 10px;
+  color: black;
+  position: relative;
   background-image: linear-gradient(137deg, rgba(221, 221, 221, 0.88) 32%, rgba(221, 221, 221, 0.6) 88%);
+}
+
+.header .box h3 {
+  font-family: 'Source Serif Pro';
+  font-size: 22.8px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.05;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.header .box p {
+  font-family: 'IBM Plex Sans';
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.28px;
+  color: black;
+}
+
+.header .box .bottom {
+  font-family: 'IBM Plex Sans';
+  float: right;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
 }
 
 .about-heading {
@@ -1283,7 +1335,7 @@ div.tool_tip {
 
 .site {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 56px - 28px - 52px);
   flex-direction: column;
   overflow-x: hidden;
 }
@@ -1349,7 +1401,7 @@ div.tool_tip {
   padding: 5px 30px;
   border-top: solid 1px #941515;
   background-color: #fff;
-  font-family: "Source Serif Pro";
+  font-family: 'Source Serif Pro';
   color: #444;
 }
 .site-footer img {

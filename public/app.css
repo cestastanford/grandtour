@@ -1257,3 +1257,69 @@ div.tool_tip {
 .site-content {
   flex: 1;
 }
+
+/** * Site header */
+.site-header {
+  padding: 0 15px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  background-color: white;
+  min-height: 56px;
+  font-family: "IBM Plex Sans";
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.home-page .site-header {
+  background-color: #efefef;
+}
+.site-header > div {
+  flex: 1;
+}
+.site-header a.site-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: #000;
+  display: block;
+}
+.site-header span.site-author {
+  font-size: 14px;
+  font-weight: 600;
+  color: #aa8c00;
+  display: block;
+}
+.site-header nav {
+  float: right;
+  text-align: right;
+  padding-right: 10px;
+}
+.site-header nav a {
+  line-height: 1.29;
+  letter-spacing: -0.28px;
+  color: #000;
+  margin-right: 15px;
+  font-size: 14px;
+}
+.site-header nav a.selected {
+  font-weight: 600;
+}
+/** * Site footer */
+.site-footer {
+  font-size: 14px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 11px 0 0;
+  padding: 5px 30px;
+  border-top: solid 1px #941515;
+  background-color: #fff;
+  font-family: "Source Serif Pro";
+  color: #444;
+}
+.site-footer img {
+  display: inline-block;
+  margin-left: 10px;
+}

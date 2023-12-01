@@ -16,14 +16,33 @@ html(lang="en")
 
   header.site-header
     div
-      a.site-title(href='/gt-book/') A World Made by Travel
+      a.site-title(href='https://ceserani.github.io/gt-book/') A World Made by Travel
       span.site-author Giovanna Ceserani
     nav
       a(href='/gt-book/home') Table of Contents
-      a(href='/').selected The Grand Tour Explorer
+      a(href="#/").selected The Grand Tour Explorer
     
   div.site
-    nav.navbar.navbar-default
+    nav.navbar.navbar-main
+      .container
+        .navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(ui-sref="search") Search
+            li
+              a(ui-sref="explore") Explore 
+            li
+              a(ui-sref="chart") Chart
+            li
+              a(ui-sref="map") Map
+
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="#") Glossary
+            li
+              a(href="#") Data       
+    
+    nav.navbar.navbar-default(ng-show="currentUser")
       .container
         .navbar-header
           a.navbar-brand(href="#/") The Grand Tour Explorer

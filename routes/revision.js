@@ -3,7 +3,7 @@
 */
 
 const router = require('express').Router()
-const { isEditor, isAdministrator } = require('./auth')
+const { isViewer, isAdministrator } = require('./auth')
 const Revision = require('../models/revision')
 const Entry = require('../models/entry')
 
@@ -12,7 +12,7 @@ const Entry = require('../models/entry')
 *   Returns all Revisions.
 */
 
-router.get('/api/revisions', isEditor, async (req, res, next) => {
+router.get('/api/revisions', isViewer, async (req, res, next) => {
 
     Revision.find({})
     .sort('-_id')

@@ -27,7 +27,7 @@ router.get('/api/getcount', isViewer, (req, res, next) => {
 
 router.post('/api/entries/search2?', isViewer, queries.search);
 router.post('/api/entries/suggest', isViewer, queries.suggest);
-router.post('/api/entries/export', isUser, queries.export);
+router.post('/api/entries/export', isViewer, queries.export);
 router.post('/api/entries/uniques', isViewer, queries.uniques);
 
 

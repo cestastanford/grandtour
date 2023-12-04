@@ -38,7 +38,7 @@ require("expose-loader?jQuery!jquery");
 require("expose-loader?$!jquery");
 require('bootstrap');
 
-const LOGIN_REQUIRED = false;
+const LOGIN_REQUIRED = true;
 
 /**********************************************************************
  * Angular Application

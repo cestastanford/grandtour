@@ -603,7 +603,7 @@ export class ChartComponent {
                 },
                 {
                     query: { type: "" },
-                    title: sizeBy === "travelTime" ? "Unknown gender" : "Unknown"
+                    title: "Data not available"
                 }
             ],
             "tours": [

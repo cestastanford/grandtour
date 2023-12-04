@@ -40,9 +40,11 @@ html(lang="en")
             li
               a(href="#") Glossary
             li
-              a(href="#") Data       
+              a(href="#") Data  
+            li
+              a(href="#",type="button",ng-show="currentUser",ng-click="logout()") Logout       
     
-    nav.navbar.navbar-default(ng-show="currentUser")
+    nav.navbar.navbar-default(ng-show="currentUser && currentUser.role!='viewer'")
       .container
         .navbar-header
           a.navbar-brand(href="#/") The Grand Tour Explorer

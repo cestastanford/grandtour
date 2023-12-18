@@ -69,6 +69,7 @@ body {
 .header .box {
   flex-grow: 0;
   width: 195.5px;
+  border-radius: 5px;
   height: 136px;
   padding: 10px;
   color: black;

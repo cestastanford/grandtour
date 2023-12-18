@@ -38,6 +38,8 @@ require("expose-loader?jQuery!jquery");
 require("expose-loader?$!jquery");
 require('bootstrap');
 
+const LOGIN_REQUIRED = true;
+
 /**********************************************************************
  * Angular Application
  **********************************************************************/
@@ -148,7 +150,7 @@ const MODULE_NAME = 'app';
         
         $rootScope.currentUser = null;
         // Redirect to 'login' if the user is not logged in.
-        $state.go('login');
+        LOGIN_REQUIRED && $state.go('login');
         // The below code would not redirect to 'login' if the user is not logged in.
         // return null;
         
@@ -160,12 +162,12 @@ const MODULE_NAME = 'app';
 
   }];
 
-  //  Checks that the user is an administrator; redirects to 'home' if not
+  //  Checks that the user is an administrator.
   var isAdmin = ['$http', '$rootScope', '$state', function($http, $rootScope, $state) {
     return getUser($http)
     .then(function(user) {
       if (user && user.role === 'admin') $rootScope.currentUser = user
-      else $state.go('home')
+      else if (LOGIN_REQUIRED) $state.go('home')
       return user
 
     })

@@ -5,6 +5,7 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
   - [NodeJS v14.21.2](https://nodejs.org/en/)
   - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
   - [MongoDB v.4.4.18](https://www.mongodb.com/download-center/v2/community)
+  - Heroku CLI (`curl https://cli-assets.heroku.com/install.sh | sh`)
 - Clone the repository locally: `git clone https://github.com/cestastanford/grandtour`.
 - From the repository directory, install npm dependencies: `npm install`
 - Create an environmental variable file called `.env` in the root directory.
@@ -21,6 +22,7 @@ BOOK_ORIGIN=...
 - Start the server: `npm run dev-start`.  This will create and host a MongoDB database and start the Node server.
 - Unzip the database dump so that there's a `dump` directory in the root directory of grandtour. Then run `mongorestore -d heroku_c4kbv2zc dump/heroku_c4kbv2zc --port 27017 --host localhost --drop` in a separate terminal to sync the database to the local version.
 - Check the console output for the local address of the site (often http://localhost:5100).  Visit that address and log in using username: `root` and password: `root`.
+
 
 Restoring a MongoDB database backup
 -----------------------------------
@@ -44,3 +46,16 @@ To deploy, first make a pull request or a commit to the `master` branch. Then, a
 1. Log in to https://app.my.reclaim.cloud/
 2. Go to the "Deployment Manager" -> "GIT / SVN" tab on the bottom. Click the "Deploy to..." icon next to "grandtour". Select the grand tour "Application Environment" for "Environment" and click "Deploy".
 3. Grand Tour Explorer should be deployed at https://grandtourexplorer.wc.reclaim.cloud/; book should be deployed at https://grandtourexplorer.wc.reclaim.cloud/gt-book/.
+
+
+### notes
+
+install MongoDB 4 on Ubuntu
+
+```
+wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 trusted=yes ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+```
+

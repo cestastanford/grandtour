@@ -44,7 +44,7 @@
                           h4(style="font-style: italic; display: inline") DBITI 
                           h4(style="font-style: normal; display: inline") Employments & Identifiers
                         p(style="display: inline") {{ dimension.description }}
-                        span.hover-item(ng-if="dimension.href", ng-href="{{dimension.href}}") Learn more...
+                        a.hover-item(ng-if="dimension.href", target="_blank", ng-href="{{dimension.href}}") Learn more...
                 div(ng-switch="dimension.type")
                   div(ng-switch-when="facet",
                       facet="",

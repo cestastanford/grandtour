@@ -11,7 +11,7 @@ This is the codebase for the Grand Tour Explorer web project.  To set up a local
 - Create an environmental variable file called `.env` in the root directory.
 - Add the following to .env:
 ```
-MONGODB_URI=mongodb://localhost:27017/heroku_c4kbv2zc
+MONGODB_URI=mongodb://localhost:27017/grandtour
 SECRET_KEY_1=abc
 SECRET_KEY_2=abc
 SECRET_KEY_3=abc
@@ -20,7 +20,7 @@ SHEETS_PRIVATE_KEY=...
 BOOK_ORIGIN=...
 ```
 - Start the server: `npm run dev-start`.  This will create and host a MongoDB database and start the Node server.
-- Unzip the database dump so that there's a `dump` directory in the root directory of grandtour. Then run `mongorestore -d heroku_c4kbv2zc dump/heroku_c4kbv2zc --port 27017 --host localhost --drop` in a separate terminal to sync the database to the local version.
+- Unzip the database dump so that there's a `dump` directory in the root directory of grandtour. Then run `mongorestore -d grandtour dump/grandtour --port 27017 --host localhost --drop` in a separate terminal to sync the database to the local version.
 - Check the console output for the local address of the site (often http://localhost:5100).  Visit that address and log in using username: `root` and password: `root`.
 
 
@@ -53,6 +53,12 @@ To deploy, first make a pull request or a commit to the `master` branch. Then, a
 install MongoDB 4 on Ubuntu
 
 ```
+nvm install 14
+nvm use 14
+npm i
+npm i -g heroku
+npm run dev-start
+
 wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 trusted=yes ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
 sudo apt-get update

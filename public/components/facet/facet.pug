@@ -35,7 +35,7 @@
                   span.text-light.pull-right {{(!u.negative && u.count !== 99999) ? u.count: ""}}
                   span.alternate-name-see(ng-show="field === 'fullName' && u.parentFullName !== u._id") (see {{u.parentFullName}})
           
-          tr(ng-show="filtered.length > limit")
+          tr(ng-show="(filtered.length > limit) && open")
             td.see-more
               a(ng-click="limit = 25 + limit") Show more...
 

@@ -1267,7 +1267,7 @@ div.tool_tip {
 .viz-btn-group > div {
   border: 0px;
   background-color: #eeeeee;
-  padding: 8px 25px 0px 9px;
+  padding: 8px 8px 9px 9px;
   font-size: 15px;
   display: inline-block;
 }

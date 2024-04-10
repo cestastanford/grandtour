@@ -42,11 +42,6 @@ function createPopup(id, content?) {
         <div class='viz-btn-group' style='margin:10px 0px'>
             <div id='dotsSwitchWrapper' class='switchWrapper'>
                 <button id="dotsSwitch" class="switch">Dot Chart of Travelers</button>
-                <div id='dotsDescription' class="description">
-                    ${createPopup("dots", `
-                    <p>In this interactive chart every dot represents a traveler all 6005 travelers are represented. If you hover on a dot, the name of that traveler will appear, and if you click on it you will get to that traveler’s entry. You can color, size and group the dots according to the various categories shown as options here below.</p>
-                    `)}
-                </div>
             </div>
         </div>
 

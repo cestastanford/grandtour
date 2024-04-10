@@ -279,7 +279,7 @@ var searchMap = {
         }
     },
     index: d => {
-        if (d.$type || d.$not?.$type) {
+        if (d.$type || (d.$not && d.$not.$type)) {
             // Origin queries from the map (see chart.component.ts)
             return {index: d};
         }

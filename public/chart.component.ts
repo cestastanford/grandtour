@@ -42,11 +42,6 @@ function createPopup(id, content?) {
         <div class='viz-btn-group' style='margin:10px 0px'>
             <div id='dotsSwitchWrapper' class='switchWrapper'>
                 <button id="dotsSwitch" class="switch">Dot Chart of Travelers</button>
-                <div id='dotsDescription' class="description">
-                    ${createPopup("dots", `
-                    <p>In this interactive chart every dot represents a traveler all 6005 travelers are represented. If you hover on a dot, the name of that traveler will appear, and if you click on it you will get to that traveler’s entry. You can color, size and group the dots according to the various categories shown as options here below.</p>
-                    `)}
-                </div>
             </div>
         </div>
 
@@ -79,6 +74,7 @@ function createPopup(id, content?) {
                     <option value="none">None </option>
                     <option value="travel">Date of travel</option>
                     <option value="gender">Gender</option>
+                    <option value="new">Origin</option>
                     <option value="tours">Number of tours</option>
                 </select>
                 <div id="groupPopupWrapper" class="popup-wrapper" [hidden]="group === 'none'">
@@ -196,11 +192,11 @@ export class ChartComponent {
     getSelectedPopupText(dimension) {
         switch (dimension) {
             case "color":
-                return this.getPopupText(this.color);
+                return this.getPopupText(this.color, "color");
             case "group":
-                return this.getPopupText(this.group);
+                return this.getPopupText(this.group, "group");
             case "size":
-                return this.getPopupText(this.size);
+                return this.getPopupText(this.size, "size");
             default:
                 return;
         }
@@ -209,15 +205,18 @@ export class ChartComponent {
     /*
      * When given the string value of a selected dimension, the ? popup's description is returned.
      */
-    getPopupText(value) {
+    getPopupText(value, dimension) {
         const texts = {
             "none": "",
-            "gender": "Whether we know the travelers as male or female. ",
-            "new": "Origin distinguishes between entries extracted from Ingamells’ <span style='font-style: oblique'>Dictionary</span> and additional entries created within the Explorer database. ",
-            "length": "Entries containing fifty or less words are all represented as the smallest dot shown, while the rest is sized to scale by word count. ",
-            "travelTime": "Tours of six months or less are all represented as the smallest dot shown, while the rest are sized to scale by months spent abroad. ",
-            "travel": "For each decade are shown the travelers who set on their tours of Italy during that timeframe. ",
-            "tours": "Distribution of travelers according to how many tours of Italy they undertook. "
+            "gender": "When known as either female or male, the gender identity of travelers in the database. This is unknown for 1.17% of the travelers.",
+            "new": "Origin distinguishes between entries retrieved from the <span style='font-style: oblique'>Dictionary</span> and additional entries created within the Explorer database.",
+            "length": "Entries containing fifty or fewer words are represented as a small dot, while the rest are sized to scale by word count.",
+            "travelTime": "Tours of six months or less are represented as a small dot, while the rest are sized to scale by months spent abroad.",
+            "travel": "Distribution of travelers according to the decade during which they began their tours of Italy.",
+            "tours": "Distribution of travelers according to how many tours of Italy they undertook."
+        }
+        if (value === "gender" && dimension === "group") {
+            return "Distribution of travelers according to their identification in the database as male or female.";
         }
         return texts[value];
     }
@@ -263,11 +262,24 @@ export class ChartComponent {
         for (let i in entryGroups) {
             const group = allGroups[i];
             let entriesInGroup = (entryGroups[i] as { entries: any[], request: any }).entries;
-
-            d3.select('svg').append("text")
-                .attr("x", x)
-                .attr("y", y)
-                .text(function (d) { return group.title; });
+            
+            if (group.title == "DBITI Entry") {
+                d3.select('svg').append("text")
+                    .attr("x", x)
+                    .attr("y", y)            
+                    .style("font-style", "oblique")
+                    .text("DBITI");
+                d3.select('svg').append("text")
+                    .attr("x", x + 38)
+                    .attr("y", y)
+                    .text("Entry")
+                    .style("font-style", "normal");
+            } else {
+                d3.select('svg').append("text")
+                    .attr("x", x)
+                    .attr("y", y)
+                    .text(function (d) { return group.title; });
+            }
             y += 15;
 
             if (separateFakes) {
@@ -297,28 +309,28 @@ export class ChartComponent {
             // label will specify what information is unknown based on dot attributes
             if (sizeBy === "travelTime") {
                 d3.select('svg').append("text")
-                    .attr("x", x += 62)
+                    .attr("x", x += 89)
                     .attr("y", y)
                     .text("travel length");
                 if (groupBy === "travel") {
                     d3.select('svg').append("text")
-                        .attr("x", x += 79)
+                        .attr("x", x += 89)
                         .attr("y", y)
                         .text("and date of travel");
                 } else if (groupBy === "tours") {
                     d3.select('svg').append("text")
-                        .attr("x", x += 79)
+                        .attr("x", x += 89)
                         .attr("y", y)
                         .text("and number of tours");
                 }
             } else if (groupBy === "travel") {
                 d3.select('svg').append("text")
-                    .attr("x", x += 62)
+                    .attr("x", x += 89)
                     .attr("y", y)
                     .text("travel length");
             } else if (groupBy === "tours") {
                 d3.select('svg').append("text")
-                    .attr("x", x += 62)
+                    .attr("x", x += 89)
                     .attr("y", y)
                     .text("number of tours");
             }
@@ -606,6 +618,16 @@ export class ChartComponent {
                     title: "Data not available"
                 }
             ],
+            "new": [
+                {
+                    query: { index: { $type: "int" } },
+                    title: "DBITI Entry"
+                },
+                {
+                    query: { index: { $not: { $type: "int" } } },
+                    title: "Explorer Entry"
+                }
+            ],
             "tours": [
                 {
                     query: { numTours: 1},
@@ -690,7 +712,7 @@ export class ChartComponent {
                     .style("font-style", "oblique")
                     .text("DBITI")
                 d3.select('svg').append("text")
-                    .attr("x", 46)
+                    .attr("x", 50)
                     .attr("y", LEGEND_TEXT_HEIGHT)
                     .text("Entry")
                     .style("font-style", "normal")

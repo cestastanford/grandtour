@@ -44,6 +44,44 @@
                           h4(style="font-style: italic; display: inline") DBITI 
                           h4(style="font-style: normal; display: inline") Employments & Identifiers
                         p(style="display: inline") {{ dimension.description }}
+                        p(style="display: inline", ng-if="dimension.label == 'Birth date'")
+                          :markdown-it(inline) The year of birth of travelers in the database. The *Dictionary* records a year of birth for  40.5% of the travelers.
+                        p(style="display: inline", ng-if="dimension.label == 'Birth place'")
+                          :markdown-it(inline) The place of birth—ranging from town to country—of travelers in the database. The *Dictionary* records a place of birth for around 2% of the travelers.
+                        p(style="display: inline", ng-if="dimension.label == 'Death date'")
+                          :markdown-it(inline) The year of death of the travelers in the database. The *Dictionary* records a death date for just over 40% of the travelers.
+                        p(style="display: inline", ng-if="dimension.label == 'DBITI Employments & Identifiers'")
+                          :markdown-it(inline) Terms used in the *Dictionary* to describe travelers’ endeavors, achievements, interests, and defining characteristics. There are just over 200 terms used in reference to about 15% of the travelers in the database. 
+                        p(style="display: inline", ng-if="dimension.label == 'Occupations & Posts'")
+                          :markdown-it(inline) Occupations and posts—ranging from political appointments and honors to trades and crafts—held by travelers. The *Dictionary* records around 300 positions and professions for about 25% of travelers in the database.
+                        p(style="display: inline", ng-if="dimension.label == 'Societies & Academies'")
+                          :markdown-it(inline) The twenty-six cultural, scientific, and artistic associations to which the *Dictionary* records affiliations for around 8% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.label == 'Societies & Academies'")
+                          :markdown-it(inline) The role—as recorded by the *Dictionary*—played by the travelers in societies or academies to which they were affiliated.
+                        p(style="display: inline", ng-if="dimension.field == 'education_institution'")
+                          :markdown-it(inline) The 107 institutions of education—ranging from preparatory schools to universities and academies—as recorded by the *Dictionary* for just over 18% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.field == 'education_place'")
+                          :markdown-it(inline) The sixty-nine locations—ranging from town to country—where the travelers were educated, as recorded by the *Dictionary* for just over 19% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.field == 'education_teacher'")
+                          :markdown-it(inline) The ninety-five persons recorded by the *Dictionary* as being teachers, constituting 1.73% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.field == 'education_degree'")
+                          :markdown-it(inline) The degrees received by travelers, as recorded by the *Dictionary*. 
+                        p(style="display: inline", ng-if="dimension.label == 'Military careers'")
+                          :markdown-it(inline) Ranks and posts for travelers with military careers, as recorded by the *Dictionary* for just over 4.3% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.field == 'exhibitions'")
+                          :markdown-it(inline) The ten institutions sponsoring art exhibitions or educational fellowships, which the *Dictionary* records for 2.4% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.field == 'exhibitions_activity'")
+                          :markdown-it(inline) The awards gained in art exhibitions as recorded by the *Dictionary* for 0.4% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.label == 'Mentioned names'")
+                          :markdown-it(inline) The names of people mentioned in the *Dictionary* in other entries. There are 24,041 instances of such mentions for ca. 83% of the travelers in the database. 
+                        p(style="display: inline", ng-if="dimension.label == 'Sources'")
+                          :markdown-it(inline) The bibliographical or archival references recorded in the *Dictionary* for 69.2% of the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.label == 'Travel place'")
+                          :markdown-it(inline) The 431 locations recorded by the *Dictionary* as being visited by the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.label == 'Travel date'")
+                          :markdown-it(inline) The dates recorded by the *Dictionary* in association with the places visited by the travelers in the database.
+                        p(style="display: inline", ng-if="dimension.label == 'Free word search'")
+                          :markdown-it(inline) Search the text of the database’s entries, as they appear in the *Dictionary*, with options to find all cases that match the beginning or end of the word; or find all cases that do not mention a word. Word search can further be specified for a select section of an entry’s text.
                         a.hover-item(ng-if="dimension.href", target="_blank", ng-href="{{dimension.href}}") &nbsp;Learn more...
                 div(ng-switch="dimension.type")
                   div(ng-switch-when="facet",

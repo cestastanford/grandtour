@@ -279,6 +279,10 @@ var searchMap = {
         }
     },
     index: d => {
+        if (d.$type || (d.$not && d.$not.$type)) {
+            // Origin queries from the map (see chart.component.ts)
+            return {index: d};
+        }
         let commaSepValues = d.startIndex.split(",");
         let hyphenSepValues = [];
         let hyphenSepDec = [];

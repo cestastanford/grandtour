@@ -33,7 +33,7 @@ exports.getCounts = async revisionIndex => {
             education_degree: { 'education.degree': { $exists: true } },
             education_teacher: { 'education.teacher': { $exists: true } },
             pursuits: { pursuits: { $ne: [] } },
-            occupations: { 'occupations.title': { $exists: true } },
+            occupations: {'occupations.title': { $exists: true } }, // { 'occupations': {$elemMatch: {'title': { $exists: true }}}},
             occupations_group: { 'occupations.group': { $exists: true } },
             occupations_place: { 'occupations.place': { $exists: true } },
             military: { 'military.rank': { $exists: true } },
@@ -45,7 +45,7 @@ exports.getCounts = async revisionIndex => {
             exhibitions: { 'exhibitions.title': { $exists: true } },
             exhibitions_activity: { 'exhibitions.activity': { $exists: true } },
             mentionedNames: { 'mentionedNames.name': { $exists: true } },
-            sources: { 'sources': { $exists: true } },
+            sources: {$nor: [{ 'sources': { $exists: false } }, {sources: {$size: 0}}]},
         }
 
         const facets = {}
@@ -710,7 +710,7 @@ function parseExport(res) {
         var entry = {};
 
         // index
-        entry.index = d.index;
+        entry["Entry ID"] = d.index;
         // fullName
         entry.travelerNames = d.fullName;
         // gender
@@ -724,10 +724,10 @@ function parseExport(res) {
         // deathPlace
         entry.deathPlace = d.places[0] ? d.places[0].deathPlace || "" : "";
         // parents
-        entry.parents = (d.parents && d.parents.map(p => p.parents).join(";")) || "";
+        entry.parents = (d.parents && d.parents.map && d.parents.map(p => p.parents).join(";")) || "";
 
         let entryBase = {
-            entryID: d.index,
+            ["Entry ID"]: d.index,
             travelerNames: entry.travelerNames,
             birthDate: entry.birthDate,
             deathDate: entry.deathDate,
@@ -839,7 +839,7 @@ function parseExport(res) {
         entry.sources = d.sources && d.sources.length ? d.sources.map(function (d) { return d.abbrev; }).join(",") : "";
 
         entry.eventsIndex = activities
-            .filter(d => d.entryID === entry.index)
+            .filter(d => d["Entry ID"] === entry["Entry ID"])
             .map(d => d.eventsIndex)
             .join(",");
 
@@ -854,17 +854,17 @@ function parseExport(res) {
         // mentions array parsed to get mentioned names for each entry
         if (d.mentionedNames && d.mentionedNames.length) {
             entry.matchedMentions = mentions
-                .filter(function (m) { return m.index == entry.index && m.matchedMentions !== ""; })
+                .filter(function (m) { return m.index == entry["Entry ID"] && m.matchedMentions !== ""; })
                 .map(function (m) { return m.matchedMentions; })
                 .join(";");
 
             entry.unmatchedMentions = mentions
-                .filter(function (m) { return m.index == entry.index && m.unmatchedMentions !== ""; })
+                .filter(function (m) { return m.index == entry["Entry ID"] && m.unmatchedMentions !== ""; })
                 .map(function (m) { return m.unmatchedMentions; })
                 .join(";");
 
             entry.matchedMentionsEntryIndexes = mentions
-                .filter(function (m) { return m.index == entry.index && m.matchedMentionsEntryIndexes !== ""; })
+                .filter(function (m) { return m.index == entry["Entry ID"] && m.matchedMentionsEntryIndexes !== ""; })
                 .map(function (m) { return m.matchedMentionsEntryIndexes; })
                 .join(",");
 

@@ -143,7 +143,7 @@ const createSheets = entryFields => {
 
             sheets[field.sheet.name] = {
                 name: field.sheet.name,
-                columns: [ 'index' ],
+                columns: [ 'Entry ID' ],
                 rows: [],
             }
 

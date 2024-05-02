@@ -33,7 +33,7 @@ exports.getCounts = async revisionIndex => {
             education_degree: { 'education.degree': { $exists: true } },
             education_teacher: { 'education.teacher': { $exists: true } },
             pursuits: { pursuits: { $ne: [] } },
-            occupations: { 'occupations.title': { $exists: true } },
+            occupations: {'occupations.title': { $exists: true } }, // { 'occupations': {$elemMatch: {'title': { $exists: true }}}},
             occupations_group: { 'occupations.group': { $exists: true } },
             occupations_place: { 'occupations.place': { $exists: true } },
             military: { 'military.rank': { $exists: true } },
@@ -45,7 +45,7 @@ exports.getCounts = async revisionIndex => {
             exhibitions: { 'exhibitions.title': { $exists: true } },
             exhibitions_activity: { 'exhibitions.activity': { $exists: true } },
             mentionedNames: { 'mentionedNames.name': { $exists: true } },
-            sources: { 'sources': { $exists: true } },
+            sources: {$nor: [{ 'sources': { $exists: false } }, {sources: {$size: 0}}]},
         }
 
         const facets = {}

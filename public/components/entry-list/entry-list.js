@@ -94,7 +94,7 @@ export default ['savedListService', 'entryListContext', '$filter', function(save
       //  support for sorting entries
 
       var sortOptions = [
-        { label: 'Index', sortFn: function(entry) { return entry.index ? entry.index : 0.1 } },
+        { label: 'Entry ID', sortFn: function(entry) { return entry.index ? entry.index : 0.1 } },
         { label: 'Full Name', sortFn: function(entry) { return entry.fullName } },
         { label: 'Date of first travel', sortFn: function(entry) { return entry.dateOfFirstTravel } },
       ]

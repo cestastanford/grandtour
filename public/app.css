@@ -1331,9 +1331,13 @@ div.tool_tip {
   border-bottom: 2px solid #dddddd;
 }
 
+.main {
+  max-width: 1400px;
+  margin: auto;
+}
+
 .site {
   display: flex;
-  min-height: calc(100vh - 56px - 28px - 52px);
   flex-direction: column;
   overflow-x: hidden;
 }
@@ -1358,6 +1362,13 @@ div.tool_tip {
 }
 .site-header > div {
   flex: 1;
+}
+.site-header > div.icon {
+  padding-right: 5px;
+  max-width: 50px;
+}
+.site-header > div.icon img {
+  height: 25px;
 }
 .site-header a.site-title {
   font-size: 20px;
@@ -1387,6 +1398,104 @@ div.tool_tip {
 .site-header nav a.selected {
   font-weight: 600;
 }
+/** * Site nav */
+.site-nav {
+  z-index: 2;
+  height: 75vh;
+  width: 280px;
+  min-width: 280px;
+  background: #fafafa;
+  font-size: 15px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+  background-color: #efefef;
+  margin: 15px 15px 11px;
+  overflow-x: hidden;
+  overflow-y: auto;
+ /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+ /* IE and Edge */
+  scrollbar-width: none;
+ /* Firefox */
+}
+.site-nav a {
+  color: #111;
+}
+.site-nav .session {
+  padding: 10px;
+  line-height: 1.4;
+  border-top: 1px solid #ddd;
+}
+.site-nav .session.toc {
+  border-top: none;
+}
+.site-nav .session.hide {
+  display: none;
+}
+.site-nav .session .session-title {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: -0.28px;
+}
+.site-nav .session.active .session-title {
+  font-weight: 600;
+  color: #aa8c00;
+}
+.site-nav .session.gte {
+  position: relative;
+  padding-right: 20px;
+}
+.site-nav .session.gte img {
+  width: 19.5px;
+  float: right;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 9.75px);
+}
+.site-nav .chapters {
+  padding: 8px 0px;
+}
+.site-nav .chapter {
+  padding: 8px 5px;
+  font-size: 14px;
+}
+.site-nav .chapter-author {
+  color: #806533;
+  font-size: 13px;
+}
+.site-nav .chapter.active {
+  font-weight: 600;
+}
+.site-nav .chapters.hidden {
+  display: none;
+}
+.site-nav .button {
+  padding: 8px;
+  text-align: center;
+  background: #b52f2e;
+  font-size: 14px;
+  font-weight: 500;
+  position: fixed;
+  bottom: 0px;
+  width: 264px;
+}
+.site-nav .button a {
+  color: #fff;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.site-nav::-webkit-scrollbar {
+  display: none;
+}
+.site-nav .toc .download-toc {
+  opacity: 0;
+}
+.site-nav:hover .toc .download-toc {
+  opacity: 1;
+}
 /** * Site footer */
 .site-footer {
   font-size: 14px;
@@ -1405,4 +1514,17 @@ div.tool_tip {
 .site-footer img {
   display: inline-block;
   margin-left: 10px;
+}
+.wrapper {
+  display: flex;
+  overflow-y: auto;
+}
+article {
+  margin: 0 auto;
+  /* max-width: 680px; */
+  padding: 15px 0;
+
+  height: calc(100vh - 56px - 52px - 40px);
+  width: 100%;
+  overflow-y: auto;
 }

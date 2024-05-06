@@ -1356,6 +1356,8 @@ div.tool_tip {
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
+  line-height: 1.6;
+  font-size: 13px;
 }
 .home-page .site-header {
   background-color: #efefef;
@@ -1365,23 +1367,27 @@ div.tool_tip {
 }
 .site-header > div.icon {
   padding-right: 5px;
-  max-width: 50px;
+  max-width: 45px;
+  box-sizing: border-box;
 }
 .site-header > div.icon img {
-  height: 25px;
+  width: 30px;
 }
 .site-header a.site-title {
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.4px;
+  line-height: 15px;
   color: #000;
   display: block;
+  margin-top: 10px;
 }
 .site-header span.site-author {
   font-size: 14px;
   font-weight: 600;
   color: #aa8c00;
   display: block;
+  font-family: "Source Serif Pro";
 }
 .site-header nav {
   float: right;
@@ -1402,8 +1408,9 @@ div.tool_tip {
 .site-nav {
   z-index: 2;
   height: 75vh;
-  width: 280px;
-  min-width: 280px;
+  box-sizing: border-box;
+  width: 300px;
+  min-width: 300px;
   background: #fafafa;
   font-size: 15px;
   padding: 15px;
@@ -1496,6 +1503,12 @@ div.tool_tip {
 .site-nav:hover .toc .download-toc {
   opacity: 1;
 }
+.toc b {
+  font-size: 16px;
+  font-weight: 600;
+  color: #aa8c00;
+  letter-spacing: -0.28px;
+}
 .site-nav {
   transition: transform 250ms ease-in-out;
 }
@@ -1504,6 +1517,7 @@ div.tool_tip {
 }
 .sidebarIconToggle {
   cursor: pointer;
+  margin-bottom: 0;
 }
 .site-nav:has(.openSidebarMenu:checked) {
   transform: translateX(-100%) translateX(-20px);
@@ -1561,4 +1575,5 @@ article {
   height: calc(100vh - 56px - 52px - 40px);
   width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
 }

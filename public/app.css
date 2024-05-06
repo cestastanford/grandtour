@@ -363,7 +363,8 @@ input[type=checkbox], input[type=radio] {
 
 .navbar-default {
   border-bottom: none;
-  padding: 10px 0px;
+  height: 10px;
+  padding: 0;
   margin-bottom: 0px;
 }
 
@@ -1577,7 +1578,7 @@ article {
   /* max-width: 680px; */
   padding: 15px 0;
 
-  height: calc(100vh - 56px - 52px);
+  height: calc(100vh - 120px);
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;

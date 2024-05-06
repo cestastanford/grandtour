@@ -1,11 +1,5 @@
-html, body {
-  height: 100%;
-}
-
 body {
   font: 13px 'IBM Plex Sans', sans-serif;
-  display: flex;
-  flex-direction: column;
 }
 
 .article {

@@ -1,7 +1,11 @@
-
+html, body {
+  height: 100%;
+}
 
 body {
   font: 13px 'IBM Plex Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .article {
@@ -1334,6 +1338,7 @@ div.tool_tip {
 .main {
   max-width: 1400px;
   margin: auto;
+  margin-top: 0;
 }
 
 .site {
@@ -1563,6 +1568,12 @@ body:has(.openSidebarMenu:checked) article.post {
   display: inline-block;
   margin-left: 10px;
 }
+.site-footer a {
+  color: #806533;
+}
+.site-footer b {
+  font-weight: 600;
+}
 .wrapper {
   display: flex;
   overflow-y: auto;
@@ -1572,7 +1583,7 @@ article {
   /* max-width: 680px; */
   padding: 15px 0;
 
-  height: calc(100vh - 56px - 52px - 40px);
+  height: calc(100vh - 56px - 52px);
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;

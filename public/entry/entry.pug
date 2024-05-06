@@ -307,27 +307,27 @@
                   a.mentioned-names-popup(ng-style="{'color': 'black', 'padding-top': '10px'}")
                       p {{ e.full }}
           
-          .col-lg-12.col-md-4.col-sm-6
-            div.btn-group.add-to-list-btn.pull-left
-              button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown", ng-if="currentUser")
-                span Add to List
-                span.caret
-              ul.dropdown-menu
-                li(ng-show="sharedListModel.listsLoading")
-                  span Loading lists...
-                li(ng-repeat="list in sharedListModel.myLists")
-                  a(ng-click="addSelectedEntriesToList(list)") {{ list.name }}
-                li.divider(role="separator")
-                li.dropdown-header or add to a new list:
-                li
-                  form.input-group.input-group-sm
-                    input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
-                    span.input-group-btn
-                      button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") Create & Add
-          .col-lg-12.col-md-4.col-sm-6
-            br
-            .label.label-success(ng-show="entry.addedToList") Added to list
-            .label.label-info(ng-show="entry.alreadyInList") Already in list
+          //- .col-lg-12.col-md-4.col-sm-6
+          //-   div.btn-group.add-to-list-btn.pull-left
+          //-     button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown", ng-if="currentUser")
+          //-       span Add to List
+          //-       span.caret
+          //-     ul.dropdown-menu
+          //-       li(ng-show="sharedListModel.listsLoading")
+          //-         span Loading lists...
+          //-       li(ng-repeat="list in sharedListModel.myLists")
+          //-         a(ng-click="addSelectedEntriesToList(list)") {{ list.name }}
+          //-       li.divider(role="separator")
+          //-       li.dropdown-header or add to a new list:
+          //-       li
+          //-         form.input-group.input-group-sm
+          //-           input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+          //-           span.input-group-btn
+          //-             button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") Create & Add
+          //- .col-lg-12.col-md-4.col-sm-6
+          //-   br
+          //-   .label.label-success(ng-show="entry.addedToList") Added to list
+          //-   .label.label-info(ng-show="entry.alreadyInList") Already in list
 
       div.col-lg-6
         div.text-serif.check-html.body-text(

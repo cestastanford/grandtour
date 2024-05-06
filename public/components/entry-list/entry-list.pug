@@ -5,27 +5,27 @@
     div.btn-group
       button.btn.btn-default.btn-xs.list-option(type="button", ng-click="deselectAllEntries()") deselect all
 
-    div.btn-group.add-to-list-btn.list-option
-      button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown", ng-if="currentUser")
-        span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
-        span.caret
-      a(ui-sref="login", target="_blank", ng-if="!currentUser")
-        button.btn.btn-default.btn-xs.dropdown-toggle(type="button")
-          span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
-          span.caret
-      ul.dropdown-menu
-        li.dropdown-header(ng-show="isSavedListView") copy selected entries to list:
-        li(ng-show="sharedListModel.listsLoading")
-          span loading lists...
-        li(ng-repeat="list in sharedListModel.myLists")
-          a(ng-click="addSelectedEntriesToList(list)") {{ list.name }}
-        li.divider(role="separator")
-        li.dropdown-header or {{ isSavedListView ? 'copy' : 'add' }} to a new list:
-        li
-          form.input-group.input-group-sm
-            input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
-            span.input-group-btn
-              button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") create & {{ isSavedListView ? 'copy' : 'add' }}
+    //- div.btn-group.add-to-list-btn.list-option
+    //-   button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown", ng-if="currentUser")
+    //-     span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
+    //-     span.caret
+    //-   a(ui-sref="login", target="_blank", ng-if="!currentUser")
+    //-     button.btn.btn-default.btn-xs.dropdown-toggle(type="button")
+    //-       span {{ isSavedListView ? 'copy' : 'add selected entries to list' }}
+    //-       span.caret
+    //-   ul.dropdown-menu
+    //-     li.dropdown-header(ng-show="isSavedListView") copy selected entries to list:
+    //-     li(ng-show="sharedListModel.listsLoading")
+    //-       span loading lists...
+    //-     li(ng-repeat="list in sharedListModel.myLists")
+    //-       a(ng-click="addSelectedEntriesToList(list)") {{ list.name }}
+    //-     li.divider(role="separator")
+    //-     li.dropdown-header or {{ isSavedListView ? 'copy' : 'add' }} to a new list:
+    //-     li
+    //-       form.input-group.input-group-sm
+    //-         input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+    //-         span.input-group-btn
+    //-           button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") create & {{ isSavedListView ? 'copy' : 'add' }}
     
     div.btn-group.add-to-list-btn(ng-show="isSavedListView && !isSharedList")
       button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")

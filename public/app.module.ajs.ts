@@ -266,15 +266,15 @@ const MODULE_NAME = 'app';
     }
   })
 
-  .state('lists', {
-    url: "/lists/:id",
-    template: require("pug-loader!./lists/lists.pug"),
-    controller: ListsCtrl,
-    title: 'Saved Lists',
-    resolve: {
-      loggedin: isLoggedIn
-    }
-  })
+  // .state('lists', {
+  //   url: "/lists/:id",
+  //   template: require("pug-loader!./lists/lists.pug"),
+  //   controller: ListsCtrl,
+  //   title: 'Saved Lists',
+  //   resolve: {
+  //     loggedin: isLoggedIn
+  //   }
+  // })
 
   .state('chart', {
     url: "/chart",

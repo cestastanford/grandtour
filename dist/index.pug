@@ -115,8 +115,8 @@ html(lang="en")
                     a(ui-sref="admin") Manage
                   li
                     a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
-                  li(ng-if="currentUser")
-                      a(ui-sref="lists") Saved Lists
+                  //- li(ng-if="currentUser")
+                  //-     a(ui-sref="lists") Saved Lists
                   li.index-dropdown-wrapper
                     a Downloads
                     div.index-dropdown-content
@@ -131,8 +131,8 @@ html(lang="en")
                 ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
                   li
                     a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
-                  li
-                    a(ui-sref="login" target="_blank") Saved Lists
+                  //- li
+                  //-   a(ui-sref="login" target="_blank") Saved Lists
                   li
                     a(ui-sref="login" target="_blank") Downloads
                   li

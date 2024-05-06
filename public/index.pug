@@ -45,10 +45,15 @@ html(lang="en")
   div.main.site
     div.page-content
       div.wrapper
+        label.sidebarIconToggle.sidebarIconToggleRight(for='openSidebarMenu')
+          img(src='sidebar-right.png')
         .site-nav
           .session.toc(style='display: flex; justify-content: space-between; padding: 10px;')
             a(href='https://ceserani.github.io/gt-book/home')
               b Table of Contents
+            input#openSidebarMenu.openSidebarMenu(type='checkbox')
+            label.sidebarIconToggle.sidebarIconToggleLeft(for='openSidebarMenu')
+              img(src='sidebar-left.png')
           .session.active.hide
             // Preface and Acknowledgements, Epilogue
             a.session-title(href='https://ceserani.github.io/gt-book/') Home

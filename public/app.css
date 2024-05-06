@@ -1496,6 +1496,40 @@ div.tool_tip {
 .site-nav:hover .toc .download-toc {
   opacity: 1;
 }
+.site-nav {
+  transition: transform 250ms ease-in-out;
+}
+.openSidebarMenu {
+  display: none;
+}
+.sidebarIconToggle {
+  cursor: pointer;
+}
+.site-nav:has(.openSidebarMenu:checked) {
+  transform: translateX(-100%) translateX(-20px);
+  overflow: visible;
+}
+body:has(.openSidebarMenu:checked) .sidebarIconToggleRight {
+  opacity: 1;
+  transition: none;
+}
+.sidebarIconToggleRight {
+  display: block;
+  opacity: 0;
+  background-color: #efefef;
+  padding: 8px;
+  position: absolute;
+  left: 0;
+  top: 88px;
+  transition: opacity 0.5s;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+}
+article.post {
+  transition: transform 250ms ease-in-out;
+}
+body:has(.openSidebarMenu:checked) article.post {
+  transform: translateX(-165px);
+}
 /** * Site footer */
 .site-footer {
   font-size: 14px;

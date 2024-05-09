@@ -101,7 +101,7 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
             zip.file("Travelers.tsv", entries);
             zip.file("Travelers_Life_Events.tsv", activities);
             zip.file("Travelers_Itineraries.tsv", travels);
-            zip.file("LICENSE", "Data derived from Grand Tour Explorer, created by Giovanna Ceserani and Giorgio Caviglia, and populated with Giovanna Ceserani et als (2018), \"The Grand Tour Project Database: Travelers, Travelers Life Events and Travelers Itineraries.\" Stanford Digital Repository. Available at http://purl.stanford.edu/TBE, and licensed under a Creative Commons Attribution 3.0 Unported License.");
+            zip.file("LICENSE", "Data derived from Ceserani, Giovanna. “The Grand Tour Explorer.” A World Made by Travel: The Digital Grand Tour. Redwood City: Stanford University Press, 2024. http://doi.org/10.21627/2024wmt. Licensed under the Creative Commons License CC BY-NC-ND 4.0.");
             var content = zip.generate({type:"blob"});
             saveAs(content, "Grand Tour Explorer - Export.zip");
             $btn.button('reset')

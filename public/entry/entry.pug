@@ -3,18 +3,18 @@
   .row
     .col-lg-12
       revision-status
-  
+
   .row
     br
     .col-lg-12
       .edit-status.alert.alert-success
-        
+
         .edit-status-entry-index
-          span Entry Index: 
-          a.alert-link(ng-click="editStatus.editingIndex = true", ng-show="!editStatus.editingIndex") {{ $stateParams.id }}
+          span Entry ID: 
+          a.alert-link(ng-click="editStatus.editingIndex = true" ng-show="!editStatus.editingIndex") {{ $stateParams.id }}
           em(ng-show="!editStatus.exists && !editStatus.editingIndex && editStatus") (Empty)
           .input-group.input-group-sm(ng-show="editStatus.editingIndex")
-            input.form-control(type="text", ng-model="editingIndex.newIndex")
+            input.form-control(type="text" ng-model="editingIndex.newIndex")
             span.input-group-btn
               a.btn.btn-default(
                 ng-href="{{ getEntryLink(editingIndex.newIndex) }}",
@@ -22,16 +22,16 @@
               ) Go
 
         strong(ng-show="editStatus.mustActivateLatest && editStatus") Activate the Latest revision to edit this entry.
-        .btn-group.btn-group-sm(role="group", ng-show="!editStatus.mustActivateLatest && editStatus.exists")
+        .btn-group.btn-group-sm(role="group" ng-show="!editStatus.mustActivateLatest && editStatus.exists")
           a.btn.btn-info(
             ng-class="{ disabled: editStatus.duplicating }",
             type="button",
             ng-click="editStatus.duplicating ? null : duplicateEntry()",
           ) {{ editStatus.duplicating ? 'Duplicating...' : 'Duplicate Entry' }}
-          
+
           a.btn.btn-default(type="button" ng-href="#/entries/{{entry.index}}/edit") Edit Entry
 
-        .btn-group.btn-group-sm(role="group", ng-show=" editStatus && !editStatus.mustActivateLatest && !editStatus.exists")
+        .btn-group.btn-group-sm(role="group" ng-show=" editStatus && !editStatus.mustActivateLatest && !editStatus.exists")
           button.btn.btn-sm.btn-default(
             ng-class="{ disabled: editStatus.creating }",
             type="button",
@@ -60,7 +60,7 @@
         p No entry data.
 
   .div(ng-show="entry")
-    
+
     h1
       .entry-not-original(ng-if="entry.origin && entry.origin.entryOrigin !== 'From the Dictionary'")
         span(ng-bind-html="highlighted('fullName', entry.fullName)")
@@ -87,7 +87,7 @@
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.alternateNames")
                   span(ng-bind-html="highlighted('fullName', e.alternateName)")
-          
+
           .col-lg-12.col-md-4.col-sm-6
             .panel.panel-default
               .panel-heading Entry ID
@@ -100,11 +100,11 @@
               ul.list-group
                 li.list-group-item
                   span(ng-show="entry.dates[0].birthDate")
-                    a(ng-click="search({birthDate:{startYear: entry.dates[0].birthDate, endYear: entry.dates[0].birthDate} })",
+                    a(ng-click="search({birthDate:{startYear: entry.dates[0].birthDate, endYear: entry.dates[0].birthDate} })" 
                       ng-bind-html="highlighted('birthDate', entry.dates[0].birthDate)"
                     )
                     span(ng-show="entry.dates[0].birthDateMarker")  ({{ entry.dates[0].birthDateMarker }})
-                  
+
                   span(ng-show="entry.dates[0].birthDate && entry.places[0].birthPlace") , 
                   span(ng-show="entry.places[0].birthPlace") 
                     a(ng-click="search({birthPlace:entry.places[0].birthPlace})",
@@ -117,16 +117,16 @@
               ul.list-group
                 li.list-group-item
                   span(ng-show="entry.dates[0].deathDate")
-                      a(ng-click="search({deathDate:{startYear: entry.dates[0].deathDate, endYear: entry.dates[0].deathDate}})",
-                        ng-bind-html="highlighted('deathDate', entry.dates[0].deathDate)"
-                      )
-                      span(ng-show="entry.dates[0].deathDateMarker")  ({{ entry.dates[0].deathDateMarker }})
-                  
+                    a(ng-click="search({deathDate:{startYear: entry.dates[0].deathDate, endYear: entry.dates[0].deathDate}})" 
+                      ng-bind-html="highlighted('deathDate', entry.dates[0].deathDate)"
+                    )
+                    span(ng-show="entry.dates[0].deathDateMarker")  ({{ entry.dates[0].deathDateMarker }})
+
                   span(ng-show="entry.dates[0].deathDate && entry.places[0].deathPlace") , 
                   span(ng-show="entry.places[0].deathPlace")
-                      a(ng-click="search({deathPlace:entry.places[0].deathPlace})",
-                        ng-bind-html="highlighted('deathPlace', entry.places[0].deathPlace)"
-                      )
+                    a(ng-click="search({deathPlace:entry.places[0].deathPlace})",
+                      ng-bind-html="highlighted('deathPlace', entry.places[0].deathPlace)"
+                    )
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.dates[0].flourishedStartDate || entry.dates[0].flourishedEndDate")
             .panel.panel-default
@@ -147,22 +147,22 @@
                   a(ng-click="search({pursuits:e.pursuit})",
                     ng-bind-html="highlighted('pursuits', e.pursuit)"
                   )
-                    
+
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.parents && entry.parents.length > 0")
             .panel.panel-default
               .panel-heading Parents
               ul.list-group
                 li.list-group-item(ng-repeat="pr in entry.parents")
                   span(ng-if="!pr['Parent ID'] && !pr['Parent ID'] !== 0") {{pr.parents}}
-                  a(ng-if="pr['Parent ID']|| pr['Parent ID'] === 0", ng-href="{{ '#/entries/' + pr['Parent ID'] }}") {{pr.parents}}           
-          
+                  a(ng-if="pr['Parent ID']|| pr['Parent ID'] === 0" ng-href="{{ '#/entries/' + pr['Parent ID'] }}") {{pr.parents}}           
+
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.marriages.length")
             .panel.panel-default
               .panel-heading Marriages
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.marriages | orderBy : 'sequence'")
                   span(ng-if="!e['Spouse ID'] && !e['Spouse ID'] !== 0") {{e.spouse}} 
-                  a(ng-if="e['Spouse ID'] || e['Spouse ID'] === 0", ng-href="{{ '#/entries/' + e['Spouse ID'] }}") {{e.spouse}} 
+                  a(ng-if="e['Spouse ID'] || e['Spouse ID'] === 0" ng-href="{{ '#/entries/' + e['Spouse ID'] }}") {{e.spouse}} 
                   span(ng-show="e.year") ({{e.year}})
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mistress.length")
@@ -202,7 +202,7 @@
                   span(ng-show="e.to") -{{e.to}}
                   span(ng-show="e.from || e.to") )
                   span(ng-show="e.degreeDate")  ({{e.degreeDate}})
-                
+
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.occupations.length") 
             .panel.panel-default
               .panel-heading Occupations & Posts
@@ -280,20 +280,20 @@
               .panel-heading Mentioned names
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.mentionedNames") 
-                    div(ng-style="e.entryIndex !== undefined ? {}: {'font-style': 'italic'}") {{ e.name }}
-                      a.mentioned-names-logo(
-                        ng-show="e.entryIndex !== undefined",
-                        ng-href="{{getMentionedNameSearchUrl(e.name)}}"
-                      )
-                        img(src=require('../mentioned_names.png') width="20" height="20")
-                    a.mentioned-names-popup(
+                  div(ng-style="e.entryIndex !== undefined ? {}: {'font-style': 'italic'}") {{ e.name }}
+                    a.mentioned-names-logo(
                       ng-show="e.entryIndex !== undefined",
-                      ng-href="{{getEntryLink(e.entryIndex)}}",
-                      ng-click="handleEntryClick()",
-                        ng-style="{'color': 'black', 'cursor': 'pointer'}",
+                      ng-href="{{getMentionedNameSearchUrl(e.name)}}"
                     )
-                      h4 {{ e.entry.fullName }}
-                      p {{ e.entry.biography.slice(0, 100) }}...
+                      img(src=require('../mentioned_names.png') width="20" height="20")
+                  a.mentioned-names-popup(
+                    ng-show="e.entryIndex !== undefined",
+                    ng-href="{{getEntryLink(e.entryIndex)}}",
+                    ng-click="handleEntryClick()",
+                      ng-style="{'color': 'black', 'cursor': 'pointer'}",
+                  )
+                    h4 {{ e.entry.fullName }}
+                    p {{ e.entry.biography.slice(0, 100) }}...
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.sources.length")
             .panel.panel-default
@@ -303,13 +303,13 @@
                   span(ng-bind-html="highlighted('sources', e.abbrev)")
                   a.mentioned-names-logo(ng-click="search({sources: e.abbrev})")
                     img(src=require('../mentioned_names.png') width="20" height="20")
-                    
+
                   a.mentioned-names-popup(ng-style="{'color': 'black', 'padding-top': '10px'}")
-                      p {{ e.full }}
-          
+                    p {{ e.full }}
+
           //- .col-lg-12.col-md-4.col-sm-6
           //-   div.btn-group.add-to-list-btn.pull-left
-          //-     button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown", ng-if="currentUser")
+          //-     button.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown" ng-if="currentUser")
           //-       span Add to List
           //-       span.caret
           //-     ul.dropdown-menu
@@ -321,9 +321,9 @@
           //-       li.dropdown-header or add to a new list:
           //-       li
           //-         form.input-group.input-group-sm
-          //-           input.form-control(type="text", placeholder="new list name", ng-model="viewModel.newListName")
+          //-           input.form-control(type="text" placeholder="new list name" ng-model="viewModel.newListName")
           //-           span.input-group-btn
-          //-             button.btn.btn-default(type="submit", ng-disabled="!viewModel.newListName", ng-click="addSelectedEntriesToNewList()") Create & Add
+          //-             button.btn.btn-default(type="submit" ng-disabled="!viewModel.newListName" ng-click="addSelectedEntriesToNewList()") Create & Add
           //- .col-lg-12.col-md-4.col-sm-6
           //-   br
           //-   .label.label-success(ng-show="entry.addedToList") Added to list
@@ -339,16 +339,27 @@
       div.col-lg-6(ng-if="entry.origin && entry.origin.entryOrigin === 'Extracted from narrative'")
         div.entry-stub Why is this entry blank? This is one of the entries we created for travelers who only existed in others’ entries, with no narrative of their own, of whom a great majority are women. 
           a Read more about how we found these hidden figures and what we know about them…
-          
+
+      div.col-lg-6(ng-if="entry.origin && (entry.origin.entryOrigin === 'Extracted from heading' || entry.origin.entryOrigin === 'From the Dictionary')")
+        div.source-info-box 
+          span This entry, which was published in the Dictionary, was compiled from material in the Brinsley Ford Archive at the Paul
+            Mellon Centre for Studies in British Art in London.  
+          br
+          br
+          span Click here to search the archive catalog:
+            a(href="https://ceserani.github.io/gt-book/home")
+              img(src=require('../paul_mellon.png') height="20")
+
+
 
       div.col-lg-3(ng-show="entry.travels && entry.travels.length")
-        button.btn.btn-default.btn-xs.btn-block(type="button", ng-click="reanimate(entry.travels)") Animate
+        button.btn.btn-default.btn-xs.btn-block(type="button" ng-click="reanimate(entry.travels)") Animate
         br
         #minimap
         div.entry-info
           .row
             .col-lg-12(ng-show="entry.travel_tours.length")
-              
+
               .panel.panel-default(ng-repeat="tour in entry.travel_tours")
                 .panel-heading
                   span Tour {{tour.key}} 
@@ -361,7 +372,7 @@
                       th.text-right to
                       th.text-right.travel-marker-heading markers
                   tbody
-                    tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;", ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
+                    tr(class="entry-travel" ng-repeat="travel in tour.values" ng-click="searchTravel(travel)" style="cursor: pointer;" ng-mouseenter="miniMapShared.travelHovered(travel)" ng-mouseleave="miniMapShared.travelUnhovered(travel)" ng-class="{'minimap-hovered': travel.hovered}")
                       td(ng-class="{'bordered':travel.parent}")
                         span(ng-bind-html="highlighted('travelPlace', travel)")
                       td.text-right.tnum-lnum

@@ -853,28 +853,28 @@ function parseExport(res) {
 
         // mentions array parsed to get mentioned names for each entry
         if (d.mentionedNames && d.mentionedNames.length) {
-            entry.matchedMentions = mentions
+            entry.mentionedNamesWithEntryID = mentions
                 .filter(function (m) { return m.index == entry["Entry ID"] && m.matchedMentions !== ""; })
                 .map(function (m) { return m.matchedMentions; })
                 .join(";");
 
-            entry.unmatchedMentions = mentions
+            entry.mentionedNamesWithNoEntryID = mentions
                 .filter(function (m) { return m.index == entry["Entry ID"] && m.unmatchedMentions !== ""; })
                 .map(function (m) { return m.unmatchedMentions; })
                 .join(";");
 
-            entry.matchedMentionsEntryIndexes = mentions
+            entry.IDmatchesForMentionedNamesWithEntryID = mentions
                 .filter(function (m) { return m.index == entry["Entry ID"] && m.matchedMentionsEntryIndexes !== ""; })
                 .map(function (m) { return m.matchedMentionsEntryIndexes; })
                 .join(",");
 
-            if (entry.matchedMentions.length === 0) {
+            if (entry.mentionedNamesWithEntryID.length === 0) {
                 delete entry.matchedMentions;
             }
-            if (entry.unmatchedMentions.length === 0) {
+            if (entry.mentionedNamesWithNoEntryID.length === 0) {
                 delete entry.unmatchedMentions;
             }
-            if (entry.matchedMentionsEntryIndexes.length === 0) {
+            if (entry.IDmatchesForMentionedNamesWithEntryID.length === 0) {
                 delete entry.matchedMentionsEntryIndexes;
             }
         }

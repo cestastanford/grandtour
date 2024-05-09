@@ -3,7 +3,7 @@
         .col-lg-12
             .edit-status.alert.alert-warning
                 .edit-status-entry-index
-                    span Editing Entry Index: 
+                    span Editing Entry ID: 
                     a.alert-link(ng-click="editingIndex = true", ng-show="!editingIndex") {{ $stateParams.id }}
                     .input-group.input-group-sm(ng-show="editingIndex")
                         input.form-control(type="text", ng-model="newIndex")

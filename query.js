@@ -741,7 +741,7 @@ function parseExport(res) {
             lifeEvents: 'marriage',
             eventsDetail1: a.sequence || "",
             eventsDetail2: a.spouse || "",
-            place: "",
+            ["place/employer/pub"]: "",
             startDate: a.year || "",
             endDate: "",
             eventsIndex: ++activityIndex,
@@ -751,9 +751,9 @@ function parseExport(res) {
         if (d.education && d.education.length) d.education.forEach(a => activities.push({
             ...entryBase,
             lifeEvents: 'education',
-            eventsDetail1: "",
+            eventsDetail1: a.teacher || a.fullDegree || "",
             eventsDetail2: a.institution || "",
-            place: a.place || "",
+            ["place/employer/pub"]: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
             eventsIndex: ++activityIndex,
@@ -762,10 +762,10 @@ function parseExport(res) {
         // societies
         if (d.societies && d.societies.length) d.societies.forEach(a => activities.push({
             ...entryBase,
-            lifeEvents: 'society',
+            lifeEvents: 'society or academy',
             eventsDetail1: a.role || "",
             eventsDetail2: a.title || "",
-            place: "",
+            ["place/employer/pub"]: "",
             startDate: a.from || "",
             endDate: a.to || "",
             eventsIndex: ++activityIndex,
@@ -774,10 +774,10 @@ function parseExport(res) {
         // exhibitions
         if (d.exhibitions && d.exhibitions.length) d.exhibitions.forEach(a => activities.push({
             ...entryBase,
-            lifeEvents: 'exhibition',
-            eventsDetail1: "",
+            lifeEvents: 'exhibition or award',
+            eventsDetail1: a.activity || "",
             eventsDetail2: a.title || "",
-            place: a.place || "",
+            ["place/employer/pub"]: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
             eventsIndex: ++activityIndex,
@@ -789,7 +789,7 @@ function parseExport(res) {
             lifeEvents: 'DBITI employment or identifier',
             eventsDetail1: "",
             eventsDetail2: a.pursuit,
-            place: "",
+            ["place/employer/pub"]: "",
             startDate: "",
             endDate: "",
             eventsIndex: ++activityIndex,
@@ -798,10 +798,10 @@ function parseExport(res) {
         // occupations
         if (d.occupations && d.occupations.length) d.occupations.forEach(a => activities.push({
             ...entryBase,
-            lifeEvents: 'occupation',
+            lifeEvents: 'occupation or post',
             eventsDetail1: a.group,
             eventsDetail2: a.title,
-            place: a.place || "",
+            ["place/employer/pub"]: a.place || "",
             startDate: a.from || "",
             endDate: a.to || "",
             eventsIndex: ++activityIndex,
@@ -813,7 +813,7 @@ function parseExport(res) {
             lifeEvents: 'military career',
             eventsDetail1: a.officeType,
             eventsDetail2: a.rank,
-            place: "",
+            ["place/employer/pub"]: "",
             startDate: a.rankStart || "",
             endDate: a.rankEnd || "",
             eventsIndex: ++activityIndex,
@@ -878,9 +878,9 @@ function parseExport(res) {
                 delete entry.matchedMentionsEntryIndexes;
             }
         }
-        entry.origin = d.origin.entryOrigin;
-        entry.originSourceName = d.origin.sourceName;
-        entry.originSourceIndex = d.origin.sourceIndex;
+        entry.entryOrigin = d.origin.entryOrigin;
+        entry.originEntryName = d.origin.sourceName;
+        entry.originEntryID = d.origin.sourceIndex;
 
         return entry;
 

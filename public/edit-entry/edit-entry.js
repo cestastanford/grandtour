@@ -10,7 +10,7 @@ export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryLi
 
     function refreshEntryFields() {
 
-        return $http.get('/api/entry-fields')
+        return $http.get('/explorer/api/entry-fields')
         .then(function(response) {
 
             $scope.entryFields = response.data
@@ -27,7 +27,7 @@ export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryLi
 
     function refreshEntry() {
 
-        return $http.get('/api/entries/' + $stateParams.id)
+        return $http.get('/explorer/api/entries/' + $stateParams.id)
         .then(function(response) {
 
             if (!response.data.entry) $state.go('entry', { id: $stateParams.id })
@@ -131,7 +131,7 @@ export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryLi
 
         $scope.currentlyEditing = null
         $scope.saveStatus = { saving: true }
-        $http.patch('/api/entries/' + $scope.entry.index, $scope.unsavedChanges)
+        $http.patch('/explorer/api/entries/' + $scope.entry.index, $scope.unsavedChanges)
         .then(function(response) {
             $scope.entry = response.data
             $scope.unsavedChanges = null
@@ -175,7 +175,7 @@ export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryLi
 
             $scope.deleting = true
             delete $scope.unsavedChanges
-            $http.delete('/api/entries/' + $scope.entry.index)
+            $http.delete('/explorer/api/entries/' + $scope.entry.index)
             .then(function() {
                 $scope.deleting = false
                 $window.location.reload()

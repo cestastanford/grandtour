@@ -21,7 +21,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
     $scope.id = parseInt($stateParams.id)
     $scope.currentUser = $rootScope.currentUser;
     $scope.loading = true;
-    $http.get('/api/entries/' + $stateParams.id )
+    $http.get('/explorer/api/entries/' + $stateParams.id )
     .then(function(response) {
      
       $scope.previousIndex = response.data.previous
@@ -227,7 +227,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
 
   function setupEditing() {
 
-    $http.get('/loggedin')
+    $http.get('/explorer/loggedin')
     .then(function(response) {
 
       var user = response.data
@@ -274,7 +274,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
   $scope.createEntry = function() {
 
     $scope.editStatus.creating = true
-    $http.put('/api/entries/' + $stateParams.id, { fullName: 'New Entry' })
+    $http.put('/explorer/api/entries/' + $stateParams.id, { fullName: 'New Entry' })
     .then(function() {
       $scope.editStatus.creating = false
       $window.location.reload()
@@ -305,7 +305,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
       
       })
       
-      $http.put('/api/entries/' + $scope.nextAvailableDecimalIndex, newEntry)
+      $http.put('/explorer/api/entries/' + $scope.nextAvailableDecimalIndex, newEntry)
       .then(function() {
         $scope.editStatus.duplicating = false
         $location.path('/entries/' + $scope.nextAvailableDecimalIndex)

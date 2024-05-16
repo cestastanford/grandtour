@@ -12,7 +12,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
 
   //  create a list
   var newList = function(name, callback) {
-    $http.post('/api/lists/newlist', {
+    $http.post('/explorer/api/lists/newlist', {
       username: $rootScope.currentUser.username,
       name: name
     })
@@ -28,7 +28,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
   //  delete a list
   var deleteList = function(list, callback) {
     if ($window.confirm('Are you sure you want to permanently delete this list?')) {
-      $http.post('/api/lists/deletelist', {
+      $http.post('/explorer/api/lists/deletelist', {
         username: $rootScope.currentUser.username,
         id: list._id
       })
@@ -45,7 +45,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
 
   //  add to a list
   var addToList = function(list, entry, callback) {
-    return $http.post('/api/lists/addtolist', {
+    return $http.post('/explorer/api/lists/addtolist', {
       listID: list._id,
       entryIndex: entry.index
     })
@@ -65,7 +65,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
   //  remove from a list
   var removeFromList = function(list, entry, callback) {
     var index = list.entryIDs.indexOf(entry.index);
-    $http.post('/api/lists/removefromlist', {
+    $http.post('/explorer/api/lists/removefromlist', {
       listID: list._id,
       entryIndex: entry.index
     })
@@ -83,7 +83,7 @@ export default ['$rootScope', '$http', '$window', function($rootScope, $http, $w
     sharedListModel.myLists = [];
     sharedListModel.listsLoading = true;
     if ($rootScope.currentUser) {
-      return $http.get('/api/lists/mylists')
+      return $http.get('/explorer/api/lists/mylists')
       .then(function(res) {
         if (res.data.error) console.error(res.data.error);
         else sharedListModel.myLists = res.data.entries;

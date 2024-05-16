@@ -84,7 +84,7 @@ const MODULE_NAME = 'app';
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-    $http.get('/loggedin').then(function(user){
+    $http.get('/explorer/loggedin').then(function(user){
       // Authenticated
       if (user !== '0') {
         $rootScope.currentUser = user;
@@ -96,7 +96,7 @@ const MODULE_NAME = 'app';
     // Logout function is available in any pages
     $rootScope.logout = function(){
       $rootScope.currentUser = null;
-      $http.post('/logout');
+      $http.post('/explorer/logout');
       $state.go('login')
     };
 
@@ -127,7 +127,7 @@ const MODULE_NAME = 'app';
   //  Retrieves the user object
   var getUser = function($http) {
     
-    return $http.get('/loggedin')
+    return $http.get('/explorer/loggedin')
     .then(function(response) {
       
       var user = response.data === '0' ? null : response.data

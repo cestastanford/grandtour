@@ -10,6 +10,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('cookie-session')
 const cookieParser = require('cookie-parser')
+const proxy = require('express-http-proxy')
 const passport = require('passport')
 const forceSsl = require('force-ssl-heroku')
 const socketIO = require('./socket')
@@ -81,9 +82,26 @@ if (process.env['DEBUG_DELAY']) app.use((req, res, next) => setTimeout(next, 100
 */
 
 app.use(express.static(__dirname + '/dist'))
-app.use('/', router)
+app.use('/explorer', router)
 app.use(express.static('public'))
-app.use('/gt-book', express.static('gt-book'))
+
+// Proxies 
+app.use(proxy('https://ceserani.github.io/gt-book/', {
+    proxyReqPathResolver: function(req) {
+        if (req.url.indexOf("/gt-book") === -1) {
+            return "/gt-book" + req.url;
+        }
+        return req.url;
+    },
+    filter: function(req, res) {
+        return req.method == 'GET' && req.url.indexOf('/explorer') === -1;
+    },
+    skipToNextHandlerFilter: function(proxyRes) {
+      return proxyRes.statusCode === 404;
+    }
+}));
+// Use this instead once we finalize the book and finally compile it.
+// app.use('/', express.static('gt-book'))
 
 /*
 *   Handles errors, generating 404 errors for non-error requests

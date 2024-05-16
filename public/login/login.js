@@ -7,7 +7,7 @@ export default ['$scope', '$rootScope', '$http', '$location', '$state', function
 
   // Register the login() function
   $scope.login = function(){
-    $http.post('/login', {
+    $http.post('/explorer/login', {
       username: $scope.user.username,
       password: $scope.user.password,
     })

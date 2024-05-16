@@ -11,7 +11,7 @@ import JSZip from "jszip";
   if ($stateParams.query) {
     $scope.query = JSON.parse($stateParams.query);
     $scope.searching = true;
-    $http.post('/api/entries/search2', {
+    $http.post('/explorer/api/entries/search2', {
         query: $scope.query
       }
     )
@@ -42,7 +42,7 @@ import JSZip from "jszip";
 
 
   $scope.getSuggestions = function(field, value){
-    return $http.post('/api/entries/suggest/', {  field : field, value : value })
+    return $http.post('/explorer/api/entries/suggest/', {  field : field, value : value })
     .then(function (res){
       return res.data.results;//.map(function(d){ return { value: d } });
     })
@@ -80,7 +80,7 @@ import JSZip from "jszip";
 
     var $btn = $('#export-button').button('loading');
 
-    $http.post('/api/entries/export/', { query: $scope.query } )
+    $http.post('/explorer/api/entries/export/', { query: $scope.query } )
     .success(function(res) {
 
       var entries = d3.tsv.format(res.result.entries);
@@ -100,7 +100,7 @@ import JSZip from "jszip";
   }
 
   //  download counts
-  $http.get('/api/getcount')
+  $http.get('/explorer/api/getcount')
   .then(function(res) {
     if (res.data.error) console.error(res.data.error);
     else $scope.counts = res.data.counts;

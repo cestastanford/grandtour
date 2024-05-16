@@ -28,11 +28,11 @@ import io from "socket.io-client";
 
 
   function reloadRevisions() {
-    $http.get('/api/revisions')
+    $http.get('/explorer/api/revisions')
     .then(function(response) {
       $scope.revisions = response.data
     })
-    .then(function() { return $http.get('/loggedin') })
+    .then(function() { return $http.get('/explorer/loggedin') })
     .then(function(response) {
       processRevisions(response.data.activeRevisionIndex)
     })
@@ -55,7 +55,7 @@ import io from "socket.io-client";
   $scope.saveRevisionEdit = function(revision) {
     
     revision.savingEdit = true
-    $http.patch('/api/revisions/' + revision.index, { name: revision.newName })
+    $http.patch('/explorer/api/revisions/' + revision.index, { name: revision.newName })
     .then(function(response) {
       revision.savingEdit = false
       revision.editing = false
@@ -70,7 +70,7 @@ import io from "socket.io-client";
   $scope.setActiveRevision = function(revision) {
     
     revision.activating = true
-    $http.post('/api/users/update', { activeRevisionIndex: revision.latest ? null : revision.index })
+    $http.post('/explorer/api/users/update', { activeRevisionIndex: revision.latest ? null : revision.index })
     .then(function(response) {
       revision.activating = false
       processRevisions(response.data.activeRevisionIndex)
@@ -84,7 +84,7 @@ import io from "socket.io-client";
     
     if ($window.confirm('Are you sure you want to delete this revision, erasing all entry updates contained within?')) {
       revision.deleting = true
-      $http.delete('/api/revisions/' + revision.index)
+      $http.delete('/explorer/api/revisions/' + revision.index)
       .then(function() {
         revision.deleting = false
         $scope.revisions = $scope.revisions.filter(function(r) { return r !== revision })
@@ -99,7 +99,7 @@ import io from "socket.io-client";
   $scope.createNewRevision = function() {
     
     $scope.creating = true
-    $http.post('/api/revisions', {})
+    $http.post('/explorer/api/revisions', {})
     .then(function(response) {
       $scope.creating = false
       $scope.revisions.unshift(response.data)
@@ -137,7 +137,7 @@ import io from "socket.io-client";
     if ($scope.importStatus) return;
     $scope.importStatus = {}
     $('#import').button('loading')
-    $http.post('/api/import/from-sheets')
+    $http.post('/explorer/api/import/from-sheets')
     .catch(console.error.bind(console))
   }
 
@@ -156,7 +156,7 @@ import io from "socket.io-client";
     $scope.exportStatus = {}
     $scope.exportUrls = [];
     $('#export').button('loading')
-    $http.post('/api/export/to-sheets', { revisionIndex: revisionIndex })
+    $http.post('/explorer/api/export/to-sheets', { revisionIndex: revisionIndex })
     .catch(console.error.bind(console))
   }
 
@@ -173,28 +173,28 @@ import io from "socket.io-client";
     if ($scope.linkedFootnotesImportStatus) return;
     $scope.linkedFootnotesImportStatus = {}
     $('#import-linked-footnotes').button('loading')
-    $http.post('/api/import/linked-footnotes-from-sheets', { sheetId: sheetId })
+    $http.post('/explorer/api/import/linked-footnotes-from-sheets', { sheetId: sheetId })
     .catch(console.error.bind(console))
   }
 
   $scope.clearLinkedFootnotes = function() {
     $('#clear-linked-footnotes').button('loading')
-    $http.delete('/api/linked-footnotes')
+    $http.delete('/explorer/api/linked-footnotes')
     .then(function() { $('#clear-linked-footnotes').button('reset') })
     .catch(console.error.bind(console))
   }
 
-  $http.get('/api/users/')
+  $http.get('/explorer/api/users/')
   .success(function (res){
     $scope.users = res.users;
   })
 
   $scope.remove = function(username){
-    $http.post('/api/users/remove', {username:username})
+    $http.post('/explorer/api/users/remove', {username:username})
     .success(function(res){
       $scope.message = 'User ' + username + ' successfully removed!';
       // reload users again
-      $http.get('/api/users/')
+      $http.get('/explorer/api/users/')
       .success(function (res){
         $scope.users = res.users;
       })
@@ -206,11 +206,11 @@ import io from "socket.io-client";
   };
 
   $scope.update = function(user){
-    $http.post('/api/users/update', user)
+    $http.post('/explorer/api/users/update', user)
     .success(function(res){
       $scope.message = 'User ' + user.username + ' successfully updated!';
       // reload users again
-      $http.get('/api/users/')
+      $http.get('/explorer/api/users/')
       .success(function (res) {
         $scope.users = res.users;
       })
@@ -222,12 +222,12 @@ import io from "socket.io-client";
   };
 
   $scope.register = function(){
-    $http.post('/api/users/add', $scope.user)
+    $http.post('/explorer/api/users/add', $scope.user)
     .success(function(res){
       $scope.message = 'User ' + res.user.username + ' successfully created!';
       $scope.user = {};
       // reload users again
-      $http.get('/api/users/')
+      $http.get('/explorer/api/users/')
       .success(function (res){
         $scope.users = res.users;
       })

@@ -98,6 +98,17 @@ app.use(proxy('https://ceserani.github.io/gt-book/', {
     },
     skipToNextHandlerFilter: function(proxyRes) {
       return proxyRes.statusCode === 404;
+    },
+    userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {
+        if (proxyRes.headers['content-type'] === 'text/html') {
+            data = proxyResData?.toString('utf8');
+            // Fix links
+            if (data && data.indexOf("/gt-book/") > -1) {
+                return data.replace(/\/gt-book\//g, "");
+            }
+            return data;
+        }
+        return proxyResData;
     }
 }));
 // Use this instead once we finalize the book and finally compile it.

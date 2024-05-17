@@ -533,7 +533,7 @@ export class ChartComponent {
     private async groupByType(allGroups) {
         try {
             return await Promise.all(allGroups.map(group =>
-                this.http.post('/api/entries/search', { query: group.query }).toPromise()
+                this.http.post('/explorer/api/entries/search', { query: group.query }).toPromise()
             ));
         }
         catch (e) {

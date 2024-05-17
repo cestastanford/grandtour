@@ -72,7 +72,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     $location.path('explore/' + JSON.stringify(clean($scope.query)) );
   }
 
-  var someQuery = httpQuery('/api/entries/search');
+  var someQuery = httpQuery('/explorer/api/entries/search');
 
   var runQuery = async function (query) {
     const activeDimensionsWithSuggestions = $scope.activeDimensions.filter(e => e.suggestion);

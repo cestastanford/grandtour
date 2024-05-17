@@ -12,7 +12,7 @@ export default ['$scope', '$rootScope', '$http', '$location', '$state', function
       $scope.user.password2 = "";
       return;
     }
-    $http.post('/signup', $scope.user)
+    $http.post('/explorer/signup', $scope.user)
     .success(function(res){
       $scope.message = "User successfully created!";
       $state.go("login");

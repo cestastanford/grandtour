@@ -1,3 +1,3 @@
-db: mongod --dbpath ./data
+db: mongod --quiet --dbpath ./data
 frontend: webpack --colors --mode=development --watch
 web: npx wait-port 27017 && node app.js

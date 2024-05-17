@@ -45,7 +45,7 @@ The GTE is deployed on Reclaim Hosting.
 To deploy, first make a pull request or a commit to the `master` branch. Then, a GitHub Action will build the appropriate code and push the results to the `build` branch. Then, to deploy to Reclaim:
 1. Log in to https://app.my.reclaim.cloud/
 2. Go to the "Deployment Manager" -> "GIT / SVN" tab on the bottom. Click the "Deploy to..." icon next to "grandtour". Select the grand tour "Application Environment" for "Environment" and click "Deploy".
-3. Grand Tour Explorer should be deployed at https://grandtourexplorer.wc.reclaim.cloud/; book should be deployed at https://grandtourexplorer.wc.reclaim.cloud/gt-book/.
+3. Grand Tour Explorer and book should be deployed at https://aworldmadebytravel.supdigital.org/.
 
 
 ### notes

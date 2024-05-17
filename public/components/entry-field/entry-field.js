@@ -171,7 +171,7 @@ export default ['$window', '$http', '$sce', '$timeout', function($window, $http,
             scope.downloadEntry = function(index) {
 
                 if ((index || index === 0) && !downloadedEntries[index]) {
-                    $http.get('/api/entries/' + index)
+                    $http.get('/explorer/api/entries/' + index)
                     .then(function(response) {
                         downloadedEntries[index] = response.data.entry
                     })

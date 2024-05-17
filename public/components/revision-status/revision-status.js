@@ -28,12 +28,12 @@ export default ['$http', function($http, $window) {
             
             function reloadRevisions() {
               
-                $http.get('/loggedin')
+                $http.get('/explorer/loggedin')
                 .then(function(response) {
                     var currentUser = response.data
                     if (currentUser.role !== 'viewer') {
 
-                        $http.get('/api/revisions')
+                        $http.get('/explorer/api/revisions')
                         .then(function(response) {
                             scope.revisions = response.data
                             processRevisions(currentUser.activeRevisionIndex)
@@ -49,7 +49,7 @@ export default ['$http', function($http, $window) {
             scope.setActiveRevision = function(revision) {
                 
                 revision.activating = true
-                $http.post('/api/users/update', { activeRevisionIndex: revision.latest ? null : revision.index })
+                $http.post('/explorer/api/users/update', { activeRevisionIndex: revision.latest ? null : revision.index })
                 .then(function(response) {
                     revision.activating = false
                     $window.location.reload()

@@ -46,7 +46,7 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
     };
 
     function downloadEntries(listId) {
-        $http.get('/api/lists/' + listId + '/entries')
+        $http.get('/explorer/api/lists/' + listId + '/entries')
         .then(function(response) {
             const {entries, ...list} = response.data;
             viewModel.selectedListEntries = entries;
@@ -90,7 +90,7 @@ export default ['$scope', '$http', 'savedListService', '$stateParams', '$state',
     
         var $btn = $('#export-button').button('loading')
     
-        $http.post('/api/entries/export/', { index_list: viewModel.selectedList.entryIDs } )
+        $http.post('/explorer/api/entries/export/', { index_list: viewModel.selectedList.entryIDs } )
         .success(function (res){
 
             var entries = d3.tsv.format(res.result.entries);

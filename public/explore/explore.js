@@ -77,7 +77,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   var runQuery = async function (query) {
     const activeDimensionsWithSuggestions = $scope.activeDimensions.filter(e => e.suggestion);
     // Call uniques endpoint single time
-    // const uniquesPromise = $http.post('/api/entries/uniques/', {
+    // const uniquesPromise = $http.post('/explorer/api/entries/uniques/', {
     //   query: $scope.query,
     //   suggestions: activeDimensionsWithSuggestions.map(e => e.suggestion),
     //   fields: activeDimensionsWithSuggestions.map(e => e.field)
@@ -88,7 +88,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     // Call uniques endpoint multiple times
     const uniquesPromise = async () => {
       let uniques = {};
-      const uniquesPromiseResults = await Promise.all(activeDimensionsWithSuggestions.map(e => $http.post('/api/entries/uniques/', {
+      const uniquesPromiseResults = await Promise.all(activeDimensionsWithSuggestions.map(e => $http.post('/explorer/api/entries/uniques/', {
         query: $scope.query,
         suggestions: [e.suggestion],
         fields: [e.field]
@@ -142,7 +142,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   $scope.$watch('query', queryUpdated, true);
 
   $scope.getSuggestions = function(field, value){
-    return $http.post('/api/entries/suggest/', {  field : field, value : value })
+    return $http.post('/explorer/api/entries/suggest/', {  field : field, value : value })
     .then(function (res){
       return res.data.results;//.map(function(d){ return { value: d } });
     })
@@ -152,7 +152,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
 
     var $btn = $('#export-button').button('loading')
 
-    $http.post('/api/entries/export/', {  query: $scope.query } )
+    $http.post('/explorer/api/entries/export/', {  query: $scope.query } )
       .success(function (res){
 
         var entries = d3.tsv.format(res.result.entries);
@@ -195,7 +195,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
   $('[data-toggle="tooltip"]').tooltip()
 
   //  download counts
-  $http.get('/api/getcount')
+  $http.get('/explorer/api/getcount')
   .then(function(res) {
     if (res.data.error) console.error(res.data.error);
     else $scope.counts = res.data.counts;

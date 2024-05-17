@@ -9,7 +9,7 @@ export default ['$scope', '$rootScope', '$http', '$location', '$state', function
   $scope.register = function(){
     console.log($scope.user.role)
     $scope.user.role = $scope.user.role == true ? 'admin' : 'viewer';
-    $http.post('/register', $scope.user)
+    $http.post('/explorer/register', $scope.user)
     .success(function(user){
       // No error: authentication OK
       $rootScope.currentUser = user;

@@ -147,7 +147,7 @@ export default ['$http', 'entryHighlightingService', '$timeout', '$sce', functio
 
         return Promise.all(entry.mentionedNames.map(function(name) {
           
-          if (name.entryIndex) return $http.get('/api/entries/' + name.entryIndex)
+          if (name.entryIndex) return $http.get('/explorer/api/entries/' + name.entryIndex)
           else return (Promise.resolve(null))
         
         }))
@@ -169,7 +169,7 @@ export default ['$http', 'entryHighlightingService', '$timeout', '$sce', functio
 
     function linkFootnotes(entry) {
 
-        return $http.get('/api/linked-footnotes/in-entry/' + entry.index)
+        return $http.get('/explorer/api/linked-footnotes/in-entry/' + entry.index)
         .then(function(response) {
 
             var notes = entry[NOTES + FORMATTED_SUFFIX] || entry[NOTES]
@@ -323,7 +323,7 @@ export default ['$http', 'entryHighlightingService', '$timeout', '$sce', functio
             if (!entry.origin.sourceName && (entry.origin.sourceIndex || entry.origin.sourceIndex === 0)) {
 
                 entry.origin.sourceName = ''
-                return $http.get('/api/entries/' + entry.origin.sourceIndex)
+                return $http.get('/explorer/api/entries/' + entry.origin.sourceIndex)
                 .then(function(response) {
                   
                     if (response.data.entry) {

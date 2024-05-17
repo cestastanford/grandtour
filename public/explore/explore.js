@@ -13,7 +13,7 @@ export default ['$scope', '$http', '$location', '$stateParams', '$state', '$q', 
     $('[data-toggle="tooltip"]').tooltip(); 
   });
 
-  const BOOK_URL = "https://ceserani.github.io/gt-book";
+  const BOOK_URL = "https://aworldmadebytravel.supdigital.org";
 
   $scope.dimensions = [
     { type : 'facet', active : false, label : 'Traveler name', description: 'The names of the 6007 travelers in the database, including alternate names. ', field : 'fullName', suggestion: 'fullName', sorting : 'fullName', href: `${BOOK_URL}/presenting-the-data#paragraph-23` },

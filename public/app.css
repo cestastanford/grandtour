@@ -1417,6 +1417,7 @@ div.tool_tip {
 .site-nav {
   z-index: 2;
   height: 75vh;
+  height: fit-content;
   box-sizing: border-box;
   width: 300px;
   min-width: 300px;

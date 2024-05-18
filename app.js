@@ -114,8 +114,8 @@ app.use(proxy('https://ceserani.github.io/gt-book/', {
         if (proxyRes.headers['content-type'].indexOf('text/html') > -1) {
             data = proxyResData?.toString('utf8');
             // Fix links
-            if (data && data.indexOf("/gt-book/") > -1) {
-                return data.replace(/\/gt-book\//g, "");
+            if (data && data.indexOf("/gt-book") > -1) {
+                return data.replace(/\/gt-book/g, "");
             }
             return data;
         }

@@ -1341,6 +1341,7 @@ div.tool_tip {
 
 .main {
   max-width: 1400px;
+  width: 100%;
   margin: auto;
   margin-top: 0;
 }

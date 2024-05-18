@@ -181,7 +181,7 @@ export default ['$http', 'entryHighlightingService', '$timeout', '$sce', functio
                 linkedFootnotes.forEach(function(footnote, i) {
 
                     var popoverText = footnote.fullText
-                    var linkDestination = '/#/search/' + encodeURIComponent(JSON.stringify({
+                    var linkDestination = '/explorer/#/search/' + encodeURIComponent(JSON.stringify({
                         entry: { 
                             terms: [ { value: footnote.abbreviation } ],
                             sections: [

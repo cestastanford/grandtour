@@ -518,7 +518,7 @@ export class ChartComponent {
                 )
                 .on("click", function() {
                     div.style("opacity", 0);
-                    var hash = `/#/entries/${zEntry.index}`;
+                    var hash = `/explorer/#/entries/${zEntry.index}`;
                     window.open(hash);
                     }
                 );

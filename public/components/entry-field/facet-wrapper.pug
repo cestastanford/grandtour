@@ -3,7 +3,7 @@
     ul.list-group.entry-facet(ng-sortable="{ onUpdate: arraySorted }")
         li.list-group-item(ng-repeat="(arrayIndex, fieldValue) in fieldValueArray")
             ng-include.data(
-                src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
+                src="'/explorer/components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
             )
             .controls.pull-right
                 a.small.margin-right(ng-click="editInModal(fieldValue, $index)") edit
@@ -20,7 +20,7 @@
     ul.list-group.entry-facet
         li.list-group-item
             ng-include.data(
-                src="'components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
+                src="'/explorer/components/entry-field/facet-template' + (facetTemplate ? ('-' + facetTemplate) : '')",
                 ng-init="arrayIndex = null",
             )
             a.controls.small.pull-right.margin-right(ng-click="editInModal(fieldValue)") edit 

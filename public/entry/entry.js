@@ -127,7 +127,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
 
   $scope.getMentionedNameSearchUrl = function (name) {
     let query = { "mentionedNames": name };
-    return `#/search/${encodeURIComponent(JSON.stringify(query))}`;
+    return `/explorer/#/search/${encodeURIComponent(JSON.stringify(query))}`;
   }
 
 
@@ -250,7 +250,7 @@ export default ['$scope', '$http', '$stateParams', '$sce', '$timeout', '$locatio
   */
 
   $scope.getEntryLink = function(index) {
-    return typeof(index) !== "undefined" ? $state.href('entry', { id: index }) : ''
+    return typeof(index) !== "undefined" ? '/explorer/' + $state.href('entry', { id: index }) : ''
   }
 
 

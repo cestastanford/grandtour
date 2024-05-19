@@ -44,12 +44,19 @@ interface IState {
 
 function init() {
   // sets up map
+  const bounds = [
+    // [97.99607693081663, 60.84720739645755], // Southwest coordinates
+    // [-22.48332558447902, 13.414923834233377] // Northeast coordinates
+    [-20, 15],
+    [90, 62]
+  ];
   mapboxgl.accessToken = 'pk.eyJ1IjoicnlhbmN0YW4iLCJhIjoiY2p6cmZpb3c1MGtweTNkbjR2dGRrMHk5ZiJ9.H8nXUqRjABlGumy-D8fA7A'; // replace this with your access token
   let map = new mapboxgl.Map({
     container: 'map',
     style: require('./style.json'),
     center: [13, 41],
     zoom: 4.6,
+    maxBounds: bounds
   });
 
   console.log('init');

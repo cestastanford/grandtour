@@ -1,8 +1,9 @@
 .form-group    
   label {{ label === 'DBITI Employments & Identifiers' ? "​" : label }} 
     span.text-muted(ng-show="subgroup") {{subgroup}}
-  label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-style: italic; display: inline") DBITI 
-  label(ng-if="label === 'DBITI Employments & Identifiers'", style="font-style: normal; display: inline") Employments & Identifiers
+  label(ng-if="label === 'DBITI Employments & Identifiers'")
+    i DBITI 
+    span Employments & Identifiers
 
   .facet-wrapper
     
@@ -14,7 +15,7 @@
       .fa.fa-times-circle.clear-input-icon(ng-click="search._id = ''", ng-show="search._id.length")
 
     div.margin-bottom(ng-show="uniques.length")
-      a.small(ng-click="open=!open" style="color: #23597B") {{ open ? 'Show selected only' : 'Show all' }}  
+      a.small(ng-click="open=!open" style="color: #23597B; font-size: 80%") {{ open ? 'Show selected only' : 'Show all' }}  
       div.select-facet-sorting.btn-group.btn-group-xs(ng-model="sortingSelection", ng-init="sortingSelection = '-count'")
         button.btn.btn-default(type="button", ng-click="sortingSelection = '-count'") #
         button.btn.btn-default(type="button", ng-click="sortingSelection = '_id'") A

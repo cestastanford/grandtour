@@ -29,7 +29,7 @@
             ng-click="editStatus.duplicating ? null : duplicateEntry()",
           ) {{ editStatus.duplicating ? 'Duplicating...' : 'Duplicate Entry' }}
 
-          a.btn.btn-default(type="button" ng-href="#/entries/{{entry.index}}/edit") Edit Entry
+          a.btn.btn-default(type="button" ng-href="/explorer/#/entries/{{entry.index}}/edit") Edit Entry
 
         .btn-group.btn-group-sm(role="group" ng-show=" editStatus && !editStatus.mustActivateLatest && !editStatus.exists")
           button.btn.btn-sm.btn-default(
@@ -71,7 +71,7 @@
       span [From the entry of 
       a(
         ng-if="entry.origin.sourceIndex || entry.origin.sourceIndex === 0",
-        ng-href="#/entries/{{ entry.origin.sourceIndex }}",
+        ng-href="/explorer/#/entries/{{ entry.origin.sourceIndex }}",
       ) {{ entry.origin.sourceName }}
       span(
         ng-if="!entry.origin.sourceIndex && entry.origin.sourceIndex !== 0"
@@ -154,7 +154,7 @@
               ul.list-group
                 li.list-group-item(ng-repeat="pr in entry.parents")
                   span(ng-if="!pr['Parent ID'] && !pr['Parent ID'] !== 0") {{pr.parents}}
-                  a(ng-if="pr['Parent ID']|| pr['Parent ID'] === 0" ng-href="{{ '#/entries/' + pr['Parent ID'] }}") {{pr.parents}}           
+                  a(ng-if="pr['Parent ID']|| pr['Parent ID'] === 0" ng-href="{{ '/explorer/#/entries/' + pr['Parent ID'] }}") {{pr.parents}}           
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.marriages.length")
             .panel.panel-default
@@ -162,7 +162,7 @@
               ul.list-group
                 li.list-group-item(ng-repeat="e in entry.marriages | orderBy : 'sequence'")
                   span(ng-if="!e['Spouse ID'] && !e['Spouse ID'] !== 0") {{e.spouse}} 
-                  a(ng-if="e['Spouse ID'] || e['Spouse ID'] === 0" ng-href="{{ '#/entries/' + e['Spouse ID'] }}") {{e.spouse}} 
+                  a(ng-if="e['Spouse ID'] || e['Spouse ID'] === 0" ng-href="{{ '/explorer/#/entries/' + e['Spouse ID'] }}") {{e.spouse}} 
                   span(ng-show="e.year") ({{e.year}})
 
           .col-lg-12.col-md-4.col-sm-6(ng-show="entry.mistress.length")

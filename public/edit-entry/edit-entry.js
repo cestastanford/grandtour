@@ -68,7 +68,7 @@ export default ['$http', '$state', '$stateParams', '$scope', '$window', 'entryLi
 
     $scope.getEditLink = function(index) {
 
-        return index ? $state.href('edit-entry', { id: index }) : ''
+        return index ? '/explorer/' + $state.href('edit-entry', { id: index }) : ''
 
     }
 

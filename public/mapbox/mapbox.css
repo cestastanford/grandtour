@@ -95,24 +95,27 @@
   /* States legend */
 
   .states-box {
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font: 10px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     position: absolute;
-    height: 80px;
-    width: 100%;
-    bottom: 0;
-    left: 0;
+    width: 180px;
+    margin-right: 10px;
+    top: 10%;
+    right: 0;
+    height: 63%;
     padding: 10px;
-    padding-bottom: 25px;
-    margin-bottom: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
 
   .states-box .states-box-inner {
-    height: 70px;
     background-color: white;
     border: 2px solid #dddddd;
+    position: absolute;
     border-radius: 4px;
+    height: 100%;
     box-shadow:0 1px 2px rgba(0, 0, 0, 0.10);
-    padding: 10px;
+    padding: 5px;
+    padding-top: 10px;
   }
 
   #states {
@@ -120,8 +123,12 @@
   }
 
   .stateColor {
-    width: 11px;
-    height: 11px;
+    margin-top: 1px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 1;
+    width: 8px;
+    height: 8px;
     display: inline-block;
     position: relative;
     top: 1px;
@@ -139,6 +146,7 @@
   }
 
   .stateButton {
-    display: inline-block;
+    display: flex;
+    flex-direction: vertical;
     padding-right: 5px;
   }

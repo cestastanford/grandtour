@@ -26,7 +26,7 @@ function createPopup(id, content?) {
     selector: 'map',
     template: `
 
-    <div class='container' style='height:100% width:100%'>
+    <div style='height:100%; width:100%'>
         <div class='viz-btn-group' style='margin:10px 0px; display: none'>
             <div id='mapSwitchWrapper' class='switchWrapper'>
                 <button id="mapSwitch" class="switch">Map of Travel Places</button>

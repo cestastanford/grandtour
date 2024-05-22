@@ -38,6 +38,8 @@ interface IPoint {
 interface IState {
   name: string,
   color: string,
+  borderColor?: string, 
+  borderWidth?: string,
   buttonElement?: HTMLDivElement,
   selected?: boolean
 }
@@ -68,20 +70,21 @@ function init() {
    * all of its corresponding places.
    */
   let stateElements: IState[] = [
-    { name: 'Papal States', color: '#a879af' },
-    { name: 'Grand Duchy of Tuscany', color: '#89d792' },
-    { name: 'Duchy of Modena, Massa and Carrara', color: '#f8de91' },
-    { name: 'Republic of Venice', color: '#89b6d7' },
-    { name: 'Duchy of Milan and Mantua', color: '#d7bd75' },
-    { name: 'Bishopric of Trento', color: '#ce977e' },
-    { name: 'Kingdom of Naples', color: '#f0b97f' },
-    { name: 'House of Savoy/Kingdom of Sardinia', color: '#71808e' },
-    { name: 'Republic of Lucca', color: '#ce977e' },
-    { name: 'Duchy of Parma and Piacenza', color: '#83aa89' },
-    { name: 'Republic of Genoa', color: '#ab7879' },
-    { name: 'Duchy of Sora', color: '#77ac85' },
-    { name: 'Republic of San Marino', color: '#81b9da' },
-    { name: 'Tyrol', color: '#fdde86' },
+    { name: 'Papal States', color: '#B376B4' },
+    { name: 'Grand Duchy of Tuscany', color: '#6DDA8B' },
+    { name: 'Duchy of Modena, Massa and Carrara', color: '#DBBB66' },
+    { name: 'Republic of Venice', color: '#EE8202' },
+    { name: 'Duchy of Milan and Mantua', color: '#7FB8DA' },
+    { name: 'Bishopric of Trento', color: '#8A6B63' },
+    { name: 'Kingdom of Naples', color: '#0E619C' },
+    { name: 'House of Savoy/Kingdom of Sardinia', color: '#A37E1A' },
+    { name: 'Republic of Lucca', color: '#4D852F' },
+    { name: 'Duchy of Parma and Piacenza', color: '#7125BD' },
+    { name: 'Republic of Genoa', color: '#D85B5B' },
+    { name: 'Duchy of Sora', color: '#ebb734', borderColor:"##f20505", borderWidth: "2px" },
+    { name: 'Republic of San Marino', color: '#D85B5B', borderColor:"#7F2257", borderWidth: "2px"},
+    { name: 'Tyrol', color: '#E855D0' },
+    { name: 'Beyond Italy', color: '#ffffff', borderColor: '#0000000' },
   ];
 
   let lowerCaseAlternate = new Map();
@@ -144,10 +147,9 @@ function init() {
    * button, a popup is created at that feature.
    */
   function showLabel(point: IPoint) {
-    if (point.showLabel) return;
+    if (point.showLabel || point.feature.properties.place === 'Italy') return;
     const state = getState(point);
     if (!state) return;
-    const color = state.color;
     point.selectedPopup = new mapboxgl.Popup({
       offset: [-10, 0],
       anchor: 'center',
@@ -155,7 +157,11 @@ function init() {
       closeOnClick: false
     })
       .setLngLat(point.feature.geometry.coordinates)
+<<<<<<< Updated upstream
       .setHTML(`<a href="explorer/#/explore/%7B%22travelPlace%22:%7B%22operator%22:%22and%22,%22uniques%22:%5B%7B%22_id%22:%22${point.feature.properties.place}%22%7D%5D%7D%7D" target="_blank"><h4 style='color: ${color}'>${point.feature.properties.place}</h4></a>`).addTo(map);
+=======
+      .setHTML(`<a href="explorer/#/explore/%7B%22travelPlace%22:%7B%22operator%22:%22and%22,%22uniques%22:%5B%7B%22_id%22:%22${point.feature.properties.place}%22%7D%5D%7D%7D" target="_blank"><h4>${point.feature.properties.place}</h4></a>`).addTo(map);
+>>>>>>> Stashed changes
     point.showLabel = true;
     point.selected = true;
   }
@@ -286,6 +292,9 @@ function init() {
 
       color.setAttribute("class", "stateColor");
       color.style.backgroundColor = stateElement.color;
+      color.style.borderWidth = stateElement.borderWidth ? stateElement.borderWidth : '1px';
+      color.style.borderStyle = 'solid';
+      color.style.borderColor = stateElement.borderColor ? stateElement.borderColor : stateElement.color;
 
       name.setAttribute("class", "stateName");
       name.innerHTML = stateElement.name;

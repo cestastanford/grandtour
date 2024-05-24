@@ -1,6 +1,7 @@
 p
     .pill(ng-repeat="pill in pills") 
-        .pill-dimension(ng-if="pill.dimension !== 'DBITI employments & identifiers'") {{ pill.dimension }}
+        .pill-dimension(ng-if="pill.dimension !== 'DBITI employments & identifiers' && pill.dimension !== 'index'") {{ pill.dimension }}
+        .pill-dimension(ng-if="pill.dimension == 'index'") Entry ID
         .pill-dimension(ng-if="pill.dimension === 'DBITI employments & identifiers'", style="font-style: italic; padding: 7px 0px 7px 10px") DBITI 
         .pill-dimension(ng-if="pill.dimension === 'DBITI employments & identifiers'", style="font-style: normal; padding: 7px 10px 7px 0px") employments & identifiers
         .pill-value(ng-if="pill.value.uniques")

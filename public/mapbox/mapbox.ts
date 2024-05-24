@@ -157,11 +157,7 @@ function init() {
       closeOnClick: false
     })
       .setLngLat(point.feature.geometry.coordinates)
-<<<<<<< Updated upstream
-      .setHTML(`<a href="explorer/#/explore/%7B%22travelPlace%22:%7B%22operator%22:%22and%22,%22uniques%22:%5B%7B%22_id%22:%22${point.feature.properties.place}%22%7D%5D%7D%7D" target="_blank"><h4 style='color: ${color}'>${point.feature.properties.place}</h4></a>`).addTo(map);
-=======
       .setHTML(`<a href="explorer/#/explore/%7B%22travelPlace%22:%7B%22operator%22:%22and%22,%22uniques%22:%5B%7B%22_id%22:%22${point.feature.properties.place}%22%7D%5D%7D%7D" target="_blank"><h4>${point.feature.properties.place}</h4></a>`).addTo(map);
->>>>>>> Stashed changes
     point.showLabel = true;
     point.selected = true;
   }

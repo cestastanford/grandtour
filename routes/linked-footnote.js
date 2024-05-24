@@ -42,13 +42,13 @@ router.get('/api/linked-footnotes/in-entry/:entryIndex', isViewer, async (req, r
 *   Deletes all Linked Footnotes.
 */
 
-router.delete('/api/linked-footnotes', isAdministrator, async (req, res, next) => {
+// router.delete('/api/linked-footnotes', isAdministrator, async (req, res, next) => {
 
-    LinkedFootnote.deleteMany({})
-    .then(() => res.status(200).send())
-    .catch(next)
+//     LinkedFootnote.deleteMany({})
+//     .then(() => res.status(200).send())
+//     .catch(next)
 
-})
+// })
 
 
 /*

@@ -113,41 +113,42 @@ html(lang="en")
             // Preface and Acknowledgements, Epilogue
             a.session-title(href='https://aworldmadebytravel.supdigital.org/acknowledgements-and-credits') Acknowledgements and Credits
             // 
+
         article.post.container-fluid
-          nav.navbar.navbar-default(ng-show="currentUser && currentUser.role!='viewer'")
-            .container
-              .navbar-header
-                //- a.navbar-brand(href="#/") The Grand Tour Explorer
-              .navbar-collapse
+          //- nav.navbar.navbar-default(ng-show="currentUser && currentUser.role!='viewer'")
+          //-   .container
+          //-     .navbar-header
+          //-       //- a.navbar-brand(href="#/") The Grand Tour Explorer
+          //-     .navbar-collapse
 
-                ul.nav.navbar-nav(ng-show="currentUser")
+          //-       ul.nav.navbar-nav(ng-show="currentUser")
 
-                  li(ng-show="currentUser.role=='admin'")
-                    a(ui-sref="admin") Manage
-                  li
-                    a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
-                  //- li(ng-if="currentUser")
-                  //-     a(ui-sref="lists") Saved Lists
-                  li.index-dropdown-wrapper
-                    a Downloads
-                    div.index-dropdown-content
-                      a(href="GTE Bibliography.txt" download) Bibliography
-                      a(href="GTE Coordinates.txt" download) Coordinates
-                  li
-                    a {{currentUser.fullName || currentUser.username}}
-                  a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
-                    //i.fa.fa-sign-out.margin-right
-                    | Logout
+          //-         li(ng-show="currentUser.role=='admin'")
+          //-           a(ui-sref="admin") Manage
+          //-         li
+          //-           a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
+          //-         //- li(ng-if="currentUser")
+          //-         //-     a(ui-sref="lists") Saved Lists
+          //-         li.index-dropdown-wrapper
+          //-           a Downloads
+          //-           div.index-dropdown-content
+          //-             a(href="GTE Bibliography.txt" download) Bibliography
+          //-             a(href="GTE Coordinates.txt" download) Coordinates
+          //-         li
+          //-           a {{currentUser.fullName || currentUser.username}}
+          //-         a.btn.btn-default.btn-sm.navbar-btn.navbar-right(type="button", ng-click="logout()")
+          //-           //i.fa.fa-sign-out.margin-right
+          //-           | Logout
 
-                ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
-                  li
-                    a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
-                  //- li
-                  //-   a(ui-sref="login" target="_blank") Saved Lists
-                  li
-                    a(ui-sref="login" target="_blank") Downloads
-                  li
-                    a(ui-sref="login") Login            
+          //-       ul.nav.navbar-nav.navbar-right(ng-show="!currentUser")
+          //-         li
+          //-           a(href="https://forms.gle/iywimg8HHe4hH1xS8" target="_blank") Report an issue
+          //-         //- li
+          //-         //-   a(ui-sref="login" target="_blank") Saved Lists
+          //-         li
+          //-           a(ui-sref="login" target="_blank") Downloads
+          //-         li
+          //-           a(ui-sref="login") Login            
           div.site-content
             ui-view
 

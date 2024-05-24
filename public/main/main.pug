@@ -1,9 +1,8 @@
 .header-wrapper
   .header
-    .header-container
+    .header-container(style="margin: auto")
       div
-        h1 The Grand Tour Explorer 
-        p A dynamic and augmented database transformation of The Dictionary of British and Irish Travelers to Italy 1701-1800 to explore the lives and journeys of thousands of travelers as data, including for many-- mostly women--previously forgotten
+        h1 The Grand Tour Explorer
       .box-container
         a.box(ui-sref="explore")
           h3 Explore 
@@ -17,9 +16,14 @@
         a.box(ui-sref="map")
           h3 Map 
           p Visualize travel locations on an interactive map
-        a.box(download,href="/GTE Coordinates.txt")
+        a.box(href="https://aworldmadebytravel.supdigital.org/the-grand-tour-explorer/data")
           h3 Data 
           p Access stored data in Stanford Digital Repository
-        a.box(ui-sref="explore")
+        a.box(href="https://aworldmadebytravel.supdigital.org/the-grand-tour-explorer/glossary")
           h3 Glossary 
           p Read descriptions of each data dimension
+      div
+        p(style="margin-top: 20px; margin-bottom: 15px; font-size: 1.5em;") A dynamic and augmented database transformation of <em>A Dictionary of British and Irish Travelers to Italy 1701–1800</em> exploring the lives and journeys of thousands of travelers as data, including many—mostly women—previously forgotten.
+        p
+          small The Dictionary, compiled from the Brinsley Ford Archive by John Ingamells, was published in 1997 by the Paul Mellon Centre, Yale University. Click <a target=_blank href="https://www.paul-mellon-centre.ac.uk/publications/browse/9780300071658/search/tags:grand-tour">here</a> to learn more.
+          

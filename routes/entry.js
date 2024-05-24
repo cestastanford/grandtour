@@ -13,29 +13,29 @@ const entryFields = require('../models/entry-fields')()
 *   index and any other fields.
 */
 
-router.put('/api/entries/:index', isEditor, (req, res, next) => {
+// router.put('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.createAtLatest(req.params.index, req.body)
-    .then(entry => res.json(entry))
-    .catch(next)
+//     Entry.createAtLatest(req.params.index, req.body)
+//     .then(entry => res.json(entry))
+//     .catch(next)
 
-})
+// })
 
 
 /*
 *   Deletes a single entry under the latest revision.
 */
 
-router.delete('/api/entries/:index', isEditor, (req, res, next) => {
+// router.delete('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.deleteAtLatest(req.params.index)
-    .then(entry => {
-        if (entry) res.json(entry)
-        else { throw null /* Triggers the 404 Not Found error handler */ }
-    })
-    .catch(next)
+//     Entry.deleteAtLatest(req.params.index)
+//     .then(entry => {
+//         if (entry) res.json(entry)
+//         else { throw null /* Triggers the 404 Not Found error handler */ }
+//     })
+//     .catch(next)
 
-})
+// })
 
 
 /*
@@ -72,16 +72,16 @@ router.get('/api/entries', isViewer, (req, res, next) => {
 *   Updates a single Entry under the latest Revision.
 */
 
-router.patch('/api/entries/:index', isEditor, (req, res, next) => {
+// router.patch('/api/entries/:index', isEditor, (req, res, next) => {
 
-    Entry.findByIndexAndUpdateAtLatest(req.params.index, req.body)
-    .then(entry => {
-        if (entry) res.json(entry)
-        else { throw null /* Triggers the 404 Not Found error handler */ }
-    })
-    .catch(next)
+//     Entry.findByIndexAndUpdateAtLatest(req.params.index, req.body)
+//     .then(entry => {
+//         if (entry) res.json(entry)
+//         else { throw null /* Triggers the 404 Not Found error handler */ }
+//     })
+//     .catch(next)
 
-})
+// })
 
 
 /*

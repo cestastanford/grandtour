@@ -221,37 +221,40 @@ const MODULE_NAME = 'app';
   //  Checks that the user is logged in.
   var isLoggedIn = ['$http', '$rootScope', '$state', function($http, $rootScope, $state) {
 
-    return getUser($http)
-    .then(function(user) {
-      if (user) {
-        $rootScope.currentUser = user
-      }
-      else {
+    return false;
+    // return getUser($http)
+    // .then(function(user) {
+    //   if (user) {
+    //     $rootScope.currentUser = user
+    //   }
+    //   else {
         
-        $rootScope.currentUser = null;
-        // Redirect to 'login' if the user is not logged in.
-        LOGIN_REQUIRED && $state.go('login');
-        // The below code would not redirect to 'login' if the user is not logged in.
-        // return null;
+    //     $rootScope.currentUser = null;
+    //     // Redirect to 'login' if the user is not logged in.
+    //     LOGIN_REQUIRED && $state.go('login');
+    //     // The below code would not redirect to 'login' if the user is not logged in.
+    //     // return null;
         
-      }
-      return user
+    //   }
+    //   return user
 
-    })
-    .catch(console.error.bind(console))
+    // })
+    // .catch(console.error.bind(console))
 
   }];
 
   //  Checks that the user is an administrator.
   var isAdmin = ['$http', '$rootScope', '$state', function($http, $rootScope, $state) {
-    return getUser($http)
-    .then(function(user) {
-      if (user && user.role === 'admin') $rootScope.currentUser = user
-      else if (LOGIN_REQUIRED) $state.go('home')
-      return user
+    
+    return false;
+    // return getUser($http)
+    // .then(function(user) {
+    //   if (user && user.role === 'admin') $rootScope.currentUser = user
+    //   else if (LOGIN_REQUIRED) $state.go('home')
+    //   return user
 
-    })
-    .catch(console.error.bind(console))
+    // })
+    // .catch(console.error.bind(console))
 
   }];
 

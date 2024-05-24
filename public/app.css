@@ -210,6 +210,11 @@ label {
   font-weight: 600;
 }
 
+.mapboxgl-popup-content h4 {
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: black
+}
+
 a {
   cursor: pointer;
 }

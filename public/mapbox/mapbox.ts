@@ -142,12 +142,14 @@ function init() {
       });
   }
 
+  const filteredOutLocations = new Set<string>(['Italy' , 'Sicily', 'northern Italy']);
+
   /*
    * Called to select an unselected place. When passed a feature and a place's
    * button, a popup is created at that feature.
    */
   function showLabel(point: IPoint) {
-    if (point.showLabel || point.feature.properties.place === 'Italy') return;
+    if (point.showLabel || filteredOutLocations.has(point.feature.properties.place)) return;
     const state = getState(point);
     if (!state) return;
     point.selectedPopup = new mapboxgl.Popup({

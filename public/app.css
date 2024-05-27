@@ -1009,7 +1009,7 @@ table.table {
 .mentioned-names-popup {
   display: none;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 100%;
   background-color: white;
   z-index: 1;

@@ -12,7 +12,6 @@ const session = require('cookie-session')
 const cookieParser = require('cookie-parser')
 const proxy = require('express-http-proxy')
 const passport = require('passport')
-const forceSsl = require('force-ssl-heroku')
 const socketIO = require('./socket')
 const router = require('./router')
 const User = require('./models/user')
@@ -40,7 +39,6 @@ if (
 const app = express()
 app.set('views', [__dirname + '/dist/', __dirname + '/public/'])
 app.set('view engine', 'pug');
-app.use(forceSsl)
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser())
@@ -53,7 +51,7 @@ app.use(session({ keys: [
 // Force HTTPS
 app.use((req, res, next) => {
     if (process.env.NODE_ENV === 'production') {
-        if (req.headers['x-forwarded-proto'] !== 'https')
+        if (!req.secure)
             return res.redirect('https://' + req.headers.host + req.url);
         else
             return next();

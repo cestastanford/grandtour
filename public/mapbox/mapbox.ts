@@ -1,7 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import { find } from "lodash";
 /*
-  This script provides the functionality for the Map Visualization, which appears within visualization.component.ts. Places of the Grand Tour
+  This script provides the functionality for the Map Visualization, which appears within map.component.ts. Places of the Grand Tour
   are drawn as features (i.e., points) according to information based from Mapbox and can be selected individually or by state using buttons.
 */
 

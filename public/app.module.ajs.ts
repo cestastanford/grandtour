@@ -103,61 +103,61 @@ const MODULE_NAME = 'app';
     $rootScope.tutorialSteps = function() {
         return {
           'entry': [
-            {src: 'tutorials/entry-1.jpg', prev: ['87%', '32%'], close: ['64%', '66%'], next: ['87%', '62.5%']},
-            {src: 'tutorials/entry-2.jpg', prev: ['47%', '30.5%'], close: ['29.5%', '64.75%'], next: ['47%', '62.5%']},
-            {src: 'tutorials/entry-3.jpg', prev: ['47%', '32%'], close: ['29.5%', '66%'], next: ['47%', '62.5%']},
-            {src: 'tutorials/entry-4.jpg', prev: ['88%', '31%'], close: ['76%', '65%'], next: ['88%', '61.5%']},
-            {src: 'tutorials/entry-5.jpg', prev: ['62%', '33.5%'], close: ['47.5%', '67.5%'], next: ['62%', '64.5%']},
-            {src: 'tutorials/entry-6.jpg', prev: ['88%', '33.5%'], close: ['73.5%', '67.5%'], next: ['88%', '64.5%']},
-            {src: 'tutorials/entry-7.jpg', prev: ['87%', '31%'], close: ['75%', '65%'], next: ['87%', '62%']},
-            {src: 'tutorials/entry-8.jpg', prev: ['16.5%', '63%'], close: ['10.5%', '96.5%'], next: ['16.5%', '93%']},
+            {src: 'tutorials/entry-1.jpg', alt: '', prev: ['87%', '32%'], close: ['64%', '66%'], next: ['87%', '62.5%']},
+            {src: 'tutorials/entry-2.jpg', alt: '', prev: ['47%', '30.5%'], close: ['29.5%', '64.75%'], next: ['47%', '62.5%']},
+            {src: 'tutorials/entry-3.jpg', alt: '', prev: ['47%', '32%'], close: ['29.5%', '66%'], next: ['47%', '62.5%']},
+            {src: 'tutorials/entry-4.jpg', alt: '', prev: ['88%', '31%'], close: ['76%', '65%'], next: ['88%', '61.5%']},
+            {src: 'tutorials/entry-5.jpg', alt: '', prev: ['62%', '33.5%'], close: ['47.5%', '67.5%'], next: ['62%', '64.5%']},
+            {src: 'tutorials/entry-6.jpg', alt: '', prev: ['88%', '33.5%'], close: ['73.5%', '67.5%'], next: ['88%', '64.5%']},
+            {src: 'tutorials/entry-7.jpg', alt: '', prev: ['87%', '31%'], close: ['75%', '65%'], next: ['87%', '62%']},
+            {src: 'tutorials/entry-8.jpg', alt: '', prev: ['16.5%', '63%'], close: ['10.5%', '96.5%'], next: ['16.5%', '93%']},
           ],
           'map': [
-            {src: 'tutorials/map-1.jpg', prev: ['82%', '32%'], close: ['70%', '66%'], next: ['82%', '62.5%']},
-            {src: 'tutorials/map-2.jpg', prev: ['45%', '49.5%'], close: ['36%', '83.5%'], next: ['45%', '80%']},
-            {src: 'tutorials/map-3.jpg', prev: ['28.5%', '62.5%'], close: ['19.5%', '96.5%'], next: ['28.5%', '93%']},
-            {src: 'tutorials/map-4.jpg', prev: ['80%', '36%'], close: ['68.5%', '70.25%'], next: ['80%', '67%']},
-            {src: 'tutorials/map-5.jpg', prev: ['16.5%', '62.5%'], close: ['10.5%', '96.5%'], next: ['16.5%', '93%']},
+            {src: 'tutorials/map-1.jpg', alt: '', prev: ['82%', '32%'], close: ['70%', '66%'], next: ['82%', '62.5%']},
+            {src: 'tutorials/map-2.jpg', alt: '', prev: ['45%', '49.5%'], close: ['36%', '83.5%'], next: ['45%', '80%']},
+            {src: 'tutorials/map-3.jpg', alt: '', prev: ['28.5%', '62.5%'], close: ['19.5%', '96.5%'], next: ['28.5%', '93%']},
+            {src: 'tutorials/map-4.jpg', alt: '', prev: ['80%', '36%'], close: ['68.5%', '70.25%'], next: ['80%', '67%']},
+            {src: 'tutorials/map-5.jpg', alt: '', prev: ['16.5%', '62.5%'], close: ['10.5%', '96.5%'], next: ['16.5%', '93%']},
           ],
           'chart': [
-            {src: 'tutorials/chart-1.jpg', prev: ['42%', '32%'], close: ['33.5%', '66%'], next: ['42%', '62.5%']},
-            {src: 'tutorials/chart-2.jpg', prev: ['28%', '18.5%'], close: ['19.5%', '52.5%'], next: ['28%', '48.5%']},
-            {src: 'tutorials/chart-3.jpg', prev: ['39.5%', '33.5%'], close: ['25.5%', '67.5%'], next: ['39.5%', '64%']},
-            {src: 'tutorials/chart-4.jpg', prev: ['16.5%', '62.5%'], close: ['10.5%', '96.5%'], next: ['16.5%', '93%']},
+            {src: 'tutorials/chart-1.jpg', alt: '', prev: ['42%', '32%'], close: ['33.5%', '66%'], next: ['42%', '62.5%']},
+            {src: 'tutorials/chart-2.jpg', alt: '', prev: ['28%', '18.5%'], close: ['19.5%', '52.5%'], next: ['28%', '48.5%']},
+            {src: 'tutorials/chart-3.jpg', alt: '', prev: ['39.5%', '33.5%'], close: ['25.5%', '67.5%'], next: ['39.5%', '64%']},
+            {src: 'tutorials/chart-4.jpg', alt: '', prev: ['16.5%', '62.5%'], close: ['10.5%', '96.5%'], next: ['16.5%', '93%']},
           ],
           'search': [
-            {src: 'tutorials/search-1.jpg', prev: ['49%', '22%'], close: ['37%', '55.75%'], next: ['49%', '52%']},
-            {src: 'tutorials/search-2.jpg', prev: ['41.5%', '30%'], close: ['30%', '64.25%'], next: ['41.5%', '61%']},
-            {src: 'tutorials/search-3.jpg', prev: ['61.5%', '33.5%'], close: ['50%', '67.5%'], next: ['61.5%', '64%']},
-            {src: 'tutorials/search-4.jpg', prev: ['13.5%', '62.5%'], close: ['7.5%', '96.5%'], next: ['13.5%', '93%']},
+            {src: 'tutorials/search-1.jpg', alt: '', prev: ['49%', '22%'], close: ['37%', '55.75%'], next: ['49%', '52%']},
+            {src: 'tutorials/search-2.jpg', alt: '', prev: ['41.5%', '30%'], close: ['30%', '64.25%'], next: ['41.5%', '61%']},
+            {src: 'tutorials/search-3.jpg', alt: '', prev: ['61.5%', '33.5%'], close: ['50%', '67.5%'], next: ['61.5%', '64%']},
+            {src: 'tutorials/search-4.jpg', alt: '', prev: ['13.5%', '62.5%'], close: ['7.5%', '96.5%'], next: ['13.5%', '93%']},
           ],
           'explore': [
-            {src: 'tutorials/explore-1.jpg', prev: ['43%', '10.3%'], close: ['31%', '44.5%'], next: ['43%', '41%']},
-            {src: 'tutorials/explore-2.jpg', prev: ['24.5%', '26%'], close: ['10%', '59.5%'], next: ['24.5%', '58%']},
-            {src: 'tutorials/explore-3.jpg', prev: ['28%', '42%'], close: ['13.5%', '75.75%'], next: ['28%', '72%']},
-            {src: 'tutorials/explore-4.jpg', prev: ['24.5%', '58%'], close: ['13%', '91.5%'], next: ['24.5%', '88%']},
-            {src: 'tutorials/explore-5.jpg', prev: ['41%', '32%'], close: ['18%', '66%'], next: ['41%', '62%']},
-            {src: 'tutorials/explore-6.jpg', prev: ['17%', '62%'], close: ['8%', '96%'], next: ['17%', '92%']},
+            {src: 'tutorials/explore-1.jpg', alt: '', prev: ['43%', '10.3%'], close: ['31%', '44.5%'], next: ['43%', '41%']},
+            {src: 'tutorials/explore-2.jpg', alt: '', prev: ['24.5%', '26%'], close: ['10%', '59.5%'], next: ['24.5%', '58%']},
+            {src: 'tutorials/explore-3.jpg', alt: '', prev: ['28%', '42%'], close: ['13.5%', '75.75%'], next: ['28%', '72%']},
+            {src: 'tutorials/explore-4.jpg', alt: '', prev: ['24.5%', '58%'], close: ['13%', '91.5%'], next: ['24.5%', '88%']},
+            {src: 'tutorials/explore-5.jpg', alt: '', prev: ['41%', '32%'], close: ['18%', '66%'], next: ['41%', '62%']},
+            {src: 'tutorials/explore-6.jpg', alt: '', prev: ['17%', '62%'], close: ['8%', '96%'], next: ['17%', '92%']},
           ],
       }[$state.current.name] || [];
     }
 
     $rootScope.showTutorial = function(e) {
-      e.preventDefault();
+      e && e.preventDefault();
       $rootScope.tutorialShown = true;
       $rootScope.tutorialStep = 1;
       return false;
     }
 
     $rootScope.hideTutorial = function(e) {
-      e.preventDefault();
+      e && e.preventDefault();
       $rootScope.tutorialShown = false;
       $rootScope.tutorialStep = 1;
       return false;
     }
 
     $rootScope.tutorialNext = function(e) {
-      e.preventDefault();
+      e && e.preventDefault();
       if ($rootScope.tutorialStep >= $rootScope.tutorialSteps().length) {
         $rootScope.tutorialShown = false;
       } else {
@@ -167,7 +167,7 @@ const MODULE_NAME = 'app';
     }
 
     $rootScope.tutorialPrevious = function(e) {
-      e.preventDefault();
+      e && e.preventDefault();
       if ($rootScope.tutorialStep <= 1) {
         $rootScope.tutorialShown = false;
       } else {
@@ -189,6 +189,17 @@ const MODULE_NAME = 'app';
       return 'The Grand Tour Explorer' + 
         ($state.current && $state.current.title ? ' – ' + $state.current.title : '')
     }
+
+    setTimeout(() => {
+      if ($rootScope.tutorialSteps().length) {
+        let title = $rootScope.getTitle();
+        if (!localStorage.getItem(title)) {
+          $rootScope.showTutorial();
+          localStorage.setItem(title, "1");
+        }
+      }
+    }, 500);
+
 
   }]
 )

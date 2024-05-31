@@ -24,7 +24,7 @@
             "tileSize": 256
         },
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v8,ryanctan.29tlujms,mapbox.mapbox-terrain-v2",
+            "url": "mapbox://mapbox.mapbox-streets-v8,ryanctan.0pd11a61,mapbox.mapbox-terrain-v2",
             "type": "vector"
         }
     },
@@ -398,15 +398,15 @@
             "paint": {"text-color": "hsl(187, 7%, 51%)"}
         },
         {
-            "id": "mytileset-2bl2sr",
+            "id": "mapCoords-3bkdrk",
             "type": "circle",
             "source": "composite",
-            "source-layer": "myTileset-2bl2sr",
+            "source-layer": "mapCoords-3bkdrk",
             "layout": {},
             "paint": {
                 "circle-color": [
                     "match",
-                    ["get", "GTE_States_18thcentury state"],
+                    ["get", "18thcentury state"],
                     ["Papal States ", "Papal States"],
                     "#B376B4",
                     ["Grand Duchy of Tuscany"],
@@ -439,7 +439,7 @@
                 ],
                 "circle-stroke-color": [
                     "match",
-                    ["get", "GTE_States_18thcentury state"],
+                    ["get", "18thcentury state"],
                     ["Papal States ", "Papal States"],
                     "#B376B4",
                     ["Grand Duchy of Tuscany"],
@@ -472,7 +472,7 @@
                 ],
                 "circle-stroke-width": [
                     "match",
-                    ["get", "GTE_States_18thcentury state"],
+                    ["get", "18thcentury state"],
                     ["Republic of San Marino", "Duchy of Sora"],
                     2.8,
                     1 
@@ -484,7 +484,7 @@
                     0, 1,
                     8, [
                         "match",
-                        ["get", "GTE_States_18thcentury state"],
+                        ["get", "18thcentury state"],
                         ["Republic of San Marino", "Duchy of Sora"], 3.2,
                         5
                     ]

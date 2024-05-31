@@ -12,11 +12,15 @@ interface IFeature {
   properties: {
     "id": number,
     "place": string,
+    "COUNTRY": string,
+    "COUNTRY CODE": any,
+    "Italy": string,
+    "REGION": string,
+    "complete current name": string,
+    "cc_class": number,
     "latitude": number,
     "longitude": number,
-    "cc_count": number,
-    "cc_class": number,
-    "GTE_States_18thcentury state": string
+    "18thcentury state": string
   },
   source: string,
   sourceLayer: string,
@@ -81,7 +85,7 @@ function init() {
     { name: 'Republic of Lucca', color: '#4D852F' },
     { name: 'Duchy of Parma and Piacenza', color: '#7125BD' },
     { name: 'Republic of Genoa', color: '#D85B5B' },
-    { name: 'Duchy of Sora', color: '#ebb734', borderColor:"##f20505", borderWidth: "2px" },
+    { name: 'Duchy of Sora', color: '#ebb734', borderColor:"#f20505", borderWidth: "2px" },
     { name: 'Republic of San Marino', color: '#D85B5B', borderColor:"#7F2257", borderWidth: "2px"},
     { name: 'Tyrol', color: '#E855D0' },
     { name: 'Beyond Italy', color: '#ffffff', borderColor: '#0000000' },
@@ -151,7 +155,7 @@ function init() {
   function showLabel(point: IPoint) {
     if (point.showLabel || filteredOutLocations.has(point.feature.properties.place)) return;
     const state = getState(point);
-    if (!state) return;
+    // if (!state) return;
     point.selectedPopup = new mapboxgl.Popup({
       offset: [-10, 0],
       anchor: 'center',
@@ -178,7 +182,7 @@ function init() {
   }
 
   function getState(point: IPoint): IState {
-    return find(stateElements, e => e.name === point.feature.properties['GTE_States_18thcentury state']);
+    return find(stateElements, e => e.name === point.feature.properties['18thcentury state']);
   }
 
   /* This function theoretically exists in MapBox but it kept failing. */
@@ -191,9 +195,10 @@ function init() {
   function showAllLabels(classes) {
     classes.forEach((pts) => {
       pts.forEach((pt) => {
-        if (contains(map.getBounds(), pt.feature.geometry.coordinates)) {
-          showLabel(pt);
-        }
+        showLabel(pt);
+        // if (contains(map.getBounds(), pt.feature.geometry.coordinates)) {
+        //   showLabel(pt);
+        // }
       })
     })
   }
@@ -241,9 +246,9 @@ function init() {
     //   }
     // });
 
-    points = map.queryRenderedFeatures({ layers: ['mytileset-2bl2sr'] /* lowercase t */ }).map(e => ({
+    points = map.queryRenderedFeatures({ layers: ['mapCoords-3bkdrk'] /* lowercase t */ }).map(e => ({
       feature: e
-    }));;
+    }));
     var class1 = points.filter(point => point.feature.properties['cc_class'] === 1);
     var class2 = points.filter(point => point.feature.properties['cc_class'] === 2);
     var class3 = points.filter(point => point.feature.properties['cc_class'] === 3);

@@ -5,6 +5,12 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     base(href="/")
     title(ng-bind="getTitle()")
+
+    style(type="text/css").
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+      }
+      
       
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
@@ -29,7 +35,7 @@ html(lang="en")
     meta(property='og:description' content='In the eighteenth century, tens of thousands of travelers journeyed to Italy on voyages known then and since as the Grand Tour. These travels in the age of Enlightenment contributed to a massive reimagining of politics and the arts, of the market for culture, and of ideas about education and leisure. A World Made by Travel combines —in dynamic format— original research with data and visualizations about the lives and journeys of 6,007 travelers. It reveals the diverse experiences, elite and otherwise, that collectively constituted the eighteenth-century Grand Tour.')
     meta(property='og:image' content='https://aworldmadebytravel.org/assets/img/jpg/wmt_thumb_600.jpg')
 
-  body
+  body(ng-cloak)
 
   header.site-header
     div.icon
@@ -168,3 +174,4 @@ html(lang="en")
       | Published by 
       a(href="https://sup.org") STANFORD UNIVERSITY PRESS
       img(src='logo-stanford-1.svg')
+

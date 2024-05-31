@@ -5,6 +5,12 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     base(href="/")
     title(ng-bind="getTitle()")
+    
+    style(type="text/css").
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+      }
+
 
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
@@ -30,7 +36,7 @@ html(lang="en")
     meta(property='og:image' content='https://aworldmadebytravel.org/assets/img/jpg/wmt_thumb_600.jpg')
     
     link(rel="shortcut icon" href="favicon.png")
-  body
+  body(ng-cloak)
 
   header.site-header
     div.icon

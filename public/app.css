@@ -1420,6 +1420,122 @@ div.tool_tip {
 .site-header nav a.selected {
   font-weight: 600;
 }
+#mobile-screen {
+  display: none;
+
+  position: fixed;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(gte-mobile-background.jpg);
+  background-size: cover;
+  text-align: center;
+}
+#mobile-screen > div {
+  margin: auto;
+  padding: 0 10px;
+}
+#mobile-screen h3 {
+  font-family: 'Source Serif Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  margin-bottom: 35px;
+
+  color: #FFFFFF;
+}
+#mobile-screen h2 {
+
+  font-family: 'Source Serif Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  text-align: center;
+
+  /* #AA8C00 */
+  color: #AA8C00;
+
+}
+#mobile-screen h1 {
+
+  /* h2 */
+  font-family: 'Source Serif Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+  /* identical to box height */
+  text-align: center;
+  margin-bottom: 0;
+
+  /* #ffffff */
+  color: #FFFFFF;
+
+}
+#mobile-screen h4 {
+
+  /* Viz/Label L */
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 13px;
+  /* identical to box height, or 93% */
+  text-align: center;
+
+  /* #AA8C00 */
+  color: #AA8C00;
+
+
+}
+#mobile-screen p {
+  /* Paragraph */
+  font-family: 'Source Serif Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  padding: 0 30px;
+  margin-top: 40px;
+
+  color: #FFFFFF;
+}
+#mobile-screen a {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  /* identical to box height, or 129% */
+  text-align: center;
+  letter-spacing: -0.02em;
+  text-decoration-line: underline;
+  display: inline-block;
+  margin-top: 20px;
+
+  color: #FFFFFF;
+
+}
+@media only screen and (max-width: 600px) {
+  #mobile-screen {
+    display: flex;
+  }
+  .main, .site-header, .site-footer, .tutorial {
+    display: none !important;
+  }
+}
+@media only screen and (max-height: 600px) {
+  #mobile-screen {
+    display: flex;
+  }
+  .main, .site-header, .site-footer, .tutorial {
+    display: none !important;
+  }
+}
 /** * Site nav */
 .site-nav {
   z-index: 2;

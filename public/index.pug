@@ -42,10 +42,15 @@ html(lang="en")
       a(href="https://aworldmadebytravel.supdigital.org/")
         img(src='six-boxes.png')
     div
-      a.site-title(href='https://aworldmadebytravel.org/') A World Made by Travel
-      span.site-author Giovanna Ceserani
+      div
+        a.site-title(href='https://aworldmadebytravel.org/') A World Made by Travel
+        span.site-author Giovanna Ceserani
+
+    nav(ng-if='!tutorialSteps().length')
+      a(href='/explorer/#/') The Grand Tour Explorer
 
     nav(style='padding: 0', ng-if='tutorialSteps().length')
+      a(href='/explorer/#/') The Grand Tour Explorer
       a(href='#', ng-click='showTutorial($event)', style='margin: 0')
         img(src='help.png', style='width:48px')
   

@@ -25,7 +25,7 @@ function createPopup(id, content?) {
     return `
     <div class="gte-viz-popup-wrapper" (mouseover)="tooltip = '${id}'">
         <p class="hover-item" (mouseover)="tooltip = '${id}'" (mouseleave)="(tooltip === '${id}') && (tooltip = null)">?</p>
-        <div class="mentioned-names-popup" (mouseleave)="(tooltip === '${id}') && (tooltip = null)" [ngStyle]="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip === '${id}' ? '1': '0', 'z-index': tooltip == '${id}' ? 99: -1, clear: both}">
+        <div class="mentioned-names-popup right" (mouseleave)="(tooltip === '${id}') && (tooltip = null)" [ngStyle]="{'margin-left': '15px', 'margin-top': '-30px', display: 'block', opacity: tooltip === '${id}' ? '1': '0', 'z-index': tooltip == '${id}' ? 99: -1, clear: both}">
             ${content || `<div [innerHtml]="getSelectedPopupText('${id}')"></div>`}
         </div>
     </div>`;
@@ -146,6 +146,10 @@ function createPopup(id, content?) {
     .mentioned-names-popup p {
         display: inline-block;
         font-size: 12px;
+    }
+
+    .mentioned-names-popup.right {
+        left:0
     }
 
     .popup-wrapper {

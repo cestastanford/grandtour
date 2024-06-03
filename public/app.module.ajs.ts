@@ -190,15 +190,15 @@ const MODULE_NAME = 'app';
         ($state.current && $state.current.title ? ' – ' + $state.current.title : '')
     }
 
-    setTimeout(() => {
-      if ($rootScope.tutorialSteps().length) {
-        let title = $rootScope.getTitle();
-        if (!localStorage.getItem(title)) {
-          $rootScope.showTutorial();
-          localStorage.setItem(title, "1");
-        }
-      }
-    }, 500);
+    // setTimeout(() => {
+    //   if ($rootScope.tutorialSteps().length) {
+    //     let title = $rootScope.getTitle();
+    //     if (!localStorage.getItem(title)) {
+    //       $rootScope.showTutorial();
+    //       localStorage.setItem(title, "1");
+    //     }
+    //   }
+    // }, 500);
 
 
   }]

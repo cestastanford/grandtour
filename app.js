@@ -95,33 +95,33 @@ app.use('/explorer', router)
 app.use(express.static('public'))
 
 // Proxies 
-app.use(proxy('https://ceserani.github.io/gt-book/', {
-    proxyReqPathResolver: function(req) {
-        if (req.url.indexOf("/gt-book") === -1) {
-            return "/gt-book" + req.url;
-        }
-        return req.url;
-    },
-    filter: function(req, res) {
-        return req.method == 'GET' && req.url.indexOf('/explorer') === -1;
-    },
-    skipToNextHandlerFilter: function(proxyRes) {
-      return proxyRes.statusCode === 404;
-    },
-    userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {
-        if (proxyRes.headers['content-type'].indexOf('text/html') > -1) {
-            data = proxyResData?.toString('utf8');
-            // Fix links
-            if (data && data.indexOf("/gt-book") > -1) {
-                return data.replace(/\/gt-book/g, "");
-            }
-            return data;
-        }
-        return proxyResData;
-    }
-}));
+// app.use(proxy('https://ceserani.github.io/gt-book/', {
+//     proxyReqPathResolver: function(req) {
+//         if (req.url.indexOf("/gt-book") === -1) {
+//             return "/gt-book" + req.url;
+//         }
+//         return req.url;
+//     },
+//     filter: function(req, res) {
+//         return req.method == 'GET' && req.url.indexOf('/explorer') === -1;
+//     },
+//     skipToNextHandlerFilter: function(proxyRes) {
+//       return proxyRes.statusCode === 404;
+//     },
+//     userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {
+//         if (proxyRes.headers['content-type'].indexOf('text/html') > -1) {
+//             data = proxyResData?.toString('utf8');
+//             // Fix links
+//             if (data && data.indexOf("/gt-book") > -1) {
+//                 return data.replace(/\/gt-book/g, "");
+//             }
+//             return data;
+//         }
+//         return proxyResData;
+//     }
+// }));
 // Use this instead once we finalize the book and finally compile it.
-// app.use('/', express.static('gt-book'))
+app.use('/', express.static('_site'))
 
 /*
 *   Handles errors, generating 404 errors for non-error requests

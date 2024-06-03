@@ -4,7 +4,7 @@
   "description": "GT Book Packages",
   "main": "index.js",
   "dependencies": {
-    "simple-jekyll-search": "^1.7.11"
+    "simple-jekyll-search": "^1.10.0"
   },
   "devDependencies": {},
   "scripts": {

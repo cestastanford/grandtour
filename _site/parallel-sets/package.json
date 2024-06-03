@@ -1,0 +1,14 @@
+{
+  "name": "3a4b9f6723517ec7",
+  "main": "3a4b9f6723517ec7@729.js",
+  "version": "729.0.0",
+  "homepage": "https://observablehq.com/d/3a4b9f6723517ec7",
+  "author": {
+    "name": "SriRaagavi Ragothaman",
+    "url": "https://observablehq.com/@558dbcf09c7222de"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}

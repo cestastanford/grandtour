@@ -1,0 +1,1 @@
+Put in this folder images for the 2nd chapter

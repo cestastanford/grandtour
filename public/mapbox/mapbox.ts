@@ -64,7 +64,7 @@ function init() {
     zoom: 4.6,
     maxBounds: bounds
   });
-  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }));
+  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
 

@@ -38,5 +38,5 @@ Then open up http://localhost:4000/gt-book/.
 How to deploy a static version of the website:
 
 1. Run `bundle exec jekyll clean && bundle exec jekyll build --baseurl ""`
-2. Copy the `_site` directory to the Grand Tour directory (https://github.com/cestastanford/grandtour)
+2. Copy the `_site` directory to the Grand Tour directory (https://github.com/cestastanford/grandtour) (`cp -r _site ../../`)
 3. Commit and push changes

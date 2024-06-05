@@ -1,0 +1,73 @@
+- name: "Home"
+  link: "/"
+  hide: true
+
+- name: "I.	Entering a World Made by Travel: Introducing the Explorer"
+  link: "/entering-a-world-made-by-travel"
+
+- name: "II.	The Grand Tour Explorer: Travelers’ Lives and Journeys"
+  link: "/"
+  gte: true
+
+- name: "III. Seven Scholars’ Essays: Using the Explorer"
+  link: "/scholars-essays"
+  chapters:
+    - name: "Introduction"
+      author: "Giovanna Ceserani"
+      link: "/ceserani-introduction"
+
+    - name: "1. Who Traveled, Where and When? Using the Grand Tour Explorer to Examine Patterns of Travels and Travelers"
+      author: "Rosemary Sweet"
+      link: "/sweet-who-traveled"
+
+    - name: "2. The British Arrival in Italy"
+      author: "Rachel Midura"
+      link: "/midura-british-arrival"
+
+    - name: "3. Life and Death in Naples: Thomas Jones and Urban Experience in the Grand Tour (Explorer)"
+      author: "Melissa Calaresu"
+      link: "/calaresu-life-and-death"
+
+    - name: "4. <i>Ciceroni</i> and Their Clients: Making a Profession of Tourism"
+      author: "Carole Paul"
+      link: "/paul-ciceroni-and-their-clients"
+
+    - name: "5. Mapping the Economic Grand Tour: Travel and Emulation in Enlightenment Europe"
+      author: "Sophus Reinert"
+      link: "/reinert-economic-grand-tour"
+
+    - name: "6. Going Digital: Re-Searching Connections between Rosalba Carriera and British Grand Tourists"
+      author: "Catherine Sama"
+      link: "/sama-rosalba-carriera"
+
+    - name: "7. Harlequin Horsemanship: Non-Grand Tourists on the Grand Tour (Explorer)"
+      author: "Simon Macdonald"
+      link: "/macdonald-harlequin-horsemanship"
+
+- name: "IV. Presenting the Data: Categories and Schemas"
+  link: "/presenting-the-data"
+
+- name: "V.	Archive to Explorer: A Project History"
+  link: "/archive-to-explorer"
+
+- name: "VI.	The Explorer in the Classroom: A Teaching Companion"
+  link: "/in-the-classroom"
+  chapters:
+    - name: "Introduction"
+      link: "/introduction"
+    - name: "Sample Syllabus"
+      link: "/sample-syllabus"
+    - name: "Sample Digital Practicums"
+      link: "/sample-digital-practicums"
+      author: "Rachel Midura"
+    - name: "Sample Students’ Work"
+      link: "/sample-students-work"
+    - name: "Teachers' Reflections"
+      author: "Rachel Midura and Annie K. Lamar"
+      link: "/teachers-reflections"
+
+- name: "Bibliography"
+  link: "/bibliography"
+
+- name: "Acknowledgements and Credits"
+  link: "/acknowledgements-and-credits"

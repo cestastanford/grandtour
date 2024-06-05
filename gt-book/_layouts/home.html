@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body class="home-page">
+
+    {% include header.html %}
+
+    <div class="main">
+      <div class="page-content">
+        <div class="wrapper">
+          {% include site-nav.html %}
+          {{ content }}
+        </div>
+      </div>
+    </div>
+
+    {% include footer.html %}
+
+  <script src="{{ site.baseurl }}/js/search-script.js" type="text/javascript"></script>
+
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+
+  {% include header-script.html %}
+
+  <!-- For HTML to Markdown conversion -->
+  <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+  
+  <script>
+    function toggleChapters(session_loop) {
+      chapters = document.getElementById(session_loop);
+      if (chapters.style.display === "none") {
+        chapters.style.display = "block";
+      } else {
+        chapters.style.display = "none";
+      }
+    }
+  
+  // var sjs = SimpleJekyllSearch({
+  //   searchInput: document.getElementById('search-input'),
+  //   resultsContainer: document.getElementById('results-container'),
+  // });
+
+  var closes = document.getElementsByClassName("overlay-close")
+  for (x of closes) {
+    x.addEventListener("click", function(e){
+      var overlays = document.getElementsByClassName("overlay");
+      for (overlay of overlays) {
+        overlay.classList.remove("visible");
+      }  
+    })
+  }
+
+  function homeCite(where) {
+    document.getElementById("citation-overlay").classList.add("visible");
+    
+    /* Build citation */
+    let text = document.getElementById("overlay-text");
+    text.innerHTML = "Giovanna Ceserani, <i>A World Made by Travel: The Digital Grand Tour</i> (Redwood City: Stanford University Press, 2024), <a href='https://www.worldmadebytravel.org/' target='_blank'>https://www.worldmadebytravel.org/</a>";
+  }
+  
+  function copyToClipboard() {
+    var text = document.getElementById("overlay-text").innerHTML;
+
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This citation has been copied to your clipboard!")
+  }
+
+  function txtDownload() {
+    var element = document.createElement('a');
+    var text = document.getElementById("overlay-text").innerText;
+
+    var filename = getFilename();
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function HTMLDownload() {
+    var filename = getFilename();
+
+    let doc = createHTML(filename);
+
+    var element = document.createElement('a');
+
+    element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(doc.documentElement.outerHTML));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function createHTML(filename) {
+    let doc = document.implementation.createHTMLDocument(filename);
+    let p = doc.createElement("p");
+    p.innerHTML = document.getElementById("overlay-text").innerHTML;
+    
+    try {
+      doc.body.appendChild(p);
+    } catch(e) {
+      console.log(e);
+    }
+    return doc
+  }
+
+  function mdDownload() {
+    var filename = getFilename();
+
+    const turndownService = new TurndownService();
+    const markdown = turndownService.turndown(createHTML(filename));
+
+    var element = document.createElement('a');
+
+    var filename = getFilename();
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(markdown));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
+  function getFilename() {
+    var text = document.getElementById("overlay-text").innerText;
+    var words = text.split(" ");
+    /* Hardcoding */
+    if (words[2] == "Cover") {
+      return "Ceserani, Cover citation";
+    } else { // == index
+      return "Ceserani, A World Made by Travel citation";
+    }
+  }
+
+  function homeLink(where) {
+    var text; 
+    if (where == "cover") {
+      text = "https://www.worldmadebytravel.org/";
+    } else { // == index
+      text = "https://www.worldmadebytravel.org/#info";
+    }
+    /* Allows for rich text (italics) */
+    function listener(e) {
+      e.clipboardData.setData("text/html", text);
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
+    window.alert("This link has been copied to your clipboard!")
+  }
+  
+  </script>
+  </body>
+
+</html>

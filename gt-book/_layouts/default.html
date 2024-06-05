@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+    <div class="main">
+      <div class="page-content">
+        <div class="wrapper">
+          {% include site-nav.html %}
+          {{ content }}
+        </div>
+      </div>
+    </div>
+
+    <div id="buttonTop" onclick="topFunction()">
+      <i class="material-icons md-18">arrow_upward</i>
+      Top
+    </div>
+
+    {% include footer.html %}
+
+    {% include header-script.html %}
+    {% include links-script.html %}
+    {% include scroll-top.html %}
+
+  <script src="{{ site.baseurl }}/js/search-script.js" type="text/javascript"></script>
+
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+
+  <script>
+    var arrow = document.getElementById('arrow');
+    var table = document.getElementById('table');
+
+    // Show/hide table of contents functionality
+    var arrowObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].intersectionRatio === 0) { // element is "fixed"
+        showArrow();
+      } else if(entries[0].intersectionRatio === 1) { // element is "relative"
+        hideArrow();
+      }
+    }, { threshold: [0,1] });
+    arrowObserver.observe(document.querySelector("#arrow-sensor"));
+
+    /* If table is toggled on, and we scroll back to top, automatically fix it to top. */
+    window.addEventListener("scroll", function() {
+      var dist = table.getBoundingClientRect().top + table.ownerDocument.defaultView.pageYOffset;
+      if (dist <= 161.60001) {
+        hideTOC();
+      }
+    })
+
+    /* When the page is scrolled down far enough, the TOC disappears out of view. An arrow appears in its place, toggling it to reappear. */
+    function showArrow() {
+      arrow.style.visibility = "visible";
+      arrow.style.opacity = "1";
+    }
+
+    function hideArrow() {
+      arrow.style.visibility = "hidden";
+      arrow.style.opacity = "0";
+    }
+
+    function toggleTOC() {
+      if (arrow.innerHTML == "keyboard_arrow_down") {
+        showTOC();
+      } else {
+        hideTOC();
+      }
+    }
+
+    function showTOC() {
+      arrow.innerHTML = "keyboard_arrow_up";
+      arrow.setAttribute('aria-label', "Hide Table of Contents");
+      table.classList.add("table-fixed")
+    }
+
+    function hideTOC() {
+      arrow.innerHTML = "keyboard_arrow_down"
+      arrow.setAttribute('aria-label', "Show Table of Contents");
+      table.classList.remove("table-fixed") 
+    }
+
+    function toggleChapters(session_loop) {
+      chapters = document.getElementById(session_loop);
+      if (chapters.style.display === "none") {
+        chapters.style.display = "block";
+      } else {
+        chapters.style.display = "none";
+      }
+    }
+
+    // var sjs = SimpleJekyllSearch({
+    //   searchInput: document.getElementById('search-input'),
+    //   resultsContainer: document.getElementById('results-container'),
+    // });
+  </script>
+    
+  </body>
+
+</html>

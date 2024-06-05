@@ -1,0 +1,39 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% if page.title %}{{ page.title }} - {% endif %} {{ site.title }}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}">
+
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i|Source+Serif+Pro:400,600,700&display=swap" rel="stylesheet">
+
+  <!-- icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="icon" href="{{ site.baseurl }}/assets/images/favicon.png" />
+
+  <meta name="description" content="Ceserani, Giovanna. A World Made by Travel: The Digital Grand Tour. Redwood City: Stanford University Press, 2024. http://doi.org/10.21627/2024wmt." />
+  <meta name="citation_title" content="A World Made by Travel: The Digital Grand Tour"/>
+  <meta name="citation_isbn" content="9781503636514 "/>
+  <meta name="citation_author" content="Ceserani, Giovanna"/>
+  <meta name="citation_publication_date" content="2024"/>
+  <meta name="citation_language" content="en"/>
+  <meta name="citation_publisher" content="Stanford University Press"/>
+  <meta name="citation_DOI" content="10.21627/2024wmt"/>
+  <meta name="citation_OCLC" content="1412258452"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="In the eighteenth century, tens of thousands of travelers journeyed to Italy on voyages known then and since as the Grand Tour. These travels in the age of Enlightenment contributed to a massive reimagining of politics and the arts, of the market for culture, and of ideas about education and leisure. A World Made by Travel combines —in dynamic format— original research with data and visualizations about the lives and journeys of 6,007 travelers. It reveals the diverse experiences, elite and otherwise, that collectively constituted the eighteenth-century Grand Tour."/>
+  <meta name="twitter:image" content="https://aworldmadebytravel.org/assets/img/jpg/wmt_thumb_600.jpg">
+  <meta property="og:title" content="A World Made by Travel: The Digital Grand Tour" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aworldmadebytravel.org" />
+  <meta property="og:description" content="In the eighteenth century, tens of thousands of travelers journeyed to Italy on voyages known then and since as the Grand Tour. These travels in the age of Enlightenment contributed to a massive reimagining of politics and the arts, of the market for culture, and of ideas about education and leisure. A World Made by Travel combines —in dynamic format— original research with data and visualizations about the lives and journeys of 6,007 travelers. It reveals the diverse experiences, elite and otherwise, that collectively constituted the eighteenth-century Grand Tour." />
+  <meta property="og:image" content="https://aworldmadebytravel.org/assets/img/jpg/wmt_thumb_600.jpg">
+
+
+</head>

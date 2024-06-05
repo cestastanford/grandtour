@@ -1,0 +1,52 @@
+<label for="openSidebarMenu" class="sidebarIconToggle sidebarIconToggleRight">
+  <img src="{{ site.baseurl }}/assets/images/arrow-bar-right.svg" />
+</label>
+<div class="site-nav">
+
+    <div class="session toc" style="display: flex; justify-content: space-between; padding: 10px;">
+      <a href="{{ site.baseurl }}/home"><b>Table of Contents</b></a>
+      <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu" />
+      <label for="openSidebarMenu" class="sidebarIconToggle sidebarIconToggleLeft">
+        <img src="{{ site.baseurl }}/assets/images/arrow-bar-left.svg" />
+      </label>
+    </div>
+    {% assign sessions = site.data.sessions %}
+    {% for session in sessions %}
+      {% assign session_index = page.session | plus: 1 %}
+      {% assign session_loop = forloop.index %}
+      <div class="session {% if session_index == session_loop  %}active{% endif %} {% if session.hide  %}hide{% endif %} {% if session.gte %}gte{% endif %}">
+        {% if session.chapters %}
+        <a class="session-title" href="{{ site.baseurl }}{{ session.link }}{{ session.chapters[0].link }}"">{{ session.name }}</a> <!-- Clicking a title will open the first chapter -->
+          <div id="{{session_loop}}" style="{% if session_index != session_loop %}display:none{% endif %}" class="chapters">
+            {% for chapter in session.chapters %}
+              {% assign chapter_index = page.chapter | plus: 1 %}
+              <div class="chapter {% if chapter_index == forloop.index  %}active{% endif %}">
+                {% if chapter.link  %}
+                  <a href="{{ site.baseurl }}{{ session.link }}{{ chapter.link }}">{{ chapter.name }}</a>
+                {% endif %}
+                {% if chapter.external %}<a target="_blank" href="https://aworldmadebytravel.supdigital.org/explorer/" target="_blank">{{ chapter.name }}</a>{% endif %}
+                {% if chapter.author  %}
+                  <div class="chapter-author">
+                    {{ chapter.author }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% else %} <!-- Preface and Acknowledgements, Epilogue -->
+          <a class="session-title" href="{% if session.gte %}{{ site.gteurl }}{% else %}{{ site.baseurl }}{{ session.link }}{{ session.chapters[0].link }}{% endif %}">{{ session.name }}</a>
+        {% endif %}
+        <!-- {% if session.gte %}
+          <img src="{{ site.baseurl }}/assets/images/arrow-icon.png" />
+        {% endif %} -->
+      </div>
+    {% endfor %}
+
+  </div>
+
+<script>
+  document.querySelector(".active .session-title").addEventListener("click", function(e) {
+    document.querySelector(".active .chapters").classList.toggle("hidden");
+    e.preventDefault();
+  });
+</script>

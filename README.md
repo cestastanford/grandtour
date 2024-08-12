@@ -21,7 +21,7 @@ BOOK_ORIGIN=...
 ```
 - Start the server: `npm run dev-start`.  This will create and host a MongoDB database and start the Node server.
 - Unzip the database dump so that there's a `dump` directory in the root directory of grandtour. Then run `mongorestore -d grandtour dump/grandtour --port 27017 --host localhost --drop` in a separate terminal to sync the database to the local version.
-- Check the console output for the local address of the site (often http://localhost:5100).  Visit that address and log in using username: `root` and password: `root`.
+- Check the console output for the local address of the site (often http://localhost:5100).  Visit that address to access the Explorer and the book.
 
 
 Restoring a MongoDB database backup
@@ -32,7 +32,7 @@ To restore a MongoDB database backup into your local database, unzip the backup 
 - Run the MongoDB database alone: `mongod --dbpath data`
 - In another shell, import the dump: `mongorestore -d test path/to/directory/with/bson`
 - Shut down the MongoDB database (ctrl-C).
-- Start up the development environment, which should automatically create another `default-admin` user: `npm run dev-start`.
+- Start up the development environment: `npm run dev-start`.
 
 Map Visualization
 https://www.mapbox.com/install/js/bundler-install/

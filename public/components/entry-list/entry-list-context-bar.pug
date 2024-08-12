@@ -9,13 +9,13 @@
                 a.btn.btn-default(
                     type="button",
                     ng-show="!context.isSavedList",
-                    ng-href="{{ '#' + context.url }}",
+                    ng-href="{{ '/explorer/#' + context.url }}",
                 ) Back to Results
 
                 a.btn.btn-default(
                     type="button",
                     ng-show="context.isSavedList",
-                    ng-href="{{ '#' + context.url }}",
+                    ng-href="{{ '/explorer/#' + context.url }}",
                 ) Back to Saved List
 
                 button.btn.btn-default(

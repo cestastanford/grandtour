@@ -58,7 +58,7 @@ Yet, preserved in the Ford archive are sketches of timeline visualizations with 
 
 <figure>
 
-<a name="figure-2a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-2a.png" id="fig2a" onload="resize(this, getElementById(&apos;fig2b&apos;))" onclick="zoom(this, getElementById(&apos;fig2b&apos;), getElementById(&apos;cap2&apos;))" /> </a> <a name="figure-3" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-2b.png" id="fig2b" onclick="zoom(getElementById(&apos;fig2a&apos;), this, getElementById(&apos;cap2apos;))" /> </a>
+<a name="figure-2" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-2.png" id="fig2" onload="resize(this, getElementById(&apos;fig2b&apos;))" onclick="zoom(this, getElementById(&apos;fig2b&apos;), getElementById(&apos;cap2&apos;))" /> </a> <a name="figure-3" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-3.png" id="fig3" onclick="zoom(getElementById(&apos;fig2&apos;), this, getElementById(&apos;cap2apos;))" /> </a>
 
 <figcaption id="cap2">
 
@@ -89,7 +89,7 @@ The visualization in Figure 4 gives a sense of the diverse intellectual landscap
 
 <figure>
 
-<a name="figure-4" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-3.png" id="fig3" onclick="zoom(this, null, getElementById(&apos;cap4&apos;))" /> </a>
+<a name="figure-4" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-4.png" id="fig4" onclick="zoom(this, null, getElementById(&apos;cap4&apos;))" /> </a>
 
 <figcaption id="cap4">
 
@@ -122,7 +122,7 @@ Thinking about the tours as routes, and excited about the few thousand travelers
 
 <figure>
 
-<a name="figure-4" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-4.png" id="fig4" onclick="zoom(this, null, getElementById(&apos;cap5&apos;))" /> </a>
+<a name="figure-5" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-5.png" id="fig5" onclick="zoom(this, null, getElementById(&apos;cap5&apos;))" /> </a>
 
 <figcaption id="cap5">
 
@@ -138,7 +138,7 @@ The next experiment with GIS visualization focused on travel out of a single des
 
 <figure>
 
-<a name="figure-5" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-5.png" id="fig5" onclick="zoom(this, null, getElementById(&apos;cap6&apos;))" /> </a>
+<a name="figure-6" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-6.png" id="fig6" onclick="zoom(this, null, getElementById(&apos;cap6&apos;))" /> </a>
 
 <figcaption id="cap6">
 
@@ -152,7 +152,7 @@ A subsequent experiment focused on individual, better-known travelers, whose mov
 
 <figure>
 
-<a name="figure-6" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-6.png" id="fig6" onclick="zoom(this, null, getElementById(&apos;cap7&apos;))" /> </a>
+<a name="figure-7" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-7.png" id="fig7" onclick="zoom(this, null, getElementById(&apos;cap7&apos;))" /> </a>
 
 <figcaption id="cap7">
 
@@ -166,7 +166,7 @@ Given the problems with visualizing multiple segments of tours for multiple trav
 
 <figure>
 
-<a name="figure-7a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-7a.png" id="fig7a" onload="resize(this, getElementById(&apos;fig7b&apos;))" onclick="zoom(this, getElementById(&apos;fig7b&apos;), getElementById(&apos;cap7&apos;))" /> </a> <a name="figure-7b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-7b.png" id="fig7b" onclick="zoom(getElementById(&apos;fig7a&apos;), this, getElementById(&apos;cap8&apos;))" /> </a>
+<a name="figure-8" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-8.png" id="fig8" onload="resize(this, getElementById(&apos;fig8b&apos;))" onclick="zoom(this, getElementById(&apos;fig8b&apos;), getElementById(&apos;cap8&apos;))" /> </a> <a name="figure-8b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-8b.png" id="fig8b" onclick="zoom(getElementById(&apos;fig8&apos;), this, getElementById(&apos;cap8&apos;))" /> </a>
 
 <figcaption id="cap8">
 
@@ -180,7 +180,7 @@ Certainly, there are ways in which GIS can be, and has been, of great use. Ultim
 
 <figure>
 
-<a name="figure-8" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-8.png" id="fig8" onclick="zoom(this, null, getElementById(&apos;cap9&apos;))" /> </a>
+<a name="figure-9" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-9.png" id="fig9" onclick="zoom(this, null, getElementById(&apos;cap9&apos;))" /> </a>
 
 <figcaption id="cap9">
 
@@ -198,7 +198,7 @@ Visualizations such as figure 10&mdash;illustrating patterns in relative promine
 
 <figure>
 
-<a name="figure-9" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-9.png" id="fig9" onclick="zoom(this, null, getElementById(&apos;cap10&apos;))" /> </a>
+<a name="figure-10" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-10.png" id="fig10" onclick="zoom(this, null, getElementById(&apos;cap10&apos;))" /> </a>
 
 <figcaption id="cap10">
     
@@ -213,7 +213,7 @@ One challenge&mdash;as part of an ambitious visual approach to the whole *Dictio
 
 <figure>
 
-<a name="figure-10" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-10.png" id="fig10" onclick="zoom(this, null, getElementById(&apos;cap11&apos;))" /> </a>
+<a name="figure-11" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-11.png" id="fig11" onclick="zoom(this, null, getElementById(&apos;cap11&apos;))" /> </a>
 
 <figcaption id="cap11">
 
@@ -235,7 +235,7 @@ Fry&rsquo;s *The Preservation of Favoured Traces* had only recently been release
 
 <figure>
 
-<a name="figure-11" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-11.png" id="fig11" onclick="zoom(this, null, getElementById(&apos;cap12&apos;))" /> </a>
+<a name="figure-12" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-12.png" id="fig12" onclick="zoom(this, null, getElementById(&apos;cap12&apos;))" /> </a>
 
 <figcaption id="cap12">
 
@@ -249,7 +249,7 @@ By clicking on the traveler&rsquo;s name, one sees the entire text of that trave
 
 <figure>
 
-<a name="figure-12" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-12.png" id="fig12" onclick="zoom(this, null, getElementById(&apos;cap13&apos;))" /> </a>
+<a name="figure-13" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-13.png" id="fig13" onclick="zoom(this, null, getElementById(&apos;cap13&apos;))" /> </a>
 
 <figcaption id="cap13">
 
@@ -263,7 +263,7 @@ A full-text search of the timechart functions as both a navigation aid and a way
 
 <figure>
 
-<a name="figure-13" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-13.png" id="fig13" onclick="zoom(this, null, getElementById(&apos;cap14&apos;))" /> </a>
+<a name="figure-14" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-14.png" id="fig14" onclick="zoom(this, null, getElementById(&apos;cap14&apos;))" /> </a>
 
 <figcaption id="cap14">
 
@@ -279,7 +279,7 @@ Certain characteristics of our data also revealed features and biases of the *Di
 
 <figure>
 
-<a name="figure-14" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-14.png" id="fig14" onclick="zoom(this, null, getElementById(&apos;cap15&apos;))" /> </a>
+<a name="figure-15" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-15.png" id="fig15" onclick="zoom(this, null, getElementById(&apos;cap15&apos;))" /> </a>
 
 <figcaption id="cap15">
 
@@ -467,7 +467,7 @@ On the project website, readers of the AHR article could also access the data it
 
 <figure>
 
-<a name="figure-15a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-15a.png" id="fig15a" onload="resize(this, getElementById(&apos;fig15b&apos;))" onclick="zoom(this, getElementById(&apos;fig15b&apos;), getElementById(&apos;cap16&apos;))" /> </a> <a name="figure-15b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-15b.png" id="fig15b" onclick="zoom(getElementById(&apos;fig15a&apos;), this, getElementById(&apos;cap16&apos;))" /> </a>
+<a name="figure-16" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-16.png" id="fig16" onload="resize(this, getElementById(&apos;fig16&apos;))" onclick="zoom(this, getElementById(&apos;fig16&apos;), getElementById(&apos;cap16&apos;))" /> </a> <a name="figure-16b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-15b.png" id="fig16b" onclick="zoom(getElementById(&apos;fig16b&apos;), this, getElementById(&apos;cap16&apos;))" /> </a>
 
 <figcaption id="cap16">
 
@@ -496,7 +496,7 @@ Thanks to the Paul Mellon Centre for British Arts in London, I had a CD-ROM copy
 
 <figure>
 
-<a name="figure-16" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-16.png" id="fig16" onclick="zoom(this, null, getElementById(&apos;cap17&apos;))" /> </a>
+<a name="figure-17" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-17.png" id="fig17" onclick="zoom(this, null, getElementById(&apos;cap17&apos;))" /> </a>
 
 <figcaption id="cap17">
     
@@ -510,7 +510,7 @@ Once we had the text in this format, the next step was to teach the computer to 
 
 <figure>
 
-<a name="figure-17" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-17.png" id="fig17" onclick="zoom(this, null, getElementById(&apos;cap18&apos;))" /> </a>
+<a name="figure-18" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-18.png" id="fig18" onclick="zoom(this, null, getElementById(&apos;cap18&apos;))" /> </a>
 
 <figcaption id="cap18">
     
@@ -526,7 +526,7 @@ Within the biographical information section, the process depended on our recogni
 
 <figure>
 
-<a name="figure-18a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-18a.png" id="fig18a" onload="resize(this, getElementById(&apos;fig18b&apos;))" onclick="zoom(this, getElementById(&apos;fig18b&apos;), getElementById(&apos;cap19&apos;))" /> </a> <a name="figure-18b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-18b.png" id="fig18b" onclick="zoom(getElementById(&apos;fig18a&apos;), this, getElementById(&apos;cap19&apos;))" /> </a>
+<a name="figure-19" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-19.png" id="fig19" onload="resize(this, getElementById(&apos;fig19b&apos;))" onclick="zoom(this, getElementById(&apos;fig19b&apos;), getElementById(&apos;cap19&apos;))" /> </a> <a name="figure-19b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-19b.png" id="fig19b" onclick="zoom(getElementById(&apos;fig19b&apos;), this, getElementById(&apos;cap19&apos;))" /> </a>
 
 <figcaption id="cap19">
 
@@ -540,7 +540,7 @@ From there, the gathering of biographical data began. The algorithm told the com
 
 <figure>
 
-<a name="figure-19" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-19.png" id="fig19" onclick="zoom(this, null, getElementById(&apos;cap20&apos;))" /> </a>
+<a name="figure-20" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-20.png" id="fig20" onclick="zoom(this, null, getElementById(&apos;cap20&apos;))" /> </a>
 
 <figcaption id="cap20">
 
@@ -554,7 +554,7 @@ Proceeding in this slow but steady manner, guiding the computer to parse out det
 
 <figure>
 
-<a name="figure-20" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-20.png" id="fig20" onclick="zoom(this, null, getElementById(&apos;cap21&apos;))" /> </a>
+<a name="figure-21" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-21.png" id="fig21" onclick="zoom(this, null, getElementById(&apos;cap21&apos;))" /> </a>
 
 <figcaption id="cap21">
 
@@ -570,7 +570,7 @@ Another example is that of marriage dates and spouse names, which were possible 
 
 <figure>
 
-<a name="figure-21a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-21a.png" id="fig21a" onload="resize(this, getElementById(&apos;fig21b&apos;), getElemtnById(&apos;fig21c&apos;))" onclick="zoom(this, getElementById(&apos;fig21b&apos;), getElementById(&apos;fig21c&apos;), getElementById(&apos;cap22&apos;), true)" /> </a> <a name="figure-21b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-21b.png" id="fig21b" onclick="zoom(getElementById(&apos;fig21a&apos;), this, getElementById(&apos;fig21c&apos;), getElementById(&apos;cap22&apos;), true)" /> </a> <a name="figure-21c" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-21c.png" id="fig21c" onclick="zoom(getElementById(&apos;fig21a&apos;), getElementById(&apos;fig21b&apos;), this, getElementById(&apos;cap22&apos;), true)" /> </a>
+<a name="figure-22" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-22.png" id="fig22" onload="resize(this, getElementById(&apos;22b&apos;), getElemtnById(&apos;fig22c&apos;))" onclick="zoom(this, getElementById(&apos;22b&apos;), getElementById(&apos;fig22c&apos;), getElementById(&apos;cap22&apos;), true)" /> </a> <a name="figure-21b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-21b.png" id="22b" onclick="zoom(getElementById(&apos;fig22&apos;), this, getElementById(&apos;fig22c&apos;), getElementById(&apos;cap22&apos;), true)" /> </a> <a name="figure-22c" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-22c.png" id="fig22c" onclick="zoom(getElementById(&apos;fig22&apos;), getElementById(&apos;22b&apos;), this, getElementById(&apos;cap22&apos;), true)" /> </a>
 
 <figcaption id="cap22">
 
@@ -584,7 +584,7 @@ The algorithm was crafted to teach the computer to search for all other consiste
 
 <figure>
 
-<a name="figure-22a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-22a.png" id="fig22a" onload="resize(this, getElementById(&apos;fig22b&apos;))" onclick="zoom(this, getElementById(&apos;fig22b&apos;), getElementById(&apos;cap23&apos;))" /> </a> <a name="figure-22b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-22b.png" id="fig22b" onclick="zoom(getElementById(&apos;fig22a&apos;), this, getElementById(&apos;cap23&apos;))" /> </a>
+<a name="figure-23" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-23.png" id="fig23" onload="resize(this, getElementById(&apos;fig23b&apos;))" onclick="zoom(this, getElementById(&apos;fig23b&apos;), getElementById(&apos;cap23&apos;))" /> </a> <a name="figure-23b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-23b.png" id="fig23b" onclick="zoom(getElementById(&apos;fig23&apos;), this, getElementById(&apos;cap23&apos;))" /> </a>
 
 <figcaption id="cap23">
 
@@ -600,7 +600,7 @@ The first step, again, was to isolate the travels section from the rest of the e
 
 <figure>
 
-<a name="figure-23" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-23.png" id="fig23" onclick="zoom(this, null, getElementById(&apos;cap24&apos;))" /> </a>
+<a name="figure-24" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-24.png" id="fig24" onclick="zoom(this, null, getElementById(&apos;cap24&apos;))" /> </a>
 
 <figcaption id="cap24">
 
@@ -614,7 +614,7 @@ The next step was to teach the computer to identify the tours by searching for l
 
 <figure>
 
-<a name="figure-24" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-24.png" id="fig24" onclick="zoom(this, null, getElementById(&apos;cap25&apos;))" /> </a>
+<a name="figure-25" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-25.png" id="fig25" onclick="zoom(this, null, getElementById(&apos;cap25&apos;))" /> </a>
 
 <figcaption id="cap25">
 
@@ -628,7 +628,7 @@ Then the algorithm instructed the computer to isolate any information separated 
 
 <figure>
 
-<a name="figure-25" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-25.png" id="fig25" onclick="zoom(this, null, getElementById(&apos;cap26&apos;))" /> </a>
+<a name="figure-26" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-26.png" id="fig26" onclick="zoom(this, null, getElementById(&apos;cap26&apos;))" /> </a>
 
 <figcaption id="cap26">
 
@@ -642,7 +642,7 @@ One of the harder things to figure out was how to teach the computer to distingu
 
 <figure>
 
-<a name="figure-26" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-26.png" id="fig26" onclick="zoom(this, null, getElementById(&apos;cap27&apos;))" /> </a>
+<a name="figure-27" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-27.png" id="fig27" onclick="zoom(this, null, getElementById(&apos;cap27&apos;))" /> </a>
 
 <figcaption id="cap27">
 
@@ -656,7 +656,7 @@ Next, the algorithm instructed the computer to extrapolate both an arrival date 
 
 <figure>
 
-<a name="figure-27" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-27.png" id="fig27" onclick="zoom(this, null, getElementById(&apos;cap28&apos;))" /> </a>
+<a name="figure-28" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-28.png" id="fig28" onclick="zoom(this, null, getElementById(&apos;cap28&apos;))" /> </a>
 
 <figcaption id="cap28">
 
@@ -670,7 +670,7 @@ Figures 17 through 28 represent the data retrieval process from a single entry t
 
 <figure>
 
-<a name="figure-28" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-28.png" id="fig28" onclick="zoom(this, null, getElementById(&apos;cap29&apos;))" /> </a>
+<a name="figure-29" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-29.png" id="fig29" onclick="zoom(this, null, getElementById(&apos;cap29&apos;))" /> </a>
 
 <figcaption id="cap29">
 
@@ -686,7 +686,7 @@ Google Sheets allowed us to set the entries with their unique IDs as main tabs, 
 
 <figure>
 
-<a name="figure-29" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-29.png" id="fig29" onclick="zoom(this, null, getElementById(&apos;cap30&apos;))" /> </a>
+<a name="figure-30" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-30.png" id="fig30" onclick="zoom(this, null, getElementById(&apos;cap30&apos;))" /> </a>
 
 <figcaption id="cap30">
 
@@ -730,7 +730,7 @@ While by far the great majority of hidden figures are family relations of the tr
 
 <figure>
 
-<a name="figure-30" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-30.jpg" id="fig30" onclick="zoom(this, null, getElementById(&apos;cap31&apos;))" /> </a>
+<a name="figure-31" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-31.jpg" id="fig31" onclick="zoom(this, null, getElementById(&apos;cap31&apos;))" /> </a>
 
 <figcaption id="cap31">
 
@@ -748,7 +748,7 @@ One last type of entry requires explanation: those that in the print *Dictionary
 
 <figure>
 
-<a name="figure-31" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-31.png" id="fig31" onclick="zoom(this, null, getElementById(&apos;cap32&apos;))" /> </a>
+<a name="figure-32" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-32.png" id="fig32" onclick="zoom(this, null, getElementById(&apos;cap32&apos;))" /> </a>
 
 <figcaption id="cap32">
 
@@ -762,7 +762,7 @@ But sometimes a single *Dictionary* entry, headed only by a surname, includes re
 
 <figure>
 
-<a name="figure-32" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-32.png" id="fig32" onclick="zoom(this, null, getElementById(&apos;cap33&apos;))"/> </a>
+<a name="figure-33" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-33.png" id="fig33" onclick="zoom(this, null, getElementById(&apos;cap33&apos;))"/> </a>
 
 <figcaption id="cap33">
 
@@ -786,7 +786,7 @@ Figure 34 illustrates the full scope of our final total of entries giving a basi
 
 <figure>
 
-<a name="figure-33" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-33.png" id="fig33" onclick="zoom(this, null, getElementById(&apos;cap34&apos;), true)" /> </a>
+<a name="figure-34" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-34.png" id="fig34" onclick="zoom(this, null, getElementById(&apos;cap34&apos;), true)" /> </a>
 
 <figcaption id="cap34">
 

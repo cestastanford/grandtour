@@ -1,1 +1,0 @@
-Put here pictures for the subsection studentswork.

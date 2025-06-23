@@ -1,1 +1,0 @@
-Put in this folder images for the Practicum subsection of 6th chapter

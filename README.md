@@ -63,5 +63,7 @@ wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add 
 echo "deb [ arch=amd64,arm64 trusted=yes ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
 sudo apt-get update
 sudo apt-get install -y mongodb-org
+
+mongodump --uri mongodb://localhost:27017/grandtour --out dump
 ```
 

@@ -31,6 +31,14 @@ Here is how to run the Grand Tour Explorer locally from the archive:
    docker exec -it grandtour-mongodb mongorestore -d grandtour /docker-entrypoint-initdb.d/dump/grandtour --drop
    ```
 
+4. **Restart the application using Docker:**
+
+   You should restart the application so the new database can be loaded in.
+   ```bash
+   docker-compose down
+   docker-compose up --build
+   ```
+
 4. **Access the application:**
    - Open your browser to http://localhost:5100
    - The Explorer interface will be available at http://localhost:5100/explorer

@@ -9,3 +9,4 @@ site
 venv
 notes.md
 **.pyc
+!dump

@@ -4,10 +4,8 @@ Quick steps to deploy:
 2. Run:
 
 ```
-cd gt-book
-docker cp grandtour-app:/app/_site ../_site
-cd _site
-find . -type f \( -name "*.html" -o -name "*.md" -o -name "*.js" -o -name "*.pug" \) -print0 | \
+docker cp grandtour-app:/app/_site ./_site
+find ./_site -type f \( -name "*.html" -o -name "*.md" -o -name "*.js" -o -name "*.pug" \) -print0 | \
     xargs -0 sed -i '' "s|http://localhost:5100|https://aworldmadebytravel.supdigital.org|g"
 ```
 

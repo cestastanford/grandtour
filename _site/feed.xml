@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A World Made by Travel</title>
+    <description>Sometihng
+</description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 23 Jun 2025 02:16:47 +0000</pubDate>
+    <lastBuildDate>Mon, 23 Jun 2025 02:16:47 +0000</lastBuildDate>
+    <generator>Jekyll v3.9.3</generator>
+    
+  </channel>
+</rss>

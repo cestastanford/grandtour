@@ -7,7 +7,7 @@ However, you will need to run a couple of commands to be able to run and see the
 
 In theory, it should not take too long.. I will put some instructions below, but please let me know if you have issues or questions.
 
-- If you don’t have Jekyll installed, you should first install it. Jekyll requires Ruby... You can find info on how to install the whole thing here: https://jekyllrb.com/docs/installation/
+- If you don't have Jekyll installed, you should first install it. Jekyll requires Ruby... You can find info on how to install the whole thing here: https://jekyllrb.com/docs/installation/
 - After that, you should be able to get into the folder I shared and run the following command:
 
 bundle exec jekyll serve
@@ -40,3 +40,11 @@ How to deploy a static version of the website:
 1. Run `bundle exec jekyll clean && bundle exec jekyll build --baseurl ""`
 2. Copy the `_site` directory to the Grand Tour directory (https://github.com/cestastanford/grandtour) (`cp -r _site ../../`)
 3. Commit and push changes
+
+Alternatively, if you're running the website using Docker, use the following command to copy the built site out of the Docker container:
+
+```bash
+docker cp grandtour-app:/app/_site ../_site
+```
+
+This command copies the `/app/_site` directory from the `grandtour-app` container to the `../_site` directory in your local filesystem.

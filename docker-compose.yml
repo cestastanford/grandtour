@@ -34,9 +34,6 @@ services:
       - PORT=5100
     depends_on:
       - mongodb
-    volumes:
-      - .:/app
-      - /app/node_modules
     networks:
       - grandtour-network
     restart: unless-stopped

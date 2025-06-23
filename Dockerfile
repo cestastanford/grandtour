@@ -9,11 +9,19 @@ RUN apt-get update && apt-get install -y \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /jekyll
+# Define PORT argument for Jekyll build
+ARG PORT=5100
+
+WORKDIR /app
 COPY gt-book/ ./
+
+# Update Jekyll config to use localhost instead of production URL
+RUN sed -i "s|gteurl: \"https://aworldmadebytravel\.supdigital\.org/explorer/\"|gteurl: \"http://localhost:${PORT}/explorer/\"|g" _config.yml
+
 RUN gem install bundler jekyll && \
     bundle install && \
-    bundle exec jekyll build --destination /jekyll-output
+    bundle exec jekyll clean && \
+    bundle exec jekyll build --baseurl "" --destination ./_site
 
 # Main stage: Node.js for the Express app
 FROM node:14-slim
@@ -42,11 +50,11 @@ ARG PORT=5100
 COPY . .
 
 # Copy built Jekyll site from the jekyll-builder stage
-COPY --from=jekyll-builder /jekyll-output ./_site
+COPY --from=jekyll-builder /app/_site ./_site
 
 # Replace production URLs with localhost for local development throughout entire codebase
 RUN find . -type f \( -name "*.html" -o -name "*.md" -o -name "*.js" -o -name "*.pug" \) -print0 | \
-    xargs -0 sed -i "s|aworldmadebytravel\.supdigital\.org|localhost:${PORT}|g"
+    xargs -0 sed -i "s|https://aworldmadebytravel\.supdigital\.org|http://localhost:${PORT}|g"
 
 # Build the Explorer frontend
 RUN npx webpack --mode=production

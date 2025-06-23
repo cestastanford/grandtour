@@ -39,15 +39,6 @@
   <meta property="og:description" content="In the eighteenth century, tens of thousands of travelers journeyed to Italy on voyages known then and since as the Grand Tour. These travels in the age of Enlightenment contributed to a massive reimagining of politics and the arts, of the market for culture, and of ideas about education and leisure. A World Made by Travel combines —in dynamic format— original research with data and visualizations about the lives and journeys of 6,007 travelers. It reveals the diverse experiences, elite and otherwise, that collectively constituted the eighteenth-century Grand Tour." />
   <meta property="og:image" content="https://aworldmadebytravel.org/assets/img/jpg/wmt_thumb_600.jpg">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HE7MYV5WQV"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-HE7MYV5WQV');
-  </script>
 
 </head>
 
@@ -68,7 +59,7 @@
   </div>
 
   <nav>
-    <a href="https://aworldmadebytravel.supdigital.org/explorer/">The Grand Tour Explorer</a>
+    <a href="http://localhost:5100/explorer/">The Grand Tour Explorer</a>
   </nav>
 
 </header>
@@ -85,7 +76,7 @@
 
     <p>To browse this project, you need a device with a bigger viewport. Please return to this page when you have access to a laptop or desktop computer, or try to resize your browser window.</p>
 
-    <a href="https://aworldmadebytravel.org">Go back to cover</a>
+    <a href="https://aworldmadebytravel.org">Go back to SUP</a>
   </div>
 </div>
 
@@ -128,7 +119,7 @@
       
       <div class="session   gte">
          <!-- Preface and Acknowledgements, Epilogue -->
-          <a class="session-title" href="https://aworldmadebytravel.supdigital.org/explorer/">II.	The Grand Tour Explorer: Travelers’ Lives and Journeys</a>
+          <a class="session-title" href="http://localhost:5100/explorer/">II.	The Grand Tour Explorer: Travelers’ Lives and Journeys</a>
         
         <!-- 
           <img src="/assets/images/arrow-icon.png" />
@@ -1487,9 +1478,11 @@ function makeHref(icon) {
     let labelParts = icon.parentElement.children[0].innerHTML.split(" ");
     href += "#paragraph-" + labelParts[1];
   } else if (icon.getAttribute('aria-label') == "Cite this image" || icon.getAttribute('aria-label') == "Copy link to this image") { // image citation
-    let src = document.getElementById("img").src;
-    let i = src.lastIndexOf("figure-") + 7;
-    href += "#figure-" + src[i];
+    let imgElement = document.getElementById("img");
+    if (imgElement && imgElement.closest('a[name]')) {
+      let anchorName = imgElement.closest('a[name]').getAttribute('name');
+      href += "#" + anchorName;
+    }
   }
   return href;
 }

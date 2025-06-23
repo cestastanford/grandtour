@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:4.4.18
+    container_name: grandtour-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./dump:/docker-entrypoint-initdb.d/dump:ro
+    environment:
+      - MONGO_INITDB_DATABASE=grandtour
+    networks:
+      - grandtour-network
+
+  app:
+    build:
+      context: .
+      args:
+        PORT: 5100
+    container_name: grandtour-app
+    ports:
+      - "5100:5100"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/grandtour
+      - SECRET_KEY_1=development_secret_1
+      - SECRET_KEY_2=development_secret_2  
+      - SECRET_KEY_3=development_secret_3
+      - SHEETS_EMAIL=development@example.com
+      - SHEETS_PRIVATE_KEY=development_key
+      - BOOK_ORIGIN=http://localhost:5100
+      - NODE_ENV=development
+      - PORT=5100
+    depends_on:
+      - mongodb
+    networks:
+      - grandtour-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+
+networks:
+  grandtour-network:
+    driver: bridge

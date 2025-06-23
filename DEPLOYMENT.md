@@ -15,4 +15,4 @@ find . -type f \( -name "*.html" -o -name "*.md" -o -name "*.js" -o -name "*.pug
 
 4. Wait for GitHub Actions to deploy; it should push to the `build` branch.
 
-5. Go to Reclaim and re-deploy from the `build` branch
+5. Go to Reclaim and re-deploy from the `build` branch. You can do this by SSH'ing into the application server and running a `git pull`.

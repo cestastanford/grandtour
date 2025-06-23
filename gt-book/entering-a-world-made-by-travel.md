@@ -170,7 +170,7 @@ The dot visualization in the Grand Tour Explorer, shown in figures 6a and 6b, ai
 
 <figure>
 
-<a name="figure-6a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/Figure%206a%20-%20The%20Chart%20view%20of%20travelers%20in%20the%20Explorer%20database.png" alt="Two scatterplot arrays displaying circular data points of varying sizes. Points are colored gray for male, orange for female, or yellow for unknown gender. The left array has more yellow (unknown) while the right has more orange (female) data points." id="fig6a" onload="resize(this, getElementById(&apos;fig6b&apos;))" onclick="zoom(this, getElementById(&apos;fig6b&apos;), getElementById(&apos;cap6&apos;), true)" /> </a> <a name="figure-6b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/Figure%206b%20-%20The%20Chart%20view%20of%20travelers%20in%20the%20Explorer%20database.png" id="fig6b" onclick="zoom(getElementById(&apos;fig6a&apos;), this, getElementById(&apos;cap6&apos;), true)" /> </a>
+<a name="figure-6a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/figure-6a.png" alt="Two scatterplot arrays displaying circular data points of varying sizes. Points are colored gray for male, orange for female, or yellow for unknown gender. The left array has more yellow (unknown) while the right has more orange (female) data points." id="fig6a" onload="resize(this, getElementById(&apos;fig6b&apos;))" onclick="zoom(this, getElementById(&apos;fig6b&apos;), getElementById(&apos;cap6&apos;), true)" /> </a> <a name="figure-6b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/figure-6b.png" id="fig6b" onclick="zoom(getElementById(&apos;fig6a&apos;), this, getElementById(&apos;cap6&apos;), true)" /> </a>
 
 <figcaption id="cap6">
 
@@ -232,7 +232,7 @@ Reading through the *Dictionary*’s entries raises the question of how these si
 
 <figure>
 
-<a name="figure-8"> <img src="{{ site.baseurl }}/assets/images/ch-1/Figure%208%20V3%20-%20Tabular%20View%20of%20Data%20Types%20and%20Gaps%20for%20the%20Twenty%20Travelers%20in%20Florence%20in%20June%201732.png" alt="Four charts showing distributions of data across different fields, with each horizontal bar segmented by colors representing gender." id="fig8" class="fig" onclick="zoom(this, null, getElementById(&apos;cap8&apos;), true)" /> </a>
+<a name="figure-8"> <img src="{{ site.baseurl }}/assets/images/ch-1/figure-8.png" alt="Four charts showing distributions of data across different fields, with each horizontal bar segmented by colors representing gender." id="fig8" class="fig" onclick="zoom(this, null, getElementById(&apos;cap8&apos;), true)" /> </a>
 
 <figcaption id="cap8">
 
@@ -246,7 +246,7 @@ Close attention to the data, however, leads to rewarding insights. The *Dictiona
 
 <figure>
 
-<a name="figure-9"> <img src="{{ site.baseurl }}/assets/images/ch-1/Figure%209%20-%20Spans%20of%20time%20spent%20in%20Florence%20by%20the%20Twenty%20Travelers%20recorded%20there%20in%20June%201730.png" alt="Bar chart showing spans of time spent in Florence by eighteen travelers recorded in June 1730. Ranges from roughly 1700 to 1780. Ignazio Enrico Hugford has the longest bar, followed by Cosimo Hugford. Joseph Atwell, John Collins, William Clavering-Cowper and 2nd Earl Cowper, Sir Thomas, 4th Bt. Dereham, and Thomas Tyrrell also have sizable bars. The rest have shorter bars." id="fig9" class="fig" onclick="zoom(this, null, getElementById(&apos;cap9&apos;), true)"/> </a>
+<a name="figure-9"> <img src="{{ site.baseurl }}/assets/images/ch-1/figure-9.png" alt="Bar chart showing spans of time spent in Florence by eighteen travelers recorded in June 1730. Ranges from roughly 1700 to 1780. Ignazio Enrico Hugford has the longest bar, followed by Cosimo Hugford. Joseph Atwell, John Collins, William Clavering-Cowper and 2nd Earl Cowper, Sir Thomas, 4th Bt. Dereham, and Thomas Tyrrell also have sizable bars. The rest have shorter bars." id="fig9" class="fig" onclick="zoom(this, null, getElementById(&apos;cap9&apos;), true)"/> </a>
 
 <figcaption id="cap9">
 
@@ -295,7 +295,7 @@ For example, immediately apparent is which travelers are by and large best docum
 
 <figure>
 
-<a name="figure-11a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/Figure%2011a.png" alt="Visualization of Grand Tour Explorer data, highlighting four women with both birth and death dates, as well as dedicated entries in the original print Dictionary, and their occupation/education data availability from various sources. Number of visits to places ranges from one to over seventy per person. Text box and connecting lines emphasize the four women meeting the specified criteria." id="fig11a" onload="resize(this, getElementById(&apos;fig11b&apos;))" onclick="zoom(this, getElementById(&apos;fig11b&apos;), getElementById(&apos;cap11&apos;), true)" /> </a> <a name="figure-11b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/Figure%2011b.png" alt="Building on the previously described visualization, this version highlights one woman who has only a death date and occupation data, along with a dedicated entry in the original Dictionary, and for whom we have records of 1-5 places visited. The text box and connecting line emphasize this individual meeting the specified criteria." id="fig11b" onclick="zoom(getElementById(&apos;fig11a&apos;), this, getElementById(&apos;cap11&apos;), true)" /> </a>
+<a name="figure-11a" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/figure-11a.png" alt="Visualization of Grand Tour Explorer data, highlighting four women with both birth and death dates, as well as dedicated entries in the original print Dictionary, and their occupation/education data availability from various sources. Number of visits to places ranges from one to over seventy per person. Text box and connecting lines emphasize the four women meeting the specified criteria." id="fig11a" onload="resize(this, getElementById(&apos;fig11b&apos;))" onclick="zoom(this, getElementById(&apos;fig11b&apos;), getElementById(&apos;cap11&apos;), true)" /> </a> <a name="figure-11b" class="half-fig"> <img src="{{ site.baseurl }}/assets/images/ch-1/figure-11b.png" alt="Building on the previously described visualization, this version highlights one woman who has only a death date and occupation data, along with a dedicated entry in the original Dictionary, and for whom we have records of 1-5 places visited. The text box and connecting line emphasize this individual meeting the specified criteria." id="fig11b" onclick="zoom(getElementById(&apos;fig11a&apos;), this, getElementById(&apos;cap11&apos;), true)" /> </a>
 
 <figcaption id="cap11">
 

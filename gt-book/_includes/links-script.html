@@ -99,8 +99,11 @@ function makeHref(icon) {
     href += "#paragraph-" + labelParts[1];
   } else if (icon.getAttribute('aria-label') == "Cite this image" || icon.getAttribute('aria-label') == "Copy link to this image") { // image citation
     let src = document.getElementById("img").src;
-    let i = src.lastIndexOf("figure-") + 7;
-    href += "#figure-" + src[i];
+    let figureIndex = src.lastIndexOf("figure-") + 7;
+    let figureNumber = src.substring(figureIndex).match(/\d+/);
+    if (figureNumber) {
+      href += "#figure-" + figureNumber[0];
+    }
   }
   return href;
 }

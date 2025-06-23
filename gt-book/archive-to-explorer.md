@@ -540,7 +540,7 @@ From there, the gathering of biographical data began. The algorithm told the com
 
 <figure>
 
-<a name="figure-19" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure19.png" id="fig19" onclick="zoom(this, null, getElementById(&apos;cap20&apos;))" /> </a>
+<a name="figure-19" class="fig"> <img src="{{ site.baseurl }}/assets/images/ch-5/figure-19.png" id="fig19" onclick="zoom(this, null, getElementById(&apos;cap20&apos;))" /> </a>
 
 <figcaption id="cap20">
 
